@@ -48,6 +48,22 @@
   tool) and an offline unit check of the pagination/CSV logic. It should
   run normally on your own machine or in CI.
 
+### World Bank — Exports of goods and services (`NE.EXP.GNFS.ZS`)
+
+- **Script:** `scripts/fetch_worldbank_indicator.py` (same script, different code)
+- **What it is:** exports of goods and services as % of GDP, by
+  country/region and year — how export-oriented an economy is.
+- **Why it's here:** a rougher, secondary proxy for economic
+  openness/exposure to global trade; less directly tied to travel costs
+  than the GDP deflator, kept alongside it as another candidate economic
+  input.
+- **Latest year available:** 2024 (not 2025 — this indicator reports with
+  more lag than the GDP deflator, confirmed via `isLatestData=true`).
+- **Run:**
+  ```
+  python scripts/fetch_worldbank_indicator.py NE.EXP.GNFS.ZS
+  ```
+
 ### `reference/worldbank_countries.json`
 
 Country/region code → name lookup (265 entries: ISO3 countries plus World
@@ -76,8 +92,10 @@ extraction, not something to be regenerated per run.
   python scripts/latest_year_cache.py NY.GDP.DEFL.KD.ZG
   python scripts/latest_year_cache.py NY.GDP.DEFL.KD.ZG --force   # bypass schedule
   ```
-- Cache seeded with `NY.GDP.DEFL.KD.ZG: 2025` (confirmed live 2026-07-19,
-  since this sandbox can't reach the API directly — see note above).
+- Cache seeded with `NY.GDP.DEFL.KD.ZG: 2025` and `NE.EXP.GNFS.ZS: 2024`
+  (both confirmed live 2026-07-19, since this sandbox can't reach the API
+  directly — see note above). Different indicators can have different
+  latest years, since reporting lag varies by series.
 
 ### `scripts/fetch_latest_by_country.py` — indicator value per country, latest year
 
@@ -110,8 +128,11 @@ extraction, not something to be regenerated per run.
   ```
   python scripts/fetch_latest_by_country.py NY.GDP.DEFL.KD.ZG
   ```
-- **Already generated:** `processed/worldbank_NY.GDP.DEFL.KD.ZG_2025_by_country.json`
-  (232/265 countries, built 2026-07-19 from a live pull of the API — same
-  sandbox network caveat as above, so it was assembled via a separate fetch
-  tool rather than running the script directly here, then verified by
-  passing the real records through the script's own merge/lookup functions).
+- **Already generated:**
+  - `processed/worldbank_NY.GDP.DEFL.KD.ZG_2025_by_country.json` (232/265 countries)
+  - `processed/worldbank_NE.EXP.GNFS.ZS_2024_by_country.json` (214/265 countries)
+
+  Both built 2026-07-19 from a live pull of the API — same sandbox network
+  caveat as above, so they were assembled via a separate fetch tool rather
+  than running the script directly here, then verified by passing the real
+  records through the script's own merge/lookup functions.
