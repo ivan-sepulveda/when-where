@@ -2,3 +2,8 @@
 # env files (can opt-in for committing if needed)
 .env*
 !.env.local.example
+
+# python virtual environment (project root)
+venv/
+__pycache__/
+*.pyc

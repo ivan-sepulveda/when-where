@@ -1,5 +1,11 @@
 # Data
 
+## Setup
+
+One venv for the whole project, at the repo root (not per-folder) — see
+the top-level `README.md`. All commands below assume it's activated and
+that you're running from `data/` (`cd data` from the repo root).
+
 ## Layout
 
 - `scripts/` — reusable Python scripts that pull and parse raw data. Move
@@ -36,7 +42,6 @@
     names.
 - **Run:**
   ```
-  pip install -r requirements.txt
   python scripts/fetch_worldbank_indicator.py NY.GDP.DEFL.KD.ZG
   ```
 - The script accepts any WDI indicator code, so it can be reused for future
@@ -192,13 +197,14 @@ extraction, not something to be regenerated per run.
   no script edits needed. Pass explicit codes (e.g.
   `python scripts/fetch_latest_by_country.py NY.GDP.DEFL.KD.ZG`) to run
   just a subset instead.
-- **Already generated:**
-  - `processed/worldbank_NY.GDP.DEFL.KD.ZG_2025_by_country.json` (232/265 countries)
-  - `processed/worldbank_NE.EXP.GNFS.ZS_2024_by_country.json` (214/265 countries)
-  - `processed/worldbank_PA.NUS.PPP_2025_by_country.json` (185/265 countries)
-  - `processed/worldbank_PA.NUS.GDP.PLI_2025_by_country.json` (184/265 countries)
+- **Generated:**
+  - `processed/worldbank_NY.GDP.DEFL.KD.ZG_2025_by_country.json`
+  - `processed/worldbank_NE.EXP.GNFS.ZS_2024_by_country.json`
+  - `processed/worldbank_PA.NUS.PPP_2025_by_country.json`
+  - `processed/worldbank_PA.NUS.GDP.PLI_2025_by_country.json`
 
-  All built 2026-07-19 from a live pull of the API — same sandbox network
-  caveat as above, so they were assembled via a separate fetch tool rather
-  than running the script directly here, then verified by passing the real
-  records through the script's own merge/lookup functions.
+  These are gitignored (see Layout above), so a fresh clone won't have
+  them — run `python scripts/fetch_latest_by_country.py` to regenerate
+  all four. It'll reuse `reference/latest_year_cache.json` instead of
+  re-querying the API for the latest year, as long as the cached year
+  isn't more than 1 year stale (see the cache section below).
