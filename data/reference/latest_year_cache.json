@@ -8,5 +8,15 @@
     "last_checked": "2026-07-19",
     "latest_year": 2025,
     "ref_area": "USA"
+  },
+  "PA.NUS.PPP": {
+    "last_checked": "2026-07-19",
+    "latest_year": 2025,
+    "ref_area": "USA"
+  },
+  "PA.NUS.GDP.PLI": {
+    "last_checked": "2026-07-19",
+    "latest_year": 2025,
+    "ref_area": "USA"
   }
 }

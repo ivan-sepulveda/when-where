@@ -1,0 +1,28 @@
+{
+  "metrics": [
+    {
+      "code": "NY.GDP.DEFL.KD.ZG",
+      "name": "GDP deflator (annual %)",
+      "unit": "annual % change",
+      "notes": "Broad domestic price inflation proxy, not tourist-specific prices. Rough affordability signal."
+    },
+    {
+      "code": "NE.EXP.GNFS.ZS",
+      "name": "Exports of goods and services (% of GDP)",
+      "unit": "% of GDP",
+      "notes": "Trade openness / export-oriented-ness. Secondary economic context, not directly tied to travel costs."
+    },
+    {
+      "code": "PA.NUS.PPP",
+      "name": "PPP conversion factor, GDP (LCU per international $)",
+      "unit": "LCU per international $",
+      "notes": "Local currency units per international dollar. USA = 1 by definition. Core input for cost-of-living conversions."
+    },
+    {
+      "code": "PA.NUS.GDP.PLI",
+      "name": "Price level index (GDP)",
+      "unit": "ratio, USA = 100",
+      "notes": "PPP conversion factor divided by market exchange rate, rebased so USA = 100. Directly interpretable affordability ratio -- no currency conversion step needed."
+    }
+  ]
+}

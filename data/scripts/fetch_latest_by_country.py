@@ -5,8 +5,15 @@ year (via latest_year_cache.get_latest_year), and write the result to a
 single JSON file keyed by country code.
 
 Usage:
+    python fetch_latest_by_country.py
+        Runs every indicator listed in reference/worldbank_metrics.json.
+        This is the normal way to run it -- add a new indicator by adding
+        an entry to that file, not by editing this script.
     python fetch_latest_by_country.py NY.GDP.DEFL.KD.ZG
     python fetch_latest_by_country.py NY.GDP.DEFL.KD.ZG SP.POP.TOTL
+        Explicit codes on the command line override the registry and run
+        just those (code doesn't need to be in worldbank_metrics.json --
+        unit/name just fall back to generic values if it's not).
 
 Not every country/region will have data for the latest year (reporting
 lags vary a lot by country) -- those are listed under "missing_codes"
@@ -26,6 +33,7 @@ from latest_year_cache import BASE_URL, DATABASE_ID, get_latest_year, to_data360
 REFERENCE_DIR = Path(__file__).resolve().parent.parent / "reference"
 PROCESSED_DIR = Path(__file__).resolve().parent.parent / "processed"
 COUNTRIES_PATH = REFERENCE_DIR / "worldbank_countries.json"
+METRICS_PATH = REFERENCE_DIR / "worldbank_metrics.json"
 PAGE_SIZE = 1000
 
 
@@ -33,6 +41,18 @@ def load_countries() -> dict:
     """code -> name, from the reference file built earlier from the WB bulk XML."""
     with open(COUNTRIES_PATH, encoding="utf-8") as f:
         return json.load(f)["countries"]
+
+
+def load_metrics() -> dict:
+    """
+    WDI code -> {"code", "name", "unit", "notes"}, from the indicator
+    registry at reference/worldbank_metrics.json. This is the single place
+    that lists which indicators the project tracks -- add a new indicator
+    by adding an entry here, not by editing this script.
+    """
+    with open(METRICS_PATH, encoding="utf-8") as f:
+        metrics = json.load(f)["metrics"]
+    return {m["code"]: m for m in metrics}
 
 
 def fetch_year_records(indicator_id: str, year: int) -> list[dict]:
@@ -76,7 +96,10 @@ def build_country_lookup(records: list[dict]) -> dict:
     }
 
 
-def build_country_indicator_json(wdi_code: str) -> Path:
+def build_country_indicator_json(wdi_code: str, metrics: dict | None = None) -> Path:
+    metrics = metrics or {}
+    meta = metrics.get(wdi_code, {})
+
     year = get_latest_year(wdi_code)
     indicator_id = to_data360_indicator_id(wdi_code)
     countries = load_countries()
@@ -101,8 +124,9 @@ def build_country_indicator_json(wdi_code: str) -> Path:
     out = {
         "indicator": wdi_code,
         "indicator_id": indicator_id,
+        "name": meta.get("name", wdi_code),
+        "unit": meta.get("unit", "unknown -- add this indicator to reference/worldbank_metrics.json"),
         "year": year,
-        "unit": "annual % change",
         "generated": date.today().isoformat(),
         "countries_total": len(countries),
         "countries_with_data": len(data),
@@ -128,14 +152,24 @@ def main():
     parser.add_argument(
         "indicator_codes",
         nargs="*",
-        default=["NY.GDP.DEFL.KD.ZG"],
-        help="One or more WDI indicator codes (default: NY.GDP.DEFL.KD.ZG)",
+        default=None,
+        help=(
+            "One or more WDI indicator codes. If omitted, runs every "
+            "indicator listed in reference/worldbank_metrics.json."
+        ),
     )
     args = parser.parse_args()
 
-    for code in args.indicator_codes:
+    metrics = load_metrics()
+    codes = args.indicator_codes if args.indicator_codes else list(metrics.keys())
+
+    if not codes:
+        print("No indicator codes given and reference/worldbank_metrics.json is empty.", file=sys.stderr)
+        sys.exit(1)
+
+    for code in codes:
         try:
-            build_country_indicator_json(code)
+            build_country_indicator_json(code, metrics=metrics)
         except Exception as exc:
             print(f"[{code}] FAILED: {exc}", file=sys.stderr)
 

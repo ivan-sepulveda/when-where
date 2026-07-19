@@ -64,6 +64,56 @@
   python scripts/fetch_worldbank_indicator.py NE.EXP.GNFS.ZS
   ```
 
+### World Bank — PPP conversion factor, GDP (`PA.NUS.PPP`)
+
+- **Script:** `scripts/fetch_worldbank_indicator.py` (same script, different code)
+- **What it is:** local currency units per international dollar (units:
+  LCU per international $), by country and year. USA = 1 by definition
+  (the international $ is anchored to the US dollar).
+- **Why it's here:** the core input for cost-of-living / affordability
+  comparisons across countries — it's what lets you convert "how far does
+  a dollar go" into a common unit. More directly useful for a travel
+  affordability score than the GDP deflator or exports ratio.
+- **Latest year available:** 2025.
+- **Note:** unlike the other two indicators, this one has no World Bank
+  region/income-group aggregates (`WLD`, `ARB`, `EAP`, etc. are absent) —
+  PPP conversion factors are inherently country-specific, not something
+  that aggregates across a region. 185/265 reference entries have a value;
+  the rest are exactly the aggregate codes plus a handful of
+  territories/sanctioned states without data.
+- **Run:**
+  ```
+  python scripts/fetch_worldbank_indicator.py PA.NUS.PPP
+  ```
+
+### World Bank — Price level index, GDP (`PA.NUS.GDP.PLI`)
+
+- **Script:** `scripts/fetch_worldbank_indicator.py` (same script, different code)
+- **What it is:** PPP conversion factor divided by the market exchange rate,
+  rebased so USA = 100. Values below 100 mean a dollar buys more there than
+  in the US (cheaper); above 100 means less (pricier) — e.g. Switzerland
+  ~112, India ~23.
+- **Why it's here:** the cleanest single "how expensive is this country,
+  relative to the US" number of the four indicators so far — more directly
+  interpretable than `PA.NUS.PPP` (which needs a currency conversion step)
+  for a destination affordability score.
+- **Latest year available:** 2025.
+- **Note:** like `PA.NUS.PPP`, this has no World Bank region/income-group
+  aggregates — 184/265 reference entries have a value; the rest are the
+  aggregate codes plus territories/states without data.
+- **Run:**
+  ```
+  python scripts/fetch_worldbank_indicator.py PA.NUS.GDP.PLI
+  ```
+
+### `reference/worldbank_metrics.json` — indicator registry
+
+The single place that lists which World Bank indicators this project
+tracks. Each entry: `code` (WDI dotted code), `name`, `unit`, `notes`.
+`fetch_latest_by_country.py` reads this file to know what to fetch when
+run with no arguments — to add a new indicator to the pipeline, add an
+entry here rather than editing any script.
+
 ### `reference/worldbank_countries.json`
 
 Country/region code → name lookup (265 entries: ISO3 countries plus World
@@ -92,22 +142,27 @@ extraction, not something to be regenerated per run.
   python scripts/latest_year_cache.py NY.GDP.DEFL.KD.ZG
   python scripts/latest_year_cache.py NY.GDP.DEFL.KD.ZG --force   # bypass schedule
   ```
-- Cache seeded with `NY.GDP.DEFL.KD.ZG: 2025` and `NE.EXP.GNFS.ZS: 2024`
-  (both confirmed live 2026-07-19, since this sandbox can't reach the API
-  directly — see note above). Different indicators can have different
-  latest years, since reporting lag varies by series.
+- Cache seeded with `NY.GDP.DEFL.KD.ZG: 2025`, `NE.EXP.GNFS.ZS: 2024`,
+  `PA.NUS.PPP: 2025`, and `PA.NUS.GDP.PLI: 2025` (all confirmed live
+  2026-07-19, since this sandbox can't reach the API directly — see note
+  above). Different indicators can have different latest years, since
+  reporting lag varies by series.
 
 ### `scripts/fetch_latest_by_country.py` — indicator value per country, latest year
 
-- **What it does:** for a WDI indicator, looks up the latest available year
-  via `latest_year_cache.get_latest_year()`, then fetches that indicator for
-  every country/region in `reference/worldbank_countries.json` in one
-  pass (`GET /data360/data?...&TIME_PERIOD=<year>`, paginated) and writes a
-  single JSON keyed by country code.
+- **What it does:** for each WDI indicator in `reference/worldbank_metrics.json`
+  (or specific codes passed on the command line), looks up the latest
+  available year via `latest_year_cache.get_latest_year()`, then fetches
+  that indicator for every country/region in `reference/worldbank_countries.json`
+  in one pass (`GET /data360/data?...&TIME_PERIOD=<year>`, paginated) and
+  writes a single JSON keyed by country code.
 - **Output:** `processed/worldbank_<code>_<year>_by_country.json`:
   ```json
   {
     "indicator": "NY.GDP.DEFL.KD.ZG",
+    "indicator_id": "WB_WDI_NY_GDP_DEFL_KD_ZG",
+    "name": "GDP deflator (annual %)",
+    "unit": "annual % change",
     "year": 2025,
     "generated": "2026-07-19",
     "countries_total": 265,
@@ -121,18 +176,29 @@ extraction, not something to be regenerated per run.
     }
   }
   ```
+  `name`/`unit` come from the matching entry in `worldbank_metrics.json`;
+  if a code isn't registered there, they fall back to the raw code and a
+  placeholder string rather than failing.
   Countries/regions without a value for that year (smaller territories,
   sanctioned/conflict states, reporting lag) are listed in `missing_codes`
   rather than silently dropped or backfilled with an old year.
 - **Run:**
   ```
-  python scripts/fetch_latest_by_country.py NY.GDP.DEFL.KD.ZG
+  python scripts/fetch_latest_by_country.py
   ```
+  With no arguments, this runs every indicator in `reference/worldbank_metrics.json`
+  in one go — this is the normal way to run it, and the reason the metrics
+  registry exists: add an indicator there and it's picked up automatically,
+  no script edits needed. Pass explicit codes (e.g.
+  `python scripts/fetch_latest_by_country.py NY.GDP.DEFL.KD.ZG`) to run
+  just a subset instead.
 - **Already generated:**
   - `processed/worldbank_NY.GDP.DEFL.KD.ZG_2025_by_country.json` (232/265 countries)
   - `processed/worldbank_NE.EXP.GNFS.ZS_2024_by_country.json` (214/265 countries)
+  - `processed/worldbank_PA.NUS.PPP_2025_by_country.json` (185/265 countries)
+  - `processed/worldbank_PA.NUS.GDP.PLI_2025_by_country.json` (184/265 countries)
 
-  Both built 2026-07-19 from a live pull of the API — same sandbox network
+  All built 2026-07-19 from a live pull of the API — same sandbox network
   caveat as above, so they were assembled via a separate fetch tool rather
   than running the script directly here, then verified by passing the real
   records through the script's own merge/lookup functions.

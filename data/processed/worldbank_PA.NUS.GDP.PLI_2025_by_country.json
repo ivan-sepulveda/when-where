@@ -1,976 +1,832 @@
 {
-  "indicator": "NY.GDP.DEFL.KD.ZG",
-  "indicator_id": "WB_WDI_NY_GDP_DEFL_KD_ZG",
-  "name": "GDP deflator (annual %)",
-  "unit": "annual % change",
+  "indicator": "PA.NUS.GDP.PLI",
+  "indicator_id": "WB_WDI_PA_NUS_GDP_PLI",
+  "name": "Price level index (GDP)",
+  "unit": "ratio, USA = 100",
   "year": 2025,
   "generated": "2026-07-19",
   "countries_total": 265,
-  "countries_with_data": 232,
-  "countries_missing_data": 33,
+  "countries_with_data": 184,
+  "countries_missing_data": 81,
   "missing_codes": [
     "ABW",
+    "AFE",
     "AFG",
+    "AFW",
+    "ARB",
     "ARE",
     "ASM",
     "BHS",
     "BMU",
+    "CEB",
     "CHI",
+    "CSS",
     "CUB",
     "CUW",
     "CYM",
+    "EAP",
+    "EAR",
+    "EAS",
+    "ECA",
+    "ECS",
+    "EMU",
     "ERI",
+    "EUU",
     "FRO",
     "GIB",
     "GRL",
     "GUM",
+    "HIC",
+    "HPC",
+    "IBD",
+    "IBT",
+    "IDA",
+    "IDB",
+    "IDX",
     "IMN",
     "INX",
+    "LAC",
     "LBN",
+    "LCN",
+    "LDC",
+    "LIC",
     "LIE",
+    "LMC",
+    "LMY",
+    "LTE",
     "MAF",
     "MCO",
+    "MEA",
+    "MIC",
+    "MNA",
     "MNP",
+    "NAC",
     "NCL",
+    "OED",
+    "OSS",
+    "PRE",
     "PRK",
+    "PSS",
+    "PST",
     "PYF",
+    "SAS",
     "SMR",
+    "SSA",
     "SSD",
+    "SSF",
+    "SST",
     "SYR",
     "TCA",
+    "TEA",
+    "TEC",
+    "TLA",
+    "TMN",
+    "TSA",
+    "TSS",
     "TUV",
+    "UMC",
+    "VEN",
     "VGB",
     "VIR",
+    "WLD",
     "YEM"
   ],
   "data": {
-    "AFE": {
-      "country_name": "Africa Eastern and Southern",
-      "value": 5.845117
-    },
-    "AFW": {
-      "country_name": "Africa Western and Central",
-      "value": 2.753849
-    },
     "AGO": {
       "country_name": "Angola",
-      "value": 20.494807
+      "value": 30.527471
     },
     "ALB": {
       "country_name": "Albania",
-      "value": 1.445412
+      "value": 46.058759
     },
     "AND": {
       "country_name": "Andorra",
-      "value": 2.634993
-    },
-    "ARB": {
-      "country_name": "Arab World",
-      "value": 2.704772
+      "value": 68.233871
     },
     "ARG": {
       "country_name": "Argentina",
-      "value": 39.088894
+      "value": 45.718407
     },
     "ARM": {
       "country_name": "Armenia",
-      "value": 3.570562
+      "value": 38.27235
     },
     "ATG": {
       "country_name": "Antigua and Barbuda",
-      "value": 2.984162
+      "value": 69.264661
     },
     "AUS": {
       "country_name": "Australia",
-      "value": 2.307659
+      "value": 90.540436
     },
     "AUT": {
       "country_name": "Austria",
-      "value": 3.154728
+      "value": 81.964118
     },
     "AZE": {
       "country_name": "Azerbaijan",
-      "value": 0.572912
+      "value": 28.379949
     },
     "BDI": {
       "country_name": "Burundi",
-      "value": 18.224683
+      "value": 18.735004
     },
     "BEL": {
       "country_name": "Belgium",
-      "value": 2.556915
+      "value": 81.352232
     },
     "BEN": {
       "country_name": "Benin",
-      "value": 1.55053
+      "value": 34.426326
     },
     "BFA": {
       "country_name": "Burkina Faso",
-      "value": 8.838836
+      "value": 37.360392
     },
     "BGD": {
       "country_name": "Bangladesh",
-      "value": 6.524412
+      "value": 25.580245
     },
     "BGR": {
       "country_name": "Bulgaria",
-      "value": 7.413185
+      "value": 45.731527
     },
     "BHR": {
       "country_name": "Bahrain",
-      "value": 0.228045
+      "value": 43.095727
     },
     "BIH": {
       "country_name": "Bosnia and Herzegovina",
-      "value": 3.01362
+      "value": 40.217478
     },
     "BLR": {
       "country_name": "Belarus",
-      "value": 10.916072
+      "value": 29.609578
     },
     "BLZ": {
       "country_name": "Belize",
-      "value": 1.057887
+      "value": 52.556526
     },
     "BOL": {
       "country_name": "Bolivia",
-      "value": 19.913852
+      "value": 39.989086
     },
     "BRA": {
       "country_name": "Brazil",
-      "value": 5.727448
+      "value": 45.718232
     },
     "BRB": {
       "country_name": "Barbados",
-      "value": 2.74064
+      "value": 109.542609
     },
     "BRN": {
       "country_name": "Brunei Darussalam",
-      "value": -4.736649
+      "value": 34.874682
     },
     "BTN": {
       "country_name": "Bhutan",
-      "value": 3.15629
+      "value": 22.929383
     },
     "BWA": {
       "country_name": "Botswana",
-      "value": 3.627684
+      "value": 37.579229
     },
     "CAF": {
       "country_name": "Central African Republic",
-      "value": 2.342116
+      "value": 42.327522
     },
     "CAN": {
       "country_name": "Canada",
-      "value": 2.552918
-    },
-    "CEB": {
-      "country_name": "Central Europe and the Baltics",
-      "value": 3.842884
+      "value": 83.447413
     },
     "CHE": {
       "country_name": "Switzerland",
-      "value": 0.28733
+      "value": 111.95519
     },
     "CHL": {
       "country_name": "Chile",
-      "value": 6.803214
+      "value": 47.637394
     },
     "CHN": {
       "country_name": "China",
-      "value": -0.922335
+      "value": 47.25672
     },
     "CIV": {
       "country_name": "Cote d'Ivoire",
-      "value": 3.212329
+      "value": 37.155998
     },
     "CMR": {
       "country_name": "Cameroon",
-      "value": 2.832767
+      "value": 34.077941
     },
     "COD": {
       "country_name": "Congo, Dem. Rep.",
-      "value": 7.802258
+      "value": 42.023468
     },
     "COG": {
       "country_name": "Congo, Rep.",
-      "value": -3.42271
+      "value": 34.693429
     },
     "COL": {
       "country_name": "Colombia",
-      "value": 5.422717
+      "value": 37.815641
     },
     "COM": {
       "country_name": "Comoros",
-      "value": 4.304967
+      "value": 48.504777
     },
     "CPV": {
       "country_name": "Cabo Verde",
-      "value": 1.74378
+      "value": 47.647593
     },
     "CRI": {
       "country_name": "Costa Rica",
-      "value": -0.535203
-    },
-    "CSS": {
-      "country_name": "Caribbean small states",
-      "value": 2.557795
+      "value": 59.057327
     },
     "CYP": {
       "country_name": "Cyprus",
-      "value": 1.11248
+      "value": 64.705125
     },
     "CZE": {
       "country_name": "Czechia",
-      "value": 3.512612
+      "value": 59.379869
     },
     "DEU": {
       "country_name": "Germany",
-      "value": 3.008953
+      "value": 80.226882
     },
     "DJI": {
       "country_name": "Djibouti",
-      "value": 4.583744
+      "value": 46.209413
     },
     "DMA": {
       "country_name": "Dominica",
-      "value": 1.965054
+      "value": 48.381899
     },
     "DNK": {
       "country_name": "Denmark",
-      "value": 1.665716
+      "value": 92.492114
     },
     "DOM": {
       "country_name": "Dominican Republic",
-      "value": 4.469986
+      "value": 38.505522
     },
     "DZA": {
       "country_name": "Algeria",
-      "value": 0.784234
-    },
-    "EAP": {
-      "country_name": "East Asia & Pacific (excluding high income)",
-      "value": 2.959858
-    },
-    "EAR": {
-      "country_name": "Early-demographic dividend",
-      "value": 3.546891
-    },
-    "EAS": {
-      "country_name": "East Asia & Pacific",
-      "value": 2.486418
-    },
-    "ECA": {
-      "country_name": "Europe & Central Asia (excluding high income)",
-      "value": 4.701575
-    },
-    "ECS": {
-      "country_name": "Europe & Central Asia",
-      "value": 3.597333
+      "value": 32.556324
     },
     "ECU": {
       "country_name": "Ecuador",
-      "value": 1.48376
+      "value": 42.52207
     },
     "EGY": {
       "country_name": "Egypt, Arab Rep.",
-      "value": 24.96309
-    },
-    "EMU": {
-      "country_name": "Euro area",
-      "value": 3.154728
+      "value": 15.273239
     },
     "ESP": {
       "country_name": "Spain",
-      "value": 2.914713
+      "value": 64.52102
     },
     "EST": {
       "country_name": "Estonia",
-      "value": 3.842884
+      "value": 66.053729
     },
     "ETH": {
       "country_name": "Ethiopia",
-      "value": 16.684537
-    },
-    "EUU": {
-      "country_name": "European Union",
-      "value": 3.154728
+      "value": 25.754089
     },
     "FIN": {
       "country_name": "Finland",
-      "value": 1.48236
+      "value": 85.222763
     },
     "FJI": {
       "country_name": "Fiji",
-      "value": 1.99963
+      "value": 40.654783
     },
     "FRA": {
       "country_name": "France",
-      "value": 1.176119
+      "value": 76.569691
     },
     "FSM": {
       "country_name": "Micronesia, Fed. Sts.",
-      "value": 3.200903
+      "value": 95.865081
     },
     "GAB": {
       "country_name": "Gabon",
-      "value": -3.960952
+      "value": 37.190145
     },
     "GBR": {
       "country_name": "United Kingdom",
-      "value": 3.693251
+      "value": 89.158159
     },
     "GEO": {
       "country_name": "Georgia",
-      "value": 4.636605
+      "value": 32.948287
     },
     "GHA": {
       "country_name": "Ghana",
-      "value": 14.433659
+      "value": 37.828723
     },
     "GIN": {
       "country_name": "Guinea",
-      "value": 6.190699
+      "value": 38.042286
     },
     "GMB": {
       "country_name": "Gambia, The",
-      "value": 7.888361
+      "value": 24.801653
     },
     "GNB": {
       "country_name": "Guinea-Bissau",
-      "value": 4.3208
+      "value": 34.12494
     },
     "GNQ": {
       "country_name": "Equatorial Guinea",
-      "value": -1.383059
+      "value": 41.00421
     },
     "GRC": {
       "country_name": "Greece",
-      "value": 2.776846
+      "value": 59.535648
     },
     "GRD": {
       "country_name": "Grenada",
-      "value": 0.658073
+      "value": 56.717412
     },
     "GTM": {
       "country_name": "Guatemala",
-      "value": 3.38685
+      "value": 43.417413
     },
     "GUY": {
       "country_name": "Guyana",
-      "value": -7.930355
-    },
-    "HIC": {
-      "country_name": "High income",
-      "value": 2.619478
+      "value": 33.109418
     },
     "HKG": {
       "country_name": "Hong Kong SAR, China",
-      "value": 1.024479
+      "value": 70.854356
     },
     "HND": {
       "country_name": "Honduras",
-      "value": 8.016635
-    },
-    "HPC": {
-      "country_name": "Heavily indebted poor countries (HIPC)",
-      "value": 5.122169
+      "value": 45.714303
     },
     "HRV": {
       "country_name": "Croatia",
-      "value": 4.668088
+      "value": 53.201081
     },
     "HTI": {
       "country_name": "Haiti",
-      "value": 34.39435
+      "value": 85.974072
     },
     "HUN": {
       "country_name": "Hungary",
-      "value": 6.271319
-    },
-    "IBD": {
-      "country_name": "IBRD only",
-      "value": 3.916927
-    },
-    "IBT": {
-      "country_name": "IDA & IBRD total",
-      "value": 4.020979
-    },
-    "IDA": {
-      "country_name": "IDA total",
-      "value": 4.294196
-    },
-    "IDB": {
-      "country_name": "IDA blend",
-      "value": 2.832767
+      "value": 51.983791
     },
     "IDN": {
       "country_name": "Indonesia",
-      "value": 2.368872
-    },
-    "IDX": {
-      "country_name": "IDA only",
-      "value": 4.583744
+      "value": 28.650541
     },
     "IND": {
       "country_name": "India",
-      "value": 0.973567
+      "value": 23.003909
     },
     "IRL": {
       "country_name": "Ireland",
-      "value": 1.0208
+      "value": 84.849417
     },
     "IRN": {
       "country_name": "Iran, Islamic Rep.",
-      "value": 28.777582
+      "value": 19.921501
     },
     "IRQ": {
       "country_name": "Iraq",
-      "value": -7.033886
+      "value": 37.917966
     },
     "ISL": {
       "country_name": "Iceland",
-      "value": 6.872166
+      "value": 117.849761
     },
     "ISR": {
       "country_name": "Israel",
-      "value": 2.093385
+      "value": 101.03802
     },
     "ITA": {
       "country_name": "Italy",
-      "value": 1.993561
+      "value": 68.960046
     },
     "JAM": {
       "country_name": "Jamaica",
-      "value": 4.802516
+      "value": 60.211935
     },
     "JOR": {
       "country_name": "Jordan",
-      "value": 2.21444
+      "value": 42.336399
     },
     "JPN": {
       "country_name": "Japan",
-      "value": 3.422329
+      "value": 64.867964
     },
     "KAZ": {
       "country_name": "Kazakhstan",
-      "value": 9.605109
+      "value": 33.169965
     },
     "KEN": {
       "country_name": "Kenya",
-      "value": 3.493131
+      "value": 33.678485
     },
     "KGZ": {
       "country_name": "Kyrgyz Republic",
-      "value": 12.395836
+      "value": 33.417909
     },
     "KHM": {
       "country_name": "Cambodia",
-      "value": 3.466099
+      "value": 33.624386
     },
     "KIR": {
       "country_name": "Kiribati",
-      "value": 0.008763
+      "value": 64.996651
     },
     "KNA": {
       "country_name": "St. Kitts and Nevis",
-      "value": 2.685275
+      "value": 68.583206
     },
     "KOR": {
       "country_name": "Korea, Rep.",
-      "value": 3.126191
+      "value": 57.389331
     },
     "KWT": {
       "country_name": "Kuwait",
-      "value": -4.967157
-    },
-    "LAC": {
-      "country_name": "Latin America & Caribbean (excluding high income)",
-      "value": 4.856849
+      "value": 57.222618
     },
     "LAO": {
       "country_name": "Lao PDR",
-      "value": 7.549458
+      "value": 22.390097
     },
     "LBR": {
       "country_name": "Liberia",
-      "value": 4.5204
+      "value": 46.203188
     },
     "LBY": {
       "country_name": "Libya",
-      "value": -3.9381
+      "value": 39.033158
     },
     "LCA": {
       "country_name": "St. Lucia",
-      "value": 2.557795
-    },
-    "LCN": {
-      "country_name": "Latin America & Caribbean",
-      "value": 3.38685
-    },
-    "LDC": {
-      "country_name": "Least developed countries: UN classification",
-      "value": 4.784694
-    },
-    "LIC": {
-      "country_name": "Low income",
-      "value": 6.276489
+      "value": 51.426026
     },
     "LKA": {
       "country_name": "Sri Lanka",
-      "value": 3.685873
-    },
-    "LMC": {
-      "country_name": "Lower middle income",
-      "value": 4.985645
-    },
-    "LMY": {
-      "country_name": "Low & middle income",
-      "value": 4.283425
+      "value": 29.311868
     },
     "LSO": {
       "country_name": "Lesotho",
-      "value": 2.998043
-    },
-    "LTE": {
-      "country_name": "Late-demographic dividend",
-      "value": 3.654988
+      "value": 34.199832
     },
     "LTU": {
       "country_name": "Lithuania",
-      "value": 3.634658
+      "value": 57.987232
     },
     "LUX": {
       "country_name": "Luxembourg",
-      "value": 3.218648
+      "value": 94.065559
     },
     "LVA": {
       "country_name": "Latvia",
-      "value": 3.624103
+      "value": 57.030475
     },
     "MAC": {
       "country_name": "Macao SAR, China",
-      "value": 0.45892
+      "value": 55.390331
     },
     "MAR": {
       "country_name": "Morocco",
-      "value": 2.100267
+      "value": 42.049954
     },
     "MDA": {
       "country_name": "Moldova",
-      "value": 6.559122
+      "value": 43.117729
     },
     "MDG": {
       "country_name": "Madagascar",
-      "value": 8.377212
+      "value": 30.692452
     },
     "MDV": {
       "country_name": "Maldives",
-      "value": 3.291838
-    },
-    "MEA": {
-      "country_name": "Middle East, North Africa, Afghanistan & Pakistan",
-      "value": 2.196314
+      "value": 51.181141
     },
     "MEX": {
       "country_name": "Mexico",
-      "value": 4.630958
+      "value": 53.691731
     },
     "MHL": {
       "country_name": "Marshall Islands",
-      "value": 5.657895
-    },
-    "MIC": {
-      "country_name": "Middle income",
-      "value": 3.685873
+      "value": 94.69827
     },
     "MKD": {
       "country_name": "North Macedonia",
-      "value": 4.628174
+      "value": 37.425837
     },
     "MLI": {
       "country_name": "Mali",
-      "value": 2.117953
+      "value": 34.066723
     },
     "MLT": {
       "country_name": "Malta",
-      "value": 2.178188
+      "value": 66.343547
     },
     "MMR": {
       "country_name": "Myanmar",
-      "value": 12.521065
-    },
-    "MNA": {
-      "country_name": "Middle East, North Africa, Afghanistan & Pakistan (excluding high income)",
-      "value": 3.996479
+      "value": 24.766974
     },
     "MNE": {
       "country_name": "Montenegro",
-      "value": 4.028397
+      "value": 41.828717
     },
     "MNG": {
       "country_name": "Mongolia",
-      "value": 4.355316
+      "value": 34.177842
     },
     "MOZ": {
       "country_name": "Mozambique",
-      "value": -1.023871
+      "value": 36.922036
     },
     "MRT": {
       "country_name": "Mauritania",
-      "value": 3.375178
+      "value": 28.630119
     },
     "MUS": {
       "country_name": "Mauritius",
-      "value": 3.916927
+      "value": 38.588027
     },
     "MWI": {
       "country_name": "Malawi",
-      "value": 30.367836
+      "value": 35.355647
     },
     "MYS": {
       "country_name": "Malaysia",
-      "value": -0.449753
-    },
-    "NAC": {
-      "country_name": "North America",
-      "value": 2.677077
+      "value": 31.627207
     },
     "NAM": {
       "country_name": "Namibia",
-      "value": 6.061549
+      "value": 40.681124
     },
     "NER": {
       "country_name": "Niger",
-      "value": -1.600439
+      "value": 35.6116
     },
     "NGA": {
       "country_name": "Nigeria",
-      "value": 13.860716
+      "value": 12.844147
     },
     "NIC": {
       "country_name": "Nicaragua",
-      "value": 7.602329
+      "value": 34.180995
     },
     "NLD": {
       "country_name": "Netherlands",
-      "value": 3.319986
+      "value": 84.383638
     },
     "NOR": {
       "country_name": "Norway",
-      "value": 1.411402
+      "value": 90.917781
     },
     "NPL": {
       "country_name": "Nepal",
-      "value": 3.065597
+      "value": 24.871875
     },
     "NRU": {
       "country_name": "Naoero",
-      "value": 4.020979
+      "value": 103.091569
     },
     "NZL": {
       "country_name": "New Zealand",
-      "value": 3.623358
-    },
-    "OED": {
-      "country_name": "OECD members",
-      "value": 3.140459
+      "value": 86.470317
     },
     "OMN": {
       "country_name": "Oman",
-      "value": -0.092459
-    },
-    "OSS": {
-      "country_name": "Other small states",
-      "value": 3.224064
+      "value": 47.162344
     },
     "PAK": {
       "country_name": "Pakistan",
-      "value": 4.283425
+      "value": 24.278231
     },
     "PAN": {
       "country_name": "Panama",
-      "value": 0.193365
+      "value": 45.076892
     },
     "PER": {
       "country_name": "Peru",
-      "value": 5.444355
+      "value": 51.468739
     },
     "PHL": {
       "country_name": "Philippines",
-      "value": 1.434356
+      "value": 33.161548
     },
     "PLW": {
       "country_name": "Palau",
-      "value": 0.962029
+      "value": 84.7329
     },
     "PNG": {
       "country_name": "Papua New Guinea",
-      "value": 6.869141
+      "value": 57.903453
     },
     "POL": {
       "country_name": "Poland",
-      "value": 2.908354
-    },
-    "PRE": {
-      "country_name": "Pre-demographic dividend",
-      "value": 3.996479
+      "value": 52.374343
     },
     "PRI": {
       "country_name": "Puerto Rico (US)",
-      "value": 2.324291
+      "value": 77.823014
     },
     "PRT": {
       "country_name": "Portugal",
-      "value": 3.922322
+      "value": 60.365733
     },
     "PRY": {
       "country_name": "Paraguay",
-      "value": 3.083385
+      "value": 34.81726
     },
     "PSE": {
       "country_name": "West Bank and Gaza",
-      "value": 2.718616
-    },
-    "PSS": {
-      "country_name": "Pacific island small states",
-      "value": 2.959858
-    },
-    "PST": {
-      "country_name": "Post-demographic dividend",
-      "value": 2.984162
+      "value": 63.425809
     },
     "QAT": {
       "country_name": "Qatar",
-      "value": -3.150021
+      "value": 56.271924
     },
     "ROU": {
       "country_name": "Romania",
-      "value": 8.203755
+      "value": 44.283165
     },
     "RUS": {
       "country_name": "Russian Federation",
-      "value": 4.852053
+      "value": 35.398968
     },
     "RWA": {
       "country_name": "Rwanda",
-      "value": 7.350708
-    },
-    "SAS": {
-      "country_name": "South Asia",
-      "value": 3.224064
+      "value": 26.984172
     },
     "SAU": {
       "country_name": "Saudi Arabia",
-      "value": -2.568665
+      "value": 46.808063
     },
     "SDN": {
       "country_name": "Sudan",
-      "value": 65.90987
+      "value": 53.120224
     },
     "SEN": {
       "country_name": "Senegal",
-      "value": 3.486751
+      "value": 35.779492
     },
     "SGP": {
       "country_name": "Singapore",
-      "value": -1.796248
+      "value": 60.490704
     },
     "SLB": {
       "country_name": "Solomon Islands",
-      "value": 4.985645
+      "value": 74.837752
     },
     "SLE": {
       "country_name": "Sierra Leone",
-      "value": 2.674931
+      "value": 22.768907
     },
     "SLV": {
       "country_name": "El Salvador",
-      "value": 1.285792
+      "value": 40.895349
     },
     "SOM": {
       "country_name": "Somalia, Fed. Rep.",
-      "value": 12.884005
+      "value": 40.247493
     },
     "SRB": {
       "country_name": "Serbia",
-      "value": 4.489161
-    },
-    "SSA": {
-      "country_name": "Sub-Saharan Africa (excluding high income)",
-      "value": 4.304967
-    },
-    "SSF": {
-      "country_name": "Sub-Saharan Africa",
-      "value": 4.110947
-    },
-    "SST": {
-      "country_name": "Small states",
-      "value": 2.712958
+      "value": 45.007827
     },
     "STP": {
       "country_name": "Sao Tome and Principe",
-      "value": 11.938109
+      "value": 63.933867
     },
     "SUR": {
       "country_name": "Suriname",
-      "value": 12.988296
+      "value": 31.210264
     },
     "SVK": {
       "country_name": "Slovak Republic",
-      "value": 4.186744
+      "value": 57.88768
     },
     "SVN": {
       "country_name": "Slovenia",
-      "value": 3.454323
+      "value": 63.087863
     },
     "SWE": {
       "country_name": "Sweden",
-      "value": 1.229698
+      "value": 87.045608
     },
     "SWZ": {
       "country_name": "Eswatini",
-      "value": -0.449981
+      "value": 32.789213
     },
     "SXM": {
       "country_name": "Sint Maarten (Dutch part)",
-      "value": 1.547389
+      "value": 76.08028
     },
     "SYC": {
       "country_name": "Seychelles",
-      "value": 2.602464
+      "value": 54.246021
     },
     "TCD": {
       "country_name": "Chad",
-      "value": -1.956846
-    },
-    "TEA": {
-      "country_name": "East Asia & Pacific (IDA & IBRD countries)",
-      "value": 2.959858
-    },
-    "TEC": {
-      "country_name": "Europe & Central Asia (IDA & IBRD countries)",
-      "value": 4.766544
+      "value": 35.219668
     },
     "TGO": {
       "country_name": "Togo",
-      "value": 0.849119
+      "value": 33.924402
     },
     "THA": {
       "country_name": "Thailand",
-      "value": -0.870042
+      "value": 30.691586
     },
     "TJK": {
       "country_name": "Tajikistan",
-      "value": 4.766544
+      "value": 27.640113
     },
     "TKM": {
       "country_name": "Turkmenistan",
-      "value": 6.02234
-    },
-    "TLA": {
-      "country_name": "Latin America & the Caribbean (IDA & IBRD countries)",
-      "value": 4.333085
+      "value": 28.936857
     },
     "TLS": {
       "country_name": "Timor-Leste",
-      "value": -4.688067
-    },
-    "TMN": {
-      "country_name": "Middle East, North Africa, Afghanistan & Pakistan (IDA & IBRD)",
-      "value": 4.139952
+      "value": 27.881625
     },
     "TON": {
       "country_name": "Tonga",
-      "value": 2.959858
-    },
-    "TSA": {
-      "country_name": "South Asia (IDA & IBRD)",
-      "value": 3.224064
-    },
-    "TSS": {
-      "country_name": "Sub-Saharan Africa (IDA & IBRD countries)",
-      "value": 4.110947
+      "value": 75.47467
     },
     "TTO": {
       "country_name": "Trinidad and Tobago",
-      "value": 1.98986
+      "value": 51.095514
     },
     "TUN": {
       "country_name": "Tunisia",
-      "value": 5.233421
+      "value": 30.568429
     },
     "TUR": {
       "country_name": "Turkiye",
-      "value": 36.425341
+      "value": 41.06882
     },
     "TZA": {
       "country_name": "Tanzania",
-      "value": 5.122169
+      "value": 29.497487
     },
     "UGA": {
       "country_name": "Uganda",
-      "value": 5.20227
+      "value": 34.587413
     },
     "UKR": {
       "country_name": "Ukraine",
-      "value": 14.473898
-    },
-    "UMC": {
-      "country_name": "Upper middle income",
-      "value": 3.3118
+      "value": 31.02825
     },
     "URY": {
       "country_name": "Uruguay",
-      "value": 4.333085
+      "value": 65.812081
     },
     "USA": {
       "country_name": "United States",
-      "value": 2.801236
+      "value": 100.0
     },
     "UZB": {
       "country_name": "Uzbekistan",
-      "value": 11.852283
+      "value": 29.175699
     },
     "VCT": {
       "country_name": "St. Vincent and the Grenadines",
-      "value": 4.911181
-    },
-    "VEN": {
-      "country_name": "Venezuela, RB",
-      "value": 227.093065
+      "value": 55.096927
     },
     "VNM": {
       "country_name": "Viet Nam",
-      "value": 3.331761
+      "value": 28.006707
     },
     "VUT": {
       "country_name": "Vanuatu",
-      "value": 2.186406
-    },
-    "WLD": {
-      "country_name": "World",
-      "value": 3.331761
+      "value": 89.249153
     },
     "WSM": {
       "country_name": "Samoa",
-      "value": 6.169102
+      "value": 63.019744
     },
     "XKX": {
       "country_name": "Kosovo",
-      "value": 2.810598
+      "value": 41.00755
     },
     "ZAF": {
       "country_name": "South Africa",
-      "value": 2.789618
+      "value": 41.480243
     },
     "ZMB": {
       "country_name": "Zambia",
-      "value": 5.628684
+      "value": 30.093608
     },
     "ZWE": {
       "country_name": "Zimbabwe",
-      "value": 83.124477
+      "value": 46.696072
     }
   }
 }
