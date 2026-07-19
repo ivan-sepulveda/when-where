@@ -8,6 +8,9 @@
   it's regenerable by re-running the scripts).
 - `processed/` — cleaned, tidy CSVs derived from `raw/`, ready for scoring
   or analysis (gitignored — regenerate with the scripts).
+- `reference/` — small, stable lookup files that other scripts depend on
+  (country code/name mappings, API check-in caches). Tracked in git since
+  they're cheap to store and useful to diff.
 
 ## Sources
 
@@ -29,8 +32,8 @@
   - `processed/worldbank_<code>.csv` — tidy columns `ref_area, indicator,
     time_period, obs_value, unit_measure, freq`. `ref_area` is a mix of
     ISO3 country codes and World Bank region aggregates (e.g. `ARB`,
-    `AFE`); it isn't joined to country names yet — that mapping is a
-    separate future step.
+    `AFE`) — join against `reference/worldbank_countries.json` to get
+    names.
 - **Run:**
   ```
   pip install -r requirements.txt
@@ -44,3 +47,34 @@
   verified with a live sample of the API response (via a separate fetch
   tool) and an offline unit check of the pagination/CSV logic. It should
   run normally on your own machine or in CI.
+
+### `reference/worldbank_countries.json`
+
+Country/region code → name lookup (265 entries: ISO3 countries plus World
+Bank aggregates like `WLD`, `ARB`, income-level groups, etc.), extracted
+from a World Bank bulk-download XML (`Country or Area` fields). One-time
+extraction, not something to be regenerated per run.
+
+### `reference/latest_year_cache.json` — "is there new data yet?" cache
+
+- **Script:** `scripts/latest_year_cache.py`
+- **What it does:** checks the latest year available for a WDI indicator
+  via `GET /data360/data?...&REF_AREA=USA&isLatestData=true` (USA used as
+  a reliable proxy country), and caches the result so we don't hit the API
+  needlessly — annual indicators only update once a year, often with a lag.
+- **Check schedule** (`get_latest_year()` in the script):
+  - If the cached year is 0–1 years behind the current year (the normal
+    state — e.g. cached year 2025 anytime in 2026), skip the check
+    entirely.
+  - Once the cached year is 2+ years behind (e.g. cached year 2025 once
+    it's 2027), re-check, but at most every 30 days.
+  - Example: cached `latest_year=2025` — no checks at all through 2026;
+    first re-check on 2027-01-01, next on 2027-01-31, etc. until a newer
+    year shows up.
+- **Run:**
+  ```
+  python scripts/latest_year_cache.py NY.GDP.DEFL.KD.ZG
+  python scripts/latest_year_cache.py NY.GDP.DEFL.KD.ZG --force   # bypass schedule
+  ```
+- Cache seeded with `NY.GDP.DEFL.KD.ZG: 2025` (confirmed live 2026-07-19,
+  since this sandbox can't reach the API directly — see note above).
