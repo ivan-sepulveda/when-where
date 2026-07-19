@@ -111,6 +111,88 @@ that you're running from `data/` (`cd data` from the repo root).
   python scripts/fetch_worldbank_indicator.py PA.NUS.GDP.PLI
   ```
 
+### SimpleMaps — World Cities Database (Basic)
+
+- **Source:** [SimpleMaps World Cities Database](https://simplemaps.com/data/world-cities) — Basic tier
+  (free, ~50.2K prominent cities/towns worldwide, downloadable CSV/Excel).
+  Fields include `city`, `lat`, `lng`, `country`, `iso2`/`iso3`,
+  `admin_name`, `population`, `timezone`, `capital`, and more.
+- **License:** [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
+  — free to use, but **attribution is required**. Attribution for this
+  project:
+
+  > City data from the [SimpleMaps World Cities Database](https://simplemaps.com/data/world-cities), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+  (The Pro/Comprehensive tiers drop the attribution requirement, but Basic
+  covers every city we need here — no reason to pay for it.)
+- **What it's for:** latitude/longitude (and population) lookup for
+  popular tourist destination cities. This is a one-time bulk download
+  (not a per-city API), so there are no rate limits and the lookup runs
+  fully offline once downloaded.
+
+### `scripts/fetch_tourist_cities.py` — city list + coordinates
+
+- **What it does:** downloads the SimpleMaps Basic zip into
+  `raw/simplemaps/` (cached — reuse unless `--force-download`), loads the
+  CSV with pandas, and writes `reference/tourist_cities.json`: the top N
+  cities worldwide by population, plus a manually curated list of
+  additional cities that matter for travel scoring but don't crack that
+  population cutoff.
+- **Config (top of the script, all-caps):**
+  - `TOP_N_CITIES_BY_POPULATION` — how many cities to include, ranked by
+    population (default 5000).
+  - `ADDITIONAL_CITIES` — force-included cities regardless of population.
+    Each entry is either a plain name (`"Charlotte"`) or a `(city,
+    country)` tuple (`("Merida", "Mexico")`) to disambiguate names that
+    exist in multiple countries (Mérida exists in Mexico, Spain, and
+    Venezuela). Plain names fall back to the most populous match with a
+    printed warning if ambiguous, so check the script's output after
+    adding one.
+- **Output:** `reference/tourist_cities.json`:
+  ```json
+  {
+    "source": "SimpleMaps World Cities Database (Basic), CC BY 4.0 -- https://simplemaps.com/data/world-cities",
+    "top_n_cities_by_population": 5000,
+    "additional_cities_requested": 2,
+    "total_cities": 5000,
+    "cities": [
+      {
+        "city": "Tokyo",
+        "city_ascii": "Tokyo",
+        "country": "Japan",
+        "iso2": "JP",
+        "iso3": "JPN",
+        "admin_name": "Tōkyō",
+        "lat": 35.6897,
+        "lng": 139.7742,
+        "population": 39105000,
+        "capital": "primary",
+        "simplemaps_id": 1392685764,
+        "included_reason": "top_n_population"
+      },
+      ...
+    ]
+  }
+  ```
+  `included_reason` is `"top_n_population"` or `"additional_cities"`, so
+  downstream code can tell why a city is in the list. Sorted by
+  population descending (cities with no population data sort last). No
+  `timezone` field — the Basic tier's CSV only has 11 columns (`city,
+  city_ascii, lat, lng, country, iso2, iso3, admin_name, capital,
+  population, id`); `timezone`, `city_local`, `density`, `ranking`, etc.
+  from SimpleMaps' full field list are Pro/Comprehensive-only.
+- **Run:**
+  ```
+  python scripts/fetch_tourist_cities.py
+  python scripts/fetch_tourist_cities.py --force-download   # bypass the raw/ cache
+  ```
+- **Note:** this sandbox blocks `simplemaps.com` (same allowlist issue as
+  the World Bank API — see note above), so the script was run and
+  verified on your machine, not here. `total_cities` can be less than
+  `top_n_cities_by_population + additional_cities_requested` when an
+  additional city already falls inside the top-N set (no duplicate is
+  written).
+
 ### `reference/worldbank_metrics.json` — indicator registry
 
 The single place that lists which World Bank indicators this project
