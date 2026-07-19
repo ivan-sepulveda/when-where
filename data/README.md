@@ -78,3 +78,40 @@ extraction, not something to be regenerated per run.
   ```
 - Cache seeded with `NY.GDP.DEFL.KD.ZG: 2025` (confirmed live 2026-07-19,
   since this sandbox can't reach the API directly — see note above).
+
+### `scripts/fetch_latest_by_country.py` — indicator value per country, latest year
+
+- **What it does:** for a WDI indicator, looks up the latest available year
+  via `latest_year_cache.get_latest_year()`, then fetches that indicator for
+  every country/region in `reference/worldbank_countries.json` in one
+  pass (`GET /data360/data?...&TIME_PERIOD=<year>`, paginated) and writes a
+  single JSON keyed by country code.
+- **Output:** `processed/worldbank_<code>_<year>_by_country.json`:
+  ```json
+  {
+    "indicator": "NY.GDP.DEFL.KD.ZG",
+    "year": 2025,
+    "generated": "2026-07-19",
+    "countries_total": 265,
+    "countries_with_data": 232,
+    "countries_missing_data": 33,
+    "missing_codes": ["ABW", "AFG", ...],
+    "data": {
+      "ARG": {"country_name": "Argentina", "value": 39.088894},
+      "USA": {"country_name": "United States", "value": 2.801236},
+      ...
+    }
+  }
+  ```
+  Countries/regions without a value for that year (smaller territories,
+  sanctioned/conflict states, reporting lag) are listed in `missing_codes`
+  rather than silently dropped or backfilled with an old year.
+- **Run:**
+  ```
+  python scripts/fetch_latest_by_country.py NY.GDP.DEFL.KD.ZG
+  ```
+- **Already generated:** `processed/worldbank_NY.GDP.DEFL.KD.ZG_2025_by_country.json`
+  (232/265 countries, built 2026-07-19 from a live pull of the API — same
+  sandbox network caveat as above, so it was assembled via a separate fetch
+  tool rather than running the script directly here, then verified by
+  passing the real records through the script's own merge/lookup functions).
