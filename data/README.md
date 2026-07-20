@@ -401,7 +401,7 @@ extraction, not something to be regenerated per run.
 ### Monthly weather scores (`scripts/compute_monthly_scores.py`)
 
 - **What it does:** reads `processed/weather_normals_<year>_by_city.json`
-  and computes five simple, transparent, rule-based scores per city per
+  and computes six simple, transparent, rule-based scores per city per
   calendar month — no machine learning, just plain formulas over the
   weather-normal fields, per the project's guidance to start with an
   explainable model. Each score is independent; nothing here combines them
@@ -422,18 +422,21 @@ extraction, not something to be regenerated per run.
     (default threshold 35°C).
   - `low_temperature_score = 0 if avg_low_c <= LOW_TEMP_THRESHOLD_C else 1`
     (default threshold 0°C).
+  - `wind_intensity_score = min(avg_max_wind_kmh / WIND_COMFORT_CEILING_KMH, 1)`
+    (default ceiling 80 km/h) — see the Beaufort scale reference just below
+    for how this maps onto real-world wind conditions.
   None of these are normalized/inverted for "higher is better" consistency
-  — `monthly_rain_score`/`daily_rain_score` are literal rain fractions
-  (higher = more rain), while the temperature scores are binary
-  pass/fail flags (1 = not extreme, 0 = extreme). Keep that in mind when
-  combining them later.
+  — `monthly_rain_score`/`daily_rain_score`/`wind_intensity_score` are
+  literal fractions of a "worse" quantity (higher = more rain, more wind),
+  while the temperature scores are binary pass/fail flags (1 = not
+  extreme, 0 = extreme). Keep that in mind when combining them later.
 - **Year used:** `SCORE_YEAR = date.today().year - 1` by default (matches
   `fetch_weather_normals.py`'s default, so running both with no arguments
   operates on the same year) — override with `--year` to score a
   different year's already-pulled weather file.
 - **Output:** `processed/monthly_scores_<year>_by_city.json`, same
   `cities` keying (`simplemaps_id`) and city metadata as
-  `weather_normals_<year>_by_city.json`, with `months` holding the five
+  `weather_normals_<year>_by_city.json`, with `months` holding the six
   scores instead of raw weather stats. Includes a `scoring_rules` block
   documenting the formulas in the file itself.
 - **Run:**
@@ -441,7 +444,38 @@ extraction, not something to be regenerated per run.
   python scripts/compute_monthly_scores.py
   python scripts/compute_monthly_scores.py --year 2024
   ```
+
+#### Beaufort wind force scale (reference for `wind_intensity_score`)
+
+The [Beaufort scale](https://en.wikipedia.org/wiki/Beaufort_scale) is the
+standard way to relate a wind speed to what it actually feels/looks like
+on land — used here just as an interpretability reference for
+`wind_intensity_score`, not as a data source (it's a public scientific
+scale, not a licensed dataset). `wind_intensity_score` is a plain linear
+ramp from 0 km/h → 0 to `WIND_COMFORT_CEILING_KMH` (80 km/h) → 1, capped
+at 1 beyond that — 80 km/h was chosen because it sits right at the
+boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
+"noticeable structural damage begins" territory.
+
+| Force | Description | Speed (km/h) | Land observations | `wind_intensity_score` |
+|---|---|---|---|---|
+| 0 | Calm | <1 | Smoke rises vertically | 0.00 |
+| 1 | Light Air | 1–5 | Smoke drift shows direction, wind vanes don't move | 0.01–0.06 |
+| 2 | Light Breeze | 6–11 | Wind felt on face, leaves rustle | 0.08–0.14 |
+| 3 | Gentle Breeze | 12–19 | Leaves/twigs in constant motion, flags extend | 0.15–0.24 |
+| 4 | Moderate Breeze | 20–28 | Raises dust and loose paper, small branches move | 0.25–0.35 |
+| 5 | Fresh Breeze | 29–38 | Small trees sway | 0.36–0.48 |
+| 6 | Strong Breeze | 38–49 | Large branches move, umbrellas hard to use | 0.48–0.61 |
+| 7 | Near Gale | 50–61 | Whole trees in motion, hard to walk against | 0.63–0.76 |
+| 8 | Gale | 62–74 | Twigs break off trees, progress impeded | 0.78–0.93 |
+| 9 | Strong Gale | 75–88 | Slight structural damage (chimney pots, slates) | 0.94–1.00 |
+| 10 | Storm | 89–102 | Trees uprooted, considerable structural damage | 1.00 (capped) |
+| 11 | Violent Storm | 103–117 | Widespread damage | 1.00 (capped) |
+| 12 | Hurricane | 118+ | Devastation | 1.00 (capped) |
+
 - Verified offline: threshold edge cases (exactly at 35°C/0°C and just to
-  either side), all-extreme-values and no-data-for-a-month cases, then run
-  for real against the actual `weather_normals_2025_by_city.json` (1770
-  cities) and spot-checked against known Tokyo seasonal patterns.
+  either side), `wind_intensity_score` at 0/40/80/100/500 km/h (confirms
+  the 0→1 linear ramp and the cap beyond 80), all-extreme-values and
+  no-data-for-a-month cases, then run for real against the actual
+  `weather_normals_2025_by_city.json` (1770 cities) and spot-checked
+  against known Tokyo seasonal patterns.

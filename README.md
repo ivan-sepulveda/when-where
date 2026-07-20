@@ -66,9 +66,10 @@ python scripts/compute_monthly_scores.py
 ```
 
 Turns `data/processed/weather_normals_<year>_by_city.json` into
-`data/processed/monthly_scores_<year>_by_city.json` — five simple,
+`data/processed/monthly_scores_<year>_by_city.json` — six simple,
 transparent per-month scores per city (rain frequency, rain hours,
-sunshine hours, and pass/fail high/low temperature flags), each a plain
+sunshine hours, pass/fail high/low temperature flags, and a wind
+intensity score referenced against the Beaufort scale), each a plain
 formula documented in `data/README.md`. Rule-based by design, per the
 project's approach — not combined into one overall number here, since
 that weighting should depend on the traveler profile.

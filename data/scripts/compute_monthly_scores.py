@@ -38,6 +38,13 @@ HIGH_TEMP_THRESHOLD_C = 35
 # low drops to this many degrees C or below, otherwise 1 (best).
 LOW_TEMP_THRESHOLD_C = 0
 
+# WIND_INTENSITY_SCORE scales linearly from 0 (calm) to 1 (uncomfortable) as
+# avg_max_wind_kmh goes from 0 to this many km/h, then stays capped at 1
+# beyond it. 80 km/h sits at the boundary between Beaufort force 9 (Strong
+# Gale) and force 10 (Storm) -- see the Beaufort scale reference table in
+# data/README.md for how the rest of the scale maps onto this 0-1 range.
+WIND_COMFORT_CEILING_KMH = 80
+
 # ---------------------------------------------------------------------------
 
 HOURS_PER_DAY = 24  # unit-conversion constant, not really "tunable"
@@ -71,7 +78,7 @@ def load_weather_normals(year: int) -> dict:
 
 def compute_month_scores(month: dict | None) -> dict | None:
     """
-    Compute the five rule-based scores for one city/month's weather normal.
+    Compute the six rule-based scores for one city/month's weather normal.
     Returns None if there's no data for that month (e.g. an incomplete pull).
 
         MONTHLY_RAIN_SCORE   = rainy_days / days_sampled
@@ -79,6 +86,7 @@ def compute_month_scores(month: dict | None) -> dict | None:
         DAYLIGHT_HOURS_SCORE = avg_sunshine_hours / 24
         HIGH_TEMPERATURE_SCORE = 0 if avg_high_c >= HIGH_TEMP_THRESHOLD_C else 1
         LOW_TEMPERATURE_SCORE  = 0 if avg_low_c <= LOW_TEMP_THRESHOLD_C else 1
+        WIND_INTENSITY_SCORE  = min(avg_max_wind_kmh / WIND_COMFORT_CEILING_KMH, 1)
 
     None of these are combined into one overall score here -- that's a
     traveler-profile-specific weighting decision left for downstream code
@@ -87,12 +95,15 @@ def compute_month_scores(month: dict | None) -> dict | None:
     if month is None or not month.get("days_sampled"):
         return None
 
+    wind_intensity_score = max(month["avg_max_wind_kmh"], 0) / WIND_COMFORT_CEILING_KMH
+
     return {
         "monthly_rain_score": round(month["rainy_days"] / month["days_sampled"], 3),
         "daily_rain_score": round(month["avg_precipitation_hours_per_day"] / HOURS_PER_DAY, 3),
         "daylight_hours_score": round(month["avg_sunshine_hours"] / HOURS_PER_DAY, 3),
         "high_temperature_score": 0 if month["avg_high_c"] >= HIGH_TEMP_THRESHOLD_C else 1,
         "low_temperature_score": 0 if month["avg_low_c"] <= LOW_TEMP_THRESHOLD_C else 1,
+        "wind_intensity_score": round(min(wind_intensity_score, 1.0), 3),
     }
 
 
@@ -121,6 +132,7 @@ def build_monthly_scores(weather_normals: dict, year: int) -> dict:
             "daylight_hours_score": "avg_sunshine_hours / 24",
             "high_temperature_score": f"0 if avg_high_c >= {HIGH_TEMP_THRESHOLD_C} else 1",
             "low_temperature_score": f"0 if avg_low_c <= {LOW_TEMP_THRESHOLD_C} else 1",
+            "wind_intensity_score": f"min(avg_max_wind_kmh / {WIND_COMFORT_CEILING_KMH}, 1) -- see Beaufort scale reference in data/README.md",
         },
         "total_cities": len(cities_out),
         "cities": cities_out,
