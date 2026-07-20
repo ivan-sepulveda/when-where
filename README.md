@@ -88,6 +88,21 @@ See `data/README.md` for the full JSON-stat decoding details and the
 differences between the two datasets.
 
 ```
+python scripts/fetch_japan_tourism_indicators.py
+python scripts/fetch_japan_tourism_indicators.py --since 2024-01
+```
+
+Pulls two Japan e-Stat Statistics Dashboard indicators (no API key
+needed) — monthly foreign-national border entries and monthly
+foreign-visitor accommodation guest-nights, both nationwide — and joins
+them into `data/processed/japan_tourism_indicators_by_month.csv`
+(`COUNTRY, COUNTRY_NAME, MONTH, NUM_ENTRIES, NUM_GUEST_NIGHTS`). Defaults
+to January 2025 onward. See `data/README.md` for why entries is a proxy
+rather than an exact "visitor arrivals" match, and for the prefecture-
+level guest-nights option if destination-level granularity is wanted
+later.
+
+```
 python scripts/build_country_aliases.py
 ```
 
@@ -136,6 +151,17 @@ intensity score referenced against the Beaufort scale), each a plain
 formula documented in `data/README.md`. Rule-based by design, per the
 project's approach — not combined into one overall number here, since
 that weighting should depend on the traveler profile.
+
+```
+python scripts/compute_peak_tourism_indicator.py
+```
+
+Turns the Eurostat monthly air-passenger CSV into
+`data/processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv` — one row per
+(country, month) with `PEAK_RATIO`, how busy that month's air travel is
+relative to the country's own peak month (0–1). A candidate seasonality
+signal by country. See `data/README.md` for how it handles months with
+more than one year of source data available.
 
 ## Data attributions
 

@@ -658,6 +658,136 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   Both `processed/eurostat_*.csv` files listed above were generated from
   those same verified responses, not a live script run.
 
+### Peak tourism indicator (`scripts/compute_peak_tourism_indicator.py`)
+
+- **What it does:** reads the Eurostat monthly air-passenger CSV
+  (`processed/eurostat_passengers_transported_by_country_monthly_*.csv`,
+  `tra_cov=TOTAL` only) and computes, per country per calendar month, how
+  busy air travel is relative to that country's own peak month — a
+  0.0–1.0 seasonality ratio. Not machine-learned, just:
+  ```python
+  FRANCE = df[df["geo"] == "FR"]
+  FR_MAX_PASSENGERS = FRANCE["value"].max()
+  PEAK_RATIO = FRANCE["value"] / FR_MAX_PASSENGERS
+  ```
+  applied per country, with EU/euro-area aggregate `geo` codes
+  (`EU27_2020`, `EA21`, `EA20`, `EA19`) dropped first since they aren't
+  countries.
+- **Why it's here:** a candidate seasonality signal for the scoring
+  model — e.g. a destination whose air travel peaks in August is
+  probably at its most crowded/expensive then, all else equal. Country-
+  level only, same caveat as the Eurostat source itself.
+- **Handling the source's partial year coverage:** `TTR00016` doesn't
+  cover one full calendar year yet (see the Eurostat section above), so
+  four months (Feb–May, as of this writing) have two years of data each
+  and the rest have one. Where a month has two years available, only the
+  MORE RECENT one is kept for that month — so the output is always
+  exactly one row per (country, month), never two. `PEAK_RATIO` itself is
+  still scaled against the country's true max across *all* fetched
+  history (both years), not just the deduplicated rows, so a month whose
+  older year got dropped can still correctly read as less than 1.0
+  relative to a genuine peak that happened to fall in the dropped year.
+  `SOURCE_YEAR` in the output records which year's observation was kept,
+  for transparency.
+- **Data gaps are real, not a bug:** not every country reports every
+  month — as fetched, per-country row counts in the output range from 5
+  (Türkiye) to 12 (most countries); France, Belgium, Malta, and Estonia
+  currently sit at 10 (missing Dec 2025 and Jan–May 2026 entirely, not
+  just a dedup artifact). Verified by checking the raw source CSV
+  directly, not assumed.
+- **Output:** `processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`
+  (`ALL_CAPS` filename by request, unlike this project's other
+  `processed/` outputs) — columns `COUNTRY` (Eurostat `geo` code),
+  `MONTH` (integer 1–12), `PEAK_RATIO`, plus `COUNTRY_NAME`,
+  `SOURCE_YEAR`, and `PASSENGERS` (the raw value behind the ratio) for
+  traceability. One row per (`COUNTRY`, `MONTH`). Current run: 385 rows,
+  34 countries.
+- **Run:**
+  ```
+  python scripts/compute_peak_tourism_indicator.py
+  python scripts/compute_peak_tourism_indicator.py --tra-cov NAT   # score national-only traffic instead of total
+  ```
+- **Verified for real:** run end-to-end against the actual
+  `eurostat_passengers_transported_by_country_monthly_TOTAL.csv` (this
+  sandbox can read locally-mounted files freely, unlike live Eurostat/etc.
+  API calls). Cross-checked France's full `value_scaled` series
+  (computed independently, the same way as the docstring's example)
+  against the script's output row-by-row — exact match, including the
+  August 2025 peak at `PEAK_RATIO = 1.0`. Also spot-checked Austria's
+  Feb–May rows to confirm the "most recent year wins" dedup rule: 2026
+  was correctly used for Feb/Mar/Apr (present in both years), 2025 for
+  May (present in 2025 only).
+
+### Japan tourism indicators (`scripts/fetch_japan_tourism_indicators.py`)
+
+- **Source:** the [e-Stat Statistics Dashboard WebAPI](https://dashboard.e-stat.go.jp/en/static/api)
+  (`dashboard.e-stat.go.jp`) — **not** the main e-Stat API; no
+  Application ID or registration required, unlike `api.e-stat.go.jp`.
+  `getData` returns a flat list of `{time, value}` observations per
+  indicator, much simpler than Eurostat's JSON-stat hypercube (no
+  positional-index decoding needed — see `fetch_eurostat_dataset.py` for
+  contrast). Data is organized as ~6,000 "indicators," each searchable
+  via `getIndicatorInfo?SearchIndicatorWord=...`.
+- **Two indicators, joined on month:**
+  - **`NUM_ENTRIES`** — "Number of entries (Foreign nationals)"
+    (indicator `0204030003000010010`, source: Statistics on Legal
+    Migrants / Ministry of Justice border-crossing data). Counts ALL
+    foreign-national entries/re-entries, not filtered to tourism
+    purpose. This is the closest available proxy for "Visitor Arrivals
+    to Japan" through this API — JNTO's own arrivals figure (the metric
+    behind the uploaded `1-訪日外客者数...csv`) isn't published here
+    under that name, confirmed by searching "visitor arrivals," "foreign
+    visitors," and "inbound" with no match. Expect this to run somewhat
+    higher than an official visitor-arrivals count, since it includes
+    work-visa holders and returning long-term residents.
+  - **`NUM_GUEST_NIGHTS`** — "Number of guest nights (Foreign visitors)"
+    (indicator `1003010201000110000`, source: Accommodation Survey).
+    Total nights foreign visitors (no address in Japan) spent at
+    surveyed accommodation facilities. Also available at prefecture
+    level (`RegionalRank=3`, all 47 prefectures) if destination-level
+    granularity is wanted later — not used here since `NUM_ENTRIES` has
+    no prefecture breakdown (it's a border-crossing stat, not tied to a
+    destination) and the two indicators need a shared grain to join on.
+  - Both pulled at `RegionalRank=2` (nationwide Japan) and
+    `IsSeasonalAdjustment=1` (original, non-seasonally-adjusted
+    figures).
+- **Why it's here:** a candidate monthly seasonality/demand signal for
+  Japan specifically, filling the same role the Eurostat air-passenger
+  data does for Europe — a rough proxy for how busy/crowded Japan is in
+  a given month. Two different signals (border entries vs. accommodation
+  nights) kept side by side rather than combined, since they measure
+  related but distinct things.
+- **Output:** `processed/japan_tourism_indicators_by_month.csv` —
+  columns `COUNTRY` (`"JP"`), `COUNTRY_NAME` (`"Japan"`), `MONTH`
+  (`"YYYY-MM"` string — deliberately *not* the bare 1–12 integer used in
+  `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`, since this is a genuine
+  multi-year time series rather than a deduplicated single-year
+  seasonality profile, so a plain month number would collide across
+  years), `NUM_ENTRIES`, `NUM_GUEST_NIGHTS`. One row per month. Current
+  run: 16 rows, Jan 2025 through Apr 2026 (both indicators had identical
+  month coverage as of this writing, so no gaps — the script still
+  handles the two sources having different coverage via an outer join,
+  leaving a blank cell rather than fabricating a value, in case that
+  changes).
+- **Run:**
+  ```
+  python scripts/fetch_japan_tourism_indicators.py
+  python scripts/fetch_japan_tourism_indicators.py --since 2024-01
+  ```
+- **Note:** this sandbox blocks `dashboard.e-stat.go.jp` in `bash`
+  (confirmed — `curl` fails to connect), same as every other live source
+  in this file, but a separate fetch tool *could* reach it directly, so
+  the API was researched and queried for real (not guessed at from
+  docs alone): confirmed no auth needed, found both indicator codes via
+  `getIndicatorInfo`, and pulled real Jan 2025–Apr 2026 data for both at
+  nationwide level (and a prefecture-level sample for guest nights: Tokyo
+  ~5.09M, Osaka ~2.05M, Kyoto ~1.52M guest-nights in June 2025). The
+  script's `parse_monthly_values()` was verified against those real
+  responses (Jan 2025 entries = `3800206`, Apr 2026 guest nights =
+  `15362170`, both exact matches), and
+  `processed/japan_tourism_indicators_by_month.csv` was generated from
+  that same verified data, not a live script run.
+
 ### Country name crosswalk (`reference/country_aliases.json`)
 
 - **Problem:** every source names countries differently — SimpleMaps says
