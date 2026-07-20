@@ -34,18 +34,137 @@ import requests
 # ---------------------------------------------------------------------------
 
 # How many cities to include, ranked by population (largest first).
-TOP_N_CITIES_BY_POPULATION = 550
+TOP_N_CITIES_BY_POPULATION = 3000
 
 # Cities to force-include even if they don't crack the population cutoff
 # above -- e.g. smaller but popular/relevant tourist towns. Each entry is
-# either a plain city name (string) or a (city, country) tuple. Use the
-# tuple form when a name is ambiguous across countries (e.g. "Merida"
-# exists in Mexico, Spain, and Venezuela) -- the plain-string form will
-# still work, but falls back to the most populous match and prints a
-# warning so you can disambiguate if that's not the one you meant.
+# either a plain city name (string) or a (city, country) tuple.
+#
+# A plain string pulls in the most populous match from EVERY country that
+# has a city with that name -- e.g. "Queenstown" alone gets you both
+# Queenstown, New Zealand and Queenstown, South Africa, and "Dublin" gets
+# you both Dublin, Ireland and Dublin, California. It never pulls in two
+# cities from the *same* country, though -- if a name recurs within one
+# country (e.g. multiple Dublins across US states), only the most populous
+# of those is kept, so "Charlotte" still yields just one US Charlotte.
+#
+# Use the (city, country) tuple form when you want exactly one specific
+# country's match and nothing else -- e.g. ("Merida", "Mexico") to exclude
+# the Spanish and Venezuelan Meridas entirely.
 ADDITIONAL_CITIES = [
+    "Positano",
+    "Queenstown",
+    "Cannes",
+    "Parma",
+    "Tulum",
+    "Gijón",
+    "Catania",
     "Charlotte",
+    "Dublin",
+    "Mexico City",
+    "Da Nang",
+    "Phuket",
+    "Cuauhtemoc",
+    "Geneva",
+    "Strasbourg",
+    "Mendoza",
+    "Quebec",
+    "Venice",
     ("Merida", "Mexico"),
+    "Izmir",
+    "Chon Buri",
+    "Phra Nakhon Si Ayutthaya",
+    "Ixelles",
+    "Oaxaca",
+    "Bodrum",
+    "Luxembourg",
+    "Annecy",
+    "Montpellier",
+    "Maastricht",
+    "Gent",
+    "Salzburg",
+    "Ljubljana",
+    "Dijon",
+    "Monaco",
+    "Santiago de Compostela",
+    "Asheville",
+    "Biarritz",
+    "Graz",
+    "Avignon",
+    "Saint-Malo",
+    "Lucerne",
+    "Clermont-Ferrand",
+    "Marbella",
+    "Miami Beach",
+    "Rennes",
+    "Udon Thani",
+    "Ko Samui",
+    "Beaune",
+    "Surat Thani",
+    "La Rochelle",
+    "Vigo",
+    "Basel",
+    "Angers",
+    "Malmo",
+    "Reims",
+    "Funchal",
+    "Knokke",
+    "Lausanne",
+    "Ubon Ratchathani",
+    "Boulder",
+    "Split",
+    "Eindhoven",
+    "Caen",
+    "Dubrovnik",
+    "Vannes",
+    "Nancy",
+    "Baden-Baden",
+    "San Jose del Cabo",
+    "A Coruna",
+    "Liege",
+    "Nimes",
+    "Puebla",
+    "Las Palmas",
+    "Les Sables-d'Olonne",
+    "Phangnga",
+    ("Wellington", "New Zealand"),
+    ("Verona", "Italy"),
+    ("Santa Barbara", "United States"),
+    ("Groningen", "Netherlands"),
+    ("Bath", "United Kingdom"),
+    ("Santa Monica", "United States"),
+    ("Santander", "Spain"),
+    ("Valladolid", "Spain"),
+    ("Brighton", "United Kingdom"),
+    ("Cordoba", "Spain"),
+    ("Glasgow", "United Kingdom"),
+    ("Donostia", "Spain"),
+]
+
+# Cities missing from the SimpleMaps Basic dataset entirely -- not an
+# ADDITIONAL_CITIES lookup miss, the row just isn't in the source at all.
+# (Checked directly against the raw CSV before adding here -- don't add
+# something here without confirming it's truly absent, since a plain
+# ADDITIONAL_CITIES entry should be tried first.) Each entry is filled in
+# by hand and merged into the output as-is, tagged "manual_override".
+MANUAL_CITIES = [
+    {
+        # Absent from SimpleMaps Basic v1.91.1 under any spelling as of
+        # 2026-07-20 -- confirmed by grepping the raw CSV for "queenstown"
+        # and for New Zealand rows in the Otago region. Coordinates and
+        # population are from Stats NZ's subnational population estimate
+        # (Queenstown urban area, SSGA18 standard) at 30 June 2025.
+        "city": "Queenstown",
+        "city_ascii": "Queenstown",
+        "country": "New Zealand",
+        "iso2": "NZ",
+        "iso3": "NZL",
+        "admin_name": "Otago",
+        "lat": -45.0302,
+        "lng": 168.6627,
+        "population": 29000,
+        "capital": None,
+    },
 ]
 
 # ---------------------------------------------------------------------------
@@ -102,8 +221,19 @@ def _normalize(name: str) -> str:
 def resolve_additional_cities(df: pd.DataFrame, entries: list) -> pd.DataFrame:
     """
     Look up ADDITIONAL_CITIES entries by name (or name+country) in df.
-    Warns on ambiguous matches (picks the most populous) and missing ones
-    (skips) rather than failing the whole run.
+
+    (city, country) tuples resolve to a single row for that country
+    (warning and picking the most populous if that country itself has
+    more than one same-named city).
+
+    Plain city-name strings resolve to ONE row per country that has a
+    matching city -- the most populous such city within each country --
+    so a name that's ambiguous across countries (e.g. "Queenstown" in New
+    Zealand and South Africa) pulls in all of them, while a name that
+    merely recurs within one country (e.g. several US Dublins) still only
+    contributes a single row for that country.
+
+    Missing names are skipped with a warning rather than failing the run.
     """
     rows = []
     for entry in entries:
@@ -114,30 +244,45 @@ def resolve_additional_cities(df: pd.DataFrame, entries: list) -> pd.DataFrame:
                 & (df["country"].apply(_normalize) == _normalize(country))
             ]
             label = f"{city}, {country}"
-        else:
-            city = entry
-            matches = df[df["city_ascii"].apply(_normalize) == _normalize(city)]
-            label = city
 
-        if matches.empty:
-            print(f"[ADDITIONAL_CITIES] WARNING: no match found for {label!r} -- skipped")
+            if matches.empty:
+                print(f"[ADDITIONAL_CITIES] WARNING: no match found for {label!r} -- skipped")
+                continue
+
+            if len(matches) > 1:
+                options = ", ".join(
+                    f"{r.city}, {r.admin_name} ({r.country}), pop {r.population:,.0f}"
+                    if pd.notna(r.population)
+                    else f"{r.city}, {r.admin_name} ({r.country}), pop unknown"
+                    for r in matches.itertuples()
+                )
+                print(
+                    f"[ADDITIONAL_CITIES] WARNING: {label!r} is ambiguous ({options}) "
+                    f"-- using the most populous match."
+                )
+                matches = matches.sort_values("population", ascending=False)
+
+            rows.append(matches.iloc[0])
             continue
 
-        if len(matches) > 1:
-            options = ", ".join(
-                f"{r.city}, {r.admin_name} ({r.country}), pop {r.population:,.0f}"
-                if pd.notna(r.population)
-                else f"{r.city}, {r.admin_name} ({r.country}), pop unknown"
-                for r in matches.itertuples()
-            )
-            print(
-                f"[ADDITIONAL_CITIES] WARNING: {label!r} is ambiguous ({options}) "
-                f"-- using the most populous match. Disambiguate with a "
-                f"(city, country) tuple if that's not the one you meant."
-            )
-            matches = matches.sort_values("population", ascending=False)
+        city = entry
+        matches = df[df["city_ascii"].apply(_normalize) == _normalize(city)]
 
-        rows.append(matches.iloc[0])
+        if matches.empty:
+            print(f"[ADDITIONAL_CITIES] WARNING: no match found for {city!r} -- skipped")
+            continue
+
+        countries = sorted(matches["country"].unique())
+        if len(countries) > 1:
+            print(
+                f"[ADDITIONAL_CITIES] {city!r} matches {len(countries)} countries "
+                f"({', '.join(countries)}) -- including the most populous city "
+                f"from each. Use a (city, country) tuple instead if you only want one."
+            )
+
+        by_pop = matches.sort_values("population", ascending=False)
+        for _, group in by_pop.groupby("country", sort=False):
+            rows.append(group.iloc[0])
 
     if not rows:
         return df.iloc[0:0]
@@ -180,12 +325,27 @@ def build_tourist_cities(df: pd.DataFrame) -> dict:
         cities.append(_row_to_dict(row, "additional_cities"))
         seen_ids.add(row.id)
 
+    # (city_ascii, country) pairs already covered, for dedup against
+    # MANUAL_CITIES -- these entries have no simplemaps id to key off of.
+    seen_name_country = {(c["city_ascii"].casefold(), c["country"].casefold()) for c in cities}
+    for manual in MANUAL_CITIES:
+        key = (manual["city_ascii"].casefold(), manual["country"].casefold())
+        if key in seen_name_country:
+            print(
+                f"[MANUAL_CITIES] {manual['city']}, {manual['country']!r} is already "
+                f"present from another source -- skipped duplicate."
+            )
+            continue
+        cities.append({**manual, "simplemaps_id": None, "included_reason": "manual_override"})
+        seen_name_country.add(key)
+
     cities.sort(key=lambda c: (c["population"] is None, -(c["population"] or 0)))
 
     return {
         "source": ATTRIBUTION,
         "top_n_cities_by_population": TOP_N_CITIES_BY_POPULATION,
         "additional_cities_requested": len(ADDITIONAL_CITIES),
+        "manual_cities_added": len(MANUAL_CITIES),
         "total_cities": len(cities),
         "cities": cities,
     }

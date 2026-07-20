@@ -70,6 +70,19 @@ Tries Kaggle via `kagglehub` first (needs Kaggle API credentials — see
 `data/README.md`), and automatically falls back to the same dataset's
 CSV on GitHub if that fails for any reason, no credentials needed.
 
+```
+python scripts/build_country_aliases.py
+```
+
+Builds `data/reference/country_aliases.json` — a canonical iso3-keyed
+country registry with alternate spellings (USA vs United States, Chinese
+Mainland vs China, Türkiye vs Turkey, etc.), so different sources' country
+strings can be normalized before joining. Import `normalize_country()`
+from `data/scripts/country_lookup.py` to use it in new scripts; run that
+module's CLI mode against a new source's country column to check for
+unmapped strings first. See `data/README.md` for the full list of known
+aliases and how to extend it.
+
 ## Scoring
 
 ```

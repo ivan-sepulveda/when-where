@@ -536,3 +536,161 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   CSV header and sample rows fetched directly from GitHub. The
   kagglehub-fails→fallback logic, `--force-fallback`, and the raw/ copy
   behavior were also verified end-to-end with both paths mocked.
+
+### Country name crosswalk (`reference/country_aliases.json`)
+
+- **Problem:** every source names countries differently — SimpleMaps says
+  "United States", Michelin's scraped `location_country` says "USA" for
+  some rows and "Chinese Mainland" for China, "Türkiye" instead of
+  "Turkey", "Hong Kong SAR China" instead of "Hong Kong", and even leaks
+  raw iso3 codes ("ARE", "THA") into the field for a handful of rows.
+  Matching cities across sources by raw country string alone silently
+  drops most real matches.
+- **Script:** `scripts/build_country_aliases.py`. Canonical country
+  names/iso2/iso3 come from the *full* SimpleMaps World Cities Database
+  download (the raw ~50K-row CSV already cached at
+  `raw/simplemaps/simplemaps_worldcities_basicv1.91.1.zip` by
+  `fetch_tourist_cities.py` — not the trimmed `tourist_cities.json`
+  subset), giving full coverage of every country SimpleMaps recognizes
+  (241), not just the ones with a top-N-population city. A hand-maintained
+  `EXTRA_ALIASES` dict at the top of the script adds alternate spellings
+  seen in *other* sources that don't match SimpleMaps' own naming (the 9
+  cases above). The script warns if `EXTRA_ALIASES` ever references an
+  iso3 that isn't in the canonical list (a typo-catcher).
+- **Output:** `reference/country_aliases.json`:
+  ```json
+  {
+    "generated": "2026-07-19",
+    "canonical_source": "SimpleMaps World Cities Database (Basic) -- see fetch_tourist_cities.py",
+    "total_countries": 241,
+    "countries": {
+      "USA": {
+        "canonical_name": "United States",
+        "iso2": "US",
+        "aliases": ["u.s.a.", "united states", "united states of america", "us", "usa"]
+      },
+      ...
+    }
+  }
+  ```
+  Aliases are stored casefolded/pre-normalized for direct lookup.
+- **Run:**
+  ```
+  python scripts/build_country_aliases.py
+  ```
+  No network needed — reads the already-cached SimpleMaps zip. Run once
+  after `fetch_tourist_cities.py` has been run at least once (to populate
+  that cache), and rerun whenever `EXTRA_ALIASES` gets a new entry.
+- **Verified for real** (rare for this project — no sandbox network
+  restriction applies here, since it only reads a local cached file):
+  ran end-to-end, produced 241 countries, and all 9 `EXTRA_ALIASES`
+  entries were spot-checked against the real canonical list.
+
+### `scripts/country_lookup.py` — shared normalization helper
+
+- **What it does:** a small importable module (not a fetch script) built
+  on top of `country_aliases.json`. `normalize_country(name)` returns the
+  canonical iso3 for any country string, or `None` if unrecognized
+  (handles `None`/NaN input safely). `report_unmapped(values)` takes any
+  iterable of country strings and returns the distinct ones that don't
+  resolve — the diagnostic tool for onboarding a new source.
+- **CLI mode** — scan a CSV column for country strings that don't
+  resolve yet:
+  ```
+  python scripts/country_lookup.py ../processed/michelin_restaurants.csv --column location_country
+  ```
+  Run this against any new source's country column before joining it to
+  other data. If it reports unmapped strings, add them to `EXTRA_ALIASES`
+  in `build_country_aliases.py` (mapped to the correct iso3) and rerun
+  that script to regenerate `country_aliases.json`. Verified for real
+  against `processed/michelin_restaurants.csv`: zero unmapped strings
+  (547 rows have a blank `location_country` outright — Singapore, Dubai,
+  Abu Dhabi, Macau, and Luxembourg all appear as a bare city with no
+  ", Country" suffix in the source `Location` field, since the city
+  *is* the country/territory — these are handled separately as a
+  city-name → country lookup, not a country-alias problem).
+- **Import usage:**
+  ```python
+  from country_lookup import normalize_country
+  normalize_country("USA")              # -> "USA"
+  normalize_country("Chinese Mainland")  # -> "CHN"
+  normalize_country("nonsense")          # -> None
+  ```
+### `scripts/diff_michelin_vs_tourist_cities.py` — which Michelin cities aren't tracked yet
+
+- **What it does:** compares `processed/michelin_restaurants.csv` against
+  `reference/tourist_cities.json` and reports which Michelin (city,
+  country) pairs have no match in the tourist cities list — a candidate
+  list for expanding `ADDITIONAL_CITIES` in `fetch_tourist_cities.py`, and
+  a sanity check on how much Michelin coverage the current
+  `TOP_N_CITIES_BY_POPULATION` cutoff actually captures.
+- **Matching logic** (see the script's docstring for the full version):
+  - Country strings normalized to iso3 via `country_lookup.normalize_country()`.
+  - City strings matched against **both** `tourist_cities.json`'s `city`
+    and `city_ascii` fields, not just one — Michelin's own spelling is
+    inconsistent about diacritics. It drops macrons for Japanese cities
+    ("Kyoto", not "Kyōto" — only matches `city_ascii`) but keeps accents
+    for others ("São Paulo", not "Sao Paulo" — only matches `city`). An
+    earlier version of this check matched `city_ascii` only, which
+    silently produced false "missing" results for São Paulo, Montréal,
+    and every other accented city Michelin spells with the accent intact.
+  - A trailing US two-letter state-code suffix is stripped from the city
+    side if still present.
+  - 5 Michelin `Location` values are a bare city name with no
+    ", Country" suffix, because the city *is* the country/territory
+    (Singapore, Dubai, Abu Dhabi, Macau, Luxembourg) — handled via a
+    small `CITY_ONLY_COUNTRY` lookup in the script rather than
+    `normalize_country()`.
+  - `CITY_ALIASES`: a hand-maintained list of genuine name variants
+    between the two sources — not diacritics, not a suffix rule, just a
+    different name for the same place. Found by manually scanning the
+    top of the "missing" output and checking `tourist_cities.json` for a
+    near-miss, the same way `EXTRA_ALIASES` was built for countries.
+    Confirmed so far: Seville↔Sevilla, Québec↔Quebec City,
+    Antwerpen↔Antwerp, Frankfurt on the Main↔Frankfurt, Hsinchu
+    County/Hsinchu City↔Hsinchu, Alacant↔Alicante, Cebu↔Cebu City,
+    Taguig - Metro Manila↔Taguig City, Dublin City↔Dublin, City of
+    Bristol↔Bristol. There's no general rule that catches these (unlike
+    the diacritic/suffix cases above) — add new ones to `CITY_ALIASES` as
+    they turn up when scanning future runs.
+- **Output:** `processed/michelin_cities_missing_from_tourist_cities.csv`
+  — `Rank`, `City`, `Country (ISO3)`, `Restaurant Count`, sorted by
+  restaurant count descending.
+- **Run:**
+  ```
+  python scripts/diff_michelin_vs_tourist_cities.py
+  ```
+- **Latest real run** (`tourist_cities.json` at 2072 cities, 19
+  `CITY_ALIASES` entries applied): 276 of 6,094 distinct Michelin (city,
+  country) pairs match; 5,818 don't. Not a data bug — `tourist_cities.json`
+  is a curated top-N-by-population list plus manual additions, while
+  Michelin covers many well-known but smaller/non-top-N destinations
+  that don't crack the population cutoff. The output CSV is the
+  candidate list for `ADDITIONAL_CITIES` if any of the missing entries
+  should be force-included regardless of population. Manually scanning
+  the top ~30-50 rows of a fresh run for further name-variant aliases
+  (like the `CITY_ALIASES` entries above) before trusting the full
+  "missing" count is recommended — the automated matching only catches
+  diacritics and known suffix patterns, not arbitrary rename variants.
+- **Cities confirmed absent from SimpleMaps' Basic tier under any
+  spelling tried** (so they can't be added to `ADDITIONAL_CITIES` at
+  all, not a matching problem): Cardiff, Miguel Hidalgo (a Mexico City
+  borough), Nonthaburi, Positano, Uccle (a Brussels municipality),
+  Courchevel, Saint Moritz, Lech am Arlberg, Saint-Tropez, Megève, and
+  the New Zealand Queenstown (only a South African and a Tasmanian
+  Queenstown exist in the Basic tier — Michelin's Queenstown restaurants
+  can't be geo-matched via this source). Monaco similarly has zero city
+  entries in the Basic tier at all. If any of these matter for the
+  scoring model later, they'd need a different source or manual
+  lat/long entry, since the Basic tier's ~50K "prominent cities" cutoff
+  doesn't include them.
+- **Name-variant additions**: several `ADDITIONAL_CITIES` entries use
+  SimpleMaps' shorter/different spelling rather than Michelin's exact
+  string, with a matching `CITY_ALIASES` entry added so the diff still
+  recognizes them: `Puebla` (Michelin: "Heróica Puebla de Zaragoza"),
+  `Las Palmas` (Michelin: "Las Palmas de Gran Canaria"), `Donostia`
+  (Michelin: "Donostia / San Sebastián"), `Brighton` (Michelin:
+  "Brighton and Hove"), `Phangnga` (Michelin: "Phang-Nga"), `Les
+  Sables-d'Olonne` (Michelin: "Les Sables d'Olonne", with a curly
+  apostrophe and no hyphen in the source), and `Glasgow` (Michelin:
+  "Glasgow City").

@@ -1,0 +1,1710 @@
+{
+  "generated": "2026-07-19",
+  "canonical_source": "SimpleMaps World Cities Database (Basic) -- see fetch_tourist_cities.py",
+  "total_countries": 241,
+  "countries": {
+    "ABW": {
+      "canonical_name": "Aruba",
+      "iso2": "AW",
+      "aliases": [
+        "aruba"
+      ]
+    },
+    "AFG": {
+      "canonical_name": "Afghanistan",
+      "iso2": "AF",
+      "aliases": [
+        "afghanistan"
+      ]
+    },
+    "AGO": {
+      "canonical_name": "Angola",
+      "iso2": "AO",
+      "aliases": [
+        "angola"
+      ]
+    },
+    "AIA": {
+      "canonical_name": "Anguilla",
+      "iso2": "AI",
+      "aliases": [
+        "anguilla"
+      ]
+    },
+    "ALB": {
+      "canonical_name": "Albania",
+      "iso2": "AL",
+      "aliases": [
+        "albania"
+      ]
+    },
+    "AND": {
+      "canonical_name": "Andorra",
+      "iso2": "AD",
+      "aliases": [
+        "andorra"
+      ]
+    },
+    "ARE": {
+      "canonical_name": "United Arab Emirates",
+      "iso2": "AE",
+      "aliases": [
+        "are",
+        "united arab emirates"
+      ]
+    },
+    "ARG": {
+      "canonical_name": "Argentina",
+      "iso2": "AR",
+      "aliases": [
+        "argentina"
+      ]
+    },
+    "ARM": {
+      "canonical_name": "Armenia",
+      "iso2": "AM",
+      "aliases": [
+        "armenia"
+      ]
+    },
+    "ASM": {
+      "canonical_name": "American Samoa",
+      "iso2": "AS",
+      "aliases": [
+        "american samoa"
+      ]
+    },
+    "ATG": {
+      "canonical_name": "Antigua and Barbuda",
+      "iso2": "AG",
+      "aliases": [
+        "antigua and barbuda"
+      ]
+    },
+    "AUS": {
+      "canonical_name": "Australia",
+      "iso2": "AU",
+      "aliases": [
+        "australia"
+      ]
+    },
+    "AUT": {
+      "canonical_name": "Austria",
+      "iso2": "AT",
+      "aliases": [
+        "austria"
+      ]
+    },
+    "AZE": {
+      "canonical_name": "Azerbaijan",
+      "iso2": "AZ",
+      "aliases": [
+        "azerbaijan"
+      ]
+    },
+    "BDI": {
+      "canonical_name": "Burundi",
+      "iso2": "BI",
+      "aliases": [
+        "burundi"
+      ]
+    },
+    "BEL": {
+      "canonical_name": "Belgium",
+      "iso2": "BE",
+      "aliases": [
+        "belgium"
+      ]
+    },
+    "BEN": {
+      "canonical_name": "Benin",
+      "iso2": "BJ",
+      "aliases": [
+        "benin"
+      ]
+    },
+    "BES": {
+      "canonical_name": "Bonaire, Sint Eustatius, and Saba",
+      "iso2": "BQ",
+      "aliases": [
+        "bonaire, sint eustatius, and saba"
+      ]
+    },
+    "BFA": {
+      "canonical_name": "Burkina Faso",
+      "iso2": "BF",
+      "aliases": [
+        "burkina faso"
+      ]
+    },
+    "BGD": {
+      "canonical_name": "Bangladesh",
+      "iso2": "BD",
+      "aliases": [
+        "bangladesh"
+      ]
+    },
+    "BGR": {
+      "canonical_name": "Bulgaria",
+      "iso2": "BG",
+      "aliases": [
+        "bulgaria"
+      ]
+    },
+    "BHR": {
+      "canonical_name": "Bahrain",
+      "iso2": "BH",
+      "aliases": [
+        "bahrain"
+      ]
+    },
+    "BHS": {
+      "canonical_name": "Bahamas, The",
+      "iso2": "BS",
+      "aliases": [
+        "bahamas, the"
+      ]
+    },
+    "BIH": {
+      "canonical_name": "Bosnia and Herzegovina",
+      "iso2": "BA",
+      "aliases": [
+        "bosnia and herzegovina"
+      ]
+    },
+    "BLM": {
+      "canonical_name": "Saint Barthelemy",
+      "iso2": "BL",
+      "aliases": [
+        "saint barthelemy"
+      ]
+    },
+    "BLR": {
+      "canonical_name": "Belarus",
+      "iso2": "BY",
+      "aliases": [
+        "belarus"
+      ]
+    },
+    "BLZ": {
+      "canonical_name": "Belize",
+      "iso2": "BZ",
+      "aliases": [
+        "belize"
+      ]
+    },
+    "BMU": {
+      "canonical_name": "Bermuda",
+      "iso2": "BM",
+      "aliases": [
+        "bermuda"
+      ]
+    },
+    "BOL": {
+      "canonical_name": "Bolivia",
+      "iso2": "BO",
+      "aliases": [
+        "bolivia"
+      ]
+    },
+    "BRA": {
+      "canonical_name": "Brazil",
+      "iso2": "BR",
+      "aliases": [
+        "brazil"
+      ]
+    },
+    "BRB": {
+      "canonical_name": "Barbados",
+      "iso2": "BB",
+      "aliases": [
+        "barbados"
+      ]
+    },
+    "BRN": {
+      "canonical_name": "Brunei",
+      "iso2": "BN",
+      "aliases": [
+        "brunei"
+      ]
+    },
+    "BTN": {
+      "canonical_name": "Bhutan",
+      "iso2": "BT",
+      "aliases": [
+        "bhutan"
+      ]
+    },
+    "BWA": {
+      "canonical_name": "Botswana",
+      "iso2": "BW",
+      "aliases": [
+        "botswana"
+      ]
+    },
+    "CAF": {
+      "canonical_name": "Central African Republic",
+      "iso2": "CF",
+      "aliases": [
+        "central african republic"
+      ]
+    },
+    "CAN": {
+      "canonical_name": "Canada",
+      "iso2": "CA",
+      "aliases": [
+        "canada"
+      ]
+    },
+    "CHE": {
+      "canonical_name": "Switzerland",
+      "iso2": "CH",
+      "aliases": [
+        "switzerland"
+      ]
+    },
+    "CHL": {
+      "canonical_name": "Chile",
+      "iso2": "CL",
+      "aliases": [
+        "chile"
+      ]
+    },
+    "CHN": {
+      "canonical_name": "China",
+      "iso2": "CN",
+      "aliases": [
+        "china",
+        "chinese mainland",
+        "people's republic of china",
+        "prc"
+      ]
+    },
+    "CIV": {
+      "canonical_name": "Côte d’Ivoire",
+      "iso2": "CI",
+      "aliases": [
+        "côte d’ivoire"
+      ]
+    },
+    "CMR": {
+      "canonical_name": "Cameroon",
+      "iso2": "CM",
+      "aliases": [
+        "cameroon"
+      ]
+    },
+    "COD": {
+      "canonical_name": "Congo (Kinshasa)",
+      "iso2": "CD",
+      "aliases": [
+        "congo (kinshasa)"
+      ]
+    },
+    "COG": {
+      "canonical_name": "Congo (Brazzaville)",
+      "iso2": "CG",
+      "aliases": [
+        "congo (brazzaville)"
+      ]
+    },
+    "COK": {
+      "canonical_name": "Cook Islands",
+      "iso2": "CK",
+      "aliases": [
+        "cook islands"
+      ]
+    },
+    "COL": {
+      "canonical_name": "Colombia",
+      "iso2": "CO",
+      "aliases": [
+        "colombia"
+      ]
+    },
+    "COM": {
+      "canonical_name": "Comoros",
+      "iso2": "KM",
+      "aliases": [
+        "comoros"
+      ]
+    },
+    "CPV": {
+      "canonical_name": "Cabo Verde",
+      "iso2": "CV",
+      "aliases": [
+        "cabo verde"
+      ]
+    },
+    "CRI": {
+      "canonical_name": "Costa Rica",
+      "iso2": "CR",
+      "aliases": [
+        "costa rica"
+      ]
+    },
+    "CUB": {
+      "canonical_name": "Cuba",
+      "iso2": "CU",
+      "aliases": [
+        "cuba"
+      ]
+    },
+    "CUW": {
+      "canonical_name": "Curaçao",
+      "iso2": "CW",
+      "aliases": [
+        "curaçao"
+      ]
+    },
+    "CXR": {
+      "canonical_name": "Christmas Island",
+      "iso2": "CX",
+      "aliases": [
+        "christmas island"
+      ]
+    },
+    "CYM": {
+      "canonical_name": "Cayman Islands",
+      "iso2": "KY",
+      "aliases": [
+        "cayman islands"
+      ]
+    },
+    "CYP": {
+      "canonical_name": "Cyprus",
+      "iso2": "CY",
+      "aliases": [
+        "cyprus"
+      ]
+    },
+    "CZE": {
+      "canonical_name": "Czechia",
+      "iso2": "CZ",
+      "aliases": [
+        "czechia"
+      ]
+    },
+    "DEU": {
+      "canonical_name": "Germany",
+      "iso2": "DE",
+      "aliases": [
+        "germany"
+      ]
+    },
+    "DJI": {
+      "canonical_name": "Djibouti",
+      "iso2": "DJ",
+      "aliases": [
+        "djibouti"
+      ]
+    },
+    "DMA": {
+      "canonical_name": "Dominica",
+      "iso2": "DM",
+      "aliases": [
+        "dominica"
+      ]
+    },
+    "DNK": {
+      "canonical_name": "Denmark",
+      "iso2": "DK",
+      "aliases": [
+        "denmark"
+      ]
+    },
+    "DOM": {
+      "canonical_name": "Dominican Republic",
+      "iso2": "DO",
+      "aliases": [
+        "dominican republic"
+      ]
+    },
+    "DZA": {
+      "canonical_name": "Algeria",
+      "iso2": "DZ",
+      "aliases": [
+        "algeria"
+      ]
+    },
+    "ECU": {
+      "canonical_name": "Ecuador",
+      "iso2": "EC",
+      "aliases": [
+        "ecuador"
+      ]
+    },
+    "EGY": {
+      "canonical_name": "Egypt",
+      "iso2": "EG",
+      "aliases": [
+        "egypt"
+      ]
+    },
+    "ERI": {
+      "canonical_name": "Eritrea",
+      "iso2": "ER",
+      "aliases": [
+        "eritrea"
+      ]
+    },
+    "ESP": {
+      "canonical_name": "Spain",
+      "iso2": "ES",
+      "aliases": [
+        "spain"
+      ]
+    },
+    "EST": {
+      "canonical_name": "Estonia",
+      "iso2": "EE",
+      "aliases": [
+        "estonia"
+      ]
+    },
+    "ETH": {
+      "canonical_name": "Ethiopia",
+      "iso2": "ET",
+      "aliases": [
+        "ethiopia"
+      ]
+    },
+    "FIN": {
+      "canonical_name": "Finland",
+      "iso2": "FI",
+      "aliases": [
+        "finland"
+      ]
+    },
+    "FJI": {
+      "canonical_name": "Fiji",
+      "iso2": "FJ",
+      "aliases": [
+        "fiji"
+      ]
+    },
+    "FLK": {
+      "canonical_name": "Falkland Islands (Islas Malvinas)",
+      "iso2": "FK",
+      "aliases": [
+        "falkland islands (islas malvinas)"
+      ]
+    },
+    "FRA": {
+      "canonical_name": "France",
+      "iso2": "FR",
+      "aliases": [
+        "france"
+      ]
+    },
+    "FRO": {
+      "canonical_name": "Faroe Islands",
+      "iso2": "FO",
+      "aliases": [
+        "faroe islands"
+      ]
+    },
+    "FSM": {
+      "canonical_name": "Micronesia, Federated States of",
+      "iso2": "FM",
+      "aliases": [
+        "micronesia, federated states of"
+      ]
+    },
+    "GAB": {
+      "canonical_name": "Gabon",
+      "iso2": "GA",
+      "aliases": [
+        "gabon"
+      ]
+    },
+    "GBR": {
+      "canonical_name": "United Kingdom",
+      "iso2": "GB",
+      "aliases": [
+        "united kingdom"
+      ]
+    },
+    "GEO": {
+      "canonical_name": "Georgia",
+      "iso2": "GE",
+      "aliases": [
+        "georgia"
+      ]
+    },
+    "GGY": {
+      "canonical_name": "Guernsey",
+      "iso2": "GG",
+      "aliases": [
+        "guernsey"
+      ]
+    },
+    "GHA": {
+      "canonical_name": "Ghana",
+      "iso2": "GH",
+      "aliases": [
+        "ghana"
+      ]
+    },
+    "GIB": {
+      "canonical_name": "Gibraltar",
+      "iso2": "GI",
+      "aliases": [
+        "gibraltar"
+      ]
+    },
+    "GIN": {
+      "canonical_name": "Guinea",
+      "iso2": "GN",
+      "aliases": [
+        "guinea"
+      ]
+    },
+    "GLP": {
+      "canonical_name": "Guadeloupe",
+      "iso2": "GP",
+      "aliases": [
+        "guadeloupe"
+      ]
+    },
+    "GMB": {
+      "canonical_name": "Gambia, The",
+      "iso2": "GM",
+      "aliases": [
+        "gambia, the"
+      ]
+    },
+    "GNB": {
+      "canonical_name": "Guinea-Bissau",
+      "iso2": "GW",
+      "aliases": [
+        "guinea-bissau"
+      ]
+    },
+    "GNQ": {
+      "canonical_name": "Equatorial Guinea",
+      "iso2": "GQ",
+      "aliases": [
+        "equatorial guinea"
+      ]
+    },
+    "GRC": {
+      "canonical_name": "Greece",
+      "iso2": "GR",
+      "aliases": [
+        "greece"
+      ]
+    },
+    "GRD": {
+      "canonical_name": "Grenada",
+      "iso2": "GD",
+      "aliases": [
+        "grenada"
+      ]
+    },
+    "GRL": {
+      "canonical_name": "Greenland",
+      "iso2": "GL",
+      "aliases": [
+        "greenland"
+      ]
+    },
+    "GTM": {
+      "canonical_name": "Guatemala",
+      "iso2": "GT",
+      "aliases": [
+        "guatemala"
+      ]
+    },
+    "GUF": {
+      "canonical_name": "French Guiana",
+      "iso2": "GF",
+      "aliases": [
+        "french guiana"
+      ]
+    },
+    "GUM": {
+      "canonical_name": "Guam",
+      "iso2": "GU",
+      "aliases": [
+        "guam"
+      ]
+    },
+    "GUY": {
+      "canonical_name": "Guyana",
+      "iso2": "GY",
+      "aliases": [
+        "guyana"
+      ]
+    },
+    "HKG": {
+      "canonical_name": "Hong Kong",
+      "iso2": "HK",
+      "aliases": [
+        "hong kong",
+        "hong kong sar china"
+      ]
+    },
+    "HND": {
+      "canonical_name": "Honduras",
+      "iso2": "HN",
+      "aliases": [
+        "honduras"
+      ]
+    },
+    "HRV": {
+      "canonical_name": "Croatia",
+      "iso2": "HR",
+      "aliases": [
+        "croatia"
+      ]
+    },
+    "HTI": {
+      "canonical_name": "Haiti",
+      "iso2": "HT",
+      "aliases": [
+        "haiti"
+      ]
+    },
+    "HUN": {
+      "canonical_name": "Hungary",
+      "iso2": "HU",
+      "aliases": [
+        "hungary"
+      ]
+    },
+    "IDN": {
+      "canonical_name": "Indonesia",
+      "iso2": "ID",
+      "aliases": [
+        "indonesia"
+      ]
+    },
+    "IMN": {
+      "canonical_name": "Isle of Man",
+      "iso2": "IM",
+      "aliases": [
+        "isle of man"
+      ]
+    },
+    "IND": {
+      "canonical_name": "India",
+      "iso2": "IN",
+      "aliases": [
+        "india"
+      ]
+    },
+    "IRL": {
+      "canonical_name": "Ireland",
+      "iso2": "IE",
+      "aliases": [
+        "ireland"
+      ]
+    },
+    "IRN": {
+      "canonical_name": "Iran",
+      "iso2": "IR",
+      "aliases": [
+        "iran"
+      ]
+    },
+    "IRQ": {
+      "canonical_name": "Iraq",
+      "iso2": "IQ",
+      "aliases": [
+        "iraq"
+      ]
+    },
+    "ISL": {
+      "canonical_name": "Iceland",
+      "iso2": "IS",
+      "aliases": [
+        "iceland"
+      ]
+    },
+    "ISR": {
+      "canonical_name": "Israel",
+      "iso2": "IL",
+      "aliases": [
+        "israel"
+      ]
+    },
+    "ITA": {
+      "canonical_name": "Italy",
+      "iso2": "IT",
+      "aliases": [
+        "italy"
+      ]
+    },
+    "JAM": {
+      "canonical_name": "Jamaica",
+      "iso2": "JM",
+      "aliases": [
+        "jamaica"
+      ]
+    },
+    "JEY": {
+      "canonical_name": "Jersey",
+      "iso2": "JE",
+      "aliases": [
+        "jersey"
+      ]
+    },
+    "JOR": {
+      "canonical_name": "Jordan",
+      "iso2": "JO",
+      "aliases": [
+        "jordan"
+      ]
+    },
+    "JPN": {
+      "canonical_name": "Japan",
+      "iso2": "JP",
+      "aliases": [
+        "japan"
+      ]
+    },
+    "KAZ": {
+      "canonical_name": "Kazakhstan",
+      "iso2": "KZ",
+      "aliases": [
+        "kazakhstan"
+      ]
+    },
+    "KEN": {
+      "canonical_name": "Kenya",
+      "iso2": "KE",
+      "aliases": [
+        "kenya"
+      ]
+    },
+    "KGZ": {
+      "canonical_name": "Kyrgyzstan",
+      "iso2": "KG",
+      "aliases": [
+        "kyrgyzstan"
+      ]
+    },
+    "KHM": {
+      "canonical_name": "Cambodia",
+      "iso2": "KH",
+      "aliases": [
+        "cambodia"
+      ]
+    },
+    "KIR": {
+      "canonical_name": "Kiribati",
+      "iso2": "KI",
+      "aliases": [
+        "kiribati"
+      ]
+    },
+    "KNA": {
+      "canonical_name": "Saint Kitts and Nevis",
+      "iso2": "KN",
+      "aliases": [
+        "saint kitts and nevis"
+      ]
+    },
+    "KOR": {
+      "canonical_name": "Korea, South",
+      "iso2": "KR",
+      "aliases": [
+        "korea, south",
+        "republic of korea",
+        "south korea"
+      ]
+    },
+    "KWT": {
+      "canonical_name": "Kuwait",
+      "iso2": "KW",
+      "aliases": [
+        "kuwait"
+      ]
+    },
+    "LAO": {
+      "canonical_name": "Laos",
+      "iso2": "LA",
+      "aliases": [
+        "laos"
+      ]
+    },
+    "LBN": {
+      "canonical_name": "Lebanon",
+      "iso2": "LB",
+      "aliases": [
+        "lebanon"
+      ]
+    },
+    "LBR": {
+      "canonical_name": "Liberia",
+      "iso2": "LR",
+      "aliases": [
+        "liberia"
+      ]
+    },
+    "LBY": {
+      "canonical_name": "Libya",
+      "iso2": "LY",
+      "aliases": [
+        "libya"
+      ]
+    },
+    "LCA": {
+      "canonical_name": "Saint Lucia",
+      "iso2": "LC",
+      "aliases": [
+        "saint lucia"
+      ]
+    },
+    "LIE": {
+      "canonical_name": "Liechtenstein",
+      "iso2": "LI",
+      "aliases": [
+        "liechtenstein"
+      ]
+    },
+    "LKA": {
+      "canonical_name": "Sri Lanka",
+      "iso2": "LK",
+      "aliases": [
+        "sri lanka"
+      ]
+    },
+    "LSO": {
+      "canonical_name": "Lesotho",
+      "iso2": "LS",
+      "aliases": [
+        "lesotho"
+      ]
+    },
+    "LTU": {
+      "canonical_name": "Lithuania",
+      "iso2": "LT",
+      "aliases": [
+        "lithuania"
+      ]
+    },
+    "LUX": {
+      "canonical_name": "Luxembourg",
+      "iso2": "LU",
+      "aliases": [
+        "luxembourg"
+      ]
+    },
+    "LVA": {
+      "canonical_name": "Latvia",
+      "iso2": "LV",
+      "aliases": [
+        "latvia"
+      ]
+    },
+    "MAC": {
+      "canonical_name": "Macau",
+      "iso2": "MO",
+      "aliases": [
+        "macau"
+      ]
+    },
+    "MAF": {
+      "canonical_name": "Saint Martin",
+      "iso2": "MF",
+      "aliases": [
+        "saint martin"
+      ]
+    },
+    "MAR": {
+      "canonical_name": "Morocco",
+      "iso2": "MA",
+      "aliases": [
+        "morocco"
+      ]
+    },
+    "MCO": {
+      "canonical_name": "Monaco",
+      "iso2": "MC",
+      "aliases": [
+        "monaco",
+        "principality of monaco"
+      ]
+    },
+    "MDA": {
+      "canonical_name": "Moldova",
+      "iso2": "MD",
+      "aliases": [
+        "moldova"
+      ]
+    },
+    "MDG": {
+      "canonical_name": "Madagascar",
+      "iso2": "MG",
+      "aliases": [
+        "madagascar"
+      ]
+    },
+    "MDV": {
+      "canonical_name": "Maldives",
+      "iso2": "MV",
+      "aliases": [
+        "maldives"
+      ]
+    },
+    "MEX": {
+      "canonical_name": "Mexico",
+      "iso2": "MX",
+      "aliases": [
+        "mexico"
+      ]
+    },
+    "MHL": {
+      "canonical_name": "Marshall Islands",
+      "iso2": "MH",
+      "aliases": [
+        "marshall islands"
+      ]
+    },
+    "MKD": {
+      "canonical_name": "North Macedonia",
+      "iso2": "MK",
+      "aliases": [
+        "north macedonia"
+      ]
+    },
+    "MLI": {
+      "canonical_name": "Mali",
+      "iso2": "ML",
+      "aliases": [
+        "mali"
+      ]
+    },
+    "MLT": {
+      "canonical_name": "Malta",
+      "iso2": "MT",
+      "aliases": [
+        "malta"
+      ]
+    },
+    "MMR": {
+      "canonical_name": "Burma",
+      "iso2": "MM",
+      "aliases": [
+        "burma"
+      ]
+    },
+    "MNE": {
+      "canonical_name": "Montenegro",
+      "iso2": "ME",
+      "aliases": [
+        "montenegro"
+      ]
+    },
+    "MNG": {
+      "canonical_name": "Mongolia",
+      "iso2": "MN",
+      "aliases": [
+        "mongolia"
+      ]
+    },
+    "MNP": {
+      "canonical_name": "Northern Mariana Islands",
+      "iso2": "MP",
+      "aliases": [
+        "northern mariana islands"
+      ]
+    },
+    "MOZ": {
+      "canonical_name": "Mozambique",
+      "iso2": "MZ",
+      "aliases": [
+        "mozambique"
+      ]
+    },
+    "MRT": {
+      "canonical_name": "Mauritania",
+      "iso2": "MR",
+      "aliases": [
+        "mauritania"
+      ]
+    },
+    "MSR": {
+      "canonical_name": "Montserrat",
+      "iso2": "MS",
+      "aliases": [
+        "montserrat"
+      ]
+    },
+    "MTQ": {
+      "canonical_name": "Martinique",
+      "iso2": "MQ",
+      "aliases": [
+        "martinique"
+      ]
+    },
+    "MUS": {
+      "canonical_name": "Mauritius",
+      "iso2": "MU",
+      "aliases": [
+        "mauritius"
+      ]
+    },
+    "MWI": {
+      "canonical_name": "Malawi",
+      "iso2": "MW",
+      "aliases": [
+        "malawi"
+      ]
+    },
+    "MYS": {
+      "canonical_name": "Malaysia",
+      "iso2": "MY",
+      "aliases": [
+        "malaysia"
+      ]
+    },
+    "MYT": {
+      "canonical_name": "Mayotte",
+      "iso2": "YT",
+      "aliases": [
+        "mayotte"
+      ]
+    },
+    "NAM": {
+      "canonical_name": "Namibia",
+      "iso2": NaN,
+      "aliases": [
+        "namibia"
+      ]
+    },
+    "NCL": {
+      "canonical_name": "New Caledonia",
+      "iso2": "NC",
+      "aliases": [
+        "new caledonia"
+      ]
+    },
+    "NER": {
+      "canonical_name": "Niger",
+      "iso2": "NE",
+      "aliases": [
+        "niger"
+      ]
+    },
+    "NFK": {
+      "canonical_name": "Norfolk Island",
+      "iso2": "NF",
+      "aliases": [
+        "norfolk island"
+      ]
+    },
+    "NGA": {
+      "canonical_name": "Nigeria",
+      "iso2": "NG",
+      "aliases": [
+        "nigeria"
+      ]
+    },
+    "NIC": {
+      "canonical_name": "Nicaragua",
+      "iso2": "NI",
+      "aliases": [
+        "nicaragua"
+      ]
+    },
+    "NIU": {
+      "canonical_name": "Niue",
+      "iso2": "NU",
+      "aliases": [
+        "niue"
+      ]
+    },
+    "NLD": {
+      "canonical_name": "Netherlands",
+      "iso2": "NL",
+      "aliases": [
+        "netherlands"
+      ]
+    },
+    "NOR": {
+      "canonical_name": "Norway",
+      "iso2": "NO",
+      "aliases": [
+        "norway"
+      ]
+    },
+    "NPL": {
+      "canonical_name": "Nepal",
+      "iso2": "NP",
+      "aliases": [
+        "nepal"
+      ]
+    },
+    "NRU": {
+      "canonical_name": "Nauru",
+      "iso2": "NR",
+      "aliases": [
+        "nauru"
+      ]
+    },
+    "NZL": {
+      "canonical_name": "New Zealand",
+      "iso2": "NZ",
+      "aliases": [
+        "new zealand"
+      ]
+    },
+    "OMN": {
+      "canonical_name": "Oman",
+      "iso2": "OM",
+      "aliases": [
+        "oman"
+      ]
+    },
+    "PAK": {
+      "canonical_name": "Pakistan",
+      "iso2": "PK",
+      "aliases": [
+        "pakistan"
+      ]
+    },
+    "PAN": {
+      "canonical_name": "Panama",
+      "iso2": "PA",
+      "aliases": [
+        "panama"
+      ]
+    },
+    "PCN": {
+      "canonical_name": "Pitcairn Islands",
+      "iso2": "PN",
+      "aliases": [
+        "pitcairn islands"
+      ]
+    },
+    "PER": {
+      "canonical_name": "Peru",
+      "iso2": "PE",
+      "aliases": [
+        "peru"
+      ]
+    },
+    "PHL": {
+      "canonical_name": "Philippines",
+      "iso2": "PH",
+      "aliases": [
+        "philippines",
+        "the philippines"
+      ]
+    },
+    "PLW": {
+      "canonical_name": "Palau",
+      "iso2": "PW",
+      "aliases": [
+        "palau"
+      ]
+    },
+    "PNG": {
+      "canonical_name": "Papua New Guinea",
+      "iso2": "PG",
+      "aliases": [
+        "papua new guinea"
+      ]
+    },
+    "POL": {
+      "canonical_name": "Poland",
+      "iso2": "PL",
+      "aliases": [
+        "poland"
+      ]
+    },
+    "PRI": {
+      "canonical_name": "Puerto Rico",
+      "iso2": "PR",
+      "aliases": [
+        "puerto rico"
+      ]
+    },
+    "PRK": {
+      "canonical_name": "Korea, North",
+      "iso2": "KP",
+      "aliases": [
+        "korea, north"
+      ]
+    },
+    "PRT": {
+      "canonical_name": "Portugal",
+      "iso2": "PT",
+      "aliases": [
+        "portugal"
+      ]
+    },
+    "PRY": {
+      "canonical_name": "Paraguay",
+      "iso2": "PY",
+      "aliases": [
+        "paraguay"
+      ]
+    },
+    "PYF": {
+      "canonical_name": "French Polynesia",
+      "iso2": "PF",
+      "aliases": [
+        "french polynesia"
+      ]
+    },
+    "QAT": {
+      "canonical_name": "Qatar",
+      "iso2": "QA",
+      "aliases": [
+        "qatar"
+      ]
+    },
+    "REU": {
+      "canonical_name": "Reunion",
+      "iso2": "RE",
+      "aliases": [
+        "reunion"
+      ]
+    },
+    "ROU": {
+      "canonical_name": "Romania",
+      "iso2": "RO",
+      "aliases": [
+        "romania"
+      ]
+    },
+    "RUS": {
+      "canonical_name": "Russia",
+      "iso2": "RU",
+      "aliases": [
+        "russia"
+      ]
+    },
+    "RWA": {
+      "canonical_name": "Rwanda",
+      "iso2": "RW",
+      "aliases": [
+        "rwanda"
+      ]
+    },
+    "SAU": {
+      "canonical_name": "Saudi Arabia",
+      "iso2": "SA",
+      "aliases": [
+        "saudi arabia"
+      ]
+    },
+    "SDN": {
+      "canonical_name": "Sudan",
+      "iso2": "SD",
+      "aliases": [
+        "sudan"
+      ]
+    },
+    "SEN": {
+      "canonical_name": "Senegal",
+      "iso2": "SN",
+      "aliases": [
+        "senegal"
+      ]
+    },
+    "SGP": {
+      "canonical_name": "Singapore",
+      "iso2": "SG",
+      "aliases": [
+        "singapore"
+      ]
+    },
+    "SGS": {
+      "canonical_name": "South Georgia and South Sandwich Islands",
+      "iso2": "GS",
+      "aliases": [
+        "south georgia and south sandwich islands"
+      ]
+    },
+    "SHN": {
+      "canonical_name": "Saint Helena, Ascension, and Tristan da Cunha",
+      "iso2": "SH",
+      "aliases": [
+        "saint helena, ascension, and tristan da cunha"
+      ]
+    },
+    "SLB": {
+      "canonical_name": "Solomon Islands",
+      "iso2": "SB",
+      "aliases": [
+        "solomon islands"
+      ]
+    },
+    "SLE": {
+      "canonical_name": "Sierra Leone",
+      "iso2": "SL",
+      "aliases": [
+        "sierra leone"
+      ]
+    },
+    "SLV": {
+      "canonical_name": "El Salvador",
+      "iso2": "SV",
+      "aliases": [
+        "el salvador"
+      ]
+    },
+    "SMR": {
+      "canonical_name": "San Marino",
+      "iso2": "SM",
+      "aliases": [
+        "san marino"
+      ]
+    },
+    "SOM": {
+      "canonical_name": "Somalia",
+      "iso2": "SO",
+      "aliases": [
+        "somalia"
+      ]
+    },
+    "SPM": {
+      "canonical_name": "Saint Pierre and Miquelon",
+      "iso2": "PM",
+      "aliases": [
+        "saint pierre and miquelon"
+      ]
+    },
+    "SRB": {
+      "canonical_name": "Serbia",
+      "iso2": "RS",
+      "aliases": [
+        "serbia"
+      ]
+    },
+    "SSD": {
+      "canonical_name": "South Sudan",
+      "iso2": "SS",
+      "aliases": [
+        "south sudan"
+      ]
+    },
+    "STP": {
+      "canonical_name": "Sao Tome and Principe",
+      "iso2": "ST",
+      "aliases": [
+        "sao tome and principe"
+      ]
+    },
+    "SUR": {
+      "canonical_name": "Suriname",
+      "iso2": "SR",
+      "aliases": [
+        "suriname"
+      ]
+    },
+    "SVK": {
+      "canonical_name": "Slovakia",
+      "iso2": "SK",
+      "aliases": [
+        "slovakia"
+      ]
+    },
+    "SVN": {
+      "canonical_name": "Slovenia",
+      "iso2": "SI",
+      "aliases": [
+        "slovenia"
+      ]
+    },
+    "SWE": {
+      "canonical_name": "Sweden",
+      "iso2": "SE",
+      "aliases": [
+        "sweden"
+      ]
+    },
+    "SWZ": {
+      "canonical_name": "Eswatini",
+      "iso2": "SZ",
+      "aliases": [
+        "eswatini"
+      ]
+    },
+    "SXM": {
+      "canonical_name": "Sint Maarten",
+      "iso2": "SX",
+      "aliases": [
+        "sint maarten"
+      ]
+    },
+    "SYC": {
+      "canonical_name": "Seychelles",
+      "iso2": "SC",
+      "aliases": [
+        "seychelles"
+      ]
+    },
+    "SYR": {
+      "canonical_name": "Syria",
+      "iso2": "SY",
+      "aliases": [
+        "syria"
+      ]
+    },
+    "TCA": {
+      "canonical_name": "Turks and Caicos Islands",
+      "iso2": "TC",
+      "aliases": [
+        "turks and caicos islands"
+      ]
+    },
+    "TCD": {
+      "canonical_name": "Chad",
+      "iso2": "TD",
+      "aliases": [
+        "chad"
+      ]
+    },
+    "TGO": {
+      "canonical_name": "Togo",
+      "iso2": "TG",
+      "aliases": [
+        "togo"
+      ]
+    },
+    "THA": {
+      "canonical_name": "Thailand",
+      "iso2": "TH",
+      "aliases": [
+        "tha",
+        "thailand"
+      ]
+    },
+    "TJK": {
+      "canonical_name": "Tajikistan",
+      "iso2": "TJ",
+      "aliases": [
+        "tajikistan"
+      ]
+    },
+    "TKM": {
+      "canonical_name": "Turkmenistan",
+      "iso2": "TM",
+      "aliases": [
+        "turkmenistan"
+      ]
+    },
+    "TLS": {
+      "canonical_name": "Timor-Leste",
+      "iso2": "TL",
+      "aliases": [
+        "timor-leste"
+      ]
+    },
+    "TON": {
+      "canonical_name": "Tonga",
+      "iso2": "TO",
+      "aliases": [
+        "tonga"
+      ]
+    },
+    "TTO": {
+      "canonical_name": "Trinidad and Tobago",
+      "iso2": "TT",
+      "aliases": [
+        "trinidad and tobago"
+      ]
+    },
+    "TUN": {
+      "canonical_name": "Tunisia",
+      "iso2": "TN",
+      "aliases": [
+        "tunisia"
+      ]
+    },
+    "TUR": {
+      "canonical_name": "Turkey",
+      "iso2": "TR",
+      "aliases": [
+        "turkey",
+        "turkiye",
+        "türkiye"
+      ]
+    },
+    "TUV": {
+      "canonical_name": "Tuvalu",
+      "iso2": "TV",
+      "aliases": [
+        "tuvalu"
+      ]
+    },
+    "TWN": {
+      "canonical_name": "Taiwan",
+      "iso2": "TW",
+      "aliases": [
+        "taiwan"
+      ]
+    },
+    "TZA": {
+      "canonical_name": "Tanzania",
+      "iso2": "TZ",
+      "aliases": [
+        "tanzania"
+      ]
+    },
+    "UGA": {
+      "canonical_name": "Uganda",
+      "iso2": "UG",
+      "aliases": [
+        "uganda"
+      ]
+    },
+    "UKR": {
+      "canonical_name": "Ukraine",
+      "iso2": "UA",
+      "aliases": [
+        "ukraine"
+      ]
+    },
+    "URY": {
+      "canonical_name": "Uruguay",
+      "iso2": "UY",
+      "aliases": [
+        "uruguay"
+      ]
+    },
+    "USA": {
+      "canonical_name": "United States",
+      "iso2": "US",
+      "aliases": [
+        "u.s.a.",
+        "united states",
+        "united states of america",
+        "us",
+        "usa"
+      ]
+    },
+    "UZB": {
+      "canonical_name": "Uzbekistan",
+      "iso2": "UZ",
+      "aliases": [
+        "uzbekistan"
+      ]
+    },
+    "VAT": {
+      "canonical_name": "Vatican City",
+      "iso2": "VA",
+      "aliases": [
+        "vatican city"
+      ]
+    },
+    "VCT": {
+      "canonical_name": "Saint Vincent and the Grenadines",
+      "iso2": "VC",
+      "aliases": [
+        "saint vincent and the grenadines"
+      ]
+    },
+    "VEN": {
+      "canonical_name": "Venezuela",
+      "iso2": "VE",
+      "aliases": [
+        "venezuela"
+      ]
+    },
+    "VGB": {
+      "canonical_name": "Virgin Islands, British",
+      "iso2": "VG",
+      "aliases": [
+        "virgin islands, british"
+      ]
+    },
+    "VIR": {
+      "canonical_name": "U.S. Virgin Islands",
+      "iso2": "VI",
+      "aliases": [
+        "u.s. virgin islands"
+      ]
+    },
+    "VNM": {
+      "canonical_name": "Vietnam",
+      "iso2": "VN",
+      "aliases": [
+        "vietnam"
+      ]
+    },
+    "VUT": {
+      "canonical_name": "Vanuatu",
+      "iso2": "VU",
+      "aliases": [
+        "vanuatu"
+      ]
+    },
+    "WLF": {
+      "canonical_name": "Wallis and Futuna",
+      "iso2": "WF",
+      "aliases": [
+        "wallis and futuna"
+      ]
+    },
+    "WSM": {
+      "canonical_name": "Samoa",
+      "iso2": "WS",
+      "aliases": [
+        "samoa"
+      ]
+    },
+    "XGZ": {
+      "canonical_name": "Gaza Strip",
+      "iso2": "XG",
+      "aliases": [
+        "gaza strip"
+      ]
+    },
+    "XKS": {
+      "canonical_name": "Kosovo",
+      "iso2": "XK",
+      "aliases": [
+        "kosovo"
+      ]
+    },
+    "XSV": {
+      "canonical_name": "Svalbard",
+      "iso2": "XR",
+      "aliases": [
+        "svalbard"
+      ]
+    },
+    "XWB": {
+      "canonical_name": "West Bank",
+      "iso2": "XW",
+      "aliases": [
+        "west bank"
+      ]
+    },
+    "YEM": {
+      "canonical_name": "Yemen",
+      "iso2": "YE",
+      "aliases": [
+        "yemen"
+      ]
+    },
+    "ZAF": {
+      "canonical_name": "South Africa",
+      "iso2": "ZA",
+      "aliases": [
+        "south africa"
+      ]
+    },
+    "ZMB": {
+      "canonical_name": "Zambia",
+      "iso2": "ZM",
+      "aliases": [
+        "zambia"
+      ]
+    },
+    "ZWE": {
+      "canonical_name": "Zimbabwe",
+      "iso2": "ZW",
+      "aliases": [
+        "zimbabwe"
+      ]
+    }
+  }
+}
