@@ -140,21 +140,42 @@ that you're running from `data/` (`cd data` from the repo root).
   population cutoff.
 - **Config (top of the script, all-caps):**
   - `TOP_N_CITIES_BY_POPULATION` — how many cities to include, ranked by
-    population (default 5000).
+    population (currently 3000).
   - `ADDITIONAL_CITIES` — force-included cities regardless of population.
     Each entry is either a plain name (`"Charlotte"`) or a `(city,
-    country)` tuple (`("Merida", "Mexico")`) to disambiguate names that
-    exist in multiple countries (Mérida exists in Mexico, Spain, and
-    Venezuela). Plain names fall back to the most populous match with a
-    printed warning if ambiguous, so check the script's output after
-    adding one.
+    country)` tuple (`("Merida", "Mexico")`).
+    - A `(city, country)` tuple pins one specific country's city. If that
+      country itself has more than one same-named city, the most
+      populous is used, with a printed warning.
+    - A plain name resolves to **one row per country** that has a
+      matching city — the most populous such city within each country —
+      so a name genuinely ambiguous across countries (e.g. `"Queenstown"`
+      → New Zealand *and* South Africa *and* Australia) pulls in all of
+      them, while a name that merely recurs within one country (e.g.
+      several US Dublins) still only contributes a single row for that
+      country. A printed note lists which countries matched, so check
+      the script's output after adding a plain-name entry — use the
+      tuple form instead if you only want one specific country.
+  - `MANUAL_CITIES` — hand-entered rows for cities confirmed absent from
+    the SimpleMaps Basic dataset entirely (not an `ADDITIONAL_CITIES`
+    lookup miss — the row just isn't in the source under any spelling).
+    Each entry is a full dict with `city`, `city_ascii`, `country`,
+    `iso2`, `iso3`, `admin_name`, `lat`, `lng`, `population`, `capital`,
+    filled in by hand from an authoritative source (e.g. the national
+    statistics agency), tagged `"included_reason": "manual_override"` in
+    the output. Currently just New Zealand's Queenstown (lat/lng and
+    population from Stats NZ's 30 June 2025 subnational estimate for the
+    Queenstown urban area) — confirmed missing by grepping the raw CSV
+    directly, since only a South African and an Australian Queenstown
+    exist in the Basic tier.
 - **Output:** `reference/tourist_cities.json`:
   ```json
   {
     "source": "SimpleMaps World Cities Database (Basic), CC BY 4.0 -- https://simplemaps.com/data/world-cities",
-    "top_n_cities_by_population": 5000,
-    "additional_cities_requested": 2,
-    "total_cities": 5000,
+    "top_n_cities_by_population": 3000,
+    "additional_cities_requested": 130,
+    "manual_cities_added": 1,
+    "total_cities": 3062,
     "cities": [
       {
         "city": "Tokyo",
@@ -174,24 +195,25 @@ that you're running from `data/` (`cd data` from the repo root).
     ]
   }
   ```
-  `included_reason` is `"top_n_population"` or `"additional_cities"`, so
-  downstream code can tell why a city is in the list. Sorted by
-  population descending (cities with no population data sort last). No
-  `timezone` field — the Basic tier's CSV only has 11 columns (`city,
-  city_ascii, lat, lng, country, iso2, iso3, admin_name, capital,
-  population, id`); `timezone`, `city_local`, `density`, `ranking`, etc.
-  from SimpleMaps' full field list are Pro/Comprehensive-only.
+  `included_reason` is `"top_n_population"`, `"additional_cities"`, or
+  `"manual_override"`, so downstream code can tell why a city is in the
+  list. `simplemaps_id` is `null` for `"manual_override"` rows, since
+  they have no source row. Sorted by population descending (cities with
+  no population data sort last). No `timezone` field — the Basic tier's
+  CSV only has 11 columns (`city, city_ascii, lat, lng, country, iso2,
+  iso3, admin_name, capital, population, id`); `timezone`, `city_local`,
+  `density`, `ranking`, etc. from SimpleMaps' full field list are
+  Pro/Comprehensive-only.
 - **Run:**
   ```
   python scripts/fetch_tourist_cities.py
   python scripts/fetch_tourist_cities.py --force-download   # bypass the raw/ cache
   ```
-- **Note:** this sandbox blocks `simplemaps.com` (same allowlist issue as
-  the World Bank API — see note above), so the script was run and
-  verified on your machine, not here. `total_cities` can be less than
-  `top_n_cities_by_population + additional_cities_requested` when an
-  additional city already falls inside the top-N set (no duplicate is
-  written).
+- **Note:** `total_cities` can be less than
+  `top_n_cities_by_population + additional_cities_requested +
+  manual_cities_added` when an additional or manual city already falls
+  inside the top-N set, or duplicates another entry (no duplicate is
+  written — check the script's printed warnings).
 
 ### `reference/worldbank_metrics.json` — indicator registry
 
@@ -616,6 +638,60 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   normalize_country("Chinese Mainland")  # -> "CHN"
   normalize_country("nonsense")          # -> None
   ```
+
+### City name crosswalk (`reference/city_aliases.json`)
+
+- **Problem:** the same genuine name-variant issue as the country
+  crosswalk above, but for cities — Seville vs Sevilla, Quebec vs Quebec
+  City, Antwerpen vs Antwerp, etc. Unlike countries, there's no "full
+  canonical list" to build this against (that would mean pulling in all
+  ~50K SimpleMaps cities); this registry is entirely hand-maintained,
+  built the same way `EXTRA_ALIASES` was for countries — by scanning
+  `diff_michelin_vs_tourist_cities.py`'s "missing" output for a
+  near-miss.
+- **Script:** `scripts/build_city_aliases.py`. A hand-maintained
+  `CITY_ALIASES` dict at the top of the script maps `(michelin city
+  spelling, iso3) -> tourist_cities.json spelling`. Add a new entry there
+  and rerun the script whenever a fresh diff run turns up another
+  variant.
+- **Output:** `reference/city_aliases.json`, keyed by iso3 then by the
+  alias spelling (casefolded) -> canonical spelling (casefolded):
+  ```json
+  {
+    "generated": "2026-07-20",
+    "total_aliases": 19,
+    "cities": {
+      "ESP": {
+        "seville": "sevilla",
+        "alacant": "alicante",
+        ...
+      },
+      ...
+    }
+  }
+  ```
+- **Run:**
+  ```
+  python scripts/build_city_aliases.py
+  ```
+  No network needed — entirely hand-maintained data, no source file to
+  read.
+
+### `scripts/city_lookup.py` — shared normalization helper
+
+- **What it does:** mirrors `country_lookup.py`. `resolve_city_alias(city,
+  iso3)` returns the canonical `tourist_cities.json` spelling (casefolded)
+  for a `(city, iso3)` pair, or `None` if no alias is registered — used by
+  `diff_michelin_vs_tourist_cities.py` instead of an inline dict, so the
+  alias list can be maintained as data (`city_aliases.json`) rather than
+  code.
+- **Import usage:**
+  ```python
+  from city_lookup import resolve_city_alias
+  resolve_city_alias("Seville", "ESP")      # -> "sevilla"
+  resolve_city_alias("Nonexistent", "ESP")  # -> None
+  ```
+
 ### `scripts/diff_michelin_vs_tourist_cities.py` — which Michelin cities aren't tracked yet
 
 - **What it does:** compares `processed/michelin_restaurants.csv` against
@@ -641,18 +717,22 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
     (Singapore, Dubai, Abu Dhabi, Macau, Luxembourg) — handled via a
     small `CITY_ONLY_COUNTRY` lookup in the script rather than
     `normalize_country()`.
-  - `CITY_ALIASES`: a hand-maintained list of genuine name variants
+  - City name aliases: a hand-maintained list of genuine name variants
     between the two sources — not diacritics, not a suffix rule, just a
-    different name for the same place. Found by manually scanning the
-    top of the "missing" output and checking `tourist_cities.json` for a
-    near-miss, the same way `EXTRA_ALIASES` was built for countries.
-    Confirmed so far: Seville↔Sevilla, Québec↔Quebec City,
-    Antwerpen↔Antwerp, Frankfurt on the Main↔Frankfurt, Hsinchu
-    County/Hsinchu City↔Hsinchu, Alacant↔Alicante, Cebu↔Cebu City,
-    Taguig - Metro Manila↔Taguig City, Dublin City↔Dublin, City of
-    Bristol↔Bristol. There's no general rule that catches these (unlike
-    the diacritic/suffix cases above) — add new ones to `CITY_ALIASES` as
-    they turn up when scanning future runs.
+    different name for the same place. Lives in `reference/city_aliases.json`
+    (built from `CITY_ALIASES` in `build_city_aliases.py`, resolved at
+    runtime via `city_lookup.resolve_city_alias()`) — this mirrors the
+    `country_aliases.json` / `country_lookup.py` pattern used for
+    countries. Found by manually scanning the top of the "missing"
+    output and checking `tourist_cities.json` for a near-miss, the same
+    way `EXTRA_ALIASES` was built for countries. Confirmed so far:
+    Seville↔Sevilla, Québec↔Quebec City, Antwerpen↔Antwerp, Frankfurt on
+    the Main↔Frankfurt, Hsinchu County/Hsinchu City↔Hsinchu,
+    Alacant↔Alicante, Cebu↔Cebu City, Taguig - Metro Manila↔Taguig City,
+    Dublin City↔Dublin, City of Bristol↔Bristol. There's no general rule
+    that catches these (unlike the diacritic/suffix cases above) — add
+    new ones to `CITY_ALIASES` in `build_city_aliases.py` and rerun it
+    as they turn up when scanning future runs.
 - **Output:** `processed/michelin_cities_missing_from_tourist_cities.csv`
   — `Rank`, `City`, `Country (ISO3)`, `Restaurant Count`, sorted by
   restaurant count descending.
@@ -660,37 +740,39 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   ```
   python scripts/diff_michelin_vs_tourist_cities.py
   ```
-- **Latest real run** (`tourist_cities.json` at 2072 cities, 19
-  `CITY_ALIASES` entries applied): 276 of 6,094 distinct Michelin (city,
-  country) pairs match; 5,818 don't. Not a data bug — `tourist_cities.json`
-  is a curated top-N-by-population list plus manual additions, while
-  Michelin covers many well-known but smaller/non-top-N destinations
-  that don't crack the population cutoff. The output CSV is the
-  candidate list for `ADDITIONAL_CITIES` if any of the missing entries
-  should be force-included regardless of population. Manually scanning
-  the top ~30-50 rows of a fresh run for further name-variant aliases
-  (like the `CITY_ALIASES` entries above) before trusting the full
-  "missing" count is recommended — the automated matching only catches
-  diacritics and known suffix patterns, not arbitrary rename variants.
+- **Latest real run** (`tourist_cities.json` at 3062 cities, 19 city
+  alias entries applied): 336 of 6,094 distinct Michelin (city, country)
+  pairs match; 5,758 don't. Not a data bug — `tourist_cities.json` is a
+  curated top-N-by-population list plus manual additions, while Michelin
+  covers many well-known but smaller/non-top-N destinations that don't
+  crack the population cutoff. The output CSV is the candidate list for
+  `ADDITIONAL_CITIES` if any of the missing entries should be
+  force-included regardless of population. Manually scanning the top
+  ~30-50 rows of a fresh run for further name-variant aliases (like the
+  `city_aliases.json` entries above) before trusting the full "missing"
+  count is recommended — the automated matching only catches diacritics
+  and known suffix patterns, not arbitrary rename variants.
 - **Cities confirmed absent from SimpleMaps' Basic tier under any
   spelling tried** (so they can't be added to `ADDITIONAL_CITIES` at
   all, not a matching problem): Cardiff, Miguel Hidalgo (a Mexico City
   borough), Nonthaburi, Positano, Uccle (a Brussels municipality),
   Courchevel, Saint Moritz, Lech am Arlberg, Saint-Tropez, Megève, and
   the New Zealand Queenstown (only a South African and a Tasmanian
-  Queenstown exist in the Basic tier — Michelin's Queenstown restaurants
-  can't be geo-matched via this source). Monaco similarly has zero city
+  Queenstown exist in the Basic tier). Monaco similarly has zero city
   entries in the Basic tier at all. If any of these matter for the
-  scoring model later, they'd need a different source or manual
-  lat/long entry, since the Basic tier's ~50K "prominent cities" cutoff
-  doesn't include them.
+  scoring model, they need a different source or a manual lat/long
+  entry — `MANUAL_CITIES` in `fetch_tourist_cities.py` now covers this
+  case: New Zealand's Queenstown is hand-entered there (coordinates and
+  population from Stats NZ's 30 June 2025 subnational estimate for the
+  Queenstown urban area) since it's genuinely absent from the source,
+  not just an `ADDITIONAL_CITIES` lookup miss.
 - **Name-variant additions**: several `ADDITIONAL_CITIES` entries use
   SimpleMaps' shorter/different spelling rather than Michelin's exact
-  string, with a matching `CITY_ALIASES` entry added so the diff still
-  recognizes them: `Puebla` (Michelin: "Heróica Puebla de Zaragoza"),
-  `Las Palmas` (Michelin: "Las Palmas de Gran Canaria"), `Donostia`
-  (Michelin: "Donostia / San Sebastián"), `Brighton` (Michelin:
-  "Brighton and Hove"), `Phangnga` (Michelin: "Phang-Nga"), `Les
-  Sables-d'Olonne` (Michelin: "Les Sables d'Olonne", with a curly
+  string, with a matching entry in `city_aliases.json` added so the diff
+  still recognizes them: `Puebla` (Michelin: "Heróica Puebla de
+  Zaragoza"), `Las Palmas` (Michelin: "Las Palmas de Gran Canaria"),
+  `Donostia` (Michelin: "Donostia / San Sebastián"), `Brighton`
+  (Michelin: "Brighton and Hove"), `Phangnga` (Michelin: "Phang-Nga"),
+  `Les Sables-d'Olonne` (Michelin: "Les Sables d'Olonne", with a curly
   apostrophe and no hyphen in the source), and `Glasgow` (Michelin:
   "Glasgow City").

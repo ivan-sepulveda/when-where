@@ -23,14 +23,16 @@ Matching notes (see data/README.md for the full writeup):
     (Singapore, Dubai, Abu Dhabi, Macau, Luxembourg) -- CITY_ONLY_COUNTRY
     below maps those directly to an iso3 instead of going through
     normalize_country().
-  - CITY_ALIASES below is a hand-maintained list of genuine name variants
-    between the two sources -- not diacritics, not a suffix-stripping
-    rule, just a different name for the same place (Seville vs Sevilla,
-    Quebec vs Quebec City, Antwerpen vs Antwerp). Found by manually
-    scanning the top of the "missing" output and checking tourist_cities.json
-    for a near-miss. Add to this dict as new ones turn up -- there's no
-    general rule that catches these, unlike the diacritic/suffix cases
-    above.
+  - Genuine name variants between the two sources -- not diacritics, not
+    a suffix-stripping rule, just a different name for the same place
+    (Seville vs Sevilla, Quebec vs Quebec City, Antwerpen vs Antwerp) --
+    are resolved via city_lookup.resolve_city_alias(), backed by
+    data/reference/city_aliases.json (mirrors country_lookup.py /
+    country_aliases.json). Found by manually scanning the top of the
+    "missing" output and checking tourist_cities.json for a near-miss.
+    Add new ones to CITY_ALIASES in build_city_aliases.py and rerun it --
+    there's no general rule that catches these, unlike the
+    diacritic/suffix cases above.
 
 Usage:
     python diff_michelin_vs_tourist_cities.py
@@ -40,6 +42,7 @@ import re
 from pathlib import Path
 
 import pandas as pd
+from city_lookup import resolve_city_alias
 from country_lookup import normalize_country
 
 # ---------------------------------------------------------------------------
@@ -58,31 +61,6 @@ CITY_ONLY_COUNTRY = {
     "abu dhabi": "ARE",
     "macau": "MAC",
     "luxembourg": "LUX",
-}
-
-# Michelin city spelling -> tourist_cities.json's spelling, keyed by
-# (michelin clean_city casefolded, iso3). Genuine name variants, not
-# diacritics or suffix noise -- see the docstring note above.
-CITY_ALIASES = {
-    ("seville", "ESP"): "sevilla",
-    ("québec", "CAN"): "quebec city",
-    ("antwerpen", "BEL"): "antwerp",
-    ("frankfurt on the main", "DEU"): "frankfurt",
-    ("hsinchu county", "TWN"): "hsinchu",
-    ("hsinchu city", "TWN"): "hsinchu",
-    ("alacant", "ESP"): "alicante",
-    ("cebu", "PHL"): "cebu city",
-    ("taguig - metro manila", "PHL"): "taguig city",
-    ("dublin city", "IRL"): "dublin",
-    ("city of bristol", "GBR"): "bristol",
-    ("new taipei", "TWN"): "taipei",
-    ("heróica puebla de zaragoza", "MEX"): "puebla",
-    ("las palmas de gran canaria", "ESP"): "las palmas",
-    ("donostia / san sebastián", "ESP"): "donostia",
-    ("brighton and hove", "GBR"): "brighton",
-    ("phang-nga", "THA"): "phangnga",
-    ("les sables d’olonne", "FRA"): "les sables-d'olonne",
-    ("glasgow city", "GBR"): "glasgow",
 }
 
 _STATE_SUFFIX_RE = re.compile(r"^(.*),\s*([A-Z]{2})$")
@@ -124,8 +102,10 @@ def build_diff() -> pd.DataFrame:
     pair_counts = (
         mich.groupby(["clean_city", "iso3"]).size().reset_index(name="restaurant_count")
     )
-    raw_keys = list(zip(pair_counts["clean_city"].str.casefold(), pair_counts["iso3"]))
-    pair_counts["key"] = [(CITY_ALIASES.get(k, k[0]), k[1]) for k in raw_keys]
+    pair_counts["key"] = [
+        (resolve_city_alias(city, iso3) or city.strip().casefold(), iso3)
+        for city, iso3 in zip(pair_counts["clean_city"], pair_counts["iso3"])
+    ]
     pair_counts["in_tourist_cities"] = pair_counts["key"].isin(tourist_pairs)
 
     total_pairs = len(pair_counts)

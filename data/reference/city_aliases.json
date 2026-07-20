@@ -1,0 +1,48 @@
+{
+  "generated": "2026-07-20",
+  "description": "Hand-maintained city name variants between Michelin's scraped city names and tourist_cities.json's spelling -- see build_city_aliases.py for how/why these were added. Keyed by iso3, then by the alias spelling (casefolded) -> canonical spelling as it appears in tourist_cities.json's city or city_ascii field (casefolded).",
+  "total_aliases": 19,
+  "cities": {
+    "BEL": {
+      "antwerpen": "antwerp"
+    },
+    "CAN": {
+      "québec": "quebec city"
+    },
+    "DEU": {
+      "frankfurt on the main": "frankfurt"
+    },
+    "ESP": {
+      "alacant": "alicante",
+      "donostia / san sebastián": "donostia",
+      "las palmas de gran canaria": "las palmas",
+      "seville": "sevilla"
+    },
+    "FRA": {
+      "les sables d’olonne": "les sables-d'olonne"
+    },
+    "GBR": {
+      "brighton and hove": "brighton",
+      "city of bristol": "bristol",
+      "glasgow city": "glasgow"
+    },
+    "IRL": {
+      "dublin city": "dublin"
+    },
+    "MEX": {
+      "heróica puebla de zaragoza": "puebla"
+    },
+    "PHL": {
+      "cebu": "cebu city",
+      "taguig - metro manila": "taguig city"
+    },
+    "THA": {
+      "phang-nga": "phangnga"
+    },
+    "TWN": {
+      "hsinchu city": "hsinchu",
+      "hsinchu county": "hsinchu",
+      "new taipei": "taipei"
+    }
+  }
+}
