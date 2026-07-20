@@ -479,3 +479,60 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   no-data-for-a-month cases, then run for real against the actual
   `weather_normals_2025_by_city.json` (1770 cities) and spot-checked
   against known Tokyo seasonal patterns.
+
+### Michelin Guide restaurants (`scripts/fetch_michelin_restaurants.py`)
+
+- **Sources (primary + fallback, same underlying dataset):**
+  - **Primary:** [Kaggle — michelin-guide-restaurants-2021](https://www.kaggle.com/datasets/ngshiheng/michelin-guide-restaurants-2021),
+    via `kagglehub` (`pip install kagglehub`, requires Kaggle API
+    credentials — see [kagglehub's auth docs](https://github.com/Kaggle/kagglehub#authenticate)).
+  - **Fallback (no credentials needed):** the same project's CSV published
+    directly on GitHub —
+    [ngshiheng/michelin-my-maps](https://github.com/ngshiheng/michelin-my-maps),
+    `data/michelin_my_maps.csv`. The script tries kagglehub first and
+    automatically falls back to this on *any* failure (not installed, no
+    credentials, network error, dataset renamed, etc.) — `--force-fallback`
+    skips straight to it.
+- **License/attribution:** MIT licensed (the GitHub repo, which the
+  Kaggle dataset is built from). The repo's own disclaimer: the underlying
+  content is scraped from the [MICHELIN Guide website](https://guide.michelin.com/en/restaurants)
+  "only used for research purposes, users must abide by the relevant laws
+  and regulations of their location" — worth keeping in mind since Michelin
+  itself, not this project or its source, is the original rightsholder of
+  the restaurant reviews/descriptions.
+- **What it is:** one row per MICHELIN-guide-recognized restaurant —
+  name, address, `Location` ("City, Country"), price band (€–€€€€),
+  cuisine, exact lat/long, and `Award` tier (`3 Stars`, `2 Stars`,
+  `1 Star`, `Bib Gourmand`, or `Selected Restaurants`), plus a `GreenStar`
+  sustainability flag.
+- **Why it's here:** a food/culture-quality signal for the traveler-profile
+  scoring model — e.g. a "food and culture traveler" profile (see the
+  project's example profiles) can weight cities with more/higher Michelin
+  recognition more heavily. Not yet joined to `reference/tourist_cities.json`
+  or aggregated per city — this script is just the fetch/normalize step.
+- **Normalization:** `Location` ("City, Country") is split into
+  `location_city`/`location_country` columns to make a future join to
+  `tourist_cities.json` easier; `GreenStar` is coerced from a 0/1/blank
+  column to a proper boolean. Everything else is passed through as-is
+  from the source CSV.
+- **Output:**
+  - `raw/michelin/michelin_my_maps.csv` — untouched copy of whichever
+    source succeeded (kagglehub's own cache lives outside this repo, so
+    this is copied in for consistency with the other sources).
+  - `processed/michelin_restaurants.csv` — same rows, plus the two
+    `location_city`/`location_country` columns and the boolean `GreenStar`.
+- **Run:**
+  ```
+  python scripts/fetch_michelin_restaurants.py
+  python scripts/fetch_michelin_restaurants.py --force-fallback
+  ```
+- **Note:** this sandbox blocks both `kaggle.com`/kagglehub's endpoints
+  and `raw.githubusercontent.com` (same allowlist issue as every other
+  source in this file), so neither path was run live here. `_find_csv()`
+  (locating the CSV inside a kagglehub download, whether it returns a
+  file or a directory, and preferring a "michelin"-named file if there
+  are several) and `normalize()` (the Location split and GreenStar
+  coercion) were verified offline against a fixture built from the real
+  CSV header and sample rows fetched directly from GitHub. The
+  kagglehub-fails→fallback logic, `--force-fallback`, and the raw/ copy
+  behavior were also verified end-to-end with both paths mocked.

@@ -59,6 +59,17 @@ sitting; the script checkpoints and skips cities already fetched, so it's
 safe to interrupt and rerun. See `data/README.md` for the reasoning
 behind using one year instead of a multi-year average.
 
+```
+python scripts/fetch_michelin_restaurants.py
+python scripts/fetch_michelin_restaurants.py --force-fallback   # skip kagglehub
+```
+
+Pulls the MICHELIN Guide restaurants dataset (name, location, cuisine,
+price, award tier) and writes `data/processed/michelin_restaurants.csv`.
+Tries Kaggle via `kagglehub` first (needs Kaggle API credentials — see
+`data/README.md`), and automatically falls back to the same dataset's
+CSV on GitHub if that fails for any reason, no credentials needed.
+
 ## Scoring
 
 ```
@@ -78,3 +89,4 @@ that weighting should depend on the traveler profile.
 
 - City data from the [SimpleMaps World Cities Database](https://simplemaps.com/data/world-cities), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Weather data from the [Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api) (ERA5/ERA5-Land reanalysis, CC BY 4.0).
+- Restaurant data from [michelin-my-maps](https://github.com/ngshiheng/michelin-my-maps) (MIT licensed), scraped from the [MICHELIN Guide](https://guide.michelin.com/en/restaurants) for research purposes.
