@@ -559,7 +559,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   kagglehub-fails→fallback logic, `--force-fallback`, and the raw/ copy
   behavior were also verified end-to-end with both paths mocked.
 
-### Eurostat — Air transport of passengers by country (`TTR00012`, `scripts/fetch_eurostat_dataset.py`)
+### Eurostat — Air transport of passengers by country (`TTR00012`/`TTR00016`, `scripts/fetch_eurostat_dataset.py`)
 
 - **Source:** [Eurostat Statistics API](https://wikis.ec.europa.eu/display/EUROSTATHELP/API+-+Getting+started)
   — `GET /eurostat/api/dissemination/statistics/1.0/data/<dataset_id>`,
@@ -567,39 +567,78 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   keyed by a flat row-major index, plus a `dimension` object of
   code/label pairs per axis) rather than a flat table. The script decodes
   this back into one row per observation. Despite the "ttr" prefix,
-  `TTR00012` is **not** a tourism dataset — it's yearly air passenger
-  traffic (arrivals + departures, excluding direct transit), sourced from
+  neither dataset is tourism data — both are air passenger traffic
+  (arrivals + departures, excluding direct transit), sourced from
   Eurostat's underlying `AVIA_PAOC` collection.
-- **What it is:** total passengers carried per country per year. Most of
-  the dataset's dimensions (`freq`, `unit`, `tra_meas`, `tra_cov`,
-  `schedule`) are pinned to a single value for `TTR00012` specifically —
-  effectively it's just `geo × time → passenger count`. Covers the 27 EU
-  countries plus a handful of others (UK, CH, NO, IS, TR, the Balkan
-  states) and a few EU/euro-area aggregates. Not every country reports
-  every year — 2025 data covers 29 of the 42 `geo` entries at the time
-  this was fetched (2026-07); some countries hadn't reported yet.
+- **Two granularities, same underlying source:**
+  - **`TTR00012`** — yearly. Effectively `geo × time(year) → passenger
+    count`; every other dimension (`freq`, `unit`, `tra_meas`, `tra_cov`,
+    `schedule`) is pinned to a single value.
+  - **`TTR00016`** — monthly, and the one actually used for the scoring
+    model (a per-month "how busy is this country's air travel"
+    signal fits the project's monthly-destination-score approach better
+    than one number per year). Same shape, plus a `tra_cov` (transport
+    coverage) dimension with 5 real categories — `TOTAL`, `NAT`
+    (national), `INTL` (international), `INTL_IEU27_2020` (intra-EU),
+    `INTL_XEU27_2020` (extra-EU) — pin it to `TOTAL` via
+    `--filter tra_cov=TOTAL` to match `TTR00012`'s scope, or fetch a
+    breakdown by leaving it unfiltered. **Short history**: as of this
+    writing, `TTR00016` only has data from 2025-02 through 2026-05 (16
+    months total) — it's a newer series than `TTR00012` (which goes back
+    to 2014), and no calendar year is fully covered yet: 2025 is missing
+    January, 2026 only has data through May. Fetching with no
+    `--start-period`/`--end-period` at all (recommended) just returns
+    whatever's currently published — all 16 months as of this writing,
+    spanning parts of both 2025 and 2026 — rather than forcing a
+    calendar-year window that doesn't fully exist in the source yet.
+  - **Dimension order differs between them** (`TTR00012`:
+    `[freq, unit, tra_meas, tra_cov, schedule, geo, time]`; `TTR00016`:
+    `[freq, unit, schedule, tra_cov, tra_meas, geo, time]`) — harmless,
+    since `decode_jsonstat()` always reads the order from the payload's
+    own `id` list rather than assuming one, but worth knowing if you're
+    ever reading the raw JSON by hand.
+  - **Time filter syntax differs too**: `TTR00012`'s `time` codes are
+    bare years (`"2025"`), matched via `--time`. `TTR00016`'s are
+    `"YYYY-MM"` (`"2025-02"`) — `--time 2025` matches nothing on it, use
+    `--start-period`/`--end-period` (SDMX range filter) instead.
 - **Why it's here:** a candidate signal for destination "crowdedness" or
   travel demand/accessibility by country — high or rising passenger
   volume is a rough proxy for how busy/well-connected a country's air
   travel is. Country-level only so far, not tied to a specific
-  destination city or month.
+  destination city.
 - **Output:**
-  - `raw/eurostat/<dataset_id>/<dataset_id>[_<time>].json` — untouched
-    API response.
-  - `processed/eurostat_<slug>[_<time>].csv` — tidy, one row per
+  - `raw/eurostat/<dataset_id>/<dataset_id><suffix>.json` — untouched API
+    response.
+  - `processed/eurostat_<slug><suffix>.csv` — tidy, one row per
     observation, with a `<dim>` code column *and* a `<dim>_label` column
     for every dimension, plus `value`. `<slug>` is a human-readable name
     (`OUTPUT_NAME_OVERRIDES` in the script maps `TTR00012` →
-    `passengers_transported_by_country`; unmapped dataset ids fall back
-    to the lowercased id). Current file:
-    `processed/eurostat_passengers_transported_by_country_2025.csv`
-    (29 rows — one per reporting country for 2025).
+    `passengers_transported_by_country`, `TTR00016` →
+    `passengers_transported_by_country_monthly`; unmapped dataset ids
+    fall back to the lowercased id). `<suffix>` encodes whichever
+    time/dimension filters were applied (`_2025` for `--time 2025`;
+    `_TOTAL` for `--filter tra_cov=TOTAL` with no time filter at all).
+    Filter values use `FILTER_VALUE_LABELS` for a friendlier name where
+    one's registered, and drop the dimension id itself from the filename
+    since it's not meaningful to anyone who hasn't read the script --
+    `tra_cov=INTL_IEU27_2020` becomes `_INTRA_EU`, not `_tra_covINTL_IEU27_2020`.
+    Current files:
+    - `processed/eurostat_passengers_transported_by_country_2025.csv`
+      (29 rows — one per reporting country, `TTR00012`, 2025).
+    - `processed/eurostat_passengers_transported_by_country_monthly_TOTAL.csv`
+      (437 rows — up to 35 reporting countries × the 16 months currently
+      published, `TTR00016`, `tra_cov=TOTAL` only, no time filter). Two
+      earlier pulls are superseded by this one: a `..._2025-01_2025-12_...`
+      version that forced a calendar-year window (silently dropping
+      January, which isn't published yet), and a `..._tra_covTOTAL.csv`
+      version with the old, more verbose filename convention.
 - **Run:**
   ```
   python scripts/fetch_eurostat_dataset.py                       # TTR00012, 2025 (defaults)
   python scripts/fetch_eurostat_dataset.py TTR00012 --time 2025
   python scripts/fetch_eurostat_dataset.py TTR00012 --time 2023 2024 2025
   python scripts/fetch_eurostat_dataset.py TTR00012 --time       # all years, no filter
+  python scripts/fetch_eurostat_dataset.py TTR00016 --filter tra_cov=TOTAL   # all published months, no period filter
   ```
   Reusable for other Eurostat datasets too — pass a different dataset id;
   add an `OUTPUT_NAME_OVERRIDES` entry for a friendlier output filename.
@@ -607,12 +646,17 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   every other live source in this file), so the script itself wasn't run
   end-to-end here. `decode_jsonstat()` (the JSON-stat → tidy-row
   conversion, including the row-major flat-index math) was verified
-  offline against the real API response for `TTR00012?time=2025` fetched
-  via a separate tool — spot-checked that Austria's decoded 2025 value
-  (`36151294`) matches the raw payload's index-287 entry from an earlier
-  unfiltered fetch (`geo_index 23 × time_size 12 + time_index 11 = 287`).
-  `processed/eurostat_passengers_transported_by_country_2025.csv` was
-  generated from that same verified response, not a live script run.
+  offline against real API responses fetched via a separate tool, for
+  both datasets:
+  - `TTR00012?time=2025`: Austria's decoded 2025 value (`36151294`)
+    matches the raw payload's index-287 entry from an earlier unfiltered
+    fetch (`geo_index 23 × time_size 12 + time_index 11 = 287`).
+  - `TTR00016?startPeriod=2025-01&endPeriod=2025-12&tra_cov=TOTAL`:
+    EU27_2020's 2025-02 value (`64965062`, index 0) and Austria's 2025-11
+    value (`2552040`, index `23 × 10 + 9 = 239`) both matched, including
+    with `TTR00016`'s different dimension ordering.
+  Both `processed/eurostat_*.csv` files listed above were generated from
+  those same verified responses, not a live script run.
 
 ### Country name crosswalk (`reference/country_aliases.json`)
 

@@ -72,16 +72,20 @@ CSV on GitHub if that fails for any reason, no credentials needed.
 
 ```
 python scripts/fetch_eurostat_dataset.py
+python scripts/fetch_eurostat_dataset.py TTR00016 --filter tra_cov=TOTAL
 ```
 
 Pulls a Eurostat dataset via their Statistics API (decoding its JSON-stat
 hypercube format into a tidy CSV) and writes
-`data/processed/eurostat_<slug>_<year>.csv`. Defaults to `TTR00012` —
-yearly air passenger traffic by country — for 2025; pass a different
-dataset id and/or `--time` to pull something else, e.g.
-`python scripts/fetch_eurostat_dataset.py TTR00012 --time 2023 2024 2025`.
-See `data/README.md` for the JSON-stat decoding details and what's
-currently in `TTR00012`.
+`data/processed/eurostat_<slug><suffix>.csv`. Defaults to `TTR00012` —
+yearly air passenger traffic by country — for 2025; its monthly sibling
+`TTR00016` is the one actually used for scoring (a per-month signal fits
+the monthly-destination-score approach better than one number a year).
+Leave `--start-period`/`--end-period` off entirely to just get whatever
+Eurostat has currently published (`TTR00016` doesn't cover any full
+calendar year yet, so forcing a Jan–Dec window silently drops months).
+See `data/README.md` for the full JSON-stat decoding details and the
+differences between the two datasets.
 
 ```
 python scripts/build_country_aliases.py
