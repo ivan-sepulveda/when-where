@@ -290,3 +290,158 @@ extraction, not something to be regenerated per run.
   all four. It'll reuse `reference/latest_year_cache.json` instead of
   re-querying the API for the latest year, as long as the cached year
   isn't more than 1 year stale (see the cache section below).
+
+### Open-Meteo — monthly weather normals (`scripts/fetch_weather_normals.py`)
+
+- **API:** [Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api)
+  (`GET archive-api.open-meteo.com/v1/archive`) — ERA5/ERA5-Land reanalysis
+  data, free for non-commercial use, no API key. Supports multiple
+  locations in one request via comma-separated `latitude`/`longitude`
+  (response becomes a JSON list, one entry per coordinate, same order as
+  the request).
+- **What it does:** for every city in `reference/tourist_cities.json`,
+  pulls one full calendar year of daily weather (max/min temperature,
+  precipitation, daylight, sunshine, wind) and collapses it into a
+  **monthly climate normal** — 12 months × (avg high/low temp, total
+  precipitation, rainy days, avg daylight/sunshine hours, avg max wind).
+  `timezone=auto` is used so days are bucketed by each city's own local
+  calendar, not UTC.
+- **Why it's here:** direct input to the weather/rainfall/daylight factors
+  in the trip-scoring model (see the project's top-level goals) — e.g.
+  "Seattle in December" vs. "Seattle in July" should score very
+  differently, and this is what makes that possible per city, per month.
+- **Year used:** `TARGET_YEAR = date.today().year - 1` — always the last
+  *complete* calendar year, computed automatically (no manual bump needed
+  each January).
+- **Why one year, not a multi-year average:** a true "climate normal"
+  usually averages 5-10+ years to smooth out one-off freak weather. This
+  project intentionally uses a single year instead, to stay well inside
+  Open-Meteo's free-tier budget (600/min, 5,000/hour, **10,000/day,
+  300,000/month** — and their pricing page notes that requests spanning
+  more than ~2 weeks or more than ~10 variables for a location count as
+  *more than one* "call", so a multi-year pull across ~5000 cities would
+  not fit in a day, possibly not even a month). If a longer baseline is
+  wanted later, rerun with a different `TARGET_YEAR` each year and average
+  the resulting files, or extend the script to request a multi-year range.
+- **Rate limiting (confirmed empirically):** Open-Meteo's historical
+  archive endpoint starts returning HTTP 429 after just 2-4 batches of 25
+  cities (365 days × 7 variables each) — well short of the advertised
+  600/min. `REQUEST_DELAY_SECONDS` (20s) paces successful batches; on a
+  429, `fetch_batch_with_retry()` backs off and retries the *same* batch
+  (60s, then 120s, 240s... up to `MAX_RATE_LIMIT_RETRIES` = 5) before
+  giving up on the run. `CITIES_PER_REQUEST` (default 25) hasn't been
+  tuned down in response to this — worth trying a smaller batch size if
+  429s are still frequent even with the retry logic.
+- **Resumable by design:** the output file is checkpointed after every
+  batch, and cities already present are skipped on a re-run (`--force` to
+  re-fetch anyway). This is deliberate — pulling ~5000 cities needs
+  multiple sittings even with the retry logic (204 batches × 20s alone is
+  over an hour before counting any 429 backoff time), and a crash or an
+  unrecoverable rate limit partway through shouldn't lose progress
+  already made.
+- **Output:** `processed/weather_normals_<year>_by_city.json`:
+  ```json
+  {
+    "source": "Open-Meteo Historical Weather API (ERA5/ERA5-Land reanalysis) -- https://open-meteo.com/en/docs/historical-weather-api",
+    "year": 2025,
+    "daily_variables": ["temperature_2m_max", "temperature_2m_min", "precipitation_sum", "precipitation_hours", "daylight_duration", "sunshine_duration", "wind_speed_10m_max"],
+    "generated": "2026-07-19",
+    "total_cities": 5100,
+    "cities": {
+      "1392685764": {
+        "city": "Tokyo",
+        "country": "Japan",
+        "admin_name": "Tōkyō",
+        "lat": 35.685,
+        "lng": 139.7514,
+        "months": {
+          "january": {
+            "days_sampled": 31,
+            "avg_high_c": 9.8,
+            "avg_low_c": 2.1,
+            "total_precipitation_mm": 45.2,
+            "avg_precipitation_hours_per_day": 1.3,
+            "rainy_days": 6,
+            "avg_daylight_hours": 9.8,
+            "avg_sunshine_hours": 6.1,
+            "avg_max_wind_kmh": 14.2
+          },
+          ...
+        }
+      },
+      ...
+    }
+  }
+  ```
+  Keyed by `simplemaps_id` (matches `reference/tourist_cities.json`) so
+  it can be joined back to city metadata without a name-matching step.
+- **Run:**
+  ```
+  python scripts/fetch_weather_normals.py --limit 20   # pilot a small batch first
+  python scripts/fetch_weather_normals.py              # full run (resumable — safe to re-run/interrupt)
+  python scripts/fetch_weather_normals.py --force       # re-fetch cities already in the output
+  ```
+- **Note:** this sandbox couldn't reach `open-meteo.com` at all (neither
+  `curl` nor the fetch tool used for the World Bank/SimpleMaps sources got
+  a response), so all real runs and rate-limit behavior were observed by
+  running the script directly, not verified here. `aggregate_monthly()`
+  and the batching/resume/retry/skip logic in `build_weather_normals()`
+  were verified offline against synthetic fixtures, including a simulated
+  429 that retries and recovers, and one that exhausts all retries and
+  stops the run cleanly.
+- **Note:** the output file only ever grows (cities are skipped once
+  present, never removed) — if `reference/tourist_cities.json` is later
+  trimmed down (e.g. by hand-editing `ADDITIONAL_CITIES`/`TOP_N_CITIES_BY_POPULATION`
+  and rerunning `fetch_tourist_cities.py`), `weather_normals_<year>_by_city.json`
+  can end up with *more* cities than the current tourist city list — extra
+  data, not a bug. `compute_monthly_scores.py` (below) scores whatever is
+  actually in this file, regardless of what's currently in
+  `tourist_cities.json`.
+
+### Monthly weather scores (`scripts/compute_monthly_scores.py`)
+
+- **What it does:** reads `processed/weather_normals_<year>_by_city.json`
+  and computes five simple, transparent, rule-based scores per city per
+  calendar month — no machine learning, just plain formulas over the
+  weather-normal fields, per the project's guidance to start with an
+  explainable model. Each score is independent; nothing here combines them
+  into one overall "goodness" number — that's a traveler-profile-specific
+  weighting decision left for later, downstream code.
+- **Scores computed per month:**
+  - `monthly_rain_score = rainy_days / days_sampled` — fraction of days in
+    the month with measurable rain.
+  - `daily_rain_score = avg_precipitation_hours_per_day / 24` — fraction
+    of an average day spent raining.
+  - `daylight_hours_score = avg_sunshine_hours / 24` — fraction of a day
+    that's actually sunny (uses `avg_sunshine_hours`, not
+    `avg_daylight_hours` — sunshine is hours of unobstructed sun, daylight
+    is hours the sun is above the horizon regardless of cloud cover;
+    sunshine ≤ daylight always. If daylight was actually intended, swap
+    the field in `compute_month_scores()`).
+  - `high_temperature_score = 0 if avg_high_c >= HIGH_TEMP_THRESHOLD_C else 1`
+    (default threshold 35°C).
+  - `low_temperature_score = 0 if avg_low_c <= LOW_TEMP_THRESHOLD_C else 1`
+    (default threshold 0°C).
+  None of these are normalized/inverted for "higher is better" consistency
+  — `monthly_rain_score`/`daily_rain_score` are literal rain fractions
+  (higher = more rain), while the temperature scores are binary
+  pass/fail flags (1 = not extreme, 0 = extreme). Keep that in mind when
+  combining them later.
+- **Year used:** `SCORE_YEAR = date.today().year - 1` by default (matches
+  `fetch_weather_normals.py`'s default, so running both with no arguments
+  operates on the same year) — override with `--year` to score a
+  different year's already-pulled weather file.
+- **Output:** `processed/monthly_scores_<year>_by_city.json`, same
+  `cities` keying (`simplemaps_id`) and city metadata as
+  `weather_normals_<year>_by_city.json`, with `months` holding the five
+  scores instead of raw weather stats. Includes a `scoring_rules` block
+  documenting the formulas in the file itself.
+- **Run:**
+  ```
+  python scripts/compute_monthly_scores.py
+  python scripts/compute_monthly_scores.py --year 2024
+  ```
+- Verified offline: threshold edge cases (exactly at 35°C/0°C and just to
+  either side), all-extreme-values and no-data-for-a-month cases, then run
+  for real against the actual `weather_normals_2025_by_city.json` (1770
+  cities) and spot-checked against known Tokyo seasonal patterns.

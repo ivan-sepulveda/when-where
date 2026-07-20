@@ -46,6 +46,34 @@ population plus a manually curated list of extra cities, with lat/long.
 Edit `TOP_N_CITIES_BY_POPULATION` and `ADDITIONAL_CITIES` at the top of
 the script to change which cities are included.
 
+```
+python scripts/fetch_weather_normals.py --limit 20   # pilot first
+python scripts/fetch_weather_normals.py              # full run, resumable
+```
+
+Pulls one year of daily weather per city from Open-Meteo and writes
+`data/processed/weather_normals_<year>_by_city.json` — a monthly climate
+normal (avg high/low temp, precipitation, daylight, wind) per city. Free
+API budget limits mean a full ~5000-city run may need more than one
+sitting; the script checkpoints and skips cities already fetched, so it's
+safe to interrupt and rerun. See `data/README.md` for the reasoning
+behind using one year instead of a multi-year average.
+
+## Scoring
+
+```
+python scripts/compute_monthly_scores.py
+```
+
+Turns `data/processed/weather_normals_<year>_by_city.json` into
+`data/processed/monthly_scores_<year>_by_city.json` — five simple,
+transparent per-month scores per city (rain frequency, rain hours,
+sunshine hours, and pass/fail high/low temperature flags), each a plain
+formula documented in `data/README.md`. Rule-based by design, per the
+project's approach — not combined into one overall number here, since
+that weighting should depend on the traveler profile.
+
 ## Data attributions
 
 - City data from the [SimpleMaps World Cities Database](https://simplemaps.com/data/world-cities), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Weather data from the [Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api) (ERA5/ERA5-Land reanalysis, CC BY 4.0).

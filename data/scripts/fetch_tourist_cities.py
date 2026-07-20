@@ -34,7 +34,7 @@ import requests
 # ---------------------------------------------------------------------------
 
 # How many cities to include, ranked by population (largest first).
-TOP_N_CITIES_BY_POPULATION = 5100
+TOP_N_CITIES_BY_POPULATION = 550
 
 # Cities to force-include even if they don't crack the population cutoff
 # above -- e.g. smaller but popular/relevant tourist towns. Each entry is
