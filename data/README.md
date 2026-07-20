@@ -559,6 +559,61 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   kagglehub-fails→fallback logic, `--force-fallback`, and the raw/ copy
   behavior were also verified end-to-end with both paths mocked.
 
+### Eurostat — Air transport of passengers by country (`TTR00012`, `scripts/fetch_eurostat_dataset.py`)
+
+- **Source:** [Eurostat Statistics API](https://wikis.ec.europa.eu/display/EUROSTATHELP/API+-+Getting+started)
+  — `GET /eurostat/api/dissemination/statistics/1.0/data/<dataset_id>`,
+  returns [JSON-stat](https://json-stat.org/): a hypercube (`value` dict
+  keyed by a flat row-major index, plus a `dimension` object of
+  code/label pairs per axis) rather than a flat table. The script decodes
+  this back into one row per observation. Despite the "ttr" prefix,
+  `TTR00012` is **not** a tourism dataset — it's yearly air passenger
+  traffic (arrivals + departures, excluding direct transit), sourced from
+  Eurostat's underlying `AVIA_PAOC` collection.
+- **What it is:** total passengers carried per country per year. Most of
+  the dataset's dimensions (`freq`, `unit`, `tra_meas`, `tra_cov`,
+  `schedule`) are pinned to a single value for `TTR00012` specifically —
+  effectively it's just `geo × time → passenger count`. Covers the 27 EU
+  countries plus a handful of others (UK, CH, NO, IS, TR, the Balkan
+  states) and a few EU/euro-area aggregates. Not every country reports
+  every year — 2025 data covers 29 of the 42 `geo` entries at the time
+  this was fetched (2026-07); some countries hadn't reported yet.
+- **Why it's here:** a candidate signal for destination "crowdedness" or
+  travel demand/accessibility by country — high or rising passenger
+  volume is a rough proxy for how busy/well-connected a country's air
+  travel is. Country-level only so far, not tied to a specific
+  destination city or month.
+- **Output:**
+  - `raw/eurostat/<dataset_id>/<dataset_id>[_<time>].json` — untouched
+    API response.
+  - `processed/eurostat_<slug>[_<time>].csv` — tidy, one row per
+    observation, with a `<dim>` code column *and* a `<dim>_label` column
+    for every dimension, plus `value`. `<slug>` is a human-readable name
+    (`OUTPUT_NAME_OVERRIDES` in the script maps `TTR00012` →
+    `passengers_transported_by_country`; unmapped dataset ids fall back
+    to the lowercased id). Current file:
+    `processed/eurostat_passengers_transported_by_country_2025.csv`
+    (29 rows — one per reporting country for 2025).
+- **Run:**
+  ```
+  python scripts/fetch_eurostat_dataset.py                       # TTR00012, 2025 (defaults)
+  python scripts/fetch_eurostat_dataset.py TTR00012 --time 2025
+  python scripts/fetch_eurostat_dataset.py TTR00012 --time 2023 2024 2025
+  python scripts/fetch_eurostat_dataset.py TTR00012 --time       # all years, no filter
+  ```
+  Reusable for other Eurostat datasets too — pass a different dataset id;
+  add an `OUTPUT_NAME_OVERRIDES` entry for a friendlier output filename.
+- **Note:** this sandbox blocks `ec.europa.eu` (same allowlist issue as
+  every other live source in this file), so the script itself wasn't run
+  end-to-end here. `decode_jsonstat()` (the JSON-stat → tidy-row
+  conversion, including the row-major flat-index math) was verified
+  offline against the real API response for `TTR00012?time=2025` fetched
+  via a separate tool — spot-checked that Austria's decoded 2025 value
+  (`36151294`) matches the raw payload's index-287 entry from an earlier
+  unfiltered fetch (`geo_index 23 × time_size 12 + time_index 11 = 287`).
+  `processed/eurostat_passengers_transported_by_country_2025.csv` was
+  generated from that same verified response, not a live script run.
+
 ### Country name crosswalk (`reference/country_aliases.json`)
 
 - **Problem:** every source names countries differently — SimpleMaps says
