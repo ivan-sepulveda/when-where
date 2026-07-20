@@ -71,6 +71,19 @@ Tries Kaggle via `kagglehub` first (needs Kaggle API credentials — see
 CSV on GitHub if that fails for any reason, no credentials needed.
 
 ```
+python scripts/fetch_eurostat_dataset.py
+```
+
+Pulls a Eurostat dataset via their Statistics API (decoding its JSON-stat
+hypercube format into a tidy CSV) and writes
+`data/processed/eurostat_<slug>_<year>.csv`. Defaults to `TTR00012` —
+yearly air passenger traffic by country — for 2025; pass a different
+dataset id and/or `--time` to pull something else, e.g.
+`python scripts/fetch_eurostat_dataset.py TTR00012 --time 2023 2024 2025`.
+See `data/README.md` for the JSON-stat decoding details and what's
+currently in `TTR00012`.
+
+```
 python scripts/build_country_aliases.py
 ```
 
@@ -82,6 +95,28 @@ from `data/scripts/country_lookup.py` to use it in new scripts; run that
 module's CLI mode against a new source's country column to check for
 unmapped strings first. See `data/README.md` for the full list of known
 aliases and how to extend it.
+
+```
+python scripts/build_city_aliases.py
+```
+
+Builds `data/reference/city_aliases.json` — the same idea as
+`country_aliases.json`, but for genuine city-name variants between
+sources (Seville vs Sevilla, Quebec vs Quebec City, Antwerpen vs
+Antwerp). Import `resolve_city_alias()` from `data/scripts/city_lookup.py`
+to use it. Entirely hand-maintained, since there's no canonical "every
+city name variant" list to build from — add a new entry as one turns up.
+
+```
+python scripts/diff_michelin_vs_tourist_cities.py
+```
+
+Diagnostic script: compares `data/processed/michelin_restaurants.csv`
+against `data/reference/tourist_cities.json` and reports which Michelin
+(city, country) pairs have no match — a candidate list for expanding
+`ADDITIONAL_CITIES` in `fetch_tourist_cities.py`, and a way to check how
+much Michelin coverage the current population cutoff actually captures.
+Writes `data/processed/michelin_cities_missing_from_tourist_cities.csv`.
 
 ## Scoring
 
@@ -103,3 +138,5 @@ that weighting should depend on the traveler profile.
 - City data from the [SimpleMaps World Cities Database](https://simplemaps.com/data/world-cities), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Weather data from the [Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api) (ERA5/ERA5-Land reanalysis, CC BY 4.0).
 - Restaurant data from [michelin-my-maps](https://github.com/ngshiheng/michelin-my-maps) (MIT licensed), scraped from the [MICHELIN Guide](https://guide.michelin.com/en/restaurants) for research purposes.
+- Economic indicators (GDP deflator, exports % of GDP, PPP conversion factor, price level index) from [The World Bank](https://data.worldbank.org), via the [Data360 API](https://data360api.worldbank.org), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Air passenger traffic data from [Eurostat](https://ec.europa.eu/eurostat) (dataset `TTR00012`, sourced from `AVIA_PAOC`), reused under the European Commission's [CC BY 4.0 reuse policy](https://ec.europa.eu/eurostat/en/help/copyright-notice).
