@@ -788,6 +788,75 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   `processed/japan_tourism_indicators_by_month.csv` was generated from
   that same verified data, not a live script run.
 
+### Statistics Canada — airport itinerant movements (`scripts/fetch_statcan_airport_movements.py`)
+
+- **Source:** [Statistics Canada Web Data Service (WDS)](https://www.statcan.gc.ca/en/developers/wds/user-guide)
+  — table [23-10-0304-01](https://open.canada.ca/data/en/dataset/0b985486-61b6-45a9-bb99-db4116c29fe1),
+  "Domestic and international itinerant movements, by geography, airports
+  with NAV CANADA services and other selected airports, monthly." Reached
+  via `GET .../getFullTableDownloadCSV/23100304/en` (no API key), which
+  returns the current bulk-download zip URL — StatCan reissues that URL on
+  table updates, so the script resolves it live rather than hardcoding it.
+  Not reached through open.canada.ca's own CKAN API like other datasets on
+  that portal might suggest — this table's CKAN resources all have
+  `datastore_active: false`; open.canada.ca only hosts the metadata page and
+  a link out to StatCan's real API.
+- **What it is:** monthly aircraft movement counts (domestic, transborder,
+  other international) per Canadian airport — a direct proxy for how busy/
+  well-connected a Canadian destination's air travel is, the same role
+  Eurostat's air-passenger data and Japan's border-entry data play for
+  their respective regions.
+- **Airport matching:** the `Airports` column is a specific airport's full
+  name + province (e.g. "Toronto/Lester B. Pearson International,
+  Ontario"), not a bare city name, so `CITY_AIRPORT_PATTERNS` in the script
+  matches city names in `reference/tourist_cities.json` against it via
+  case-insensitive substring. Suburb cities with no airport of their own
+  (Mississauga, Brampton, Markham, Vaughan → Toronto; Laval, Longueuil →
+  Montreal; Gatineau → Ottawa; Surrey, Burnaby → Vancouver) are mapped to
+  their metro area's airport as a **shared proxy**, tagged `match_type =
+  shared_proxy` in the output (vs. `own_airport`) so downstream code can
+  tell the two apart. Oshawa and St. Catharines are deliberately left
+  unmapped — their local fields (Oshawa Executive, Niagara District) are
+  small GA airports, unlikely to fall inside this table's NAV CANADA/
+  "other selected airports" scope, and guessing would be worse than
+  omitting them.
+- **Output:** always `processed/statcan_airport_movements.csv` (fixed name —
+  rerunning with different flags overwrites it) — original table columns
+  (`REF_DATE`, `GEO`, `DGUID`, `Airports`, the movements-breakdown column,
+  `UOM`, `VALUE`, etc.), plus `city` and `match_type` only when `--cities-only`
+  is passed. **Default run keeps everything: every airport, all available
+  history, no city column** — narrow it down with the flags below if a
+  smaller file is wanted.
+- **Run:**
+  ```
+  python scripts/fetch_statcan_airport_movements.py                   # everything: all airports, all time
+  python scripts/fetch_statcan_airport_movements.py --cities-only     # curated Canadian destination cities only
+  python scripts/fetch_statcan_airport_movements.py --years-back 5    # last 5 years, all airports
+  python scripts/fetch_statcan_airport_movements.py --start-date 2020-01 --end-date 2025-12
+  python scripts/fetch_statcan_airport_movements.py --cities-only --years-back 5
+  python scripts/fetch_statcan_airport_movements.py --force-download  # bypass the cached raw/ zip
+  ```
+- **Note:** this sandbox blocks `statcan.gc.ca` outright for shell/`requests`
+  calls (same allowlist issue as every other live source in this file — a
+  `curl` to the zip URL returned a proxy 403), but a separate fetch tool
+  *could* reach the WDS API's `getFullTableDownloadCSV` endpoint directly:
+  confirmed live, `{"status":"SUCCESS","object":"https://www150.statcan.gc.ca/n1/tbl/csv/23100304-eng.zip"}`,
+  as of 2026-07-20 — so the product ID, endpoint, and current zip URL are
+  all verified real. That tool can't fetch arbitrary binary zip contents
+  though, so the actual data rows and exact `Airports` spellings are
+  **not** verified against a live pull. `filter_movements()`, `match_city()`,
+  `report_unmatched_patterns()`, `resolve_zip_url()`, and
+  `download_and_extract()` were all verified offline: the first three
+  against a synthetic fixture built to match the documented real schema
+  (date-range filtering, city substring matching, Oshawa/proxy-city
+  exclusion, unmatched-pattern warnings all behaved correctly), the last
+  two against a mocked `requests.get`/in-memory zip (confirmed it picks the
+  data CSV over the `_MetaData.csv` sidecar, and reuses the cached zip
+  unless `--force-download`). **Run this for real on a machine that can
+  reach statcan.gc.ca, then check the printed unmatched-pattern warning
+  before trusting the output** — `CITY_AIRPORT_PATTERNS` may need a
+  spelling correction once checked against real rows.
+
 ### Country name crosswalk (`reference/country_aliases.json`)
 
 - **Problem:** every source names countries differently — SimpleMaps says
