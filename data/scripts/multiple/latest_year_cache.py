@@ -34,7 +34,7 @@ from pathlib import Path
 
 import requests
 
-CACHE_PATH = Path(__file__).resolve().parent.parent / "reference" / "latest_year_cache.json"
+CACHE_PATH = Path(__file__).resolve().parent.parent.parent / "reference" / "latest_year_cache.json"
 BASE_URL = "https://data360api.worldbank.org/data360/data"
 DATABASE_ID = "WB_WDI"
 STALE_CHECK_INTERVAL_DAYS = 30

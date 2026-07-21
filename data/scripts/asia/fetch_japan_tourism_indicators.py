@@ -72,8 +72,8 @@ OUTPUT_FILENAME = "japan_tourism_indicators_by_month.csv"
 # ---------------------------------------------------------------------------
 
 BASE_URL = "https://dashboard.e-stat.go.jp/api/1.0/Json/getData"
-RAW_DIR = Path(__file__).resolve().parent.parent / "raw" / "estat_japan"
-PROCESSED_DIR = Path(__file__).resolve().parent.parent / "processed"
+RAW_DIR = Path(__file__).resolve().parent.parent.parent / "raw" / "estat_japan"
+PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed"
 
 
 def _to_time_from(since: str) -> str:

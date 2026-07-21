@@ -170,8 +170,8 @@ MANUAL_CITIES = [
 # ---------------------------------------------------------------------------
 
 SOURCE_URL = "https://simplemaps.com/static/data/world-cities/basic/simplemaps_worldcities_basicv1.91.1.zip"
-RAW_DIR = Path(__file__).resolve().parent.parent / "raw" / "simplemaps"
-REFERENCE_DIR = Path(__file__).resolve().parent.parent / "reference"
+RAW_DIR = Path(__file__).resolve().parent.parent.parent / "raw" / "simplemaps"
+REFERENCE_DIR = Path(__file__).resolve().parent.parent.parent / "reference"
 ZIP_PATH = RAW_DIR / "simplemaps_worldcities_basicv1.91.1.zip"
 OUT_PATH = REFERENCE_DIR / "tourist_cities.json"
 

@@ -42,8 +42,8 @@ FALLBACK_CSV_URL = (
 
 # ---------------------------------------------------------------------------
 
-RAW_DIR = Path(__file__).resolve().parent.parent / "raw" / "michelin"
-PROCESSED_DIR = Path(__file__).resolve().parent.parent / "processed"
+RAW_DIR = Path(__file__).resolve().parent.parent.parent / "raw" / "michelin"
+PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed"
 RAW_CSV_PATH = RAW_DIR / "michelin_my_maps.csv"
 PROCESSED_CSV_PATH = PROCESSED_DIR / "michelin_restaurants.csv"
 

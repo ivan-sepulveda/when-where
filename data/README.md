@@ -10,6 +10,20 @@ that you're running from `data/` (`cd data` from the repo root).
 
 - `scripts/` — reusable Python scripts that pull and parse raw data. Move
   code here once it's stable; use `notebooks/` for exploration.
+  - `scripts/<continent>/` (`africa/`, `americas/`, `asia/`, `europe/`,
+    `oceana/`) — fetch scripts scoped to that continent's geography, e.g.
+    `americas/fetch_statcan_airport_movements.py` (Canada). `africa/` and
+    `oceana/` are currently empty (`.gitkeep`'d) — no sources there yet.
+  - `scripts/multiple/` — fetch scripts whose source spans many continents
+    at once (World Bank, SimpleMaps, Open-Meteo, Michelin), so no single
+    continent folder fits.
+  - `scripts/` (root) — everything that isn't a geography-scoped fetch:
+    alias-building (`build_city_aliases.py`, `build_country_aliases.py`),
+    lookup helpers (`city_lookup.py`, `country_lookup.py`), scoring/compute
+    scripts (`compute_monthly_scores.py`, `compute_peak_tourism_indicator.py`),
+    and cross-source diffs (`diff_michelin_vs_tourist_cities.py`). These
+    aren't tied to one continent, so they stay put rather than living in
+    any of the geography folders.
 - `raw/` — untouched downloads, one subfolder per source (gitignored, since
   it's regenerable by re-running the scripts).
 - `processed/` — cleaned, tidy CSVs derived from `raw/`, ready for scoring
@@ -22,7 +36,7 @@ that you're running from `data/` (`cd data` from the repo root).
 
 ### World Bank — GDP deflator (`NY.GDP.DEFL.KD.ZG`)
 
-- **Script:** `scripts/fetch_worldbank_indicator.py`
+- **Script:** `scripts/multiple/fetch_worldbank_indicator.py`
 - **API:** World Bank [Data360](https://data360api.worldbank.org) —
   `GET /data360/data?DATABASE_ID=WB_WDI&INDICATOR=WB_WDI_NY_GDP_DEFL_KD_ZG`
   (JSON, paginated 1000 rows/call via `skip`). WDI dotted codes map to
@@ -42,7 +56,7 @@ that you're running from `data/` (`cd data` from the repo root).
     names.
 - **Run:**
   ```
-  python scripts/fetch_worldbank_indicator.py NY.GDP.DEFL.KD.ZG
+  python scripts/multiple/fetch_worldbank_indicator.py NY.GDP.DEFL.KD.ZG
   ```
 - The script accepts any WDI indicator code, so it can be reused for future
   indicators (e.g. exchange rates, tourism arrivals) by passing a different
@@ -55,7 +69,7 @@ that you're running from `data/` (`cd data` from the repo root).
 
 ### World Bank — Exports of goods and services (`NE.EXP.GNFS.ZS`)
 
-- **Script:** `scripts/fetch_worldbank_indicator.py` (same script, different code)
+- **Script:** `scripts/multiple/fetch_worldbank_indicator.py` (same script, different code)
 - **What it is:** exports of goods and services as % of GDP, by
   country/region and year — how export-oriented an economy is.
 - **Why it's here:** a rougher, secondary proxy for economic
@@ -66,12 +80,12 @@ that you're running from `data/` (`cd data` from the repo root).
   more lag than the GDP deflator, confirmed via `isLatestData=true`).
 - **Run:**
   ```
-  python scripts/fetch_worldbank_indicator.py NE.EXP.GNFS.ZS
+  python scripts/multiple/fetch_worldbank_indicator.py NE.EXP.GNFS.ZS
   ```
 
 ### World Bank — PPP conversion factor, GDP (`PA.NUS.PPP`)
 
-- **Script:** `scripts/fetch_worldbank_indicator.py` (same script, different code)
+- **Script:** `scripts/multiple/fetch_worldbank_indicator.py` (same script, different code)
 - **What it is:** local currency units per international dollar (units:
   LCU per international $), by country and year. USA = 1 by definition
   (the international $ is anchored to the US dollar).
@@ -88,12 +102,12 @@ that you're running from `data/` (`cd data` from the repo root).
   territories/sanctioned states without data.
 - **Run:**
   ```
-  python scripts/fetch_worldbank_indicator.py PA.NUS.PPP
+  python scripts/multiple/fetch_worldbank_indicator.py PA.NUS.PPP
   ```
 
 ### World Bank — Price level index, GDP (`PA.NUS.GDP.PLI`)
 
-- **Script:** `scripts/fetch_worldbank_indicator.py` (same script, different code)
+- **Script:** `scripts/multiple/fetch_worldbank_indicator.py` (same script, different code)
 - **What it is:** PPP conversion factor divided by the market exchange rate,
   rebased so USA = 100. Values below 100 mean a dollar buys more there than
   in the US (cheaper); above 100 means less (pricier) — e.g. Switzerland
@@ -108,7 +122,7 @@ that you're running from `data/` (`cd data` from the repo root).
   aggregate codes plus territories/states without data.
 - **Run:**
   ```
-  python scripts/fetch_worldbank_indicator.py PA.NUS.GDP.PLI
+  python scripts/multiple/fetch_worldbank_indicator.py PA.NUS.GDP.PLI
   ```
 
 ### SimpleMaps — World Cities Database (Basic)
@@ -130,7 +144,7 @@ that you're running from `data/` (`cd data` from the repo root).
   (not a per-city API), so there are no rate limits and the lookup runs
   fully offline once downloaded.
 
-### `scripts/fetch_tourist_cities.py` — city list + coordinates
+### `scripts/multiple/fetch_tourist_cities.py` — city list + coordinates
 
 - **What it does:** downloads the SimpleMaps Basic zip into
   `raw/simplemaps/` (cached — reuse unless `--force-download`), loads the
@@ -206,8 +220,8 @@ that you're running from `data/` (`cd data` from the repo root).
   Pro/Comprehensive-only.
 - **Run:**
   ```
-  python scripts/fetch_tourist_cities.py
-  python scripts/fetch_tourist_cities.py --force-download   # bypass the raw/ cache
+  python scripts/multiple/fetch_tourist_cities.py
+  python scripts/multiple/fetch_tourist_cities.py --force-download   # bypass the raw/ cache
   ```
 - **Note:** `total_cities` can be less than
   `top_n_cities_by_population + additional_cities_requested +
@@ -232,7 +246,7 @@ extraction, not something to be regenerated per run.
 
 ### `reference/latest_year_cache.json` — "is there new data yet?" cache
 
-- **Script:** `scripts/latest_year_cache.py`
+- **Script:** `scripts/multiple/latest_year_cache.py`
 - **What it does:** checks the latest year available for a WDI indicator
   via `GET /data360/data?...&REF_AREA=USA&isLatestData=true` (USA used as
   a reliable proxy country), and caches the result so we don't hit the API
@@ -248,8 +262,8 @@ extraction, not something to be regenerated per run.
     year shows up.
 - **Run:**
   ```
-  python scripts/latest_year_cache.py NY.GDP.DEFL.KD.ZG
-  python scripts/latest_year_cache.py NY.GDP.DEFL.KD.ZG --force   # bypass schedule
+  python scripts/multiple/latest_year_cache.py NY.GDP.DEFL.KD.ZG
+  python scripts/multiple/latest_year_cache.py NY.GDP.DEFL.KD.ZG --force   # bypass schedule
   ```
 - Cache seeded with `NY.GDP.DEFL.KD.ZG: 2025`, `NE.EXP.GNFS.ZS: 2024`,
   `PA.NUS.PPP: 2025`, and `PA.NUS.GDP.PLI: 2025` (all confirmed live
@@ -257,7 +271,7 @@ extraction, not something to be regenerated per run.
   above). Different indicators can have different latest years, since
   reporting lag varies by series.
 
-### `scripts/fetch_latest_by_country.py` — indicator value per country, latest year
+### `scripts/multiple/fetch_latest_by_country.py` — indicator value per country, latest year
 
 - **What it does:** for each WDI indicator in `reference/worldbank_metrics.json`
   (or specific codes passed on the command line), looks up the latest
@@ -293,13 +307,13 @@ extraction, not something to be regenerated per run.
   rather than silently dropped or backfilled with an old year.
 - **Run:**
   ```
-  python scripts/fetch_latest_by_country.py
+  python scripts/multiple/fetch_latest_by_country.py
   ```
   With no arguments, this runs every indicator in `reference/worldbank_metrics.json`
   in one go — this is the normal way to run it, and the reason the metrics
   registry exists: add an indicator there and it's picked up automatically,
   no script edits needed. Pass explicit codes (e.g.
-  `python scripts/fetch_latest_by_country.py NY.GDP.DEFL.KD.ZG`) to run
+  `python scripts/multiple/fetch_latest_by_country.py NY.GDP.DEFL.KD.ZG`) to run
   just a subset instead.
 - **Generated:**
   - `processed/worldbank_NY.GDP.DEFL.KD.ZG_2025_by_country.json`
@@ -308,12 +322,12 @@ extraction, not something to be regenerated per run.
   - `processed/worldbank_PA.NUS.GDP.PLI_2025_by_country.json`
 
   These are gitignored (see Layout above), so a fresh clone won't have
-  them — run `python scripts/fetch_latest_by_country.py` to regenerate
+  them — run `python scripts/multiple/fetch_latest_by_country.py` to regenerate
   all four. It'll reuse `reference/latest_year_cache.json` instead of
   re-querying the API for the latest year, as long as the cached year
   isn't more than 1 year stale (see the cache section below).
 
-### Open-Meteo — monthly weather normals (`scripts/fetch_weather_normals.py`)
+### Open-Meteo — monthly weather normals (`scripts/multiple/fetch_weather_normals.py`)
 
 - **API:** [Open-Meteo Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api)
   (`GET archive-api.open-meteo.com/v1/archive`) — ERA5/ERA5-Land reanalysis
@@ -399,9 +413,9 @@ extraction, not something to be regenerated per run.
   it can be joined back to city metadata without a name-matching step.
 - **Run:**
   ```
-  python scripts/fetch_weather_normals.py --limit 20   # pilot a small batch first
-  python scripts/fetch_weather_normals.py              # full run (resumable — safe to re-run/interrupt)
-  python scripts/fetch_weather_normals.py --force       # re-fetch cities already in the output
+  python scripts/multiple/fetch_weather_normals.py --limit 20   # pilot a small batch first
+  python scripts/multiple/fetch_weather_normals.py              # full run (resumable — safe to re-run/interrupt)
+  python scripts/multiple/fetch_weather_normals.py --force       # re-fetch cities already in the output
   ```
 - **Note:** this sandbox couldn't reach `open-meteo.com` at all (neither
   `curl` nor the fetch tool used for the World Bank/SimpleMaps sources got
@@ -502,7 +516,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   `weather_normals_2025_by_city.json` (1770 cities) and spot-checked
   against known Tokyo seasonal patterns.
 
-### Michelin Guide restaurants (`scripts/fetch_michelin_restaurants.py`)
+### Michelin Guide restaurants (`scripts/multiple/fetch_michelin_restaurants.py`)
 
 - **Sources (primary + fallback, same underlying dataset):**
   - **Primary:** [Kaggle — michelin-guide-restaurants-2021](https://www.kaggle.com/datasets/ngshiheng/michelin-guide-restaurants-2021),
@@ -545,8 +559,8 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
     `location_city`/`location_country` columns and the boolean `GreenStar`.
 - **Run:**
   ```
-  python scripts/fetch_michelin_restaurants.py
-  python scripts/fetch_michelin_restaurants.py --force-fallback
+  python scripts/multiple/fetch_michelin_restaurants.py
+  python scripts/multiple/fetch_michelin_restaurants.py --force-fallback
   ```
 - **Note:** this sandbox blocks both `kaggle.com`/kagglehub's endpoints
   and `raw.githubusercontent.com` (same allowlist issue as every other
@@ -559,7 +573,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   kagglehub-fails→fallback logic, `--force-fallback`, and the raw/ copy
   behavior were also verified end-to-end with both paths mocked.
 
-### Eurostat — Air transport of passengers by country (`TTR00012`/`TTR00016`, `scripts/fetch_eurostat_dataset.py`)
+### Eurostat — Air transport of passengers by country (`TTR00012`/`TTR00016`, `scripts/europe/fetch_eurostat_dataset.py`)
 
 - **Source:** [Eurostat Statistics API](https://wikis.ec.europa.eu/display/EUROSTATHELP/API+-+Getting+started)
   — `GET /eurostat/api/dissemination/statistics/1.0/data/<dataset_id>`,
@@ -634,11 +648,11 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
       version with the old, more verbose filename convention.
 - **Run:**
   ```
-  python scripts/fetch_eurostat_dataset.py                       # TTR00012, 2025 (defaults)
-  python scripts/fetch_eurostat_dataset.py TTR00012 --time 2025
-  python scripts/fetch_eurostat_dataset.py TTR00012 --time 2023 2024 2025
-  python scripts/fetch_eurostat_dataset.py TTR00012 --time       # all years, no filter
-  python scripts/fetch_eurostat_dataset.py TTR00016 --filter tra_cov=TOTAL   # all published months, no period filter
+  python scripts/europe/fetch_eurostat_dataset.py                       # TTR00012, 2025 (defaults)
+  python scripts/europe/fetch_eurostat_dataset.py TTR00012 --time 2025
+  python scripts/europe/fetch_eurostat_dataset.py TTR00012 --time 2023 2024 2025
+  python scripts/europe/fetch_eurostat_dataset.py TTR00012 --time       # all years, no filter
+  python scripts/europe/fetch_eurostat_dataset.py TTR00016 --filter tra_cov=TOTAL   # all published months, no period filter
   ```
   Reusable for other Eurostat datasets too — pass a different dataset id;
   add an `OUTPUT_NAME_OVERRIDES` entry for a friendlier output filename.
@@ -718,7 +732,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   was correctly used for Feb/Mar/Apr (present in both years), 2025 for
   May (present in 2025 only).
 
-### Japan tourism indicators (`scripts/fetch_japan_tourism_indicators.py`)
+### Japan tourism indicators (`scripts/asia/fetch_japan_tourism_indicators.py`)
 
 - **Source:** the [e-Stat Statistics Dashboard WebAPI](https://dashboard.e-stat.go.jp/en/static/api)
   (`dashboard.e-stat.go.jp`) — **not** the main e-Stat API; no
@@ -771,8 +785,8 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   changes).
 - **Run:**
   ```
-  python scripts/fetch_japan_tourism_indicators.py
-  python scripts/fetch_japan_tourism_indicators.py --since 2024-01
+  python scripts/asia/fetch_japan_tourism_indicators.py
+  python scripts/asia/fetch_japan_tourism_indicators.py --since 2024-01
   ```
 - **Note:** this sandbox blocks `dashboard.e-stat.go.jp` in `bash`
   (confirmed — `curl` fails to connect), same as every other live source
@@ -788,7 +802,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   `processed/japan_tourism_indicators_by_month.csv` was generated from
   that same verified data, not a live script run.
 
-### Statistics Canada — airport itinerant movements (`scripts/fetch_statcan_airport_movements.py`)
+### Statistics Canada — airport itinerant movements (`scripts/americas/fetch_statcan_airport_movements.py`)
 
 - **Source:** [Statistics Canada Web Data Service (WDS)](https://www.statcan.gc.ca/en/developers/wds/user-guide)
   — table [23-10-0304-01](https://open.canada.ca/data/en/dataset/0b985486-61b6-45a9-bb99-db4116c29fe1),
@@ -829,12 +843,12 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   smaller file is wanted.
 - **Run:**
   ```
-  python scripts/fetch_statcan_airport_movements.py                   # everything: all airports, all time
-  python scripts/fetch_statcan_airport_movements.py --cities-only     # curated Canadian destination cities only
-  python scripts/fetch_statcan_airport_movements.py --years-back 5    # last 5 years, all airports
-  python scripts/fetch_statcan_airport_movements.py --start-date 2020-01 --end-date 2025-12
-  python scripts/fetch_statcan_airport_movements.py --cities-only --years-back 5
-  python scripts/fetch_statcan_airport_movements.py --force-download  # bypass the cached raw/ zip
+  python scripts/americas/fetch_statcan_airport_movements.py                   # everything: all airports, all time
+  python scripts/americas/fetch_statcan_airport_movements.py --cities-only     # curated Canadian destination cities only
+  python scripts/americas/fetch_statcan_airport_movements.py --years-back 5    # last 5 years, all airports
+  python scripts/americas/fetch_statcan_airport_movements.py --start-date 2020-01 --end-date 2025-12
+  python scripts/americas/fetch_statcan_airport_movements.py --cities-only --years-back 5
+  python scripts/americas/fetch_statcan_airport_movements.py --force-download  # bypass the cached raw/ zip
   ```
 - **Note:** this sandbox blocks `statcan.gc.ca` outright for shell/`requests`
   calls (same allowlist issue as every other live source in this file — a

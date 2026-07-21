@@ -80,8 +80,8 @@ MAX_RATE_LIMIT_RETRIES = 5
 # ---------------------------------------------------------------------------
 
 BASE_URL = "https://archive-api.open-meteo.com/v1/archive"
-REFERENCE_DIR = Path(__file__).resolve().parent.parent / "reference"
-PROCESSED_DIR = Path(__file__).resolve().parent.parent / "processed"
+REFERENCE_DIR = Path(__file__).resolve().parent.parent.parent / "reference"
+PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed"
 CITIES_PATH = REFERENCE_DIR / "tourist_cities.json"
 OUT_PATH = PROCESSED_DIR / f"weather_normals_{TARGET_YEAR}_by_city.json"
 
