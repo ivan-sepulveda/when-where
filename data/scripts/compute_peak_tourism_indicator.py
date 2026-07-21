@@ -2,8 +2,10 @@
 Build data/processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv: for each
 country and calendar month, how busy air travel is relative to that
 country's own peak month -- a 0-1 "seasonality" ratio derived from
-processed/eurostat_passengers_transported_by_country_monthly_*.csv (see
-fetch_eurostat_dataset.py).
+processed/europe/eurostat_passengers_transported_by_country_monthly_*.csv
+(see scripts/europe/fetch_eurostat_dataset.py). This script itself stays at
+scripts/ root (and writes its own output to processed/ root) since it isn't
+a geography-scoped fetch -- only its Eurostat *input* lives under europe/.
 
 Method, per country:
     MAX_PASSENGERS = max(value) across every month/year currently fetched
@@ -39,7 +41,7 @@ EA20, EA19) are dropped -- they're not countries, so don't belong in a
 
 Usage:
     python compute_peak_tourism_indicator.py
-    python compute_peak_tourism_indicator.py --input ../processed/eurostat_passengers_transported_by_country_monthly_TOTAL.csv
+    python compute_peak_tourism_indicator.py --input ../processed/europe/eurostat_passengers_transported_by_country_monthly_TOTAL.csv
     python compute_peak_tourism_indicator.py --tra-cov NAT   # score national-only traffic instead of total
 """
 
@@ -71,15 +73,18 @@ OUTPUT_FILENAME = "PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv"  # ALL_CAPS by request
 
 # ---------------------------------------------------------------------------
 
+# Output stays at processed/ root (this script isn't a geography-scoped
+# fetch), but its Eurostat input now lives under processed/europe/.
 PROCESSED_DIR = Path(__file__).resolve().parent.parent / "processed"
+SOURCE_DIR = PROCESSED_DIR / "europe"
 
 
 def find_source_csv() -> Path:
-    matches = sorted(PROCESSED_DIR.glob(SOURCE_GLOB), key=lambda p: p.stat().st_mtime, reverse=True)
+    matches = sorted(SOURCE_DIR.glob(SOURCE_GLOB), key=lambda p: p.stat().st_mtime, reverse=True)
     if not matches:
         raise FileNotFoundError(
-            f"No file matching {SOURCE_GLOB!r} in {PROCESSED_DIR}/ -- run "
-            f"fetch_eurostat_dataset.py TTR00016 --filter tra_cov={TRA_COV_FILTER} first."
+            f"No file matching {SOURCE_GLOB!r} in {SOURCE_DIR}/ -- run "
+            f"scripts/europe/fetch_eurostat_dataset.py TTR00016 --filter tra_cov={TRA_COV_FILTER} first."
         )
     if len(matches) > 1:
         print(f"Note: multiple files match {SOURCE_GLOB!r} -- using the most recently modified: {matches[0].name}")
@@ -145,7 +150,7 @@ def main():
         "--input",
         type=Path,
         default=None,
-        help=f"Path to the source CSV (default: auto-detect via glob {SOURCE_GLOB!r} in data/processed/)",
+        help=f"Path to the source CSV (default: auto-detect via glob {SOURCE_GLOB!r} in data/processed/europe/)",
     )
     parser.add_argument(
         "--tra-cov",

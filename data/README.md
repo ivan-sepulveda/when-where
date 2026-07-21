@@ -27,8 +27,21 @@ that you're running from `data/` (`cd data` from the repo root).
     any of the geography folders.
 - `raw/` — untouched downloads, one subfolder per source (gitignored, since
   it's regenerable by re-running the scripts).
-- `processed/` — cleaned, tidy CSVs derived from `raw/`, ready for scoring
-  or analysis (gitignored — regenerate with the scripts).
+- `processed/` — cleaned, tidy data derived from `raw/`, ready for scoring
+  or analysis. Mirrors the `scripts/` layout above: `processed/<continent>/`
+  holds output from that continent's fetch scripts (e.g.
+  `processed/americas/statcan_airport_movements.csv`), `processed/multiple/`
+  holds output from the cross-continent fetch scripts (World Bank,
+  SimpleMaps, Open-Meteo, Michelin), and `processed/` (root) holds output
+  from the root-level compute/diff scripts (`monthly_scores_<year>_by_city.json`,
+  `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`,
+  `michelin_cities_missing_from_tourist_cities.csv`) — those scripts read
+  from a continent/multiple subfolder but aren't geography-scoped
+  themselves, so their own output stays at root, same reasoning as why
+  they stay at `scripts/` root rather than living in a geography folder.
+  CSVs anywhere under `processed/` are gitignored (regenerate with the
+  scripts); the tracked JSON/xlsx outputs are the exception, kept in git
+  since they're the ones downstream code/notebooks actually load from.
 - `reference/` — small, stable lookup files that other scripts depend on
   (country code/name mappings, API check-in caches). Tracked in git since
   they're cheap to store and useful to diff.
@@ -50,7 +63,7 @@ that you're running from `data/` (`cd data` from the repo root).
   travelers. This is a rough proxy, not a direct measure of travel prices.
 - **Output:**
   - `raw/worldbank/<code>/<code>.json` — full raw API response records.
-  - `processed/worldbank_<code>.csv` — tidy columns `ref_area, indicator,
+  - `processed/multiple/worldbank_<code>.csv` — tidy columns `ref_area, indicator,
     time_period, obs_value, unit_measure, freq`. `ref_area` is a mix of
     ISO3 country codes and World Bank region aggregates (e.g. `ARB`,
     `AFE`) — join against `reference/worldbank_countries.json` to get
@@ -280,7 +293,7 @@ extraction, not something to be regenerated per run.
   that indicator for every country/region in `reference/worldbank_countries.json`
   in one pass (`GET /data360/data?...&TIME_PERIOD=<year>`, paginated) and
   writes a single JSON keyed by country code.
-- **Output:** `processed/worldbank_<code>_<year>_by_country.json`:
+- **Output:** `processed/multiple/worldbank_<code>_<year>_by_country.json`:
   ```json
   {
     "indicator": "NY.GDP.DEFL.KD.ZG",
@@ -317,10 +330,10 @@ extraction, not something to be regenerated per run.
   `python scripts/multiple/fetch_latest_by_country.py NY.GDP.DEFL.KD.ZG`) to run
   just a subset instead.
 - **Generated:**
-  - `processed/worldbank_NY.GDP.DEFL.KD.ZG_2025_by_country.json`
-  - `processed/worldbank_NE.EXP.GNFS.ZS_2024_by_country.json`
-  - `processed/worldbank_PA.NUS.PPP_2025_by_country.json`
-  - `processed/worldbank_PA.NUS.GDP.PLI_2025_by_country.json`
+  - `processed/multiple/worldbank_NY.GDP.DEFL.KD.ZG_2025_by_country.json`
+  - `processed/multiple/worldbank_NE.EXP.GNFS.ZS_2024_by_country.json`
+  - `processed/multiple/worldbank_PA.NUS.PPP_2025_by_country.json`
+  - `processed/multiple/worldbank_PA.NUS.GDP.PLI_2025_by_country.json`
 
   These are gitignored (see Layout above), so a fresh clone won't have
   them — run `python scripts/multiple/fetch_latest_by_country.py` to regenerate
@@ -376,7 +389,7 @@ extraction, not something to be regenerated per run.
   over an hour before counting any 429 backoff time), and a crash or an
   unrecoverable rate limit partway through shouldn't lose progress
   already made.
-- **Output:** `processed/weather_normals_<year>_by_city.json`:
+- **Output:** `processed/multiple/weather_normals_<year>_by_city.json`:
   ```json
   {
     "source": "Open-Meteo Historical Weather API (ERA5/ERA5-Land reanalysis) -- https://open-meteo.com/en/docs/historical-weather-api",
@@ -437,7 +450,7 @@ extraction, not something to be regenerated per run.
 
 ### Monthly weather scores (`scripts/compute_monthly_scores.py`)
 
-- **What it does:** reads `processed/weather_normals_<year>_by_city.json`
+- **What it does:** reads `processed/multiple/weather_normals_<year>_by_city.json`
   and computes six simple, transparent, rule-based scores per city per
   calendar month — no machine learning, just plain formulas over the
   weather-normal fields, per the project's guidance to start with an
@@ -556,7 +569,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   - `raw/michelin/michelin_my_maps.csv` — untouched copy of whichever
     source succeeded (kagglehub's own cache lives outside this repo, so
     this is copied in for consistency with the other sources).
-  - `processed/michelin_restaurants.csv` — same rows, plus the two
+  - `processed/multiple/michelin_restaurants.csv` — same rows, plus the two
     `location_city`/`location_country` columns and the boolean `GreenStar`.
 - **Run:**
   ```
@@ -624,7 +637,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 - **Output:**
   - `raw/eurostat/<dataset_id>/<dataset_id><suffix>.json` — untouched API
     response.
-  - `processed/eurostat_<slug><suffix>.csv` — tidy, one row per
+  - `processed/europe/eurostat_<slug><suffix>.csv` — tidy, one row per
     observation, with a `<dim>` code column *and* a `<dim>_label` column
     for every dimension, plus `value`. `<slug>` is a human-readable name
     (`OUTPUT_NAME_OVERRIDES` in the script maps `TTR00012` →
@@ -638,9 +651,9 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
     since it's not meaningful to anyone who hasn't read the script --
     `tra_cov=INTL_IEU27_2020` becomes `_INTRA_EU`, not `_tra_covINTL_IEU27_2020`.
     Current files:
-    - `processed/eurostat_passengers_transported_by_country_2025.csv`
+    - `processed/europe/eurostat_passengers_transported_by_country_2025.csv`
       (29 rows — one per reporting country, `TTR00012`, 2025).
-    - `processed/eurostat_passengers_transported_by_country_monthly_TOTAL.csv`
+    - `processed/europe/eurostat_passengers_transported_by_country_monthly_TOTAL.csv`
       (437 rows — up to 35 reporting countries × the 16 months currently
       published, `TTR00016`, `tra_cov=TOTAL` only, no time filter). Two
       earlier pulls are superseded by this one: a `..._2025-01_2025-12_...`
@@ -670,13 +683,13 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
     EU27_2020's 2025-02 value (`64965062`, index 0) and Austria's 2025-11
     value (`2552040`, index `23 × 10 + 9 = 239`) both matched, including
     with `TTR00016`'s different dimension ordering.
-  Both `processed/eurostat_*.csv` files listed above were generated from
+  Both `processed/europe/eurostat_*.csv` files listed above were generated from
   those same verified responses, not a live script run.
 
 ### Peak tourism indicator (`scripts/compute_peak_tourism_indicator.py`)
 
 - **What it does:** reads the Eurostat monthly air-passenger CSV
-  (`processed/eurostat_passengers_transported_by_country_monthly_*.csv`,
+  (`processed/europe/eurostat_passengers_transported_by_country_monthly_*.csv`,
   `tra_cov=TOTAL` only) and computes, per country per calendar month, how
   busy air travel is relative to that country's own peak month — a
   0.0–1.0 seasonality ratio. Not machine-learned, just:
@@ -772,7 +785,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   a given month. Two different signals (border entries vs. accommodation
   nights) kept side by side rather than combined, since they measure
   related but distinct things.
-- **Output:** `processed/japan_tourism_indicators_by_month.csv` —
+- **Output:** `processed/asia/japan_tourism_indicators_by_month.csv` —
   columns `COUNTRY` (`"JP"`), `COUNTRY_NAME` (`"Japan"`), `MONTH`
   (`"YYYY-MM"` string — deliberately *not* the bare 1–12 integer used in
   `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`, since this is a genuine
@@ -800,7 +813,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   script's `parse_monthly_values()` was verified against those real
   responses (Jan 2025 entries = `3800206`, Apr 2026 guest nights =
   `15362170`, both exact matches), and
-  `processed/japan_tourism_indicators_by_month.csv` was generated from
+  `processed/asia/japan_tourism_indicators_by_month.csv` was generated from
   that same verified data, not a live script run.
 
 ### Statistics Canada — airport itinerant movements (`scripts/americas/fetch_statcan_airport_movements.py`)
@@ -835,7 +848,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   small GA airports, unlikely to fall inside this table's NAV CANADA/
   "other selected airports" scope, and guessing would be worse than
   omitting them.
-- **Output:** always `processed/statcan_airport_movements.csv` (fixed name —
+- **Output:** always `processed/americas/statcan_airport_movements.csv` (fixed name —
   rerunning with different flags overwrites it) — original table columns
   (`REF_DATE`, `GEO`, `DGUID`, `Airports`, the movements-breakdown column,
   `UOM`, `VALUE`, etc.), plus `city` and `match_type` only when `--cities-only`
@@ -915,7 +928,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   the COVID-19 pandemic on international travel," per the workbook's own
   Index sheet — both have been blank ever since. Original is the only
   variant with a complete, uninterrupted series.
-- **Output:** `processed/abs_visitor_arrivals_monthly.csv` — `ref_date`
+- **Output:** `processed/oceana/abs_visitor_arrivals_monthly.csv` — `ref_date`
   ("YYYY-MM") plus one column per category: `permanent_arrivals`,
   `long_term_residents_returning`, `long_term_visitors_arriving`,
   `permanent_and_long_term_arrivals`, `short_term_residents_returning`,
@@ -1004,13 +1017,13 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 - **CLI mode** — scan a CSV column for country strings that don't
   resolve yet:
   ```
-  python scripts/country_lookup.py ../processed/michelin_restaurants.csv --column location_country
+  python scripts/country_lookup.py ../processed/multiple/michelin_restaurants.csv --column location_country
   ```
   Run this against any new source's country column before joining it to
   other data. If it reports unmapped strings, add them to `EXTRA_ALIASES`
   in `build_country_aliases.py` (mapped to the correct iso3) and rerun
   that script to regenerate `country_aliases.json`. Verified for real
-  against `processed/michelin_restaurants.csv`: zero unmapped strings
+  against `processed/multiple/michelin_restaurants.csv`: zero unmapped strings
   (547 rows have a blank `location_country` outright — Singapore, Dubai,
   Abu Dhabi, Macau, and Luxembourg all appear as a bare city with no
   ", Country" suffix in the source `Location` field, since the city
@@ -1079,7 +1092,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 
 ### `scripts/diff_michelin_vs_tourist_cities.py` — which Michelin cities aren't tracked yet
 
-- **What it does:** compares `processed/michelin_restaurants.csv` against
+- **What it does:** compares `processed/multiple/michelin_restaurants.csv` against
   `reference/tourist_cities.json` and reports which Michelin (city,
   country) pairs have no match in the tourist cities list — a candidate
   list for expanding `ADDITIONAL_CITIES` in `fetch_tourist_cities.py`, and

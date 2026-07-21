@@ -113,7 +113,7 @@ PRODUCT_ID = "23100304"
 WDS_DOWNLOAD_URL_TEMPLATE = "https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadCSV/{product_id}/en"
 
 RAW_DIR = Path(__file__).resolve().parent.parent.parent / "raw" / "statcan_airport_movements"
-PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed"
+PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed" / "americas"
 OUTPUT_FILENAME = "statcan_airport_movements.csv"
 
 # city (must match reference/tourist_cities.json's "city" field exactly) ->

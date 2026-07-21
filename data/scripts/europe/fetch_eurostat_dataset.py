@@ -84,7 +84,7 @@ FILTER_VALUE_LABELS = {
 
 BASE_URL = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data"
 RAW_DIR = Path(__file__).resolve().parent.parent.parent / "raw" / "eurostat"
-PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed"
+PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed" / "europe"
 
 
 def fetch_jsonstat(

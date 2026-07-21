@@ -1,5 +1,5 @@
 """
-Compare processed/michelin_restaurants.csv against reference/tourist_cities.json
+Compare processed/multiple/michelin_restaurants.csv against reference/tourist_cities.json
 and report which Michelin (city, country) pairs aren't in the tourist cities
 list -- a candidate list for expanding ADDITIONAL_CITIES in
 fetch_tourist_cities.py, and a sanity check on how much Michelin coverage the
@@ -50,7 +50,10 @@ from country_lookup import normalize_country
 # ---------------------------------------------------------------------------
 
 TOURIST_CITIES_PATH = Path(__file__).resolve().parent.parent / "reference" / "tourist_cities.json"
-MICHELIN_CSV_PATH = Path(__file__).resolve().parent.parent / "processed" / "michelin_restaurants.csv"
+# Input lives under processed/multiple/ (fetch_michelin_restaurants.py is a
+# "multiple" fetch script); this script's own output stays at processed/
+# root since it isn't a geography-scoped fetch itself.
+MICHELIN_CSV_PATH = Path(__file__).resolve().parent.parent / "processed" / "multiple" / "michelin_restaurants.csv"
 OUT_CSV_PATH = Path(__file__).resolve().parent.parent / "processed" / "michelin_cities_missing_from_tourist_cities.csv"
 
 # Michelin Location values that are a bare city name (no ", Country") because

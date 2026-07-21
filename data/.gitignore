@@ -1,7 +1,7 @@
 raw/**
 !raw/.gitkeep
 !raw/*/
-processed/*.csv
+processed/**/*.csv
 !processed/.gitkeep
 scripts/__pycache__/
 *.pyc

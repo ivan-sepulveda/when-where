@@ -31,7 +31,7 @@ import requests
 from latest_year_cache import BASE_URL, DATABASE_ID, get_latest_year, to_data360_indicator_id
 
 REFERENCE_DIR = Path(__file__).resolve().parent.parent.parent / "reference"
-PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed"
+PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed" / "multiple"
 COUNTRIES_PATH = REFERENCE_DIR / "worldbank_countries.json"
 METRICS_PATH = REFERENCE_DIR / "worldbank_metrics.json"
 PAGE_SIZE = 1000

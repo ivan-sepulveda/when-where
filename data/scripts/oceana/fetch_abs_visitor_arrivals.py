@@ -115,7 +115,7 @@ TABLE_TITLE_QUERY = '"table 1"'
 TS_SEARCH_URL = "https://abs.gov.au/servlet/TSSearchServlet"
 
 RAW_DIR = Path(__file__).resolve().parent.parent.parent / "raw" / "abs_visitor_arrivals"
-PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed"
+PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed" / "oceana"
 OUTPUT_FILENAME = "abs_visitor_arrivals_monthly.csv"
 
 # Description text (as it appears in Data1 row 1) -> output column slug.

@@ -1,7 +1,11 @@
 """
 Build data/processed/monthly_scores_<year>_by_city.json: a set of simple,
 transparent, rule-based scores per city per calendar month, derived from
-processed/weather_normals_<year>_by_city.json.
+processed/multiple/weather_normals_<year>_by_city.json (see
+scripts/multiple/fetch_weather_normals.py). This script itself stays at
+scripts/ root (and writes its own output to processed/ root) since it isn't
+a geography-scoped fetch -- only its weather-normals *input* lives under
+multiple/.
 
 This is intentionally a rule-based model, not a learned one -- each score
 is a plain formula over one weather-normal field, documented below and in
@@ -49,7 +53,10 @@ WIND_COMFORT_CEILING_KMH = 80
 
 HOURS_PER_DAY = 24  # unit-conversion constant, not really "tunable"
 
+# Output stays at processed/ root (this script isn't a geography-scoped
+# fetch), but its weather-normals input now lives under processed/multiple/.
 PROCESSED_DIR = Path(__file__).resolve().parent.parent / "processed"
+WEATHER_DIR = PROCESSED_DIR / "multiple"
 
 ATTRIBUTION = (
     "Derived from Open-Meteo Historical Weather API data via "
@@ -58,7 +65,7 @@ ATTRIBUTION = (
 
 
 def weather_normals_path(year: int) -> Path:
-    return PROCESSED_DIR / f"weather_normals_{year}_by_city.json"
+    return WEATHER_DIR / f"weather_normals_{year}_by_city.json"
 
 
 def scores_output_path(year: int) -> Path:
@@ -69,7 +76,7 @@ def load_weather_normals(year: int) -> dict:
     path = weather_normals_path(year)
     if not path.exists():
         raise FileNotFoundError(
-            f"{path} not found -- run fetch_weather_normals.py first "
+            f"{path} not found -- run scripts/multiple/fetch_weather_normals.py first "
             f"(or pass --year to score a different year that's already been pulled)."
         )
     with open(path, encoding="utf-8") as f:

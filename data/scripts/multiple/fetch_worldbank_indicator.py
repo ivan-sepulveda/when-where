@@ -23,7 +23,7 @@ from pathlib import Path
 import requests
 
 RAW_DIR = Path(__file__).resolve().parent.parent.parent / "raw" / "worldbank"
-PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed"
+PROCESSED_DIR = Path(__file__).resolve().parent.parent.parent / "processed" / "multiple"
 
 BASE_URL = "https://data360api.worldbank.org/data360/data"
 DATABASE_ID = "WB_WDI"
