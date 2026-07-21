@@ -7,10 +7,13 @@ Two source families feed this, using two different methods (see below):
 
   - Europe: processed/europe/eurostat_passengers_transported_by_country_monthly_*.csv
     (air passengers transported; see scripts/europe/fetch_eurostat_dataset.py)
-  - Australia + New Zealand: processed/oceana/abs_visitor_arrivals_monthly.csv
-    and processed/oceana/statsnz_visitor_arrivals_monthly.csv (visitor
-    arrivals, not air passengers; see scripts/oceana/fetch_abs_visitor_arrivals.py
-    and scripts/oceana/fetch_statsnz_visitor_arrivals.py)
+  - Australia, New Zealand, Japan (the "EXTRA_COUNTRY_SOURCES" countries):
+    processed/oceana/abs_visitor_arrivals_monthly.csv,
+    processed/oceana/statsnz_visitor_arrivals_monthly.csv, and
+    processed/asia/japan_tourism_indicators_by_month.csv (visitor arrivals /
+    border entries, not air passengers; see scripts/oceana/fetch_abs_visitor_arrivals.py,
+    scripts/oceana/fetch_statsnz_visitor_arrivals.py, and
+    scripts/asia/fetch_japan_tourism_indicators.py)
 
 This script itself stays at scripts/ root (and writes its own output to
 processed/ root) since it isn't a geography-scoped fetch -- only its
@@ -48,39 +51,47 @@ Rows for Eurostat's EU/euro-area aggregate `geo` codes (EU27_2020, EA21,
 EA20, EA19) are dropped -- they're not countries, so don't belong in a
 "peak tourism indicator by country" table.
 
-**Method for Australia + New Zealand, per country -- LATEST 12 MONTHS ONLY:**
+**Method for AU / NZ / Japan, per country -- LATEST 12 MONTHS ONLY:**
 Unlike the Eurostat side, the ABS series runs back to 1976 and using its
 full history would score a month against a decades-old peak that may no
 longer be representative (and Stats NZ's Table 1 only carries 5 fiscal
-years to begin with, so "full history" isn't really comparable across the
-two sources anyway). Instead:
+years, e-Stat's Dashboard pull only 16 months, to begin with -- so "full
+history" isn't comparable across these sources anyway). Instead, each
+source's own most recent 12 monthly rows are used:
 
-    latest_12 = df.sort_values("ref_date").tail(12)   # most recent 12 rows
-    MAX_VALUE = latest_12["value"].max()
+    latest_12 = df.sort_values(date_col).tail(12)   # most recent 12 rows
+    MAX_VALUE = latest_12[value_col].max()
     PEAK_RATIO(month) = value(month) / MAX_VALUE
 
-Both sources' processed CSVs happen to run through 2026-05 as of this
-writing, so "latest 12 months" is Jun 2025 - May 2026 for both AU and NZ
--- one row per calendar month, no deduplication needed since each source
-has exactly one observation per ref_date. `SOURCE_YEAR` records the
-calendar year each month's observation actually fell in (so e.g. MONTH=6
-is SOURCE_YEAR=2025 while MONTH=5 is SOURCE_YEAR=2026).
+As of this writing the three sources' processed CSVs run through
+2026-05 (ABS), 2026-05 (Stats NZ), and 2026-04 (e-Stat) respectively, so
+"latest 12 months" works out to Jun 2025 - May 2026 for AU/NZ and
+May 2025 - Apr 2026 for Japan -- one row per calendar month, no
+deduplication needed since each source has exactly one observation per
+month. `SOURCE_YEAR` records the calendar year each month's observation
+actually fell in (so e.g. for AU/NZ, MONTH=6 is SOURCE_YEAR=2025 while
+MONTH=5 is SOURCE_YEAR=2026).
 
-The "value" column differs by source: ABS Table 1's `short_term_visitors_
+The value column, and the column holding the "YYYY-MM" date, differ by
+source (see `EXTRA_COUNTRY_SOURCES`): ABS Table 1's `short_term_visitors_
 arriving` (short-term overseas visitor arrivals -- the closest ABS column
-to "how many tourists arrived this month") and Stats NZ Table 1's
-`visitor_arrivals`. Both land in the output's generic `PASSENGERS` column
-for schema consistency with the Eurostat rows, even though they're visitor
-arrivals counts, not air-passenger counts -- these are two different
-proxies for "how much inbound travel is happening," not directly
-comparable in magnitude across sources, only within a single country's own
-row of PEAK_RATIO values.
+to "how many tourists arrived this month"), Stats NZ Table 1's
+`visitor_arrivals`, and Japan's e-Stat Dashboard pull's `NUM_ENTRIES`
+(foreign-national border entries -- see scripts/asia/fetch_japan_tourism_
+indicators.py's docstring: this counts ALL foreign-national entries, not
+filtered to tourism purpose, so it runs a bit higher than a true
+visitor-arrivals count would, e.g. it includes work-visa holders). All
+three land in the output's generic `PASSENGERS` column for schema
+consistency with the Eurostat rows, even though none of them are actually
+air-passenger counts -- these are three different proxies for "how much
+inbound travel is happening," not directly comparable in magnitude across
+sources, only within a single country's own row of PEAK_RATIO values.
 
 Usage:
     python compute_peak_tourism_indicator.py
     python compute_peak_tourism_indicator.py --input ../processed/europe/eurostat_passengers_transported_by_country_monthly_TOTAL.csv
-    python compute_peak_tourism_indicator.py --tra-cov NAT   # score national-only traffic instead of total
-    python compute_peak_tourism_indicator.py --skip-au-nz    # Eurostat countries only, old behavior
+    python compute_peak_tourism_indicator.py --tra-cov NAT     # score national-only traffic instead of total
+    python compute_peak_tourism_indicator.py --skip-extra      # Eurostat countries only, old behavior
 """
 
 import argparse
@@ -109,22 +120,26 @@ SOURCE_GLOB = "eurostat_passengers_transported_by_country_monthly_*.csv"
 
 OUTPUT_FILENAME = "PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv"  # ALL_CAPS by request, unlike this project's other processed/ outputs
 
-# Australia + New Zealand: (source CSV filename in processed/oceana/, value
-# column to score, ISO alpha-2 code, display name). Scored on latest-12-months
-# only -- see module docstring for why this differs from the Eurostat method.
-AU_NZ_SOURCES = [
-    ("abs_visitor_arrivals_monthly.csv", "short_term_visitors_arriving", "AU", "Australia"),
-    ("statsnz_visitor_arrivals_monthly.csv", "visitor_arrivals", "NZ", "New Zealand"),
+# AU / NZ / Japan: each entry is (subdirectory under processed/, source CSV
+# filename, name of its "YYYY-MM" date column, value column to score, ISO
+# alpha-2 code, display name). Scored on latest-12-months only -- see module
+# docstring for why this differs from the Eurostat method. The date column
+# name varies by source (ref_date vs MONTH), hence it's part of the config
+# rather than assumed.
+EXTRA_COUNTRY_SOURCES = [
+    ("oceana", "abs_visitor_arrivals_monthly.csv", "ref_date", "short_term_visitors_arriving", "AU", "Australia"),
+    ("oceana", "statsnz_visitor_arrivals_monthly.csv", "ref_date", "visitor_arrivals", "NZ", "New Zealand"),
+    ("asia", "japan_tourism_indicators_by_month.csv", "MONTH", "NUM_ENTRIES", "JP", "Japan"),
 ]
 
 # ---------------------------------------------------------------------------
 
 # Output stays at processed/ root (this script isn't a geography-scoped
-# fetch), but its Eurostat input now lives under processed/europe/, and the
-# AU/NZ input lives under processed/oceana/.
+# fetch), but its Eurostat input lives under processed/europe/, and the
+# AU/NZ/Japan inputs live under processed/oceana/ and processed/asia/
+# respectively (see EXTRA_COUNTRY_SOURCES).
 PROCESSED_DIR = Path(__file__).resolve().parent.parent / "processed"
 SOURCE_DIR = PROCESSED_DIR / "europe"
-OCEANA_DIR = PROCESSED_DIR / "oceana"
 
 
 def find_source_csv() -> Path:
@@ -192,18 +207,18 @@ def build_peak_tourism_indicator(df: pd.DataFrame, tra_cov: str = TRA_COV_FILTER
     return out
 
 
-def build_latest_12_months_indicator(csv_path: Path, value_col: str, country_code: str, country_name: str) -> pd.DataFrame:
-    """Score one AU/NZ-style monthly CSV (columns: ref_date 'YYYY-MM' + a
-    value column) against its own latest-12-months peak. See module
+def build_latest_12_months_indicator(csv_path: Path, date_col: str, value_col: str, country_code: str, country_name: str) -> pd.DataFrame:
+    """Score one AU/NZ/Japan-style monthly CSV (a 'YYYY-MM' date column +
+    a value column) against its own latest-12-months peak. See module
     docstring for why this uses a rolling 12-month window instead of the
     Eurostat side's full-history max."""
     df = pd.read_csv(csv_path)
-    required = {"ref_date", value_col}
+    required = {date_col, value_col}
     missing = required - set(df.columns)
     if missing:
         raise ValueError(f"{csv_path} is missing expected column(s) {missing}")
 
-    df = df.sort_values("ref_date")
+    df = df.sort_values(date_col)
     latest_12 = df.tail(12)
     if len(latest_12) < 12:
         print(f"WARNING: {csv_path.name} has only {len(latest_12)} month(s) of data -- expected 12.")
@@ -214,7 +229,7 @@ def build_latest_12_months_indicator(csv_path: Path, value_col: str, country_cod
 
     rows = []
     for _, row in latest_12.iterrows():
-        year, month = row["ref_date"].split("-")
+        year, month = row[date_col].split("-")
         rows.append({
             "COUNTRY": country_code,
             "MONTH": int(month),
@@ -227,22 +242,25 @@ def build_latest_12_months_indicator(csv_path: Path, value_col: str, country_cod
     return pd.DataFrame(rows).sort_values("MONTH").reset_index(drop=True)
 
 
-def build_au_nz_indicator(skip: bool = False) -> pd.DataFrame:
+def build_extra_country_indicator(skip: bool = False) -> pd.DataFrame:
+    """Build AU/NZ/Japan rows (see EXTRA_COUNTRY_SOURCES) via the
+    latest-12-months method."""
+    empty = pd.DataFrame(columns=["COUNTRY", "MONTH", "PEAK_RATIO", "COUNTRY_NAME", "SOURCE_YEAR", "PASSENGERS"])
     if skip:
-        return pd.DataFrame(columns=["COUNTRY", "MONTH", "PEAK_RATIO", "COUNTRY_NAME", "SOURCE_YEAR", "PASSENGERS"])
+        return empty
 
     frames = []
-    for filename, value_col, country_code, country_name in AU_NZ_SOURCES:
-        csv_path = OCEANA_DIR / filename
+    for subdir, filename, date_col, value_col, country_code, country_name in EXTRA_COUNTRY_SOURCES:
+        csv_path = PROCESSED_DIR / subdir / filename
         if not csv_path.exists():
             print(f"WARNING: {csv_path} not found -- skipping {country_name}. "
-                  f"Run the corresponding scripts/oceana/fetch_*.py first.")
+                  f"Run the corresponding scripts/{subdir}/fetch_*.py first.")
             continue
         print(f"Reading {csv_path}...")
-        frames.append(build_latest_12_months_indicator(csv_path, value_col, country_code, country_name))
+        frames.append(build_latest_12_months_indicator(csv_path, date_col, value_col, country_code, country_name))
 
     if not frames:
-        return pd.DataFrame(columns=["COUNTRY", "MONTH", "PEAK_RATIO", "COUNTRY_NAME", "SOURCE_YEAR", "PASSENGERS"])
+        return empty
     return pd.concat(frames, ignore_index=True)
 
 
@@ -260,9 +278,9 @@ def main():
         help=f"Which tra_cov category to score (default: {TRA_COV_FILTER!r})",
     )
     parser.add_argument(
-        "--skip-au-nz",
+        "--skip-extra",
         action="store_true",
-        help="Score Eurostat countries only, skipping Australia/New Zealand (old behavior).",
+        help="Score Eurostat countries only, skipping Australia/New Zealand/Japan (old behavior).",
     )
     args = parser.parse_args()
 
@@ -271,9 +289,9 @@ def main():
     df = load_source(source_path)
 
     eurostat_out = build_peak_tourism_indicator(df, tra_cov=args.tra_cov)
-    au_nz_out = build_au_nz_indicator(skip=args.skip_au_nz)
+    extra_out = build_extra_country_indicator(skip=args.skip_extra)
 
-    out = pd.concat([eurostat_out, au_nz_out], ignore_index=True).sort_values(["COUNTRY", "MONTH"]).reset_index(drop=True)
+    out = pd.concat([eurostat_out, extra_out], ignore_index=True).sort_values(["COUNTRY", "MONTH"]).reset_index(drop=True)
 
     out_path = PROCESSED_DIR / OUTPUT_FILENAME
     out.to_csv(out_path, index=False)
