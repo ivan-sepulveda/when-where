@@ -14,6 +14,11 @@ Two source families feed this, using two different methods (see below):
     border entries, not air passengers; see scripts/oceana/fetch_abs_visitor_arrivals.py,
     scripts/oceana/fetch_statsnz_visitor_arrivals.py, and
     scripts/asia/fetch_japan_tourism_indicators.py)
+  - Canada: processed/americas/statcan_airport_movements.csv, filtered to
+    GEO == "Canada", Airports == "Total, all airports", "Domestic and
+    international itinerant movements" == "Transborder movements" (flight
+    movements between Canada and the US only -- see below; see
+    scripts/americas/fetch_statcan_airport_movements.py)
 
 This script itself stays at scripts/ root (and writes its own output to
 processed/ root) since it isn't a geography-scoped fetch -- only its
@@ -51,7 +56,7 @@ Rows for Eurostat's EU/euro-area aggregate `geo` codes (EU27_2020, EA21,
 EA20, EA19) are dropped -- they're not countries, so don't belong in a
 "peak tourism indicator by country" table.
 
-**Method for AU / NZ / Japan, per country -- LATEST 12 MONTHS ONLY:**
+**Method for AU / NZ / Japan / Canada, per country -- LATEST 12 MONTHS ONLY:**
 Unlike the Eurostat side, the ABS series runs back to 1976 and using its
 full history would score a month against a decades-old peak that may no
 longer be representative (and Stats NZ's Table 1 only carries 5 fiscal
@@ -63,29 +68,50 @@ source's own most recent 12 monthly rows are used:
     MAX_VALUE = latest_12[value_col].max()
     PEAK_RATIO(month) = value(month) / MAX_VALUE
 
-As of this writing the three sources' processed CSVs run through
-2026-05 (ABS), 2026-05 (Stats NZ), and 2026-04 (e-Stat) respectively, so
-"latest 12 months" works out to Jun 2025 - May 2026 for AU/NZ and
-May 2025 - Apr 2026 for Japan -- one row per calendar month, no
-deduplication needed since each source has exactly one observation per
-month. `SOURCE_YEAR` records the calendar year each month's observation
-actually fell in (so e.g. for AU/NZ, MONTH=6 is SOURCE_YEAR=2025 while
-MONTH=5 is SOURCE_YEAR=2026).
+As of this writing the four sources' processed CSVs run through 2026-05
+(ABS), 2026-05 (Stats NZ), 2026-04 (e-Stat), and 2026-04 (StatCan)
+respectively, so "latest 12 months" works out to Jun 2025 - May 2026 for
+AU/NZ and May 2025 - Apr 2026 for Japan/Canada -- one row per calendar
+month, no deduplication needed since each source has exactly one
+observation per month once filtered down (Canada's StatCan table needs
+filtering first -- see below). `SOURCE_YEAR` records the calendar year
+each month's observation actually fell in (so e.g. for AU/NZ, MONTH=6 is
+SOURCE_YEAR=2025 while MONTH=5 is SOURCE_YEAR=2026).
 
 The value column, and the column holding the "YYYY-MM" date, differ by
 source (see `EXTRA_COUNTRY_SOURCES`): ABS Table 1's `short_term_visitors_
 arriving` (short-term overseas visitor arrivals -- the closest ABS column
 to "how many tourists arrived this month"), Stats NZ Table 1's
-`visitor_arrivals`, and Japan's e-Stat Dashboard pull's `NUM_ENTRIES`
+`visitor_arrivals`, Japan's e-Stat Dashboard pull's `NUM_ENTRIES`
 (foreign-national border entries -- see scripts/asia/fetch_japan_tourism_
 indicators.py's docstring: this counts ALL foreign-national entries, not
 filtered to tourism purpose, so it runs a bit higher than a true
-visitor-arrivals count would, e.g. it includes work-visa holders). All
-three land in the output's generic `PASSENGERS` column for schema
-consistency with the Eurostat rows, even though none of them are actually
-air-passenger counts -- these are three different proxies for "how much
-inbound travel is happening," not directly comparable in magnitude across
-sources, only within a single country's own row of PEAK_RATIO values.
+visitor-arrivals count would, e.g. it includes work-visa holders), and
+StatCan table 23-10-0304-01's `VALUE` column, filtered per
+`CANADA_SOURCE` below. All land in the output's generic `PASSENGERS`
+column for schema consistency with the Eurostat rows, even though none of
+them are actually air-passenger counts -- these are different proxies for
+"how much inbound travel is happening," not directly comparable in
+magnitude across sources, only within a single country's own row of
+PEAK_RATIO values.
+
+**Canada specifically** -- StatCan table 23-10-0304-01 is one long table
+with several breakdown dimensions in the same file (see
+fetch_statcan_airport_movements.py's docstring), not a pre-filtered
+single series like the AU/NZ/Japan sources, so it needs three equality
+filters applied before it becomes a clean one-row-per-month series:
+`GEO == "Canada"` (the national total row -- the table also carries the
+same "Total, all airports" breakdown per province/territory, which would
+silently multiply the row count if not excluded), `Airports == "Total,
+all airports"` (vs. individual airports), and `"Domestic and
+international itinerant movements" == "Transborder movements"` (flight
+movements between Canada and the United States specifically -- NOT
+"Domestic movements" or "Other international movements", the table's
+other two categories in that dimension). This is a narrower slice than
+the AU/NZ/Japan sources: it only captures Canada-US air traffic, not
+overseas international arrivals, since that's the category requested for
+this table -- worth keeping in mind if Canada's PEAK_RATIO curve looks
+different in character from the other countries'.
 
 Usage:
     python compute_peak_tourism_indicator.py
@@ -132,12 +158,31 @@ EXTRA_COUNTRY_SOURCES = [
     ("asia", "japan_tourism_indicators_by_month.csv", "MONTH", "NUM_ENTRIES", "JP", "Japan"),
 ]
 
+# Canada: unlike EXTRA_COUNTRY_SOURCES above, the source CSV (StatCan table
+# 23-10-0304-01) isn't a pre-filtered single series -- it needs these three
+# equality filters applied first to isolate one row per month. See module
+# docstring's "Canada specifically" section for why each filter is needed.
+CANADA_SOURCE = {
+    "subdir": "americas",
+    "filename": "statcan_airport_movements.csv",
+    "date_col": "REF_DATE",
+    "value_col": "VALUE",
+    "filters": {
+        "GEO": "Canada",
+        "Airports": "Total, all airports",
+        "Domestic and international itinerant movements": "Transborder movements",
+    },
+    "country_code": "CA",
+    "country_name": "Canada",
+}
+
 # ---------------------------------------------------------------------------
 
 # Output stays at processed/ root (this script isn't a geography-scoped
 # fetch), but its Eurostat input lives under processed/europe/, and the
-# AU/NZ/Japan inputs live under processed/oceana/ and processed/asia/
-# respectively (see EXTRA_COUNTRY_SOURCES).
+# AU/NZ/Japan/Canada inputs live under processed/oceana/, processed/asia/,
+# and processed/americas/ respectively (see EXTRA_COUNTRY_SOURCES and
+# CANADA_SOURCE).
 PROCESSED_DIR = Path(__file__).resolve().parent.parent / "processed"
 SOURCE_DIR = PROCESSED_DIR / "europe"
 
@@ -207,25 +252,25 @@ def build_peak_tourism_indicator(df: pd.DataFrame, tra_cov: str = TRA_COV_FILTER
     return out
 
 
-def build_latest_12_months_indicator(csv_path: Path, date_col: str, value_col: str, country_code: str, country_name: str) -> pd.DataFrame:
-    """Score one AU/NZ/Japan-style monthly CSV (a 'YYYY-MM' date column +
-    a value column) against its own latest-12-months peak. See module
-    docstring for why this uses a rolling 12-month window instead of the
-    Eurostat side's full-history max."""
-    df = pd.read_csv(csv_path)
+def score_latest_12_months(df: pd.DataFrame, source_label: str, date_col: str, value_col: str, country_code: str, country_name: str) -> pd.DataFrame:
+    """Score an already-loaded (and, for Canada, already-filtered) monthly
+    DataFrame -- a 'YYYY-MM' date column + a value column -- against its
+    own latest-12-months peak. See module docstring for why this uses a
+    rolling 12-month window instead of the Eurostat side's full-history
+    max. `source_label` is just for the too-few-months warning message."""
     required = {date_col, value_col}
     missing = required - set(df.columns)
     if missing:
-        raise ValueError(f"{csv_path} is missing expected column(s) {missing}")
+        raise ValueError(f"{source_label} is missing expected column(s) {missing}")
 
     df = df.sort_values(date_col)
     latest_12 = df.tail(12)
     if len(latest_12) < 12:
-        print(f"WARNING: {csv_path.name} has only {len(latest_12)} month(s) of data -- expected 12.")
+        print(f"WARNING: {source_label} has only {len(latest_12)} month(s) of data -- expected 12.")
 
     max_value = latest_12[value_col].max()
     if pd.isna(max_value) or max_value <= 0:
-        raise ValueError(f"{csv_path} has no usable data in column {value_col!r} over its latest 12 months.")
+        raise ValueError(f"{source_label} has no usable data in column {value_col!r} over its latest 12 months.")
 
     rows = []
     for _, row in latest_12.iterrows():
@@ -242,9 +287,47 @@ def build_latest_12_months_indicator(csv_path: Path, date_col: str, value_col: s
     return pd.DataFrame(rows).sort_values("MONTH").reset_index(drop=True)
 
 
+def load_canada_source() -> pd.DataFrame | None:
+    """Load StatCan table 23-10-0304-01 and apply CANADA_SOURCE's three
+    equality filters to isolate the national monthly Transborder-movements
+    series. Returns None (with a warning printed) if the source file is
+    missing, so callers can skip Canada gracefully like the other sources."""
+    csv_path = PROCESSED_DIR / CANADA_SOURCE["subdir"] / CANADA_SOURCE["filename"]
+    if not csv_path.exists():
+        print(f"WARNING: {csv_path} not found -- skipping Canada. "
+              f"Run scripts/americas/fetch_statcan_airport_movements.py first.")
+        return None
+
+    print(f"Reading {csv_path}...")
+    df = pd.read_csv(csv_path, low_memory=False)
+
+    missing_cols = set(CANADA_SOURCE["filters"]) - set(df.columns)
+    if missing_cols:
+        raise ValueError(f"{csv_path} is missing expected column(s) {missing_cols} -- is this really table 23-10-0304-01?")
+
+    for col, expected_value in CANADA_SOURCE["filters"].items():
+        df = df[df[col] == expected_value]
+
+    if df.empty:
+        raise ValueError(
+            f"{csv_path}: filtering to {CANADA_SOURCE['filters']} left zero rows -- "
+            f"check the filter values still match this table's current category spellings."
+        )
+
+    df[CANADA_SOURCE["date_col"]] = df[CANADA_SOURCE["date_col"]].astype(str)
+    dupes = df[CANADA_SOURCE["date_col"]].duplicated()
+    if dupes.any():
+        raise ValueError(
+            f"{csv_path}: {dupes.sum()} duplicate {CANADA_SOURCE['date_col']} value(s) after filtering -- "
+            f"the filters in CANADA_SOURCE no longer isolate a single row per month."
+        )
+
+    return df
+
+
 def build_extra_country_indicator(skip: bool = False) -> pd.DataFrame:
-    """Build AU/NZ/Japan rows (see EXTRA_COUNTRY_SOURCES) via the
-    latest-12-months method."""
+    """Build AU/NZ/Japan/Canada rows via the latest-12-months method (see
+    EXTRA_COUNTRY_SOURCES and CANADA_SOURCE)."""
     empty = pd.DataFrame(columns=["COUNTRY", "MONTH", "PEAK_RATIO", "COUNTRY_NAME", "SOURCE_YEAR", "PASSENGERS"])
     if skip:
         return empty
@@ -257,7 +340,15 @@ def build_extra_country_indicator(skip: bool = False) -> pd.DataFrame:
                   f"Run the corresponding scripts/{subdir}/fetch_*.py first.")
             continue
         print(f"Reading {csv_path}...")
-        frames.append(build_latest_12_months_indicator(csv_path, date_col, value_col, country_code, country_name))
+        df = pd.read_csv(csv_path)
+        frames.append(score_latest_12_months(df, csv_path.name, date_col, value_col, country_code, country_name))
+
+    canada_df = load_canada_source()
+    if canada_df is not None:
+        frames.append(score_latest_12_months(
+            canada_df, CANADA_SOURCE["filename"], CANADA_SOURCE["date_col"], CANADA_SOURCE["value_col"],
+            CANADA_SOURCE["country_code"], CANADA_SOURCE["country_name"],
+        ))
 
     if not frames:
         return empty
@@ -280,7 +371,7 @@ def main():
     parser.add_argument(
         "--skip-extra",
         action="store_true",
-        help="Score Eurostat countries only, skipping Australia/New Zealand/Japan (old behavior).",
+        help="Score Eurostat countries only, skipping Australia/New Zealand/Japan/Canada (old behavior).",
     )
     args = parser.parse_args()
 
