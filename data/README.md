@@ -12,8 +12,9 @@ that you're running from `data/` (`cd data` from the repo root).
   code here once it's stable; use `notebooks/` for exploration.
   - `scripts/<continent>/` (`africa/`, `americas/`, `asia/`, `europe/`,
     `oceana/`) — fetch scripts scoped to that continent's geography, e.g.
-    `americas/fetch_statcan_airport_movements.py` (Canada). `africa/` and
-    `oceana/` are currently empty (`.gitkeep`'d) — no sources there yet.
+    `americas/fetch_statcan_airport_movements.py` (Canada),
+    `oceana/fetch_abs_visitor_arrivals.py` (Australia). `africa/` is
+    currently empty (`.gitkeep`'d) — no source there yet.
   - `scripts/multiple/` — fetch scripts whose source spans many continents
     at once (World Bank, SimpleMaps, Open-Meteo, Michelin), so no single
     continent folder fits.
@@ -870,6 +871,78 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   reach statcan.gc.ca, then check the printed unmatched-pattern warning
   before trusting the output** — `CITY_AIRPORT_PATTERNS` may need a
   spelling correction once checked against real rows.
+
+### Australian Bureau of Statistics — visitor arrivals (`scripts/oceana/fetch_abs_visitor_arrivals.py`)
+
+- **Source:** [ABS Time Series Directory API](https://www.abs.gov.au/about/data-services/application-programming-interfaces-apis/time-series-directory-api)
+  — `GET https://abs.gov.au/servlet/TSSearchServlet?catno=3401.0&ttitle="table 1"`
+  (no API key, plain `text/xml` response), which resolves the current
+  `TableURL` for catalogue [3401.0](https://www.abs.gov.au/statistics/industry/tourism-and-transport/overseas-arrivals-and-departures-australia/latest-release),
+  "Overseas Arrivals and Departures, Australia," Table 1 ("Total Movement,
+  Arrivals - Category of Movement") — currently `340101.xlsx`. The script
+  downloads that spreadsheet and parses its `Data1` sheet directly, rather
+  than going through ABS's newer SDMX Data API.
+- **Why not the SDMX Data API:** that API (`data.api.abs.gov.au`) works —
+  confirmed live, e.g. a real `CPI` dataflow pull — but every response
+  (XML, JSON, or CSV) comes back under a vendor SDMX MIME type that this
+  project's fetch tooling can't render as text, only as opaque binary,
+  making it impractical to inspect or debug in this environment. The two
+  tourism-shaped SDMX dataflows found while researching this (`OAD_COUNTRY`,
+  `OAD_REASON`, both under agency `ABS`) also don't carry a plain monthly
+  total — they break out by country of residence or by reason for travel.
+  The older Time Series Directory API's XML responses are ordinary
+  `text/xml`, and its `TableURL` points at a classic ABS time series
+  spreadsheet — much easier to work with end to end.
+- **What it is:** monthly Australian overseas arrivals by category of
+  movement (permanent, long-term, short-term), Original series, back to
+  January 1976. The `short_term_visitors_arriving` column is the closest
+  single number to "inbound tourist volume" in the table, and is this
+  project's primary target — the same role StatCan's airport movements
+  play for Canada and e-Stat's border-entry indicator plays for Japan.
+  The other categories (permanent arrivals, long-term visitors/residents,
+  totals) are kept alongside since they're free in the same pull.
+- **Spreadsheet layout** (confirmed against a real downloaded copy of
+  `340101.xlsx`): three sheets (`Index`, `Data1`, `Enquiries`). `Data1` is
+  wide — one column per series, one row per month — with a 10-row header
+  block (`Unit`, `Series Type`, `Data Type`, `Frequency`, `Collection Month`,
+  `Series Start`, `Series End`, `No. Obs`, `Series ID` in column A, values
+  across columns B+) before the actual date/value data starts.
+  `find_header_rows()` locates the `Series Type`/`Series ID` rows by
+  scanning column A for those labels rather than hardcoding row numbers.
+- **Only "Original" series kept:** Table 1 also has Seasonally Adjusted and
+  Trend variants for two categories, but ABS suspended both in 2020 (Trend
+  from Feb 2020, Seasonally Adjusted from Apr 2020) "due to the impact of
+  the COVID-19 pandemic on international travel," per the workbook's own
+  Index sheet — both have been blank ever since. Original is the only
+  variant with a complete, uninterrupted series.
+- **Output:** `processed/abs_visitor_arrivals_monthly.csv` — `ref_date`
+  ("YYYY-MM") plus one column per category: `permanent_arrivals`,
+  `long_term_residents_returning`, `long_term_visitors_arriving`,
+  `permanent_and_long_term_arrivals`, `short_term_residents_returning`,
+  `short_term_visitors_arriving`, `total_arrivals`. Default run keeps full
+  history (605 rows, 1976-01 through the latest available month).
+- **Run:**
+  ```
+  python scripts/oceana/fetch_abs_visitor_arrivals.py                      # full history
+  python scripts/oceana/fetch_abs_visitor_arrivals.py --years-back 10
+  python scripts/oceana/fetch_abs_visitor_arrivals.py --start-date 2015-01 --end-date 2025-12
+  python scripts/oceana/fetch_abs_visitor_arrivals.py --force-download     # bypass the cached raw/ xlsx
+  ```
+- **Note:** this sandbox blocks `abs.gov.au` outright for shell/`requests`
+  calls (same allowlist issue as every other live source in this file —
+  confirmed via a direct `curl` returning a proxy 403), but a separate fetch
+  tool *could* reach `TSSearchServlet` directly and confirmed it returns
+  plain, readable `text/xml` — captured live 2026-07-20, resolving the
+  correct `TableURL` and Series IDs for every category in Table 1.
+  `resolve_table_url()`'s XML parsing was verified against that exact
+  captured response (mocked network call). Unlike every other source in
+  this file, `parse_data1_sheet()` and `find_header_rows()` were verified
+  against the **real** `340101.xlsx` (supplied directly, not a synthetic
+  fixture) — confirmed 605 rows, all 7 "Original" columns, correct header
+  row detection (`Series Type` row 3, `Series ID` row 10), and the
+  Seasonally Adjusted/Trend COVID-suspension gap. Only `download_xlsx()`'s
+  live download path is unverified end-to-end here — run this for real on
+  a machine that can reach abs.gov.au to confirm that piece.
 
 ### Country name crosswalk (`reference/country_aliases.json`)
 
