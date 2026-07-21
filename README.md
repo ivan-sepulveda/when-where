@@ -163,6 +163,10 @@ relative to the country's own peak month (0–1). A candidate seasonality
 signal by country. See `data/README.md` for how it handles months with
 more than one year of source data available.
 
+## TODO
+
+- [ ] Find a public data source for visa requirements by passport (e.g. Mexico passport: 90-day visa-free to Germany, visa required for Gambia). Needed to score trip opportunities by whether a traveler's passport can actually make the trip, not just whether the destination looks good.
+
 ## Data attributions
 
 - City data from the [SimpleMaps World Cities Database](https://simplemaps.com/data/world-cities), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
