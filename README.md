@@ -166,6 +166,7 @@ more than one year of source data available.
 ## TODO
 
 - [ ] Find a public data source for visa requirements by passport (e.g. Mexico passport: 90-day visa-free to Germany, visa required for Gambia). Needed to score trip opportunities by whether a traveler's passport can actually make the trip, not just whether the destination looks good.
+- [ ] Get Maldives tourism statistics via the Maldives Monetary Authority API: https://database.mma.gov.mv/api/docs
 
 ## Data attributions
 

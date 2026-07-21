@@ -7,13 +7,16 @@ Two source families feed this, using two different methods (see below):
 
   - Europe: processed/europe/eurostat_passengers_transported_by_country_monthly_*.csv
     (air passengers transported; see scripts/europe/fetch_eurostat_dataset.py)
-  - Australia, New Zealand, Japan (the "EXTRA_COUNTRY_SOURCES" countries):
-    processed/oceana/abs_visitor_arrivals_monthly.csv,
-    processed/oceana/statsnz_visitor_arrivals_monthly.csv, and
-    processed/asia/japan_tourism_indicators_by_month.csv (visitor arrivals /
-    border entries, not air passengers; see scripts/oceana/fetch_abs_visitor_arrivals.py,
-    scripts/oceana/fetch_statsnz_visitor_arrivals.py, and
-    scripts/asia/fetch_japan_tourism_indicators.py)
+  - Australia, New Zealand, Japan, Costa Rica (the "EXTRA_COUNTRY_SOURCES"
+    countries): processed/oceana/abs_visitor_arrivals_monthly.csv,
+    processed/oceana/statsnz_visitor_arrivals_monthly.csv,
+    processed/asia/japan_tourism_indicators_by_month.csv, and
+    processed/americas/costa_rica_monthly_hotel_occupancy.csv (visitor
+    arrivals / border entries / hotel occupancy -- NOT all the same kind of
+    signal, see below; see scripts/oceana/fetch_abs_visitor_arrivals.py,
+    scripts/oceana/fetch_statsnz_visitor_arrivals.py,
+    scripts/asia/fetch_japan_tourism_indicators.py, and
+    scripts/americas/build_costa_rica_monthly_tourism_dataset.py)
   - Canada: processed/americas/statcan_airport_movements.csv, filtered to
     GEO == "Canada", Airports == "Total, all airports", "Domestic and
     international itinerant movements" == "Transborder movements" (flight
@@ -56,27 +59,31 @@ Rows for Eurostat's EU/euro-area aggregate `geo` codes (EU27_2020, EA21,
 EA20, EA19) are dropped -- they're not countries, so don't belong in a
 "peak tourism indicator by country" table.
 
-**Method for AU / NZ / Japan / Canada, per country -- LATEST 12 MONTHS ONLY:**
-Unlike the Eurostat side, the ABS series runs back to 1976 and using its
-full history would score a month against a decades-old peak that may no
-longer be representative (and Stats NZ's Table 1 only carries 5 fiscal
-years, e-Stat's Dashboard pull only 16 months, to begin with -- so "full
-history" isn't comparable across these sources anyway). Instead, each
-source's own most recent 12 monthly rows are used:
+**Method for AU / NZ / Japan / Costa Rica / Canada, per country -- LATEST
+12 MONTHS ONLY:** Unlike the Eurostat side, the ABS series runs back to
+1976 and using its full history would score a month against a
+decades-old peak that may no longer be representative (and Stats NZ's
+Table 1 only carries 5 fiscal years, e-Stat's Dashboard pull only 16
+months, Costa Rica's transcribed table only 2018-2024, to begin with --
+so "full history" isn't comparable across these sources anyway). Instead,
+each source's own most recent 12 monthly rows are used:
 
     latest_12 = df.sort_values(date_col).tail(12)   # most recent 12 rows
     MAX_VALUE = latest_12[value_col].max()
     PEAK_RATIO(month) = value(month) / MAX_VALUE
 
-As of this writing the four sources' processed CSVs run through 2026-05
-(ABS), 2026-05 (Stats NZ), 2026-04 (e-Stat), and 2026-04 (StatCan)
-respectively, so "latest 12 months" works out to Jun 2025 - May 2026 for
-AU/NZ and May 2025 - Apr 2026 for Japan/Canada -- one row per calendar
-month, no deduplication needed since each source has exactly one
-observation per month once filtered down (Canada's StatCan table needs
-filtering first -- see below). `SOURCE_YEAR` records the calendar year
-each month's observation actually fell in (so e.g. for AU/NZ, MONTH=6 is
-SOURCE_YEAR=2025 while MONTH=5 is SOURCE_YEAR=2026).
+As of this writing the five sources' processed CSVs run through 2026-05
+(ABS), 2026-05 (Stats NZ), 2026-04 (e-Stat), 2024-12 (Costa Rica -- its
+source table simply stops at 2024, see build_costa_rica_monthly_tourism_
+dataset.py), and 2026-04 (StatCan) respectively, so "latest 12 months" is
+Jun 2025 - May 2026 for AU/NZ, May 2025 - Apr 2026 for Japan/Canada, and
+all of calendar 2024 for Costa Rica -- one row per calendar month, no
+deduplication needed since each source has exactly one observation per
+month once filtered down (Canada's StatCan table needs filtering first --
+see below). `SOURCE_YEAR` records the calendar year each month's
+observation actually fell in (so e.g. for AU/NZ, MONTH=6 is
+SOURCE_YEAR=2025 while MONTH=5 is SOURCE_YEAR=2026; Costa Rica is
+SOURCE_YEAR=2024 for every month).
 
 The value column, and the column holding the "YYYY-MM" date, differ by
 source (see `EXTRA_COUNTRY_SOURCES`): ABS Table 1's `short_term_visitors_
@@ -86,7 +93,9 @@ to "how many tourists arrived this month"), Stats NZ Table 1's
 (foreign-national border entries -- see scripts/asia/fetch_japan_tourism_
 indicators.py's docstring: this counts ALL foreign-national entries, not
 filtered to tourism purpose, so it runs a bit higher than a true
-visitor-arrivals count would, e.g. it includes work-visa holders), and
+visitor-arrivals count would, e.g. it includes work-visa holders), Costa
+Rica's `occupancy_pct` (hotel occupancy percentage, Banco Central de
+Costa Rica's Cuadro 3 -- see "Costa Rica specifically" below), and
 StatCan table 23-10-0304-01's `VALUE` column, filtered per
 `CANADA_SOURCE` below. All land in the output's generic `PASSENGERS`
 column for schema consistency with the Eurostat rows, even though none of
@@ -94,6 +103,20 @@ them are actually air-passenger counts -- these are different proxies for
 "how much inbound travel is happening," not directly comparable in
 magnitude across sources, only within a single country's own row of
 PEAK_RATIO values.
+
+**Costa Rica specifically** -- its value column, `occupancy_pct`, is a
+hotel occupancy PERCENTAGE (bounded 0-100), not a visitor/arrivals count
+like every other source here. That makes its PEAK_RATIO curve compress
+differently: a swing from 36.7% to 83.5% occupancy (Costa Rica's actual
+Sep-vs-Feb 2024 range) is only about a 2.3x ratio, whereas a count-based
+country can easily swing 5-10x between its quietest and busiest month.
+Costa Rica's PEAK_RATIO values are correct on their own terms, just not
+apples-to-apples in *magnitude of swing* against the count-based
+countries -- only the shape (which month peaks) is directly comparable.
+Also unlike every other source in this script, `costa_rica_monthly_hotel_
+occupancy.csv` has no live fetch behind it -- it's hand-transcribed from
+a PDF Banco Central de Costa Rica doesn't appear to publish through any
+API (see build_costa_rica_monthly_tourism_dataset.py's docstring).
 
 **Canada specifically** -- StatCan table 23-10-0304-01 is one long table
 with several breakdown dimensions in the same file (see
@@ -146,16 +169,17 @@ SOURCE_GLOB = "eurostat_passengers_transported_by_country_monthly_*.csv"
 
 OUTPUT_FILENAME = "PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv"  # ALL_CAPS by request, unlike this project's other processed/ outputs
 
-# AU / NZ / Japan: each entry is (subdirectory under processed/, source CSV
-# filename, name of its "YYYY-MM" date column, value column to score, ISO
-# alpha-2 code, display name). Scored on latest-12-months only -- see module
-# docstring for why this differs from the Eurostat method. The date column
-# name varies by source (ref_date vs MONTH), hence it's part of the config
-# rather than assumed.
+# AU / NZ / Japan / Costa Rica: each entry is (subdirectory under processed/,
+# source CSV filename, name of its "YYYY-MM" date column, value column to
+# score, ISO alpha-2 code, display name). Scored on latest-12-months only --
+# see module docstring for why this differs from the Eurostat method. The
+# date column name varies by source (ref_date vs MONTH), hence it's part of
+# the config rather than assumed.
 EXTRA_COUNTRY_SOURCES = [
     ("oceana", "abs_visitor_arrivals_monthly.csv", "ref_date", "short_term_visitors_arriving", "AU", "Australia"),
     ("oceana", "statsnz_visitor_arrivals_monthly.csv", "ref_date", "visitor_arrivals", "NZ", "New Zealand"),
     ("asia", "japan_tourism_indicators_by_month.csv", "MONTH", "NUM_ENTRIES", "JP", "Japan"),
+    ("americas", "costa_rica_monthly_hotel_occupancy.csv", "ref_date", "occupancy_pct", "CR", "Costa Rica"),
 ]
 
 # Canada: unlike EXTRA_COUNTRY_SOURCES above, the source CSV (StatCan table
@@ -249,6 +273,10 @@ def build_peak_tourism_indicator(df: pd.DataFrame, tra_cov: str = TRA_COV_FILTER
         print(f"Skipped {len(skipped_no_data)} geo code(s) with no usable data: {sorted(skipped_no_data)}")
 
     out = pd.DataFrame(rows).sort_values(["COUNTRY", "MONTH"]).reset_index(drop=True)
+    # Object dtype so a later pd.concat() with Costa Rica's float PASSENGERS
+    # column doesn't upcast every other country's clean int counts to float
+    # (e.g. 716680 -> 716680.0) -- see score_latest_12_months for the same fix.
+    out["PASSENGERS"] = out["PASSENGERS"].astype(object)
     return out
 
 
@@ -275,16 +303,28 @@ def score_latest_12_months(df: pd.DataFrame, source_label: str, date_col: str, v
     rows = []
     for _, row in latest_12.iterrows():
         year, month = row[date_col].split("-")
+        value = row[value_col]
+        # Most sources here are whole-number counts (visitors, entries,
+        # movements) and get written as plain ints, matching the Eurostat
+        # side's output. Costa Rica's occupancy_pct is a percentage with a
+        # meaningful decimal (e.g. 36.7) -- int() would silently truncate
+        # it, so only round non-integral values instead of flooring them.
+        passengers_value = int(value) if float(value).is_integer() else round(float(value), 2)
         rows.append({
             "COUNTRY": country_code,
             "MONTH": int(month),
-            "PEAK_RATIO": round(row[value_col] / max_value, 4),
+            "PEAK_RATIO": round(value / max_value, 4),
             "COUNTRY_NAME": country_name,
             "SOURCE_YEAR": int(year),
-            "PASSENGERS": int(row[value_col]),
+            "PASSENGERS": passengers_value,
         })
 
-    return pd.DataFrame(rows).sort_values("MONTH").reset_index(drop=True)
+    out = pd.DataFrame(rows).sort_values("MONTH").reset_index(drop=True)
+    # Object dtype so concatenating this with other sources' PASSENGERS
+    # columns (some int, some float) doesn't upcast everything to float --
+    # see the matching comment in build_peak_tourism_indicator.
+    out["PASSENGERS"] = out["PASSENGERS"].astype(object)
+    return out
 
 
 def load_canada_source() -> pd.DataFrame | None:
@@ -371,7 +411,7 @@ def main():
     parser.add_argument(
         "--skip-extra",
         action="store_true",
-        help="Score Eurostat countries only, skipping Australia/New Zealand/Japan/Canada (old behavior).",
+        help="Score Eurostat countries only, skipping Australia/New Zealand/Japan/Costa Rica/Canada (old behavior).",
     )
     args = parser.parse_args()
 
