@@ -103,6 +103,24 @@ level guest-nights option if destination-level granularity is wanted
 later.
 
 ```
+python scripts/americas/fetch_chile_ine_tourism_accommodation.py               # Cuadro 1 -- overnight stays, total
+python scripts/americas/fetch_chile_ine_tourism_accommodation.py --all-tables  # every Cuadro 1-33
+python scripts/americas/fetch_chile_ine_tourism_accommodation.py --list-tables # print all 34 table titles
+```
+
+Pulls Chile's INE (Instituto Nacional de Estadísticas) monthly tourism
+accommodation survey (EMAT) and writes
+`data/processed/americas/chile_ine_tourism_monthly.csv` (long format:
+`table_number, table_name, level, region, destino_turistico, ref_date,
+value`) plus a region/destino-turístico/comuna reference table at
+`data/processed/americas/chile_ine_destino_turistico_comunas.csv`.
+Covers July 2016 to present, region and destino-turístico level. Defaults
+to Table 1 (overnight stays, total) — see `data/README.md` for why
+overnight stays is the recommended indicator over arrivals for this
+project's scoring purposes.
+Source: https://www.ine.gob.cl/estadisticas-por-tema/comercio-y-servicios/actividad-mensual-del-turismo
+
+```
 python scripts/build_country_aliases.py
 ```
 
@@ -175,3 +193,4 @@ more than one year of source data available.
 - Restaurant data from [michelin-my-maps](https://github.com/ngshiheng/michelin-my-maps) (MIT licensed), scraped from the [MICHELIN Guide](https://guide.michelin.com/en/restaurants) for research purposes.
 - Economic indicators (GDP deflator, exports % of GDP, PPP conversion factor, price level index) from [The World Bank](https://data.worldbank.org), via the [Data360 API](https://data360api.worldbank.org), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Air passenger traffic data from [Eurostat](https://ec.europa.eu/eurostat) (dataset `TTR00012`, sourced from `AVIA_PAOC`), reused under the European Commission's [CC BY 4.0 reuse policy](https://ec.europa.eu/eurostat/en/help/copyright-notice).
+- Tourism accommodation data (EMAT) from Chile's [Instituto Nacional de Estadísticas (INE)](https://www.ine.gob.cl/estadisticas-por-tema/comercio-y-servicios/actividad-mensual-del-turismo).

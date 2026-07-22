@@ -885,6 +885,58 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   before trusting the output** — `CITY_AIRPORT_PATTERNS` may need a
   spelling correction once checked against real rows.
 
+### Chile INE — monthly tourism accommodation survey, EMAT (`scripts/americas/fetch_chile_ine_tourism_accommodation.py`)
+
+- **Source:** Chile's [Instituto Nacional de Estadísticas (INE)](https://www.ine.gob.cl/estadisticas-por-tema/comercio-y-servicios/actividad-mensual-del-turismo),
+  "Encuesta Mensual de Alojamiento Turístico" (EMAT). Reached via a direct
+  `.xlsx` download (no API), user-supplied for this script since this
+  sandbox's network allowlist blocks `ine.gob.cl` (confirmed — a direct
+  `requests.get` to the file URL returns a proxy 403, same issue as
+  StatCan/Eurostat/e-Stat elsewhere in this file). Cached at
+  `raw/chile_ine_tourism/`; `download_workbook()` still attempts a live
+  fetch first (browser User-Agent, since a plain default UA is a common
+  403 cause on government sites in this project) and only falls back to
+  the cache if that fails.
+- **What it is:** one workbook, one "Índice" sheet plus 34 numbered sheets.
+  Sheets 1–33 are all monthly time series (July 2016–present), one metric
+  each, by region and destino turístico ("tourist destination", INE's
+  sub-region grouping) — overnight stays, arrivals, average stay length,
+  occupancy rate, RevPAR, ADR, and estimated unit/bed counts, each split
+  further by accommodation class (hotel vs. other) or origin (resident vs.
+  foreign) in some of the 33. Sheet 34 isn't a time series at all — it's a
+  static region → destino turístico → comuna (commune) lookup, parsed into
+  its own output file. Run `--list-tables` to print all 34 titles.
+- **Recommended indicator:** Table 1 (overnight stays, total) — the
+  script's default. Same reasoning as the UNWTO Yearbook comparison this
+  script followed from: arrivals count border crossings/trips, not people
+  or duration, whereas overnight stays (person-nights) is a better proxy
+  for how "full" a destination actually is in a given month.
+- **Parsing notes:** the region/destino turístico hierarchy isn't indented
+  or merged in the source — it's conveyed only by **bold formatting**
+  (`font.bold`): "Total nacional" and each region name are bold, destino
+  turístico rows nested under a region aren't. End-of-table is detected by
+  column A text (blank or a footer marker like "FUENTE"/"Nota"), **not** by
+  whether the first month column has a number — some destinos carry a
+  literal `"-"` placeholder for months before they were added to the
+  survey (e.g. "Cuenca del Lago Ranco" in Los Ríos has `"-"` for Jul–Sep
+  2016, then real numbers from Oct 2016 on), which would truncate the
+  table early under a numeric-based stop condition. Non-numeric month
+  values are written out as empty/NaN, not dropped or coerced to 0.
+- **Output:**
+  - `processed/americas/chile_ine_tourism_monthly.csv` — long format:
+    `table_number, table_name, level, region, destino_turistico, ref_date,
+    value`. `level` is `national` / `region` / `destino`.
+  - `processed/americas/chile_ine_destino_turistico_comunas.csv` — the
+    region/destino turístico/comuna reference table from sheet 34.
+- **Run:**
+  ```
+  python scripts/americas/fetch_chile_ine_tourism_accommodation.py               # Cuadro 1 only (overnight stays, total)
+  python scripts/americas/fetch_chile_ine_tourism_accommodation.py --table 6     # Cuadro 6 (arrivals, total)
+  python scripts/americas/fetch_chile_ine_tourism_accommodation.py --all-tables  # every Cuadro 1-33 in one long CSV
+  python scripts/americas/fetch_chile_ine_tourism_accommodation.py --list-tables # print all 34 table titles, no download/parse
+  python scripts/americas/fetch_chile_ine_tourism_accommodation.py --force-download
+  ```
+
 ### Australian Bureau of Statistics — visitor arrivals (`scripts/oceana/fetch_abs_visitor_arrivals.py`)
 
 - **Source:** [ABS Time Series Directory API](https://www.abs.gov.au/about/data-services/application-programming-interfaces-apis/time-series-directory-api)
