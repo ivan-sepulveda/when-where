@@ -20,7 +20,7 @@ With the venv active:
 
 ```
 cd data
-python scripts/fetch_latest_by_country.py
+python scripts/multiple/fetch_latest_by_country.py
 ```
 
 This pulls the latest available value of every World Bank indicator
@@ -36,7 +36,7 @@ To add a new World Bank indicator to the pipeline, add an entry to
 details.
 
 ```
-python scripts/fetch_tourist_cities.py
+python scripts/multiple/fetch_tourist_cities.py
 ```
 
 Downloads the free SimpleMaps world cities database (cached in
@@ -47,8 +47,8 @@ Edit `TOP_N_CITIES_BY_POPULATION` and `ADDITIONAL_CITIES` at the top of
 the script to change which cities are included.
 
 ```
-python scripts/fetch_weather_normals.py --limit 20   # pilot first
-python scripts/fetch_weather_normals.py              # full run, resumable
+python scripts/multiple/fetch_weather_normals.py --limit 20   # pilot first
+python scripts/multiple/fetch_weather_normals.py              # full run, resumable
 ```
 
 Pulls one year of daily weather per city from Open-Meteo and writes
@@ -60,8 +60,8 @@ safe to interrupt and rerun. See `data/README.md` for the reasoning
 behind using one year instead of a multi-year average.
 
 ```
-python scripts/fetch_michelin_restaurants.py
-python scripts/fetch_michelin_restaurants.py --force-fallback   # skip kagglehub
+python scripts/multiple/fetch_michelin_restaurants.py
+python scripts/multiple/fetch_michelin_restaurants.py --force-fallback   # skip kagglehub
 ```
 
 Pulls the MICHELIN Guide restaurants dataset (name, location, cuisine,
@@ -71,8 +71,8 @@ Tries Kaggle via `kagglehub` first (needs Kaggle API credentials — see
 CSV on GitHub if that fails for any reason, no credentials needed.
 
 ```
-python scripts/fetch_eurostat_dataset.py
-python scripts/fetch_eurostat_dataset.py TTR00016 --filter tra_cov=TOTAL
+python scripts/europe/fetch_eurostat_dataset.py
+python scripts/europe/fetch_eurostat_dataset.py TTR00016 --filter tra_cov=TOTAL
 ```
 
 Pulls a Eurostat dataset via their Statistics API (decoding its JSON-stat
@@ -88,8 +88,8 @@ See `data/README.md` for the full JSON-stat decoding details and the
 differences between the two datasets.
 
 ```
-python scripts/fetch_japan_tourism_indicators.py
-python scripts/fetch_japan_tourism_indicators.py --since 2024-01
+python scripts/asia/fetch_japan_tourism_indicators.py
+python scripts/asia/fetch_japan_tourism_indicators.py --since 2024-01
 ```
 
 Pulls two Japan e-Stat Statistics Dashboard indicators (no API key

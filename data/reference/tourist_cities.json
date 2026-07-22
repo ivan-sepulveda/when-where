@@ -1,9 +1,9 @@
 {
   "source": "SimpleMaps World Cities Database (Basic), CC BY 4.0 -- https://simplemaps.com/data/world-cities",
   "top_n_cities_by_population": 3000,
-  "additional_cities_requested": 87,
+  "additional_cities_requested": 96,
   "manual_cities_added": 1,
-  "total_cities": 3062,
+  "total_cities": 3072,
   "cities": [
     {
       "city": "Tokyo",
@@ -42020,6 +42020,20 @@
       "included_reason": "additional_cities"
     },
     {
+      "city": "Jerez de la Frontera",
+      "city_ascii": "Jerez de la Frontera",
+      "country": "Spain",
+      "iso2": "ES",
+      "iso3": "ESP",
+      "admin_name": "Canary Islands",
+      "lat": 36.7,
+      "lng": -6.1167,
+      "population": 213634,
+      "capital": null,
+      "simplemaps_id": 1724866806,
+      "included_reason": "additional_cities"
+    },
+    {
       "city": "Geneva",
       "city_ascii": "Geneva",
       "country": "Switzerland",
@@ -42059,6 +42073,20 @@
       "population": 196764,
       "capital": "minor",
       "simplemaps_id": 1380655938,
+      "included_reason": "additional_cities"
+    },
+    {
+      "city": "Brescia",
+      "city_ascii": "Brescia",
+      "country": "Italy",
+      "iso2": "IT",
+      "iso3": "ITA",
+      "admin_name": "Lombardy",
+      "lat": 45.5389,
+      "lng": 10.2203,
+      "population": 196446,
+      "capital": "minor",
+      "simplemaps_id": 1380432555,
       "included_reason": "additional_cities"
     },
     {
@@ -42244,6 +42272,20 @@
       "included_reason": "additional_cities"
     },
     {
+      "city": "Cagliari",
+      "city_ascii": "Cagliari",
+      "country": "Italy",
+      "iso2": "IT",
+      "iso3": "ITA",
+      "admin_name": "Sardegna",
+      "lat": 39.2149,
+      "lng": 9.1095,
+      "population": 146692,
+      "capital": "admin",
+      "simplemaps_id": 1380685705,
+      "included_reason": "additional_cities"
+    },
+    {
       "city": "Clermont-Ferrand",
       "city_ascii": "Clermont-Ferrand",
       "country": "France",
@@ -42255,6 +42297,20 @@
       "population": 146351,
       "capital": "minor",
       "simplemaps_id": 1250135509,
+      "included_reason": "additional_cities"
+    },
+    {
+      "city": "Salamanca",
+      "city_ascii": "Salamanca",
+      "country": "Spain",
+      "iso2": "ES",
+      "iso3": "ESP",
+      "admin_name": "Canary Islands",
+      "lat": 40.965,
+      "lng": -5.6642,
+      "population": 146110,
+      "capital": "minor",
+      "simplemaps_id": 1724960825,
       "included_reason": "additional_cities"
     },
     {
@@ -42367,6 +42423,20 @@
       "population": 120289,
       "capital": null,
       "simplemaps_id": 1840018774,
+      "included_reason": "additional_cities"
+    },
+    {
+      "city": "Bergamo",
+      "city_ascii": "Bergamo",
+      "country": "Italy",
+      "iso2": "IT",
+      "iso3": "ITA",
+      "admin_name": "Lombardy",
+      "lat": 45.695,
+      "lng": 9.67,
+      "population": 119534,
+      "capital": "minor",
+      "simplemaps_id": 1380253521,
       "included_reason": "additional_cities"
     },
     {
@@ -42580,6 +42650,20 @@
       "included_reason": "additional_cities"
     },
     {
+      "city": "Bayonne",
+      "city_ascii": "Bayonne",
+      "country": "United States",
+      "iso2": "US",
+      "iso3": "USA",
+      "admin_name": "New Jersey",
+      "lat": 40.6668,
+      "lng": -74.1158,
+      "population": 71553,
+      "capital": null,
+      "simplemaps_id": 1840003595,
+      "included_reason": "additional_cities"
+    },
+    {
       "city": "Dublin",
       "city_ascii": "Dublin",
       "country": "United States",
@@ -42622,6 +42706,20 @@
       "included_reason": "additional_cities"
     },
     {
+      "city": "Colmar",
+      "city_ascii": "Colmar",
+      "country": "France",
+      "iso2": "FR",
+      "iso3": "FRA",
+      "admin_name": "Grand Est",
+      "lat": 48.0811,
+      "lng": 7.355,
+      "population": 66970,
+      "capital": "minor",
+      "simplemaps_id": 1250950647,
+      "included_reason": "additional_cities"
+    },
+    {
       "city": "Baden-Baden",
       "city_ascii": "Baden-Baden",
       "country": "Germany",
@@ -42647,6 +42745,20 @@
       "population": 55790,
       "capital": "minor",
       "simplemaps_id": 1250939385,
+      "included_reason": "additional_cities"
+    },
+    {
+      "city": "Bayonne",
+      "city_ascii": "Bayonne",
+      "country": "France",
+      "iso2": "FR",
+      "iso3": "FRA",
+      "admin_name": "Nouvelle-Aquitaine",
+      "lat": 43.4925,
+      "lng": -1.4764,
+      "population": 54306,
+      "capital": "minor",
+      "simplemaps_id": 1250223048,
       "included_reason": "additional_cities"
     },
     {
@@ -42706,6 +42818,20 @@
       "included_reason": "additional_cities"
     },
     {
+      "city": "Alba",
+      "city_ascii": "Alba",
+      "country": "Italy",
+      "iso2": "IT",
+      "iso3": "ITA",
+      "admin_name": "Piedmont",
+      "lat": 44.6915,
+      "lng": 8.0256,
+      "population": 31210,
+      "capital": null,
+      "simplemaps_id": 1380267586,
+      "included_reason": "additional_cities"
+    },
+    {
       "city": "Queenstown",
       "city_ascii": "Queenstown",
       "country": "New Zealand",
@@ -42759,6 +42885,20 @@
       "population": 26206,
       "capital": null,
       "simplemaps_id": 1250324713,
+      "included_reason": "additional_cities"
+    },
+    {
+      "city": "Salamanca",
+      "city_ascii": "Salamanca",
+      "country": "Chile",
+      "iso2": "CL",
+      "iso3": "CHL",
+      "admin_name": "Coquimbo",
+      "lat": -31.7667,
+      "lng": -70.9667,
+      "population": 25326,
+      "capital": null,
+      "simplemaps_id": 1152804087,
       "included_reason": "additional_cities"
     },
     {
