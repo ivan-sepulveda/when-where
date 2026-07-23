@@ -703,7 +703,8 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
     applied per country, with EU/euro-area aggregate `geo` codes
     (`EU27_2020`, `EA21`, `EA20`, `EA19`) dropped first since they aren't
     countries.
-  - **Australia, New Zealand, Japan, Costa Rica, Canada, Chile, Mexico
+  - **Australia, New Zealand, Japan, Costa Rica, Canada, Chile, Mexico,
+    Maldives, Indonesia, Brazil, and Colombia
     (`EXTRA_COUNTRY_SOURCES` + `CANADA_SOURCE` + `CHILE_SOURCE`), latest
     12 months only:** each source's own most recent 12 monthly rows,
     scored against that 12-month window's own max — not full history,
@@ -729,7 +730,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   the dropped year. `SOURCE_YEAR` in the output records which year's
   observation was kept, for transparency.
 - **Data gaps are real, not a bug:** not every Eurostat country reports
-  every month, so per-country row counts vary. The seven non-Eurostat
+  every month, so per-country row counts vary. The eleven non-Eurostat
   countries each contribute exactly 12 rows (one per calendar month) once
   their source is filtered down, EXCEPT wherever a source itself has less
   than 12 months of history available (the script prints a warning in
@@ -744,12 +745,15 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   transborder flight movements only (not overseas international
   arrivals); Chile = overnight stays (person-nights, survey-weighted,
   hence non-integer); Mexico = international scheduled-operations air
-  passengers, Mexican + foreign airlines combined. See
+  passengers, Mexican + foreign airlines combined; Maldives = total
+  tourist arrivals; Indonesia = foreign tourist visits, every passport
+  nationality combined; Brazil = share of annual visits (%, not a
+  headcount); Colombia = foreign visitor entries. See
   `fetch_chile_ine_tourism_accommodation.py`,
-  `fetch_statcan_airport_movements.py`, and
-  `build_mexico_international_passengers_dataset.py` for the full
-  per-country reasoning, and the script's own docstring's "\<Country\>
-  specifically" sections.
+  `fetch_statcan_airport_movements.py`,
+  `build_mexico_international_passengers_dataset.py`, and the sections
+  below for the full per-country reasoning, and the script's own
+  docstring's "\<Country\> specifically" sections.
 - **Mexico specifically:** `processed/americas/mexico_international_passengers_monthly.csv`
   (see `build_mexico_international_passengers_dataset.py`) is
   hand-transcribed from two charts, not fetched — AFAC's (Agencia Federal
@@ -772,14 +776,42 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   international one. `build_mexico_domestic_passengers_dataset.py` and
   its output CSV are left in place (still real data, just not used by
   `compute_peak_tourism_indicator.py` anymore) — see that section below.
+- **Maldives specifically:** `processed/asia/maldives_recent_tourist_arrivals_monthly.csv`
+  (see `build_maldives_recent_arrivals_dataset.py`) is hand-transcribed
+  from the MMA Statistics Database's public Viya series page for "Total
+  tourist arrivals" (series ID 104, no API token needed for that view) —
+  the most recent 12 published months, cross-checked against Table 3.1's
+  own published HTML rendering. A separate script,
+  `fetch_maldives_mma_tourism_indicators.py`, pulls the full 12-series
+  history via the authenticated MMA API instead, but its live-fetch path
+  is unverified in this sandbox.
+- **Indonesia specifically:** `processed/asia/indonesia_bps_tourist_visits_monthly.csv`
+  (see `build_indonesia_monthly_tourist_visits_dataset.py`) is parsed
+  programmatically (not hand-transcribed) from BPS-Statistics Indonesia's
+  own downloaded CSV export, keeping only the GRAND TOTAL row across
+  every passport nationality. Only 2025 is published in this export.
+- **Brazil specifically:** `processed/americas/brazil_monthly_tourism_share.csv`
+  (see `build_brazil_monthly_tourism_share_dataset.py`) is hand-
+  transcribed from the UN Tourism Dashboard's "Brazil: Share by Month
+  (%)" chart — a share-of-annual-visits percentage, not a headcount, so
+  (like Costa Rica) it's excluded from the exploration notebook's
+  passenger-count-based dot sizing. Sums to 100% across the 12 months.
+  The dashboard doesn't specify which year the shares are computed over.
+- **Colombia specifically:** `processed/americas/colombia_monthly_visitors.csv`
+  (see `build_colombia_monthly_visitors_dataset.py`) — numbers were
+  referenced from the official Colombian report of visitors, adjusting
+  for recent waves of migration. Covers calendar year 2025. Source PDF
+  URLs to be added. Supersedes an earlier version of this pipeline that
+  used `colombia_recent_foreign_visitors_monthly.csv` (still on disk, not
+  deleted, just unwired).
 - **Output:** `processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`
   (`ALL_CAPS` filename by request, unlike this project's other
   `processed/` outputs) — columns `COUNTRY` (Eurostat `geo` code or ISO
-  alpha-2 for the seven extra countries), `MONTH` (integer 1–12),
+  alpha-2 for the eleven extra countries), `MONTH` (integer 1–12),
   `PEAK_RATIO`, plus `COUNTRY_NAME`, `SOURCE_YEAR`, and `PASSENGERS` (the
   raw value behind the ratio, whatever that source's unit actually is —
   see above) for traceability. One row per (`COUNTRY`, `MONTH`). Current
-  run: 469 rows, 41 countries.
+  run: 517 rows, 45 countries.
 - **Run:**
   ```
   python scripts/compute_peak_tourism_indicator.py

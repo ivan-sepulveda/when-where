@@ -196,12 +196,13 @@ python scripts/compute_peak_tourism_indicator.py
 ```
 
 Combines the Eurostat monthly air-passenger CSV (full history) with
-seven more countries scored on their own latest-12-months only —
-Australia, New Zealand, Japan, Costa Rica, Canada, Chile, Mexico — into
+eleven more countries scored on their own latest-12-months only —
+Australia, New Zealand, Japan, Costa Rica, Canada, Chile, Mexico,
+Maldives, Indonesia, Brazil, and Colombia — into
 `data/processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`: one row per
 (country, month) with `PEAK_RATIO`, how busy that month is relative to
 the country's own peak month (0–1). A candidate seasonality signal by
-country — currently 41 countries, 469 rows. The non-Eurostat countries
+country — currently 45 countries, 517 rows. The non-Eurostat countries
 each use a different underlying signal (visitor arrivals, hotel
 occupancy %, domestic air passengers, etc.), so `PEAK_RATIO` is only
 comparable *within* a country's own row, not in magnitude across

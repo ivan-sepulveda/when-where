@@ -72,9 +72,11 @@ EXTRA_COUNTRY_SOURCES = [
     # Share of annual visits (%), not a headcount -- see
     # build_brazil_monthly_tourism_share_dataset.py.
     ("americas", "brazil_monthly_tourism_share.csv", "ref_date", "share_pct", "BR", "Brazil"),
-    # Hand-transcribed latest-12-months (see
-    # build_colombia_recent_foreign_visitors_dataset.py), not a full history.
-    ("americas", "colombia_recent_foreign_visitors_monthly.csv", "ref_date", "foreign_visitors", "CO", "Colombia"),
+    # Calendar year 2025 -- see build_colombia_monthly_visitors_dataset.py.
+    # Supersedes an earlier figure previously wired here from
+    # build_colombia_recent_foreign_visitors_dataset.py (kept on disk,
+    # unwired, not deleted).
+    ("americas", "colombia_monthly_visitors.csv", "ref_date", "visitors", "CO", "Colombia"),
 ]
 
 # Canada: unlike EXTRA_COUNTRY_SOURCES above, the source CSV (StatCan table
