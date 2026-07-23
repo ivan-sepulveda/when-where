@@ -1,69 +1,18 @@
 """
-Fetch Statistics Canada table 23-10-0304-01 -- "Domestic and international
-itinerant movements, by geography, airports with NAV CANADA services and
-other selected airports, monthly" -- and write the full table (every
-airport, every available month) to a single tidy CSV.
+Data Source: Statistics Canada Web Data Service (WDS), Table 23-10-0304-01
+URL: https://www.statcan.gc.ca/en/developers/wds/user-guide
+Tables Referenced: Full table via GET .../getFullTableDownloadCSV/23100304/en (resolves to a bulk-download zip)
 
-By default this keeps everything the table has -- no date range, no airport
-filter. `CITY_AIRPORT_PATTERNS` (below) is still available for narrowing to
-this project's curated Canadian destination cities (reference/
-tourist_cities.json) via `--cities-only`, and `--years-back`/`--start-date`/
-`--end-date` for narrowing the time range, but neither is applied unless
-asked for.
-
-Unlike the other sources in this project, this one isn't reached through
-open.canada.ca's own CKAN API -- StatCan tables aren't loaded into CKAN's
-datastore (`datastore_active: false` on every resource of this dataset), so
-open.canada.ca only hosts metadata + a link out to the real thing:
-Statistics Canada's Web Data Service (WDS), a REST API in front of the same
-"CODR" tables shown on statcan.gc.ca. The bulk-download route used here:
-
-    GET https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadCSV/{productId}/en
-    -> {"status": "SUCCESS", "object": "<url of a .zip containing the full table CSV>"}
-
-`productId` is the table number with the "-01" suffix and dashes stripped:
-23-10-0304-01 -> 23100304. This call is a GET with no API key, confirmed live
-against the real endpoint (see the note near the bottom of this docstring).
-The zip it points to (currently
-https://www150.statcan.gc.ca/n1/tbl/csv/23100304-eng.zip) contains two CSVs:
-the full data table (`23100304.csv`) and a metadata sidecar
-(`23100304_MetaData.csv`) -- only the former is used here.
-
-The data CSV follows StatCan's standard full-table export schema (confirmed
-against the column list the user supplied, which matches this table
-exactly): `REF_DATE, GEO, DGUID, Airports, Domestic and international
-itinerant movements, UOM, UOM_ID, SCALAR_FACTOR, SCALAR_ID, VECTOR,
-COORDINATE, VALUE, STATUS, SYMBOL, TERMINATED, DECIMALS`. `REF_DATE` is
-"YYYY-MM". `Airports` is a specific airport's full name + province, e.g.
-"Toronto/Lester B. Pearson International, Ontario" -- not the city alone --
-so matching a city requires a substring lookup, not an exact join. `Domestic
-and international itinerant movements` (same name as the table's title) is
-the table's one non-geography breakdown dimension -- expect category values
-like "Total itinerant movements", "Domestic", "Transborder", "Other
-international" rather than every row meaning the same thing; keep this
-column in the output rather than assuming a single value throughout.
-
-Airport matching (`CITY_AIRPORT_PATTERNS` below): built from well-established
-Canadian airport naming conventions (these exact names appear across many
-public NAV CANADA / StatCan aviation tables), NOT confirmed against a live
-pull of this specific table -- this sandbox cannot reach statcan.gc.ca at
-all (see note below), so the match patterns are our best offline knowledge,
-not a verified fact. **The first live run of this script should be spot-
-checked**: `report_unmatched_patterns()` prints any configured city whose
-pattern matched zero rows, which is the signal a name needs correcting.
-Several suburb cities in `tourist_cities.json` (Mississauga, Brampton,
-Markham, Vaughan -- all Toronto suburbs; Laval, Longueuil -- Montreal
-suburbs; Gatineau -- across the river from Ottawa; Surrey, Burnaby --
-Vancouver suburbs) have no airport of their own in this table, so they're
-deliberately mapped to their metro area's airport as a shared proxy
-(`is_proxy: True` in the config, carried through to the `match_type` output
-column) rather than silently dropped or given fabricated dedicated data.
-Oshawa and St. Catharines are left unmapped -- their local airports
-(Oshawa Executive, Niagara District) are small GA fields not expected to be
-part of the NAV CANADA / "other selected airports" scope this table covers,
-and guessing would be worse than leaving them out; `report_unmatched_patterns()`
-covers configured-but-zero-match cities, not unconfigured ones, so this is a
-separate, deliberate omission -- see CITY_AIRPORT_PATTERNS comments.
+Fetches every airport, every available month, into one tidy CSV. Not
+reached via CKAN (StatCan tables aren't in its datastore); this hits
+StatCan's WDS API directly. `CITY_AIRPORT_PATTERNS` matches this
+project's curated Canadian cities to the `Airports` column, but was built
+offline (this sandbox can't reach statcan.gc.ca) and hasn't been verified
+against real rows -- check `report_unmatched_patterns()` output on the
+first live run. `--cities-only` and `--years-back`/`--start-date`/
+`--end-date` narrow the output; default keeps everything. See
+data/README.md for the full verification notes and proxy-airport mapping
+rationale.
 
 Usage:
     python fetch_statcan_airport_movements.py                      # everything: all airports, all time
@@ -72,32 +21,6 @@ Usage:
     python fetch_statcan_airport_movements.py --start-date 2020-01 --end-date 2025-12
     python fetch_statcan_airport_movements.py --cities-only --years-back 5
     python fetch_statcan_airport_movements.py --force-download      # bypass the raw/ zip cache
-
-Output is always processed/statcan_airport_movements.csv, regardless of
-which filters are applied -- rerunning with different flags overwrites it.
-
-API docs: https://www.statcan.gc.ca/en/developers/wds/user-guide
-Dataset page: https://open.canada.ca/data/en/dataset/0b985486-61b6-45a9-bb99-db4116c29fe1
-
-Note on verification: this sandbox's network allowlist blocks
-`statcan.gc.ca` entirely for outbound shell/requests calls (confirmed --
-`curl` to the zip URL returns a proxy 403), the same restriction that's
-blocked every other live source in this project (see World Bank/Eurostat/
-e-Stat notes in data/README.md). A separate fetch tool with different
-network access WAS able to reach the WDS API directly: `GET
-.../getFullTableDownloadCSV/23100304/en` returned
-`{"status":"SUCCESS","object":"https://www150.statcan.gc.ca/n1/tbl/csv/23100304-eng.zip"}`
-live, confirming the productId, the endpoint, and the zip URL are all
-correct as of 2026-07-20. That same tool could not fetch the zip's binary
-contents (it renders pages, not arbitrary binary downloads), so the actual
-data rows, exact `Airports` column spellings, and the `Domestic and
-international itinerant movements` category values are NOT verified here.
-`filter_movements()` and `match_city()` were verified offline against a
-synthetic fixture built to match the documented schema (see
-tests/test_fetch_statcan_airport_movements.py if present, or the
-`_self_check()` function below) -- not real StatCan rows. Run this for real
-on a machine that can reach statcan.gc.ca, then check the printed unmatched-
-pattern warnings before trusting the output.
 """
 
 import argparse

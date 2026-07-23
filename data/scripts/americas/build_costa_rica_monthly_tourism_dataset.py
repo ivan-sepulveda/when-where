@@ -1,38 +1,17 @@
 """
-Build a tidy monthly Costa Rica hotel-occupancy CSV from CUADRO 3 of
-data/raw/costa_rica_tourism/COSTA_RICA_TOURISM_2020_2025.pdf -- "Porcentaje
-de Ocupación mensual y promedio anual, 2018-2024" (Banco Central de Costa
-Rica). Table 3 is on page 5 of the PDF (`pdf.pages[4]`, 0-indexed).
+Data Source: Banco Central de Costa Rica, tourism PDF (user-supplied -- no live source found)
+URL: n/a (data/raw/costa_rica_tourism/COSTA_RICA_TOURISM_2020_2025.pdf)
+Tables Referenced:
+    Page 5 - Cuadro 3, Porcentaje de Ocupación mensual y promedio anual, 2018-2024
 
-Unlike every other fetch/build script in this project, this one has NO live
-source -- Banco Central de Costa Rica doesn't appear to publish this table
-through any API this project could find, so the user supplied the PDF
-directly (saved to data/raw/costa_rica_tourism/) and the table below was
-manually transcribed from it, confirmed against both a direct read of page
-5's extracted text and a cropped image of the same table the user posted
-inline -- the two matched exactly. There is deliberately no `fetch_*()`
-function here; `CUADRO_3_OCCUPANCY_PCT` IS the source of truth, and it
-should be re-transcribed by hand if Costa Rica ever publishes an updated
-PDF (the doc covers 2020-2026 issue dates, but Cuadro 3 itself only ever
-carried 2018-2024 -- Banco Central's own table title, not a limitation of
-this script).
-
-**What %OCUP actually measures:** hotel occupancy percentage (surveyed
-hotels only), NOT a visitor-arrivals count -- a different kind of signal
-than every other country currently in this project (AU/NZ/JP/CA all use
-some flavor of arrivals/entries/movements counts; Europe uses air
-passengers). It's bounded 0-100 by construction, so a "peak ratio" scored
-against occupancy will compress differently than one scored against a
-count (a swing from 36.7% to 83.5% occupancy is a ~2.3x ratio, whereas a
-swing in raw arrivals for other countries can be much larger) -- worth
-keeping in mind if Costa Rica's PEAK_RATIO curve looks flatter than other
-countries' once this feeds into compute_peak_tourism_indicator.py.
-
-Note CUADRO 1 (page 3 of the same PDF) also carries a monthly hotel-
-activity index (IMAH, "Índice Mensual de la Actividad Hotelera") through
-2025/2026 -- a candidate for a future script if a count-style signal
-closer to the other countries' is wanted instead of/alongside occupancy.
-Not used here since this script was scoped to Cuadro 3 specifically.
+Builds a tidy monthly hotel-occupancy CSV, hand-transcribed since no API
+publishes this table. CUADRO_3_OCCUPANCY_PCT is the source of truth;
+re-transcribe by hand if Costa Rica publishes an update. Measures hotel
+occupancy % (surveyed hotels only), not visitor arrivals -- a different
+signal than every other country in this project, bounded 0-100, so its
+PEAK_RATIO swings compress differently than count-based countries'.
+Cuadro 1 (page 3) also has a monthly hotel-activity index (IMAH) through
+2025/2026, a candidate for a future count-style script; not used here.
 
 Usage:
     python build_costa_rica_monthly_tourism_dataset.py                # 2024 (default)

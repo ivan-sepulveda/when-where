@@ -1,22 +1,16 @@
 """
-Fetch the Michelin Guide restaurants dataset (michelin-my-maps project) --
-name, location, cuisine, price, and award tier (3/2/1 Stars, Bib Gourmand,
-Selected Restaurants) for every restaurant in the MICHELIN guide.
+Data Source: michelin-my-maps project (MIT licensed, scraped from the MICHELIN Guide)
+URL: https://github.com/ngshiheng/michelin-my-maps
+Tables Referenced: Kaggle dataset ngshiheng/michelin-guide-restaurants-2021 (primary); same project's GitHub CSV (fallback)
 
-Primary source: the Kaggle dataset via kagglehub. Requires kagglehub
-installed (see requirements.txt) and Kaggle API credentials configured --
-see https://github.com/Kaggle/kagglehub#authenticate. If that fails for
-any reason (not installed, no credentials, network issue, etc.), this
-falls back automatically to the same project's CSV published directly on
-GitHub, which needs no authentication.
-
-    Kaggle:  https://www.kaggle.com/datasets/ngshiheng/michelin-guide-restaurants-2021
-    GitHub:  https://github.com/ngshiheng/michelin-my-maps
-
-Both are the same underlying dataset (the GitHub repo is the source of
-the Kaggle dataset) -- MIT licensed, scraped from the MICHELIN guide
-website. See data/README.md for the license/attribution details and the
-project's own disclaimer about research-only use of the scraped content.
+Fetches restaurant name, location, cuisine, price, and award tier
+(3/2/1 Stars, Bib Gourmand, Selected Restaurants) for every restaurant in
+the MICHELIN guide. Tries Kaggle via `kagglehub` first (needs credentials
+configured -- see https://github.com/Kaggle/kagglehub#authenticate); if
+that fails for any reason, falls back automatically to the same
+project's CSV on GitHub, which needs no authentication. Both are the
+same underlying dataset. See data/README.md for license/attribution
+details and the project's research-only-use disclaimer.
 
 Usage:
     python fetch_michelin_restaurants.py

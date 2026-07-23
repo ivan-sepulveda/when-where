@@ -1,26 +1,14 @@
 """
-Build data/reference/city_aliases.json: a hand-maintained registry of city
-name spelling variants between Michelin's scraped city names and
-tourist_cities.json's city/city_ascii spelling, keyed by iso3 then by the
-alias spelling.
-
-Mirrors the country_aliases.json / country_lookup.py pattern
-(see build_country_aliases.py), except there's no "full canonical list" to
-build against here -- CITY_ALIASES below IS the whole registry, entirely
-hand-maintained.
-
-These are genuine name variants, not diacritics or suffix noise --
-diff_michelin_vs_tourist_cities.py's _clean_city() (strips a trailing US
-state-code suffix) and its dual city/city_ascii matching (Michelin drops
-macrons for Japanese cities but keeps accents for others) already handle
-those cases directly without needing an alias entry. This file is for
-cases that are just a different name for the same place: Seville vs
-Sevilla, Quebec vs Quebec City, Antwerpen vs Antwerp. Found by manually
-scanning the top of diff_michelin_vs_tourist_cities.py's "missing" output
-and checking tourist_cities.json for a near-miss.
-
-Add a new (city, iso3) -> canonical entry to CITY_ALIASES below as new
-ones turn up, then rerun this script to regenerate city_aliases.json.
+Builds data/reference/city_aliases.json: a hand-maintained registry of
+city name spelling variants between Michelin's scraped city names and
+tourist_cities.json's spelling, keyed by iso3 then by the alias spelling.
+Mirrors the country_aliases.json pattern, except there's no "full
+canonical list" to build against here -- `CITY_ALIASES` below IS the
+whole registry. These are genuine name variants, not diacritics or
+suffix noise (those are already handled elsewhere) -- just a different
+name for the same place: Seville vs Sevilla, Quebec vs Quebec City. Add
+a new entry as new ones turn up, found by scanning
+diff_michelin_vs_tourist_cities.py's "missing" output for a near-miss.
 
 Usage:
     python build_city_aliases.py

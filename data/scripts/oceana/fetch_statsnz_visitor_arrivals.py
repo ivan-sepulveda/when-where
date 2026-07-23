@@ -1,92 +1,23 @@
 """
-Fetch Stats NZ's monthly "International travel" release and extract
-Table 1 ("Monthly visitor arrivals") into a tidy monthly CSV -- the same
-role the ABS/e-Stat/StatCan scripts elsewhere in data/scripts/ play for
-Australia, Japan, and Canada: a national-level monthly "how much inbound
-travel is happening" volume signal, this time for New Zealand.
+Data Source: Stats NZ, International travel release (monthly)
+URL: https://www.stats.govt.nz/information-releases/international-travel-may-2026/
+Tables Referenced: Table 1, "Monthly visitor arrivals" (sheet 'Tables 1&2')
 
-**Source file**, reissued monthly at a predictable URL keyed by release
-month, e.g. for the May 2026 issue:
-
-    https://www.stats.govt.nz/assets/Uploads/International-travel/
-    International-travel-<Month>-<YYYY>/Download-data/
-    international-visitor-arrivals-to-new-zealand-<month>-<yyyy>.xlsx
-
-`build_url_for_release()` constructs this from a (year, month) pair so the
-script can be pointed at any past release without hardcoding one URL, but
-the default is the URL for the May 2026 release (the one this script was
-built and verified against).
-
-**The spreadsheet's layout** (confirmed against a real copy of
-international-visitor-arrivals-to-new-zealand-may-2026.xlsx, supplied
-directly by the user -- not fetched by this tool, since this sandbox's
-network allowlist blocks stats.govt.nz for outbound requests, same
-restriction noted in fetch_abs_visitor_arrivals.py; confirmed via direct
-curl, proxy 403 "blocked-by-allowlist"). The workbook has one sheet per
-table plus cover/notes sheets. Tables 1 and 2 share a single sheet,
-`'Tables 1&2'`, laid out as a small "report" block rather than a plain
-data grid:
-
-    row w/ col A == "Table 1"        (title)
-    next row: "Monthly visitor arrivals"
-    next row ("header row"): col A = "Month", one col holds
-        "Change 2024/25" (first half of a merged "Change 2024/25 to
-        2025/26" header -- the two fiscal years in this label always
-        being the two most recent in the table, i.e. it updates every
-        release)
-    next row ("fiscal-year row"): col A blank, cols B.. = five fiscal-year
-        labels "2021/22".."2025/26" (format YYYY/YY, meaning "year ended
-        31 May YYYY+1"), then "to 2025/26" (second half of the merged
-        header above)
-    next row ("subheader row"): col A blank, the change column pair
-        labelled "Number" / "Percent"
-    next row: blank spacer row
-    next 12 rows: one per month, col A = 3-letter month abbreviation
-        starting at "Jun" and ending at "May" (NZ's tourism year runs
-        Jun-May), cols B-F = visitor arrival counts for that month in
-        each of the five fiscal years, cols G-H = YoY change (number,
-        percent) versus the prior fiscal year, for that month only
-    next row: "Source: Stats NZ" (footer -- parsing stops here)
-    (Table 2 continues below in the same sheet)
-
-`find_table1_header_rows()` locates the header/fiscal-year/subheader rows
-by scanning column A for "Month" rather than hardcoding row numbers, since
-Stats NZ has added/removed rows across releases before.
-
-**Turning the fiscal-year x month grid into real calendar months.** Each
-fiscal-year column "YYYY/(YY+1)" spans Jun YYYY - May (YYYY+1). So a cell
-in the "Jun" row under column "2021/22" is June 2021, while a cell in the
-"May" row under the same column is May 2022. `month_to_ref_date()` encodes
-that split (Jun-Dec -> the column's first calendar year, Jan-May -> the
-column's second calendar year) to produce a proper "YYYY-MM" ref_date per
-cell, so the output is a real, ordered monthly time series (Jun 2021 ->
-May 2026 in the May-2026 release) rather than a month-name/fiscal-year
-cross-tab.
-
-**YoY change columns** (cols G-H) describe the change into whichever
-fiscal year is most recent in that release (2024/25 -> 2025/26 as of
-May 2026) -- not a per-fiscal-year figure. They're attached only to the
-rows for that most-recent fiscal year (`change_number_yoy` /
-`change_percent_yoy`, NaN elsewhere) rather than duplicated across every
-fiscal year, since they're only ever computed for the newest one.
+Fetches Table 1 into a tidy monthly CSV, one workbook per release month.
+The table layout is a small report block, not a plain grid: a fiscal-year
+row (5 columns, e.g. "2021/22".."2025/26", each meaning "year ended 31
+May") crossed with 12 month rows (Jun-May, NZ's tourism year).
+`month_to_ref_date()` converts that fiscal-year x month grid into ordered
+`YYYY-MM` dates, since the same column means a different calendar year
+depending on the month row. YoY change columns apply only to the most
+recent fiscal year. See data/README.md for full layout and verification
+notes.
 
 Usage:
     python fetch_statsnz_visitor_arrivals.py                         # default: May 2026 release
     python fetch_statsnz_visitor_arrivals.py --release-year 2026 --release-month 5
     python fetch_statsnz_visitor_arrivals.py --url "https://.../some-other-release.xlsx"
     python fetch_statsnz_visitor_arrivals.py --force-download        # bypass the cached raw/ xlsx
-
-Source: https://www.stats.govt.nz/information-releases/international-travel-may-2026/
-
-Note on verification: `build_url_for_release()` is unverified end-to-end
-in this sandbox (stats.govt.nz is proxy-blocked here, confirmed via direct
-curl -> 403 "blocked-by-allowlist", the same restriction documented in
-fetch_abs_visitor_arrivals.py). `find_table1_header_rows()` and
-`parse_table1()` WERE verified for real against the actual May-2026
-workbook the user supplied -- not a synthetic fixture -- confirming the
-row layout, the 5 fiscal-year columns, the 12-month Jun-May block, and the
-"Source: Stats NZ" footer row. Run this on a machine that can reach
-stats.govt.nz to confirm `download_xlsx()` end-to-end.
 """
 
 import argparse

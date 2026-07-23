@@ -1,27 +1,12 @@
 """
 Track the latest available year for a World Bank WDI indicator, without
-hammering the API on every run.
-
-The API call is cheap but annual indicators only get a new data point once
-a year (often with a lag), so there's no reason to check every run. This
-module caches the latest known year per indicator in a JSON file, along
-with a "last checked" date, and only re-queries the API when it's actually
-worth it:
-
-  - If the cached latest year is at most 1 year behind the current year
-    (the normal, expected state -- e.g. it's 2026 and the latest year is
-    2025), skip the check entirely. No point polling for something that
-    predictably won't have changed.
-  - Once the cached latest year falls 2+ years behind the current year
-    (e.g. it's 2027 and we still have 2025 cached -- 2026 should plausibly
-    exist by now), re-check, but no more often than every 30 days.
-
-Example, cached latest_year=2025:
-    2026-07-19 (gap=1)  -> skip, assume 2025 still latest
-    2026-08-19 (gap=1)  -> skip, assume 2025 still latest
-    2027-01-01 (gap=2)  -> 30+ days since last check -> re-check
-    2027-01-15 (gap=2)  -> <30 days since last check -> skip
-    2027-01-31 (gap=2)  -> 30+ days since last check -> re-check
+hammering the API on every run. Annual indicators only get a new data
+point once a year (often with a lag), so this module caches the latest
+known year per indicator in a JSON file, along with a "last checked"
+date, and only re-queries the API when it's worth it: skip the check if
+the cached year is at most 1 year behind the current year (the normal,
+expected state); once it falls 2+ years behind, re-check, but no more
+often than every 30 days.
 
 Usage:
     from latest_year_cache import get_latest_year

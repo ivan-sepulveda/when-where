@@ -1,20 +1,14 @@
 """
-Build data/reference/country_aliases.json: a canonical iso3-keyed country
-registry with alternate name spellings, so scripts pulling from different
-sources (World Bank REF_AREA codes, SimpleMaps country names, Michelin's
-scraped country strings, future sources, etc.) can normalize a country
-name/string to one shared iso3 key before joining data across sources.
-
-Canonical names/iso3/iso2 codes come from the *full* SimpleMaps World
-Cities Database download (the raw ~50K-row CSV cached by
-fetch_tourist_cities.py, not the trimmed reference/tourist_cities.json
-subset) -- this gives full coverage of every country SimpleMaps
-recognizes, not just the ones that happen to have a top-N-population city.
-
-EXTRA_ALIASES below is a hand-maintained list of alternate spellings seen
-in *other* sources that don't match SimpleMaps' own naming. Add to it
-whenever a new source introduces a country string that doesn't resolve --
-use country_lookup.py's report_unmapped() / CLI mode to find these.
+Builds data/reference/country_aliases.json: a canonical iso3-keyed
+country registry with alternate name spellings, so scripts pulling from
+different sources (World Bank REF_AREA codes, SimpleMaps country names,
+Michelin's scraped strings, etc.) can normalize a country name/string to
+one shared iso3 key before joining data. Canonical names/iso3/iso2 come
+from the *full* SimpleMaps World Cities Database download, not the
+trimmed reference subset, for full country coverage. `EXTRA_ALIASES` is
+a hand-maintained list of alternate spellings seen in other sources that
+don't match SimpleMaps' own naming -- use `country_lookup.py`'s
+`report_unmapped()` to find new ones.
 
 Usage:
     python build_country_aliases.py

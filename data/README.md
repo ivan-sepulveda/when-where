@@ -1117,6 +1117,52 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   live download path is unverified end-to-end here — run this for real on
   a machine that can reach abs.gov.au to confirm that piece.
 
+### Stats NZ — international visitor arrivals (`scripts/oceana/fetch_statsnz_visitor_arrivals.py`)
+
+- **Source:** Stats NZ's monthly ["International travel" release](https://www.stats.govt.nz/information-releases/international-travel-may-2026/),
+  Table 1 ("Monthly visitor arrivals"), reissued each month at a
+  predictable URL keyed by release month
+  (`build_url_for_release(year, month)` constructs it rather than
+  hardcoding one release). No API — a direct `.xlsx` download.
+- **What it is:** monthly international visitor arrivals to New Zealand —
+  the same role ABS/e-Stat/StatCan play for Australia/Japan/Canada.
+- **Spreadsheet layout** (confirmed against the real May-2026 workbook,
+  user-supplied): Tables 1 and 2 share one sheet, `'Tables 1&2'`, laid out
+  as a small report block rather than a plain grid — a header row, a
+  fiscal-year row (5 columns, `"2021/22"`..`"2025/26"`, each meaning "year
+  ended 31 May" of the second year), a Number/Percent subheader for the
+  YoY change columns, then 12 month rows (`Jun`..`May`, since NZ's tourism
+  year runs June–May) before a `"Source: Stats NZ"` footer.
+  `find_table1_header_rows()` locates the header/fiscal-year rows by
+  scanning column A for `"Month"` rather than hardcoding row numbers.
+- **Fiscal-year grid to real calendar months:** each fiscal-year column
+  `"YYYY/(YY+1)"` spans June `YYYY` through May `YYYY+1`, so the same
+  column means a different calendar year depending on which month row
+  it's read from (e.g. under `"2021/22"`, the `Jun` row is June 2021 but
+  the `May` row is May 2022). `month_to_ref_date()` encodes that split to
+  produce one ordered `ref_date` per cell.
+- **YoY change columns** (`change_number_yoy`/`change_percent_yoy`)
+  describe the change into whichever fiscal year is most recent in that
+  release only — attached to that fiscal year's rows alone, `NaN`
+  elsewhere, rather than duplicated across every fiscal year.
+- **Output:** `processed/oceana/statsnz_visitor_arrivals_monthly.csv` —
+  `ref_date` (`YYYY-MM`), `visitor_arrivals`, plus the two YoY columns.
+- **Run:**
+  ```
+  python scripts/oceana/fetch_statsnz_visitor_arrivals.py                         # default: May 2026 release
+  python scripts/oceana/fetch_statsnz_visitor_arrivals.py --release-year 2026 --release-month 5
+  python scripts/oceana/fetch_statsnz_visitor_arrivals.py --url "https://.../some-other-release.xlsx"
+  python scripts/oceana/fetch_statsnz_visitor_arrivals.py --force-download        # bypass the cached raw/ xlsx
+  ```
+- **Note:** this sandbox blocks `stats.govt.nz` outright (confirmed via a
+  direct `curl`, proxy 403), so `build_url_for_release()`'s live download
+  path is unverified end-to-end here. `find_table1_header_rows()` and
+  `parse_table1()` WERE verified against the real May-2026 workbook the
+  user supplied — not a synthetic fixture — confirming the row layout, the
+  5 fiscal-year columns, the 12-month Jun–May block, and the footer row.
+  Run this for real on a machine that can reach stats.govt.nz to confirm
+  `download_xlsx()`.
+
 ### Country name crosswalk (`reference/country_aliases.json`)
 
 - **Problem:** every source names countries differently — SimpleMaps says

@@ -1,41 +1,17 @@
 """
-Fetch a Eurostat dataset via the Eurostat Statistics API and flatten it
-into a tidy CSV.
+Data Source: Eurostat Statistics API
+URL: https://wikis.ec.europa.eu/display/EUROSTATHELP/API+-+Getting+started
+Tables Referenced: TTR00012 (Air transport of passengers by country, yearly); TTR00016 (same, monthly, plus a tra_cov dimension)
 
-Eurostat's REST API returns JSON-stat: a flat `value` dict keyed by a
-stringified integer index, plus a `dimension` object describing each
-dimension's category codes/labels and a `size` array giving each
-dimension's cardinality. The index encodes a position in every dimension
-at once (row-major / C order: the *last* dimension listed in `id` varies
-fastest) -- e.g. for TTR00012 (dims `[..., geo, time]`, sizes
-`[..., 42, 12]`), the value for (AT, 2025) sits at
-`23 * 12 + 11 = 287` (AT is geo position 23, 2025 is time position 11).
-This script decodes that back into one row per (dimension combo, value)
-with both the raw category code and its human-readable label for every
-dimension.
-
-Two time-filter styles, because Eurostat's `time` category codes differ
-by frequency:
-  - Annual datasets (e.g. TTR00012) use plain-year codes ("2025") --
-    filter these with `--time`, an exact-match list against those codes.
-  - Monthly/quarterly datasets (e.g. TTR00016, "YYYY-MM" codes like
-    "2025-02") don't have one code per bare year, so `--time 2025` won't
-    match anything -- use `--start-period`/`--end-period` instead (the
-    SDMX range filter), e.g. `--start-period 2025-01 --end-period 2025-12`.
-`--filter DIM=VALUE` (repeatable) pins down any other dimension, e.g.
-TTR00016 has a `tra_cov` (transport coverage) axis that TTR00012 doesn't
--- `--filter tra_cov=TOTAL` collapses it to "Total transport" so the
-output matches TTR00012's scope instead of also breaking out national
-vs. international.
-
-Default dataset here is TTR00012 -- "Air transport of passengers by
-country (yearly data)" (despite the "ttr" prefix, this is NOT a tourism
-dataset; it's air passenger traffic, sourced from AVIA_PAOC). TTR00016 is
-its monthly sibling, "Air transport of passengers by country and type of
-transport (monthly data)" -- same underlying AVIA_PAOC source, finer time
-grain, plus the extra `tra_cov` dimension noted above. As of this
-writing TTR00016 only has data from 2025-02 through 2026-05 (it's a
-newer series with a shorter history than TTR00012).
+Decodes Eurostat JSON-stat responses (a flat `value` dict keyed by a
+row-major dimension index) into one tidy row per dimension combo, with
+both raw codes and human-readable labels. Two time-filter styles: annual
+datasets use `--time` (exact-match year codes); monthly/quarterly
+datasets use `--start-period`/`--end-period` instead, since their
+`YYYY-MM` codes don't match bare years. `--filter DIM=VALUE` pins any
+other dimension. Default dataset TTR00012 is air passenger traffic by
+country (yearly, despite the tourism-sounding "ttr" prefix); TTR00016 is
+its monthly sibling. See data/README.md for the index-math details.
 
 Usage:
     python fetch_eurostat_dataset.py                                    # TTR00012, year 2025 (defaults)
@@ -43,8 +19,6 @@ Usage:
     python fetch_eurostat_dataset.py TTR00012 --time 2023 2024 2025
     python fetch_eurostat_dataset.py TTR00012 --time                    # no values -> all years
     python fetch_eurostat_dataset.py TTR00016 --start-period 2025-01 --end-period 2025-12 --filter tra_cov=TOTAL
-
-API docs: https://wikis.ec.europa.eu/display/EUROSTATHELP/API+-+Getting+started
 """
 
 import argparse

@@ -1,17 +1,16 @@
 """
-Build data/reference/tourist_cities.json: latitude/longitude (and other
-metadata) for a fixed list of cities used throughout the project.
+Data Source: SimpleMaps World Cities Database, Basic tier (CC BY 4.0)
+URL: https://simplemaps.com/data/world-cities
+Tables Referenced: Full ~50.2K-row world cities CSV (bundled in the Basic tier zip)
 
-The list is the top N cities worldwide by population, plus a manually
-curated list of additional cities that matter for travel scoring but don't
-crack the population cutoff (e.g. smaller but popular tourist towns).
-
-Data source: SimpleMaps World Cities Database, Basic tier (free, ~50.2K
-prominent cities/towns worldwide), licensed CC BY 4.0.
-https://simplemaps.com/data/world-cities
-Attribution (required by the license) lives in data/README.md and the
-top-level README.md -- keep both in sync if this script or its source
-changes.
+Builds data/reference/tourist_cities.json: latitude/longitude and other
+metadata for a fixed list of cities used throughout the project -- the
+top N cities worldwide by population, plus a manually curated list of
+additional cities that matter for travel scoring but don't crack that
+population cutoff. Attribution is required by the license and lives in
+data/README.md and the top-level README.md -- keep both in sync if this
+script or its source changes. Edit `TOP_N_CITIES_BY_POPULATION` /
+`ADDITIONAL_CITIES` below to change which cities end up in the output.
 
 Usage:
     python fetch_tourist_cities.py

@@ -1,16 +1,14 @@
 """
-Build data/processed/monthly_scores_<year>_by_city.json: a set of simple,
+Builds data/processed/monthly_scores_<year>_by_city.json: simple,
 transparent, rule-based scores per city per calendar month, derived from
 processed/multiple/weather_normals_<year>_by_city.json (see
-scripts/multiple/fetch_weather_normals.py). This script itself stays at
-scripts/ root (and writes its own output to processed/ root) since it isn't
-a geography-scoped fetch -- only its weather-normals *input* lives under
-multiple/.
-
-This is intentionally a rule-based model, not a learned one -- each score
-is a plain formula over one weather-normal field, documented below and in
-data/README.md, so it's easy to see why a city/month scored the way it did
-and to adjust the rules later.
+scripts/multiple/fetch_weather_normals.py). Stays at scripts/ root (and
+writes to processed/ root) since it isn't a geography-scoped fetch --
+only its weather-normals input lives under multiple/. Intentionally
+rule-based, not learned: each score is a plain formula over one
+weather-normal field, documented below and in data/README.md, so it's
+easy to see why a city/month scored the way it did and to adjust the
+rules later.
 
 Usage:
     python compute_monthly_scores.py

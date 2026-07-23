@@ -1,38 +1,14 @@
 """
-Compare processed/multiple/michelin_restaurants.csv against reference/tourist_cities.json
-and report which Michelin (city, country) pairs aren't in the tourist cities
-list -- a candidate list for expanding ADDITIONAL_CITIES in
-fetch_tourist_cities.py, and a sanity check on how much Michelin coverage the
-current TOP_N_CITIES_BY_POPULATION cutoff actually captures.
-
-Matching notes (see data/README.md for the full writeup):
-  - Country strings are normalized to iso3 via country_lookup.normalize_country()
-    -- raw string matching fails on things like "USA" vs "United States" or
-    "Chinese Mainland" vs "China".
-  - City strings are matched against BOTH tourist_cities.json's city and
-    city_ascii fields, not just one. Michelin's own spelling is inconsistent
-    about diacritics: it drops macrons for Japanese cities ("Kyoto", not
-    "Kyōto" -- matches city_ascii, not city) but keeps accents for others
-    ("São Paulo", not "Sao Paulo" -- matches city, not city_ascii). Matching
-    against only one field silently drops whichever set doesn't use that
-    field's convention.
-  - A trailing US two-letter state-code suffix (", NY", ", CA", etc.), if
-    still present on the city side, is stripped before comparing.
-  - A handful of Michelin Location values are a bare city name with no
-    ", Country" suffix, because the city IS the country/territory
-    (Singapore, Dubai, Abu Dhabi, Macau, Luxembourg) -- CITY_ONLY_COUNTRY
-    below maps those directly to an iso3 instead of going through
-    normalize_country().
-  - Genuine name variants between the two sources -- not diacritics, not
-    a suffix-stripping rule, just a different name for the same place
-    (Seville vs Sevilla, Quebec vs Quebec City, Antwerpen vs Antwerp) --
-    are resolved via city_lookup.resolve_city_alias(), backed by
-    data/reference/city_aliases.json (mirrors country_lookup.py /
-    country_aliases.json). Found by manually scanning the top of the
-    "missing" output and checking tourist_cities.json for a near-miss.
-    Add new ones to CITY_ALIASES in build_city_aliases.py and rerun it --
-    there's no general rule that catches these, unlike the
-    diacritic/suffix cases above.
+Compares Michelin restaurant locations against the tourist cities
+reference list and reports which Michelin (city, country) pairs aren't
+tracked -- a candidate list for expanding `ADDITIONAL_CITIES` in
+fetch_tourist_cities.py, and a sanity check on how much Michelin
+coverage the population cutoff actually captures. Handles several
+real-world matching gotchas: country-string normalization, inconsistent
+diacritics between the two sources, trailing US state-code suffixes,
+city-name-is-the-country cases (Singapore, Dubai, etc.), and genuine
+name variants (Seville vs Sevilla). See data/README.md for the full
+matching writeup and how to add new cases.
 
 Usage:
     python diff_michelin_vs_tourist_cities.py

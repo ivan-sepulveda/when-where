@@ -1,57 +1,21 @@
 """
-Build a tidy monthly Mexico INTERNATIONAL air passenger CSV from AFAC's
-(Agencia Federal de Aviación Civil) "Monthly Bulletin of Operational
-Statistics" -- December 2025 edition -- summing two charts:
+Data Source: AFAC Monthly Bulletin of Operational Statistics, December 2025 edition
+URL: https://www.gob.mx/afac/acciones-y-programas/estadisticas-280404
+Tables Referenced:
+    Page 7 - Monthly passengers transported in Scheduled International Operations, Mexican Airlines (millions)
+    Page 9 - Monthly passengers transported in Scheduled International Operations, Foreign Airlines (millions)
 
-  - Page 7: "Monthly passengers transported in Scheduled International
-    Operations, Mexican Airlines (millions)"
-  - Page 9: "Monthly passengers transported in Scheduled International
-    Operations, Foreign Airlines (millions)"
-
-Both from data/raw/mexico_afac/boletin-en-dic-2025-27012026.pdf.
-
-**This supersedes build_mexico_domestic_passengers_dataset.py for scoring
-purposes.** That script transcribed the bulletin's SCHEDULED DOMESTIC
-Operations chart (page 3) -- domestic Mexican air travel, not
-international. compute_peak_tourism_indicator.py originally used that
-domestic series as Mexico's "how much travel is happening" signal, but
-every other country in this project's EXTRA_COUNTRY_SOURCES/CANADA_SOURCE
-uses an INTERNATIONAL signal (arrivals, border entries, transborder
-movements, overnight stays by foreign+resident visitors combined), so the
-domestic-only series was the wrong chart for consistency with the rest of
-the table -- this script's `passengers` column (Mexican + Foreign
-airlines, international, summed) is the corrected replacement.
-build_mexico_domestic_passengers_dataset.py and its output CSV are left
-in place (the domestic data is still real and may be useful elsewhere),
-just no longer wired into compute_peak_tourism_indicator.py.
-
-Like both Costa Rica's and the domestic Mexico script, this has NO live
-fetch behind it -- AFAC publishes both charts as images with data-point
-labels, not downloadable tables, so the values below were hand-
-transcribed from each chart's own labels. Cross-checked against a direct
-`pdftotext -layout` extraction of the source PDF (the chart layout
-scrambles the labels' reading order, but every value below appears
-verbatim in that extraction) and against the user's own screenshots of
-both charts -- all matched exactly, including the user's independent
-spot-check that December 2025's two values sum to 5.90M (1.80 + 4.10).
-MONTHLY_PASSENGERS_MILLIONS_2025 (the combined dict built from the two
-transcribed source dicts below) IS the source of truth here; there is
-deliberately no fetch_*() function.
-
-**What this measures:** total passengers on SCHEDULED INTERNATIONAL
-flights to/from Mexico, Mexican airlines' international operations plus
-foreign airlines' operations into Mexico combined, in millions per
-month. This is a much closer match to "international travel volume" than
-the domestic series it replaces -- comparable in spirit to Canada's
-StatCan Transborder-movements series or Eurostat's air-passenger figures
-elsewhere in this project (all air-passenger counts, not visitor-arrivals
-counts, so still not identical in kind to e.g. ABS/Stats NZ's visitor
-arrivals or Chile's overnight stays -- see compute_peak_tourism_
-indicator.py's "Mexico specifically" note for the full caveat).
-
-Only 2025 is transcribed (the year requested for this project's scoring),
-though both charts also show 2023/2024 lines with their own data-point
-labels and could be added later if more history is wanted.
+Builds a tidy monthly CSV of Mexico's total INTERNATIONAL scheduled-
+operations air passengers (Mexican + Foreign airlines summed). No live
+fetch -- both charts are image-only in the bulletin, so 2025 values were
+hand-transcribed from each chart's data-point labels and cross-checked
+against a PDF text extraction and the user's screenshots (December sums
+to 5.90M = 1.80 + 4.10, confirmed). Supersedes the earlier DOMESTIC-
+operations version of this dataset (build_mexico_domestic_passengers_
+dataset.py), which used the wrong chart for consistency with every other
+country's international signal in compute_peak_tourism_indicator.py.
+Precision is roughly +/-10,000 passengers, since both source charts round
+to 2 decimal places in millions.
 
 Usage:
     python build_mexico_international_passengers_dataset.py

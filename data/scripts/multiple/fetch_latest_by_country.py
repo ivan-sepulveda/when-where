@@ -1,8 +1,13 @@
 """
-Fetch a WDI indicator's value for every country/region in our reference
-list (data/reference/worldbank_countries.json), for the latest available
-year (via latest_year_cache.get_latest_year), and write the result to a
-single JSON file keyed by country code.
+Data Source: World Bank Data360 API, World Development Indicators (WDI)
+URL: https://data360api.worldbank.org
+
+Fetches a WDI indicator's value for every country/region in our
+reference list (data/reference/worldbank_countries.json), for the latest
+available year (via `latest_year_cache.get_latest_year`), and writes the
+result to a single JSON file keyed by country code. Not every
+country/region has data for the latest year (reporting lags vary a lot)
+-- those are listed under `missing_codes` rather than silently dropped.
 
 Usage:
     python fetch_latest_by_country.py

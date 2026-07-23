@@ -1,37 +1,17 @@
 """
-Fetch two Japan Statistics Dashboard (e-Stat) indicators -- monthly
-foreign-national entries and monthly foreign-visitor guest nights,
-nationwide -- and join them into one tidy CSV, one row per month.
+Data Source: Japan Statistics Dashboard (e-Stat), Statistics Dashboard WebAPI
+URL: https://dashboard.e-stat.go.jp/en/static/api
+Tables Referenced: Indicator 0204030003000010010 (Number of entries, Foreign nationals); Indicator 1003010201000110000 (Number of guest nights, Foreign visitors)
 
-Source: the e-Stat Statistics Dashboard WebAPI (dashboard.e-stat.go.jp) --
-NOT the main e-Stat API. No Application ID / registration required (see
-https://dashboard.e-stat.go.jp/en/static/api). Its `getData` response is
-a flat list of {time, value} observations per indicator, much simpler
-than Eurostat's JSON-stat hypercube (see fetch_eurostat_dataset.py) --
-no positional-index decoding needed.
-
-Two indicators, joined on (year, month):
-  - NUM_ENTRIES: "Number of entries (Foreign nationals)"
-    (indicator 0204030003000010010, source: Statistics on Legal Migrants,
-    i.e. Ministry of Justice border-crossing data). Counts ALL
-    foreign-national entries/re-entries at the border -- not filtered to
-    tourism purpose. This is the closest available proxy for "Visitor
-    Arrivals to Japan" through this API (JNTO's own arrivals figure
-    isn't published here), so expect it to run a bit higher than an
-    official visitor-arrivals count would (it includes work-visa
-    holders, returning long-term residents, etc.).
-  - NUM_GUEST_NIGHTS: "Number of guest nights (Foreign visitors)"
-    (indicator 1003010201000110000, source: Accommodation Survey). Total
-    nights foreign visitors (no address in Japan) spent at surveyed
-    accommodation facilities.
-
-Both pulled at RegionalRank=2 (nationwide Japan) and
-IsSeasonalAdjustment=1 (original, non-seasonally-adjusted figures).
-NUM_GUEST_NIGHTS is also available at RegionalRank=3 (prefecture level,
-all 47 prefectures) if destination-level granularity is wanted later --
-not used here since NUM_ENTRIES has no prefecture breakdown (it's a
-border-crossing stat, not tied to a destination) and the two need a
-shared grain to join. See data/README.md for the full API research notes.
+Fetches two nationwide monthly indicators via the Statistics Dashboard
+WebAPI (no registration needed) and joins them on (year, month) into one
+tidy CSV. `NUM_ENTRIES` counts ALL foreign-national border entries, not
+filtered to tourism purpose, so it runs higher than a true
+visitor-arrivals count. `NUM_GUEST_NIGHTS` is total nights foreign
+visitors spent at surveyed accommodation. Both pulled nationwide,
+non-seasonally-adjusted. Guest nights are also available at prefecture
+level for future destination-level use. See data/README.md for full API
+research notes.
 
 Usage:
     python fetch_japan_tourism_indicators.py

@@ -1,57 +1,20 @@
 """
-Fetch Chile's INE (Instituto Nacional de Estadísticas) monthly tourism
-accommodation survey -- EMAT, "Encuesta Mensual de Alojamiento Turístico"
--- and write a tidy long-format CSV of one or more of its 33 monthly
-time-series tables, plus a small region/destino-turístico/comuna reference
-table.
+Data Source: Chile INE (Instituto Nacional de Estadísticas), Encuesta Mensual de Alojamiento Turística (EMAT)
+URL: https://www.ine.gob.cl/estadisticas-por-tema/comercio-y-servicios/actividad-mensual-del-turismo
+Tables Referenced: Workbook sheets "1"-"33" (33 monthly time-series
+tables, one metric each -- e.g. Cuadro 1 = overnight stays, Cuadro 6 =
+arrivals); sheet "34" is a static region/destino-turístico/comuna lookup,
+not a time series.
 
-Source page:
-https://www.ine.gob.cl/estadisticas-por-tema/comercio-y-servicios/actividad-mensual-del-turismo
-
-Direct Excel download (what this script fetches):
-https://www.ine.gob.cl/docs/default-source/actividad-del-turismo/cuadros-estadisticos-dos/serie-hist%C3%B3rica-metodolog%C3%ADa-2017/series-mensuales-de-julio-2016-a-la-fecha.xlsx
-
-**What's in the workbook:** one "Índice" sheet (a table of contents) plus
-34 numbered sheets. Sheets "1"-"33" are all monthly time series, one
-metric each, covering July 2016 to the latest available month (e.g. Cuadro
-1 = "pernoctaciones" (overnight stays) total, Cuadro 6 = arrivals total,
-Cuadro 16 = room occupancy rate, Cuadro 22 = RevPAR, Cuadro 25 = ADR,
-etc. -- run `--list-tables` to see all 33 titles). Sheet "34" is
-different: not a time series at all, just a static region -> destino
-turístico -> comuna (region -> tourist destination -> commune) lookup
-table, parsed separately by this script into its own output file.
-
-**Table 1 (overnight stays, total) is the recommended default** for this
-project's scoring purposes -- see the UNWTO Yearbook discussion this
-script followed from: arrivals count border crossings/trips, not people
-or duration, whereas overnight stays (person-nights) is a better proxy
-for how "full" a destination actually is in a given month, which is what
-this project's crowd scoring cares about.
-
-**Row layout of each "1"-"33" sheet** (fixed across all of them, confirmed
-by inspection): title in row 3 ("Cuadro N.- <description>"), column
-headers in row 7 ("Región / Destino turístico" then one column per month,
-"Jul-16", "Ago-16", ... "Sept-16" -- note "Sept" not "Sep" -- through the
-latest month, followed by a few trailing computed columns ("Variación (%)
-en doce meses", etc.) that this script deliberately ignores), and data
-starting row 8. The region/destino turístico hierarchy is NOT indented or
-merged -- it's conveyed purely through **bold formatting**: "Total
-nacional" and each region name are bold rows, and the destino turístico
-rows nested under a region are not bold. This script uses `font.bold` to
-tell them apart and to track which region each destino turístico row
-belongs to (`current_region` in `parse_table_sheet()`).
-
-The end of each table's data is detected by column A (not by whether the
-first data column has a number in it -- some destinos have a literal "-"
-placeholder string for months before that destino was added to the
-survey, e.g. "Cuenca del Lago Ranco" in the Los Ríos region has "-" for
-Jul-16 through Sep-16 then real numbers from Oct-16 on, which would
-truncate the table early if the stop condition were "first month column
-isn't numeric"). Instead this script stops at the first row whose column A
-is blank or starts with a known footer marker ("FUENTE", "Nota", "/P",
-"/R", "Cuadro") -- see `STOP_MARKERS` below. Non-numeric month values
-("-", blank) are converted to `None`/NaN in the output rather than
-dropped or coerced to 0.
+Fetches the EMAT workbook and writes a tidy long-format CSV of one or
+more tables, plus the region/comuna reference table. Defaults to Table 1
+(overnight stays) -- see data/README.md for why that's the recommended
+indicator over arrivals. The region/destino turístico hierarchy is
+conveyed only through bold formatting, not indentation, and end-of-table
+detection ignores literal "-" placeholder cells for destinos added
+mid-series -- both handled internally, see data/README.md for the full
+parsing rationale. Live fetching is blocked in this sandbox, so the
+cached raw copy is used as a fallback.
 
 Usage:
     python fetch_chile_ine_tourism_accommodation.py                  # Cuadro 1 only (overnight stays, total)
@@ -59,18 +22,6 @@ Usage:
     python fetch_chile_ine_tourism_accommodation.py --all-tables     # every Cuadro 1-33 in one long CSV
     python fetch_chile_ine_tourism_accommodation.py --list-tables    # print all 34 table titles and exit
     python fetch_chile_ine_tourism_accommodation.py --force-download # bypass the cached raw/ copy
-
-Note on live fetching: this sandbox's network allowlist blocks
-ine.gob.cl entirely (confirmed -- a direct `requests.get` to the URL
-above returns a proxy 403), the same restriction noted for StatCan/
-Eurostat/e-Stat elsewhere in this project (see data/README.md). The user
-supplied the .xlsx directly, so it's cached at
-data/raw/chile_ine_tourism/ and used from there; `download_workbook()` will
-still attempt a live fetch first (with a browser User-Agent, since a
-plain default UA is a common cause of 403s on government sites in this
-project) and only falls back to the cache if that fails, so this script
-should "just work" unmodified on a machine that can actually reach
-ine.gob.cl.
 """
 
 import argparse

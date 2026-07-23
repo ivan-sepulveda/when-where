@@ -1,18 +1,16 @@
 """
-Fetch a World Development Indicators (WDI) series from the World Bank's
-Data360 API.
+Data Source: World Bank Data360 API, World Development Indicators (WDI)
+URL: https://data360api.worldbank.org (see /swagger or worldbank/open-api-specs on GitHub)
+Tables Referenced: Any WDI indicator, passed as a dotted code on the command line
 
-Data360 exposes WDI indicators as JSON, paginated at up to 1000 records per
-call (use `skip` to page through). Indicator IDs are the classic WDI dotted
-codes with dots replaced by underscores and a `WB_WDI_` prefix, e.g.
+Fetches a WDI series as JSON, paginated at up to 1000 records per call
+(`skip` pages through). Indicator IDs are the classic WDI dotted codes
+with dots replaced by underscores and a `WB_WDI_` prefix, e.g.
 `NY.GDP.DEFL.KD.ZG` -> `WB_WDI_NY_GDP_DEFL_KD_ZG`.
 
 Usage:
     python fetch_worldbank_indicator.py NY.GDP.DEFL.KD.ZG
     python fetch_worldbank_indicator.py NY.GDP.DEFL.KD.ZG SP.POP.TOTL
-
-API docs: https://data360api.worldbank.org (see /swagger or the
-Data360 Open API spec on GitHub: worldbank/open-api-specs)
 """
 
 import argparse

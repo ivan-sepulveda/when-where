@@ -1,104 +1,22 @@
 """
-Fetch the Australian Bureau of Statistics' monthly "Overseas Arrivals and
-Departures, Australia" Table 1 ("Total Movement, Arrivals - Category of
-Movement", catalogue 3401.0) and write it to a tidy monthly CSV -- the same
-role StatCan's airport-movements table plays for Canada and e-Stat's border-
-entry indicator plays for Japan: a national-level monthly "how much inbound
-travel is happening" volume signal.
+Data Source: Australian Bureau of Statistics, Overseas Arrivals and Departures, Australia (catalogue 3401.0)
+URL: https://www.abs.gov.au/about/data-services/application-programming-interfaces-apis/time-series-directory-api
+Tables Referenced: Table 1, "Total Movement, Arrivals - Category of Movement" (Data1 sheet of 340101.xlsx)
 
-This deliberately does NOT use the SDMX Data API (data.api.abs.gov.au) that
-the rest of this project's research initially chased -- that API works, but
-every response it returns (XML, JSON, or CSV) comes back as a vendor SDMX
-MIME type that this project's tooling treats as opaque binary, and the two
-tourism-shaped dataflows found there (OAD_COUNTRY, OAD_REASON) don't actually
-carry the single-number "how busy is inbound tourism this month" signal this
-project wants -- they break out by country of residence or by reason for
-travel, not a plain monthly total.
-
-Instead, this uses ABS's older, simpler **Time Series Directory API** --
-metadata-only, but every result's `TableURL` points straight at the classic
-ABS "time series spreadsheet" (.xlsx) that actually holds the numbers:
-
-    GET https://abs.gov.au/servlet/TSSearchServlet?catno=3401.0&ttitle="table 1"
-    -> XML: <TimeSeriesIndex><Series>...<TableURL>...340101.xlsx</TableURL>...
-
-No API key. Response Content-Type is plain `text/xml` (unlike the SDMX
-API's vendor MIME types), so it's readable through ordinary tooling. Table 1
-is currently at
-https://www.abs.gov.au/statistics/industry/tourism-and-transport/overseas-arrivals-and-departures-australia/latest-release/340101.xlsx
--- resolved live via the search call above rather than hardcoded, since
-ABS reissues the file each month and could in principle change the path.
-
-**The spreadsheet's layout** (confirmed against a real downloaded copy of
-340101.xlsx, not assumed from docs): three sheets, `Index` / `Data1` /
-`Enquiries`. `Data1` is a "wide" layout -- one column per series, one row per
-month -- with a 10-row header block above the data:
-
-    row 1:  (col A blank)      col B+: series description, e.g.
-                                "Number of movements ;  Short-term Visitors
-                                arriving ;"
-    row 2:  "Unit"             col B+: "Number"
-    row 3:  "Series Type"      col B+: "Original" / "Seasonally Adjusted" / "Trend"
-    row 4:  "Data Type"        col B+: "FLOW"
-    row 5:  "Frequency"        col B+: "Month"
-    row 6:  "Collection Month" col B+: 1
-    row 7:  "Series Start"     col B+: date
-    row 8:  "Series End"       col B+: date
-    row 9:  "No. Obs"          col B+: count
-    row 10: "Series ID"        col B+: e.g. "A85375847A"
-    row 11+: col A = date (first of month), col B+ = the numeric observation
-             for that column's Series ID.
-
-`find_header_rows()` locates the "Series Type"/"Series ID" rows by scanning
-column A for those exact labels rather than hardcoding row 10 -- other
-tables in this same workbook family have a near-identical layout but aren't
-guaranteed to have exactly 9 header rows in every release.
-
-**Only "Original" series are kept.** Table 1 also carries Seasonally
-Adjusted and Trend variants for two of its seven categories (Short-term
-Residents returning, Short-term Visitors arriving) -- but both were
-suspended by ABS in 2020 (Trend from Feb 2020, Seasonally Adjusted from Apr
-2020) "due to the impact of the COVID-19 pandemic on international travel"
-(per the workbook's own Index sheet note) and have stayed blank ever since.
-Original is the only variant with a complete, uninterrupted 1976-onward
-series, so it's the only one pulled here.
-
-**Target column, for this project's purposes:** `short_term_visitors_arriving`
-(Series ID A85375847A as of the 2026-05 issue, but matched by description
-text + Series Type rather than hardcoded ID, in case ABS ever renumbers) --
-this is the closest single number to "monthly inbound tourist volume" in
-the whole table. The other categories (permanent arrivals, long-term
-visitors, residents returning, etc.) are kept alongside it since they're
-free in the same pull and may be useful context later, but they're not
-what this project chose OAD-family data for.
+Fetches ABS's Time Series Directory API (not the SDMX Data API, whose
+responses are opaque vendor MIME types) to resolve the current Table 1
+spreadsheet URL, then parses its wide-format `Data1` sheet into a tidy
+monthly CSV. Keeps only "Original" series (Seasonally Adjusted/Trend were
+suspended by ABS in 2020 and have stayed blank since). Target column is
+`short_term_visitors_arriving`, the closest single number to monthly
+inbound tourist volume; other categories are kept alongside as free
+context. See data/README.md for full verification notes.
 
 Usage:
     python fetch_abs_visitor_arrivals.py                       # full history, all categories
     python fetch_abs_visitor_arrivals.py --years-back 10
     python fetch_abs_visitor_arrivals.py --start-date 2015-01 --end-date 2025-12
     python fetch_abs_visitor_arrivals.py --force-download       # bypass the cached raw/ xlsx
-
-API docs: https://www.abs.gov.au/about/data-services/application-programming-interfaces-apis/time-series-directory-api
-Catalogue: https://www.abs.gov.au/statistics/industry/tourism-and-transport/overseas-arrivals-and-departures-australia/latest-release
-
-Note on verification: this sandbox's network allowlist blocks `abs.gov.au`
-entirely for outbound `requests`/`curl` calls (same restriction that's
-blocked every other live source in this project -- confirmed via a direct
-curl, proxy 403). A separate fetch tool with different network access WAS
-able to reach `TSSearchServlet` directly and confirmed it returns plain,
-readable `text/xml` (unlike the SDMX Data API's vendor MIME types, which
-that same tool could reach but only saw as opaque binary) -- the exact
-query and a real response are reproduced in this docstring's example above,
-captured live on 2026-07-20, and it resolved the correct `TableURL` and
-every Series ID this script targets. The actual `340101.xlsx` spreadsheet
-was supplied directly by the user (not fetched by any tool here), and
-`find_header_rows()` / `parse_data1_sheet()` were verified for real against
-that exact file -- not a synthetic fixture -- confirming the row layout
-above, all 12 Series IDs in the "Original" + "Seasonally Adjusted" + "Trend"
-columns, and the COVID-suspension gap in the non-Original columns. Only
-`resolve_table_url()`'s XML parsing and `download_xlsx()`'s caching logic
-remain unverified end-to-end in this sandbox -- run this for real on a
-machine that can reach abs.gov.au to confirm those two pieces.
 """
 
 import argparse

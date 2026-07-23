@@ -1,27 +1,22 @@
 """
-Build data/processed/weather_normals_<year>_by_city.json: a "monthly climate
-normal" per city in reference/tourist_cities.json -- typical daily high/low
-temperature, precipitation, daylight, and wind for each calendar month,
-derived from one full year of daily historical weather.
+Data Source: Open-Meteo Historical Weather API (ERA5/ERA5-Land reanalysis, free, no API key)
+URL: https://open-meteo.com/en/docs/historical-weather-api
+Tables Referenced: Daily archive endpoint, one full year per city in reference/tourist_cities.json
 
-Data source: Open-Meteo Historical Weather API (ERA5/ERA5-Land reanalysis),
-free for non-commercial use, no API key required.
-https://open-meteo.com/en/docs/historical-weather-api
+Builds data/processed/weather_normals_<year>_by_city.json: a monthly
+climate normal per city -- typical daily high/low temperature,
+precipitation, daylight, and wind for each calendar month. Resumable by
+default: cities already in the output are skipped on a re-run (`--force`
+to override), since pulling all ~5000 cities may need multiple runs --
+Open-Meteo's free tier is 10,000 calls/day and a full year of daily data
+for many variables costs more than 1 call under its fractional pricing
+rules. See data/README.md for details. Edit `TARGET_YEAR` /
+`DAILY_VARIABLES` / `CITIES_PER_REQUEST` below to change what's pulled.
 
 Usage:
     python fetch_weather_normals.py
     python fetch_weather_normals.py --limit 20        # pilot run, first 20 cities only
     python fetch_weather_normals.py --force            # re-fetch cities already in the output
-
-Resumable by default: cities already present in the output file are skipped
-on a re-run (see --force to override). This matters because pulling all
-~5000 cities may need to be spread across multiple runs/days -- Open-Meteo's
-free tier is 10,000 calls/day and a full year of daily data for many
-variables costs more than "1 call" per the fractional pricing rules (see
-data/README.md for details and the reasoning behind CITIES_PER_REQUEST).
-
-Edit TARGET_YEAR / DAILY_VARIABLES / CITIES_PER_REQUEST below to change
-what's pulled -- no need to touch the rest of the script.
 """
 
 import argparse
