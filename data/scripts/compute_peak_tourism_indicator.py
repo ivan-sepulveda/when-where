@@ -5,15 +5,16 @@ country's own peak month (0-1 ratio).
 
 Eurostat countries are scored against their full monthly air-passenger
 history. Australia, New Zealand, Japan, Costa Rica, Canada, Chile,
-Mexico, and Maldives (EXTRA_COUNTRY_SOURCES / CANADA_SOURCE /
-CHILE_SOURCE) are scored against only their own latest 12 months, since
-their sources' full histories aren't long or comparable enough to use
-directly. Each non-Eurostat source uses a different underlying signal --
-visitor arrivals, hotel occupancy %, border entries, transborder flights,
-overnight stays, or international air passengers -- so PEAK_RATIO is
-comparable only within a country's own row, never in magnitude across
-countries. See data/README.md for full per-source details and caveats,
-including the Mexico domestic-vs-international correction.
+Mexico, Maldives, Indonesia, Brazil, and Colombia (EXTRA_COUNTRY_SOURCES
+/ CANADA_SOURCE / CHILE_SOURCE) are scored against only their own latest
+12 months, since their sources' full histories aren't long or comparable
+enough to use directly. Each non-Eurostat source uses a different
+underlying signal -- visitor arrivals, hotel occupancy %, border entries,
+transborder flights, overnight stays, share of annual visits, or
+international air passengers -- so PEAK_RATIO is comparable only within
+a country's own row, never in magnitude across countries. See
+data/README.md for full per-source details and caveats, including the
+Mexico domestic-vs-international correction.
 
 Usage:
     python compute_peak_tourism_indicator.py
@@ -65,6 +66,15 @@ EXTRA_COUNTRY_SOURCES = [
     # Hand-transcribed latest-12-months (see build_maldives_recent_arrivals_dataset.py),
     # not the full-history API pull -- data/README.md has the caveat.
     ("asia", "maldives_recent_tourist_arrivals_monthly.csv", "ref_date", "total_arrivals", "MV", "Maldives"),
+    # BPS GRAND TOTAL row (all passport nationalities combined), only 2025
+    # is published -- see build_indonesia_monthly_tourist_visits_dataset.py.
+    ("asia", "indonesia_bps_tourist_visits_monthly.csv", "ref_date", "total_visits", "ID", "Indonesia"),
+    # Share of annual visits (%), not a headcount -- see
+    # build_brazil_monthly_tourism_share_dataset.py.
+    ("americas", "brazil_monthly_tourism_share.csv", "ref_date", "share_pct", "BR", "Brazil"),
+    # Hand-transcribed latest-12-months (see
+    # build_colombia_recent_foreign_visitors_dataset.py), not a full history.
+    ("americas", "colombia_recent_foreign_visitors_monthly.csv", "ref_date", "foreign_visitors", "CO", "Colombia"),
 ]
 
 # Canada: unlike EXTRA_COUNTRY_SOURCES above, the source CSV (StatCan table

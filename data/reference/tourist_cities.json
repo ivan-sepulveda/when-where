@@ -1,9 +1,9 @@
 {
   "source": "SimpleMaps World Cities Database (Basic), CC BY 4.0 -- https://simplemaps.com/data/world-cities",
   "top_n_cities_by_population": 3000,
-  "additional_cities_requested": 96,
+  "additional_cities_requested": 101,
   "manual_cities_added": 1,
-  "total_cities": 3072,
+  "total_cities": 3069,
   "cities": [
     {
       "city": "Tokyo",
@@ -42020,6 +42020,20 @@
       "included_reason": "additional_cities"
     },
     {
+      "city": "Dodoma",
+      "city_ascii": "Dodoma",
+      "country": "Tanzania",
+      "iso2": "TZ",
+      "iso3": "TZA",
+      "admin_name": "Dodoma",
+      "lat": -6.1835,
+      "lng": 35.746,
+      "population": 213636,
+      "capital": "primary",
+      "simplemaps_id": 1834288497,
+      "included_reason": "additional_cities"
+    },
+    {
       "city": "Jerez de la Frontera",
       "city_ascii": "Jerez de la Frontera",
       "country": "Spain",
@@ -42188,6 +42202,20 @@
       "included_reason": "additional_cities"
     },
     {
+      "city": "Podgorica",
+      "city_ascii": "Podgorica",
+      "country": "Montenegro",
+      "iso2": "ME",
+      "iso3": "MNE",
+      "admin_name": "Podgorica",
+      "lat": 42.4414,
+      "lng": 19.2628,
+      "population": 172139,
+      "capital": "primary",
+      "simplemaps_id": 1499454516,
+      "included_reason": "additional_cities"
+    },
+    {
       "city": "Dijon",
       "city_ascii": "Dijon",
       "country": "France",
@@ -42342,6 +42370,20 @@
       "included_reason": "additional_cities"
     },
     {
+      "city": "Bern",
+      "city_ascii": "Bern",
+      "country": "Switzerland",
+      "iso2": "CH",
+      "iso3": "CHE",
+      "admin_name": "Bern",
+      "lat": 46.948,
+      "lng": 7.4474,
+      "population": 136988,
+      "capital": "primary",
+      "simplemaps_id": 1756374318,
+      "included_reason": "additional_cities"
+    },
+    {
       "city": "San José del Cabo",
       "city_ascii": "San Jose del Cabo",
       "country": "Mexico",
@@ -42367,6 +42409,20 @@
       "population": 134293,
       "capital": null,
       "simplemaps_id": 1826609057,
+      "included_reason": "additional_cities"
+    },
+    {
+      "city": "Male",
+      "city_ascii": "Male",
+      "country": "Maldives",
+      "iso2": "MV",
+      "iso3": "MDV",
+      "admin_name": "Maale",
+      "lat": 4.175,
+      "lng": 73.5083,
+      "population": 133019,
+      "capital": "primary",
+      "simplemaps_id": 1462441685,
       "included_reason": "additional_cities"
     },
     {
@@ -42594,20 +42650,6 @@
       "included_reason": "additional_cities"
     },
     {
-      "city": "Parma",
-      "city_ascii": "Parma",
-      "country": "United States",
-      "iso2": "US",
-      "iso3": "USA",
-      "admin_name": "Ohio",
-      "lat": 41.3843,
-      "lng": -81.7286,
-      "population": 79870,
-      "capital": null,
-      "simplemaps_id": 1840003406,
-      "included_reason": "additional_cities"
-    },
-    {
       "city": "La Rochelle",
       "city_ascii": "La Rochelle",
       "country": "France",
@@ -42636,6 +42678,20 @@
       "included_reason": "additional_cities"
     },
     {
+      "city": "Ankara",
+      "city_ascii": "Ankara",
+      "country": "Turkey",
+      "iso2": "TR",
+      "iso3": "TUR",
+      "admin_name": "Ankara",
+      "lat": 39.9358,
+      "lng": 32.8387,
+      "population": 77168,
+      "capital": "primary",
+      "simplemaps_id": 1792572891,
+      "included_reason": "additional_cities"
+    },
+    {
       "city": "Cannes",
       "city_ascii": "Cannes",
       "country": "France",
@@ -42647,34 +42703,6 @@
       "population": 74350,
       "capital": null,
       "simplemaps_id": 1250487828,
-      "included_reason": "additional_cities"
-    },
-    {
-      "city": "Bayonne",
-      "city_ascii": "Bayonne",
-      "country": "United States",
-      "iso2": "US",
-      "iso3": "USA",
-      "admin_name": "New Jersey",
-      "lat": 40.6668,
-      "lng": -74.1158,
-      "population": 71553,
-      "capital": null,
-      "simplemaps_id": 1840003595,
-      "included_reason": "additional_cities"
-    },
-    {
-      "city": "Dublin",
-      "city_ascii": "Dublin",
-      "country": "United States",
-      "iso2": "US",
-      "iso3": "USA",
-      "admin_name": "California",
-      "lat": 37.7161,
-      "lng": -121.8963,
-      "population": 70803,
-      "capital": null,
-      "simplemaps_id": 1840018916,
       "included_reason": "additional_cities"
     },
     {
@@ -42846,20 +42874,6 @@
       "included_reason": "manual_override"
     },
     {
-      "city": "Venice",
-      "city_ascii": "Venice",
-      "country": "United States",
-      "iso2": "US",
-      "iso3": "USA",
-      "admin_name": "Florida",
-      "lat": 27.1184,
-      "lng": -82.4137,
-      "population": 27479,
-      "capital": null,
-      "simplemaps_id": 1840015989,
-      "included_reason": "additional_cities"
-    },
-    {
       "city": "Dubrovnik",
       "city_ascii": "Dubrovnik",
       "country": "Croatia",
@@ -42885,34 +42899,6 @@
       "population": 26206,
       "capital": null,
       "simplemaps_id": 1250324713,
-      "included_reason": "additional_cities"
-    },
-    {
-      "city": "Salamanca",
-      "city_ascii": "Salamanca",
-      "country": "Chile",
-      "iso2": "CL",
-      "iso3": "CHL",
-      "admin_name": "Coquimbo",
-      "lat": -31.7667,
-      "lng": -70.9667,
-      "population": 25326,
-      "capital": null,
-      "simplemaps_id": 1152804087,
-      "included_reason": "additional_cities"
-    },
-    {
-      "city": "Geneva",
-      "city_ascii": "Geneva",
-      "country": "United States",
-      "iso2": "US",
-      "iso3": "USA",
-      "admin_name": "Illinois",
-      "lat": 41.8833,
-      "lng": -88.3242,
-      "population": 21258,
-      "capital": null,
-      "simplemaps_id": 1840008135,
       "included_reason": "additional_cities"
     },
     {
@@ -42969,34 +42955,6 @@
       "population": 10412,
       "capital": "admin",
       "simplemaps_id": 1764855952,
-      "included_reason": "additional_cities"
-    },
-    {
-      "city": "Queenstown",
-      "city_ascii": "Queenstown",
-      "country": "Australia",
-      "iso2": "AU",
-      "iso3": "AUS",
-      "admin_name": "Tasmania",
-      "lat": -42.0667,
-      "lng": 145.55,
-      "population": 1808,
-      "capital": null,
-      "simplemaps_id": 1036082142,
-      "included_reason": "additional_cities"
-    },
-    {
-      "city": "Parma",
-      "city_ascii": "Parma",
-      "country": "Russia",
-      "iso2": "RU",
-      "iso3": "RUS",
-      "admin_name": "Komi",
-      "lat": 65.9507,
-      "lng": 57.4685,
-      "population": null,
-      "capital": null,
-      "simplemaps_id": 1643982067,
       "included_reason": "additional_cities"
     },
     {

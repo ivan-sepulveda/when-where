@@ -143,6 +143,12 @@ ADDITIONAL_CITIES = [
     ("Venice", "Italy"),
     ("Merida", "Mexico"),
     ("Donostia", "Spain"),
+    # National capitals present in SimpleMaps with capital="primary" but too
+    # small by city-proper population to crack TOP_N_CITIES_BY_POPULATION --
+    # added so every country's capital is represented at least once. "Male"
+    # is Malé, Maldives -- SimpleMaps' city_ascii drops the accent, and the
+    # lookup matches on city_ascii, so the unaccented spelling is required here.
+    "Bern", "Dodoma", "Ankara", "Male", "Podgorica",
 ]
 
 # Cities missing from the SimpleMaps Basic dataset entirely -- not an
