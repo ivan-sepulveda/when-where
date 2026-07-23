@@ -4,12 +4,12 @@ country and calendar month, how busy travel is relative to that
 country's own peak month (0-1 ratio).
 
 Eurostat countries are scored against their full monthly air-passenger
-history. Australia, New Zealand, Japan, Costa Rica, Canada, Chile, and
-Mexico (EXTRA_COUNTRY_SOURCES / CANADA_SOURCE / CHILE_SOURCE) are scored
-against only their own latest 12 months, since their sources' full
-histories aren't long or comparable enough to use directly. Each
-non-Eurostat source uses a different underlying signal -- visitor
-arrivals, hotel occupancy %, border entries, transborder flights,
+history. Australia, New Zealand, Japan, Costa Rica, Canada, Chile,
+Mexico, and Maldives (EXTRA_COUNTRY_SOURCES / CANADA_SOURCE /
+CHILE_SOURCE) are scored against only their own latest 12 months, since
+their sources' full histories aren't long or comparable enough to use
+directly. Each non-Eurostat source uses a different underlying signal --
+visitor arrivals, hotel occupancy %, border entries, transborder flights,
 overnight stays, or international air passengers -- so PEAK_RATIO is
 comparable only within a country's own row, never in magnitude across
 countries. See data/README.md for full per-source details and caveats,
@@ -62,6 +62,9 @@ EXTRA_COUNTRY_SOURCES = [
     # International (Mexican + Foreign airlines combined), NOT the domestic
     # series -- see data/README.md for why domestic would've been wrong here.
     ("americas", "mexico_international_passengers_monthly.csv", "ref_date", "passengers", "MX", "Mexico"),
+    # Hand-transcribed latest-12-months (see build_maldives_recent_arrivals_dataset.py),
+    # not the full-history API pull -- data/README.md has the caveat.
+    ("asia", "maldives_recent_tourist_arrivals_monthly.csv", "ref_date", "total_arrivals", "MV", "Maldives"),
 ]
 
 # Canada: unlike EXTRA_COUNTRY_SOURCES above, the source CSV (StatCan table
