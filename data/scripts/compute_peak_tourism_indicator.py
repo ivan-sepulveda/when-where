@@ -22,6 +22,10 @@ Two source families feed this, using two different methods (see below):
     international itinerant movements" == "Transborder movements" (flight
     movements between Canada and the US only -- see below; see
     scripts/americas/fetch_statcan_airport_movements.py)
+  - Chile: processed/americas/chile_ine_tourism_monthly.csv, filtered to
+    table_number == 1, level == "national" (national-total overnight
+    stays -- see below; see
+    scripts/americas/fetch_chile_ine_tourism_accommodation.py)
 
 This script itself stays at scripts/ root (and writes its own output to
 processed/ root) since it isn't a geography-scoped fetch -- only its
@@ -59,9 +63,9 @@ Rows for Eurostat's EU/euro-area aggregate `geo` codes (EU27_2020, EA21,
 EA20, EA19) are dropped -- they're not countries, so don't belong in a
 "peak tourism indicator by country" table.
 
-**Method for AU / NZ / Japan / Costa Rica / Canada, per country -- LATEST
-12 MONTHS ONLY:** Unlike the Eurostat side, the ABS series runs back to
-1976 and using its full history would score a month against a
+**Method for AU / NZ / Japan / Costa Rica / Canada / Chile, per country --
+LATEST 12 MONTHS ONLY:** Unlike the Eurostat side, the ABS series runs
+back to 1976 and using its full history would score a month against a
 decades-old peak that may no longer be representative (and Stats NZ's
 Table 1 only carries 5 fiscal years, e-Stat's Dashboard pull only 16
 months, Costa Rica's transcribed table only 2018-2024, to begin with --
@@ -72,18 +76,18 @@ each source's own most recent 12 monthly rows are used:
     MAX_VALUE = latest_12[value_col].max()
     PEAK_RATIO(month) = value(month) / MAX_VALUE
 
-As of this writing the five sources' processed CSVs run through 2026-05
+As of this writing the six sources' processed CSVs run through 2026-05
 (ABS), 2026-05 (Stats NZ), 2026-04 (e-Stat), 2024-12 (Costa Rica -- its
 source table simply stops at 2024, see build_costa_rica_monthly_tourism_
-dataset.py), and 2026-04 (StatCan) respectively, so "latest 12 months" is
-Jun 2025 - May 2026 for AU/NZ, May 2025 - Apr 2026 for Japan/Canada, and
-all of calendar 2024 for Costa Rica -- one row per calendar month, no
-deduplication needed since each source has exactly one observation per
-month once filtered down (Canada's StatCan table needs filtering first --
-see below). `SOURCE_YEAR` records the calendar year each month's
-observation actually fell in (so e.g. for AU/NZ, MONTH=6 is
-SOURCE_YEAR=2025 while MONTH=5 is SOURCE_YEAR=2026; Costa Rica is
-SOURCE_YEAR=2024 for every month).
+dataset.py), 2026-04 (StatCan), and 2026-05 (Chile INE) respectively, so
+"latest 12 months" is Jun 2025 - May 2026 for AU/NZ/Chile, May 2025 - Apr
+2026 for Japan/Canada, and all of calendar 2024 for Costa Rica -- one row
+per calendar month, no deduplication needed since each source has exactly
+one observation per month once filtered down (Canada's StatCan table and
+Chile's INE table both need filtering first -- see below). `SOURCE_YEAR`
+records the calendar year each month's observation actually fell in (so
+e.g. for AU/NZ/Chile, MONTH=6 is SOURCE_YEAR=2025 while MONTH=5 is
+SOURCE_YEAR=2026; Costa Rica is SOURCE_YEAR=2024 for every month).
 
 The value column, and the column holding the "YYYY-MM" date, differ by
 source (see `EXTRA_COUNTRY_SOURCES`): ABS Table 1's `short_term_visitors_
@@ -95,9 +99,10 @@ indicators.py's docstring: this counts ALL foreign-national entries, not
 filtered to tourism purpose, so it runs a bit higher than a true
 visitor-arrivals count would, e.g. it includes work-visa holders), Costa
 Rica's `occupancy_pct` (hotel occupancy percentage, Banco Central de
-Costa Rica's Cuadro 3 -- see "Costa Rica specifically" below), and
-StatCan table 23-10-0304-01's `VALUE` column, filtered per
-`CANADA_SOURCE` below. All land in the output's generic `PASSENGERS`
+Costa Rica's Cuadro 3 -- see "Costa Rica specifically" below), StatCan
+table 23-10-0304-01's `VALUE` column, filtered per `CANADA_SOURCE` below,
+and Chile INE's `value` column, filtered per `CHILE_SOURCE` below (see
+"Chile specifically"). All land in the output's generic `PASSENGERS`
 column for schema consistency with the Eurostat rows, even though none of
 them are actually air-passenger counts -- these are different proxies for
 "how much inbound travel is happening," not directly comparable in
@@ -135,6 +140,25 @@ the AU/NZ/Japan sources: it only captures Canada-US air traffic, not
 overseas international arrivals, since that's the category requested for
 this table -- worth keeping in mind if Canada's PEAK_RATIO curve looks
 different in character from the other countries'.
+
+**Chile specifically** -- `chile_ine_tourism_monthly.csv` (see
+fetch_chile_ine_tourism_accommodation.py) is a tidy long-format export of
+one INE EMAT survey table, not a pre-filtered single series, so
+`CHILE_SOURCE`'s two equality filters (`table_number == 1`, `level ==
+"national"`) narrow it down to the national-total row of Table 1
+("Número de pernoctaciones..." -- overnight stays, all accommodation
+types, both residents and foreign visitors) for every available month.
+Overnight stays (person-nights), not arrivals, per this project's
+overnight-stays-vs-arrivals conclusion (see the Yearbook-of-Tourism-
+Statistics discussion this script followed from -- overnight stays is a
+better proxy for how "full" a destination is than an arrivals/trip
+count). The national-total value is a **survey-weighted estimate**
+("factor de expansión" in INE's own terminology), so it's a
+non-integer float even though it's a count of person-nights (e.g.
+1342951.2845142009 for May 2026) -- `score_latest_12_months()` already
+handles this the same way it handles Costa Rica's `occupancy_pct`:
+non-integer values are rounded to 2 decimals rather than truncated with
+`int()`.
 
 Usage:
     python compute_peak_tourism_indicator.py
@@ -198,6 +222,26 @@ CANADA_SOURCE = {
     },
     "country_code": "CA",
     "country_name": "Canada",
+}
+
+# Chile: like CANADA_SOURCE, the source CSV (INE's EMAT survey export) isn't
+# a pre-filtered single series -- it's a tidy long-format table covering all
+# 33 EMAT tables at once (or however many were fetched). These two equality
+# filters isolate the national-total row of Table 1 (overnight stays, all
+# accommodation types) for every month. See module docstring's "Chile
+# specifically" section for why overnight stays and why the value is a
+# non-integer survey-weighted estimate.
+CHILE_SOURCE = {
+    "subdir": "americas",
+    "filename": "chile_ine_tourism_monthly.csv",
+    "date_col": "ref_date",
+    "value_col": "value",
+    "filters": {
+        "table_number": 1,
+        "level": "national",
+    },
+    "country_code": "CL",
+    "country_name": "Chile",
 }
 
 # ---------------------------------------------------------------------------
@@ -365,9 +409,48 @@ def load_canada_source() -> pd.DataFrame | None:
     return df
 
 
+def load_chile_source() -> pd.DataFrame | None:
+    """Load Chile INE's EMAT export and apply CHILE_SOURCE's two equality
+    filters to isolate the national monthly overnight-stays series (Table
+    1). Returns None (with a warning printed) if the source file is
+    missing, same graceful-skip behavior as load_canada_source()."""
+    csv_path = PROCESSED_DIR / CHILE_SOURCE["subdir"] / CHILE_SOURCE["filename"]
+    if not csv_path.exists():
+        print(f"WARNING: {csv_path} not found -- skipping Chile. "
+              f"Run scripts/americas/fetch_chile_ine_tourism_accommodation.py first.")
+        return None
+
+    print(f"Reading {csv_path}...")
+    df = pd.read_csv(csv_path)
+
+    missing_cols = set(CHILE_SOURCE["filters"]) - set(df.columns)
+    if missing_cols:
+        raise ValueError(f"{csv_path} is missing expected column(s) {missing_cols} -- is this really the EMAT export?")
+
+    for col, expected_value in CHILE_SOURCE["filters"].items():
+        df = df[df[col] == expected_value]
+
+    if df.empty:
+        raise ValueError(
+            f"{csv_path}: filtering to {CHILE_SOURCE['filters']} left zero rows -- "
+            f"check Table 1 / level='national' rows are still present (e.g. re-run "
+            f"fetch_chile_ine_tourism_accommodation.py without --table pointed elsewhere)."
+        )
+
+    df[CHILE_SOURCE["date_col"]] = df[CHILE_SOURCE["date_col"]].astype(str)
+    dupes = df[CHILE_SOURCE["date_col"]].duplicated()
+    if dupes.any():
+        raise ValueError(
+            f"{csv_path}: {dupes.sum()} duplicate {CHILE_SOURCE['date_col']} value(s) after filtering -- "
+            f"the filters in CHILE_SOURCE no longer isolate a single row per month."
+        )
+
+    return df
+
+
 def build_extra_country_indicator(skip: bool = False) -> pd.DataFrame:
-    """Build AU/NZ/Japan/Canada rows via the latest-12-months method (see
-    EXTRA_COUNTRY_SOURCES and CANADA_SOURCE)."""
+    """Build AU/NZ/Japan/Canada/Chile rows via the latest-12-months method
+    (see EXTRA_COUNTRY_SOURCES, CANADA_SOURCE, and CHILE_SOURCE)."""
     empty = pd.DataFrame(columns=["COUNTRY", "MONTH", "PEAK_RATIO", "COUNTRY_NAME", "SOURCE_YEAR", "PASSENGERS"])
     if skip:
         return empty
@@ -388,6 +471,13 @@ def build_extra_country_indicator(skip: bool = False) -> pd.DataFrame:
         frames.append(score_latest_12_months(
             canada_df, CANADA_SOURCE["filename"], CANADA_SOURCE["date_col"], CANADA_SOURCE["value_col"],
             CANADA_SOURCE["country_code"], CANADA_SOURCE["country_name"],
+        ))
+
+    chile_df = load_chile_source()
+    if chile_df is not None:
+        frames.append(score_latest_12_months(
+            chile_df, CHILE_SOURCE["filename"], CHILE_SOURCE["date_col"], CHILE_SOURCE["value_col"],
+            CHILE_SOURCE["country_code"], CHILE_SOURCE["country_name"],
         ))
 
     if not frames:
