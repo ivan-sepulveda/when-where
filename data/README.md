@@ -688,63 +688,114 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 
 ### Peak tourism indicator (`scripts/compute_peak_tourism_indicator.py`)
 
-- **What it does:** reads the Eurostat monthly air-passenger CSV
-  (`processed/europe/eurostat_passengers_transported_by_country_monthly_*.csv`,
-  `tra_cov=TOTAL` only) and computes, per country per calendar month, how
-  busy air travel is relative to that country's own peak month — a
-  0.0–1.0 seasonality ratio. Not machine-learned, just:
-  ```python
-  FRANCE = df[df["geo"] == "FR"]
-  FR_MAX_PASSENGERS = FRANCE["value"].max()
-  PEAK_RATIO = FRANCE["value"] / FR_MAX_PASSENGERS
-  ```
-  applied per country, with EU/euro-area aggregate `geo` codes
-  (`EU27_2020`, `EA21`, `EA20`, `EA19`) dropped first since they aren't
-  countries.
+- **What it does:** computes, per country per calendar month, how busy
+  travel is relative to that country's own peak month — a 0.0–1.0
+  seasonality ratio — by combining two source families that use two
+  different methods:
+  - **Europe (Eurostat), full history:** reads the monthly air-passenger
+    CSV (`processed/europe/eurostat_passengers_transported_by_country_monthly_*.csv`,
+    `tra_cov=TOTAL` only). Not machine-learned, just:
+    ```python
+    FRANCE = df[df["geo"] == "FR"]
+    FR_MAX_PASSENGERS = FRANCE["value"].max()
+    PEAK_RATIO = FRANCE["value"] / FR_MAX_PASSENGERS
+    ```
+    applied per country, with EU/euro-area aggregate `geo` codes
+    (`EU27_2020`, `EA21`, `EA20`, `EA19`) dropped first since they aren't
+    countries.
+  - **Australia, New Zealand, Japan, Costa Rica, Canada, Chile, Mexico
+    (`EXTRA_COUNTRY_SOURCES` + `CANADA_SOURCE` + `CHILE_SOURCE`), latest
+    12 months only:** each source's own most recent 12 monthly rows,
+    scored against that 12-month window's own max — not full history,
+    since these sources' histories aren't comparable to each other or to
+    Eurostat's (see "Data gaps are real" below and the per-country notes
+    further down).
+    ```python
+    latest_12 = df.sort_values(date_col).tail(12)
+    PEAK_RATIO = df[value_col] / latest_12[value_col].max()
+    ```
 - **Why it's here:** a candidate seasonality signal for the scoring
-  model — e.g. a destination whose air travel peaks in August is
-  probably at its most crowded/expensive then, all else equal. Country-
-  level only, same caveat as the Eurostat source itself.
-- **Handling the source's partial year coverage:** `TTR00016` doesn't
-  cover one full calendar year yet (see the Eurostat section above), so
-  four months (Feb–May, as of this writing) have two years of data each
-  and the rest have one. Where a month has two years available, only the
-  MORE RECENT one is kept for that month — so the output is always
-  exactly one row per (country, month), never two. `PEAK_RATIO` itself is
-  still scaled against the country's true max across *all* fetched
-  history (both years), not just the deduplicated rows, so a month whose
-  older year got dropped can still correctly read as less than 1.0
-  relative to a genuine peak that happened to fall in the dropped year.
-  `SOURCE_YEAR` in the output records which year's observation was kept,
-  for transparency.
-- **Data gaps are real, not a bug:** not every country reports every
-  month — as fetched, per-country row counts in the output range from 5
-  (Türkiye) to 12 (most countries); France, Belgium, Malta, and Estonia
-  currently sit at 10 (missing Dec 2025 and Jan–May 2026 entirely, not
-  just a dedup artifact). Verified by checking the raw source CSV
-  directly, not assumed.
+  model — e.g. a destination whose travel peaks in August is probably at
+  its most crowded/expensive then, all else equal.
+- **Handling the source's partial year coverage (Eurostat only):**
+  `TTR00016` doesn't cover one full calendar year yet, so some months
+  have two years of data and the rest have one. Where a month has two
+  years available, only the MORE RECENT one is kept for that month — so
+  the output is always exactly one row per (country, month), never two.
+  `PEAK_RATIO` itself is still scaled against the country's true max
+  across *all* fetched history (both years), not just the deduplicated
+  rows, so a month whose older year got dropped can still correctly read
+  as less than 1.0 relative to a genuine peak that happened to fall in
+  the dropped year. `SOURCE_YEAR` in the output records which year's
+  observation was kept, for transparency.
+- **Data gaps are real, not a bug:** not every Eurostat country reports
+  every month, so per-country row counts vary. The seven non-Eurostat
+  countries each contribute exactly 12 rows (one per calendar month) once
+  their source is filtered down, EXCEPT wherever a source itself has less
+  than 12 months of history available (the script prints a warning in
+  that case).
+- **None of the value columns are directly comparable across sources in
+  magnitude** — only the shape (which month peaks, relative to that
+  country's own year) is comparable. Eurostat = air passengers (int'l +
+  domestic); AU/NZ = short-term visitor arrivals / visitor arrivals;
+  Japan = foreign-national border entries (not tourism-purpose filtered);
+  Costa Rica = hotel occupancy % (bounded 0–100, so its swings compress
+  differently than a count-based country's); Canada = Canada–US
+  transborder flight movements only (not overseas international
+  arrivals); Chile = overnight stays (person-nights, survey-weighted,
+  hence non-integer); Mexico = international scheduled-operations air
+  passengers, Mexican + foreign airlines combined. See
+  `fetch_chile_ine_tourism_accommodation.py`,
+  `fetch_statcan_airport_movements.py`, and
+  `build_mexico_international_passengers_dataset.py` for the full
+  per-country reasoning, and the script's own docstring's "\<Country\>
+  specifically" sections.
+- **Mexico specifically:** `processed/americas/mexico_international_passengers_monthly.csv`
+  (see `build_mexico_international_passengers_dataset.py`) is
+  hand-transcribed from two charts, not fetched — AFAC's (Agencia Federal
+  de Aviación Civil) Monthly Bulletin of Operational Statistics publishes
+  "Monthly passengers transported in Scheduled International Operations"
+  as two separate 2023/2024/2025 line charts, Mexican Airlines (page 7)
+  and Foreign Airlines (page 9), no downloadable table for either. Only
+  2025 (all 12 months, both charts) was transcribed and summed per month,
+  cross-checked against a direct text extraction of the source PDF and
+  against the user's own screenshots of both charts — both matched
+  exactly, including an independent check that December 2025 sums to
+  5.90M (1.80 + 4.10). Precise to roughly ±10,000 passengers (both source
+  charts carry 2 decimal places in millions, and the two sources'
+  rounding errors compound when summed), not an exact reported count.
+  **Correction:** an earlier version of this pipeline used
+  `mexico_domestic_passengers_monthly.csv` (SCHEDULED DOMESTIC Operations,
+  page 3 of the same bulletin) instead — the only
+  EXTRA_COUNTRY_SOURCES entry that would've been scored on a
+  domestic-travel signal while every other country here uses an
+  international one. `build_mexico_domestic_passengers_dataset.py` and
+  its output CSV are left in place (still real data, just not used by
+  `compute_peak_tourism_indicator.py` anymore) — see that section below.
 - **Output:** `processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`
   (`ALL_CAPS` filename by request, unlike this project's other
-  `processed/` outputs) — columns `COUNTRY` (Eurostat `geo` code),
-  `MONTH` (integer 1–12), `PEAK_RATIO`, plus `COUNTRY_NAME`,
-  `SOURCE_YEAR`, and `PASSENGERS` (the raw value behind the ratio) for
-  traceability. One row per (`COUNTRY`, `MONTH`). Current run: 385 rows,
-  34 countries.
+  `processed/` outputs) — columns `COUNTRY` (Eurostat `geo` code or ISO
+  alpha-2 for the seven extra countries), `MONTH` (integer 1–12),
+  `PEAK_RATIO`, plus `COUNTRY_NAME`, `SOURCE_YEAR`, and `PASSENGERS` (the
+  raw value behind the ratio, whatever that source's unit actually is —
+  see above) for traceability. One row per (`COUNTRY`, `MONTH`). Current
+  run: 469 rows, 41 countries.
 - **Run:**
   ```
   python scripts/compute_peak_tourism_indicator.py
   python scripts/compute_peak_tourism_indicator.py --tra-cov NAT   # score national-only traffic instead of total
+  python scripts/compute_peak_tourism_indicator.py --skip-extra    # Eurostat countries only, old behavior
   ```
-- **Verified for real:** run end-to-end against the actual
-  `eurostat_passengers_transported_by_country_monthly_TOTAL.csv` (this
-  sandbox can read locally-mounted files freely, unlike live Eurostat/etc.
-  API calls). Cross-checked France's full `value_scaled` series
-  (computed independently, the same way as the docstring's example)
-  against the script's output row-by-row — exact match, including the
-  August 2025 peak at `PEAK_RATIO = 1.0`. Also spot-checked Austria's
-  Feb–May rows to confirm the "most recent year wins" dedup rule: 2026
-  was correctly used for Feb/Mar/Apr (present in both years), 2025 for
-  May (present in 2025 only).
+- **Verified for real:** run end-to-end against the actual processed
+  CSVs from every source above (this sandbox can read locally-mounted
+  files freely, unlike live Eurostat/StatCan/INE/AFAC-equivalent API
+  calls). Cross-checked France's full `value_scaled` series against the
+  script's output row-by-row — exact match. Also confirmed Mexico's 12
+  rows land at `SOURCE_YEAR = 2025` for every month with `PEAK_RATIO =
+  1.0` in July (5.76M passengers, the chart's own high point) and the
+  July 2025 accommodation-adjacent seasonal pattern (school-vacation
+  season) looks consistent with the other Northern Hemisphere countries'
+  summer peaks.
 
 ### Japan tourism indicators (`scripts/asia/fetch_japan_tourism_indicators.py`)
 
@@ -935,6 +986,63 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   python scripts/americas/fetch_chile_ine_tourism_accommodation.py --all-tables  # every Cuadro 1-33 in one long CSV
   python scripts/americas/fetch_chile_ine_tourism_accommodation.py --list-tables # print all 34 table titles, no download/parse
   python scripts/americas/fetch_chile_ine_tourism_accommodation.py --force-download
+  ```
+
+### Mexico AFAC — monthly international air passengers (`scripts/americas/build_mexico_international_passengers_dataset.py`)
+
+- **Source:** Mexico's [Agencia Federal de Aviación Civil (AFAC)](https://www.gob.mx/afac/acciones-y-programas/estadisticas-280404),
+  Monthly Bulletin of Operational Statistics — December 2025 edition
+  (`data/raw/mexico_afac/boletin-en-dic-2025-27012026.pdf`, user-supplied)
+  — two charts: "Monthly passengers transported in Scheduled
+  International Operations, Mexican Airlines (millions)" (page 7) and
+  "...Foreign Airlines (millions)" (page 9), summed per month. AFAC
+  publishes matching Spanish (`-es-`) and English (`-en-`) PDFs each
+  month, e.g.
+  https://www.gob.mx/cms/uploads/attachment/file/1051970/boletin-es-dic-2025-27012026.pdf
+  for this same edition.
+- **No live fetch, like Costa Rica:** the bulletin shows both series only
+  as 2023/2024/2025 line charts, not downloadable tables, so the 12
+  monthly 2025 values in `MEXICAN_AIRLINES_MILLIONS_2025` and
+  `FOREIGN_AIRLINES_MILLIONS_2025` were hand-transcribed directly from
+  each chart's own data-point labels — cross-checked against a direct
+  `pdftotext -layout` extraction of the source PDF (the chart layout
+  scrambles the labels' reading order, but every value appears verbatim
+  there) and against the user's own screenshots of both charts. Both
+  matched exactly, including an independent check that December 2025
+  sums to 5.90M (1.80 + 4.10). There is deliberately no `fetch_*()`
+  function; only 2025 was transcribed even though both charts also show
+  2023/2024 lines.
+- **What it is:** total passengers on SCHEDULED INTERNATIONAL flights
+  to/from Mexico, Mexican airlines' international operations plus
+  foreign airlines' operations into Mexico combined, in millions per
+  month — a much closer match to "international travel volume" than the
+  domestic series this replaced (see "Correction" below). Still an
+  air-passenger COUNT rather than a visitor-arrivals count, so the same
+  "different signal" caveat as Canada's StatCan Transborder-movements
+  series applies (see above): comparable in kind to Canada's or
+  Eurostat's rows, not to ABS/Stats NZ's visitor arrivals or Chile's
+  overnight stays.
+- **Precision:** both source charts only carry 2 decimal places in
+  millions, so the summed value is precise to roughly ±10,000
+  passengers (the two sources' rounding errors compound) — not an exact
+  reported count like most other sources in this project.
+- **Correction:** an earlier version of this dataset used
+  `scripts/americas/build_mexico_domestic_passengers_dataset.py`
+  instead — "Scheduled DOMESTIC Operations" (page 3 of the same
+  bulletin), domestic Mexican air travel rather than international. That
+  was the wrong chart for consistency with every other country in
+  `compute_peak_tourism_indicator.py`'s `EXTRA_COUNTRY_SOURCES` (all
+  international signals). The domestic script and its output CSV
+  (`processed/americas/mexico_domestic_passengers_monthly.csv`) are left
+  in place — still real, possibly useful data — but are no longer read
+  by the peak tourism indicator.
+- **Output:** `processed/americas/mexico_international_passengers_monthly.csv` —
+  `ref_date` (`YYYY-MM`), `mexican_airlines_millions`,
+  `foreign_airlines_millions`, `passengers_millions` (sum of the two),
+  `passengers` (`passengers_millions * 1,000,000`, rounded).
+- **Run:**
+  ```
+  python scripts/americas/build_mexico_international_passengers_dataset.py
   ```
 
 ### Australian Bureau of Statistics — visitor arrivals (`scripts/oceana/fetch_abs_visitor_arrivals.py`)

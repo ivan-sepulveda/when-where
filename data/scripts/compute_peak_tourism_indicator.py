@@ -7,16 +7,24 @@ Two source families feed this, using two different methods (see below):
 
   - Europe: processed/europe/eurostat_passengers_transported_by_country_monthly_*.csv
     (air passengers transported; see scripts/europe/fetch_eurostat_dataset.py)
-  - Australia, New Zealand, Japan, Costa Rica (the "EXTRA_COUNTRY_SOURCES"
-    countries): processed/oceana/abs_visitor_arrivals_monthly.csv,
+  - Australia, New Zealand, Japan, Costa Rica, Mexico (the
+    "EXTRA_COUNTRY_SOURCES" countries): processed/oceana/abs_visitor_arrivals_monthly.csv,
     processed/oceana/statsnz_visitor_arrivals_monthly.csv,
-    processed/asia/japan_tourism_indicators_by_month.csv, and
-    processed/americas/costa_rica_monthly_hotel_occupancy.csv (visitor
-    arrivals / border entries / hotel occupancy -- NOT all the same kind of
-    signal, see below; see scripts/oceana/fetch_abs_visitor_arrivals.py,
+    processed/asia/japan_tourism_indicators_by_month.csv,
+    processed/americas/costa_rica_monthly_hotel_occupancy.csv, and
+    processed/americas/mexico_international_passengers_monthly.csv
+    (visitor arrivals / border entries / hotel occupancy / international
+    air passengers -- NOT all the same kind of signal, see below; see
+    scripts/oceana/fetch_abs_visitor_arrivals.py,
     scripts/oceana/fetch_statsnz_visitor_arrivals.py,
-    scripts/asia/fetch_japan_tourism_indicators.py, and
-    scripts/americas/build_costa_rica_monthly_tourism_dataset.py)
+    scripts/asia/fetch_japan_tourism_indicators.py,
+    scripts/americas/build_costa_rica_monthly_tourism_dataset.py, and
+    scripts/americas/build_mexico_international_passengers_dataset.py --
+    NOTE: an earlier version of this script used
+    build_mexico_domestic_passengers_dataset.py's DOMESTIC passenger
+    series instead, which was the wrong chart for consistency with every
+    other country here (all international signals) -- corrected to the
+    international series, see "Mexico specifically" below)
   - Canada: processed/americas/statcan_airport_movements.csv, filtered to
     GEO == "Canada", Airports == "Total, all airports", "Domestic and
     international itinerant movements" == "Transborder movements" (flight
@@ -63,31 +71,36 @@ Rows for Eurostat's EU/euro-area aggregate `geo` codes (EU27_2020, EA21,
 EA20, EA19) are dropped -- they're not countries, so don't belong in a
 "peak tourism indicator by country" table.
 
-**Method for AU / NZ / Japan / Costa Rica / Canada / Chile, per country --
-LATEST 12 MONTHS ONLY:** Unlike the Eurostat side, the ABS series runs
-back to 1976 and using its full history would score a month against a
-decades-old peak that may no longer be representative (and Stats NZ's
-Table 1 only carries 5 fiscal years, e-Stat's Dashboard pull only 16
-months, Costa Rica's transcribed table only 2018-2024, to begin with --
-so "full history" isn't comparable across these sources anyway). Instead,
-each source's own most recent 12 monthly rows are used:
+**Method for AU / NZ / Japan / Costa Rica / Canada / Chile / Mexico, per
+country -- LATEST 12 MONTHS ONLY:** Unlike the Eurostat side, the ABS
+series runs back to 1976 and using its full history would score a month
+against a decades-old peak that may no longer be representative (and
+Stats NZ's Table 1 only carries 5 fiscal years, e-Stat's Dashboard pull
+only 16 months, Costa Rica's transcribed table only 2018-2024, Mexico's
+transcribed chart only calendar 2025, to begin with -- so "full history"
+isn't comparable across these sources anyway). Instead, each source's own
+most recent 12 monthly rows are used:
 
     latest_12 = df.sort_values(date_col).tail(12)   # most recent 12 rows
     MAX_VALUE = latest_12[value_col].max()
     PEAK_RATIO(month) = value(month) / MAX_VALUE
 
-As of this writing the six sources' processed CSVs run through 2026-05
+As of this writing the seven sources' processed CSVs run through 2026-05
 (ABS), 2026-05 (Stats NZ), 2026-04 (e-Stat), 2024-12 (Costa Rica -- its
 source table simply stops at 2024, see build_costa_rica_monthly_tourism_
-dataset.py), 2026-04 (StatCan), and 2026-05 (Chile INE) respectively, so
-"latest 12 months" is Jun 2025 - May 2026 for AU/NZ/Chile, May 2025 - Apr
-2026 for Japan/Canada, and all of calendar 2024 for Costa Rica -- one row
-per calendar month, no deduplication needed since each source has exactly
-one observation per month once filtered down (Canada's StatCan table and
-Chile's INE table both need filtering first -- see below). `SOURCE_YEAR`
-records the calendar year each month's observation actually fell in (so
-e.g. for AU/NZ/Chile, MONTH=6 is SOURCE_YEAR=2025 while MONTH=5 is
-SOURCE_YEAR=2026; Costa Rica is SOURCE_YEAR=2024 for every month).
+dataset.py), 2026-04 (StatCan), 2026-05 (Chile INE), and 2025-12 (Mexico
+AFAC -- its source chart simply stops at December 2025, see
+build_mexico_domestic_passengers_dataset.py) respectively, so "latest 12
+months" is Jun 2025 - May 2026 for AU/NZ/Chile, May 2025 - Apr 2026 for
+Japan/Canada, all of calendar 2024 for Costa Rica, and all of calendar
+2025 for Mexico -- one row per calendar month, no deduplication needed
+since each source has exactly one observation per month once filtered
+down (Canada's StatCan table and Chile's INE table both need filtering
+first -- see below; Mexico's is already a clean single series, no
+filtering needed). `SOURCE_YEAR` records the calendar year each month's
+observation actually fell in (so e.g. for AU/NZ/Chile, MONTH=6 is
+SOURCE_YEAR=2025 while MONTH=5 is SOURCE_YEAR=2026; Costa Rica and Mexico
+are each SOURCE_YEAR=2024/2025 respectively for every month).
 
 The value column, and the column holding the "YYYY-MM" date, differ by
 source (see `EXTRA_COUNTRY_SOURCES`): ABS Table 1's `short_term_visitors_
@@ -101,13 +114,15 @@ visitor-arrivals count would, e.g. it includes work-visa holders), Costa
 Rica's `occupancy_pct` (hotel occupancy percentage, Banco Central de
 Costa Rica's Cuadro 3 -- see "Costa Rica specifically" below), StatCan
 table 23-10-0304-01's `VALUE` column, filtered per `CANADA_SOURCE` below,
-and Chile INE's `value` column, filtered per `CHILE_SOURCE` below (see
-"Chile specifically"). All land in the output's generic `PASSENGERS`
+Chile INE's `value` column, filtered per `CHILE_SOURCE` below (see "Chile
+specifically"), and Mexico AFAC's `passengers` column (see "Mexico
+specifically" below). All land in the output's generic `PASSENGERS`
 column for schema consistency with the Eurostat rows, even though none of
-them are actually air-passenger counts -- these are different proxies for
-"how much inbound travel is happening," not directly comparable in
-magnitude across sources, only within a single country's own row of
-PEAK_RATIO values.
+them are actually air-passenger counts (except Mexico's, which literally
+is one -- just domestic rather than international, see below) -- these
+are different proxies for "how much inbound travel is happening," not
+directly comparable in magnitude across sources, only within a single
+country's own row of PEAK_RATIO values.
 
 **Costa Rica specifically** -- its value column, `occupancy_pct`, is a
 hotel occupancy PERCENTAGE (bounded 0-100), not a visitor/arrivals count
@@ -160,6 +175,40 @@ handles this the same way it handles Costa Rica's `occupancy_pct`:
 non-integer values are rounded to 2 decimals rather than truncated with
 `int()`.
 
+**Mexico specifically** -- `mexico_international_passengers_monthly.csv`
+(see build_mexico_international_passengers_dataset.py) is, like Costa
+Rica's source, hand-transcribed rather than fetched: AFAC's (Agencia
+Federal de Aviación Civil) Monthly Bulletin of Operational Statistics
+publishes this data only as charts, not downloadable tables, so the 12
+monthly 2025 values were read off two charts' own data-point labels --
+"Scheduled International Operations, Mexican Airlines (millions)" (page
+7) and "...Foreign Airlines (millions)" (page 9) -- summed per month
+into the `passengers` column (cross-checked against a direct text
+extraction of the source PDF, and against the user's own screenshots;
+both matched, including an independent check that December 2025 sums to
+5.90M). Its `passengers` column IS a genuine air-passenger count -- the
+only EXTRA_COUNTRY_SOURCES entry where that's true -- and unlike the
+domestic series this replaced, it's **international** (Mexican + foreign
+airlines' international operations to/from Mexico), matching the
+"international signal" every other country in this table uses, though
+it's still an air-passenger COUNT rather than a visitor-arrivals count
+(closer in kind to Canada's Transborder-movements series or the Eurostat
+rows than to ABS/Stats NZ's visitor arrivals or Chile's overnight
+stays). The value is also only precise to about +/-10,000 passengers
+(both source charts carry 2 decimal places in millions, and the two
+sources' rounding errors compound when summed), unlike sources with an
+exact reported count.
+
+**Correction note:** an earlier version of this script used
+`mexico_domestic_passengers_monthly.csv` (SCHEDULED DOMESTIC Operations,
+page 3 of the same bulletin) instead -- domestic Mexican air travel, not
+international, and the only EXTRA_COUNTRY_SOURCES entry that would have
+been scored on a different kind of signal (domestic vs. every other
+country's international one) than everything else in this table.
+Corrected to the international series above; the domestic script and its
+output CSV are left in place (still real, possibly useful data) but are
+no longer read by this script.
+
 Usage:
     python compute_peak_tourism_indicator.py
     python compute_peak_tourism_indicator.py --input ../processed/europe/eurostat_passengers_transported_by_country_monthly_TOTAL.csv
@@ -193,17 +242,21 @@ SOURCE_GLOB = "eurostat_passengers_transported_by_country_monthly_*.csv"
 
 OUTPUT_FILENAME = "PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv"  # ALL_CAPS by request, unlike this project's other processed/ outputs
 
-# AU / NZ / Japan / Costa Rica: each entry is (subdirectory under processed/,
-# source CSV filename, name of its "YYYY-MM" date column, value column to
-# score, ISO alpha-2 code, display name). Scored on latest-12-months only --
-# see module docstring for why this differs from the Eurostat method. The
-# date column name varies by source (ref_date vs MONTH), hence it's part of
-# the config rather than assumed.
+# AU / NZ / Japan / Costa Rica / Mexico: each entry is (subdirectory under
+# processed/, source CSV filename, name of its "YYYY-MM" date column, value
+# column to score, ISO alpha-2 code, display name). Scored on
+# latest-12-months only -- see module docstring for why this differs from
+# the Eurostat method. The date column name varies by source (ref_date vs
+# MONTH), hence it's part of the config rather than assumed.
 EXTRA_COUNTRY_SOURCES = [
     ("oceana", "abs_visitor_arrivals_monthly.csv", "ref_date", "short_term_visitors_arriving", "AU", "Australia"),
     ("oceana", "statsnz_visitor_arrivals_monthly.csv", "ref_date", "visitor_arrivals", "NZ", "New Zealand"),
     ("asia", "japan_tourism_indicators_by_month.csv", "MONTH", "NUM_ENTRIES", "JP", "Japan"),
     ("americas", "costa_rica_monthly_hotel_occupancy.csv", "ref_date", "occupancy_pct", "CR", "Costa Rica"),
+    # International (Mexican + Foreign airlines combined), NOT the domestic
+    # series -- see module docstring's "Mexico specifically" / correction
+    # note for why domestic would've been the wrong signal here.
+    ("americas", "mexico_international_passengers_monthly.csv", "ref_date", "passengers", "MX", "Mexico"),
 ]
 
 # Canada: unlike EXTRA_COUNTRY_SOURCES above, the source CSV (StatCan table

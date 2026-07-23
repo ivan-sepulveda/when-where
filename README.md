@@ -121,6 +121,27 @@ project's scoring purposes.
 Source: https://www.ine.gob.cl/estadisticas-por-tema/comercio-y-servicios/actividad-mensual-del-turismo
 
 ```
+python scripts/americas/build_mexico_international_passengers_dataset.py
+```
+
+Writes `data/processed/americas/mexico_international_passengers_monthly.csv`
+(`ref_date`, `mexican_airlines_millions`, `foreign_airlines_millions`,
+`passengers_millions`, `passengers`) — 12 months of 2025 international
+scheduled-operations air passenger totals for Mexico (Mexican + foreign
+airlines combined). Unlike every other script above, there's no live
+fetch here: AFAC (Mexico's civil aviation authority) publishes this as
+two separate charts in its Monthly Bulletin of Operational Statistics,
+not a downloadable table, so the values are hand-transcribed from each
+chart's own data-point labels and summed per month (cross-checked
+against a text extraction of the source PDF — see `data/README.md`).
+An earlier version of this dataset used the bulletin's DOMESTIC
+passengers chart instead (`build_mexico_domestic_passengers_dataset.py`,
+still present but no longer used for scoring) — corrected to this
+international series for consistency with the rest of the peak tourism
+indicator below.
+Source: https://www.gob.mx/afac/acciones-y-programas/estadisticas-280404
+
+```
 python scripts/build_country_aliases.py
 ```
 
@@ -174,12 +195,18 @@ that weighting should depend on the traveler profile.
 python scripts/compute_peak_tourism_indicator.py
 ```
 
-Turns the Eurostat monthly air-passenger CSV into
-`data/processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv` — one row per
-(country, month) with `PEAK_RATIO`, how busy that month's air travel is
-relative to the country's own peak month (0–1). A candidate seasonality
-signal by country. See `data/README.md` for how it handles months with
-more than one year of source data available.
+Combines the Eurostat monthly air-passenger CSV (full history) with
+seven more countries scored on their own latest-12-months only —
+Australia, New Zealand, Japan, Costa Rica, Canada, Chile, Mexico — into
+`data/processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`: one row per
+(country, month) with `PEAK_RATIO`, how busy that month is relative to
+the country's own peak month (0–1). A candidate seasonality signal by
+country — currently 41 countries, 469 rows. The non-Eurostat countries
+each use a different underlying signal (visitor arrivals, hotel
+occupancy %, domestic air passengers, etc.), so `PEAK_RATIO` is only
+comparable *within* a country's own row, not in magnitude across
+countries — see `data/README.md` for the full per-country breakdown and
+how Eurostat's partial-year coverage is handled.
 
 ## TODO
 
@@ -194,3 +221,4 @@ more than one year of source data available.
 - Economic indicators (GDP deflator, exports % of GDP, PPP conversion factor, price level index) from [The World Bank](https://data.worldbank.org), via the [Data360 API](https://data360api.worldbank.org), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Air passenger traffic data from [Eurostat](https://ec.europa.eu/eurostat) (dataset `TTR00012`, sourced from `AVIA_PAOC`), reused under the European Commission's [CC BY 4.0 reuse policy](https://ec.europa.eu/eurostat/en/help/copyright-notice).
 - Tourism accommodation data (EMAT) from Chile's [Instituto Nacional de Estadísticas (INE)](https://www.ine.gob.cl/estadisticas-por-tema/comercio-y-servicios/actividad-mensual-del-turismo).
+- Domestic air passenger data from Mexico's [Agencia Federal de Aviación Civil (AFAC)](https://www.gob.mx/afac/acciones-y-programas/estadisticas-280404), Monthly Bulletin of Operational Statistics.
