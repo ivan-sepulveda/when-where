@@ -196,18 +196,50 @@ python scripts/compute_peak_tourism_indicator.py
 ```
 
 Combines the Eurostat monthly air-passenger CSV (full history) with
-eleven more countries scored on their own latest-12-months only —
+twelve more countries scored on their own latest-12-months only —
 Australia, New Zealand, Japan, Costa Rica, Canada, Chile, Mexico,
-Maldives, Indonesia, Brazil, and Colombia — into
+Maldives, Indonesia, Brazil, Colombia, and Paraguay — into
 `data/processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`: one row per
 (country, month) with `PEAK_RATIO`, how busy that month is relative to
 the country's own peak month (0–1). A candidate seasonality signal by
-country — currently 45 countries, 517 rows. The non-Eurostat countries
+country — currently 46 countries, 529 rows. The non-Eurostat countries
 each use a different underlying signal (visitor arrivals, hotel
 occupancy %, domestic air passengers, etc.), so `PEAK_RATIO` is only
 comparable *within* a country's own row, not in magnitude across
 countries — see `data/README.md` for the full per-country breakdown and
 how Eurostat's partial-year coverage is handled.
+
+```
+python scripts/build_usd_purchasing_power_dataset.py
+```
+
+Joins the World Bank's Price Level Index (`PA.NUS.GDP.PLI`, already
+pulled by `fetch_worldbank_indicator.py`) onto the same 46 countries,
+matched by name rather than by the Eurostat-style codes in
+`PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv` (a couple of those, like `EL` for
+Greece, don't match standard ISO). Writes
+`data/processed/usd_purchasing_power_by_country.csv`:
+`USD_PURCHASING_POWER = 100 / PRICE_LEVEL_INDEX`, literally what $1's
+real buying power is worth in US-dollar-equivalent terms in that country
+— 1.50 means $1 there buys what $1.50 would buy in the US, 0.80 means it
+buys what $0.80 would. No exchange rate needed, since PLI is already
+normalized against the US dollar.
+
+```
+python scripts/build_peak_tourism_interactive_chart.py
+```
+
+Turns `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv` into an interactive,
+hoverable version of the peak-tourism scatterplot —
+`data/processed/peak_tourism_interactive_chart.html`. Same encoding as
+the static matplotlib version in
+`notebooks/peak_tourism_months_exploration.ipynb` (country sorted
+north-to-south by capital latitude, color = `PEAK_RATIO`, size = each
+row's underlying volume signal, peak months outlined), plus hover
+tooltips with the country, month, peak ratio, and raw value. Renders via
+Plotly.js from a CDN rather than the `plotly` Python package, so opening
+the file needs nothing but a browser and generating it needs no new
+dependency.
 
 ## TODO
 

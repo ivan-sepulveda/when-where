@@ -704,7 +704,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
     (`EU27_2020`, `EA21`, `EA20`, `EA19`) dropped first since they aren't
     countries.
   - **Australia, New Zealand, Japan, Costa Rica, Canada, Chile, Mexico,
-    Maldives, Indonesia, Brazil, and Colombia
+    Maldives, Indonesia, Brazil, Colombia, and Paraguay
     (`EXTRA_COUNTRY_SOURCES` + `CANADA_SOURCE` + `CHILE_SOURCE`), latest
     12 months only:** each source's own most recent 12 monthly rows,
     scored against that 12-month window's own max — not full history,
@@ -730,7 +730,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   the dropped year. `SOURCE_YEAR` in the output records which year's
   observation was kept, for transparency.
 - **Data gaps are real, not a bug:** not every Eurostat country reports
-  every month, so per-country row counts vary. The eleven non-Eurostat
+  every month, so per-country row counts vary. The twelve non-Eurostat
   countries each contribute exactly 12 rows (one per calendar month) once
   their source is filtered down, EXCEPT wherever a source itself has less
   than 12 months of history available (the script prints a warning in
@@ -748,7 +748,8 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   passengers, Mexican + foreign airlines combined; Maldives = total
   tourist arrivals; Indonesia = foreign tourist visits, every passport
   nationality combined; Brazil = share of annual visits (%, not a
-  headcount); Colombia = foreign visitor entries. See
+  headcount); Colombia = foreign visitor entries; Paraguay = foreign
+  visitor entries. See
   `fetch_chile_ine_tourism_accommodation.py`,
   `fetch_statcan_airport_movements.py`,
   `build_mexico_international_passengers_dataset.py`, and the sections
@@ -804,14 +805,25 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   URLs to be added. Supersedes an earlier version of this pipeline that
   used `colombia_recent_foreign_visitors_monthly.csv` (still on disk, not
   deleted, just unwired).
+- **Paraguay specifically:** `processed/americas/paraguay_tourism_by_month.csv`
+  (see `build_paraguay_tourism_by_month_dataset.py`) is parsed
+  programmatically from INE Paraguay's own published spreadsheet (table
+  14.3, "Turismo receptivo por continente de origen"), keeping the
+  "Total" column across every continent of origin. Covers calendar year
+  2024 — the most recent full year this specific table publishes. The
+  sheet also breaks totals down by continent of origin (kept as extra
+  columns in the CSV for future use, not currently scored). `ine.gov.py`
+  isn't reachable from this sandbox, so the raw file is cached at
+  `raw/paraguay_ine/14.3_CE2024.xlsx` — re-download from the URL in the
+  script's docstring and overwrite that path to refresh.
 - **Output:** `processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`
   (`ALL_CAPS` filename by request, unlike this project's other
   `processed/` outputs) — columns `COUNTRY` (Eurostat `geo` code or ISO
-  alpha-2 for the eleven extra countries), `MONTH` (integer 1–12),
+  alpha-2 for the twelve extra countries), `MONTH` (integer 1–12),
   `PEAK_RATIO`, plus `COUNTRY_NAME`, `SOURCE_YEAR`, and `PASSENGERS` (the
   raw value behind the ratio, whatever that source's unit actually is —
   see above) for traceability. One row per (`COUNTRY`, `MONTH`). Current
-  run: 517 rows, 45 countries.
+  run: 529 rows, 46 countries.
 - **Run:**
   ```
   python scripts/compute_peak_tourism_indicator.py
@@ -828,6 +840,65 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   July 2025 accommodation-adjacent seasonal pattern (school-vacation
   season) looks consistent with the other Northern Hemisphere countries'
   summer peaks.
+
+### Interactive peak tourism chart (`scripts/build_peak_tourism_interactive_chart.py`)
+
+- **What it does:** builds a hoverable Plotly version of the exploration
+  notebook's matplotlib scatterplot from
+  `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv` — same encoding (country
+  north-to-south by capital latitude, color = `PEAK_RATIO`, size = each
+  row's underlying volume signal, peak months outlined in green), plus a
+  hover tooltip per point with the country, month, peak ratio, and raw
+  value labeled with what that source actually measures (air passengers,
+  hotel occupancy %, foreign visitor entries, etc.).
+- **Why Plotly.js from a CDN, not the `plotly` Python package:** this
+  sandbox's `pip install plotly` failed (network/proxy restrictions
+  blocking PyPI). Rather than add a dependency that may not always be
+  installable, the script only uses pandas/numpy (already project
+  dependencies) to build the trace/layout JSON by hand, then embeds it in
+  a small HTML template that loads Plotly.js from
+  `cdn.plot.ly`. The output file is fully self-contained — open it in any
+  browser, no Python needed, no new `requirements.txt` entry either.
+- **Output:** `processed/peak_tourism_interactive_chart.html`.
+- **Run:**
+  ```
+  python scripts/build_peak_tourism_interactive_chart.py
+  ```
+
+### USD purchasing power (`scripts/build_usd_purchasing_power_dataset.py`)
+
+- **What it does:** joins the World Bank's Price Level Index
+  (`PA.NUS.GDP.PLI`, see above) onto the same 46 countries in
+  `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`, matched by `COUNTRY_NAME`
+  rather than by that file's own `COUNTRY` codes — a few of those are
+  Eurostat-style codes that don't match standard ISO (e.g. `EL` for
+  Greece), while matching on name via `country_lookup.normalize_country`
+  resolves cleanly for all 45 with no exceptions needed.
+- **Why 100 / PLI instead of PLI directly:** PLI is already "USA = 100,
+  below 100 is cheaper" — re-expressing it as
+  `USD_PURCHASING_POWER = 100 / PRICE_LEVEL_INDEX` turns that into a
+  directly interpretable dollar figure: literally what $1's real buying
+  power is worth in US-dollar-equivalent terms in that country. 1.50
+  means $1 there buys what $1.50 would buy in the US; 0.80 means it buys
+  what $0.80 would. No live exchange rate is needed for this — PLI is
+  already normalized against the US dollar, so today's or yesterday's FX
+  rate wouldn't change the number (this is a broad, once-a-year World
+  Bank estimate, not a daily market rate).
+- **Caveat:** PLI is a whole-economy price level (GDP-wide), not a
+  tourist-specific basket — a rough affordability signal, not an exact
+  "cost of your specific trip" number. Same caveat as the GDP deflator
+  and PPP conversion factor above.
+- **Output:** `processed/usd_purchasing_power_by_country.csv` — columns
+  `COUNTRY`, `COUNTRY_NAME`, `PRICE_LEVEL_INDEX` (raw World Bank value),
+  `USD_PURCHASING_POWER` (`100 / PRICE_LEVEL_INDEX`), `SOURCE_YEAR`.
+  Current run: 46 rows, sorted most-purchasing-power to least. Indonesia,
+  Paraguay, and North Macedonia currently sit highest (~$2.67–3.49
+  US-equivalent per dollar); Switzerland and Iceland lowest
+  (~$0.85–0.89).
+- **Run:**
+  ```
+  python scripts/build_usd_purchasing_power_dataset.py
+  ```
 
 ### Japan tourism indicators (`scripts/asia/fetch_japan_tourism_indicators.py`)
 

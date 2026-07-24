@@ -5,7 +5,7 @@ country's own peak month (0-1 ratio).
 
 Eurostat countries are scored against their full monthly air-passenger
 history. Australia, New Zealand, Japan, Costa Rica, Canada, Chile,
-Mexico, Maldives, Indonesia, Brazil, and Colombia (EXTRA_COUNTRY_SOURCES
+Mexico, Maldives, Indonesia, Brazil, Colombia, and Paraguay (EXTRA_COUNTRY_SOURCES
 / CANADA_SOURCE / CHILE_SOURCE) are scored against only their own latest
 12 months, since their sources' full histories aren't long or comparable
 enough to use directly. Each non-Eurostat source uses a different
@@ -77,6 +77,9 @@ EXTRA_COUNTRY_SOURCES = [
     # build_colombia_recent_foreign_visitors_dataset.py (kept on disk,
     # unwired, not deleted).
     ("americas", "colombia_monthly_visitors.csv", "ref_date", "visitors", "CO", "Colombia"),
+    # Calendar year 2024, total inbound visitors across every continent of
+    # origin -- see build_paraguay_tourism_by_month_dataset.py.
+    ("americas", "paraguay_tourism_by_month.csv", "ref_date", "total", "PY", "Paraguay"),
 ]
 
 # Canada: unlike EXTRA_COUNTRY_SOURCES above, the source CSV (StatCan table
