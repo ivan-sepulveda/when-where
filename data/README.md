@@ -845,12 +845,34 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 
 - **What it does:** builds a hoverable Plotly version of the exploration
   notebook's matplotlib scatterplot from
-  `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv` — same encoding (country
-  north-to-south by capital latitude, color = `PEAK_RATIO`, size = each
-  row's underlying volume signal, peak months outlined in green), plus a
-  hover tooltip per point with the country, month, peak ratio, and raw
-  value labeled with what that source actually measures (air passengers,
-  hotel occupancy %, foreign visitor entries, etc.).
+  `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`, plus three live controls the
+  static notebook chart doesn't have:
+  - **Size by:** number of passengers/visitors (this project's per-country
+    volume signal, sqrt-scaled, fixed size for Costa Rica/Canada/Brazil —
+    same as the notebook), Michelin-STARRED restaurant count (Award
+    contains "Star" — 1/2/3 Stars only, NOT Bib Gourmand or Selected
+    Restaurants, a narrower cut than the notebook's all-award-tiers
+    count), the peak tourism ratio itself (0–1, linearly scaled since it's
+    already a bounded ratio), or USD purchasing power
+    (`usd_purchasing_power_by_country.csv`).
+  - **Order countries by:** alphabetical, capital latitude, or USD
+    purchasing power.
+  - **Direction:** ascending or descending, for whichever ordering is
+    selected. "Ascending" means increasing value from the bottom of the
+    chart to the top (standard graph-axis convention) — so "Latitude"
+    ascending puts the southernmost capital at the bottom and the
+    northernmost at the top, matching the notebook's fixed default look.
+  Color always encodes `PEAK_RATIO` regardless of the size selection, and
+  the hover tooltip always shows all four metrics (peak ratio, the raw
+  per-country signal, Michelin-starred count, USD purchasing power)
+  regardless of which one is currently driving marker size — so switching
+  the dropdown never hides information, only re-emphasizes it.
+- **How the controls work:** all four size arrays and three country
+  orderings are precomputed in Python and embedded as plain JSON in the
+  page; the dropdowns just call `Plotly.restyle()` / `Plotly.relayout()`
+  against whichever precomputed array was picked. No recomputation happens
+  in the browser, so there's no client-side dependency beyond Plotly.js
+  itself.
 - **Why Plotly.js from a CDN, not the `plotly` Python package:** this
   sandbox's `pip install plotly` failed (network/proxy restrictions
   blocking PyPI). Rather than add a dependency that may not always be

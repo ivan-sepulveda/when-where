@@ -4,17 +4,21 @@ country and month" scatterplot (see notebooks/peak_tourism_months_exploration.ip
 for the static matplotlib original) as a single self-contained HTML file:
 data/processed/peak_tourism_interactive_chart.html.
 
-Reproduces the same encoding as the notebook -- countries on the Y axis
-sorted north-to-south by capital latitude (data/reference/tourist_cities.json),
-month on the X axis, marker color for PEAK_RATIO, marker size (sqrt-scaled)
-for each row's underlying volume signal, and each country's actual peak
-month (PEAK_RATIO == 1.0) outlined. Hovering a point shows its country,
-month, peak ratio, and the raw underlying value with a label describing
-what that source actually measures (air passengers, hotel occupancy %,
-overnight stays, etc. -- see data/README.md for the full per-country
-breakdown), since PASSENGERS means something different per country.
+Unlike the notebook (one fixed encoding per chart), the HTML output lets
+the viewer pick, live in the browser:
+- **Size by:** number of passengers/visitors (this project's per-country
+  volume signal, sqrt-scaled, fixed size for Costa Rica/Canada/Brazil --
+  see SIGNAL_LABELS), Michelin-starred restaurant count, the peak tourism
+  ratio itself (0-1), or USD purchasing power.
+- **Order countries by:** alphabetical, capital latitude, or USD
+  purchasing power -- each ascending or descending.
+Color always encodes PEAK_RATIO, hover always shows all four metrics
+regardless of which one is currently driving marker size.
 
-Renders via Plotly.js loaded from a CDN inside the output HTML, rather
+All four size arrays and three ordering arrays are precomputed in Python
+and embedded as plain JSON; the dropdowns just call Plotly.restyle() /
+Plotly.relayout() against whichever array was picked -- no recomputation
+happens in the browser. Renders via Plotly.js loaded from a CDN rather
 than the `plotly` Python package -- this script only needs pandas/numpy
 (already project dependencies), and the resulting HTML file is fully
 portable: open it in any browser, no Python required, no new entry needed
@@ -34,12 +38,15 @@ PROCESSED_DIR = Path(__file__).resolve().parent.parent / "processed"
 REFERENCE_DIR = Path(__file__).resolve().parent.parent / "reference"
 PEAK_TOURISM_PATH = PROCESSED_DIR / "PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv"
 TOURIST_CITIES_PATH = REFERENCE_DIR / "tourist_cities.json"
+COUNTRY_ALIASES_PATH = REFERENCE_DIR / "country_aliases.json"
+MICHELIN_PATH = PROCESSED_DIR / "multiple" / "michelin_restaurants.csv"
+USD_PP_PATH = PROCESSED_DIR / "usd_purchasing_power_by_country.csv"
 OUTPUT_PATH = PROCESSED_DIR / "peak_tourism_interactive_chart.html"
 
 NAME_ALIASES = {"Türkiye": "Turkey"}
 
 # Same three countries the notebook draws at one fixed marker size, since
-# their PASSENGERS column isn't a real headcount (see build_marker_sizes).
+# their PASSENGERS column isn't a real headcount.
 FIXED_SIZE_COUNTRIES = {"Costa Rica", "Canada", "Brazil"}
 MIN_DIAMETER, MAX_DIAMETER = 8, 42
 FIXED_DIAMETER = 22
@@ -66,10 +73,22 @@ SIGNAL_LABELS = {
 DEFAULT_SIGNAL_LABEL = "Air passengers"
 PERCENT_COUNTRIES = {"Costa Rica", "Brazil"}
 
+SIZE_LABELS = {
+    "passengers": "number of passengers/visitors (fixed size for Costa Rica, Canada & Brazil)",
+    "michelin": "Michelin-starred restaurant count",
+    "peak_ratio": "peak tourism indicator (0-1)",
+    "purchasing_power": "USD purchasing power ($1 US-equivalent)",
+}
+ORDER_LABELS = {
+    "alphabetical": "alphabetical",
+    "latitude": "capital latitude",
+    "purchasing_power": "USD purchasing power",
+}
 
-def load_capital_lat() -> dict:
-    """Country name -> capital latitude, same lookup the notebook uses (most
-    populous 'primary'-tagged capital per country, NAME_ALIASES bridge)."""
+
+def load_capital_lat(country_names) -> dict:
+    """Country name -> capital latitude (most populous 'primary'-tagged
+    capital per country, NAME_ALIASES bridge for name mismatches)."""
     with open(TOURIST_CITIES_PATH, encoding="utf-8") as f:
         cities = json.load(f)["cities"]
 
@@ -82,31 +101,47 @@ def load_capital_lat() -> dict:
         if current is None or (city["population"] or 0) > (current["population"] or 0):
             capitals_by_country[country] = city
 
-    return capitals_by_country
-
-
-def sort_countries(df: pd.DataFrame) -> list:
-    """Return country names ordered bottom-to-top (south-to-north) for the
-    Y axis, matching the notebook's convention."""
-    capitals_by_country = load_capital_lat()
-
     capital_lat = {}
-    for country_name in df["COUNTRY_NAME"].unique():
+    for country_name in country_names:
         lookup_name = NAME_ALIASES.get(country_name, country_name)
         capital = capitals_by_country.get(lookup_name)
         capital_lat[country_name] = capital["lat"] if capital else None
 
-    top_to_bottom = sorted(
-        capital_lat, key=lambda c: capital_lat[c] if capital_lat[c] is not None else -90, reverse=True
-    )
-    return list(reversed(top_to_bottom))
+    missing = [name for name, lat in capital_lat.items() if lat is None]
+    if missing:
+        print(f"WARNING: no capital latitude found for: {missing} -- sorted last (treated as lat=-90).")
+
+    return capital_lat
 
 
-def marker_diameter(df: pd.DataFrame) -> pd.Series:
-    """Sqrt-scaled marker diameter (pixels) from PASSENGERS, fixed for
-    FIXED_SIZE_COUNTRIES. Diameter, not area, since Plotly's marker.size is
-    a diameter -- separate scaling from the matplotlib notebook's area-based
-    MARKER_SIZE, tuned to look comparable at Plotly's default marker scale."""
+def load_michelin_starred_counts() -> pd.Series:
+    """Country iso2 -> count of Michelin-STARRED restaurants only (Award
+    contains 'Star', so '1/2/3 Star(s)' but not 'Bib Gourmand' or
+    'Selected Restaurants') -- a narrower, more literal reading of
+    "Michelin star restaurants" than the notebook's all-award-tiers count."""
+    michelin = pd.read_csv(MICHELIN_PATH)
+    starred = michelin[michelin["Award"].str.contains("Star", na=False)].copy()
+
+    with open(COUNTRY_ALIASES_PATH, encoding="utf-8") as f:
+        country_aliases = json.load(f)["countries"]
+    alias_to_iso2 = {alias: entry["iso2"] for entry in country_aliases.values() for alias in entry["aliases"]}
+    starred["iso2"] = starred["location_country"].str.strip().str.casefold().map(alias_to_iso2)
+
+    return starred.groupby("iso2").size()
+
+
+def sqrt_scale(values: pd.Series) -> pd.Series:
+    """Sqrt-scale a Series into [MIN_DIAMETER, MAX_DIAMETER] -- area should
+    scale with volume, not radius, same reasoning as the notebook's
+    MARKER_SIZE/MICHELIN_MARKER_SIZE columns."""
+    sqrt_values = np.sqrt(values.astype(float))
+    lo, hi = sqrt_values.min(), sqrt_values.max()
+    if hi == lo:
+        return pd.Series(MIN_DIAMETER, index=values.index)
+    return MIN_DIAMETER + (sqrt_values - lo) / (hi - lo) * (MAX_DIAMETER - MIN_DIAMETER)
+
+
+def compute_size_passengers(df: pd.DataFrame) -> pd.Series:
     scalable = df[~df["COUNTRY_NAME"].isin(FIXED_SIZE_COUNTRIES)]
     sqrt_passengers = np.sqrt(scalable["PASSENGERS"].astype(float))
     lo, hi = sqrt_passengers.min(), sqrt_passengers.max()
@@ -118,6 +153,24 @@ def marker_diameter(df: pd.DataFrame) -> pd.Series:
         return MIN_DIAMETER + scaled * (MAX_DIAMETER - MIN_DIAMETER)
 
     return df.apply(compute, axis=1)
+
+
+def compute_size_michelin(df: pd.DataFrame) -> pd.Series:
+    starred_counts = load_michelin_starred_counts()
+    counts = df["COUNTRY"].map(starred_counts).fillna(0).astype(int)
+    return sqrt_scale(counts), counts
+
+
+def compute_size_peak_ratio(df: pd.DataFrame) -> pd.Series:
+    """Linear (not sqrt) scale, since PEAK_RATIO is already a bounded 0-1
+    ratio, not a volume that needs area-correct compression."""
+    return MIN_DIAMETER + df["PEAK_RATIO"].astype(float) * (MAX_DIAMETER - MIN_DIAMETER)
+
+
+def compute_size_purchasing_power(df: pd.DataFrame) -> pd.Series:
+    usd_pp = pd.read_csv(USD_PP_PATH)
+    values = df["COUNTRY"].map(usd_pp.set_index("COUNTRY")["USD_PURCHASING_POWER"])
+    return sqrt_scale(values), values
 
 
 def format_value(country_name: str, value: float) -> str:
@@ -132,11 +185,16 @@ def hover_text(row: pd.Series) -> str:
     label = SIGNAL_LABELS.get(row["COUNTRY_NAME"], DEFAULT_SIGNAL_LABEL)
     value = format_value(row["COUNTRY_NAME"], float(row["PASSENGERS"]))
     peak_note = "<br><b>Peak month</b>" if row["PEAK_RATIO"] == 1.0 else ""
+    michelin_count = int(row["MICHELIN_STARRED_COUNT"])
+    pp = row["USD_PURCHASING_POWER"]
+    pp_text = f"${pp:.2f}" if pd.notna(pp) else "n/a"
     return (
         f"<b>{row['COUNTRY_NAME']}</b><br>"
         f"{MONTH_NAMES[row['MONTH'] - 1]}<br>"
         f"Peak ratio: {row['PEAK_RATIO']:.0%}<br>"
-        f"{label}: {value} ({row['SOURCE_YEAR']})"
+        f"{label}: {value} ({row['SOURCE_YEAR']})<br>"
+        f"Michelin-starred restaurants: {michelin_count}<br>"
+        f"USD purchasing power: {pp_text}"
         f"{peak_note}"
     )
 
@@ -149,16 +207,132 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
 <style>
   body {{ font-family: -apple-system, Helvetica, Arial, sans-serif; margin: 0; padding: 16px; }}
+  #controls {{ display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; }}
+  #controls label {{ font-size: 14px; font-weight: 600; margin-right: 6px; }}
+  #controls select {{ font-size: 14px; padding: 4px 8px; }}
   #chart {{ width: 100%; height: 1400px; }}
 </style>
 </head>
 <body>
+<div id="controls">
+  <div>
+    <label for="sizeBy">Size by</label>
+    <select id="sizeBy">
+      <option value="passengers" selected>Number of passengers</option>
+      <option value="michelin">Michelin star restaurants</option>
+      <option value="peak_ratio">Peak tourism indicator (0-1)</option>
+      <option value="purchasing_power">Purchasing power</option>
+    </select>
+  </div>
+  <div>
+    <label for="orderBy">Order countries by</label>
+    <select id="orderBy">
+      <option value="alphabetical">Alphabetical (A-Z)</option>
+      <option value="latitude" selected>Latitude</option>
+      <option value="purchasing_power">Purchasing power</option>
+    </select>
+  </div>
+  <div>
+    <label for="direction">Direction</label>
+    <select id="direction">
+      <option value="ascending" selected>Ascending</option>
+      <option value="descending">Descending</option>
+    </select>
+  </div>
+</div>
 <div id="chart"></div>
 <script>
-var allTrace = {all_trace};
-var peakTrace = {peak_trace};
-var layout = {layout};
+var pointData = {point_data};
+var peakData = {peak_data};
+var countryOrders = {country_orders};
+var sizeLabels = {size_labels};
+var orderLabels = {order_labels};
+
+function buildTitle() {{
+  var sizeBy = document.getElementById('sizeBy').value;
+  var orderBy = document.getElementById('orderBy').value;
+  var direction = document.getElementById('direction').value;
+  return 'Peak tourism indicator by country and month<br>' +
+    '<sub>size = ' + sizeLabels[sizeBy] + ' &mdash; ordered by ' + orderLabels[orderBy] + ' (' + direction + ')</sub>';
+}}
+
+function currentCategoryArray() {{
+  var orderBy = document.getElementById('orderBy').value;
+  var direction = document.getElementById('direction').value;
+  var order = countryOrders[orderBy];
+  return direction === 'ascending' ? order.slice() : order.slice().reverse();
+}}
+
+var allTrace = {{
+  x: pointData.x,
+  y: pointData.y,
+  mode: 'markers',
+  type: 'scatter',
+  text: pointData.hover,
+  hoverinfo: 'text',
+  marker: {{
+    size: pointData.size.passengers,
+    color: pointData.peak_ratio,
+    colorscale: 'RdBu',
+    reversescale: true,
+    line: {{width: 0.6, color: 'black'}},
+    colorbar: {{title: 'PEAK_RATIO<br>(0-1)'}},
+    opacity: 0.85,
+  }},
+  name: '',
+}};
+
+var peakTrace = {{
+  x: peakData.x,
+  y: peakData.y,
+  mode: 'markers',
+  type: 'scatter',
+  text: peakData.hover,
+  hoverinfo: 'text',
+  marker: {{
+    size: peakData.size.passengers,
+    color: 'rgba(0,0,0,0)',
+    line: {{width: 2, color: 'green'}},
+  }},
+  name: 'Peak month (PEAK_RATIO = 1.0)',
+}};
+
+var layout = {{
+  title: buildTitle(),
+  xaxis: {{
+    tickmode: 'array',
+    tickvals: [1,2,3,4,5,6,7,8,9,10,11,12],
+    ticktext: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    range: [0.5, 12.5],
+    title: 'Month',
+  }},
+  yaxis: {{
+    categoryorder: 'array',
+    categoryarray: currentCategoryArray(),
+    title: 'Country',
+    automargin: true,
+  }},
+  hovermode: 'closest',
+  showlegend: true,
+  legend: {{orientation: 'h', y: -0.04}},
+  margin: {{t: 80, b: 60}},
+}};
+
 Plotly.newPlot('chart', [allTrace, peakTrace], layout, {{responsive: true}});
+
+document.getElementById('sizeBy').addEventListener('change', function() {{
+  var metric = this.value;
+  Plotly.restyle('chart', {{'marker.size': [pointData.size[metric]]}}, [0]);
+  Plotly.restyle('chart', {{'marker.size': [peakData.size[metric]]}}, [1]);
+  Plotly.relayout('chart', {{title: buildTitle()}});
+}});
+
+function applyOrder() {{
+  Plotly.relayout('chart', {{'yaxis.categoryarray': currentCategoryArray(), title: buildTitle()}});
+}}
+
+document.getElementById('orderBy').addEventListener('change', applyOrder);
+document.getElementById('direction').addEventListener('change', applyOrder);
 </script>
 </body>
 </html>
@@ -166,71 +340,60 @@ Plotly.newPlot('chart', [allTrace, peakTrace], layout, {{responsive: true}});
 
 
 def build_chart_html(df: pd.DataFrame) -> str:
-    countries_bottom_to_top = sort_countries(df)
     df = df.copy()
-    df["DIAMETER"] = marker_diameter(df)
+
+    michelin_counts_scaled, michelin_counts_raw = compute_size_michelin(df)
+    pp_scaled, pp_raw = compute_size_purchasing_power(df)
+
+    df["MICHELIN_STARRED_COUNT"] = michelin_counts_raw
+    df["USD_PURCHASING_POWER"] = pp_raw
     df["HOVER"] = df.apply(hover_text, axis=1)
 
-    all_trace = {
+    size_arrays = {
+        "passengers": compute_size_passengers(df).tolist(),
+        "michelin": michelin_counts_scaled.tolist(),
+        "peak_ratio": compute_size_peak_ratio(df).tolist(),
+        "purchasing_power": pp_scaled.tolist(),
+    }
+
+    point_data = {
         "x": df["MONTH"].tolist(),
         "y": df["COUNTRY_NAME"].tolist(),
-        "mode": "markers",
-        "type": "scatter",
-        "text": df["HOVER"].tolist(),
-        "hoverinfo": "text",
-        "marker": {
-            "size": df["DIAMETER"].tolist(),
-            "color": df["PEAK_RATIO"].tolist(),
-            "colorscale": "RdBu",
-            "reversescale": True,
-            "line": {"width": 0.6, "color": "black"},
-            "colorbar": {"title": "PEAK_RATIO<br>(0-1)"},
-            "opacity": 0.85,
-        },
-        "name": "",
+        "peak_ratio": df["PEAK_RATIO"].tolist(),
+        "hover": df["HOVER"].tolist(),
+        "size": size_arrays,
     }
 
-    peak_rows = df[df["PEAK_RATIO"] == 1.0]
-    peak_trace = {
-        "x": peak_rows["MONTH"].tolist(),
-        "y": peak_rows["COUNTRY_NAME"].tolist(),
-        "mode": "markers",
-        "type": "scatter",
-        "text": peak_rows["HOVER"].tolist(),
-        "hoverinfo": "text",
-        "marker": {
-            "size": (peak_rows["DIAMETER"] + 10).tolist(),
-            "color": "rgba(0,0,0,0)",
-            "line": {"width": 2, "color": "green"},
-        },
-        "name": "Peak month (PEAK_RATIO = 1.0)",
+    peak_mask = df["PEAK_RATIO"] == 1.0
+    peak_df = df[peak_mask]
+    peak_data = {
+        "x": peak_df["MONTH"].tolist(),
+        "y": peak_df["COUNTRY_NAME"].tolist(),
+        "hover": peak_df["HOVER"].tolist(),
+        "size": {metric: (np.array(arr)[peak_mask.values] + 10).tolist() for metric, arr in size_arrays.items()},
     }
 
-    layout = {
-        "title": "Peak tourism indicator by country and month<br><sub>size = underlying volume signal, fixed size for Costa Rica, Canada &amp; Brazil</sub>",
-        "xaxis": {
-            "tickmode": "array",
-            "tickvals": list(range(1, 13)),
-            "ticktext": MONTH_NAMES,
-            "range": [0.5, 12.5],
-            "title": "Month",
-        },
-        "yaxis": {
-            "categoryorder": "array",
-            "categoryarray": countries_bottom_to_top,
-            "title": "Country",
-            "automargin": True,
-        },
-        "hovermode": "closest",
-        "showlegend": True,
-        "legend": {"orientation": "h", "y": -0.04},
-        "margin": {"t": 80, "b": 60},
+    # Three "ascending" country orderings -- descending is just the JS-side
+    # reverse of whichever of these is picked. "Ascending" here means
+    # increasing value from the bottom of the chart to the top (standard
+    # graph-axis convention), so "Latitude" ascending puts the southernmost
+    # capital at the bottom and the northernmost at the top, matching the
+    # notebook's default look.
+    capital_lat = load_capital_lat(df["COUNTRY_NAME"].unique())
+    usd_pp = pd.read_csv(USD_PP_PATH).set_index("COUNTRY_NAME")["USD_PURCHASING_POWER"]
+
+    country_orders = {
+        "alphabetical": sorted(df["COUNTRY_NAME"].unique()),
+        "latitude": sorted(capital_lat, key=lambda c: capital_lat[c] if capital_lat[c] is not None else -90),
+        "purchasing_power": sorted(df["COUNTRY_NAME"].unique(), key=lambda c: usd_pp.get(c, 0)),
     }
 
     return HTML_TEMPLATE.format(
-        all_trace=json.dumps(all_trace),
-        peak_trace=json.dumps(peak_trace),
-        layout=json.dumps(layout),
+        point_data=json.dumps(point_data),
+        peak_data=json.dumps(peak_data),
+        country_orders=json.dumps(country_orders),
+        size_labels=json.dumps(SIZE_LABELS),
+        order_labels=json.dumps(ORDER_LABELS),
     )
 
 

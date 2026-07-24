@@ -231,15 +231,17 @@ python scripts/build_peak_tourism_interactive_chart.py
 
 Turns `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv` into an interactive,
 hoverable version of the peak-tourism scatterplot —
-`data/processed/peak_tourism_interactive_chart.html`. Same encoding as
-the static matplotlib version in
-`notebooks/peak_tourism_months_exploration.ipynb` (country sorted
-north-to-south by capital latitude, color = `PEAK_RATIO`, size = each
-row's underlying volume signal, peak months outlined), plus hover
-tooltips with the country, month, peak ratio, and raw value. Renders via
+`data/processed/peak_tourism_interactive_chart.html`. Unlike the static
+matplotlib version in `notebooks/peak_tourism_months_exploration.ipynb`,
+the viewer can change how it's drawn live in the browser: size by number
+of passengers/visitors, Michelin-starred restaurant count, the peak ratio
+itself, or USD purchasing power; order countries alphabetically, by
+capital latitude, or by USD purchasing power; ascending or descending.
+Color always encodes `PEAK_RATIO` and the hover tooltip always shows all
+four metrics no matter which one is driving marker size. Renders via
 Plotly.js from a CDN rather than the `plotly` Python package, so opening
 the file needs nothing but a browser and generating it needs no new
-dependency.
+dependency — see `data/README.md` for the full breakdown of each control.
 
 ## TODO
 
