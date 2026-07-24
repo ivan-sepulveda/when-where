@@ -196,13 +196,13 @@ python scripts/compute_peak_tourism_indicator.py
 ```
 
 Combines the Eurostat monthly air-passenger CSV (full history) with
-twelve more countries scored on their own latest-12-months only —
+thirteen more countries scored on their own latest-12-months only —
 Australia, New Zealand, Japan, Costa Rica, Canada, Chile, Mexico,
-Maldives, Indonesia, Brazil, Colombia, and Paraguay — into
+Maldives, Indonesia, Brazil, Colombia, Paraguay, and Uruguay — into
 `data/processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`: one row per
 (country, month) with `PEAK_RATIO`, how busy that month is relative to
 the country's own peak month (0–1). A candidate seasonality signal by
-country — currently 46 countries, 529 rows. The non-Eurostat countries
+country — currently 47 countries, 541 rows. The non-Eurostat countries
 each use a different underlying signal (visitor arrivals, hotel
 occupancy %, domestic air passengers, etc.), so `PEAK_RATIO` is only
 comparable *within* a country's own row, not in magnitude across
@@ -214,7 +214,7 @@ python scripts/build_usd_purchasing_power_dataset.py
 ```
 
 Joins the World Bank's Price Level Index (`PA.NUS.GDP.PLI`, already
-pulled by `fetch_worldbank_indicator.py`) onto the same 46 countries,
+pulled by `fetch_worldbank_indicator.py`) onto the same 47 countries,
 matched by name rather than by the Eurostat-style codes in
 `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv` (a couple of those, like `EL` for
 Greece, don't match standard ISO). Writes

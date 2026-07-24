@@ -45,9 +45,12 @@ OUTPUT_PATH = PROCESSED_DIR / "peak_tourism_interactive_chart.html"
 
 NAME_ALIASES = {"Türkiye": "Turkey"}
 
-# Same three countries the notebook draws at one fixed marker size, since
-# their PASSENGERS column isn't a real headcount.
-FIXED_SIZE_COUNTRIES = {"Costa Rica", "Canada", "Brazil"}
+# Same countries drawn at one fixed marker size, since their PASSENGERS
+# column isn't a real headcount (percentages, movements, or -- Uruguay --
+# USD millions of spending, three-ish orders of magnitude smaller than
+# everyone else's headcounts, which would otherwise all render at the
+# minimum diameter).
+FIXED_SIZE_COUNTRIES = {"Costa Rica", "Canada", "Brazil", "Uruguay"}
 MIN_DIAMETER, MAX_DIAMETER = 8, 42
 FIXED_DIAMETER = 22
 
@@ -69,6 +72,7 @@ SIGNAL_LABELS = {
     "Brazil": "Share of annual visits",
     "Colombia": "Foreign visitor entries",
     "Paraguay": "Foreign visitor entries",
+    "Uruguay": "Tourism spending (USD millions)",
 }
 DEFAULT_SIGNAL_LABEL = "Air passengers"
 PERCENT_COUNTRIES = {"Costa Rica", "Brazil"}

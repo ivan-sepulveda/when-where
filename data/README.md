@@ -704,7 +704,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
     (`EU27_2020`, `EA21`, `EA20`, `EA19`) dropped first since they aren't
     countries.
   - **Australia, New Zealand, Japan, Costa Rica, Canada, Chile, Mexico,
-    Maldives, Indonesia, Brazil, Colombia, and Paraguay
+    Maldives, Indonesia, Brazil, Colombia, Paraguay, and Uruguay
     (`EXTRA_COUNTRY_SOURCES` + `CANADA_SOURCE` + `CHILE_SOURCE`), latest
     12 months only:** each source's own most recent 12 monthly rows,
     scored against that 12-month window's own max — not full history,
@@ -730,7 +730,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   the dropped year. `SOURCE_YEAR` in the output records which year's
   observation was kept, for transparency.
 - **Data gaps are real, not a bug:** not every Eurostat country reports
-  every month, so per-country row counts vary. The twelve non-Eurostat
+  every month, so per-country row counts vary. The thirteen non-Eurostat
   countries each contribute exactly 12 rows (one per calendar month) once
   their source is filtered down, EXCEPT wherever a source itself has less
   than 12 months of history available (the script prints a warning in
@@ -749,7 +749,8 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   tourist arrivals; Indonesia = foreign tourist visits, every passport
   nationality combined; Brazil = share of annual visits (%, not a
   headcount); Colombia = foreign visitor entries; Paraguay = foreign
-  visitor entries. See
+  visitor entries; Uruguay = tourism spending in USD millions (not a
+  headcount). See
   `fetch_chile_ine_tourism_accommodation.py`,
   `fetch_statcan_airport_movements.py`,
   `build_mexico_international_passengers_dataset.py`, and the sections
@@ -816,14 +817,28 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   isn't reachable from this sandbox, so the raw file is cached at
   `raw/paraguay_ine/14.3_CE2024.xlsx` — re-download from the URL in the
   script's docstring and overwrite that path to refresh.
+- **Uruguay specifically:** `processed/americas/uruguay_monthly_tourism_spending.csv`
+  (see `build_uruguay_monthly_tourism_spending_dataset.py`) is hand-
+  transcribed from the Ministerio de Turismo's "Observatorio de Turismo
+  Inteligente" dashboard, "Evolucion mensual del gasto" chart — an
+  embedded Tableau visualization with no downloadable export. Covers
+  calendar year 2024, USD millions of inbound tourism spending (foreign
+  currency receipts), not a headcount. Verified: the 12 monthly figures
+  sum to exactly 1,750 (USD millions), matching Uruguay's own reported
+  2024 annual total. Because the raw values (tens to a few hundred) are
+  three-ish orders of magnitude smaller than every headcount-based
+  country's `PASSENGERS`, Uruguay is in `FIXED_SIZE_COUNTRIES` alongside
+  Costa Rica, Canada, and Brazil in both the notebook and the interactive
+  chart script — sqrt-scaling it against the rest would round every one
+  of its months down to the same minimum dot.
 - **Output:** `processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`
   (`ALL_CAPS` filename by request, unlike this project's other
   `processed/` outputs) — columns `COUNTRY` (Eurostat `geo` code or ISO
-  alpha-2 for the twelve extra countries), `MONTH` (integer 1–12),
+  alpha-2 for the thirteen extra countries), `MONTH` (integer 1–12),
   `PEAK_RATIO`, plus `COUNTRY_NAME`, `SOURCE_YEAR`, and `PASSENGERS` (the
   raw value behind the ratio, whatever that source's unit actually is —
   see above) for traceability. One row per (`COUNTRY`, `MONTH`). Current
-  run: 529 rows, 46 countries.
+  run: 541 rows, 47 countries.
 - **Run:**
   ```
   python scripts/compute_peak_tourism_indicator.py
@@ -848,8 +863,8 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`, plus three live controls the
   static notebook chart doesn't have:
   - **Size by:** number of passengers/visitors (this project's per-country
-    volume signal, sqrt-scaled, fixed size for Costa Rica/Canada/Brazil —
-    same as the notebook), Michelin-STARRED restaurant count (Award
+    volume signal, sqrt-scaled, fixed size for Costa Rica/Canada/Brazil/
+    Uruguay — same as the notebook), Michelin-STARRED restaurant count (Award
     contains "Star" — 1/2/3 Stars only, NOT Bib Gourmand or Selected
     Restaurants, a narrower cut than the notebook's all-award-tiers
     count), the peak tourism ratio itself (0–1, linearly scaled since it's
@@ -890,7 +905,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 ### USD purchasing power (`scripts/build_usd_purchasing_power_dataset.py`)
 
 - **What it does:** joins the World Bank's Price Level Index
-  (`PA.NUS.GDP.PLI`, see above) onto the same 46 countries in
+  (`PA.NUS.GDP.PLI`, see above) onto the same 47 countries in
   `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`, matched by `COUNTRY_NAME`
   rather than by that file's own `COUNTRY` codes — a few of those are
   Eurostat-style codes that don't match standard ISO (e.g. `EL` for
@@ -913,7 +928,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 - **Output:** `processed/usd_purchasing_power_by_country.csv` — columns
   `COUNTRY`, `COUNTRY_NAME`, `PRICE_LEVEL_INDEX` (raw World Bank value),
   `USD_PURCHASING_POWER` (`100 / PRICE_LEVEL_INDEX`), `SOURCE_YEAR`.
-  Current run: 46 rows, sorted most-purchasing-power to least. Indonesia,
+  Current run: 47 rows, sorted most-purchasing-power to least. Indonesia,
   Paraguay, and North Macedonia currently sit highest (~$2.67–3.49
   US-equivalent per dollar); Switzerland and Iceland lowest
   (~$0.85–0.89).
