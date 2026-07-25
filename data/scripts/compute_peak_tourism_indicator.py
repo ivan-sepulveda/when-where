@@ -5,16 +5,19 @@ country's own peak month (0-1 ratio).
 
 Eurostat countries are scored against their full monthly air-passenger
 history. Australia, New Zealand, Japan, Costa Rica, Canada, Chile,
-Mexico, Maldives, Indonesia, Brazil, Colombia, Paraguay, and Uruguay (EXTRA_COUNTRY_SOURCES
-/ CANADA_SOURCE / CHILE_SOURCE) are scored against only their own latest
-12 months, since their sources' full histories aren't long or comparable
-enough to use directly. Each non-Eurostat source uses a different
-underlying signal -- visitor arrivals, hotel occupancy %, border entries,
-transborder flights, overnight stays, share of annual visits, or
-international air passengers -- so PEAK_RATIO is comparable only within
-a country's own row, never in magnitude across countries. See
-data/README.md for full per-source details and caveats, including the
-Mexico domestic-vs-international correction.
+Mexico, Maldives, Indonesia, Brazil, Colombia, Paraguay, Uruguay,
+Argentina, and Vietnam (EXTRA_COUNTRY_SOURCES / CANADA_SOURCE /
+CHILE_SOURCE / ARGENTINA_SOURCE) are scored against only their own latest 12 months,
+since their sources' full histories aren't long or comparable enough to
+use directly -- true even for Chile and Argentina, whose sources do have
+long full histories, kept consistent with the others rather than special-cased.
+Each non-Eurostat source uses a different underlying signal -- visitor
+arrivals, hotel occupancy %, border entries, transborder flights,
+overnight stays, share of annual visits, or international air
+passengers -- so PEAK_RATIO is comparable only within a country's own
+row, never in magnitude across countries. See data/README.md for full
+per-source details and caveats, including the Mexico
+domestic-vs-international correction.
 
 Usage:
     python compute_peak_tourism_indicator.py
@@ -84,6 +87,12 @@ EXTRA_COUNTRY_SOURCES = [
     # (a spending signal, not a headcount) -- see
     # build_uruguay_monthly_tourism_spending_dataset.py.
     ("americas", "uruguay_monthly_tourism_spending.csv", "ref_date", "spending_usd_millions", "UY", "Uruguay"),
+    # Latest 12 published months (Jul 2025 - Jun 2026), hand-transcribed
+    # from the site's own monthly "Total" figure -- see
+    # build_vietnam_monthly_visitors_dataset.py. Jan 2026 is itself still
+    # marked "(estimate)" on the source site (see that file's is_estimate
+    # column), not yet finalized.
+    ("asia", "vietnam_monthly_visitors.csv", "ref_date", "total_arrivals", "VN", "Vietnam"),
 ]
 
 # Canada: unlike EXTRA_COUNTRY_SOURCES above, the source CSV (StatCan table
@@ -119,6 +128,24 @@ CHILE_SOURCE = {
     },
     "country_code": "CL",
     "country_name": "Chile",
+}
+
+# Argentina: like CANADA_SOURCE/CHILE_SOURCE, the source CSV (INDEC's ETI
+# via aerea workbook) isn't a pre-filtered single series -- it has both
+# "receptivo" (foreign visitors arriving) and "emisivo" (residents
+# departing) rows interleaved. This filter isolates receptivo's raw
+# ("Serie original") monthly count -- see data/README.md for why the raw
+# series, not the seasonally adjusted one, is used here.
+ARGENTINA_SOURCE = {
+    "subdir": "americas",
+    "filename": "argentina_indec_air_tourism_monthly.csv",
+    "date_col": "ref_date",
+    "value_col": "passengers",
+    "filters": {
+        "flow": "receptivo",
+    },
+    "country_code": "AR",
+    "country_name": "Argentina",
 }
 
 # ---------------------------------------------------------------------------
@@ -325,6 +352,45 @@ def load_chile_source() -> pd.DataFrame | None:
     return df
 
 
+def load_argentina_source() -> pd.DataFrame | None:
+    """Load INDEC's ETI vía aérea export and apply ARGENTINA_SOURCE's
+    filter to isolate the receptivo (foreign visitors arriving) raw
+    series. Returns None (with a warning printed) if the source file is
+    missing, same graceful-skip behavior as load_chile_source()."""
+    csv_path = PROCESSED_DIR / ARGENTINA_SOURCE["subdir"] / ARGENTINA_SOURCE["filename"]
+    if not csv_path.exists():
+        print(f"WARNING: {csv_path} not found -- skipping Argentina. "
+              f"Run scripts/americas/build_argentina_indec_air_tourism_dataset.py first.")
+        return None
+
+    print(f"Reading {csv_path}...")
+    df = pd.read_csv(csv_path)
+
+    missing_cols = set(ARGENTINA_SOURCE["filters"]) - set(df.columns)
+    if missing_cols:
+        raise ValueError(f"{csv_path} is missing expected column(s) {missing_cols} -- is this really the ETI vía aérea export?")
+
+    for col, expected_value in ARGENTINA_SOURCE["filters"].items():
+        df = df[df[col] == expected_value]
+
+    if df.empty:
+        raise ValueError(
+            f"{csv_path}: filtering to {ARGENTINA_SOURCE['filters']} left zero rows -- "
+            f"check the 'receptivo' flow is still present (e.g. re-run "
+            f"build_argentina_indec_air_tourism_dataset.py)."
+        )
+
+    df[ARGENTINA_SOURCE["date_col"]] = df[ARGENTINA_SOURCE["date_col"]].astype(str)
+    dupes = df[ARGENTINA_SOURCE["date_col"]].duplicated()
+    if dupes.any():
+        raise ValueError(
+            f"{csv_path}: {dupes.sum()} duplicate {ARGENTINA_SOURCE['date_col']} value(s) after filtering -- "
+            f"the filter in ARGENTINA_SOURCE no longer isolates a single row per month."
+        )
+
+    return df
+
+
 def build_extra_country_indicator(skip: bool = False) -> pd.DataFrame:
     """Build AU/NZ/Japan/Canada/Chile rows via the latest-12-months method
     (see EXTRA_COUNTRY_SOURCES, CANADA_SOURCE, and CHILE_SOURCE)."""
@@ -355,6 +421,13 @@ def build_extra_country_indicator(skip: bool = False) -> pd.DataFrame:
         frames.append(score_latest_12_months(
             chile_df, CHILE_SOURCE["filename"], CHILE_SOURCE["date_col"], CHILE_SOURCE["value_col"],
             CHILE_SOURCE["country_code"], CHILE_SOURCE["country_name"],
+        ))
+
+    argentina_df = load_argentina_source()
+    if argentina_df is not None:
+        frames.append(score_latest_12_months(
+            argentina_df, ARGENTINA_SOURCE["filename"], ARGENTINA_SOURCE["date_col"], ARGENTINA_SOURCE["value_col"],
+            ARGENTINA_SOURCE["country_code"], ARGENTINA_SOURCE["country_name"],
         ))
 
     if not frames:

@@ -704,9 +704,10 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
     (`EU27_2020`, `EA21`, `EA20`, `EA19`) dropped first since they aren't
     countries.
   - **Australia, New Zealand, Japan, Costa Rica, Canada, Chile, Mexico,
-    Maldives, Indonesia, Brazil, Colombia, Paraguay, and Uruguay
-    (`EXTRA_COUNTRY_SOURCES` + `CANADA_SOURCE` + `CHILE_SOURCE`), latest
-    12 months only:** each source's own most recent 12 monthly rows,
+    Maldives, Indonesia, Brazil, Colombia, Paraguay, Uruguay, Argentina,
+    and Vietnam (`EXTRA_COUNTRY_SOURCES` + `CANADA_SOURCE` +
+    `CHILE_SOURCE` + `ARGENTINA_SOURCE`), latest 12 months only:** each
+    source's own most recent 12 monthly rows,
     scored against that 12-month window's own max — not full history,
     since these sources' histories aren't comparable to each other or to
     Eurostat's (see "Data gaps are real" below and the per-country notes
@@ -730,7 +731,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   the dropped year. `SOURCE_YEAR` in the output records which year's
   observation was kept, for transparency.
 - **Data gaps are real, not a bug:** not every Eurostat country reports
-  every month, so per-country row counts vary. The thirteen non-Eurostat
+  every month, so per-country row counts vary. The fifteen non-Eurostat
   countries each contribute exactly 12 rows (one per calendar month) once
   their source is filtered down, EXCEPT wherever a source itself has less
   than 12 months of history available (the script prints a warning in
@@ -750,7 +751,11 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   nationality combined; Brazil = share of annual visits (%, not a
   headcount); Colombia = foreign visitor entries; Paraguay = foreign
   visitor entries; Uruguay = tourism spending in USD millions (not a
-  headcount). See
+  headcount); Argentina = foreign visitors arriving by international air
+  travel, raw ("Serie original") monthly count, not seasonally adjusted;
+  Vietnam = total international visitor arrivals, hand-transcribed
+  (January 2026's own figure is still marked "(estimate)" on the source
+  site). See
   `fetch_chile_ine_tourism_accommodation.py`,
   `fetch_statcan_airport_movements.py`,
   `build_mexico_international_passengers_dataset.py`, and the sections
@@ -831,14 +836,24 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   Costa Rica, Canada, and Brazil in both the notebook and the interactive
   chart script — sqrt-scaling it against the rest would round every one
   of its months down to the same minimum dot.
+- **Vietnam specifically:** `processed/asia/vietnam_monthly_visitors.csv`
+  (see `build_vietnam_monthly_visitors_dataset.py`) is hand-transcribed
+  from [vietnamtourism.gov.vn's monthly international-arrivals
+  statistic](https://vietnamtourism.gov.vn/en/statistic/international) —
+  no downloadable table, just each month's own rendered "Total" figure.
+  Covers the latest 12 published months (Jul 2025 - Jun 2026). January
+  2026 (2,453,724, the current peak) is itself still marked
+  "(estimate)" on the source site rather than a finalized count — flagged
+  via the output CSV's `is_estimate` column, not silently treated the
+  same as the other, finalized months.
 - **Output:** `processed/PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`
   (`ALL_CAPS` filename by request, unlike this project's other
   `processed/` outputs) — columns `COUNTRY` (Eurostat `geo` code or ISO
-  alpha-2 for the thirteen extra countries), `MONTH` (integer 1–12),
+  alpha-2 for the fifteen extra countries), `MONTH` (integer 1–12),
   `PEAK_RATIO`, plus `COUNTRY_NAME`, `SOURCE_YEAR`, and `PASSENGERS` (the
   raw value behind the ratio, whatever that source's unit actually is —
   see above) for traceability. One row per (`COUNTRY`, `MONTH`). Current
-  run: 541 rows, 47 countries.
+  run: 565 rows, 49 countries.
 - **Run:**
   ```
   python scripts/compute_peak_tourism_indicator.py
@@ -905,12 +920,18 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 ### USD purchasing power (`scripts/build_usd_purchasing_power_dataset.py`)
 
 - **What it does:** joins the World Bank's Price Level Index
-  (`PA.NUS.GDP.PLI`, see above) onto the same 47 countries in
-  `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`, matched by `COUNTRY_NAME`
-  rather than by that file's own `COUNTRY` codes — a few of those are
-  Eurostat-style codes that don't match standard ISO (e.g. `EL` for
-  Greece), while matching on name via `country_lookup.normalize_country`
-  resolves cleanly for all 45 with no exceptions needed.
+  (`PA.NUS.GDP.PLI`, see above) onto the same countries in
+  `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv` (49 as of Vietnam's addition),
+  matched by `COUNTRY_NAME` rather than by that file's own `COUNTRY`
+  codes — a few of those are Eurostat-style codes that don't match
+  standard ISO (e.g. `EL` for Greece), while matching on name via
+  `country_lookup.normalize_country` resolves cleanly with no exceptions
+  needed. **This means the output is only as current as its last run** —
+  since it reads `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv` as an input
+  rather than being wired into `compute_peak_tourism_indicator.py`
+  itself, adding a new country to the peak tourism indicator (like
+  Argentina) doesn't retroactively update this file; rerun this script
+  afterward to pick it up.
 - **Why 100 / PLI instead of PLI directly:** PLI is already "USA = 100,
   below 100 is cheaper" — re-expressing it as
   `USD_PURCHASING_POWER = 100 / PRICE_LEVEL_INDEX` turns that into a
@@ -928,10 +949,14 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 - **Output:** `processed/usd_purchasing_power_by_country.csv` — columns
   `COUNTRY`, `COUNTRY_NAME`, `PRICE_LEVEL_INDEX` (raw World Bank value),
   `USD_PURCHASING_POWER` (`100 / PRICE_LEVEL_INDEX`), `SOURCE_YEAR`.
-  Current run: 47 rows, sorted most-purchasing-power to least. Indonesia,
-  Paraguay, and North Macedonia currently sit highest (~$2.67–3.49
+  Current run: 49 rows, sorted most-purchasing-power to least. Vietnam,
+  Indonesia, and Paraguay currently sit highest (~$3.49–3.57
   US-equivalent per dollar); Switzerland and Iceland lowest
-  (~$0.85–0.89).
+  (~$0.85–0.89). Argentina and Vietnam each joined this file
+  automatically once they were wired into
+  `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv` — no code change needed here,
+  just a rerun (see the note on stale derived files below the source
+  list).
 - **Run:**
   ```
   python scripts/build_usd_purchasing_power_dataset.py
@@ -1183,6 +1208,48 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 - **Run:**
   ```
   python scripts/americas/build_mexico_international_passengers_dataset.py
+  ```
+
+### INDEC Argentina — international air travel, receptivo/emisivo (`scripts/americas/build_argentina_indec_air_tourism_dataset.py`)
+
+- **Source:** Argentina's [INDEC (Instituto Nacional de Estadística y
+  Censos)](https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-13-55), "Turismo
+  receptivo y emisivo. Series original, desestacionalizada y
+  tendencia-ciclo. Vía aérea internacional", Enero 2016–Mayo 2026 edition.
+  Reached via a direct `.xlsx` download —
+  `https://www.indec.gob.ar/ftp/cuadros/economia/series_eti_via_aerea.xlsx`
+  (`SOURCE_XLSX_URL`) — cached at `raw/argentina_indec/`.
+  `download_workbook()` attempts a live fetch first (browser User-Agent,
+  since a plain default UA is a common 403 cause on government sites in
+  this project) and only falls back to the cache if that fails, same
+  pattern as Chile INE above (`indec.gob.ar` is network-blocked in this
+  sandbox, confirmed — same issue as `ine.gob.cl`/StatCan/Eurostat/e-Stat).
+- **What it is:** two sheets, one row per month each, Jan 2016–May 2026 —
+  "Turismo receptivo" (foreign visitors arriving in Argentina by
+  international air travel — the destination-relevant series) and
+  "Turismo emisivo" (Argentine residents departing by air). Each sheet
+  carries three parallel series: "Serie original" (raw monthly count, in
+  miles/thousands), "Serie desestacionalizada" (seasonally adjusted), and
+  "Tendencia-ciclo" (trend-cycle, smoothed).
+- **Recommended series:** "Serie original" (raw), not the seasonally
+  adjusted or trend-cycle series — a peak-season indicator needs the
+  seasonal signal itself, not one with it smoothed or removed. This is
+  what's wired into `compute_peak_tourism_indicator.py`.
+- **Output:** `processed/americas/argentina_indec_air_tourism_monthly.csv` —
+  long format: `flow` (`receptivo`/`emisivo`), `ref_date` (`YYYY-MM`),
+  `original_thousands`, `seasonally_adjusted_thousands`,
+  `trend_cycle_thousands`, `passengers` (`original_thousands * 1,000`,
+  rounded).
+- **Peak tourism indicator:** wired in via `ARGENTINA_SOURCE` in
+  `compute_peak_tourism_indicator.py`, filtered to `flow == "receptivo"`
+  and scored on latest-12-months like Chile/Canada, even though this
+  source (like Chile's) has a long full history — kept consistent with
+  the other non-Eurostat sources rather than special-cased. January is
+  Argentina's peak inbound month (Southern Hemisphere summer).
+- **Run:**
+  ```
+  python scripts/americas/build_argentina_indec_air_tourism_dataset.py
+  python scripts/americas/build_argentina_indec_air_tourism_dataset.py --force-download
   ```
 
 ### Australian Bureau of Statistics — visitor arrivals (`scripts/oceana/fetch_abs_visitor_arrivals.py`)
