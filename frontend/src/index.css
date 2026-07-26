@@ -42,6 +42,12 @@ body {
   text-decoration: none;
 }
 
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .navbar-menu {
   position: relative;
 }
@@ -77,12 +83,31 @@ body {
   z-index: 10;
 }
 
+.navbar-dropdown-scroll {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
 .navbar-dropdown-link {
   display: block;
+  width: 100%;
   padding: 0.6rem 0.85rem;
   font-size: 0.9rem;
   color: #f2f2f2;
   text-decoration: none;
+  text-align: left;
+}
+
+.navbar-dropdown-option {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.navbar-dropdown-option[aria-current="true"] {
+  background: #1c232c;
+  font-weight: 600;
 }
 
 .navbar-dropdown-link:hover {

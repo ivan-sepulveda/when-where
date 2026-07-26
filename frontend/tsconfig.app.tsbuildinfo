@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/components/navbar.tsx","./src/lib/geolocatecountry.ts"],"version":"5.9.3"}
+{"root":["./src/App.tsx","./src/main.tsx","./src/components/NavBar.tsx","./src/lib/countries.ts","./src/lib/geolocateCountry.ts"],"version":"5.9.3"}
