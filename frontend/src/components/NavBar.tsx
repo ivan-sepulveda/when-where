@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { COUNTRIES, DEFAULT_COUNTRY_CODE } from "../lib/countries";
+import { normalizeForSearch } from "../lib/search";
 
 // No auth/user state yet -- when that lands, this is where a
 // signed-in menu (profile, sign out, etc.) would slot in, mirroring
@@ -19,6 +20,27 @@ export default function NavBar() {
   // (see useCountry in lib/geolocateCountry.ts) is wired in, its
   // result should be used to set this instead.
   const [countryCode, setCountryCode] = useState(DEFAULT_COUNTRY_CODE);
+
+  const [countrySearch, setCountrySearch] = useState("");
+  const countrySearchRef = useRef<HTMLInputElement>(null);
+
+  const trimmedSearch = countrySearch.trim();
+  const displayedCountries = trimmedSearch
+    ? COUNTRIES.filter((country) => {
+        const haystack = normalizeForSearch(`${country.code} ${country.name}`);
+        return haystack.includes(normalizeForSearch(trimmedSearch));
+      })
+    : COUNTRIES;
+
+  // Every time the country dropdown opens, clear any leftover search
+  // text from last time and focus the box so typing works immediately
+  // -- no need to click into it or scroll to find a country.
+  useEffect(() => {
+    if (openMenu === "country") {
+      setCountrySearch("");
+      countrySearchRef.current?.focus();
+    }
+  }, [openMenu]);
 
   function toggleMenu(menu: OpenMenu) {
     setOpenMenu((current) => (current === menu ? null : menu));
@@ -68,21 +90,36 @@ export default function NavBar() {
           </button>
 
           {openMenu === "country" && (
-            <div className="navbar-dropdown navbar-dropdown-scroll">
-              {COUNTRIES.map((country) => (
-                <button
-                  key={country.code}
-                  type="button"
-                  className="navbar-dropdown-link navbar-dropdown-option"
-                  aria-current={country.code === countryCode}
-                  onClick={() => {
-                    setCountryCode(country.code);
-                    setOpenMenu(null);
-                  }}
-                >
-                  {country.name}
-                </button>
-              ))}
+            <div className="navbar-dropdown navbar-dropdown-wide">
+              <input
+                ref={countrySearchRef}
+                type="text"
+                value={countrySearch}
+                onChange={(e) => setCountrySearch(e.target.value)}
+                placeholder="Search countries..."
+                className="navbar-dropdown-search"
+              />
+
+              <div className="navbar-dropdown-scroll">
+                {displayedCountries.length === 0 && (
+                  <p className="navbar-dropdown-empty">No matches</p>
+                )}
+
+                {displayedCountries.map((country) => (
+                  <button
+                    key={country.code}
+                    type="button"
+                    className="navbar-dropdown-link navbar-dropdown-option"
+                    aria-current={country.code === countryCode}
+                    onClick={() => {
+                      setCountryCode(country.code);
+                      setOpenMenu(null);
+                    }}
+                  >
+                    {country.name}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
         </div>

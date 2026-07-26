@@ -83,9 +83,37 @@ body {
   z-index: 10;
 }
 
+.navbar-dropdown-wide {
+  min-width: 240px;
+}
+
+.navbar-dropdown-search {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border: none;
+  border-bottom: 1px solid #3a3f47;
+  border-radius: 0;
+  background: #161b22;
+  color: #f2f2f2;
+  font-size: 0.9rem;
+}
+
+.navbar-dropdown-search:focus {
+  outline: none;
+  background: #1c232c;
+}
+
 .navbar-dropdown-scroll {
   max-height: 320px;
   overflow-y: auto;
+}
+
+.navbar-dropdown-empty {
+  padding: 0.6rem 0.85rem;
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.6;
 }
 
 .navbar-dropdown-link {
