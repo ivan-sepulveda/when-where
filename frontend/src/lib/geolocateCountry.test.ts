@@ -3,15 +3,15 @@ import { renderHook, waitFor } from "@testing-library/react";
 import { useCountry } from "./geolocateCountry";
 
 describe("useCountry", () => {
-  const originalFetch = global.fetch;
+  const originalFetch = globalThis.fetch;
 
   afterEach(() => {
-    global.fetch = originalFetch;
+    globalThis.fetch = originalFetch;
     vi.restoreAllMocks();
   });
 
   it("starts in a loading state with no country yet", () => {
-    global.fetch = vi.fn(() => new Promise(() => {})) as unknown as typeof fetch;
+    globalThis.fetch = vi.fn(() => new Promise(() => {})) as unknown as typeof fetch;
 
     const { result } = renderHook(() => useCountry());
 
@@ -21,7 +21,7 @@ describe("useCountry", () => {
   });
 
   it("returns the country on a successful lookup", async () => {
-    global.fetch = vi.fn().mockResolvedValue({
+    globalThis.fetch = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => ({ ip: "8.8.8.8", country: "US" }),
     }) as unknown as typeof fetch;
@@ -35,7 +35,7 @@ describe("useCountry", () => {
   });
 
   it("sets an error when the API responds with a non-ok status", async () => {
-    global.fetch = vi.fn().mockResolvedValue({
+    globalThis.fetch = vi.fn().mockResolvedValue({
       ok: false,
       status: 429,
       json: async () => ({}),
@@ -50,7 +50,7 @@ describe("useCountry", () => {
   });
 
   it("sets an error when fetch itself rejects (e.g. offline)", async () => {
-    global.fetch = vi.fn().mockRejectedValue(new Error("network down"));
+    globalThis.fetch = vi.fn().mockRejectedValue(new Error("network down"));
 
     const { result } = renderHook(() => useCountry());
 
@@ -62,7 +62,7 @@ describe("useCountry", () => {
 
   it("does not update state after unmount (cancelled cleanup)", async () => {
     let resolveFetch: (value: unknown) => void = () => {};
-    global.fetch = vi.fn(
+    globalThis.fetch = vi.fn(
       () => new Promise((resolve) => {
         resolveFetch = resolve;
       })
