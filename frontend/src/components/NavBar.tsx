@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { COUNTRIES, DEFAULT_COUNTRY_CODE } from "../lib/countries";
+import { countryCodeToFlagEmoji } from "../lib/flagEmoji";
 import { normalizeForSearch } from "../lib/search";
 
 // No auth/user state yet -- when that lands, this is where a
@@ -86,7 +87,7 @@ export default function NavBar() {
             onClick={() => toggleMenu("country")}
             aria-expanded={openMenu === "country"}
           >
-            Departing from: {countryCode} ▾
+            Departing from: {countryCode} {countryCodeToFlagEmoji(countryCode)} ▾
           </button>
 
           {openMenu === "country" && (
@@ -116,7 +117,7 @@ export default function NavBar() {
                       setOpenMenu(null);
                     }}
                   >
-                    {country.name}
+                    {countryCodeToFlagEmoji(country.code)} {country.name}
                   </button>
                 ))}
               </div>
