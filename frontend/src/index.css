@@ -22,6 +22,74 @@ body {
   padding: 4rem 1.5rem;
 }
 
+.navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #3a3f47;
+  background: #111820;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #f2f2f2;
+  text-decoration: none;
+}
+
+.navbar-menu {
+  position: relative;
+}
+
+.navbar-browse-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #f2f2f2;
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+}
+
+.navbar-browse-toggle:hover {
+  background: #1c232c;
+}
+
+.navbar-dropdown {
+  position: absolute;
+  right: 0;
+  top: 2.25rem;
+  background: #161b22;
+  border: 1px solid #3a3f47;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  min-width: 160px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.navbar-dropdown-link {
+  display: block;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.9rem;
+  color: #f2f2f2;
+  text-decoration: none;
+}
+
+.navbar-dropdown-link:hover {
+  background: #1c232c;
+}
+
+.navbar-dropdown-link + .navbar-dropdown-link {
+  border-top: 1px solid #232a33;
+}
+
 h1 {
   font-size: 2.5rem;
   margin-bottom: 0.25rem;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import NavBar from "./components/NavBar";
 
 const INTERESTS = ["Hiking", "Beaches", "Food & culture", "Nightlife"] as const;
 type Interest = (typeof INTERESTS)[number];
@@ -7,7 +8,9 @@ function App() {
   const [interest, setInterest] = useState<Interest>("Food & culture");
 
   return (
-    <main className="page">
+    <>
+      <NavBar />
+      <main className="page">
       <h1>when/where</h1>
       <p className="tagline">
         Tell us your dates and what you're into. We'll tell you where to go.
@@ -49,7 +52,8 @@ function App() {
           Find destinations (coming soon)
         </button>
       </form>
-    </main>
+      </main>
+    </>
   );
 }
 
