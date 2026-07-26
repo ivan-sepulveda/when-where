@@ -248,6 +248,9 @@ dependency — see `data/README.md` for the full breakdown of each control.
 - [ ] Find a public data source for visa requirements by passport (e.g. Mexico passport: 90-day visa-free to Germany, visa required for Gambia). Needed to score trip opportunities by whether a traveler's passport can actually make the trip, not just whether the destination looks good.
 - [ ] Get Maldives tourism statistics via the Maldives Monetary Authority API: https://database.mma.gov.mv/api/docs
 - [ ] Begin research on Safety or Crime Statistics by Country (specifically, where to pull data)
+- [ ] Still missing many countries: United States, China, United Kingdom, United Arab Emirates, South Korea, Georgia, Philippines and more.
+- [ ] Consider how to handle territories (US: Puerto Rico, Guam, etc, France: French Polynesia, French Guiana, etc. UK: Falkland Islands)
+- [ ] Figure out - UK - Split up into it's 4 Countries + Overseas territories?
 
 ## Data attributions
 
