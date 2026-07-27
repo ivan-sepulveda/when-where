@@ -1,0 +1,220 @@
+{
+  "version": "2.0",
+  "class": "dataset",
+  "label": "Air transport of passengers by country (yearly data)",
+  "source": "ESTAT",
+  "updated": "2026-07-03T23:00:00+0200",
+  "value": {
+    "23": 36151294,
+    "5": 12014406,
+    "34": 58731846,
+    "16": 13729951,
+    "6": 19174047,
+    "8": 207239776,
+    "7": 36351595,
+    "11": 73000224,
+    "12": 272121512,
+    "29": 18695293,
+    "14": 13459551,
+    "20": 19755328,
+    "10": 43333164,
+    "31": 8499319,
+    "15": 193278859,
+    "18": 7128295,
+    "19": 5300525,
+    "17": 7098121,
+    "36": 3224376,
+    "37": 3471816,
+    "22": 78417027,
+    "33": 39471690,
+    "24": 64039983,
+    "25": 67165901,
+    "26": 26174751,
+    "39": 9295473,
+    "30": 30510455,
+    "27": 1591308,
+    "28": 3236570
+  },
+  "id": [
+    "freq",
+    "unit",
+    "tra_meas",
+    "tra_cov",
+    "schedule",
+    "geo",
+    "time"
+  ],
+  "size": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    42,
+    1
+  ],
+  "dimension": {
+    "freq": {
+      "label": "Time frequency",
+      "category": {
+        "index": {
+          "A": 0
+        },
+        "label": {
+          "A": "Annual"
+        }
+      }
+    },
+    "unit": {
+      "label": "Unit of measure",
+      "category": {
+        "index": {
+          "PAS": 0
+        },
+        "label": {
+          "PAS": "Passenger"
+        }
+      }
+    },
+    "tra_meas": {
+      "label": "Traffic and transport measurement",
+      "category": {
+        "index": {
+          "PAS_CRD": 0
+        },
+        "label": {
+          "PAS_CRD": "Passengers carried"
+        }
+      }
+    },
+    "tra_cov": {
+      "label": "Transport coverage",
+      "category": {
+        "index": {
+          "TOTAL": 0
+        },
+        "label": {
+          "TOTAL": "Total transport"
+        }
+      }
+    },
+    "schedule": {
+      "label": "Type of schedule",
+      "category": {
+        "index": {
+          "TOT": 0
+        },
+        "label": {
+          "TOT": "Total"
+        }
+      }
+    },
+    "geo": {
+      "label": "Geopolitical entity (reporting)",
+      "category": {
+        "index": {
+          "EU27_2020": 0,
+          "EA21": 1,
+          "EA20": 2,
+          "EA19": 3,
+          "BE": 4,
+          "BG": 5,
+          "CZ": 6,
+          "DK": 7,
+          "DE": 8,
+          "EE": 9,
+          "IE": 10,
+          "EL": 11,
+          "ES": 12,
+          "FR": 13,
+          "HR": 14,
+          "IT": 15,
+          "CY": 16,
+          "LV": 17,
+          "LT": 18,
+          "LU": 19,
+          "HU": 20,
+          "MT": 21,
+          "NL": 22,
+          "AT": 23,
+          "PL": 24,
+          "PT": 25,
+          "RO": 26,
+          "SI": 27,
+          "SK": 28,
+          "FI": 29,
+          "SE": 30,
+          "IS": 31,
+          "LI": 32,
+          "NO": 33,
+          "CH": 34,
+          "UK": 35,
+          "ME": 36,
+          "MK": 37,
+          "AL": 38,
+          "RS": 39,
+          "TR": 40,
+          "BA": 41
+        },
+        "label": {
+          "EU27_2020": "European Union - 27 countries (from 2020)",
+          "EA21": "Euro area – 21 countries (from 2026)",
+          "EA20": "Euro area – 20 countries (2023-2025)",
+          "EA19": "Euro area - 19 countries  (2015-2022)",
+          "BE": "Belgium",
+          "BG": "Bulgaria",
+          "CZ": "Czechia",
+          "DK": "Denmark",
+          "DE": "Germany",
+          "EE": "Estonia",
+          "IE": "Ireland",
+          "EL": "Greece",
+          "ES": "Spain",
+          "FR": "France",
+          "HR": "Croatia",
+          "IT": "Italy",
+          "CY": "Cyprus",
+          "LV": "Latvia",
+          "LT": "Lithuania",
+          "LU": "Luxembourg",
+          "HU": "Hungary",
+          "MT": "Malta",
+          "NL": "Netherlands",
+          "AT": "Austria",
+          "PL": "Poland",
+          "PT": "Portugal",
+          "RO": "Romania",
+          "SI": "Slovenia",
+          "SK": "Slovakia",
+          "FI": "Finland",
+          "SE": "Sweden",
+          "IS": "Iceland",
+          "LI": "Liechtenstein",
+          "NO": "Norway",
+          "CH": "Switzerland",
+          "UK": "United Kingdom",
+          "ME": "Montenegro",
+          "MK": "North Macedonia",
+          "AL": "Albania",
+          "RS": "Serbia",
+          "TR": "Türkiye",
+          "BA": "Bosnia and Herzegovina"
+        }
+      }
+    },
+    "time": {
+      "label": "Time",
+      "category": {
+        "index": {
+          "2025": 0
+        },
+        "label": {
+          "2025": "2025"
+        }
+      }
+    }
+  },
+  "extension": {
+    "lang": "EN"
+  }
+}

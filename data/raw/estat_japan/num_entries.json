@@ -1,0 +1,422 @@
+{
+  "GET_STATS": {
+    "RESULT": {
+      "status": "0",
+      "errorMsg": "Success.",
+      "date": "Tue Jul 21 07:51:49 JST 2026"
+    },
+    "PARAMETER": {
+      "lang": "EN",
+      "indicatorCode": [
+        "0204030003000010010"
+      ],
+      "timeFrom": "20250100",
+      "cycle": "1",
+      "regionalRank": "2",
+      "isSeasonalAdjustment": "1",
+      "metaGetFlg": "Y",
+      "sectionHeaderFlg": "1"
+    },
+    "STATISTICAL_DATA": {
+      "RESULT_INF": {
+        "TOTAL_NUMBER": "16"
+      },
+      "TABLE_INF": {
+        "STAT_NAME": [
+          {
+            "@code": "00250011",
+            "$": "Statistics on Legal Migrants"
+          }
+        ]
+      },
+      "CLASS_INF": {
+        "CLASS_OBJ": [
+          {
+            "@id": "indicator",
+            "@name": "Indicator",
+            "@sname": "Abbreviated display name",
+            "CLASS": [
+              {
+                "@code": "0204030003000010010",
+                "@name": "Number of entries (Foreign nationals)",
+                "@sname": "",
+                "TERM_DETAILS": {
+                  "TERM_DETAIL": [
+                    {
+                      "@code": "0204030001",
+                      "@name": "Number of entries",
+                      "$": "Number of authorized entries (reentries) to Japan"
+                    },
+                    {
+                      "@code": "0201010004",
+                      "@name": "Foreign nationals",
+                      "$": "A person who has a nationality other than Japanese nationality."
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "@id": "unit",
+            "@name": "Unit",
+            "CLASS": [
+              {
+                "@code": "090",
+                "$": "person"
+              }
+            ]
+          },
+          {
+            "@id": "regionCode",
+            "@name": "Region",
+            "CLASS": [
+              {
+                "@code": "00000",
+                "@name": "Japan"
+              }
+            ]
+          },
+          {
+            "@id": "time",
+            "@name": "Time axis",
+            "CLASS": [
+              {
+                "@code": "20250100",
+                "@name": "Jan.2025"
+              },
+              {
+                "@code": "20250200",
+                "@name": "Feb.2025"
+              },
+              {
+                "@code": "20250300",
+                "@name": "Mar.2025"
+              },
+              {
+                "@code": "20250400",
+                "@name": "Apr.2025"
+              },
+              {
+                "@code": "20250500",
+                "@name": "May 2025"
+              },
+              {
+                "@code": "20250600",
+                "@name": "Jun.2025"
+              },
+              {
+                "@code": "20250700",
+                "@name": "Jul.2025"
+              },
+              {
+                "@code": "20250800",
+                "@name": "Aug.2025"
+              },
+              {
+                "@code": "20250900",
+                "@name": "Sep.2025"
+              },
+              {
+                "@code": "20251000",
+                "@name": "Oct.2025"
+              },
+              {
+                "@code": "20251100",
+                "@name": "Nov.2025"
+              },
+              {
+                "@code": "20251200",
+                "@name": "Dec.2025"
+              },
+              {
+                "@code": "20260100",
+                "@name": "Jan.2026"
+              },
+              {
+                "@code": "20260200",
+                "@name": "Feb.2026"
+              },
+              {
+                "@code": "20260300",
+                "@name": "Mar.2026"
+              },
+              {
+                "@code": "20260400",
+                "@name": "Apr.2026"
+              }
+            ]
+          },
+          {
+            "@id": "cycle",
+            "@name": "Cycle",
+            "CLASS": [
+              {
+                "@code": "1",
+                "$": "Month"
+              }
+            ]
+          },
+          {
+            "@id": "regionalRank",
+            "@name": "Regional rank",
+            "CLASS": [
+              {
+                "@code": "2",
+                "$": "Japan"
+              }
+            ]
+          },
+          {
+            "@id": "isSeasonal",
+            "@name": "Original Series / Seasonally Adjusted Series",
+            "CLASS": [
+              {
+                "@code": "1",
+                "$": "Original Series"
+              }
+            ]
+          },
+          {
+            "@id": "isProvisional",
+            "@name": "Breaking News or Fixed",
+            "CLASS": [
+              {
+                "@code": "0",
+                "$": "Fixed"
+              }
+            ]
+          }
+        ]
+      },
+      "DATA_INF": {
+        "DATA_OBJ": [
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20250100",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3800206"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20250200",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3253536"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20250300",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3481014"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20250400",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3861111"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20250500",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3666288"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20250600",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3314015"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20250700",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3368799"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20250800",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3409810"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20250900",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3225434"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20251000",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3873711"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20251100",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3520846"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20251200",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3656160"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20260100",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3698050"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20260200",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3514914"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20260300",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3670828"
+            }
+          },
+          {
+            "VALUE": {
+              "@indicator": "0204030003000010010",
+              "@unit": "090",
+              "@stat": "00250011",
+              "@regionCode": "00000",
+              "@time": "20260400",
+              "@cycle": "1",
+              "@regionRank": "2",
+              "@isSeasonal": "1",
+              "@isProvisional": "0",
+              "$": "3736838"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
