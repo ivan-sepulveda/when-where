@@ -55,6 +55,26 @@ Tries Kaggle via `kagglehub` first (needs Kaggle API credentials — see
 CSV on GitHub if that fails for any reason, no credentials needed.
 
 ```
+python scripts/multiple/fetch_unesco_world_heritage_sites.py
+python scripts/multiple/fetch_unesco_world_heritage_sites.py --force-download   # re-download even if cached
+```
+
+Downloads UNESCO's World Heritage List export (~24MB — full
+multi-language text and media metadata per site) and writes a much
+smaller `data/processed/multiple/unesco_world_heritage_sites.json`:
+English-only name/description, inscription details (date, criteria,
+danger-list status, area), region/country, English-only primary
+image/video credit, and coordinates flattened to top-level `lat`/`lng`
+(to match `tourist_cities.json`'s naming, for an easy join later).
+Drops the 5 non-English name/description variants, the long
+`justification_en` inscription essay, non-English media captions, and a
+few bookkeeping fields (`uuid`, `id_no`, `images_urls`, `videos_urls`).
+Raw export is cached at `data/raw/unesco/whc001.json` — re-run with
+`--force-download` to refresh it (UNESCO adds new inscriptions roughly
+annually). See `data/README.md` for the full kept/dropped field list and
+size-reduction numbers.
+
+```
 python scripts/europe/fetch_eurostat_dataset.py
 python scripts/europe/fetch_eurostat_dataset.py TTR00016 --filter tra_cov=TOTAL
 ```

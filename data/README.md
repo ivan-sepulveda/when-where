@@ -587,6 +587,134 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   kagglehub-fails→fallback logic, `--force-fallback`, and the raw/ copy
   behavior were also verified end-to-end with both paths mocked.
 
+### UNESCO World Heritage Sites (`scripts/multiple/fetch_unesco_world_heritage_sites.py`)
+
+- **Source:** [UNESCO World Heritage Centre Open Data](https://data.unesco.org/pages/home/)
+  — `whc001`, the full World Heritage List export
+  (`GET data.unesco.org/api/explore/v2.1/catalog/datasets/whc001/exports/json`),
+  one JSON record per inscribed site (1223+ sites as of this writing).
+- **License — unresolved, more restrictive than every other source in this
+  file, do not treat as CC BY:** the `whc001` dataset page on
+  data.unesco.org links its "Terms and Conditions of Use" to
+  [whc.unesco.org/en/syndication](https://whc.unesco.org/en/syndication),
+  which states "any republication, online or in any other form, of any
+  UNESCO/WHC data requires prior written authorization," that syndicated
+  content may not be modified beyond typeface/linebreaks, that it "may
+  not be sold, licensed, or otherwise assigned," and that unlisted
+  sections "may not be 'scraped' or otherwise syndicated in any manner."
+  This is a genuinely different posture from this project's other
+  sources (SimpleMaps, Eurostat, World Bank — all explicit CC BY).
+  data.unesco.org's own generic "terms-and-conditions" link resolves to
+  UNESCO's org-wide Access to Information Policy, which doesn't clarify
+  a specific reuse license for this dataset either. **Not a lawyer, not
+  legal advice** — before using this data beyond personal/internal
+  research use (e.g. before shipping it in a public product or
+  redistributing the processed file), get an explicit answer from
+  UNESCO/WHC (contact info on the syndication page) rather than relying
+  on this note.
+- **What it is:** every UNESCO World Heritage Site — name, short
+  description, category (`Cultural`/`Natural`/`Mixed`), inscription year
+  and criteria, in-danger-list status, area, country/countries,
+  transboundary flag, and coordinates. The raw export is ~24MB because
+  every record duplicates its name/description in 6 languages and
+  carries a full multi-paragraph inscription "justification" essay plus
+  a pile of image/video URLs and per-language captions — none of which
+  this project needs.
+- **Why it's here:** a culture/sightseeing-suitability signal for the
+  scoring model, per the project's TODO — e.g. a "food and culture
+  traveler" profile (see the project's example traveler profiles) can
+  weight destinations near more/more-significant heritage sites more
+  heavily, the same role Michelin restaurant data plays for food.
+- **Field reduction (`KEEP_FIELDS` at the top of the script):** kept —
+  `name_en`, `short_description_en`, `date_inscribed`, `secondary_dates`,
+  `danger` (currently on the in-danger list), `date_end` (year removed
+  from the danger list, if applicable), `danger_list` (raw danger-list
+  history string), `area_hectares`, `cultural_criteria`,
+  `natural_criteria`, `criteria_txt`, `category`, `category_id`,
+  `states_names`, `iso_codes`, `region`, `region_code`, `transboundary`,
+  `main_image_url`/`main_image_author`/`main_image_copyright`/
+  `main_image_caption_en`, `main_video_url`/`main_video_author`/
+  `main_video_caption_en`, `components_list`, `components_count`, plus
+  `lat`/`lng` (see next point). Dropped — `name_fr/es/ru/ar/zh` and
+  `short_description_fr/es/ru/ar/zh` (non-English localizations),
+  `description_en` (duplicates `short_description_en` in every record
+  checked), `justification_en` (the single biggest field per record — a
+  multi-paragraph inscription essay, not needed for scoring),
+  `main_image_caption_fr/es/ru/ar/zh` and
+  `main_video_caption_fr/es/ru/ar/zh` (non-English captions),
+  `images_urls`, `videos_urls`, `uuid`, `id_no`. These choices were
+  confirmed with the user before building the script — the initial ask
+  only named a subset of fields to drop (image captions, `images_urls`,
+  `uuid`, `id_no`, and, surprisingly, `coordinates`), so two points were
+  checked explicitly: whether to actually drop coordinates (project
+  answer: no — every other dataset here joins on `lat`/`lng`, so
+  dropping them would prevent joining a heritage site to a nearby city
+  later) and whether to also trim the *un*-mentioned but much larger
+  text fields (`justification_en`, the 5 non-English name/description
+  variants — project answer: yes, English-only, since those are what
+  actually drives the 24MB raw size).
+- **Coordinates handling:** the raw `coordinates` field is a nested
+  `{"lon": ..., "lat": ...}` object — flattened to top-level `lat`/`lng`
+  keys (`lng`, not the source's `lon`) to match the naming used
+  elsewhere in this project (`reference/tourist_cities.json`,
+  `weather_normals_<year>_by_city.json`), so a future join doesn't need
+  a rename step first. A handful of sites (mostly older/transboundary
+  entries) have no coordinates at all — `lat`/`lng` are `null` for those
+  rather than the record being dropped; `sites_missing_coordinates` in
+  the output's top-level metadata reports the count.
+- **Output:**
+  - `raw/unesco/whc001.json` — untouched download, cached (skipped on
+    rerun unless `--force-download` — UNESCO adds new inscriptions
+    roughly annually, so an occasional refresh is enough).
+  - `processed/multiple/unesco_world_heritage_sites.json`:
+    ```json
+    {
+      "source": "UNESCO World Heritage Centre Open Data (whc001) -- https://data.unesco.org/pages/home/",
+      "source_query_url": "https://data.unesco.org/api/explore/v2.1/catalog/datasets/whc001/exports/json/?lang=en&timezone=America%2FMexico_City",
+      "generated": "2026-07-27",
+      "total_sites": 1223,
+      "sites_missing_coordinates": 0,
+      "kept_fields": ["name_en", "short_description_en", "...", "lat", "lng"],
+      "dropped_fields": ["description_en", "id_no", "images_urls", "justification_en", "main_image_caption_fr", "...", "uuid", "videos_urls"],
+      "coordinates_note": "coordinates was flattened into lat/lng, not dropped -- see kept_fields",
+      "sites": [
+        {
+          "name_en": "Old Walled City of Shibam",
+          "short_description_en": "Surrounded by a fortified wall, ...",
+          "date_inscribed": "1982",
+          "category": "Cultural",
+          "states_names": ["Yemen"],
+          "iso_codes": "YE",
+          "region": "Arab States",
+          "lat": 15.92694,
+          "lng": 48.62667,
+          "...": "..."
+        }
+      ]
+    }
+    ```
+- **Run:**
+  ```
+  python scripts/multiple/fetch_unesco_world_heritage_sites.py
+  python scripts/multiple/fetch_unesco_world_heritage_sites.py --force-download
+  ```
+- **Note:** this sandbox couldn't reach `data.unesco.org` (`curl` timed
+  out — same allowlist pattern as every other blocked source in this
+  file), so the real 24MB download wasn't run end-to-end here. Every
+  other piece of logic — field keep/drop, the `coordinates` → `lat`/`lng`
+  flattening, and the missing-coordinates case — was verified offline
+  against a fixture built from the exact sample record the user
+  provided (Old Walled City of Shibam, Yemen) plus a second synthetic
+  record with `coordinates: null`, confirming: dropped fields are
+  genuinely absent from the output (not just null), kept fields survive
+  unchanged, `lat`/`lng` are correctly pulled from the nested object,
+  and a missing-coordinates record gets `lat`/`lng: null` rather than
+  being skipped or crashing the run. The actual size-reduction ratio
+  (raw MB vs. processed MB, printed at the end of a real run) wasn't
+  measured here for the same network reason — expect it to be
+  substantial given `justification_en` and 5 extra language variants
+  make up most of a typical record.
+
 ### Eurostat — Air transport of passengers by country (`TTR00012`/`TTR00016`, `scripts/europe/fetch_eurostat_dataset.py`)
 
 - **Source:** [Eurostat Statistics API](https://wikis.ec.europa.eu/display/EUROSTATHELP/API+-+Getting+started)

@@ -38,7 +38,7 @@ each one computes/writes, and per-source notes.
 - [ ] Consider how to handle territories (US: Puerto Rico, Guam, etc, France: French Polynesia, French Guiana, etc. UK: Falkland Islands)
 - [ ] Figure out - UK - Split up into it's 4 Countries + Overseas territories?
 - [ ] User IP Address recognition (country-only, not persisted; use country.is)
-- [ ] Pull UNESCO World Heritage Sites data (culture/activity-suitability signal — site locations, inscription category, could feed a "food and culture traveler" profile alongside Michelin data).
+- [x] Pull UNESCO World Heritage Sites data — done (`scripts/multiple/fetch_unesco_world_heritage_sites.py`). License terms are unclear/restrictive (see `data/README.md`) — confirm redistribution rights with UNESCO/WHC before this goes beyond personal/internal use.
 
 ## Data attributions
 
@@ -48,5 +48,6 @@ each one computes/writes, and per-source notes.
 - Economic indicators (GDP deflator, exports % of GDP, PPP conversion factor, price level index) from [The World Bank](https://data.worldbank.org), via the [Data360 API](https://data360api.worldbank.org), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Air passenger traffic data from [Eurostat](https://ec.europa.eu/eurostat) (dataset `TTR00012`, sourced from `AVIA_PAOC`), reused under the European Commission's [CC BY 4.0 reuse policy](https://ec.europa.eu/eurostat/en/help/copyright-notice).
 - Crime statistics from [Eurostat](https://ec.europa.eu/eurostat) (datasets `CRIM_OFF_CAT` and `CRIM_GEN_REG`, collected jointly with UNODC from national police/justice authorities), reused under the European Commission's [CC BY 4.0 reuse policy](https://ec.europa.eu/eurostat/en/help/copyright-notice).
+- World Heritage Site data from the [UNESCO World Heritage Centre](https://whc.unesco.org) (`whc001` export via [UNESCO Open Data](https://data.unesco.org)). **License unresolved** — UNESCO/WHC's [syndication terms](https://whc.unesco.org/en/syndication) require prior written authorization for republication; not CC BY like this project's other sources. See `data/README.md` for details — confirm reuse rights with UNESCO/WHC before redistributing this data.
 - Tourism accommodation data (EMAT) from Chile's [Instituto Nacional de Estadísticas (INE)](https://www.ine.gob.cl/estadisticas-por-tema/comercio-y-servicios/actividad-mensual-del-turismo).
 - Domestic air passenger data from Mexico's [Agencia Federal de Aviación Civil (AFAC)](https://www.gob.mx/afac/acciones-y-programas/estadisticas-280404), Monthly Bulletin of Operational Statistics.

@@ -10,3 +10,5 @@ __pycache__/
 
 # jupyter
 .ipynb_checkpoints/
+
+data/raw/unesco/whc001.json
