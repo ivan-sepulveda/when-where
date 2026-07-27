@@ -1,0 +1,290 @@
+region,destino_turistico,comuna
+Arica y Parinacota,Arica,Arica
+Arica y Parinacota,Camarones y Putre,Camarones
+Arica y Parinacota,Camarones y Putre,Putre
+Tarapacá,Iquique,Iquique
+Tarapacá,Resto región,Huara
+Tarapacá,Resto región,Pica
+Tarapacá,Resto región,Pozo Almonte
+Antofagasta,Antofagasta,Antofagasta
+Antofagasta,Calama,Calama
+Antofagasta,San Pedro de Atacama,San Pedro de Atacama
+Antofagasta,Resto región,Mejillones
+Antofagasta,Resto región,Ollagüe
+Antofagasta,Resto región,Sierra Gorda
+Antofagasta,Resto región,Taltal
+Antofagasta,Resto región,Tocopilla
+Atacama,Copiapó y Ojos del Salado,Copiapó
+Atacama,Copiapó y Ojos del Salado,Diego de Almagro
+Atacama,Copiapó y Ojos del Salado,Tierra Amarilla
+Atacama,Pan de Azúcar y Bahía Inglesa - Caldera,Caldera
+Atacama,Pan de Azúcar y Bahía Inglesa - Caldera,Chañaral
+Atacama,Valle del Huasco,Alto del Carmen
+Atacama,Valle del Huasco,Freirina
+Atacama,Valle del Huasco,Huasco
+Atacama,Valle del Huasco,Vallenar
+Coquimbo,La Serena y Coquimbo,Coquimbo
+Coquimbo,La Serena y Coquimbo,La Serena
+Coquimbo,Valle del Elqui,Paihuano
+Coquimbo,Valle del Elqui,Vicuña
+Coquimbo,Resto región,Andacollo
+Coquimbo,Resto región,Canela
+Coquimbo,Resto región,Combarbalá
+Coquimbo,Resto región,Illapel
+Coquimbo,Resto región,La Higuera
+Coquimbo,Resto región,Los Vilos
+Coquimbo,Resto región,Monte Patria
+Coquimbo,Resto región,Ovalle
+Coquimbo,Resto región,Río Hurtado
+Coquimbo,Resto región,Salamanca
+Valparaíso,"Valparaíso, Viña del Mar y Concón",Concón
+Valparaíso,"Valparaíso, Viña del Mar y Concón",Valparaíso
+Valparaíso,"Valparaíso, Viña del Mar y Concón",Viña del Mar
+Valparaíso,Litoral Norte,Papudo
+Valparaíso,Litoral Norte,Puchuncaví
+Valparaíso,Litoral Norte,Quintero
+Valparaíso,Litoral Norte,Zapallar
+Valparaíso,Litoral de Los Poetas,Algarrobo
+Valparaíso,Litoral de Los Poetas,Cartagena
+Valparaíso,Litoral de Los Poetas,Casablanca
+Valparaíso,Litoral de Los Poetas,El Quisco
+Valparaíso,Litoral de Los Poetas,El Tabo
+Valparaíso,Litoral de Los Poetas,San Antonio
+Valparaíso,Litoral de Los Poetas,Santo Domingo
+Valparaíso,Resto región,Cabildo
+Valparaíso,Resto región,Calera
+Valparaíso,Resto región,Calle Larga
+Valparaíso,Resto región,Isla de Pascua
+Valparaíso,Resto región,Juan Fernández
+Valparaíso,Resto región,La Cruz
+Valparaíso,Resto región,La Ligua
+Valparaíso,Resto región,Limache
+Valparaíso,Resto región,Llaillay
+Valparaíso,Resto región,Los Andes
+Valparaíso,Resto región,Nogales
+Valparaíso,Resto región,Olmué
+Valparaíso,Resto región,Petorca
+Valparaíso,Resto región,Putaendo
+Valparaíso,Resto región,Quillota
+Valparaíso,Resto región,Quilpué
+Valparaíso,Resto región,Rinconada
+Valparaíso,Resto región,San Esteban
+Valparaíso,Resto región,San Felipe
+Valparaíso,Resto región,Villa Alemana
+Metropolitana de Santiago,Santiago urbano,Las Condes
+Metropolitana de Santiago,Santiago urbano,Lo Barnechea
+Metropolitana de Santiago,Santiago urbano,Santiago
+Metropolitana de Santiago,Santiago urbano,Providencia
+Metropolitana de Santiago,Santiago urbano,Vitacura
+Metropolitana de Santiago,Resto región,Buin
+Metropolitana de Santiago,Resto región,Colina
+Metropolitana de Santiago,Resto región,Conchalí
+Metropolitana de Santiago,Resto región,Curacaví
+Metropolitana de Santiago,Resto región,El Monte
+Metropolitana de Santiago,Resto región,Estación Central
+Metropolitana de Santiago,Resto región,Huechuraba
+Metropolitana de Santiago,Resto región,Independencia
+Metropolitana de Santiago,Resto región,Isla de Maipo
+Metropolitana de Santiago,Resto región,La Cisterna
+Metropolitana de Santiago,Resto región,La Florida
+Metropolitana de Santiago,Resto región,La Pintana
+Metropolitana de Santiago,Resto región,La Reina
+Metropolitana de Santiago,Resto región,Macul
+Metropolitana de Santiago,Resto región,Maipú
+Metropolitana de Santiago,Resto región,Melipilla
+Metropolitana de Santiago,Resto región,Ñuñoa
+Metropolitana de Santiago,Resto región,Padre Hurtado
+Metropolitana de Santiago,Resto región,Peñaflor
+Metropolitana de Santiago,Resto región,Peñalolén
+Metropolitana de Santiago,Resto región,Pirque
+Metropolitana de Santiago,Resto región,Pudahuel
+Metropolitana de Santiago,Resto región,Quinta Normal
+Metropolitana de Santiago,Resto región,Recoleta
+Metropolitana de Santiago,Resto región,Renca
+Metropolitana de Santiago,Resto región,San Bernardo
+Metropolitana de Santiago,Resto región,San Joaquín
+Metropolitana de Santiago,Resto región,San José de Maipo
+Metropolitana de Santiago,Resto región,San Miguel
+Metropolitana de Santiago,Resto región,Tiltil
+Libertador Gral. Bernardo O’Higgins,Pichilemu y Paredones,Paredones
+Libertador Gral. Bernardo O’Higgins,Pichilemu y Paredones,Pichilemu
+Libertador Gral. Bernardo O’Higgins,Valle de Colchagua,Chimbarongo
+Libertador Gral. Bernardo O’Higgins,Valle de Colchagua,Nancagua
+Libertador Gral. Bernardo O’Higgins,Valle de Colchagua,Palmilla
+Libertador Gral. Bernardo O’Higgins,Valle de Colchagua,Peralillo
+Libertador Gral. Bernardo O’Higgins,Valle de Colchagua,Pumanque
+Libertador Gral. Bernardo O’Higgins,Valle de Colchagua,San Fernando
+Libertador Gral. Bernardo O’Higgins,Valle de Colchagua,Santa Cruz
+Libertador Gral. Bernardo O’Higgins,Rancagua y alrededores,Codegua
+Libertador Gral. Bernardo O’Higgins,Rancagua y alrededores,Graneros
+Libertador Gral. Bernardo O’Higgins,Rancagua y alrededores,Machalí
+Libertador Gral. Bernardo O’Higgins,Rancagua y alrededores,Malloa
+Libertador Gral. Bernardo O’Higgins,Rancagua y alrededores,Mostazal
+Libertador Gral. Bernardo O’Higgins,Rancagua y alrededores,Rancagua
+Libertador Gral. Bernardo O’Higgins,Rancagua y alrededores,Rengo
+Libertador Gral. Bernardo O’Higgins,Rancagua y alrededores,Requinoa
+Libertador Gral. Bernardo O’Higgins,"San Vicente, Rapel y Navidad",Coltauco
+Libertador Gral. Bernardo O’Higgins,"San Vicente, Rapel y Navidad",Las Cabras
+Libertador Gral. Bernardo O’Higgins,"San Vicente, Rapel y Navidad",Litueche
+Libertador Gral. Bernardo O’Higgins,"San Vicente, Rapel y Navidad",Marchihue
+Libertador Gral. Bernardo O’Higgins,"San Vicente, Rapel y Navidad",Navidad
+Libertador Gral. Bernardo O’Higgins,"San Vicente, Rapel y Navidad",Peumo
+Libertador Gral. Bernardo O’Higgins,"San Vicente, Rapel y Navidad",San Vicente
+Maule,Costa Maule,Chanco
+Maule,Costa Maule,Constitución
+Maule,Costa Maule,Curepto
+Maule,Costa Maule,Licantén
+Maule,Costa Maule,Pelluhue
+Maule,Costa Maule,Vichuquén
+Maule,Talca y Valle del Río Maule,Maule
+Maule,Talca y Valle del Río Maule,Pencahue
+Maule,Talca y Valle del Río Maule,San Clemente
+Maule,Talca y Valle del Río Maule,San Javier
+Maule,Talca y Valle del Río Maule,Talca
+Maule,Resto región,Cauquenes
+Maule,Resto región,Colbún
+Maule,Resto región,Curicó
+Maule,Resto región,Empedrado
+Maule,Resto región,Hualañé
+Maule,Resto región,Linares
+Maule,Resto región,Longaví
+Maule,Resto región,Molina
+Maule,Resto región,Parral
+Maule,Resto región,Pelarco
+Maule,Resto región,Rauco
+Maule,Resto región,Retiro
+Maule,Resto región,Río Claro
+Maule,Resto región,Romeral
+Maule,Resto región,Sagrada Familia
+Maule,Resto región,San Rafael
+Maule,Resto región,Teno
+Maule,Resto región,Villa Alegre
+Maule,Resto región,Yerbas Buenas
+Ñuble,Chillán y Ñuble,Chillán
+Ñuble,Chillán y Ñuble,Chillán Viejo
+Ñuble,Chillán y Ñuble,El Carmen
+Ñuble,Chillán y Ñuble,Ninhue
+Ñuble,Chillán y Ñuble,Pinto
+Ñuble,Chillán y Ñuble,Quirihue
+Ñuble,Chillán y Ñuble,San Carlos
+Ñuble,Chillán y Ñuble,San Fabián
+Ñuble,Quillón y alrededores,Bulnes
+Ñuble,Quillón y alrededores,Cobquecura
+Ñuble,Quillón y alrededores,Coelemu
+Ñuble,Quillón y alrededores,Quillón
+Ñuble,Quillón y alrededores,Treguaco
+Ñuble,Quillón y alrededores,Yungay
+Biobío,Concepción y alrededores,Concepción
+Biobío,Concepción y alrededores,Coronel
+Biobío,Concepción y alrededores,Hualqui
+Biobío,Concepción y alrededores,Lota
+Biobío,Concepción y alrededores,San Pedro de la Paz
+Biobío,Concepción y alrededores,Talcahuano
+Biobío,Saltos del Laja,Cabrero
+Biobío,Saltos del Laja,Los Ángeles
+Biobío,Saltos del Laja,Yumbel
+Biobío,Resto región,Alto Biobío
+Biobío,Resto región,Antuco
+Biobío,Resto región,Arauco
+Biobío,Resto región,Cañete
+Biobío,Resto región,Chiguayante
+Biobío,Resto región,Contulmo
+Biobío,Resto región,Curanilahue
+Biobío,Resto región,Laja
+Biobío,Resto región,Lebu
+Biobío,Resto región,Los Álamos
+Biobío,Resto región,Mulchén
+Biobío,Resto región,Nacimiento
+Biobío,Resto región,Negrete
+Biobío,Resto región,Penco
+Biobío,Resto región,San Rosendo
+Biobío,Resto región,Santa Bárbara
+Biobío,Resto región,Tirúa
+Biobío,Resto región,Tomé
+Biobío,Resto región,Tucapel
+La Araucanía,Araucanía Lacustre,Curarrehue
+La Araucanía,Araucanía Lacustre,Pucón
+La Araucanía,Araucanía Lacustre,Villarrica
+La Araucanía,Temuco y alrededores,Freire
+La Araucanía,Temuco y alrededores,Temuco
+La Araucanía,Araucanía Andina,Cunco
+La Araucanía,Araucanía Andina,Curacautín
+La Araucanía,Araucanía Andina,Lonquimay
+La Araucanía,Araucanía Andina,Melipeuco
+La Araucanía,Araucanía Andina,Vilcún
+La Araucanía,Resto región,Angol
+La Araucanía,Resto región,Carahue
+La Araucanía,Resto región,Collipulli
+La Araucanía,Resto región,Ercilla
+La Araucanía,Resto región,Gorbea
+La Araucanía,Resto región,Lautaro
+La Araucanía,Resto región,Loncoche
+La Araucanía,Resto región,Los Sauces
+La Araucanía,Resto región,Lumaco
+La Araucanía,Resto región,Padre de las Casas
+La Araucanía,Resto región,Pitrufquén
+La Araucanía,Resto región,Purén
+La Araucanía,Resto región,Renaico
+La Araucanía,Resto región,Saavedra
+La Araucanía,Resto región,Toltén
+La Araucanía,Resto región,Traiguén
+La Araucanía,Resto región,Victoria
+Los Ríos,Valdivia y Corral,Corral
+Los Ríos,Valdivia y Corral,Los Lagos
+Los Ríos,Valdivia y Corral,Máfil
+Los Ríos,Valdivia y Corral,Mariquina
+Los Ríos,Valdivia y Corral,Valdivia
+Los Ríos,Siete Lagos,Lanco
+Los Ríos,Siete Lagos,Panguipulli
+Los Ríos,Cuenca del Lago Ranco,Futrono
+Los Ríos,Cuenca del Lago Ranco,La Unión
+Los Ríos,Cuenca del Lago Ranco,Lago Ranco
+Los Ríos,Cuenca del Lago Ranco,Paillaco
+Los Ríos,Cuenca del Lago Ranco,Río Bueno
+Los Lagos,Chiloé,Ancud
+Los Lagos,Chiloé,Castro
+Los Lagos,Chiloé,Chonchi
+Los Lagos,Chiloé,Curaco de Vélez
+Los Lagos,Chiloé,Dalcahue
+Los Lagos,Chiloé,Puqueldón
+Los Lagos,Chiloé,Queilén
+Los Lagos,Chiloé,Quellón
+Los Lagos,Chiloé,Quemchi
+Los Lagos,Chiloé,Quinchao
+Los Lagos,Lago Llanquihue y Todos Los Santos,Frutillar
+Los Lagos,Lago Llanquihue y Todos Los Santos,Llanquihue
+Los Lagos,Lago Llanquihue y Todos Los Santos,Puerto Octay
+Los Lagos,Lago Llanquihue y Todos Los Santos,Puerto Varas
+Los Lagos,Puerto Montt y alrededores,Calbuco
+Los Lagos,Puerto Montt y alrededores,Maullín
+Los Lagos,Puerto Montt y alrededores,Puerto Montt
+Los Lagos,Resto región,Chaitén
+Los Lagos,Resto región,Cochamó
+Los Lagos,Resto región,Fresia
+Los Lagos,Resto región,Futaleufú
+Los Lagos,Resto región,Hualaihué
+Los Lagos,Resto región,Los Muermos
+Los Lagos,Resto región,Osorno
+Los Lagos,Resto región,Palena
+Los Lagos,Resto región,Puyehue
+Los Lagos,Resto región,Río Negro
+Los Lagos,Resto región,San Juan de la Costa
+Los Lagos,Resto región,San Pablo
+Aysén del Gral. Carlos Ibáñez del Campo,Aysén y Coyhaique,Aysén
+Aysén del Gral. Carlos Ibáñez del Campo,Aysén y Coyhaique,Coyhaique
+Aysén del Gral. Carlos Ibáñez del Campo,Carretera Austral Norte,Cisnes
+Aysén del Gral. Carlos Ibáñez del Campo,Carretera Austral Norte,Lago Verde
+Aysén del Gral. Carlos Ibáñez del Campo,Carretera Austral Sur,Chile Chico
+Aysén del Gral. Carlos Ibáñez del Campo,Carretera Austral Sur,Cochrane
+Aysén del Gral. Carlos Ibáñez del Campo,Carretera Austral Sur,O’Higgins
+Aysén del Gral. Carlos Ibáñez del Campo,Carretera Austral Sur,Río Ibáñez
+Aysén del Gral. Carlos Ibáñez del Campo,Carretera Austral Sur,Tortel
+Magallanes y la Antártica Chilena,Torres del Paine y Puerto Natales,Natales
+Magallanes y la Antártica Chilena,Torres del Paine y Puerto Natales,Torres del Paine
+Magallanes y la Antártica Chilena,Punta Arenas y Estrecho de Magallanes,Laguna Blanca
+Magallanes y la Antártica Chilena,Punta Arenas y Estrecho de Magallanes,Punta Arenas
+Magallanes y la Antártica Chilena,Punta Arenas y Estrecho de Magallanes,Río Verde
+Magallanes y la Antártica Chilena,Resto región,Porvenir
+Magallanes y la Antártica Chilena,Resto región,Primavera
+Magallanes y la Antártica Chilena,Resto región,San Gregorio
+Magallanes y la Antártica Chilena,Resto región,Timaukel
