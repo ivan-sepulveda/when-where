@@ -38,6 +38,7 @@ each one computes/writes, and per-source notes.
 - [ ] Consider how to handle territories (US: Puerto Rico, Guam, etc, France: French Polynesia, French Guiana, etc. UK: Falkland Islands)
 - [ ] Figure out - UK - Split up into it's 4 Countries + Overseas territories?
 - [ ] User IP Address recognition (country-only, not persisted; use country.is)
+- [ ] Pull UNESCO World Heritage Sites data (culture/activity-suitability signal — site locations, inscription category, could feed a "food and culture traveler" profile alongside Michelin data).
 
 ## Data attributions
 
