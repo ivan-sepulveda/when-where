@@ -3,18 +3,22 @@
   "class": "dataset",
   "label": "Air transport of passengers by country (yearly data)",
   "source": "ESTAT",
-  "updated": "2026-07-03T23:00:00+0200",
+  "updated": "2026-07-24T23:00:00+0200",
   "value": {
     "23": 36151294,
+    "4": 35732570,
     "5": 12014406,
     "34": 58731846,
     "16": 13729951,
     "6": 19174047,
     "8": 207239776,
     "7": 36351595,
+    "9": 3472035,
     "11": 73000224,
     "12": 272121512,
+    "0": 1093272836,
     "29": 18695293,
+    "13": 171964002,
     "14": 13459551,
     "20": 19755328,
     "10": 43333164,
@@ -25,6 +29,7 @@
     "17": 7098121,
     "36": 3224376,
     "37": 3471816,
+    "21": 10070972,
     "22": 78417027,
     "33": 39471690,
     "24": 64039983,
@@ -33,7 +38,8 @@
     "39": 9295473,
     "30": 30510455,
     "27": 1591308,
-    "28": 3236570
+    "28": 3236570,
+    "40": 196054830
   },
   "id": [
     "freq",
@@ -215,6 +221,104 @@
     }
   },
   "extension": {
-    "lang": "EN"
+    "lang": "EN",
+    "description": "<p>Number of passengers carried (arrivals and departures).&nbsp;Passengers carried are (1) all passengers on a particular flight (with one flight number) counted once only and not repeatedly on each individual stage of that flight, (2) all revenue and non-revenue passengers whose journey begins or terminates at the reporting airport and transfer passengers joining or leaving the flight at the reporting airport. Excludes direct transit passengers. National aggregates, total intra-EU aggregates and total EU aggregates exclude any double counting.</p>",
+    "id": "TTR00012",
+    "agencyId": "ESTAT",
+    "version": "1.0",
+    "datastructure": {
+      "id": "TTR00012",
+      "agencyId": "ESTAT",
+      "version": "86.0"
+    },
+    "annotation": [
+      {
+        "type": "CREATED",
+        "date": "2009-02-02T14:48:04+0100"
+      },
+      {
+        "type": "DISSEMINATION_DOI_XML",
+        "title": "<adms:identifier xmlns:adms=\"http://www.w3.org/ns/adms#\" xmlns:skos=\"http://www.w3.org/2004/02/skos/core.html\" xmlns:dct=\"http://purl.org/dc/terms/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><adms:Identifier rdf:about=\"https://doi.org/10.2908/TTR00012\"><skos:notation rdf:datatype=\"http://purl.org/spar/datacite/doi\">10.2908/TTR00012</skos:notation><dct:creator rdf:resource=\"http://publications.europa.eu/resource/authority/corporate-body/ESTAT\"/><dct:issued rdf:datatype=\"http://www.w3.org/2001/XMLSchema#date\">2023-01-19</dct:issued></adms:Identifier></adms:identifier>"
+      },
+      {
+        "type": "DISSEMINATION_OBJECT_TYPE",
+        "title": "DATASET"
+      },
+      {
+        "type": "DISSEMINATION_PRESENTATIONS",
+        "title": "[{\"names\":{\"de\":{\"locale\":\"de\",\"value\":\"Standardpräsentation\",\"html\":false},\"en\":{\"locale\":\"en\",\"value\":\"Default presentation\",\"html\":false},\"fr\":{\"locale\":\"fr\",\"value\":\"Présentation par défaut\",\"html\":false}},\"descriptions\":{},\"code\":\"default\",\"useAsDefault\":true,\"order\":0,\"defaultView\":\"view.table\",\"jsonFormat\":null,\"preselection\":[{\"code\":\"freq\",\"multipleSelection\":null,\"singleSelection\":\"A\"},{\"code\":\"unit\",\"multipleSelection\":null,\"singleSelection\":\"PAS\"},{\"code\":\"tra_meas\",\"multipleSelection\":null,\"singleSelection\":\"PAS_CRD\"},{\"code\":\"tra_cov\",\"multipleSelection\":null,\"singleSelection\":\"TOTAL\"},{\"code\":\"schedule\",\"multipleSelection\":null,\"singleSelection\":\"TOT\"},{\"code\":\"geo\",\"multipleSelection\":null,\"singleSelection\":null}],\"preselectionTimeFilter\":{\"code\":\"time\",\"multipleSelection\":null,\"singleSelection\":null,\"mode\":\"ALL\",\"from\":null,\"to\":null,\"fixed\":null},\"layoutFormat\":{\"layoutAxes\":{\"y1\":\"time\",\"x1\":\"geo\"},\"fixedMinMax\":false,\"mapProjection\":null,\"mapShowAllGeo\":true,\"mapNumberOfColors\":0,\"rankingMode\":false,\"highlightMode\":false,\"labelOption\":null,\"labelByDimension\":null,\"businessRulesStrategy\":null,\"mapClassificartionMethode\":null}}]"
+      },
+      {
+        "type": "DISSEMINATION_PRESENTATIONS_VERSION",
+        "title": "v0_4_X"
+      },
+      {
+        "type": "DISSEMINATION_SOURCE_DATASET",
+        "title": "AVIA_PAOC"
+      },
+      {
+        "type": "DISSEMINATION_TIMESTAMP_DATA",
+        "date": "2026-07-24T23:00:00+0200"
+      },
+      {
+        "type": "DISSEMINATION_TIMESTAMP_GLOBAL",
+        "date": "2026-07-24T23:00:00+0200"
+      },
+      {
+        "type": "DISSEMINATION_TIMESTAMP_PLANNED",
+        "date": "2026-07-24T23:00:00+0200"
+      },
+      {
+        "type": "ESMS_HTML",
+        "title": "Explanatory texts (metadata)",
+        "href": "https://ec.europa.eu/eurostat/cache/metadata/en/avia_pa_esms.htm"
+      },
+      {
+        "type": "ESMS_SDMX",
+        "title": "Explanatory texts (metadata)",
+        "href": "https://ec.europa.eu/eurostat/api/dissemination/files?file=metadata/avia_pa_esms.sdmx.zip"
+      },
+      {
+        "type": "OBS_COUNT",
+        "title": "416"
+      },
+      {
+        "type": "OBS_PERIOD_OVERALL_LATEST",
+        "title": "2025"
+      },
+      {
+        "type": "OBS_PERIOD_OVERALL_OLDEST",
+        "title": "2014"
+      },
+      {
+        "type": "SOURCE_INSTITUTIONS",
+        "text": "Eurostat"
+      },
+      {
+        "type": "UPDATE_DATA",
+        "date": "2026-07-24T23:00:00+0200"
+      },
+      {
+        "type": "UPDATE_STRUCTURE",
+        "date": "2026-07-24T23:00:00+0200"
+      }
+    ],
+    "positions-with-no-data": {
+      "freq": [],
+      "unit": [],
+      "tra_meas": [],
+      "tra_cov": [],
+      "schedule": [],
+      "geo": [
+        1,
+        2,
+        3,
+        32,
+        35,
+        38,
+        41
+      ],
+      "time": []
+    }
   }
 }

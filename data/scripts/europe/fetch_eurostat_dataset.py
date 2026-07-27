@@ -1,7 +1,8 @@
 """
 Data Source: Eurostat Statistics API
 URL: https://wikis.ec.europa.eu/display/EUROSTATHELP/API+-+Getting+started
-Tables Referenced: TTR00012 (Air transport of passengers by country, yearly); TTR00016 (same, monthly, plus a tra_cov dimension)
+Tables Referenced: TTR00012 (Air transport of passengers by country, yearly); TTR00016 (same, monthly, plus a tra_cov dimension);
+CRIM_OFF_CAT (Police-recorded offences by offence category, country-level, yearly); CRIM_GEN_REG (same, but by NUTS3 region)
 
 Decodes Eurostat JSON-stat responses (a flat `value` dict keyed by a
 row-major dimension index) into one tidy row per dimension combo, with
@@ -13,12 +14,23 @@ other dimension. Default dataset TTR00012 is air passenger traffic by
 country (yearly, despite the tourism-sounding "ttr" prefix); TTR00016 is
 its monthly sibling. See data/README.md for the index-math details.
 
+CRIM_GEN_REG (NUTS3-region crime) is large -- ~1500 regions x 7 offence
+categories x 2 units, so pulling every year at once produces a
+multi-thousand-row CSV. Recommend `--time <one or a few years>` rather
+than `--time` with no values (all years) unless the full history is
+actually wanted. CRIM_OFF_CAT (country-level, 41 countries x 25
+categories) is small enough to just pull whatever years are needed. See
+data/README.md for the full per-source notes (which ICCS categories
+each dataset covers, unit meanings, geo scope).
+
 Usage:
     python fetch_eurostat_dataset.py                                    # TTR00012, year 2025 (defaults)
     python fetch_eurostat_dataset.py TTR00012 --time 2025
     python fetch_eurostat_dataset.py TTR00012 --time 2023 2024 2025
     python fetch_eurostat_dataset.py TTR00012 --time                    # no values -> all years
     python fetch_eurostat_dataset.py TTR00016 --start-period 2025-01 --end-period 2025-12 --filter tra_cov=TOTAL
+    python fetch_eurostat_dataset.py CRIM_OFF_CAT --time 2023 2024
+    python fetch_eurostat_dataset.py CRIM_GEN_REG --time 2023 --filter unit=P_HTHAB   # regional, rate per 100k only
 """
 
 import argparse
@@ -43,6 +55,8 @@ DEFAULT_TIME = ["2025"]  # only applied when dataset_id == DEFAULT_DATASET_ID an
 OUTPUT_NAME_OVERRIDES = {
     "TTR00012": "passengers_transported_by_country",
     "TTR00016": "passengers_transported_by_country_monthly",
+    "CRIM_OFF_CAT": "crime_offences_by_country",
+    "CRIM_GEN_REG": "crime_offences_by_nuts3_region",
 }
 
 # Friendly filename labels for --filter values that are cryptic Eurostat
@@ -52,6 +66,8 @@ OUTPUT_NAME_OVERRIDES = {
 FILTER_VALUE_LABELS = {
     ("tra_cov", "INTL_IEU27_2020"): "INTRA_EU",
     ("tra_cov", "INTL_XEU27_2020"): "EXTRA_EU",
+    ("unit", "NR"): "COUNT",
+    ("unit", "P_HTHAB"): "PER_100K",
 }
 
 # ---------------------------------------------------------------------------

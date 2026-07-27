@@ -1,0 +1,36 @@
+freq,freq_label,unit,unit_label,tra_meas,tra_meas_label,tra_cov,tra_cov_label,schedule,schedule_label,geo,geo_label,time,time_label,value
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,EU27_2020,European Union - 27 countries (from 2020),2025,2025,1093272836
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,BE,Belgium,2025,2025,35732570
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,BG,Bulgaria,2025,2025,12014406
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,CZ,Czechia,2025,2025,19174047
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,DK,Denmark,2025,2025,36351595
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,DE,Germany,2025,2025,207239776
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,EE,Estonia,2025,2025,3472035
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,IE,Ireland,2025,2025,43333164
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,EL,Greece,2025,2025,73000224
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,ES,Spain,2025,2025,272121512
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,FR,France,2025,2025,171964002
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,HR,Croatia,2025,2025,13459551
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,IT,Italy,2025,2025,193278859
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,CY,Cyprus,2025,2025,13729951
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,LV,Latvia,2025,2025,7098121
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,LT,Lithuania,2025,2025,7128295
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,LU,Luxembourg,2025,2025,5300525
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,HU,Hungary,2025,2025,19755328
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,MT,Malta,2025,2025,10070972
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,NL,Netherlands,2025,2025,78417027
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,AT,Austria,2025,2025,36151294
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,PL,Poland,2025,2025,64039983
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,PT,Portugal,2025,2025,67165901
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,RO,Romania,2025,2025,26174751
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,SI,Slovenia,2025,2025,1591308
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,SK,Slovakia,2025,2025,3236570
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,FI,Finland,2025,2025,18695293
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,SE,Sweden,2025,2025,30510455
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,IS,Iceland,2025,2025,8499319
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,NO,Norway,2025,2025,39471690
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,CH,Switzerland,2025,2025,58731846
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,ME,Montenegro,2025,2025,3224376
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,MK,North Macedonia,2025,2025,3471816
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,RS,Serbia,2025,2025,9295473
+A,Annual,PAS,Passenger,PAS_CRD,Passengers carried,TOTAL,Total transport,TOT,Total,TR,Türkiye,2025,2025,196054830

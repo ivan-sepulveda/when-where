@@ -686,6 +686,99 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   Both `processed/europe/eurostat_*.csv` files listed above were generated from
   those same verified responses, not a live script run.
 
+### Eurostat — Crime statistics (`CRIM_OFF_CAT`/`CRIM_GEN_REG`, `scripts/europe/fetch_eurostat_dataset.py`)
+
+- **Source:** same [Eurostat Statistics API](https://wikis.ec.europa.eu/display/EUROSTATHELP/API+-+Getting+started)
+  and script as the air-passenger datasets above — collected jointly by
+  Eurostat and UNODC from national police/justice authorities. See
+  [crime statistics metadata](https://ec.europa.eu/eurostat/cache/metadata/en/crim_sims.htm).
+- **Two granularities, both police-recorded offences classified by
+  [ICCS](https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:International_classification_of_crime_for_statistical_purposes_(ICCS))
+  (International Classification of Crime for Statistical Purposes):**
+  - **`CRIM_OFF_CAT`** — country-level. 41 reporting geos (EU-27, EFTA —
+    Iceland/Liechtenstein/Norway/Switzerland, UK split into England &
+    Wales/Scotland/Northern Ireland, plus Bosnia and Herzegovina,
+    Montenegro, North Macedonia, Albania, Serbia, Türkiye, Kosovo) × 25
+    ICCS categories (homicide, assault, sexual violence, robbery,
+    burglary, theft, drug offences, fraud, corruption, cybercrime,
+    environmental crime, and more — see the script's own decoded
+    `iccs_label` column, or the raw JSON's `dimension.iccs.category.label`)
+    × 2 units. Annual, 2008–2024 (per `OBS_PERIOD_OVERALL_OLDEST`/
+    `_LATEST` in the raw API response as of this writing).
+  - **`CRIM_GEN_REG`** — NUTS3-region breakdown of the same underlying
+    collection, but only for **7** of the 25 categories: intentional
+    homicide, assault, robbery, burglary, burglary of private
+    residential premises, theft, and theft of a motorized land vehicle
+    (confirmed by inspecting a single-country response — the ICCS
+    dimension itself is smaller for this dataset, not a filtering
+    artifact). Not every reporting geo in `CRIM_OFF_CAT` necessarily has
+    NUTS3-level data — only checked Belgium directly; unconfirmed for
+    the full geo list, since a full-history, full-geo pull is large
+    enough (`OBS_COUNT` 303,546 vs. `CRIM_OFF_CAT`'s 21,040) that this
+    sandbox's fetch tool couldn't render the whole response to inspect
+    it directly. Worth checking the decoded CSV's `geo`/`geo_label`
+    columns after a real pull to see exactly which countries/regions
+    are actually populated.
+  - **Two units on both datasets:** `NR` (raw count) and `P_HTHAB` (per
+    hundred thousand inhabitants) — `P_HTHAB` is the population-normalized
+    rate, and the more directly comparable one across places of very
+    different population (a French département vs. a small NUTS3 region
+    shouldn't be compared on raw counts).
+- **Why it's here:** the project's "safety/crime" scoring factor (see the
+  project's TODO list) — e.g. a destination's `P_HTHAB` homicide/robbery/
+  burglary rate is a rougher but more transparent, rule-based-model-
+  friendly input than a crowdsourced perception index (Numbeo, etc.),
+  and `CRIM_GEN_REG`'s NUTS3 granularity is a closer match to an actual
+  city/region-level "trip opportunity" than a national average.
+- **Important caveat — cross-country comparability:** legal definitions of
+  each offence, victim-reporting rates, and police recording practices
+  all vary by country, so a direct "country A's homicide rate is higher
+  than country B's" comparison can partly reflect definitional/reporting
+  differences rather than a genuine difference in safety. Fine for
+  within-country, across-region or across-time comparisons (which is
+  closer to how this project would actually use it — "is this region
+  safer than that region, this year vs. last"); treat cross-country
+  absolute comparisons cautiously. `CRIM_OFF_CAT`'s metadata page
+  (`crim_sims.htm`, linked above) documents the known caveats per
+  country in more detail.
+- **Output:**
+  - `raw/eurostat/crim_off_cat/crim_off_cat<suffix>.json` /
+    `raw/eurostat/crim_gen_reg/crim_gen_reg<suffix>.json` — untouched API
+    responses.
+  - `processed/europe/eurostat_crime_offences_by_country<suffix>.csv` —
+    one row per (country, ICCS category, unit, year), with both raw code
+    and label columns (`iccs`/`iccs_label`, `geo`/`geo_label`, etc.), per
+    `decode_jsonstat()`'s standard shape.
+  - `processed/europe/eurostat_crime_offences_by_nuts3_region<suffix>.csv`
+    — same shape, one row per (NUTS3 region, ICCS category, unit, year).
+- **Run:**
+  ```
+  python scripts/europe/fetch_eurostat_dataset.py CRIM_OFF_CAT --time 2023 2024
+  python scripts/europe/fetch_eurostat_dataset.py CRIM_GEN_REG --time 2023 --filter unit=P_HTHAB
+  ```
+  `CRIM_GEN_REG` is large (~1500 NUTS3 regions) — pull one or a few
+  years at a time (`--time <year(s)>`) rather than `--time` with no
+  values (full 2008–2024 history), and use `--filter unit=P_HTHAB` if
+  only the population-normalized rate is needed, to roughly halve the
+  row count.
+- **Verified live, unlike the air-passenger datasets above:** this
+  sandbox's `curl` couldn't reach `ec.europa.eu` (same allowlist issue
+  noted elsewhere in this file), but a separate fetch tool available in
+  this session *could* reach it — so `decode_jsonstat()` was verified
+  against real, live API responses for both datasets (single-country
+  samples, `geo=BE`, `time=2022`, to keep the response small enough to
+  inspect directly): every decoded value (e.g. `CRIM_OFF_CAT` intentional
+  homicide `NR=188`/`P_HTHAB=1.62`; `CRIM_GEN_REG` theft `NR=200146`/
+  `P_HTHAB=1722.78`) matched the raw JSON-stat payload exactly, including
+  a case where an entire ICCS category (kidnapping, `CRIM_OFF_CAT` for
+  Belgium 2022) had no observations at all — confirmed the "skip missing
+  positions, don't fill" behavior correctly produced zero rows for it
+  rather than a null/zero value. Full-geo, full-history pulls (the kind
+  the script would actually be run with) were not attempted end-to-end in
+  this sandbox, since the response size exceeds what the fetch tool here
+  can render — no reason to expect this affects a normal local run
+  (`requests`+`pandas`, no tool-side rendering limit).
+
 ### Peak tourism indicator (`scripts/compute_peak_tourism_indicator.py`)
 
 - **What it does:** computes, per country per calendar month, how busy

@@ -72,6 +72,27 @@ See `data/README.md` for the full JSON-stat decoding details and the
 differences between the two datasets.
 
 ```
+python scripts/europe/fetch_eurostat_dataset.py CRIM_OFF_CAT --time 2023 2024
+python scripts/europe/fetch_eurostat_dataset.py CRIM_GEN_REG --time 2023 --filter unit=P_HTHAB
+```
+
+Same script, two crime datasets. `CRIM_OFF_CAT` is police-recorded
+offences by offence category, country-level (41 countries, 25 ICCS
+categories) — small enough to pull several years at once. `CRIM_GEN_REG`
+is the NUTS3-region breakdown, but only for 7 offence categories
+(intentional homicide, assault, robbery, burglary, burglary of private
+residential premises, theft, theft of a motorized land vehicle) — a
+useful subset for a personal-safety signal. It's much bigger (~1500
+regions), so pull one or a few years at a time rather than the full
+2008–2024 history, and consider `--filter unit=P_HTHAB` to get only the
+per-100k-inhabitants rate (population-normalized, more comparable across
+regions of different sizes than raw counts). Writes
+`data/processed/europe/eurostat_crime_offences_by_country<suffix>.csv`
+and `data/processed/europe/eurostat_crime_offences_by_nuts3_region<suffix>.csv`.
+See `data/README.md` for the full ICCS category list, unit meanings, and
+cross-country comparability caveats.
+
+```
 python scripts/asia/fetch_japan_tourism_indicators.py
 python scripts/asia/fetch_japan_tourism_indicators.py --since 2024-01
 ```

@@ -33,7 +33,7 @@ each one computes/writes, and per-source notes.
 
 - [ ] Find a public data source for visa requirements by passport (e.g. Mexico passport: 90-day visa-free to Germany, visa required for Gambia). Needed to score trip opportunities by whether a traveler's passport can actually make the trip, not just whether the destination looks good.
 - [ ] Get Maldives tourism statistics via the Maldives Monetary Authority API: https://database.mma.gov.mv/api/docs
-- [ ] Begin research on Safety or Crime Statistics by Country (specifically, where to pull data)
+- [x] Begin research on Safety or Crime Statistics by Country (specifically, where to pull data) — EU covered via Eurostat `CRIM_OFF_CAT`/`CRIM_GEN_REG`; still need a non-EU source (e.g. UNODC) for global coverage.
 - [ ] Still missing many countries: United States, China, United Kingdom, United Arab Emirates, South Korea, Georgia, Philippines and more.
 - [ ] Consider how to handle territories (US: Puerto Rico, Guam, etc, France: French Polynesia, French Guiana, etc. UK: Falkland Islands)
 - [ ] Figure out - UK - Split up into it's 4 Countries + Overseas territories?
@@ -46,5 +46,6 @@ each one computes/writes, and per-source notes.
 - Restaurant data from [michelin-my-maps](https://github.com/ngshiheng/michelin-my-maps) (MIT licensed), scraped from the [MICHELIN Guide](https://guide.michelin.com/en/restaurants) for research purposes.
 - Economic indicators (GDP deflator, exports % of GDP, PPP conversion factor, price level index) from [The World Bank](https://data.worldbank.org), via the [Data360 API](https://data360api.worldbank.org), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Air passenger traffic data from [Eurostat](https://ec.europa.eu/eurostat) (dataset `TTR00012`, sourced from `AVIA_PAOC`), reused under the European Commission's [CC BY 4.0 reuse policy](https://ec.europa.eu/eurostat/en/help/copyright-notice).
+- Crime statistics from [Eurostat](https://ec.europa.eu/eurostat) (datasets `CRIM_OFF_CAT` and `CRIM_GEN_REG`, collected jointly with UNODC from national police/justice authorities), reused under the European Commission's [CC BY 4.0 reuse policy](https://ec.europa.eu/eurostat/en/help/copyright-notice).
 - Tourism accommodation data (EMAT) from Chile's [Instituto Nacional de Estadísticas (INE)](https://www.ine.gob.cl/estadisticas-por-tema/comercio-y-servicios/actividad-mensual-del-turismo).
 - Domestic air passenger data from Mexico's [Agencia Federal de Aviación Civil (AFAC)](https://www.gob.mx/afac/acciones-y-programas/estadisticas-280404), Monthly Bulletin of Operational Statistics.
