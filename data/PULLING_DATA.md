@@ -75,6 +75,21 @@ annually). See `data/README.md` for the full kept/dropped field list and
 size-reduction numbers.
 
 ```
+python scripts/multiple/build_unesco_sites_by_country.py
+```
+
+Regroups the site list above into `data/processed/multiple/unesco_by_country.json`
+— `{ "US": [sites...], "VN": [sites...], "MX": [sites...], ... }` keyed
+by the ISO alpha-2 codes already present in the source data. A
+transboundary site (spans multiple countries) is listed once under EVERY
+country it spans, not just one — see each site's `transboundary` field.
+The one site with no country code at all (Old City of Jerusalem, whose
+sovereignty is disputed) is collected separately under
+`unassigned_sites` rather than dropped. Run
+`fetch_unesco_world_heritage_sites.py` first — this script reads its
+output rather than hitting the network itself.
+
+```
 python scripts/europe/fetch_eurostat_dataset.py
 python scripts/europe/fetch_eurostat_dataset.py TTR00016 --filter tra_cov=TOTAL
 ```

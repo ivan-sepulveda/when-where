@@ -9,11 +9,21 @@ the viewer pick, live in the browser:
 - **Size by:** number of passengers/visitors (this project's per-country
   volume signal, sqrt-scaled, fixed size for Costa Rica/Canada/Brazil --
   see SIGNAL_LABELS), Michelin-starred restaurant count, the peak tourism
-  ratio itself (0-1), or USD purchasing power.
-- **Order countries by:** alphabetical, capital latitude, or USD
-  purchasing power -- each ascending or descending.
-Color always encodes PEAK_RATIO, hover always shows all four metrics
+  ratio itself (0-1), USD purchasing power, or the UNESCO World Heritage
+  Sites score (0-10, see compute_unesco_score.py).
+- **Order countries by:** alphabetical, capital latitude, USD purchasing
+  power, or UNESCO score -- each ascending or descending.
+Color always encodes PEAK_RATIO, hover always shows all five metrics
 regardless of which one is currently driving marker size.
+
+UNESCO_SCORE_BY_COUNTRY.csv is keyed by ISO2 against
+reference/country_aliases.json's full 241-country list, not against
+PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv's own COUNTRY column (a mix of
+Eurostat geo codes and ISO2 for the fifteen extra countries -- a couple
+of the Eurostat ones, like "EL" for Greece, don't match standard ISO).
+So, same fix as usd_purchasing_power_by_country.csv already uses: joined
+by name via country_lookup.normalize_country() (name -> iso3) rather
+than by code, sidestepping the code mismatch entirely.
 
 All four size arrays and three ordering arrays are precomputed in Python
 and embedded as plain JSON; the dropdowns just call Plotly.restyle() /
@@ -29,18 +39,24 @@ Usage:
 """
 
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
-PROCESSED_DIR = Path(__file__).resolve().parent.parent / "processed"
-REFERENCE_DIR = Path(__file__).resolve().parent.parent / "reference"
+SCRIPTS_DIR = Path(__file__).resolve().parent
+sys.path.insert(0, str(SCRIPTS_DIR))
+from country_lookup import normalize_country  # noqa: E402
+
+PROCESSED_DIR = SCRIPTS_DIR.parent / "processed"
+REFERENCE_DIR = SCRIPTS_DIR.parent / "reference"
 PEAK_TOURISM_PATH = PROCESSED_DIR / "PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv"
 TOURIST_CITIES_PATH = REFERENCE_DIR / "tourist_cities.json"
 COUNTRY_ALIASES_PATH = REFERENCE_DIR / "country_aliases.json"
 MICHELIN_PATH = PROCESSED_DIR / "multiple" / "michelin_restaurants.csv"
 USD_PP_PATH = PROCESSED_DIR / "usd_purchasing_power_by_country.csv"
+UNESCO_SCORE_PATH = PROCESSED_DIR / "UNESCO_SCORE_BY_COUNTRY.csv"
 OUTPUT_PATH = PROCESSED_DIR / "peak_tourism_interactive_chart.html"
 
 NAME_ALIASES = {"Türkiye": "Turkey"}
@@ -82,11 +98,13 @@ SIZE_LABELS = {
     "michelin": "Michelin-starred restaurant count",
     "peak_ratio": "peak tourism indicator (0-1)",
     "purchasing_power": "USD purchasing power ($1 US-equivalent)",
+    "unesco": "UNESCO World Heritage Sites score (0-10)",
 }
 ORDER_LABELS = {
     "alphabetical": "alphabetical",
     "latitude": "capital latitude",
     "purchasing_power": "USD purchasing power",
+    "unesco": "UNESCO score",
 }
 
 
@@ -177,6 +195,42 @@ def compute_size_purchasing_power(df: pd.DataFrame) -> pd.Series:
     return sqrt_scale(values), values
 
 
+def load_unesco_scores(country_names) -> dict:
+    """Country name -> (UNESCO_SCORE, SITE_COUNT), joined by iso3 via
+    country_lookup.normalize_country() rather than by ISO2/Eurostat code --
+    see this script's docstring for why. Countries that don't resolve
+    (shouldn't happen, since country_aliases.json is the canonical
+    241-country list every other source in this project already matches
+    against) are warned about and left out, not silently zeroed --
+    downstream code decides how to treat "no UNESCO score data" vs. a
+    real 0."""
+    unesco = pd.read_csv(UNESCO_SCORE_PATH)
+    unesco["iso3"] = unesco["COUNTRY_NAME"].map(normalize_country)
+    by_iso3 = unesco.dropna(subset=["iso3"]).set_index("iso3")[["UNESCO_SCORE", "SITE_COUNT"]]
+
+    scores = {}
+    unmatched = []
+    for name in country_names:
+        iso3 = normalize_country(name)
+        if iso3 is not None and iso3 in by_iso3.index:
+            row = by_iso3.loc[iso3]
+            scores[name] = (float(row["UNESCO_SCORE"]), int(row["SITE_COUNT"]))
+        else:
+            unmatched.append(name)
+
+    if unmatched:
+        print(f"WARNING: no UNESCO score match for: {unmatched} -- shown as 'n/a', sized as 0.")
+
+    return scores
+
+
+def compute_size_unesco(df: pd.DataFrame) -> pd.Series:
+    """Linear (not sqrt) scale, same reasoning as compute_size_peak_ratio --
+    UNESCO_SCORE is already a bounded 0-10 rating, not a volume that needs
+    area-correct compression."""
+    return MIN_DIAMETER + (df["UNESCO_SCORE"].fillna(0).astype(float) / 10) * (MAX_DIAMETER - MIN_DIAMETER)
+
+
 def format_value(country_name: str, value: float) -> str:
     if country_name in PERCENT_COUNTRIES:
         return f"{value:.2f}%" if not float(value).is_integer() else f"{value:.1f}%"
@@ -192,13 +246,17 @@ def hover_text(row: pd.Series) -> str:
     michelin_count = int(row["MICHELIN_STARRED_COUNT"])
     pp = row["USD_PURCHASING_POWER"]
     pp_text = f"${pp:.2f}" if pd.notna(pp) else "n/a"
+    unesco_score = row["UNESCO_SCORE"]
+    unesco_sites = row["UNESCO_SITE_COUNT"]
+    unesco_text = f"{unesco_score:.2f} ({int(unesco_sites)} sites)" if pd.notna(unesco_score) else "n/a"
     return (
         f"<b>{row['COUNTRY_NAME']}</b><br>"
         f"{MONTH_NAMES[row['MONTH'] - 1]}<br>"
         f"Peak ratio: {row['PEAK_RATIO']:.0%}<br>"
         f"{label}: {value} ({row['SOURCE_YEAR']})<br>"
         f"Michelin-starred restaurants: {michelin_count}<br>"
-        f"USD purchasing power: {pp_text}"
+        f"USD purchasing power: {pp_text}<br>"
+        f"UNESCO score: {unesco_text}"
         f"{peak_note}"
     )
 
@@ -226,6 +284,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <option value="michelin">Michelin star restaurants</option>
       <option value="peak_ratio">Peak tourism indicator (0-1)</option>
       <option value="purchasing_power">Purchasing power</option>
+      <option value="unesco">UNESCO score (0-10)</option>
     </select>
   </div>
   <div>
@@ -234,6 +293,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <option value="alphabetical">Alphabetical (A-Z)</option>
       <option value="latitude" selected>Latitude</option>
       <option value="purchasing_power">Purchasing power</option>
+      <option value="unesco">UNESCO score</option>
     </select>
   </div>
   <div>
@@ -278,7 +338,7 @@ var allTrace = {{
     size: pointData.size.passengers,
     color: pointData.peak_ratio,
     colorscale: 'RdBu',
-    reversescale: true,
+    reversescale: false,
     line: {{width: 0.6, color: 'black'}},
     colorbar: {{title: 'PEAK_RATIO<br>(0-1)'}},
     opacity: 0.85,
@@ -348,9 +408,12 @@ def build_chart_html(df: pd.DataFrame) -> str:
 
     michelin_counts_scaled, michelin_counts_raw = compute_size_michelin(df)
     pp_scaled, pp_raw = compute_size_purchasing_power(df)
+    unesco_scores = load_unesco_scores(df["COUNTRY_NAME"].unique())
 
     df["MICHELIN_STARRED_COUNT"] = michelin_counts_raw
     df["USD_PURCHASING_POWER"] = pp_raw
+    df["UNESCO_SCORE"] = df["COUNTRY_NAME"].map(lambda c: unesco_scores[c][0] if c in unesco_scores else np.nan)
+    df["UNESCO_SITE_COUNT"] = df["COUNTRY_NAME"].map(lambda c: unesco_scores[c][1] if c in unesco_scores else np.nan)
     df["HOVER"] = df.apply(hover_text, axis=1)
 
     size_arrays = {
@@ -358,6 +421,7 @@ def build_chart_html(df: pd.DataFrame) -> str:
         "michelin": michelin_counts_scaled.tolist(),
         "peak_ratio": compute_size_peak_ratio(df).tolist(),
         "purchasing_power": pp_scaled.tolist(),
+        "unesco": compute_size_unesco(df).tolist(),
     }
 
     point_data = {
@@ -390,6 +454,7 @@ def build_chart_html(df: pd.DataFrame) -> str:
         "alphabetical": sorted(df["COUNTRY_NAME"].unique()),
         "latitude": sorted(capital_lat, key=lambda c: capital_lat[c] if capital_lat[c] is not None else -90),
         "purchasing_power": sorted(df["COUNTRY_NAME"].unique(), key=lambda c: usd_pp.get(c, 0)),
+        "unesco": sorted(df["COUNTRY_NAME"].unique(), key=lambda c: unesco_scores[c][0] if c in unesco_scores else 0),
     }
 
     return HTML_TEMPLATE.format(

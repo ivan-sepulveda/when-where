@@ -698,22 +698,374 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   python scripts/multiple/fetch_unesco_world_heritage_sites.py
   python scripts/multiple/fetch_unesco_world_heritage_sites.py --force-download
   ```
-- **Note:** this sandbox couldn't reach `data.unesco.org` (`curl` timed
-  out — same allowlist pattern as every other blocked source in this
-  file), so the real 24MB download wasn't run end-to-end here. Every
-  other piece of logic — field keep/drop, the `coordinates` → `lat`/`lng`
-  flattening, and the missing-coordinates case — was verified offline
-  against a fixture built from the exact sample record the user
-  provided (Old Walled City of Shibam, Yemen) plus a second synthetic
-  record with `coordinates: null`, confirming: dropped fields are
-  genuinely absent from the output (not just null), kept fields survive
-  unchanged, `lat`/`lng` are correctly pulled from the nested object,
-  and a missing-coordinates record gets `lat`/`lng: null` rather than
-  being skipped or crashing the run. The actual size-reduction ratio
-  (raw MB vs. processed MB, printed at the end of a real run) wasn't
-  measured here for the same network reason — expect it to be
-  substantial given `justification_en` and 5 extra language variants
-  make up most of a typical record.
+- **Verified for real:** run end-to-end against the live 24MB export
+  (1273 sites, 29 missing coordinates) — 24.0 MB raw shrank to 3.0 MB
+  processed (13% of original). `dropped_fields` in the real output lists
+  26 keys: `description_en`, `id_no`, `images_urls`,
+  `justification_en`, `main_image_caption_ar/es/fr/ru/zh`,
+  `main_video_caption_ar/es/fr/ru/zh`, `name_ar/es/fr/ru/zh`,
+  `short_description_ar/es/fr/ru/zh`, `uuid`, `videos_urls` — computed
+  from the actual raw record keys (union across all 1273 records) rather
+  than hand-maintained, so it stays accurate if UNESCO adds/removes a
+  field later. Before this, field keep/drop, the `coordinates` →
+  `lat`/`lng` flattening, and the missing-coordinates case were also
+  checked offline against a fixture built from the exact sample record
+  the user provided (Old Walled City of Shibam, Yemen) plus a synthetic
+  record with `coordinates: null`.
+
+### UNESCO World Heritage Sites by country (`scripts/multiple/build_unesco_sites_by_country.py`)
+
+- **What it does:** regroups the flat site list from
+  `unesco_world_heritage_sites.json` above into `{ iso2_code: [sites] }`
+  — reads the local processed file, no network call of its own (run
+  `fetch_unesco_world_heritage_sites.py` first).
+- **Country codes:** uses the ISO alpha-2 codes already present in each
+  site's `iso_codes` field directly — no name-matching/aliasing step
+  needed, unlike sources that only give a country *name* (which is what
+  `reference/country_aliases.json` exists for). A transboundary site
+  (comma-separated `iso_codes`, e.g. `"FR, BE"` — ~4% of the list, 51
+  sites) is listed once under **every** country it spans, not just the
+  first — each site record keeps its own `transboundary` field so this
+  is easy to tell apart from a single-country site downstream.
+- **One unassigned site:** *Old City of Jerusalem and its Walls* has no
+  `iso_codes` at all in the source (its sovereignty is disputed; UNESCO
+  lists it under `states_names: ["Jerusalem (Site proposed by Jordan)"]`
+  with no ISO code attached) — collected under top-level
+  `unassigned_sites` rather than silently dropped or force-assigned to a
+  country.
+- **Per-site fields dropped in this step (on top of what
+  `fetch_unesco_world_heritage_sites.py` already dropped):**
+  `states_names`/`iso_codes` (redundant once grouped by country) and
+  `region`/`region_code` (UNESCO's admin region, e.g. "Arab States",
+  isn't specific to any one of a transboundary site's several countries
+  — a reader grouping by country almost certainly wants their own
+  country→region mapping instead).
+- **Output:** `processed/multiple/unesco_by_country.json`:
+  ```json
+  {
+    "source": "Derived from unesco_world_heritage_sites.json -- see that file's own `source`/`source_query_url`.",
+    "generated": "2026-07-28",
+    "total_countries": 173,
+    "total_sites": 1273,
+    "total_site_country_pairs": 1378,
+    "note": "total_site_country_pairs > total_sites because transboundary sites ...",
+    "unassigned_sites": [{"name_en": "Old City of Jerusalem and its Walls", "states_names": ["..."], "reason": "..."}],
+    "sites_by_country": {
+      "MX": [{"name_en": "Historic Centre of Mexico City and Xochimilco", "date_inscribed": "1987", "lat": 19.4326, "lng": -99.1332, "...": "..."}],
+      "US": ["..."],
+      "VN": ["..."]
+    }
+  }
+  ```
+  Each country's sites are sorted by inscription year (oldest first),
+  then name.
+- **Run:**
+  ```
+  python scripts/multiple/build_unesco_sites_by_country.py
+  ```
+- **Verified for real:** run against the live processed file — 173
+  countries, 1273 sites, 1378 site-country pairs (51 transboundary
+  sites accounting for the 105-pair gap over 1273), 1 unassigned. Spot
+  checked: US (27 sites, oldest Mesa Verde National Park 1978), VN (9
+  sites, oldest Complex of Hué Monuments 1993), MX (36 sites, oldest
+  Historic Centre of Mexico City and Xochimilco 1987); confirmed a
+  transboundary site (Belfries of Belgium and France) appears under both
+  `BE` and `FR` with identical content.
+
+### UNESCO score (`scripts/compute_unesco_score.py`)
+
+- **What it does:** turns the per-country site counts in
+  `unesco_by_country.json` into a simple, transparent 0–10 score per
+  country. Current formula (`score_for_site_count()`):
+  ```
+  SITE_COUNT == 0  -> 0
+  SITE_COUNT > 0   -> log(SITE_COUNT + 1) / log(MAX_SITE_COUNT + 1) * 10
+  ```
+  Log-scaled against the single highest country (Italy, 62 sites, as of
+  this writing) — the same formula `compute_michelin_score.py` uses, for
+  consistency between the project's two "density of X" scores.
+- **Three-version history, worth knowing before trusting this number:**
+  1. **v1 — plain linear against the max** (`SITE_COUNT / MAX_SITE_COUNT * 10`).
+     Dropped because whichever country happened to have the most sites
+     (Italy, 62) set the whole scale, so a genuinely heritage-rich
+     country like Mexico (36 sites) landed at a middling 5.81 rather
+     than reflecting that 36 UNESCO sites is, on its own terms, a lot.
+  2. **v2 — fixed tiers** (50+ sites → 10, 40–49 → 9, 30–39 → 8, 20–29 →
+     7, then a linear ramp landing exactly on 6.0 at 19 sites — one
+     point under the flat 7 a 20-site country got). Chosen specifically
+     so a country's score never depended on wherever the current record
+     holder sat — a 50-site country and a hypothetical 200-site country
+     both scored a flat 10.
+  3. **v3 — log-scale (current)**, per project request, matching
+     `compute_michelin_score.py`'s formula for consistency across the
+     two "density" scores. This reintroduces the dependence on the
+     current max that v2 deliberately removed (smaller than v1's, since
+     log compresses, but not zero — see `compute_michelin_score.py`'s
+     docstring for the fuller tradeoff, since that's where log-vs-tiered
+     was originally worked out for *this* dataset's much smaller 0–62
+     range before the decision was made to switch anyway). Concretely,
+     versus v2: Mexico (36 sites) moved from 8.0 to **8.72**, Vietnam (9
+     sites) from 2.84 to **5.56**, Namibia (2 sites) from 0.63 to
+     **2.65** — log-scale gives noticeably more credit to low site
+     counts than the tiered version did.
+  A country with 0 sites scores 0.0 either way, under all three
+  versions — see next point.
+- **Full country coverage, not just countries with a site:** every
+  country in `reference/country_aliases.json` (the same canonical
+  241-country list `build_country_aliases.py` already maintains) gets a
+  row — 242 total once the two overrides below are added — including
+  the 69 with zero UNESCO sites. A destination-scoring model needs a
+  real 0 for "this country has no World Heritage Sites," not a missing
+  row that could be mistaken for "unscored"/"unknown."
+- **Two country-code gaps, patched in this script rather than upstream:**
+  `ISO2_OVERRIDES` at the top of the script hand-fixes two codes UNESCO's
+  data uses that `country_aliases.json` doesn't resolve cleanly:
+  - **Namibia** — its `iso2` in `country_aliases.json` is stored as an
+    actual `NaN` float, not the string `"NA"`. Almost certainly
+    Namibia's real ISO 3166-1 alpha-2 code (`"NA"`) got silently parsed
+    as pandas' NaN sentinel somewhere in `build_country_aliases.py`'s
+    SimpleMaps ingestion — a well-known footgun specific to this one
+    country code (`"NA"` looks like "not available" to a lot of CSV/data
+    tooling). Without the override, Namibia's 2 sites (Twyfelfontein,
+    Namib Sand Sea) would silently vanish from the output rather than
+    scoring ~0.32. Worth a real fix in `build_country_aliases.py`
+    someday (force that column to load as string, not inferred type) —
+    out of scope for this script, so patched locally instead.
+  - **Palestine (`PS`)** — has 1 UNESCO site (Old City of Hebron/Al-Khalil
+    and its environs) but isn't in `country_aliases.json`'s 241-country
+    list at all (not present in the SimpleMaps World Cities Database
+    that list was built from).
+  - The script fails loud, not silent, if a *new* unresolvable code
+    shows up later — an unresolved `COUNTRY` gets `COUNTRY_NAME =
+    "UNKNOWN -- add to ISO2_OVERRIDES"` in the output and a printed
+    warning at the end of the run, rather than being dropped.
+- **Output:** `processed/UNESCO_SCORE_BY_COUNTRY.csv` — one row per
+  country, `COUNTRY` (iso2), `COUNTRY_NAME`, `SITE_COUNT`,
+  `UNESCO_SCORE`, sorted by score descending then name. Plain CSV (no
+  JSON metadata wrapper), matching `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`'s
+  format rather than `monthly_scores_<year>_by_city.json`'s, since this
+  is a flat per-country table, not a per-city-per-month structure that
+  benefits from JSON nesting.
+- **Run:**
+  ```
+  python scripts/compute_unesco_score.py
+  ```
+- **Verified for real:** run against the live `unesco_by_country.json` —
+  242 countries, 173 with at least one site, 69 at exactly 0.0, max
+  Italy (62 sites) → 10.0 by construction. Mexico (36 sites) → **8.72**,
+  Vietnam (9) → **5.56**, Namibia (2) → **2.65** — all matching the v2→v3
+  deltas quoted above exactly. No `UNKNOWN` rows in the real output —
+  both `ISO2_OVERRIDES` entries resolved as expected. `OVERARCHING_TRIP_SCORE_BY_COUNTRY.csv`
+  and `peak_tourism_interactive_chart.html` were both regenerated after
+  this change, since they embed `UNESCO_SCORE` — see those sections
+  below for the updated numbers.
+
+### Michelin score (`scripts/compute_michelin_score.py`)
+
+- **What it does:** turns per-country Michelin award counts from
+  `processed/multiple/michelin_restaurants.csv` into a 0–10 score, same
+  rule-based-not-learned family as `compute_unesco_score.py` and
+  `compute_price_level_score.py`. Uses **all** awards (Stars + Bib
+  Gourmand + Selected Restaurants), not starred restaurants only — 50
+  countries have at least one award under this count, vs. 48 under
+  starred-only (and the interactive chart's own starred-only count is
+  left as-is, unaffected by this choice).
+- **Formula — log-scaled against the current max:**
+  ```
+  AWARD_COUNT == 0  -> 0
+  AWARD_COUNT > 0   -> log(AWARD_COUNT + 1) / log(MAX_AWARD_COUNT + 1) * 10
+  ```
+  `compute_unesco_score.py` uses this exact same formula now too (see
+  above) — this script is where log-scale was first introduced in this
+  project, with the following comparison as the deciding evidence
+  (France = 3,043 awards, the current max):
+  | Country | Awards | Linear (`count/max*10`) | Log-scale |
+  |---|---|---|---|
+  | Italy | 1,977 | 6.50 | 9.46 |
+  | USA | 1,776 | 5.84 | 9.33 |
+  | Japan | 1,106 | 3.63 | 8.74 |
+  | Belgium | 709 | 2.33 | 8.19 |
+  | Thailand | 484 | 1.59 | 7.71 |
+  | Canada | 297 | 0.98 | 7.10 |
+  | Mexico | 225 | 0.74 | 6.76 |
+
+  Under plain linear scaling, Italy — with nearly 2,000 awards of its
+  own, a genuinely enormous food scene — would score a mediocre 6.5
+  purely because France's total happens to be ~50% larger; Belgium (709
+  awards, one of the best food scenes per capita in the world) would
+  land at 2.33, reading as "barely anything." Log-scale fixes this
+  because Michelin's spread covers **three orders of magnitude**
+  (France's 3,043 vs. countries with single-digit counts) — that's the
+  scale of skew log-compression is actually built for.
+- **UNESCO's site counts don't have nearly the same skew (0–62, about
+  one order of magnitude, not three) — log-scale was tried there and
+  initially rejected** for exactly that reason (it over-rewards small
+  counts on a tighter range: 2 sites would jump from a tiered scheme's
+  0.63 to 2.65, more than a quarter of the maximum score for barely any
+  heritage sites). `compute_unesco_score.py` ran on fixed tiers instead
+  for a while, specifically to avoid that. It was switched to log-scale
+  anyway, on request, for formula consistency between the two "density
+  of X" scores — see that script's own docstring/README section for the
+  full three-version history if the numbers there look surprising.
+- **One caveat log-scale brings, now shared by both scripts:** every
+  country's score still depends on whichever country currently holds the
+  record. If some country's count (award or site) someday overtakes the
+  current max, everyone else's score for that dimension shifts slightly
+  (a smaller effect than under linear scaling, since log compresses, but
+  not zero). Worth knowing if either output is ever diffed across reruns
+  after its source data is refreshed.
+- **Country matching:** Michelin's `location_country` is a raw scraped
+  string (`"Chinese Mainland"`, `"USA"`, etc.), normalized to iso3 via
+  `country_lookup.normalize_country()` (same helper `build_country_aliases.py`-
+  dependent scripts already use), then to iso2 via `country_aliases.json`.
+  `country_lookup.report_unmapped()` confirmed zero unmatched
+  `location_country` values across all 19,399 rows before this script
+  was written.
+- **Full country coverage:** same 242-country list as
+  `UNESCO_SCORE_BY_COUNTRY.csv` (`country_aliases.json` +
+  `ISO2_OVERRIDES` for Namibia/Palestine, same two gaps, same reasoning
+  — see the UNESCO section above), including the ~192 countries with a
+  real `MICHELIN_SCORE = 0` for "no Michelin-recognized restaurant in
+  this dataset."
+- **Output:** `processed/MICHELIN_SCORE_BY_COUNTRY.csv` — `COUNTRY`
+  (iso2), `COUNTRY_NAME`, `AWARD_COUNT`, `MICHELIN_SCORE`, sorted by
+  score descending then name.
+- **Run:**
+  ```
+  python scripts/compute_michelin_score.py
+  ```
+- **Verified for real:** run against the live `michelin_restaurants.csv`
+  — 242 countries, 50 with at least one award. Max: France, 3,043
+  awards, score 10.0 (by construction). Spot-checked against the
+  comparison table above by hand — Mexico (225 awards) scored 6.76,
+  Belgium (709) scored 8.19, matching `log(226)/log(3044)*10` and
+  `log(710)/log(3044)*10` respectively.
+
+### Price level score (`scripts/compute_price_level_score.py`)
+
+- **What it does:** turns the World Bank's Price Level Index
+  (`PA.NUS.GDP.PLI`, already pulled by `fetch_worldbank_indicator.py` —
+  see `worldbank_PA.NUS.GDP.PLI_<year>_by_country.json`) into a 0–10
+  **affordability** score. PLI itself runs USA=100, below 100 cheaper,
+  above 100 pricier (observed range as of this writing: ~13 Nigeria to
+  ~118 Iceland). Per the project's explicit decision, HIGHER
+  `PRICE_SCORE` means MORE affordable — inverted from PLI's own
+  direction, not a literal pass-through.
+- **Formula — linear against fixed anchors, not the current
+  cheapest/priciest country:**
+  ```
+  PLI <= 20   -> 10  (very affordable)
+  PLI >= 120  -> 0   (very expensive)
+  otherwise   -> 10 - (PLI - 20) / 10
+  ```
+  `FLOOR_PLI=20`/`CEILING_PLI=120` bracket the real observed range
+  (~13–118) with a little headroom on each side, but are fixed reference
+  points, not derived from whichever country happens to be
+  cheapest/priciest in the current pull — same reasoning as UNESCO's
+  fixed tiers, applied to a continuous metric instead of a count.
+- **Why plain linear here, not log-scale or tiers:** PLI's real spread
+  (~13 to ~118) isn't skewed the way UNESCO/Michelin counts are — no
+  order-of-magnitude long tail, just a roughly bell-shaped range around
+  a median of ~43. A plain linear scale is the right tool for a metric
+  shaped like this; log-scaling or tiering would be solving a skew
+  problem PLI doesn't actually have.
+- **Missing data is blank, not 0:** 59 of 242 countries (mostly small
+  territories, plus a handful of sanctioned/conflict states) have no PLI
+  value at all — `PRICE_LEVEL_INDEX`/`PRICE_SCORE` are empty strings for
+  these, not `0`. A `PRICE_SCORE` of 0 would mean "confirmed as
+  extremely expensive," which is a real claim this project has no data
+  to back for these countries — silently defaulting to 0 would bias any
+  downstream average toward "unaffordable" for a country this script
+  simply has no price signal for. See `build_overarching_trip_scores.py`
+  below for how that blank is handled when averaging.
+- **Country matching:** the World Bank PLI file is already keyed by
+  iso3, so this joins directly against `country_aliases.json`'s
+  iso3→iso2 mapping — no name-matching needed. Two gaps patched by
+  hand: Namibia (PLI 40.68 → score 7.93) and Palestine (PLI 63.43 →
+  score 5.66) both have real PLI values, but `country_aliases.json`'s
+  iso2 gap for Namibia (see the UNESCO section above) meant their PLI
+  data was being silently dropped even with `ISO2_OVERRIDES` already
+  covering their *names* — `ISO3_TO_ISO2_OVERRIDES` (`NAM`→`NA`,
+  `PSE`→`PS`) was needed as a second, separate patch to stop that. One
+  country (Kosovo,
+  World Bank iso3 `XKX`) genuinely isn't in `country_aliases.json` at
+  all and has no override yet — printed as a note, not silently dropped,
+  each run.
+- **Output:** `processed/PRICE_LEVEL_SCORE_BY_COUNTRY.csv` — `COUNTRY`
+  (iso2), `COUNTRY_NAME`, `PRICE_LEVEL_INDEX` (raw World Bank value, or
+  blank), `PRICE_SCORE` (or blank), sorted by score descending (blanks
+  last) then name.
+- **Run:**
+  ```
+  python scripts/compute_price_level_score.py
+  ```
+- **Verified for real:** run against the live PLI file — 242 countries,
+  183 with a PLI value (59 blank, all correctly flagged rather than
+  zeroed). Most affordable: Burundi (PLI 18.74) → score 10.0 (below the
+  `FLOOR_PLI=20` floor, correctly clamped). Least affordable: Iceland
+  (PLI 117.85) → score 0.22. Spot-checked Mexico (PLI 53.69 → 6.63),
+  Vietnam (PLI 28.01 → 9.2), and the fix for Namibia/Palestine (both now
+  present with real scores instead of silently dropped) — Namibia: PLI
+  40.68 → score 7.93.
+
+### Overarching trip score (`scripts/build_overarching_trip_scores.py`)
+
+- **What it does:** averages `UNESCO_SCORE`, `MICHELIN_SCORE`, and
+  `PRICE_SCORE` into a single 0–10 `OVERARCHING_SCORE` per country —
+  plain `mean()` of whichever of the three a country has, not weighted,
+  per the request that kicked this script off. All three source CSVs
+  already share the same 242-country, ISO2-keyed list (built by the
+  three scripts above), so this is a straight per-`COUNTRY` join — no
+  name-matching or aliasing needed here at all, unlike almost every
+  other join in this project.
+- **Missing data is averaged around, not treated as a 0:**
+  `PRICE_SCORE` is blank for the 59 countries with no PLI value (see
+  above) — a country's `OVERARCHING_SCORE` is the mean of however many
+  of the three scores it actually has (tracked in `SCORES_AVERAGED`,
+  1–3), never silently padded with a 0 for a domain with no data. A
+  country missing all three would get a blank `OVERARCHING_SCORE`
+  rather than a fabricated 0 or 5 — doesn't currently happen (UNESCO and
+  Michelin both cover all 242 countries with a real 0 where applicable),
+  but handled defensively in case a future domain doesn't.
+- **What "0" means differs across the three inputs, worth knowing before
+  reading this table:** `UNESCO_SCORE=0` and `MICHELIN_SCORE=0` are
+  real, deliberate zeros — "this country genuinely has no UNESCO sites /
+  no Michelin-recognized restaurant in this dataset" is itself a
+  meaningful signal, and both are included in the average like any other
+  value. `PRICE_SCORE`, by contrast, is *blank* rather than 0 when PLI
+  data is missing — there's no such thing as a country with a "real"
+  price level of exactly the worst possible score; a blank means this
+  project doesn't know, not that the country scored badly.
+- **Not weighted, not traveler-profile-aware:** this is the flat,
+  unweighted baseline. A "food and culture traveler" profile weighting
+  Michelin/UNESCO more heavily than affordability (or a budget traveler
+  doing the reverse) — or folding in the weather scores, peak tourism
+  indicator, or crime score — is a natural next step, but isn't what
+  this script does.
+- **Output:** `processed/OVERARCHING_TRIP_SCORE_BY_COUNTRY.csv` —
+  `COUNTRY` (iso2), `COUNTRY_NAME`, `UNESCO_SCORE`, `MICHELIN_SCORE`,
+  `PRICE_SCORE` (any of the three may be blank), `SCORES_AVERAGED`
+  (1–3), `OVERARCHING_SCORE`, sorted by score descending (blanks last)
+  then name.
+- **Run:**
+  ```
+  python scripts/build_overarching_trip_scores.py
+  ```
+  Run `compute_unesco_score.py`, `compute_michelin_score.py`, and
+  `compute_price_level_score.py` first — this script only reads their
+  output, no network calls of its own.
+- **Verified for real:** run against all three live score files — 242
+  countries, 183 with `SCORES_AVERAGED=3`, 59 with `SCORES_AVERAGED=2`
+  (missing `PRICE_SCORE`), 0 with none. Numbers below reflect
+  `compute_unesco_score.py`'s current log-scale version (see that
+  section above) — top 5: China (8.51), Italy (8.19), France (8.03),
+  Spain (8.0), Germany (7.53). Hand-verified three countries' arithmetic
+  directly against the CSV: Mexico `(8.72 + 6.76 + 6.63) / 3 = 7.37`,
+  Vietnam `(5.56 + 6.57 + 9.2) / 3 = 7.11`, United States
+  `(8.04 + 9.33 + 2.0) / 3 = 6.46` — all matched exactly. Both Mexico and
+  Vietnam moved up noticeably from the previous tiered-UNESCO run (7.13
+  and 6.2 respectively), since log-scale gives more credit to their
+  more modest UNESCO site counts than fixed tiers did.
 
 ### Eurostat — Air transport of passengers by country (`TTR00012`/`TTR00016`, `scripts/europe/fetch_eurostat_dataset.py`)
 
@@ -1104,21 +1456,35 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
     contains "Star" — 1/2/3 Stars only, NOT Bib Gourmand or Selected
     Restaurants, a narrower cut than the notebook's all-award-tiers
     count), the peak tourism ratio itself (0–1, linearly scaled since it's
-    already a bounded ratio), or USD purchasing power
-    (`usd_purchasing_power_by_country.csv`).
-  - **Order countries by:** alphabetical, capital latitude, or USD
-    purchasing power.
+    already a bounded ratio), USD purchasing power
+    (`usd_purchasing_power_by_country.csv`), or the UNESCO score (0–10,
+    also linearly scaled — see `UNESCO_SCORE_BY_COUNTRY.csv`/
+    `compute_unesco_score.py` above).
+  - **Order countries by:** alphabetical, capital latitude, USD
+    purchasing power, or UNESCO score.
   - **Direction:** ascending or descending, for whichever ordering is
     selected. "Ascending" means increasing value from the bottom of the
     chart to the top (standard graph-axis convention) — so "Latitude"
     ascending puts the southernmost capital at the bottom and the
     northernmost at the top, matching the notebook's fixed default look.
   Color always encodes `PEAK_RATIO` regardless of the size selection, and
-  the hover tooltip always shows all four metrics (peak ratio, the raw
-  per-country signal, Michelin-starred count, USD purchasing power)
-  regardless of which one is currently driving marker size — so switching
-  the dropdown never hides information, only re-emphasizes it.
-- **How the controls work:** all four size arrays and three country
+  the hover tooltip always shows all five metrics (peak ratio, the raw
+  per-country signal, Michelin-starred count, USD purchasing power,
+  UNESCO score + site count) regardless of which one is currently driving
+  marker size — so switching the dropdown never hides information, only
+  re-emphasizes it.
+- **UNESCO score join:** `UNESCO_SCORE_BY_COUNTRY.csv` is keyed by ISO2
+  against `country_aliases.json`'s full 241-country list, not against
+  this chart's own `COUNTRY` column (a mix of Eurostat geo codes and ISO2
+  for the fifteen extra countries) — `load_unesco_scores()` joins by name
+  via `country_lookup.normalize_country()` instead, the same fix the USD
+  purchasing power join below already needed for the same reason (e.g.
+  Eurostat's `EL` for Greece not matching standard ISO). All 49 of this
+  chart's countries currently resolve with no `UNKNOWN`/unmatched
+  warnings; a country that somehow failed to resolve would show `n/a` in
+  its hover text and size as if it had a UNESCO score of 0, rather than
+  breaking the chart.
+- **How the controls work:** all five size arrays and four country
   orderings are precomputed in Python and embedded as plain JSON in the
   page; the dropdowns just call `Plotly.restyle()` / `Plotly.relayout()`
   against whichever precomputed array was picked. No recomputation happens
@@ -1137,6 +1503,16 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   ```
   python scripts/build_peak_tourism_interactive_chart.py
   ```
+- **Verified for real:** run end-to-end against the live processed
+  files — 565 rows, 49 countries, zero UNESCO-match warnings. Spot
+  checked Mexico's hover text directly from the generated file's embedded
+  JSON: `UNESCO score: 8.72 (36 sites)` (updated after
+  `compute_unesco_score.py`'s switch to log-scale — was 8.00 under the
+  earlier tiered version), and confirmed the `unesco` country ordering
+  (low to high) still puts Mexico fifth from the top, behind only
+  Germany, Spain, France, and Italy, unchanged from before — the
+  underlying scores shifted but the relative order among these 49
+  countries didn't.
 
 ### USD purchasing power (`scripts/build_usd_purchasing_power_dataset.py`)
 

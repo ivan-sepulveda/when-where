@@ -1,0 +1,243 @@
+COUNTRY,COUNTRY_NAME,AWARD_COUNT,MICHELIN_SCORE
+FR,France,3043,10.0
+IT,Italy,1977,9.46
+US,United States,1776,9.33
+ES,Spain,1309,8.95
+DE,Germany,1244,8.89
+GB,United Kingdom,1125,8.76
+JP,Japan,1106,8.74
+CN,China,781,8.31
+BE,Belgium,709,8.19
+CH,Switzerland,531,7.83
+NL,Netherlands,490,7.73
+TH,Thailand,485,7.71
+TW,Taiwan,442,7.6
+AT,Austria,420,7.53
+CA,Canada,297,7.1
+KR,"Korea, South",232,6.8
+MX,Mexico,225,6.76
+HK,Hong Kong,219,6.72
+PT,Portugal,206,6.65
+PL,Poland,196,6.59
+VN,Vietnam,193,6.57
+TR,Turkey,161,6.34
+MY,Malaysia,149,6.25
+BR,Brazil,148,6.24
+HR,Croatia,111,5.88
+DK,Denmark,111,5.88
+IE,Ireland,110,5.87
+NZ,New Zealand,110,5.87
+PH,Philippines,108,5.85
+SE,Sweden,81,5.49
+CZ,Czechia,79,5.46
+HU,Hungary,76,5.42
+AR,Argentina,74,5.38
+SI,Slovenia,74,5.38
+SA,Saudi Arabia,51,4.93
+NO,Norway,50,4.9
+MT,Malta,47,4.83
+LT,Lithuania,44,4.75
+EE,Estonia,42,4.69
+QA,Qatar,42,4.69
+FI,Finland,34,4.43
+GR,Greece,34,4.43
+LV,Latvia,27,4.15
+LU,Luxembourg,24,4.01
+RS,Serbia,24,4.01
+MC,Monaco,16,3.53
+IS,Iceland,9,2.87
+AD,Andorra,6,2.43
+LI,Liechtenstein,3,1.73
+AE,United Arab Emirates,1,0.86
+AF,Afghanistan,0,0.0
+AL,Albania,0,0.0
+DZ,Algeria,0,0.0
+AS,American Samoa,0,0.0
+AO,Angola,0,0.0
+AI,Anguilla,0,0.0
+AG,Antigua and Barbuda,0,0.0
+AM,Armenia,0,0.0
+AW,Aruba,0,0.0
+AU,Australia,0,0.0
+AZ,Azerbaijan,0,0.0
+BS,"Bahamas, The",0,0.0
+BH,Bahrain,0,0.0
+BD,Bangladesh,0,0.0
+BB,Barbados,0,0.0
+BY,Belarus,0,0.0
+BZ,Belize,0,0.0
+BJ,Benin,0,0.0
+BM,Bermuda,0,0.0
+BT,Bhutan,0,0.0
+BO,Bolivia,0,0.0
+BQ,"Bonaire, Sint Eustatius, and Saba",0,0.0
+BA,Bosnia and Herzegovina,0,0.0
+BW,Botswana,0,0.0
+BN,Brunei,0,0.0
+BG,Bulgaria,0,0.0
+BF,Burkina Faso,0,0.0
+MM,Burma,0,0.0
+BI,Burundi,0,0.0
+CV,Cabo Verde,0,0.0
+KH,Cambodia,0,0.0
+CM,Cameroon,0,0.0
+KY,Cayman Islands,0,0.0
+CF,Central African Republic,0,0.0
+TD,Chad,0,0.0
+CL,Chile,0,0.0
+CX,Christmas Island,0,0.0
+CO,Colombia,0,0.0
+KM,Comoros,0,0.0
+CG,Congo (Brazzaville),0,0.0
+CD,Congo (Kinshasa),0,0.0
+CK,Cook Islands,0,0.0
+CR,Costa Rica,0,0.0
+CU,Cuba,0,0.0
+CW,Curaçao,0,0.0
+CY,Cyprus,0,0.0
+CI,Côte d’Ivoire,0,0.0
+DJ,Djibouti,0,0.0
+DM,Dominica,0,0.0
+DO,Dominican Republic,0,0.0
+EC,Ecuador,0,0.0
+EG,Egypt,0,0.0
+SV,El Salvador,0,0.0
+GQ,Equatorial Guinea,0,0.0
+ER,Eritrea,0,0.0
+SZ,Eswatini,0,0.0
+ET,Ethiopia,0,0.0
+FK,Falkland Islands (Islas Malvinas),0,0.0
+FO,Faroe Islands,0,0.0
+FJ,Fiji,0,0.0
+GF,French Guiana,0,0.0
+PF,French Polynesia,0,0.0
+GA,Gabon,0,0.0
+GM,"Gambia, The",0,0.0
+XG,Gaza Strip,0,0.0
+GE,Georgia,0,0.0
+GH,Ghana,0,0.0
+GI,Gibraltar,0,0.0
+GL,Greenland,0,0.0
+GD,Grenada,0,0.0
+GP,Guadeloupe,0,0.0
+GU,Guam,0,0.0
+GT,Guatemala,0,0.0
+GG,Guernsey,0,0.0
+GN,Guinea,0,0.0
+GW,Guinea-Bissau,0,0.0
+GY,Guyana,0,0.0
+HT,Haiti,0,0.0
+HN,Honduras,0,0.0
+IN,India,0,0.0
+ID,Indonesia,0,0.0
+IR,Iran,0,0.0
+IQ,Iraq,0,0.0
+IM,Isle of Man,0,0.0
+IL,Israel,0,0.0
+JM,Jamaica,0,0.0
+JE,Jersey,0,0.0
+JO,Jordan,0,0.0
+KZ,Kazakhstan,0,0.0
+KE,Kenya,0,0.0
+KI,Kiribati,0,0.0
+KP,"Korea, North",0,0.0
+XK,Kosovo,0,0.0
+KW,Kuwait,0,0.0
+KG,Kyrgyzstan,0,0.0
+LA,Laos,0,0.0
+LB,Lebanon,0,0.0
+LS,Lesotho,0,0.0
+LR,Liberia,0,0.0
+LY,Libya,0,0.0
+MO,Macau,0,0.0
+MG,Madagascar,0,0.0
+MW,Malawi,0,0.0
+MV,Maldives,0,0.0
+ML,Mali,0,0.0
+MH,Marshall Islands,0,0.0
+MQ,Martinique,0,0.0
+MR,Mauritania,0,0.0
+MU,Mauritius,0,0.0
+YT,Mayotte,0,0.0
+FM,"Micronesia, Federated States of",0,0.0
+MD,Moldova,0,0.0
+MN,Mongolia,0,0.0
+ME,Montenegro,0,0.0
+MS,Montserrat,0,0.0
+MA,Morocco,0,0.0
+MZ,Mozambique,0,0.0
+NA,Namibia,0,0.0
+NR,Nauru,0,0.0
+NP,Nepal,0,0.0
+NC,New Caledonia,0,0.0
+NI,Nicaragua,0,0.0
+NE,Niger,0,0.0
+NG,Nigeria,0,0.0
+NU,Niue,0,0.0
+NF,Norfolk Island,0,0.0
+MK,North Macedonia,0,0.0
+MP,Northern Mariana Islands,0,0.0
+OM,Oman,0,0.0
+PK,Pakistan,0,0.0
+PW,Palau,0,0.0
+PS,Palestine,0,0.0
+PA,Panama,0,0.0
+PG,Papua New Guinea,0,0.0
+PY,Paraguay,0,0.0
+PE,Peru,0,0.0
+PN,Pitcairn Islands,0,0.0
+PR,Puerto Rico,0,0.0
+RE,Reunion,0,0.0
+RO,Romania,0,0.0
+RU,Russia,0,0.0
+RW,Rwanda,0,0.0
+BL,Saint Barthelemy,0,0.0
+SH,"Saint Helena, Ascension, and Tristan da Cunha",0,0.0
+KN,Saint Kitts and Nevis,0,0.0
+LC,Saint Lucia,0,0.0
+MF,Saint Martin,0,0.0
+PM,Saint Pierre and Miquelon,0,0.0
+VC,Saint Vincent and the Grenadines,0,0.0
+WS,Samoa,0,0.0
+SM,San Marino,0,0.0
+ST,Sao Tome and Principe,0,0.0
+SN,Senegal,0,0.0
+SC,Seychelles,0,0.0
+SL,Sierra Leone,0,0.0
+SG,Singapore,0,0.0
+SX,Sint Maarten,0,0.0
+SK,Slovakia,0,0.0
+SB,Solomon Islands,0,0.0
+SO,Somalia,0,0.0
+ZA,South Africa,0,0.0
+GS,South Georgia and South Sandwich Islands,0,0.0
+SS,South Sudan,0,0.0
+LK,Sri Lanka,0,0.0
+SD,Sudan,0,0.0
+SR,Suriname,0,0.0
+XR,Svalbard,0,0.0
+SY,Syria,0,0.0
+TJ,Tajikistan,0,0.0
+TZ,Tanzania,0,0.0
+TL,Timor-Leste,0,0.0
+TG,Togo,0,0.0
+TO,Tonga,0,0.0
+TT,Trinidad and Tobago,0,0.0
+TN,Tunisia,0,0.0
+TM,Turkmenistan,0,0.0
+TC,Turks and Caicos Islands,0,0.0
+TV,Tuvalu,0,0.0
+VI,U.S. Virgin Islands,0,0.0
+UG,Uganda,0,0.0
+UA,Ukraine,0,0.0
+UY,Uruguay,0,0.0
+UZ,Uzbekistan,0,0.0
+VU,Vanuatu,0,0.0
+VA,Vatican City,0,0.0
+VE,Venezuela,0,0.0
+VG,"Virgin Islands, British",0,0.0
+WF,Wallis and Futuna,0,0.0
+XW,West Bank,0,0.0
+YE,Yemen,0,0.0
+ZM,Zambia,0,0.0
+ZW,Zimbabwe,0,0.0

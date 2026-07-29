@@ -1,0 +1,243 @@
+COUNTRY,COUNTRY_NAME,SITE_COUNT,UNESCO_SCORE
+IT,Italy,62,10.0
+CN,China,61,9.96
+FR,France,56,9.76
+DE,Germany,55,9.72
+ES,Spain,50,9.49
+IN,India,45,9.24
+MX,Mexico,36,8.72
+GB,United Kingdom,35,8.65
+RU,Russia,33,8.51
+IR,Iran,30,8.29
+JP,Japan,27,8.04
+US,United States,27,8.04
+BR,Brazil,26,7.95
+CA,Canada,22,7.57
+TR,Turkey,22,7.57
+AU,Australia,21,7.46
+GR,Greece,21,7.46
+PL,Poland,18,7.11
+CZ,Czechia,17,6.98
+KR,"Korea, South",17,6.98
+PT,Portugal,17,6.98
+BE,Belgium,16,6.84
+SE,Sweden,15,6.69
+DK,Denmark,13,6.37
+NL,Netherlands,13,6.37
+PE,Peru,13,6.37
+CH,Switzerland,13,6.37
+AR,Argentina,12,6.19
+AT,Austria,12,6.19
+ET,Ethiopia,12,6.19
+ZA,South Africa,12,6.19
+RO,Romania,11,6.0
+BG,Bulgaria,10,5.79
+HR,Croatia,10,5.79
+ID,Indonesia,10,5.79
+TN,Tunisia,10,5.79
+CO,Colombia,9,5.56
+CU,Cuba,9,5.56
+IL,Israel,9,5.56
+MA,Morocco,9,5.56
+TH,Thailand,9,5.56
+VN,Vietnam,9,5.56
+FI,Finland,8,5.3
+HU,Hungary,8,5.3
+JO,Jordan,8,5.3
+KE,Kenya,8,5.3
+NO,Norway,8,5.3
+SA,Saudi Arabia,8,5.3
+SK,Slovakia,8,5.3
+LK,Sri Lanka,8,5.3
+UA,Ukraine,8,5.3
+UZ,Uzbekistan,8,5.3
+DZ,Algeria,7,5.02
+BO,Bolivia,7,5.02
+CL,Chile,7,5.02
+EG,Egypt,7,5.02
+KZ,Kazakhstan,7,5.02
+LB,Lebanon,7,5.02
+MN,Mongolia,7,5.02
+SN,Senegal,7,5.02
+TZ,Tanzania,7,5.02
+IQ,Iraq,6,4.7
+MY,Malaysia,6,4.7
+PK,Pakistan,6,4.7
+PS,Palestine,6,4.7
+PH,Philippines,6,4.7
+SY,Syria,6,4.7
+AZ,Azerbaijan,5,4.32
+BA,Bosnia and Herzegovina,5,4.32
+KH,Cambodia,5,4.32
+CD,Congo (Kinshasa),5,4.32
+CI,Côte d’Ivoire,5,4.32
+EC,Ecuador,5,4.32
+LY,Libya,5,4.32
+LT,Lithuania,5,4.32
+OM,Oman,5,4.32
+PA,Panama,5,4.32
+RS,Serbia,5,4.32
+SI,Slovenia,5,4.32
+TJ,Tajikistan,5,4.32
+TM,Turkmenistan,5,4.32
+YE,Yemen,5,4.32
+ZW,Zimbabwe,5,4.32
+AL,Albania,4,3.88
+BY,Belarus,4,3.88
+BF,Burkina Faso,4,3.88
+CR,Costa Rica,4,3.88
+GE,Georgia,4,3.88
+GT,Guatemala,4,3.88
+LA,Laos,4,3.88
+ML,Mali,4,3.88
+ME,Montenegro,4,3.88
+NP,Nepal,4,3.88
+AM,Armenia,3,3.35
+BH,Bahrain,3,3.35
+BD,Bangladesh,3,3.35
+BJ,Benin,3,3.35
+CM,Cameroon,3,3.35
+CY,Cyprus,3,3.35
+IS,Iceland,3,3.35
+KP,"Korea, North",3,3.35
+KG,Kyrgyzstan,3,3.35
+LV,Latvia,3,3.35
+MG,Madagascar,3,3.35
+MW,Malawi,3,3.35
+MT,Malta,3,3.35
+NZ,New Zealand,3,3.35
+NE,Niger,3,3.35
+SD,Sudan,3,3.35
+SR,Suriname,3,3.35
+UG,Uganda,3,3.35
+AE,United Arab Emirates,3,3.35
+UY,Uruguay,3,3.35
+VE,Venezuela,3,3.35
+AF,Afghanistan,2,2.65
+BW,Botswana,2,2.65
+MM,Burma,2,2.65
+CF,Central African Republic,2,2.65
+TD,Chad,2,2.65
+CG,Congo (Brazzaville),2,2.65
+EE,Estonia,2,2.65
+GA,Gabon,2,2.65
+GM,"Gambia, The",2,2.65
+GH,Ghana,2,2.65
+HN,Honduras,2,2.65
+IE,Ireland,2,2.65
+JM,Jamaica,2,2.65
+MR,Mauritania,2,2.65
+MU,Mauritius,2,2.65
+MZ,Mozambique,2,2.65
+NA,Namibia,2,2.65
+NI,Nicaragua,2,2.65
+NG,Nigeria,2,2.65
+MK,North Macedonia,2,2.65
+RW,Rwanda,2,2.65
+SC,Seychelles,2,2.65
+VA,Vatican City,2,2.65
+AD,Andorra,1,1.67
+AO,Angola,1,1.67
+AG,Antigua and Barbuda,1,1.67
+BB,Barbados,1,1.67
+BZ,Belize,1,1.67
+CV,Cabo Verde,1,1.67
+KM,Comoros,1,1.67
+DM,Dominica,1,1.67
+DO,Dominican Republic,1,1.67
+SV,El Salvador,1,1.67
+ER,Eritrea,1,1.67
+FJ,Fiji,1,1.67
+GN,Guinea,1,1.67
+GW,Guinea-Bissau,1,1.67
+HT,Haiti,1,1.67
+KI,Kiribati,1,1.67
+LS,Lesotho,1,1.67
+LU,Luxembourg,1,1.67
+MH,Marshall Islands,1,1.67
+FM,"Micronesia, Federated States of",1,1.67
+MD,Moldova,1,1.67
+PW,Palau,1,1.67
+PG,Papua New Guinea,1,1.67
+PY,Paraguay,1,1.67
+QA,Qatar,1,1.67
+KN,Saint Kitts and Nevis,1,1.67
+LC,Saint Lucia,1,1.67
+SM,San Marino,1,1.67
+ST,Sao Tome and Principe,1,1.67
+SL,Sierra Leone,1,1.67
+SG,Singapore,1,1.67
+SB,Solomon Islands,1,1.67
+SS,South Sudan,1,1.67
+TG,Togo,1,1.67
+VU,Vanuatu,1,1.67
+ZM,Zambia,1,1.67
+AS,American Samoa,0,0.0
+AI,Anguilla,0,0.0
+AW,Aruba,0,0.0
+BS,"Bahamas, The",0,0.0
+BM,Bermuda,0,0.0
+BT,Bhutan,0,0.0
+BQ,"Bonaire, Sint Eustatius, and Saba",0,0.0
+BN,Brunei,0,0.0
+BI,Burundi,0,0.0
+KY,Cayman Islands,0,0.0
+CX,Christmas Island,0,0.0
+CK,Cook Islands,0,0.0
+CW,Curaçao,0,0.0
+DJ,Djibouti,0,0.0
+GQ,Equatorial Guinea,0,0.0
+SZ,Eswatini,0,0.0
+FK,Falkland Islands (Islas Malvinas),0,0.0
+FO,Faroe Islands,0,0.0
+GF,French Guiana,0,0.0
+PF,French Polynesia,0,0.0
+XG,Gaza Strip,0,0.0
+GI,Gibraltar,0,0.0
+GL,Greenland,0,0.0
+GD,Grenada,0,0.0
+GP,Guadeloupe,0,0.0
+GU,Guam,0,0.0
+GG,Guernsey,0,0.0
+GY,Guyana,0,0.0
+HK,Hong Kong,0,0.0
+IM,Isle of Man,0,0.0
+JE,Jersey,0,0.0
+XK,Kosovo,0,0.0
+KW,Kuwait,0,0.0
+LR,Liberia,0,0.0
+LI,Liechtenstein,0,0.0
+MO,Macau,0,0.0
+MV,Maldives,0,0.0
+MQ,Martinique,0,0.0
+YT,Mayotte,0,0.0
+MC,Monaco,0,0.0
+MS,Montserrat,0,0.0
+NR,Nauru,0,0.0
+NC,New Caledonia,0,0.0
+NU,Niue,0,0.0
+NF,Norfolk Island,0,0.0
+MP,Northern Mariana Islands,0,0.0
+PN,Pitcairn Islands,0,0.0
+PR,Puerto Rico,0,0.0
+RE,Reunion,0,0.0
+BL,Saint Barthelemy,0,0.0
+SH,"Saint Helena, Ascension, and Tristan da Cunha",0,0.0
+MF,Saint Martin,0,0.0
+PM,Saint Pierre and Miquelon,0,0.0
+VC,Saint Vincent and the Grenadines,0,0.0
+WS,Samoa,0,0.0
+SX,Sint Maarten,0,0.0
+SO,Somalia,0,0.0
+GS,South Georgia and South Sandwich Islands,0,0.0
+XR,Svalbard,0,0.0
+TW,Taiwan,0,0.0
+TL,Timor-Leste,0,0.0
+TO,Tonga,0,0.0
+TT,Trinidad and Tobago,0,0.0
+TC,Turks and Caicos Islands,0,0.0
+TV,Tuvalu,0,0.0
+VI,U.S. Virgin Islands,0,0.0
+VG,"Virgin Islands, British",0,0.0
+WF,Wallis and Futuna,0,0.0
+XW,West Bank,0,0.0
