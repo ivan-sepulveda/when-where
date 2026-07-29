@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router";
 import { COUNTRIES, DEFAULT_COUNTRY_CODE } from "../lib/countries";
 import { countryCodeToFlagEmoji } from "../lib/flagEmoji";
 import { normalizeForSearch } from "../lib/search";
@@ -6,9 +7,11 @@ import { normalizeForSearch } from "../lib/search";
 // No auth/user state yet -- when that lands, this is where a
 // signed-in menu (profile, sign out, etc.) would slot in, mirroring
 // the pattern in https://github.com/ivan-sepulveda/dft's Navbar.
+// `to: null` means there's no real page for it yet -- rendered as a
+// plain "#" link until one exists.
 const BROWSE_LINKS = [
-  { label: "Destinations", href: "#" },
-  { label: "About", href: "#" },
+  { label: "Destinations", to: "/destinations" },
+  { label: "About", to: null },
 ] as const;
 
 // Only one dropdown should be open at a time.
@@ -49,9 +52,9 @@ export default function NavBar() {
 
   return (
     <nav className="navbar">
-      <a href="/" className="navbar-brand">
+      <Link to="/" className="navbar-brand">
         when/where
-      </a>
+      </Link>
 
       <div className="navbar-links">
         <div className="navbar-menu">
@@ -66,16 +69,30 @@ export default function NavBar() {
 
           {openMenu === "browse" && (
             <div className="navbar-dropdown">
-              {BROWSE_LINKS.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="navbar-dropdown-link"
-                  onClick={() => setOpenMenu(null)}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {BROWSE_LINKS.map((link) =>
+                link.to ? (
+                  <Link
+                    key={link.label}
+                    to={link.to}
+                    className="navbar-dropdown-link"
+                    onClick={() => setOpenMenu(null)}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.label}
+                    href="#"
+                    className="navbar-dropdown-link"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenMenu(null);
+                    }}
+                  >
+                    {link.label}
+                  </a>
+                ),
+              )}
             </div>
           )}
         </div>

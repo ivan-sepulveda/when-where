@@ -1,16 +1,17 @@
 import { useState } from "react";
+import { Route, Routes, useNavigate } from "react-router";
 import NavBar from "./components/NavBar";
+import Destinations from "./pages/Destinations";
 
 const INTERESTS = ["Hiking", "Beaches", "Food & culture", "Nightlife"] as const;
 type Interest = (typeof INTERESTS)[number];
 
-function App() {
+function Home() {
+  const navigate = useNavigate();
   const [interest, setInterest] = useState<Interest>("Food & culture");
 
   return (
-    <>
-      <NavBar />
-      <main className="page">
+    <main className="page">
       <h1>when/where</h1>
       <p className="tagline">
         Tell us your dates and what you're into. We'll tell you where to go.
@@ -20,8 +21,19 @@ function App() {
         className="search-form"
         onSubmit={(e) => {
           e.preventDefault();
-          // No backend wired up yet -- this is just the placeholder shell
-          // deployed to confirm the Vercel pipeline works end to end.
+          const form = e.currentTarget;
+          const startDate = (form.elements.namedItem("start_date") as HTMLInputElement).value;
+          const endDate = (form.elements.namedItem("end_date") as HTMLInputElement).value;
+
+          // No backend wired up yet -- for now this just carries the
+          // searched dates/interest along as query params to the general
+          // destinations page.
+          const params = new URLSearchParams();
+          if (startDate) params.set("start_date", startDate);
+          if (endDate) params.set("end_date", endDate);
+          params.set("interest", interest);
+
+          navigate(`/destinations?${params.toString()}`);
         }}
       >
         <label>
@@ -48,11 +60,20 @@ function App() {
           </select>
         </label>
 
-        <button type="submit" disabled>
-          Find destinations (coming soon)
-        </button>
+        <button type="submit">Find destinations</button>
       </form>
-      </main>
+    </main>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/destinations" element={<Destinations />} />
+      </Routes>
     </>
   );
 }
