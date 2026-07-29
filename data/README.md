@@ -1042,11 +1042,24 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   doing the reverse) — or folding in the weather scores, peak tourism
   indicator, or crime score — is a natural next step, but isn't what
   this script does.
-- **Output:** `processed/OVERARCHING_TRIP_SCORE_BY_COUNTRY.csv` —
+- **Output:** both `processed/OVERARCHING_TRIP_SCORE_BY_COUNTRY.csv` —
   `COUNTRY` (iso2), `COUNTRY_NAME`, `UNESCO_SCORE`, `MICHELIN_SCORE`,
   `PRICE_SCORE` (any of the three may be blank), `SCORES_AVERAGED`
   (1–3), `OVERARCHING_SCORE`, sorted by score descending (blanks last)
-  then name.
+  then name — and `processed/OVERARCHING_TRIP_SCORE_BY_COUNTRY.json`,
+  the same data reshaped into this project's usual JSON convention: a
+  top-level `source`/`generated`/`total_countries`/
+  `full_data_countries`/`partial_data_countries`/`no_data_countries`
+  metadata block (matching `unesco_by_country.json`,
+  `monthly_scores_<year>_by_city.json`), plus a `countries` object keyed
+  by ISO2 code, each value `{country_name, unesco_score, michelin_score,
+  price_score, scores_averaged, overarching_score}`. Blank CSV cells
+  (missing `PRICE_SCORE`, or a hypothetical all-missing
+  `OVERARCHING_SCORE`) become JSON `null` rather than `""`. The JSON
+  exists for anything downstream — the frontend, eventually — that wants
+  this data without a CSV parser; both files are written from the same
+  in-memory rows in the same run, so they can never drift from each
+  other.
 - **Run:**
   ```
   python scripts/build_overarching_trip_scores.py
@@ -1065,7 +1078,11 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   `(8.04 + 9.33 + 2.0) / 3 = 6.46` — all matched exactly. Both Mexico and
   Vietnam moved up noticeably from the previous tiered-UNESCO run (7.13
   and 6.2 respectively), since log-scale gives more credit to their
-  more modest UNESCO site counts than fixed tiers did.
+  more modest UNESCO site counts than fixed tiers did. Cross-checked the
+  JSON against the CSV directly: same 242 keys, `countries["CN"]` and
+  `countries["IT"]` matched the China/Italy rows above exactly, and a
+  spot-checked `SCORES_AVERAGED=2` country (Taiwan, Cuba) had
+  `price_score: null` in the JSON where the CSV had a blank cell.
 
 ### Eurostat — Air transport of passengers by country (`TTR00012`/`TTR00016`, `scripts/europe/fetch_eurostat_dataset.py`)
 

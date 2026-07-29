@@ -45,18 +45,37 @@ heavily than affordability (or a budget traveler doing the reverse) is a
 natural next step, but isn't what this script does; it's the flat,
 unweighted baseline everything profile-specific would build on top of.
 
+Written as both a CSV (data/processed/OVERARCHING_TRIP_SCORE_BY_COUNTRY.csv,
+one row per country, matching every other *_SCORE_BY_COUNTRY.csv in this
+project) and a JSON (…json, an object keyed by iso2 `COUNTRY` code, plus
+the source/generated/counts metadata this project's other JSON outputs
+carry -- see unesco_by_country.json, monthly_scores_<year>_by_city.json).
+Same rows, same blank-vs-zero handling either way (a missing PRICE_SCORE
+is `null` in the JSON, matching the CSV's blank cell); JSON is there for
+anything downstream (e.g. the frontend) that wants this data as-is
+without a CSV parser.
+
 Usage:
     python build_overarching_trip_scores.py
 """
 
 import csv
+import json
+from datetime import date
 from pathlib import Path
 
 PROCESSED_DIR = Path(__file__).resolve().parent.parent / "processed"
 UNESCO_PATH = PROCESSED_DIR / "UNESCO_SCORE_BY_COUNTRY.csv"
 MICHELIN_PATH = PROCESSED_DIR / "MICHELIN_SCORE_BY_COUNTRY.csv"
 PRICE_PATH = PROCESSED_DIR / "PRICE_LEVEL_SCORE_BY_COUNTRY.csv"
-OUTPUT_PATH = PROCESSED_DIR / "OVERARCHING_TRIP_SCORE_BY_COUNTRY.csv"
+OUTPUT_CSV_PATH = PROCESSED_DIR / "OVERARCHING_TRIP_SCORE_BY_COUNTRY.csv"
+OUTPUT_JSON_PATH = PROCESSED_DIR / "OVERARCHING_TRIP_SCORE_BY_COUNTRY.json"
+
+ATTRIBUTION = (
+    "Derived from UNESCO_SCORE_BY_COUNTRY.csv, MICHELIN_SCORE_BY_COUNTRY.csv, "
+    "and PRICE_LEVEL_SCORE_BY_COUNTRY.csv via build_overarching_trip_scores.py -- "
+    "see data/SCORING.md"
+)
 
 # (label used in the output column name, path, the score column to read from it)
 SCORE_SOURCES = [
@@ -123,16 +142,56 @@ def build_overarching_scores() -> list[dict]:
 def write_csv(rows: list[dict]) -> Path:
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     fieldnames = ["COUNTRY", "COUNTRY_NAME", "UNESCO_SCORE", "MICHELIN_SCORE", "PRICE_SCORE", "SCORES_AVERAGED", "OVERARCHING_SCORE"]
-    with open(OUTPUT_PATH, "w", newline="", encoding="utf-8") as f:
+    with open(OUTPUT_CSV_PATH, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
-    return OUTPUT_PATH
+    return OUTPUT_CSV_PATH
+
+
+def write_json(rows: list[dict]) -> Path:
+    """Same data as write_csv, reshaped into this project's usual JSON
+    convention: an object keyed by iso2 code plus source/generated/count
+    metadata (see unesco_by_country.json, monthly_scores_*.json). Blank
+    CSV cells (PRICE_SCORE missing, or OVERARCHING_SCORE with zero inputs)
+    become JSON `null`, not the string "" the CSV uses."""
+
+    def blank_to_none(value):
+        return value if value != "" else None
+
+    countries = {
+        r["COUNTRY"]: {
+            "country_name": r["COUNTRY_NAME"],
+            "unesco_score": blank_to_none(r["UNESCO_SCORE"]),
+            "michelin_score": blank_to_none(r["MICHELIN_SCORE"]),
+            "price_score": blank_to_none(r["PRICE_SCORE"]),
+            "scores_averaged": r["SCORES_AVERAGED"],
+            "overarching_score": blank_to_none(r["OVERARCHING_SCORE"]),
+        }
+        for r in rows
+    }
+
+    payload = {
+        "source": ATTRIBUTION,
+        "generated": date.today().isoformat(),
+        "total_countries": len(rows),
+        "full_data_countries": sum(1 for r in rows if r["SCORES_AVERAGED"] == 3),
+        "partial_data_countries": sum(1 for r in rows if r["SCORES_AVERAGED"] in (1, 2)),
+        "no_data_countries": sum(1 for r in rows if r["SCORES_AVERAGED"] == 0),
+        "countries": countries,
+    }
+
+    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+    with open(OUTPUT_JSON_PATH, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+    return OUTPUT_JSON_PATH
 
 
 def main():
     rows = build_overarching_scores()
-    out_path = write_csv(rows)
+    csv_path = write_csv(rows)
+    json_path = write_json(rows)
 
     full_data = sum(1 for r in rows if r["SCORES_AVERAGED"] == 3)
     partial_data = sum(1 for r in rows if r["SCORES_AVERAGED"] in (1, 2))
@@ -146,7 +205,8 @@ def main():
         print(f"  {r['COUNTRY_NAME']}: {r['OVERARCHING_SCORE']} (UNESCO {r['UNESCO_SCORE']}, Michelin {r['MICHELIN_SCORE']}, Price {r['PRICE_SCORE'] or 'n/a'}, n={r['SCORES_AVERAGED']})")
     if unknown:
         print(f"[overarching_trip_scores] WARNING: {len(unknown)} code(s) with no resolvable name: {[r['COUNTRY'] for r in unknown]}")
-    print(f"[overarching_trip_scores] -> {out_path}")
+    print(f"[overarching_trip_scores] -> {csv_path}")
+    print(f"[overarching_trip_scores] -> {json_path}")
 
 
 if __name__ == "__main__":

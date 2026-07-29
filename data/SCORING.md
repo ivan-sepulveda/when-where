@@ -106,7 +106,6 @@ python scripts/build_overarching_trip_scores.py
 ```
 
 Averages `UNESCO_SCORE`, `MICHELIN_SCORE`, and `PRICE_SCORE` into
-`data/processed/OVERARCHING_TRIP_SCORE_BY_COUNTRY.csv`'s
 `OVERARCHING_SCORE` — plain `mean()`, not weighted, per the request that
 kicked this script off. All three inputs share the same 242-country,
 ISO2-keyed list, so this is a straight join, no name-matching needed.
@@ -117,6 +116,14 @@ only 1–2 domains is never mistaken for a full 3-domain one. Not
 traveler-profile-aware — a natural next step is weighting these (and
 the weather/peak-tourism/crime scores above) differently per profile,
 but this script is the flat, unweighted baseline underneath that.
+
+Written as both `data/processed/OVERARCHING_TRIP_SCORE_BY_COUNTRY.csv`
+(one row per country) and `...json` (an object keyed by ISO2 code, plus
+`source`/`generated`/count metadata matching this project's other JSON
+outputs, e.g. `unesco_by_country.json`) — same data either way, with a
+missing `PRICE_SCORE` as a blank CSV cell / JSON `null` respectively. The
+JSON exists for anything downstream (the frontend, eventually) that wants
+this data without a CSV parser.
 
 ```
 python scripts/build_usd_purchasing_power_dataset.py

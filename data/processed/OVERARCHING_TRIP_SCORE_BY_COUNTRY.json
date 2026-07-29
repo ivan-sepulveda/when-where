@@ -1,0 +1,1946 @@
+{
+  "source": "Derived from UNESCO_SCORE_BY_COUNTRY.csv, MICHELIN_SCORE_BY_COUNTRY.csv, and PRICE_LEVEL_SCORE_BY_COUNTRY.csv via build_overarching_trip_scores.py -- see data/SCORING.md",
+  "generated": "2026-07-29",
+  "total_countries": 242,
+  "full_data_countries": 183,
+  "partial_data_countries": 59,
+  "no_data_countries": 0,
+  "countries": {
+    "CN": {
+      "country_name": "China",
+      "unesco_score": 9.96,
+      "michelin_score": 8.31,
+      "price_score": 7.27,
+      "scores_averaged": 3,
+      "overarching_score": 8.51
+    },
+    "IT": {
+      "country_name": "Italy",
+      "unesco_score": 10.0,
+      "michelin_score": 9.46,
+      "price_score": 5.1,
+      "scores_averaged": 3,
+      "overarching_score": 8.19
+    },
+    "FR": {
+      "country_name": "France",
+      "unesco_score": 9.76,
+      "michelin_score": 10.0,
+      "price_score": 4.34,
+      "scores_averaged": 3,
+      "overarching_score": 8.03
+    },
+    "ES": {
+      "country_name": "Spain",
+      "unesco_score": 9.49,
+      "michelin_score": 8.95,
+      "price_score": 5.55,
+      "scores_averaged": 3,
+      "overarching_score": 8.0
+    },
+    "DE": {
+      "country_name": "Germany",
+      "unesco_score": 9.72,
+      "michelin_score": 8.89,
+      "price_score": 3.98,
+      "scores_averaged": 3,
+      "overarching_score": 7.53
+    },
+    "JP": {
+      "country_name": "Japan",
+      "unesco_score": 8.04,
+      "michelin_score": 8.74,
+      "price_score": 5.51,
+      "scores_averaged": 3,
+      "overarching_score": 7.43
+    },
+    "TH": {
+      "country_name": "Thailand",
+      "unesco_score": 5.56,
+      "michelin_score": 7.71,
+      "price_score": 8.93,
+      "scores_averaged": 3,
+      "overarching_score": 7.4
+    },
+    "MX": {
+      "country_name": "Mexico",
+      "unesco_score": 8.72,
+      "michelin_score": 6.76,
+      "price_score": 6.63,
+      "scores_averaged": 3,
+      "overarching_score": 7.37
+    },
+    "TR": {
+      "country_name": "Turkey",
+      "unesco_score": 7.57,
+      "michelin_score": 6.34,
+      "price_score": 7.89,
+      "scores_averaged": 3,
+      "overarching_score": 7.27
+    },
+    "BR": {
+      "country_name": "Brazil",
+      "unesco_score": 7.95,
+      "michelin_score": 6.24,
+      "price_score": 7.43,
+      "scores_averaged": 3,
+      "overarching_score": 7.21
+    },
+    "VN": {
+      "country_name": "Vietnam",
+      "unesco_score": 5.56,
+      "michelin_score": 6.57,
+      "price_score": 9.2,
+      "scores_averaged": 3,
+      "overarching_score": 7.11
+    },
+    "GB": {
+      "country_name": "United Kingdom",
+      "unesco_score": 8.65,
+      "michelin_score": 8.76,
+      "price_score": 3.08,
+      "scores_averaged": 3,
+      "overarching_score": 6.83
+    },
+    "PL": {
+      "country_name": "Poland",
+      "unesco_score": 7.11,
+      "michelin_score": 6.59,
+      "price_score": 6.76,
+      "scores_averaged": 3,
+      "overarching_score": 6.82
+    },
+    "KR": {
+      "country_name": "Korea, South",
+      "unesco_score": 6.98,
+      "michelin_score": 6.8,
+      "price_score": 6.26,
+      "scores_averaged": 3,
+      "overarching_score": 6.68
+    },
+    "MY": {
+      "country_name": "Malaysia",
+      "unesco_score": 4.7,
+      "michelin_score": 6.25,
+      "price_score": 8.84,
+      "scores_averaged": 3,
+      "overarching_score": 6.6
+    },
+    "PT": {
+      "country_name": "Portugal",
+      "unesco_score": 6.98,
+      "michelin_score": 6.65,
+      "price_score": 5.96,
+      "scores_averaged": 3,
+      "overarching_score": 6.53
+    },
+    "US": {
+      "country_name": "United States",
+      "unesco_score": 8.04,
+      "michelin_score": 9.33,
+      "price_score": 2.0,
+      "scores_averaged": 3,
+      "overarching_score": 6.46
+    },
+    "PH": {
+      "country_name": "Philippines",
+      "unesco_score": 4.7,
+      "michelin_score": 5.85,
+      "price_score": 8.68,
+      "scores_averaged": 3,
+      "overarching_score": 6.41
+    },
+    "AR": {
+      "country_name": "Argentina",
+      "unesco_score": 6.19,
+      "michelin_score": 5.38,
+      "price_score": 7.43,
+      "scores_averaged": 3,
+      "overarching_score": 6.33
+    },
+    "IN": {
+      "country_name": "India",
+      "unesco_score": 9.24,
+      "michelin_score": 0.0,
+      "price_score": 9.7,
+      "scores_averaged": 3,
+      "overarching_score": 6.31
+    },
+    "BE": {
+      "country_name": "Belgium",
+      "unesco_score": 6.84,
+      "michelin_score": 8.19,
+      "price_score": 3.86,
+      "scores_averaged": 3,
+      "overarching_score": 6.3
+    },
+    "CZ": {
+      "country_name": "Czechia",
+      "unesco_score": 6.98,
+      "michelin_score": 5.46,
+      "price_score": 6.06,
+      "scores_averaged": 3,
+      "overarching_score": 6.17
+    },
+    "HR": {
+      "country_name": "Croatia",
+      "unesco_score": 5.79,
+      "michelin_score": 5.88,
+      "price_score": 6.68,
+      "scores_averaged": 3,
+      "overarching_score": 6.12
+    },
+    "CA": {
+      "country_name": "Canada",
+      "unesco_score": 7.57,
+      "michelin_score": 7.1,
+      "price_score": 3.66,
+      "scores_averaged": 3,
+      "overarching_score": 6.11
+    },
+    "IR": {
+      "country_name": "Iran",
+      "unesco_score": 8.29,
+      "michelin_score": 0.0,
+      "price_score": 10.0,
+      "scores_averaged": 3,
+      "overarching_score": 6.1
+    },
+    "GR": {
+      "country_name": "Greece",
+      "unesco_score": 7.46,
+      "michelin_score": 4.43,
+      "price_score": 6.05,
+      "scores_averaged": 3,
+      "overarching_score": 5.98
+    },
+    "NL": {
+      "country_name": "Netherlands",
+      "unesco_score": 6.37,
+      "michelin_score": 7.73,
+      "price_score": 3.56,
+      "scores_averaged": 3,
+      "overarching_score": 5.89
+    },
+    "SA": {
+      "country_name": "Saudi Arabia",
+      "unesco_score": 5.3,
+      "michelin_score": 4.93,
+      "price_score": 7.32,
+      "scores_averaged": 3,
+      "overarching_score": 5.85
+    },
+    "AT": {
+      "country_name": "Austria",
+      "unesco_score": 6.19,
+      "michelin_score": 7.53,
+      "price_score": 3.8,
+      "scores_averaged": 3,
+      "overarching_score": 5.84
+    },
+    "HU": {
+      "country_name": "Hungary",
+      "unesco_score": 5.3,
+      "michelin_score": 5.42,
+      "price_score": 6.8,
+      "scores_averaged": 3,
+      "overarching_score": 5.84
+    },
+    "RU": {
+      "country_name": "Russia",
+      "unesco_score": 8.51,
+      "michelin_score": 0.0,
+      "price_score": 8.46,
+      "scores_averaged": 3,
+      "overarching_score": 5.66
+    },
+    "RS": {
+      "country_name": "Serbia",
+      "unesco_score": 4.32,
+      "michelin_score": 4.01,
+      "price_score": 7.5,
+      "scores_averaged": 3,
+      "overarching_score": 5.28
+    },
+    "ET": {
+      "country_name": "Ethiopia",
+      "unesco_score": 6.19,
+      "michelin_score": 0.0,
+      "price_score": 9.42,
+      "scores_averaged": 3,
+      "overarching_score": 5.2
+    },
+    "SE": {
+      "country_name": "Sweden",
+      "unesco_score": 6.69,
+      "michelin_score": 5.49,
+      "price_score": 3.3,
+      "scores_averaged": 3,
+      "overarching_score": 5.16
+    },
+    "SI": {
+      "country_name": "Slovenia",
+      "unesco_score": 4.32,
+      "michelin_score": 5.38,
+      "price_score": 5.69,
+      "scores_averaged": 3,
+      "overarching_score": 5.13
+    },
+    "LT": {
+      "country_name": "Lithuania",
+      "unesco_score": 4.32,
+      "michelin_score": 4.75,
+      "price_score": 6.2,
+      "scores_averaged": 3,
+      "overarching_score": 5.09
+    },
+    "EG": {
+      "country_name": "Egypt",
+      "unesco_score": 5.02,
+      "michelin_score": 0.0,
+      "price_score": 10.0,
+      "scores_averaged": 3,
+      "overarching_score": 5.01
+    },
+    "DK": {
+      "country_name": "Denmark",
+      "unesco_score": 6.37,
+      "michelin_score": 5.88,
+      "price_score": 2.75,
+      "scores_averaged": 3,
+      "overarching_score": 5.0
+    },
+    "CH": {
+      "country_name": "Switzerland",
+      "unesco_score": 6.37,
+      "michelin_score": 7.83,
+      "price_score": 0.8,
+      "scores_averaged": 3,
+      "overarching_score": 5.0
+    },
+    "ID": {
+      "country_name": "Indonesia",
+      "unesco_score": 5.79,
+      "michelin_score": 0.0,
+      "price_score": 9.13,
+      "scores_averaged": 3,
+      "overarching_score": 4.97
+    },
+    "TN": {
+      "country_name": "Tunisia",
+      "unesco_score": 5.79,
+      "michelin_score": 0.0,
+      "price_score": 8.94,
+      "scores_averaged": 3,
+      "overarching_score": 4.91
+    },
+    "LK": {
+      "country_name": "Sri Lanka",
+      "unesco_score": 5.3,
+      "michelin_score": 0.0,
+      "price_score": 9.07,
+      "scores_averaged": 3,
+      "overarching_score": 4.79
+    },
+    "UZ": {
+      "country_name": "Uzbekistan",
+      "unesco_score": 5.3,
+      "michelin_score": 0.0,
+      "price_score": 9.08,
+      "scores_averaged": 3,
+      "overarching_score": 4.79
+    },
+    "PK": {
+      "country_name": "Pakistan",
+      "unesco_score": 4.7,
+      "michelin_score": 0.0,
+      "price_score": 9.57,
+      "scores_averaged": 3,
+      "overarching_score": 4.76
+    },
+    "UA": {
+      "country_name": "Ukraine",
+      "unesco_score": 5.3,
+      "michelin_score": 0.0,
+      "price_score": 8.9,
+      "scores_averaged": 3,
+      "overarching_score": 4.73
+    },
+    "TZ": {
+      "country_name": "Tanzania",
+      "unesco_score": 5.02,
+      "michelin_score": 0.0,
+      "price_score": 9.05,
+      "scores_averaged": 3,
+      "overarching_score": 4.69
+    },
+    "ZA": {
+      "country_name": "South Africa",
+      "unesco_score": 6.19,
+      "michelin_score": 0.0,
+      "price_score": 7.85,
+      "scores_averaged": 3,
+      "overarching_score": 4.68
+    },
+    "KE": {
+      "country_name": "Kenya",
+      "unesco_score": 5.3,
+      "michelin_score": 0.0,
+      "price_score": 8.63,
+      "scores_averaged": 3,
+      "overarching_score": 4.64
+    },
+    "LV": {
+      "country_name": "Latvia",
+      "unesco_score": 3.35,
+      "michelin_score": 4.15,
+      "price_score": 6.3,
+      "scores_averaged": 3,
+      "overarching_score": 4.6
+    },
+    "DZ": {
+      "country_name": "Algeria",
+      "unesco_score": 5.02,
+      "michelin_score": 0.0,
+      "price_score": 8.74,
+      "scores_averaged": 3,
+      "overarching_score": 4.59
+    },
+    "CO": {
+      "country_name": "Colombia",
+      "unesco_score": 5.56,
+      "michelin_score": 0.0,
+      "price_score": 8.22,
+      "scores_averaged": 3,
+      "overarching_score": 4.59
+    },
+    "KZ": {
+      "country_name": "Kazakhstan",
+      "unesco_score": 5.02,
+      "michelin_score": 0.0,
+      "price_score": 8.68,
+      "scores_averaged": 3,
+      "overarching_score": 4.57
+    },
+    "LA": {
+      "country_name": "Laos",
+      "unesco_score": 3.88,
+      "michelin_score": 0.0,
+      "price_score": 9.76,
+      "scores_averaged": 3,
+      "overarching_score": 4.55
+    },
+    "MN": {
+      "country_name": "Mongolia",
+      "unesco_score": 5.02,
+      "michelin_score": 0.0,
+      "price_score": 8.58,
+      "scores_averaged": 3,
+      "overarching_score": 4.53
+    },
+    "MT": {
+      "country_name": "Malta",
+      "unesco_score": 3.35,
+      "michelin_score": 4.83,
+      "price_score": 5.37,
+      "scores_averaged": 3,
+      "overarching_score": 4.52
+    },
+    "RO": {
+      "country_name": "Romania",
+      "unesco_score": 6.0,
+      "michelin_score": 0.0,
+      "price_score": 7.57,
+      "scores_averaged": 3,
+      "overarching_score": 4.52
+    },
+    "TJ": {
+      "country_name": "Tajikistan",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": 9.24,
+      "scores_averaged": 3,
+      "overarching_score": 4.52
+    },
+    "AZ": {
+      "country_name": "Azerbaijan",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": 9.16,
+      "scores_averaged": 3,
+      "overarching_score": 4.49
+    },
+    "SN": {
+      "country_name": "Senegal",
+      "unesco_score": 5.02,
+      "michelin_score": 0.0,
+      "price_score": 8.42,
+      "scores_averaged": 3,
+      "overarching_score": 4.48
+    },
+    "TM": {
+      "country_name": "Turkmenistan",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": 9.11,
+      "scores_averaged": 3,
+      "overarching_score": 4.48
+    },
+    "NP": {
+      "country_name": "Nepal",
+      "unesco_score": 3.88,
+      "michelin_score": 0.0,
+      "price_score": 9.51,
+      "scores_averaged": 3,
+      "overarching_score": 4.46
+    },
+    "MA": {
+      "country_name": "Morocco",
+      "unesco_score": 5.56,
+      "michelin_score": 0.0,
+      "price_score": 7.8,
+      "scores_averaged": 3,
+      "overarching_score": 4.45
+    },
+    "BG": {
+      "country_name": "Bulgaria",
+      "unesco_score": 5.79,
+      "michelin_score": 0.0,
+      "price_score": 7.43,
+      "scores_averaged": 3,
+      "overarching_score": 4.41
+    },
+    "PE": {
+      "country_name": "Peru",
+      "unesco_score": 6.37,
+      "michelin_score": 0.0,
+      "price_score": 6.85,
+      "scores_averaged": 3,
+      "overarching_score": 4.41
+    },
+    "FI": {
+      "country_name": "Finland",
+      "unesco_score": 5.3,
+      "michelin_score": 4.43,
+      "price_score": 3.48,
+      "scores_averaged": 3,
+      "overarching_score": 4.4
+    },
+    "NO": {
+      "country_name": "Norway",
+      "unesco_score": 5.3,
+      "michelin_score": 4.9,
+      "price_score": 2.91,
+      "scores_averaged": 3,
+      "overarching_score": 4.37
+    },
+    "JO": {
+      "country_name": "Jordan",
+      "unesco_score": 5.3,
+      "michelin_score": 0.0,
+      "price_score": 7.77,
+      "scores_averaged": 3,
+      "overarching_score": 4.36
+    },
+    "BO": {
+      "country_name": "Bolivia",
+      "unesco_score": 5.02,
+      "michelin_score": 0.0,
+      "price_score": 8.0,
+      "scores_averaged": 3,
+      "overarching_score": 4.34
+    },
+    "KH": {
+      "country_name": "Cambodia",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": 8.64,
+      "scores_averaged": 3,
+      "overarching_score": 4.32
+    },
+    "BY": {
+      "country_name": "Belarus",
+      "unesco_score": 3.88,
+      "michelin_score": 0.0,
+      "price_score": 9.04,
+      "scores_averaged": 3,
+      "overarching_score": 4.31
+    },
+    "IQ": {
+      "country_name": "Iraq",
+      "unesco_score": 4.7,
+      "michelin_score": 0.0,
+      "price_score": 8.21,
+      "scores_averaged": 3,
+      "overarching_score": 4.3
+    },
+    "BD": {
+      "country_name": "Bangladesh",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 9.44,
+      "scores_averaged": 3,
+      "overarching_score": 4.26
+    },
+    "EE": {
+      "country_name": "Estonia",
+      "unesco_score": 2.65,
+      "michelin_score": 4.69,
+      "price_score": 5.39,
+      "scores_averaged": 3,
+      "overarching_score": 4.24
+    },
+    "QA": {
+      "country_name": "Qatar",
+      "unesco_score": 1.67,
+      "michelin_score": 4.69,
+      "price_score": 6.37,
+      "scores_averaged": 3,
+      "overarching_score": 4.24
+    },
+    "NG": {
+      "country_name": "Nigeria",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 10.0,
+      "scores_averaged": 3,
+      "overarching_score": 4.22
+    },
+    "CI": {
+      "country_name": "Côte d’Ivoire",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": 8.28,
+      "scores_averaged": 3,
+      "overarching_score": 4.2
+    },
+    "GE": {
+      "country_name": "Georgia",
+      "unesco_score": 3.88,
+      "michelin_score": 0.0,
+      "price_score": 8.71,
+      "scores_averaged": 3,
+      "overarching_score": 4.2
+    },
+    "NZ": {
+      "country_name": "New Zealand",
+      "unesco_score": 3.35,
+      "michelin_score": 5.87,
+      "price_score": 3.35,
+      "scores_averaged": 3,
+      "overarching_score": 4.19
+    },
+    "ML": {
+      "country_name": "Mali",
+      "unesco_score": 3.88,
+      "michelin_score": 0.0,
+      "price_score": 8.59,
+      "scores_averaged": 3,
+      "overarching_score": 4.16
+    },
+    "LY": {
+      "country_name": "Libya",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": 8.1,
+      "scores_averaged": 3,
+      "overarching_score": 4.14
+    },
+    "BA": {
+      "country_name": "Bosnia and Herzegovina",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": 7.98,
+      "scores_averaged": 3,
+      "overarching_score": 4.1
+    },
+    "CL": {
+      "country_name": "Chile",
+      "unesco_score": 5.02,
+      "michelin_score": 0.0,
+      "price_score": 7.24,
+      "scores_averaged": 3,
+      "overarching_score": 4.09
+    },
+    "MG": {
+      "country_name": "Madagascar",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 8.93,
+      "scores_averaged": 3,
+      "overarching_score": 4.09
+    },
+    "SR": {
+      "country_name": "Suriname",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 8.88,
+      "scores_averaged": 3,
+      "overarching_score": 4.08
+    },
+    "MM": {
+      "country_name": "Burma",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 9.52,
+      "scores_averaged": 3,
+      "overarching_score": 4.06
+    },
+    "GM": {
+      "country_name": "Gambia, The",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 9.52,
+      "scores_averaged": 3,
+      "overarching_score": 4.06
+    },
+    "BF": {
+      "country_name": "Burkina Faso",
+      "unesco_score": 3.88,
+      "michelin_score": 0.0,
+      "price_score": 8.26,
+      "scores_averaged": 3,
+      "overarching_score": 4.05
+    },
+    "CD": {
+      "country_name": "Congo (Kinshasa)",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": 7.8,
+      "scores_averaged": 3,
+      "overarching_score": 4.04
+    },
+    "EC": {
+      "country_name": "Ecuador",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": 7.75,
+      "scores_averaged": 3,
+      "overarching_score": 4.02
+    },
+    "IE": {
+      "country_name": "Ireland",
+      "unesco_score": 2.65,
+      "michelin_score": 5.87,
+      "price_score": 3.52,
+      "scores_averaged": 3,
+      "overarching_score": 4.01
+    },
+    "KG": {
+      "country_name": "Kyrgyzstan",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 8.66,
+      "scores_averaged": 3,
+      "overarching_score": 4.0
+    },
+    "CM": {
+      "country_name": "Cameroon",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 8.59,
+      "scores_averaged": 3,
+      "overarching_score": 3.98
+    },
+    "RW": {
+      "country_name": "Rwanda",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 9.3,
+      "scores_averaged": 3,
+      "overarching_score": 3.98
+    },
+    "BJ": {
+      "country_name": "Benin",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 8.56,
+      "scores_averaged": 3,
+      "overarching_score": 3.97
+    },
+    "UG": {
+      "country_name": "Uganda",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 8.54,
+      "scores_averaged": 3,
+      "overarching_score": 3.96
+    },
+    "MW": {
+      "country_name": "Malawi",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 8.46,
+      "scores_averaged": 3,
+      "overarching_score": 3.94
+    },
+    "PA": {
+      "country_name": "Panama",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": 7.49,
+      "scores_averaged": 3,
+      "overarching_score": 3.94
+    },
+    "MR": {
+      "country_name": "Mauritania",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 9.14,
+      "scores_averaged": 3,
+      "overarching_score": 3.93
+    },
+    "NE": {
+      "country_name": "Niger",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 8.44,
+      "scores_averaged": 3,
+      "overarching_score": 3.93
+    },
+    "ME": {
+      "country_name": "Montenegro",
+      "unesco_score": 3.88,
+      "michelin_score": 0.0,
+      "price_score": 7.82,
+      "scores_averaged": 3,
+      "overarching_score": 3.9
+    },
+    "HK": {
+      "country_name": "Hong Kong",
+      "unesco_score": 0.0,
+      "michelin_score": 6.72,
+      "price_score": 4.91,
+      "scores_averaged": 3,
+      "overarching_score": 3.88
+    },
+    "ZW": {
+      "country_name": "Zimbabwe",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": 7.33,
+      "scores_averaged": 3,
+      "overarching_score": 3.88
+    },
+    "OM": {
+      "country_name": "Oman",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": 7.28,
+      "scores_averaged": 3,
+      "overarching_score": 3.87
+    },
+    "GT": {
+      "country_name": "Guatemala",
+      "unesco_score": 3.88,
+      "michelin_score": 0.0,
+      "price_score": 7.66,
+      "scores_averaged": 3,
+      "overarching_score": 3.85
+    },
+    "AM": {
+      "country_name": "Armenia",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 8.17,
+      "scores_averaged": 3,
+      "overarching_score": 3.84
+    },
+    "SK": {
+      "country_name": "Slovakia",
+      "unesco_score": 5.3,
+      "michelin_score": 0.0,
+      "price_score": 6.21,
+      "scores_averaged": 3,
+      "overarching_score": 3.84
+    },
+    "SL": {
+      "country_name": "Sierra Leone",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 9.72,
+      "scores_averaged": 3,
+      "overarching_score": 3.8
+    },
+    "TW": {
+      "country_name": "Taiwan",
+      "unesco_score": 0.0,
+      "michelin_score": 7.6,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 3.8
+    },
+    "AL": {
+      "country_name": "Albania",
+      "unesco_score": 3.88,
+      "michelin_score": 0.0,
+      "price_score": 7.39,
+      "scores_averaged": 3,
+      "overarching_score": 3.76
+    },
+    "NI": {
+      "country_name": "Nicaragua",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 8.58,
+      "scores_averaged": 3,
+      "overarching_score": 3.74
+    },
+    "CG": {
+      "country_name": "Congo (Brazzaville)",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 8.53,
+      "scores_averaged": 3,
+      "overarching_score": 3.73
+    },
+    "TD": {
+      "country_name": "Chad",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 8.48,
+      "scores_averaged": 3,
+      "overarching_score": 3.71
+    },
+    "BH": {
+      "country_name": "Bahrain",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 7.69,
+      "scores_averaged": 3,
+      "overarching_score": 3.68
+    },
+    "MZ": {
+      "country_name": "Mozambique",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 8.31,
+      "scores_averaged": 3,
+      "overarching_score": 3.65
+    },
+    "GA": {
+      "country_name": "Gabon",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 8.28,
+      "scores_averaged": 3,
+      "overarching_score": 3.64
+    },
+    "MK": {
+      "country_name": "North Macedonia",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 8.26,
+      "scores_averaged": 3,
+      "overarching_score": 3.64
+    },
+    "BW": {
+      "country_name": "Botswana",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 8.24,
+      "scores_averaged": 3,
+      "overarching_score": 3.63
+    },
+    "GH": {
+      "country_name": "Ghana",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 8.22,
+      "scores_averaged": 3,
+      "overarching_score": 3.62
+    },
+    "MU": {
+      "country_name": "Mauritius",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 8.14,
+      "scores_averaged": 3,
+      "overarching_score": 3.6
+    },
+    "ZM": {
+      "country_name": "Zambia",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 8.99,
+      "scores_averaged": 3,
+      "overarching_score": 3.55
+    },
+    "AO": {
+      "country_name": "Angola",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 8.95,
+      "scores_averaged": 3,
+      "overarching_score": 3.54
+    },
+    "NA": {
+      "country_name": "Namibia",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 7.93,
+      "scores_averaged": 3,
+      "overarching_score": 3.53
+    },
+    "AU": {
+      "country_name": "Australia",
+      "unesco_score": 7.46,
+      "michelin_score": 0.0,
+      "price_score": 2.95,
+      "scores_averaged": 3,
+      "overarching_score": 3.47
+    },
+    "CF": {
+      "country_name": "Central African Republic",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 7.77,
+      "scores_averaged": 3,
+      "overarching_score": 3.47
+    },
+    "PS": {
+      "country_name": "Palestine",
+      "unesco_score": 4.7,
+      "michelin_score": 0.0,
+      "price_score": 5.66,
+      "scores_averaged": 3,
+      "overarching_score": 3.45
+    },
+    "TG": {
+      "country_name": "Togo",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 8.61,
+      "scores_averaged": 3,
+      "overarching_score": 3.43
+    },
+    "GW": {
+      "country_name": "Guinea-Bissau",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 8.59,
+      "scores_averaged": 3,
+      "overarching_score": 3.42
+    },
+    "LS": {
+      "country_name": "Lesotho",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 8.58,
+      "scores_averaged": 3,
+      "overarching_score": 3.42
+    },
+    "PY": {
+      "country_name": "Paraguay",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 8.52,
+      "scores_averaged": 3,
+      "overarching_score": 3.4
+    },
+    "HN": {
+      "country_name": "Honduras",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 7.43,
+      "scores_averaged": 3,
+      "overarching_score": 3.36
+    },
+    "SD": {
+      "country_name": "Sudan",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 6.69,
+      "scores_averaged": 3,
+      "overarching_score": 3.35
+    },
+    "BI": {
+      "country_name": "Burundi",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 10.0,
+      "scores_averaged": 3,
+      "overarching_score": 3.33
+    },
+    "CR": {
+      "country_name": "Costa Rica",
+      "unesco_score": 3.88,
+      "michelin_score": 0.0,
+      "price_score": 6.09,
+      "scores_averaged": 3,
+      "overarching_score": 3.32
+    },
+    "GN": {
+      "country_name": "Guinea",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 8.2,
+      "scores_averaged": 3,
+      "overarching_score": 3.29
+    },
+    "DO": {
+      "country_name": "Dominican Republic",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 8.15,
+      "scores_averaged": 3,
+      "overarching_score": 3.27
+    },
+    "BT": {
+      "country_name": "Bhutan",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 9.71,
+      "scores_averaged": 3,
+      "overarching_score": 3.24
+    },
+    "FJ": {
+      "country_name": "Fiji",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 7.93,
+      "scores_averaged": 3,
+      "overarching_score": 3.2
+    },
+    "SV": {
+      "country_name": "El Salvador",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 7.91,
+      "scores_averaged": 3,
+      "overarching_score": 3.19
+    },
+    "MD": {
+      "country_name": "Moldova",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 7.69,
+      "scores_averaged": 3,
+      "overarching_score": 3.12
+    },
+    "AD": {
+      "country_name": "Andorra",
+      "unesco_score": 1.67,
+      "michelin_score": 2.43,
+      "price_score": 5.18,
+      "scores_averaged": 3,
+      "overarching_score": 3.09
+    },
+    "SC": {
+      "country_name": "Seychelles",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 6.58,
+      "scores_averaged": 3,
+      "overarching_score": 3.08
+    },
+    "TL": {
+      "country_name": "Timor-Leste",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 9.21,
+      "scores_averaged": 3,
+      "overarching_score": 3.07
+    },
+    "CV": {
+      "country_name": "Cabo Verde",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 7.24,
+      "scores_averaged": 3,
+      "overarching_score": 2.97
+    },
+    "CY": {
+      "country_name": "Cyprus",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 5.53,
+      "scores_averaged": 3,
+      "overarching_score": 2.96
+    },
+    "KM": {
+      "country_name": "Comoros",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 7.15,
+      "scores_averaged": 3,
+      "overarching_score": 2.94
+    },
+    "DM": {
+      "country_name": "Dominica",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 7.16,
+      "scores_averaged": 3,
+      "overarching_score": 2.94
+    },
+    "UY": {
+      "country_name": "Uruguay",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": 5.42,
+      "scores_averaged": 3,
+      "overarching_score": 2.92
+    },
+    "SZ": {
+      "country_name": "Eswatini",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 8.72,
+      "scores_averaged": 3,
+      "overarching_score": 2.91
+    },
+    "GY": {
+      "country_name": "Guyana",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 8.69,
+      "scores_averaged": 3,
+      "overarching_score": 2.9
+    },
+    "JM": {
+      "country_name": "Jamaica",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": 5.98,
+      "scores_averaged": 3,
+      "overarching_score": 2.88
+    },
+    "BN": {
+      "country_name": "Brunei",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 8.51,
+      "scores_averaged": 3,
+      "overarching_score": 2.84
+    },
+    "LC": {
+      "country_name": "Saint Lucia",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 6.86,
+      "scores_averaged": 3,
+      "overarching_score": 2.84
+    },
+    "BZ": {
+      "country_name": "Belize",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 6.74,
+      "scores_averaged": 3,
+      "overarching_score": 2.8
+    },
+    "CU": {
+      "country_name": "Cuba",
+      "unesco_score": 5.56,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 2.78
+    },
+    "LU": {
+      "country_name": "Luxembourg",
+      "unesco_score": 1.67,
+      "michelin_score": 4.01,
+      "price_score": 2.59,
+      "scores_averaged": 3,
+      "overarching_score": 2.76
+    },
+    "SO": {
+      "country_name": "Somalia",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 7.98,
+      "scores_averaged": 3,
+      "overarching_score": 2.66
+    },
+    "GQ": {
+      "country_name": "Equatorial Guinea",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 7.9,
+      "scores_averaged": 3,
+      "overarching_score": 2.63
+    },
+    "PG": {
+      "country_name": "Papua New Guinea",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 6.21,
+      "scores_averaged": 3,
+      "overarching_score": 2.63
+    },
+    "SG": {
+      "country_name": "Singapore",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 5.95,
+      "scores_averaged": 3,
+      "overarching_score": 2.54
+    },
+    "LB": {
+      "country_name": "Lebanon",
+      "unesco_score": 5.02,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 2.51
+    },
+    "IL": {
+      "country_name": "Israel",
+      "unesco_score": 5.56,
+      "michelin_score": 0.0,
+      "price_score": 1.9,
+      "scores_averaged": 3,
+      "overarching_score": 2.49
+    },
+    "DJ": {
+      "country_name": "Djibouti",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 7.38,
+      "scores_averaged": 3,
+      "overarching_score": 2.46
+    },
+    "LR": {
+      "country_name": "Liberia",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 7.38,
+      "scores_averaged": 3,
+      "overarching_score": 2.46
+    },
+    "ST": {
+      "country_name": "Sao Tome and Principe",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 5.61,
+      "scores_averaged": 3,
+      "overarching_score": 2.43
+    },
+    "KI": {
+      "country_name": "Kiribati",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 5.5,
+      "scores_averaged": 3,
+      "overarching_score": 2.39
+    },
+    "SY": {
+      "country_name": "Syria",
+      "unesco_score": 4.7,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 2.35
+    },
+    "TT": {
+      "country_name": "Trinidad and Tobago",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 6.89,
+      "scores_averaged": 3,
+      "overarching_score": 2.3
+    },
+    "MV": {
+      "country_name": "Maldives",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 6.88,
+      "scores_averaged": 3,
+      "overarching_score": 2.29
+    },
+    "KN": {
+      "country_name": "Saint Kitts and Nevis",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 5.14,
+      "scores_averaged": 3,
+      "overarching_score": 2.27
+    },
+    "AG": {
+      "country_name": "Antigua and Barbuda",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 5.07,
+      "scores_averaged": 3,
+      "overarching_score": 2.25
+    },
+    "VC": {
+      "country_name": "Saint Vincent and the Grenadines",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 6.49,
+      "scores_averaged": 3,
+      "overarching_score": 2.16
+    },
+    "YE": {
+      "country_name": "Yemen",
+      "unesco_score": 4.32,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 2.16
+    },
+    "IS": {
+      "country_name": "Iceland",
+      "unesco_score": 3.35,
+      "michelin_score": 2.87,
+      "price_score": 0.22,
+      "scores_averaged": 3,
+      "overarching_score": 2.15
+    },
+    "MO": {
+      "country_name": "Macau",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 6.46,
+      "scores_averaged": 3,
+      "overarching_score": 2.15
+    },
+    "GD": {
+      "country_name": "Grenada",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 6.33,
+      "scores_averaged": 3,
+      "overarching_score": 2.11
+    },
+    "AE": {
+      "country_name": "United Arab Emirates",
+      "unesco_score": 3.35,
+      "michelin_score": 0.86,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 2.1
+    },
+    "KW": {
+      "country_name": "Kuwait",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 6.28,
+      "scores_averaged": 3,
+      "overarching_score": 2.09
+    },
+    "SB": {
+      "country_name": "Solomon Islands",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 4.52,
+      "scores_averaged": 3,
+      "overarching_score": 2.06
+    },
+    "WS": {
+      "country_name": "Samoa",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 5.7,
+      "scores_averaged": 3,
+      "overarching_score": 1.9
+    },
+    "MC": {
+      "country_name": "Monaco",
+      "unesco_score": 0.0,
+      "michelin_score": 3.53,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 1.76
+    },
+    "PW": {
+      "country_name": "Palau",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 3.53,
+      "scores_averaged": 3,
+      "overarching_score": 1.73
+    },
+    "HT": {
+      "country_name": "Haiti",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 3.4,
+      "scores_averaged": 3,
+      "overarching_score": 1.69
+    },
+    "KP": {
+      "country_name": "Korea, North",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 1.68
+    },
+    "VE": {
+      "country_name": "Venezuela",
+      "unesco_score": 3.35,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 1.68
+    },
+    "VU": {
+      "country_name": "Vanuatu",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 3.08,
+      "scores_averaged": 3,
+      "overarching_score": 1.58
+    },
+    "TO": {
+      "country_name": "Tonga",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 4.45,
+      "scores_averaged": 3,
+      "overarching_score": 1.48
+    },
+    "SX": {
+      "country_name": "Sint Maarten",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 4.39,
+      "scores_averaged": 3,
+      "overarching_score": 1.46
+    },
+    "PR": {
+      "country_name": "Puerto Rico",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 4.22,
+      "scores_averaged": 3,
+      "overarching_score": 1.41
+    },
+    "MH": {
+      "country_name": "Marshall Islands",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 2.53,
+      "scores_averaged": 3,
+      "overarching_score": 1.4
+    },
+    "FM": {
+      "country_name": "Micronesia, Federated States of",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 2.41,
+      "scores_averaged": 3,
+      "overarching_score": 1.36
+    },
+    "AF": {
+      "country_name": "Afghanistan",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 1.32
+    },
+    "VA": {
+      "country_name": "Vatican City",
+      "unesco_score": 2.65,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 1.32
+    },
+    "BB": {
+      "country_name": "Barbados",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": 1.05,
+      "scores_averaged": 3,
+      "overarching_score": 0.91
+    },
+    "LI": {
+      "country_name": "Liechtenstein",
+      "unesco_score": 0.0,
+      "michelin_score": 1.73,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.86
+    },
+    "ER": {
+      "country_name": "Eritrea",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.83
+    },
+    "SM": {
+      "country_name": "San Marino",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.83
+    },
+    "SS": {
+      "country_name": "South Sudan",
+      "unesco_score": 1.67,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.83
+    },
+    "NR": {
+      "country_name": "Nauru",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": 1.69,
+      "scores_averaged": 3,
+      "overarching_score": 0.56
+    },
+    "AS": {
+      "country_name": "American Samoa",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "AI": {
+      "country_name": "Anguilla",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "AW": {
+      "country_name": "Aruba",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "BS": {
+      "country_name": "Bahamas, The",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "BM": {
+      "country_name": "Bermuda",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "BQ": {
+      "country_name": "Bonaire, Sint Eustatius, and Saba",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "KY": {
+      "country_name": "Cayman Islands",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "CX": {
+      "country_name": "Christmas Island",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "CK": {
+      "country_name": "Cook Islands",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "CW": {
+      "country_name": "Curaçao",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "FK": {
+      "country_name": "Falkland Islands (Islas Malvinas)",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "FO": {
+      "country_name": "Faroe Islands",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "GF": {
+      "country_name": "French Guiana",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "PF": {
+      "country_name": "French Polynesia",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "XG": {
+      "country_name": "Gaza Strip",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "GI": {
+      "country_name": "Gibraltar",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "GL": {
+      "country_name": "Greenland",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "GP": {
+      "country_name": "Guadeloupe",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "GU": {
+      "country_name": "Guam",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "GG": {
+      "country_name": "Guernsey",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "IM": {
+      "country_name": "Isle of Man",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "JE": {
+      "country_name": "Jersey",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "XK": {
+      "country_name": "Kosovo",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "MQ": {
+      "country_name": "Martinique",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "YT": {
+      "country_name": "Mayotte",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "MS": {
+      "country_name": "Montserrat",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "NC": {
+      "country_name": "New Caledonia",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "NU": {
+      "country_name": "Niue",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "NF": {
+      "country_name": "Norfolk Island",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "MP": {
+      "country_name": "Northern Mariana Islands",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "PN": {
+      "country_name": "Pitcairn Islands",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "RE": {
+      "country_name": "Reunion",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "BL": {
+      "country_name": "Saint Barthelemy",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "SH": {
+      "country_name": "Saint Helena, Ascension, and Tristan da Cunha",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "MF": {
+      "country_name": "Saint Martin",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "PM": {
+      "country_name": "Saint Pierre and Miquelon",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "GS": {
+      "country_name": "South Georgia and South Sandwich Islands",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "XR": {
+      "country_name": "Svalbard",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "TC": {
+      "country_name": "Turks and Caicos Islands",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "TV": {
+      "country_name": "Tuvalu",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "VI": {
+      "country_name": "U.S. Virgin Islands",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "VG": {
+      "country_name": "Virgin Islands, British",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "WF": {
+      "country_name": "Wallis and Futuna",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    },
+    "XW": {
+      "country_name": "West Bank",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "price_score": null,
+      "scores_averaged": 2,
+      "overarching_score": 0.0
+    }
+  }
+}
