@@ -2,7 +2,11 @@
 
 Minimal React + Vite + TypeScript shell. No backend is wired up yet — this
 exists to get a real deploy pipeline (GitHub → Vercel → `travel.iesepulveda.com`)
-working before any real UI is built on top of it.
+working before any real UI is built on top of it. The one exception:
+`/destinations` fetches `OVERARCHING_TRIP_SCORE_BY_COUNTRY.json` directly
+from this repo's `main` branch on GitHub (raw.githubusercontent.com) client-side
+and renders the top 10 countries by `overarching_score` — no backend/API of
+its own, just reading the data pipeline's output straight from GitHub.
 
 ## Local dev
 
