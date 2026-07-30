@@ -126,7 +126,10 @@ export default function Destinations() {
           {loadState.destinations.map((destination, index) => (
             <li key={destination.code} className="destinations-ranked-item">
               <Link
-                to={`/destinations/${destination.code}`}
+                to={{
+                  pathname: `/destinations/${destination.code}`,
+                  search: searchParams.toString(),
+                }}
                 className="destinations-ranked-link"
               >
                 <span className="destinations-ranked-position">{index + 1}</span>

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router";
 import NavBar from "./components/NavBar";
 import Destinations from "./pages/Destinations";
 import DestinationDetail from "./pages/DestinationDetail";
+import { getNextWeekRange } from "./lib/nextWeek";
 
 const INTERESTS = ["Hiking", "Beaches", "Food & culture", "Nightlife"] as const;
 type Interest = (typeof INTERESTS)[number];
@@ -10,6 +11,13 @@ type Interest = (typeof INTERESTS)[number];
 function Home() {
   const navigate = useNavigate();
   const [interest, setInterest] = useState<Interest>("Food & culture");
+
+  // Defaults the date range to next Monday-Sunday so the form has a
+  // sensible trip already picked out instead of forcing everyone to
+  // open the date picker before they can search at all. Computed once
+  // per mount (not on every render) since "next week" only changes if
+  // the page stays open across a date rollover.
+  const defaultDateRange = useMemo(() => getNextWeekRange(), []);
 
   return (
     <main className="page">
@@ -39,12 +47,12 @@ function Home() {
       >
         <label>
           Start date
-          <input type="date" name="start_date" />
+          <input type="date" name="start_date" defaultValue={defaultDateRange.start} />
         </label>
 
         <label>
           End date
-          <input type="date" name="end_date" />
+          <input type="date" name="end_date" defaultValue={defaultDateRange.end} />
         </label>
 
         <label>

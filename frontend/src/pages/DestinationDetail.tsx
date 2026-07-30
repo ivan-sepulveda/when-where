@@ -1,4 +1,5 @@
-import { Link, useParams } from "react-router";
+import { Link, useParams, useSearchParams } from "react-router";
+import { formatDateRange } from "../lib/formatDate";
 import { getCountryByCode } from "../lib/countries";
 import { countryCodeToFlagEmoji } from "../lib/flagEmoji";
 import { formatMichelinCount, getMichelinAwardCounts } from "../lib/michelin";
@@ -11,6 +12,14 @@ import { useCountryStatCount } from "../lib/useCountryStatCount";
 export default function DestinationDetail() {
   const { country: countryParam } = useParams<{ country: string }>();
   const country = countryParam ? getCountryByCode(countryParam) : undefined;
+
+  // Carried over from the Destinations search (see Destinations.tsx's
+  // Link, which forwards its own searchParams) -- not used to fetch
+  // anything on this page yet, just displayed back to the user.
+  const [searchParams] = useSearchParams();
+  const startDate = searchParams.get("start_date");
+  const endDate = searchParams.get("end_date");
+  const hasDateRange = Boolean(startDate && endDate);
 
   const michelin = useCountryStatCount(country, getMichelinAwardCounts);
   const unesco = useCountryStatCount(country, getUnescoSiteCounts);
@@ -36,6 +45,10 @@ export default function DestinationDetail() {
         Trip scores and monthly breakdowns for {country.name} are coming
         soon. <Link to="/destinations">Back to destinations</Link>
       </p>
+
+      {hasDateRange && startDate && endDate && (
+        <p className="destination-detail-dates">Your dates: {formatDateRange(startDate, endDate)}</p>
+      )}
 
       <ul className="destination-detail-stats">
         <li className="destination-detail-stat-card">
