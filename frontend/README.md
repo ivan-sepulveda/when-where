@@ -36,3 +36,11 @@ routes (react-router, e.g. `/destinations`), `vercel.json` adds a
 catch-all rewrite to `index.html` — without it, a direct load or refresh
 on `travel.iesepulveda.com/destinations` would 404 on Vercel's static
 hosting, since only Vite's own dev server has SPA fallback built in.
+
+`vite build` always runs in Vite's "production" mode (Vercel prod and
+preview deploys alike), so it picks up `VITE_API_BASE_URL` from the
+committed `.env.production` — `https://when-where.onrender.com` — with
+no Vercel dashboard env var required. `.env.production` isn't a secret
+(it's this project's own public API URL), which is why it's a
+`.gitignore` exception rather than left to per-environment dashboard
+config that's easy to leave unset on a new preview branch.

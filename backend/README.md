@@ -92,6 +92,9 @@ code change.
 ## Frontend wiring
 
 The frontend reads the API's base URL from `VITE_API_BASE_URL` (see
-`frontend/.env.local.example`) — `http://localhost:8000` locally, the
-Render URL in production (set as an env var in Vercel's project
-settings, not committed).
+`frontend/.env.local.example`) — `http://localhost:8000` locally via
+`.env.local` (gitignored), `https://when-where.onrender.com` in
+production/preview builds via the committed `frontend/.env.production`
+(not a secret, just this service's public URL — see that file's own
+comment for why it's committed instead of left to a Vercel dashboard
+env var).

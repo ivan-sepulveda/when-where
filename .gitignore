@@ -2,6 +2,10 @@
 # env files (can opt-in for committing if needed)
 .env*
 !.env.local.example
+# Not a secret -- just the public production API host, committed so
+# every Vite build (prod or Vercel preview) has it regardless of
+# whether Vercel's dashboard env var is set/scoped correctly.
+!frontend/.env.production
 
 # python virtual environment (project root)
 venv/
