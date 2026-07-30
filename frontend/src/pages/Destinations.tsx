@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 
 // Static fallback: build_overarching_trip_scores.py's output (UNESCO +
 // Michelin + affordability only, no weather), read straight from GitHub.
@@ -125,9 +125,14 @@ export default function Destinations() {
         <ol className="destinations-ranked-list">
           {loadState.destinations.map((destination, index) => (
             <li key={destination.code} className="destinations-ranked-item">
-              <span className="destinations-ranked-position">{index + 1}</span>
-              <span className="destinations-ranked-name">{destination.name}</span>
-              <span className="destinations-ranked-score">{destination.score.toFixed(2)}</span>
+              <Link
+                to={`/destinations/${destination.code}`}
+                className="destinations-ranked-link"
+              >
+                <span className="destinations-ranked-position">{index + 1}</span>
+                <span className="destinations-ranked-name">{destination.name}</span>
+                <span className="destinations-ranked-score">{destination.score.toFixed(2)}</span>
+              </Link>
             </li>
           ))}
         </ol>

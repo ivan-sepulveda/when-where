@@ -49,6 +49,7 @@ weather score resolved against those specific dates. See
 - [ ] Figure out - UK - Split up into it's 4 Countries + Overseas territories?
 - [ ] User IP Address recognition (country-only, not persisted; use country.is)
 - [x] Pull UNESCO World Heritage Sites data — done (`scripts/multiple/fetch_unesco_world_heritage_sites.py`). License terms are unclear/restrictive (see `data/README.md`) — confirm redistribution rights with UNESCO/WHC before this goes beyond personal/internal use.
+- [ ] Fix `npm warn deprecated whatwg-encoding@3.1.1` in `frontend/` — switch to `@exodus/bytes` (transitive dep, likely via jsdom).
 
 ## Data attributions
 

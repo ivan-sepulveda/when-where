@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router";
 import NavBar from "./components/NavBar";
 import Destinations from "./pages/Destinations";
+import DestinationDetail from "./pages/DestinationDetail";
 
 const INTERESTS = ["Hiking", "Beaches", "Food & culture", "Nightlife"] as const;
 type Interest = (typeof INTERESTS)[number];
@@ -73,6 +74,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/destinations" element={<Destinations />} />
+        {/* :country is the ISO 3166-1 alpha-2 code (e.g. "JP"). One
+            component template renders a page for all ~249 countries --
+            the react-router equivalent of a Next.js [country] route,
+            since this app is a Vite SPA rather than Next's app router. */}
+        <Route path="/destinations/:country" element={<DestinationDetail />} />
       </Routes>
     </>
   );

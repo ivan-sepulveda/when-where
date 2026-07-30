@@ -261,3 +261,13 @@ export const COUNTRIES: Country[] = [
   { code: "ZW", name: "Zimbabwe" },
   { code: "AX", name: "Åland Islands" },
 ];
+
+const COUNTRIES_BY_CODE: Record<string, Country> = Object.fromEntries(
+  COUNTRIES.map((country) => [country.code, country]),
+);
+
+// Looks up a country by its ISO 3166-1 alpha-2 code, case-insensitively --
+// used by the /destinations/:country route to resolve the URL param.
+export function getCountryByCode(code: string): Country | undefined {
+  return COUNTRIES_BY_CODE[code.toUpperCase()];
+}
