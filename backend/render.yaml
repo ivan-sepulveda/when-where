@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: when-where-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      # Comma-separated list, overrides the default in app/main.py.
+      # Only needed if you're serving from an origin other than
+      # travel.iesepulveda.com / localhost:5173 / localhost:4173.
+      # - key: ALLOWED_ORIGINS
+      #   value: https://travel.iesepulveda.com,http://localhost:5173

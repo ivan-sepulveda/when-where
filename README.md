@@ -29,6 +29,16 @@ purchasing power, and the interactive chart. See
 [`data/SCORING.md`](data/SCORING.md) for the full list of scripts, what
 each one computes/writes, and per-source notes.
 
+## App
+
+`frontend/` (React + Vite, deployed to `travel.iesepulveda.com`) and
+`backend/` (FastAPI) are the first pieces that turn this data into
+something a user can query — `GET /api/destinations/top10` ranks
+countries for a given date range using the scoring output above, plus a
+weather score resolved against those specific dates. See
+[`frontend/README.md`](frontend/README.md) and
+[`backend/README.md`](backend/README.md).
+
 ## TODO
 
 - [ ] Find a public data source for visa requirements by passport (e.g. Mexico passport: 90-day visa-free to Germany, visa required for Gambia). Needed to score trip opportunities by whether a traveler's passport can actually make the trip, not just whether the destination looks good.
