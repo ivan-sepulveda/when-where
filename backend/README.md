@@ -42,10 +42,12 @@ version.
 
 ## Local dev
 
+This project uses one shared venv at the repo root (see the root
+`README.md`), not a separate one inside `backend/` — activate that first,
+then install this directory's deps into it:
+
 ```
-cd backend
-python3 -m venv venv
-source venv/bin/activate
+source ../venv/bin/activate   # from backend/; run ../venv/bin/python -m venv ../venv first if it doesn't exist yet
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
