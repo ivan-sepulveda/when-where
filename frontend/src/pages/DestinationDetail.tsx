@@ -38,13 +38,19 @@ export default function DestinationDetail() {
       </p>
 
       <ul className="destination-detail-stats">
-        {michelin.status === "loading" && <li>Loading Michelin Guide data...</li>}
-        {michelin.status === "error" && <li role="alert">Couldn't load Michelin Guide data.</li>}
-        {michelin.status === "loaded" && <li>{formatMichelinCount(michelin.count)}</li>}
+        <li className="destination-detail-stat-card">
+          {michelin.status === "loading" && "Loading Michelin Guide data..."}
+          {michelin.status === "error" && <span role="alert">Couldn't load Michelin Guide data.</span>}
+          {michelin.status === "loaded" && formatMichelinCount(michelin.count)}
+        </li>
 
-        {unesco.status === "loading" && <li>Loading UNESCO World Heritage Site data...</li>}
-        {unesco.status === "error" && <li role="alert">Couldn't load UNESCO World Heritage Site data.</li>}
-        {unesco.status === "loaded" && <li>{formatUnescoCount(unesco.count)}</li>}
+        <li className="destination-detail-stat-card">
+          {unesco.status === "loading" && "Loading UNESCO World Heritage Site data..."}
+          {unesco.status === "error" && (
+            <span role="alert">Couldn't load UNESCO World Heritage Site data.</span>
+          )}
+          {unesco.status === "loaded" && formatUnescoCount(unesco.count)}
+        </li>
       </ul>
     </main>
   );
