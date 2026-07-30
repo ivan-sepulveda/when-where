@@ -7,12 +7,7 @@ import { normalizeForSearch } from "../lib/search";
 // No auth/user state yet -- when that lands, this is where a
 // signed-in menu (profile, sign out, etc.) would slot in, mirroring
 // the pattern in https://github.com/ivan-sepulveda/dft's Navbar.
-// `to: null` means there's no real page for it yet -- rendered as a
-// plain "#" link until one exists.
-const BROWSE_LINKS = [
-  { label: "Destinations", to: "/destinations" },
-  { label: "About", to: null },
-] as const;
+const BROWSE_LINKS = [{ label: "Destinations", to: "/destinations" }] as const;
 
 // Only one dropdown should be open at a time.
 type OpenMenu = "browse" | "country" | null;
@@ -69,33 +64,23 @@ export default function NavBar() {
 
           {openMenu === "browse" && (
             <div className="navbar-dropdown">
-              {BROWSE_LINKS.map((link) =>
-                link.to ? (
-                  <Link
-                    key={link.label}
-                    to={link.to}
-                    className="navbar-dropdown-link"
-                    onClick={() => setOpenMenu(null)}
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <a
-                    key={link.label}
-                    href="#"
-                    className="navbar-dropdown-link"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setOpenMenu(null);
-                    }}
-                  >
-                    {link.label}
-                  </a>
-                ),
-              )}
+              {BROWSE_LINKS.map((link) => (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  className="navbar-dropdown-link"
+                  onClick={() => setOpenMenu(null)}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
           )}
         </div>
+
+        <Link to="/about" className="navbar-about-link">
+          About
+        </Link>
 
         <div className="navbar-menu">
           <button

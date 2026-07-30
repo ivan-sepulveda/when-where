@@ -15,7 +15,7 @@ produced.
 import json
 from pathlib import Path
 
-from .scoring import MONTHS, weather_score_from_monthly_metrics
+from .scoring import MONTHS, RAW_WEATHER_METRIC_KEYS, weather_score_from_monthly_metrics
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = REPO_ROOT / "data"
@@ -23,6 +23,7 @@ DATA_DIR = REPO_ROOT / "data"
 OVERARCHING_PATH = DATA_DIR / "processed" / "OVERARCHING_TRIP_SCORE_BY_COUNTRY.json"
 TOURIST_CITIES_PATH = DATA_DIR / "reference" / "tourist_cities.json"
 MONTHLY_SCORES_PATH = DATA_DIR / "processed" / "monthly_scores_2025_by_city.json"
+WEATHER_METRICS_PATH = DATA_DIR / "processed" / "multiple" / "weather_normals_2025_by_city.json"
 
 
 def load_static_country_scores() -> dict[str, dict]:
@@ -107,3 +108,38 @@ def load_country_weather_scores() -> dict[str, dict[str, float]]:
             month: weather_score_from_monthly_metrics(city_entry["months"][month]) for month in MONTHS
         }
     return weather_by_country
+
+
+def load_country_weather_metrics() -> dict[str, dict[str, dict[str, float]]]:
+    """iso2 -> {month_name: {raw metric name: value}}, straight from
+    weather_normals_<year>_by_city.json's per-month numbers (avg high/low
+    temp, precipitation, rainy days, sunshine hours -- see
+    scoring.RAW_WEATHER_METRIC_KEYS). This is the *input* to
+    load_country_weather_scores()'s 0-10 score, kept here in its original
+    units for display (e.g. DestinationDetail's "Est. Daily Sunlight
+    Hours") rather than folded into one abstract number.
+
+    Same primary-capital-per-country resolution and same "missing capital
+    data -> country just isn't in the dict" behavior as
+    load_country_weather_scores() -- see that function's docstring for why
+    coverage is a subset of all countries."""
+    capitals = _pick_primary_capitals()
+
+    if not WEATHER_METRICS_PATH.exists():
+        raise FileNotFoundError(
+            f"{WEATHER_METRICS_PATH} not found -- run data/scripts/multiple/fetch_weather_normals.py first."
+        )
+    with open(WEATHER_METRICS_PATH, encoding="utf-8") as f:
+        weather_cities = json.load(f)["cities"]
+
+    metrics_by_country: dict[str, dict[str, dict[str, float]]] = {}
+    for iso2, capital in capitals.items():
+        city_entry = weather_cities.get(str(capital["simplemaps_id"]))
+        if city_entry is None:
+            continue
+        metrics_by_country[iso2] = {
+            month: {key: city_entry["months"][month][key] for key in RAW_WEATHER_METRIC_KEYS}
+            for month in MONTHS
+            if month in city_entry["months"]
+        }
+    return metrics_by_country

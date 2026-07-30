@@ -35,6 +35,20 @@ MONTHS = [
     "july", "august", "september", "october", "november", "december",
 ]
 
+# The raw (non-normalized) per-month fields fetch_weather_normals.py
+# writes to weather_normals_<year>_by_city.json -- see that script's
+# docstring for units/sourcing. Kept here (rather than in data_loader.py)
+# since it's the shape resolve_weather_metrics() operates on, same
+# reasoning as MONTHS living here.
+RAW_WEATHER_METRIC_KEYS = [
+    "avg_high_c",
+    "avg_low_c",
+    "total_precipitation_mm",
+    "avg_precipitation_hours_per_day",
+    "rainy_days",
+    "avg_sunshine_hours",
+]
+
 
 def weather_score_from_monthly_metrics(metrics: dict) -> float:
     """0-10, higher = more pleasant weather that month. Equal-weighted
@@ -89,6 +103,28 @@ def resolve_weather_score(monthly_scores: dict[str, float] | None, weights: dict
     if monthly_scores is None:
         return None
     return round(sum(monthly_scores[month] * weight for month, weight in weights.items()), 2)
+
+
+def resolve_weather_metrics(
+    monthly_metrics: dict[str, dict[str, float]] | None, weights: dict[str, float]
+) -> dict[str, float] | None:
+    """Day-weighted average of a country's *raw* monthly weather metrics
+    (RAW_WEATHER_METRIC_KEYS -- avg high/low temp, precipitation, rainy
+    days, sunshine hours) against the trip's month weights. Same shape as
+    resolve_weather_score(), but averages the original numbers for
+    display rather than the derived 0-10 score.
+
+    E.g. a trip that's 30% July / 70% August, with avg_sunshine_hours=10
+    in July and 8 in August, resolves to 0.3*10 + 0.7*8 = 8.6. None if the
+    country has no weather data at all (see
+    data_loader.load_country_weather_metrics) -- callers should treat that
+    as "unknown", not zero."""
+    if monthly_metrics is None:
+        return None
+    return {
+        key: round(sum(monthly_metrics[month][key] * weight for month, weight in weights.items()), 2)
+        for key in RAW_WEATHER_METRIC_KEYS
+    }
 
 
 def combine_domain_scores(

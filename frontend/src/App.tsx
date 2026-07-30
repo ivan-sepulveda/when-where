@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router";
 import NavBar from "./components/NavBar";
+import About from "./pages/About";
+import CountrySpecificSources from "./pages/CountrySpecificSources";
 import Destinations from "./pages/Destinations";
 import DestinationDetail from "./pages/DestinationDetail";
 import { getNextWeekRange } from "./lib/nextWeek";
@@ -81,6 +83,9 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        {/* Deliberately not in NavBar -- reachable directly by URL only. */}
+        <Route path="/country-specific-sources" element={<CountrySpecificSources />} />
         <Route path="/destinations" element={<Destinations />} />
         {/* :country is the ISO 3166-1 alpha-2 code (e.g. "JP"). One
             component template renders a page for all ~249 countries --

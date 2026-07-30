@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
+import { API_BASE_URL } from "../lib/apiBaseUrl";
 
 // Static fallback: build_overarching_trip_scores.py's output (UNESCO +
 // Michelin + affordability only, no weather), read straight from GitHub.
@@ -7,13 +8,6 @@ import { Link, useSearchParams } from "react-router";
 // "Destinations" in the nav instead of searching.
 const STATIC_SCORES_URL =
   "https://raw.githubusercontent.com/ivan-sepulveda/when-where/refs/heads/main/data/processed/OVERARCHING_TRIP_SCORE_BY_COUNTRY.json";
-
-// The real, date-aware ranking -- see backend/README.md. Adds a weather
-// score resolved against the trip's actual month(s) on top of the three
-// static domains above. VITE_API_BASE_URL is set per-environment (see
-// frontend/.env.local.example); falls back to the local dev default so
-// this doesn't silently break if the env var isn't set.
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
 
 interface RankedDestination {
   code: string;

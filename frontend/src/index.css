@@ -66,6 +66,21 @@ body {
   border-radius: 8px;
 }
 
+.navbar-about-link {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #f2f2f2;
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+}
+
+.navbar-about-link:hover {
+  background: #1c232c;
+}
+
 .navbar-browse-toggle:hover {
   background: #1c232c;
 }
@@ -257,6 +272,18 @@ h1 {
   margin: -1.5rem 0 1.5rem;
   opacity: 0.9;
   font-weight: 600;
+}
+
+.about-sources {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.about-sources a {
+  color: #3b82f6;
 }
 
 .destination-detail-stats {

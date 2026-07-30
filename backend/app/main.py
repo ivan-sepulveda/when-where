@@ -1,7 +1,9 @@
 """
 FastAPI app -- the first real "frontend talks to a backend" piece of this
-project (see backend/README.md for the full design writeup). One route
-that matters: GET /api/destinations/top10.
+project (see backend/README.md for the full design writeup). Two routes
+that matter: GET /api/destinations/top10 (ranking) and
+GET /api/destinations/{country}/weather (raw weather metrics for one
+country's DestinationDetail page).
 
 Data is loaded once at import time (see data_loader.py) and kept in
 memory for the life of the process -- every request just does cheap
@@ -22,8 +24,8 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from .data_loader import load_country_weather_scores, load_static_country_scores
-from .scoring import combine_domain_scores, month_weights, resolve_weather_score
+from .data_loader import load_country_weather_metrics, load_country_weather_scores, load_static_country_scores
+from .scoring import combine_domain_scores, month_weights, resolve_weather_metrics, resolve_weather_score
 
 app = FastAPI(
     title="when-where API",
@@ -58,6 +60,7 @@ app.add_middleware(
 # list.
 STATIC_SCORES = load_static_country_scores()
 WEATHER_SCORES = load_country_weather_scores()
+WEATHER_METRICS = load_country_weather_metrics()
 
 
 class DestinationScore(BaseModel):
@@ -79,6 +82,23 @@ class TopDestinationsResponse(BaseModel):
     destinations: list[DestinationScore]
 
 
+class WeatherDetail(BaseModel):
+    avg_high_c: float
+    avg_low_c: float
+    total_precipitation_mm: float
+    avg_precipitation_hours_per_day: float
+    rainy_days: float
+    avg_sunshine_hours: float
+
+
+class CountryWeatherResponse(BaseModel):
+    country: str
+    start_date: date
+    end_date: date
+    month_weights: dict[str, float]
+    weather: Optional[WeatherDetail]
+
+
 @app.get("/health")
 def health():
     """Render hits this (or `/`) for its health check; also handy for
@@ -88,6 +108,7 @@ def health():
         "status": "ok",
         "countries_loaded": len(STATIC_SCORES),
         "countries_with_weather": len(WEATHER_SCORES),
+        "countries_with_weather_metrics": len(WEATHER_METRICS),
     }
 
 
@@ -138,4 +159,34 @@ def top_destinations(
         departure_country=departure_country,
         month_weights=weights,
         destinations=scored[:10],
+    )
+
+
+@app.get("/api/destinations/{country}/weather", response_model=CountryWeatherResponse)
+def country_weather(
+    country: str,
+    start_date: date = Query(..., description="Trip start date, YYYY-MM-DD"),
+    end_date: date = Query(..., description="Trip end date, YYYY-MM-DD"),
+):
+    """Day-weighted average of a single country's raw weather metrics
+    (avg high/low temp, precipitation, rainy days, sunshine hours) over a
+    trip's date range -- for display (DestinationDetail's "Est. Daily
+    Sunlight Hours" etc.), not scoring. `country` is an ISO 3166-1
+    alpha-2 code, case-insensitive. `weather` is null (not a 404) for a
+    valid-looking code this project simply has no weather data for yet --
+    same "unknown, not bad" convention as /api/destinations/top10's
+    weather_score."""
+    if end_date < start_date:
+        raise HTTPException(status_code=400, detail="end_date must be on or after start_date")
+
+    iso2 = country.upper()
+    weights = month_weights(start_date, end_date)
+    metrics = resolve_weather_metrics(WEATHER_METRICS.get(iso2), weights)
+
+    return CountryWeatherResponse(
+        country=iso2,
+        start_date=start_date,
+        end_date=end_date,
+        month_weights=weights,
+        weather=WeatherDetail(**metrics) if metrics else None,
     )
