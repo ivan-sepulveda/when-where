@@ -38,8 +38,12 @@ EXTRA_ALIASES = {
     "TUR": ["türkiye", "turkiye"],
     # Michelin's scraper occasionally leaks the raw iso3 code into the
     # country field instead of a name -- map those straight through.
-    "ARE": ["are"],
+    "ARE": ["are", "uae"],
     "THA": ["tha"],
+    # The Kaggle "largest-art-museums" dataset (fetch_art_museums.py) uses
+    # the Portuguese/Spanish spelling for Brazil in one row (Pinacoteca do
+    # Estado de São Paulo -> "Brasil").
+    "BRA": ["brasil"],
     # OpenFlights' airports.dat (fetch_openflights_airports.py) predates
     # several country renames/dissolutions and still uses the old name --
     # map those straight to the current country's iso3 rather than

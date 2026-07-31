@@ -2075,6 +2075,73 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   Pacific island nation should be low or blank) before trusting the
   output.
 
+### Art museums (`scripts/multiple/fetch_art_museums.py`)
+
+- **Source:** ["Largest-art-museums" dataset on Kaggle](https://www.kaggle.com/datasets/drahulsingh/largest-art-museums)
+  (uploader: drahulsingh), pulled via `kagglehub` (needs Kaggle API
+  credentials — same auth requirement as `fetch_airline_routes.py`).
+- **What it is:** 112 of the world's largest art museums by gallery
+  space, name/city/country/gallery space (m²+ft²)/year established.
+  Confirmed via a real run — this is a close match for Wikipedia's
+  ["List of largest art museums"](https://en.wikipedia.org/wiki/List_of_largest_art_museums)
+  (same museum count, same shape), so very likely scraped from (or
+  derived from the same source as) that page.
+- **Real column names:** `Name`, `City`, `Country`, `Gallery space in m2
+  (sq ft)`, `Gallery space in sq ft`, `Year established`.
+- **Data quirks (handled by `build_art_museums_by_country.py`):**
+  - The two gallery-space columns aren't cleanly one-value-each — in
+    every row, at least one (often both) actually contains the
+    *combined* `"<m2>\n(<sq ft>)"` text, a leftover of scraping one
+    Wikipedia cell into two output columns. A few rows (e.g. the
+    Interdisciplinary Regional Museum of Messina, Kunsthaus Zürich) have
+    only a bare number with no parenthetical in either column — those
+    are left with `gallery_space_sqft: null` rather than guessing which
+    unit the lone number is in.
+  - `Year established` is a single year for most rows, but occasionally
+    a slash-separated pair (e.g. `"1806/1908"`) — kept as
+    `year_established_raw`, plus a parsed `year_established` (the first
+    4-digit year found, or `null`).
+  - Two country strings didn't resolve out of the box: `"Brasil"`
+    (Portuguese/Spanish spelling, one row) and `"UAE"`. Both added to
+    `EXTRA_ALIASES` in `build_country_aliases.py` rather than worked
+    around in this script.
+- **License:** unresolved. The Kaggle listing doesn't surface a clear
+  license. Confirm on the dataset page before this data goes beyond
+  personal/internal use — same unresolved-license posture already
+  carried for UNESCO and OSM hiking-trail data above.
+- **Coverage caveat:** 112 museums across 32 countries is a small,
+  curated "largest by gallery space" list, not an exhaustive per-country
+  museum count — most countries have zero rows here even though they
+  genuinely have art museums; this measures "does this country have one
+  of the world's biggest," not "how much art infrastructure does this
+  country have."
+- **Output:**
+  - `processed/multiple/art_museums.csv` — the source CSV written
+    through basically as-is (a `raw/kaggle_art_museums/` cache copy, no
+    reshaping).
+  - `processed/multiple/art_museums_by_country.json` — regrouped by
+    iso2 (via `country_lookup.normalize_country()`), each museum's
+    `gallery_space_m2`/`gallery_space_sqft`/`year_established` parsed
+    per the quirks above, sorted by gallery space descending within each
+    country. No `compute_*_score.py` step yet — same "raw count/data,
+    not yet a 0–10 score" state `HIKING_ROUTE_COUNT` is in.
+- **Run:**
+  ```
+  python scripts/multiple/fetch_art_museums.py
+  python scripts/multiple/fetch_art_museums.py --list-files   # inspect the dataset's files without processing
+  python scripts/multiple/build_art_museums_by_country.py
+  ```
+- **Note:** `fetch_art_museums.py` itself still hasn't been run inside
+  this sandbox (can't reach Kaggle), but `build_art_museums_by_country.py`
+  has — run for real against the actual `art_museums.csv` output (112
+  rows, 32 countries, 0 unmatched), with spot-checks confirming the
+  gallery-space parsing on the tricky rows: British Museum (m2-column had
+  no parenthetical, sq-ft-column did — correctly pulled 92,000 m²/990,000
+  sq ft), Louvre (both columns fully duplicated — 72,735 m²/782,910 sq
+  ft), and the lone-number cases with no parenthetical in either column
+  (Messina, Kunsthaus Zürich — correctly left `gallery_space_sqft: null`
+  instead of guessing).
+
 ### Country name crosswalk (`reference/country_aliases.json`)
 
 - **Problem:** every source names countries differently — SimpleMaps says

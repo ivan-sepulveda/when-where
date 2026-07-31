@@ -11,16 +11,23 @@ BE,Belgium,4410
 HU,Hungary,3540
 PL,Poland,3288
 NO,Norway,3104
+SE,Sweden,2875
+SK,Slovakia,2859
 GB,United Kingdom,2465
+SI,Slovenia,1827
 IL,Israel,1740
+RO,Romania,1664
 CA,Canada,1360
 DK,Denmark,1352
 GR,Greece,1339
 PT,Portugal,1278
 IN,India,1238
 HR,Croatia,1022
+TW,Taiwan,808
 FI,Finland,733
 JP,Japan,671
+RS,Serbia,572
+RU,Russia,561
 CN,China,555
 BG,Bulgaria,538
 NZ,New Zealand,527
@@ -36,6 +43,7 @@ KR,"Korea, South",209
 ME,Montenegro,196
 CY,Cyprus,190
 LI,Liechtenstein,189
+TR,Turkey,148
 IS,Iceland,146
 BA,Bosnia and Herzegovina,141
 NP,Nepal,122
@@ -48,7 +56,9 @@ AL,Albania,91
 KG,Kyrgyzstan,91
 PH,Philippines,89
 AR,Argentina,84
+TJ,Tajikistan,62
 JO,Jordan,54
+SM,San Marino,42
 MT,Malta,38
 NA,Namibia,38
 KZ,Kazakhstan,37
@@ -62,16 +72,23 @@ LK,Sri Lanka,26
 PA,Panama,24
 PE,Peru,24
 LB,Lebanon,23
+PY,Paraguay,22
 NI,Nicaragua,21
 OM,Oman,21
 CU,Cuba,18
+TH,Thailand,18
 BT,Bhutan,17
+SH,"Saint Helena, Ascension, and Tristan da Cunha",17
 CR,Costa Rica,16
+SC,Seychelles,14
 BO,Bolivia,12
+SG,Singapore,12
+TC,Turks and Caicos Islands,12
 LC,Saint Lucia,10
 AF,Afghanistan,7
 AG,Antigua and Barbuda,7
 MX,Mexico,7
+RW,Rwanda,6
 PK,Pakistan,5
 AE,United Arab Emirates,5
 HT,Haiti,4
@@ -90,6 +107,7 @@ BM,Bermuda,1
 CM,Cameroon,1
 CD,Congo (Kinshasa),1
 DM,Dominica,1
+SZ,Eswatini,1
 FK,Falkland Islands (Islas Malvinas),1
 FO,Faroe Islands,1
 GI,Gibraltar,1
@@ -102,6 +120,8 @@ MD,Moldova,1
 MN,Mongolia,1
 MA,Morocco,1
 NG,Nigeria,1
+SA,Saudi Arabia,1
+SS,South Sudan,1
 DZ,Algeria,0
 AO,Angola,0
 AI,Anguilla,0
@@ -116,11 +136,13 @@ MM,Burma,0
 BI,Burundi,0
 KY,Cayman Islands,0
 CF,Central African Republic,0
+TD,Chad,0
 KM,Comoros,0
 CG,Congo (Brazzaville),0
 CK,Cook Islands,0
 CI,Côte d’Ivoire,0
 DJ,Djibouti,0
+SV,El Salvador,0
 GQ,Equatorial Guinea,0
 ER,Eritrea,0
 ET,Ethiopia,0
@@ -150,9 +172,26 @@ MZ,Mozambique,0
 NR,Nauru,0
 NE,Niger,0
 NU,Niue,0
+PW,Palau,0
 PN,Pitcairn Islands,0
+QA,Qatar,0
 KN,Saint Kitts and Nevis,0
+ST,Sao Tome and Principe,0
+SN,Senegal,0
+SL,Sierra Leone,0
+SB,Solomon Islands,0
+SO,Somalia,0
 GS,South Georgia and South Sandwich Islands,0
+SD,Sudan,0
+SR,Suriname,0
+SY,Syria,0
+TL,Timor-Leste,0
+TG,Togo,0
+TO,Tonga,0
+TT,Trinidad and Tobago,0
+TN,Tunisia,0
+TM,Turkmenistan,0
+TV,Tuvalu,0
 AS,American Samoa,
 AW,Aruba,
 BQ,"Bonaire, Sint Eustatius, and Saba",
@@ -173,6 +212,8 @@ NF,Norfolk Island,
 MP,Northern Mariana Islands,
 PS,Palestine,
 PR,Puerto Rico,
+RE,Reunion,
 BL,Saint Barthelemy,
 MF,Saint Martin,
 PM,Saint Pierre and Miquelon,
+SX,Sint Maarten,

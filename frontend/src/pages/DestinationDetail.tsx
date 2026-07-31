@@ -3,6 +3,7 @@ import { Link, useParams, useSearchParams } from "react-router";
 import { formatDateRange } from "../lib/formatDate";
 import { getCountryByCode } from "../lib/countries";
 import { countryCodeToFlagEmoji } from "../lib/flagEmoji";
+import { getTopArtMuseums, useArtMuseums } from "../lib/artMuseums";
 import { formatHikingTrailCount, useHikingTrailCount } from "../lib/hiking";
 import { formatMichelinCount, getMichelinAwardCounts, getMichelinGuideUrl } from "../lib/michelin";
 import { formatUnescoCount, getUnescoSiteCounts, getUnescoStatesPartyUrl } from "../lib/unesco";
@@ -32,6 +33,7 @@ export default function DestinationDetail() {
   const michelin = useCountryStatCount(country, getMichelinAwardCounts);
   const unesco = useCountryStatCount(country, getUnescoSiteCounts);
   const hiking = useHikingTrailCount(country);
+  const artMuseums = useArtMuseums(country);
 
   const [weather, setWeather] = useState<WeatherLoadState>({ status: "loading" });
 
@@ -172,6 +174,29 @@ export default function DestinationDetail() {
         {hiking.status === "loaded" && hiking.count !== null && (
           <li className="destination-detail-stat-card">{formatHikingTrailCount(hiking.count)}</li>
         )}
+      </ul>
+
+      <h2>Art Museums</h2>
+      <ul className="destination-detail-stats">
+        {artMuseums.status === "loading" && (
+          <li className="destination-detail-stat-card">Loading art museum data...</li>
+        )}
+        {artMuseums.status === "error" && (
+          <li className="destination-detail-stat-card" role="alert">
+            Couldn't load art museum data.
+          </li>
+        )}
+        {artMuseums.status === "loaded" && artMuseums.museums.length === 0 && (
+          <li className="destination-detail-stat-card">
+            No major art museums for {country.name} in this dataset.
+          </li>
+        )}
+        {artMuseums.status === "loaded" &&
+          getTopArtMuseums(artMuseums.museums).map((museum) => (
+            <li key={museum.name} className="destination-detail-stat-card">
+              {museum.name} ({museum.city})
+            </li>
+          ))}
       </ul>
     </main>
   );

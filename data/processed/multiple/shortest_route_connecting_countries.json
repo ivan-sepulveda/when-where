@@ -1,6 +1,6 @@
 {
   "source": "Derived from airline_routes_enhanced.csv via build_shortest_route_connecting_countries.py",
-  "generated": "2026-07-30",
+  "generated": "2026-07-31",
   "total_countries": 227,
   "total_country_pairs": 2853,
   "countries": {

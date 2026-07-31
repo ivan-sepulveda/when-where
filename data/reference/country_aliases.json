@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-30",
+  "generated": "2026-07-31",
   "canonical_source": "SimpleMaps World Cities Database (Basic) -- see fetch_tourist_cities.py",
   "total_countries": 241,
   "countries": {
@@ -50,6 +50,7 @@
       "iso2": "AE",
       "aliases": [
         "are",
+        "uae",
         "united arab emirates"
       ]
     },
@@ -212,6 +213,7 @@
       "canonical_name": "Brazil",
       "iso2": "BR",
       "aliases": [
+        "brasil",
         "brazil"
       ]
     },
