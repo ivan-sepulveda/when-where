@@ -40,7 +40,7 @@ from pathlib import Path
 # this script (data/scripts/multiple/) -- only a script's own directory is
 # added to sys.path automatically, so the parent has to be added by hand.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from country_lookup import normalize_country  # noqa: E402
+from country_lookup import normalize_airport_country  # noqa: E402
 
 DEFAULT_TYPE_FILTER = "airport"
 
@@ -105,7 +105,7 @@ def build_airports_by_country(
     skipped = 0
 
     for airport in airports:
-        iso3 = normalize_country(airport.get("country"))
+        iso3 = normalize_airport_country(airport.get("iata"), airport.get("country"))
         if iso3 is None:
             if airport.get("country"):
                 unmatched_country_names.add(airport["country"])

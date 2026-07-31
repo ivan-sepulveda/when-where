@@ -26,6 +26,24 @@ import json as json_module
 REFERENCE_DIR = Path(__file__).resolve().parent.parent / "reference"
 ALIASES_PATH = REFERENCE_DIR / "country_aliases.json"
 
+# Netherlands Antilles was dissolved in 2010 into three separate
+# countries, but OpenFlights' airports.dat (fetch_openflights_airports.py)
+# still tags all five of its former airports with the old country name
+# "Netherlands Antilles" -- unlike the simple renames handled in
+# build_country_aliases.py's EXTRA_ALIASES (one old name -> one current
+# country), this is a genuine one-to-many split, so no single
+# country-name alias can route it correctly. Overridden per-IATA-code
+# instead, straight to the current country's iso3 -- see
+# normalize_airport_country() below.
+IATA_COUNTRY_OVERRIDES = {
+    "BON": "BES",  # Bonaire (Flamingo International) -> Bonaire, Sint Eustatius and Saba
+    "EUX": "BES",  # Sint Eustatius (F.D. Roosevelt) -> Bonaire, Sint Eustatius and Saba
+    "SAB": "BES",  # Saba (Juancho E. Yrausquin) -> Bonaire, Sint Eustatius and Saba
+    "CUR": "CUW",  # Curaçao (Hato International) -> Curaçao
+    "SXM": "SXM",  # Sint Maarten (Princess Juliana International) -> Sint Maarten
+    #                (SXM is coincidentally both the airport's IATA code and the country's iso3)
+}
+
 _alias_to_iso3: dict | None = None  # lazy-loaded, module-level cache
 
 
@@ -52,6 +70,20 @@ def normalize_country(name: str | None) -> str | None:
     if not name or (isinstance(name, float) and name != name):  # NaN != NaN
         return None
     return _load_alias_map().get(str(name).strip().casefold())
+
+
+def normalize_airport_country(iata: str | None, country_name: str | None) -> str | None:
+    """Like normalize_country(), but for resolving a specific airport's
+    country -- checks IATA_COUNTRY_OVERRIDES first (for airports.dat's
+    handful of stale Netherlands Antilles rows, which a name-only lookup
+    can't route correctly since they now belong to three different
+    countries), then falls back to normalize_country(country_name) for
+    everything else. Use this instead of normalize_country() directly
+    whenever an airport's IATA code is available (build_airports_by_country.py,
+    build_airline_routes_enhanced.py)."""
+    if iata and iata in IATA_COUNTRY_OVERRIDES:
+        return IATA_COUNTRY_OVERRIDES[iata]
+    return normalize_country(country_name)
 
 
 def report_unmapped(values) -> list[str]:

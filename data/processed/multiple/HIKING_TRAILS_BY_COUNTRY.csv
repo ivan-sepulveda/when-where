@@ -1,19 +1,39 @@
 COUNTRY,COUNTRY_NAME,HIKING_ROUTE_COUNT
+DE,Germany,53390
+FR,France,43864
+IT,Italy,34441
 CH,Switzerland,24841
 AT,Austria,11681
+ES,Spain,7138
+CZ,Czechia,5239
 BE,Belgium,4410
+HU,Hungary,3540
+GB,United Kingdom,2465
+IL,Israel,1740
 CA,Canada,1360
+DK,Denmark,1352
+GR,Greece,1339
+IN,India,1238
+HR,Croatia,1022
+FI,Finland,733
 CN,China,555
 BG,Bulgaria,538
 AU,Australia,499
+EE,Estonia,367
+IE,Ireland,364
 CL,Chile,289
 AM,Armenia,280
+CY,Cyprus,190
+IS,Iceland,146
 BA,Bosnia and Herzegovina,141
 CO,Colombia,121
 BR,Brazil,120
 CV,Cabo Verde,118
+ID,Indonesia,107
 AL,Albania,91
 AR,Argentina,84
+GL,Greenland,33
+EC,Ecuador,32
 BY,Belarus,31
 AD,Andorra,28
 AZ,Azerbaijan,27
@@ -24,10 +44,23 @@ BO,Bolivia,12
 AF,Afghanistan,7
 AG,Antigua and Barbuda,7
 AE,United Arab Emirates,5
+HT,Haiti,4
+IR,Iran,3
+IM,Isle of Man,3
+DO,Dominican Republic,2
+EG,Egypt,2
 BB,Barbados,1
 BM,Bermuda,1
 CM,Cameroon,1
 CD,Congo (Kinshasa),1
+DM,Dominica,1
+FK,Falkland Islands (Islas Malvinas),1
+FO,Faroe Islands,1
+GI,Gibraltar,1
+GT,Guatemala,1
+HN,Honduras,1
+IQ,Iraq,1
+DZ,Algeria,0
 AO,Angola,0
 AI,Anguilla,0
 BS,"Bahamas, The",0
@@ -42,9 +75,31 @@ CF,Central African Republic,0
 CG,Congo (Brazzaville),0
 CK,Cook Islands,0
 CI,Côte d’Ivoire,0
+DJ,Djibouti,0
+GQ,Equatorial Guinea,0
+ER,Eritrea,0
+ET,Ethiopia,0
+FJ,Fiji,0
+GA,Gabon,0
+GM,"Gambia, The",0
+GH,Ghana,0
+GD,Grenada,0
+GG,Guernsey,0
+GW,Guinea-Bissau,0
+GY,Guyana,0
+JE,Jersey,0
+FM,"Micronesia, Federated States of",0
+GS,South Georgia and South Sandwich Islands,0
 AS,American Samoa,
 AW,Aruba,
 BQ,"Bonaire, Sint Eustatius, and Saba",
 BW,Botswana,
+CX,Christmas Island,
 CW,Curaçao,
+GF,French Guiana,
+GE,Georgia,
+GP,Guadeloupe,
+GU,Guam,
+GN,Guinea,
+HK,Hong Kong,
 BL,Saint Barthelemy,

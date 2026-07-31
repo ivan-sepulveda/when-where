@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-19",
+  "generated": "2026-07-30",
   "canonical_source": "SimpleMaps World Cities Database (Basic) -- see fetch_tourist_cities.py",
   "total_countries": 241,
   "countries": {
@@ -162,6 +162,7 @@
       "canonical_name": "Bahamas, The",
       "iso2": "BS",
       "aliases": [
+        "bahamas",
         "bahamas, the"
       ]
     },
@@ -284,6 +285,7 @@
       "canonical_name": "Côte d’Ivoire",
       "iso2": "CI",
       "aliases": [
+        "cote d'ivoire",
         "côte d’ivoire"
       ]
     },
@@ -333,7 +335,8 @@
       "canonical_name": "Cabo Verde",
       "iso2": "CV",
       "aliases": [
-        "cabo verde"
+        "cabo verde",
+        "cape verde"
       ]
     },
     "CRI": {
@@ -382,6 +385,7 @@
       "canonical_name": "Czechia",
       "iso2": "CZ",
       "aliases": [
+        "czech republic",
         "czechia"
       ]
     },
@@ -487,6 +491,7 @@
       "canonical_name": "Falkland Islands (Islas Malvinas)",
       "iso2": "FK",
       "aliases": [
+        "falkland islands",
         "falkland islands (islas malvinas)"
       ]
     },
@@ -508,6 +513,7 @@
       "canonical_name": "Micronesia, Federated States of",
       "iso2": "FM",
       "aliases": [
+        "micronesia",
         "micronesia, federated states of"
       ]
     },
@@ -571,6 +577,7 @@
       "canonical_name": "Gambia, The",
       "iso2": "GM",
       "aliases": [
+        "gambia",
         "gambia, the"
       ]
     },
@@ -967,6 +974,7 @@
       "canonical_name": "North Macedonia",
       "iso2": "MK",
       "aliases": [
+        "macedonia",
         "north macedonia"
       ]
     },
@@ -988,7 +996,8 @@
       "canonical_name": "Burma",
       "iso2": "MM",
       "aliases": [
-        "burma"
+        "burma",
+        "myanmar"
       ]
     },
     "MNE": {
@@ -1227,7 +1236,8 @@
       "canonical_name": "Korea, North",
       "iso2": "KP",
       "aliases": [
-        "korea, north"
+        "korea, north",
+        "north korea"
       ]
     },
     "PRT": {
@@ -1325,6 +1335,7 @@
       "canonical_name": "Saint Helena, Ascension, and Tristan da Cunha",
       "iso2": "SH",
       "aliases": [
+        "saint helena",
         "saint helena, ascension, and tristan da cunha"
       ]
     },
@@ -1423,7 +1434,8 @@
       "canonical_name": "Eswatini",
       "iso2": "SZ",
       "aliases": [
-        "eswatini"
+        "eswatini",
+        "swaziland"
       ]
     },
     "SXM": {
@@ -1494,6 +1506,7 @@
       "canonical_name": "Timor-Leste",
       "iso2": "TL",
       "aliases": [
+        "east timor",
         "timor-leste"
       ]
     },
@@ -1612,6 +1625,7 @@
       "canonical_name": "Virgin Islands, British",
       "iso2": "VG",
       "aliases": [
+        "british virgin islands",
         "virgin islands, british"
       ]
     },
@@ -1619,7 +1633,8 @@
       "canonical_name": "U.S. Virgin Islands",
       "iso2": "VI",
       "aliases": [
-        "u.s. virgin islands"
+        "u.s. virgin islands",
+        "virgin islands"
       ]
     },
     "VNM": {

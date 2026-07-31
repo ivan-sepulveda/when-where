@@ -40,6 +40,31 @@ EXTRA_ALIASES = {
     # country field instead of a name -- map those straight through.
     "ARE": ["are"],
     "THA": ["tha"],
+    # OpenFlights' airports.dat (fetch_openflights_airports.py) predates
+    # several country renames/dissolutions and still uses the old name --
+    # map those straight to the current country's iso3 rather than
+    # leaving them unmatched. Found via country_lookup.py's CLI mode
+    # against airports.json's `country` column. Netherlands Antilles is
+    # deliberately NOT included here -- it split into three separate
+    # countries (Bonaire/Sint Eustatius/Saba, Curaçao, Sint Maarten), so a
+    # single country-name alias can't route it correctly; see
+    # country_lookup.IATA_COUNTRY_OVERRIDES for that per-airport fix
+    # instead.
+    "BHS": ["bahamas"],
+    "VGB": ["british virgin islands"],
+    "CPV": ["cape verde"],
+    "CIV": ["cote d'ivoire"],
+    "CZE": ["czech republic"],
+    "TLS": ["east timor"],
+    "FLK": ["falkland islands"],
+    "GMB": ["gambia"],
+    "MKD": ["macedonia"],
+    "FSM": ["micronesia"],
+    "MMR": ["myanmar"],
+    "PRK": ["north korea"],
+    "SHN": ["saint helena"],
+    "SWZ": ["swaziland"],
+    "VIR": ["virgin islands"],
 }
 
 # ---------------------------------------------------------------------------
