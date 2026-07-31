@@ -1984,6 +1984,97 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   Run this for real on a machine that can reach stats.govt.nz to confirm
   `download_xlsx()`.
 
+### Hiking trails (OpenStreetMap Overpass API, `scripts/multiple/fetch_hiking_trails.py`)
+
+- **Source:** [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API)
+  (`overpass-api.de`, free, no key) — one Overpass QL query per country,
+  counting `relation[route=hiking]` elements inside that country's
+  `admin_level=2` boundary. Not a bulk export like most other sources
+  here; this is a live query per country, fetch and per-country count
+  done in one step.
+- **What it is:** a count of OSM-tagged hiking-route relations per
+  country — the same "how much of X does this country have" shape as
+  `MICHELIN_SCORE_BY_COUNTRY.csv`'s `AWARD_COUNT` or
+  `UNESCO_SCORE_BY_COUNTRY.csv`'s `SITE_COUNT`, just without a
+  `compute_*_score.py` step turning it into a 0–10 score yet.
+- **Blank vs. real zero:** each query does two counts in one round trip —
+  whether the country's `admin_level=2` area resolves in OSM at all, and
+  (only if it does) how many `route=hiking` relations are inside it. A
+  country whose area doesn't resolve gets a BLANK `HIKING_ROUTE_COUNT`
+  ("unknown"), not a fabricated 0 — same missing-data philosophy as
+  `PRICE_SCORE` elsewhere in this project. A country with a real OSM
+  boundary but genuinely no tagged hiking routes gets a real `0`.
+- **Caveats:**
+  - A relation **count is not a trail-length measure**. Long-distance
+    trails are very often mapped as one "superroute" relation containing
+    many regional sub-relations, each also tagged `route=hiking` — a
+    finely-subdivided regional network can outscore a country with one
+    genuinely longer trail that was never split up. Total trail-km
+    (summing way geometry) would be more physically meaningful than a
+    relation count, but needs a much heavier query — not attempted here.
+  - **Coverage is a mapping-effort proxy as much as a trails-exist
+    proxy** — OSM's hiking-route tagging density varies enormously by
+    region (very dense in Central Europe, sparse in much of
+    Africa/Central Asia even where real trails exist). A low or blank
+    count doesn't necessarily mean a country has few hiking
+    opportunities.
+  - Disputed/contested territories (Kosovo, Taiwan, Western Sahara, etc.)
+    may or may not have a consistently-tagged `admin_level=2` relation in
+    OSM depending on how that region's contributors have chosen to map
+    it — expect some of these to come back blank.
+  - **License:** OSM data is [ODbL](https://opendatacommons.org/licenses/odbl/)
+    licensed, not CC BY like most sources here — ODbL requires
+    share-alike for derivative/produced databases in addition to
+    attribution. This script's output (a per-country count) is arguably
+    a "produced work" rather than the database itself, but that hasn't
+    been legally confirmed — same unresolved-license posture this
+    project already takes with UNESCO's data; confirm before this goes
+    beyond personal/internal use.
+- **Rate limiting:** `overpass-api.de`'s public instance allows 2
+  concurrent query slots (confirmed live via `GET /api/status`); this
+  script only ever runs one query at a time, with a politeness delay
+  between countries and exponential backoff on HTTP 429/504. Resumable
+  by default — countries already in the output CSV are skipped on a
+  re-run (`--force` to override), same convention as
+  `fetch_weather_normals.py`.
+- **Output:** `processed/multiple/HIKING_TRAILS_BY_COUNTRY.csv` —
+  `COUNTRY` (iso2), `COUNTRY_NAME`, `HIKING_ROUTE_COUNT` (blank or a real
+  count — see above), sorted by count descending (blanks last) then
+  name.
+- **Run:**
+  ```
+  python scripts/multiple/fetch_hiking_trails.py
+  python scripts/multiple/fetch_hiking_trails.py --limit 20   # pilot run
+  python scripts/multiple/fetch_hiking_trails.py --force       # re-fetch everything
+  ```
+- **Note:** this sandbox blocks `overpass-api.de` for outbound `requests`
+  calls in bash (same restriction as every other live source in this
+  file). A separate fetch tool confirmed `overpass-api.de` is reachable
+  in principle (a live `GET /api/status` call returned a real
+  `Rate limit: 2` response, which is where this section's rate-limit
+  numbers come from), but that same tool didn't surface a readable
+  response body for `GET /api/interpreter` itself (tried both `out:json`
+  and `out:csv`, both came back empty for reasons that weren't resolved —
+  possibly a content-type-handling quirk in that tool, since
+  `/api/status`'s plain-text response worked fine). So `build_query()`,
+  `parse_response()`, and the CSV read/write/resume/retry-backoff logic
+  were all verified offline: `parse_response()` against hand-built mock
+  responses matching Overpass's documented `out count;` JSON shape (area
+  found + real count, area found + zero routes, area not found, and a
+  malformed-shape response correctly raising `ValueError`); the
+  resumability/`--force`/sort-order logic against a full `fetch_all()`
+  run with a mocked `fetch_country()` and a temporary output path (not
+  the real `processed/` tree); and the retry-backoff logic against a
+  mocked `requests.post` simulating a 429-then-recovers case, an
+  always-504 case that correctly exhausts `MAX_RETRIES`, and a
+  non-retryable 500 that fails fast without wasting retries. **Not**
+  verified: an actual live HTTP round trip to `overpass-api.de`, or real
+  hiking-route counts for any real country. Run this for real on a
+  machine that can reach `overpass-api.de`, then spot-check a few known
+  countries (e.g. Switzerland/Austria should be very high, a small
+  Pacific island nation should be low or blank) before trusting the
+  output.
+
 ### Country name crosswalk (`reference/country_aliases.json`)
 
 - **Problem:** every source names countries differently — SimpleMaps says

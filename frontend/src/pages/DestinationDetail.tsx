@@ -97,7 +97,7 @@ export default function DestinationDetail() {
 
       {hasDateRange && (
         <>
-          <h2>Weather for your dates</h2>
+          <h2>Forecasted weather for your dates based on historical data</h2>
           {weather.status === "loaded" && weather.metrics !== null && weather.capitalCity && (
             <p className="destination-detail-weather-note">
               (based off Capital City of {weather.capitalCity})

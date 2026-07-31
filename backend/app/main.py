@@ -30,7 +30,13 @@ from .data_loader import (
     load_country_weather_scores,
     load_static_country_scores,
 )
-from .scoring import combine_domain_scores, month_weights, resolve_weather_metrics, resolve_weather_score
+from .scoring import (
+    combine_domain_scores,
+    month_weights,
+    resolve_rainy_days_estimate,
+    resolve_weather_metrics,
+    resolve_weather_score,
+)
 
 app = FastAPI(
     title="when-where API",
@@ -93,6 +99,10 @@ class WeatherDetail(BaseModel):
     avg_low_c: float
     total_precipitation_mm: float
     avg_precipitation_hours_per_day: float
+    # Estimated rainy days DURING the trip itself (0..trip length), not a
+    # weighted average of each spanned month's own ~30-day count -- see
+    # scoring.resolve_rainy_days_estimate(). An estimate, not an integer
+    # count -- the frontend presents this as a range (e.g. "1-2 days").
     rainy_days: float
     avg_sunshine_hours: float
 
@@ -179,25 +189,33 @@ def country_weather(
     end_date: date = Query(..., description="Trip end date, YYYY-MM-DD"),
 ):
     """Day-weighted average of a single country's raw weather metrics
-    (avg high/low temp, precipitation, rainy days, sunshine hours) over a
-    trip's date range -- for display (DestinationDetail's "Est. Daily
-    Sunlight Hours" etc.), not scoring. `country` is an ISO 3166-1
-    alpha-2 code, case-insensitive. `weather` is null (not a 404) for a
-    valid-looking code this project simply has no weather data for yet --
-    same "unknown, not bad" convention as /api/destinations/top10's
-    weather_score."""
+    (avg high/low temp, precipitation, sunshine hours) over a trip's date
+    range, plus a trip-length-scaled rainy-day estimate (see
+    scoring.resolve_rainy_days_estimate -- NOT a plain weighted average
+    of each month's own day count, which would make a short trip show
+    more "rainy days" than it actually has) -- for display
+    (DestinationDetail's "Daily Sunlight Hours" etc.), not scoring.
+    `country` is an ISO 3166-1 alpha-2 code, case-insensitive. `weather`
+    is null (not a 404) for a valid-looking code this project simply has
+    no weather data for yet -- same "unknown, not bad" convention as
+    /api/destinations/top10's weather_score."""
     if end_date < start_date:
         raise HTTPException(status_code=400, detail="end_date must be on or after start_date")
 
     iso2 = country.upper()
     weights = month_weights(start_date, end_date)
-    metrics = resolve_weather_metrics(WEATHER_METRICS.get(iso2), weights)
+    trip_days = (end_date - start_date).days + 1
+    country_metrics = WEATHER_METRICS.get(iso2)
+    metrics = resolve_weather_metrics(country_metrics, weights)
+    rainy_days_estimate = resolve_rainy_days_estimate(country_metrics, weights, trip_days)
+
+    weather = WeatherDetail(**metrics, rainy_days=rainy_days_estimate) if metrics is not None else None
 
     return CountryWeatherResponse(
         country=iso2,
         start_date=start_date,
         end_date=end_date,
         month_weights=weights,
-        weather=WeatherDetail(**metrics) if metrics else None,
+        weather=weather,
         capital_city=CAPITAL_NAMES.get(iso2),
     )

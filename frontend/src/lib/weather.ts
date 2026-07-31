@@ -45,19 +45,48 @@ export async function fetchCountryWeather(
   return { metrics: payload.weather, capitalCity: payload.capital_city };
 }
 
+const celsiusToFahrenheit = (c: number) => Math.round((c * 9) / 5 + 32);
+const mmToInches = (mm: number) => Math.round(mm / 25.4);
+
+// rainy_days is an estimate (see backend/app/scoring.py's
+// resolve_rainy_days_estimate), not an exact count -- shown as a
+// low-high range rather than false-precision single number.
+// formatRainyDaysRange(1.82) -> "1-2", formatRainyDaysRange(5) -> "5-6"
+// (always rounds down for the low end and up for the high end, even
+// when the estimate already lands on a whole number).
+function formatRainyDaysRange(v: number): string {
+  const low = Math.floor(v);
+  return `${low}-${low + 1}`;
+}
+
 // Display order/labels for DestinationDetail's weather cards. E.g.
-// avg_sunshine_hours=8.6 -> "Est. Daily Sunlight Hours: 8.6".
+// avg_sunshine_hours=8.6 -> "Daily Sunlight Hours: 8.6". Temperatures and
+// total precipitation also show a rounded-to-the-nearest-integer
+// imperial conversion alongside the metric value (source data is
+// already metric -- see fetch_weather_normals.py).
 const WEATHER_STAT_DEFS: {
   key: keyof WeatherMetrics;
   label: string;
   format: (value: number) => string;
 }[] = [
-  { key: "avg_high_c", label: "Est. Daily High", format: (v) => `${v.toFixed(1)}°C` },
-  { key: "avg_low_c", label: "Est. Daily Low", format: (v) => `${v.toFixed(1)}°C` },
-  { key: "total_precipitation_mm", label: "Est. Total Precipitation", format: (v) => `${v.toFixed(1)}mm` },
-  { key: "avg_precipitation_hours_per_day", label: "Est. Daily Precipitation Hours", format: (v) => v.toFixed(1) },
-  { key: "rainy_days", label: "Est. Rainy Days", format: (v) => v.toFixed(0) },
-  { key: "avg_sunshine_hours", label: "Est. Daily Sunlight Hours", format: (v) => v.toFixed(1) },
+  {
+    key: "avg_high_c",
+    label: "Daily High",
+    format: (v) => `${v.toFixed(1)}°C / ${celsiusToFahrenheit(v)}°F`,
+  },
+  {
+    key: "avg_low_c",
+    label: "Daily Low",
+    format: (v) => `${v.toFixed(1)}°C / ${celsiusToFahrenheit(v)}°F`,
+  },
+  {
+    key: "total_precipitation_mm",
+    label: "Total Precipitation",
+    format: (v) => `${v.toFixed(1)}mm/${mmToInches(v)}in`,
+  },
+  { key: "avg_precipitation_hours_per_day", label: "Daily Precipitation Hours", format: (v) => v.toFixed(1) },
+  { key: "rainy_days", label: "Rainy Days", format: formatRainyDaysRange },
+  { key: "avg_sunshine_hours", label: "Daily Sunlight Hours", format: (v) => v.toFixed(1) },
 ];
 
 export function formatWeatherStats(metrics: WeatherMetrics): { label: string; value: string }[] {

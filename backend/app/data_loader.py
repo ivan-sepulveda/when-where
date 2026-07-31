@@ -121,14 +121,26 @@ def load_country_weather_scores() -> dict[str, dict[str, float]]:
     return weather_by_country
 
 
+# Pulled alongside RAW_WEATHER_METRIC_KEYS even though neither is
+# averaged the same simple way: rainy_days needs days_sampled (that
+# month's real sampled day count, 28-31) to turn into a fraction-of-month
+# in scoring.resolve_rainy_days_estimate() -- see that function's
+# docstring for why a plain weighted average of the raw count would be
+# wrong. Keeping this small and explicit here rather than folding it into
+# RAW_WEATHER_METRIC_KEYS, since that constant specifically drives
+# resolve_weather_metrics()'s uniform "just average it" loop and these
+# two don't fit that shape.
+EXTRA_MONTHLY_KEYS = ["rainy_days", "days_sampled"]
+
+
 def load_country_weather_metrics() -> dict[str, dict[str, dict[str, float]]]:
     """iso2 -> {month_name: {raw metric name: value}}, straight from
     weather_normals_<year>_by_city.json's per-month numbers (avg high/low
-    temp, precipitation, rainy days, sunshine hours -- see
-    scoring.RAW_WEATHER_METRIC_KEYS). This is the *input* to
-    load_country_weather_scores()'s 0-10 score, kept here in its original
-    units for display (e.g. DestinationDetail's "Est. Daily Sunlight
-    Hours") rather than folded into one abstract number.
+    temp, precipitation, sunshine hours -- see scoring.RAW_WEATHER_METRIC_KEYS
+    -- plus rainy_days/days_sampled, see EXTRA_MONTHLY_KEYS above). This is
+    the *input* to load_country_weather_scores()'s 0-10 score, kept here in
+    its original units for display (e.g. DestinationDetail's "Daily
+    Sunlight Hours") rather than folded into one abstract number.
 
     Same primary-capital-per-country resolution and same "missing capital
     data -> country just isn't in the dict" behavior as
@@ -143,13 +155,14 @@ def load_country_weather_metrics() -> dict[str, dict[str, dict[str, float]]]:
     with open(WEATHER_METRICS_PATH, encoding="utf-8") as f:
         weather_cities = json.load(f)["cities"]
 
+    keys_to_pull = RAW_WEATHER_METRIC_KEYS + EXTRA_MONTHLY_KEYS
     metrics_by_country: dict[str, dict[str, dict[str, float]]] = {}
     for iso2, capital in capitals.items():
         city_entry = weather_cities.get(str(capital["simplemaps_id"]))
         if city_entry is None:
             continue
         metrics_by_country[iso2] = {
-            month: {key: city_entry["months"][month][key] for key in RAW_WEATHER_METRIC_KEYS}
+            month: {key: city_entry["months"][month][key] for key in keys_to_pull}
             for month in MONTHS
             if month in city_entry["months"]
         }

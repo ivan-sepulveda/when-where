@@ -40,12 +40,20 @@ MONTHS = [
 # docstring for units/sourcing. Kept here (rather than in data_loader.py)
 # since it's the shape resolve_weather_metrics() operates on, same
 # reasoning as MONTHS living here.
+#
+# rainy_days is deliberately NOT in this list -- unlike the other five
+# (all "typical daily/monthly rate" numbers that stay meaningful no
+# matter how long the trip is), a plain weighted average of each spanned
+# month's own ~30-day rainy-day COUNT produces a nonsensical result for
+# a short trip (e.g. a 7-day trip weighted toward a 31-day month with 11
+# rainy days would show "11 rainy days" on a 7-day trip). See
+# resolve_rainy_days_estimate() below for the trip-length-scaled version
+# used instead.
 RAW_WEATHER_METRIC_KEYS = [
     "avg_high_c",
     "avg_low_c",
     "total_precipitation_mm",
     "avg_precipitation_hours_per_day",
-    "rainy_days",
     "avg_sunshine_hours",
 ]
 
@@ -125,6 +133,38 @@ def resolve_weather_metrics(
         key: round(sum(monthly_metrics[month][key] * weight for month, weight in weights.items()), 2)
         for key in RAW_WEATHER_METRIC_KEYS
     }
+
+
+def resolve_rainy_days_estimate(
+    monthly_metrics: dict[str, dict[str, float]] | None, weights: dict[str, float], trip_days: int
+) -> float | None:
+    """Estimated number of rainy days actually expected DURING the trip
+    itself (0..trip_days), not a blend of each spanned month's own
+    ~30-day rainy-day count (see the note on RAW_WEATHER_METRIC_KEYS
+    above for why that would be wrong).
+
+    Each spanned month's raw `rainy_days` is first turned into a
+    fraction of that month (rainy_days / days_sampled -- days_sampled is
+    that month's actual sampled day count, 28-31, not a hardcoded
+    calendar assumption), those fractions are day-weight-averaged across
+    the trip's month(s) using the same `weights` as every other
+    resolve_* function here, and the result is scaled by the trip's own
+    length in days.
+
+    E.g. a 7-day trip that's 30% July (5 rainy days / 31 -> ~16.1%) and
+    70% August (10 rainy days / 31 -> ~32.3%) resolves to
+    (0.3*0.161 + 0.7*0.323) * 7 ~= 1.82 -- callers should present this as
+    a range (e.g. "1-2 rainy days"), not a false-precision single number,
+    since it's an estimate, not a count. None if the country has no
+    weather data at all -- same "unknown, not zero" convention as every
+    other resolve_* function here."""
+    if monthly_metrics is None:
+        return None
+    weighted_fraction = sum(
+        (monthly_metrics[month]["rainy_days"] / monthly_metrics[month]["days_sampled"]) * weight
+        for month, weight in weights.items()
+    )
+    return round(weighted_fraction * trip_days, 2)
 
 
 def combine_domain_scores(
