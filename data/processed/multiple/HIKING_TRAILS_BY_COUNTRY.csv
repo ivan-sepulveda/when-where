@@ -4,6 +4,7 @@ FR,France,43864
 IT,Italy,34441
 NL,Netherlands,26885
 CH,Switzerland,24841
+US,United States,14966
 AT,Austria,11681
 ES,Spain,7138
 CZ,Czechia,5239
@@ -32,6 +33,7 @@ CN,China,555
 BG,Bulgaria,538
 NZ,New Zealand,527
 AU,Australia,499
+UA,Ukraine,489
 LU,Luxembourg,443
 EE,Estonia,367
 IE,Ireland,364
@@ -88,12 +90,15 @@ LC,Saint Lucia,10
 AF,Afghanistan,7
 AG,Antigua and Barbuda,7
 MX,Mexico,7
+VA,Vatican City,7
 RW,Rwanda,6
 PK,Pakistan,5
 AE,United Arab Emirates,5
 HT,Haiti,4
 KE,Kenya,4
 MU,Mauritius,4
+UG,Uganda,4
+UY,Uruguay,4
 KH,Cambodia,3
 IR,Iran,3
 IM,Isle of Man,3
@@ -122,6 +127,7 @@ MA,Morocco,1
 NG,Nigeria,1
 SA,Saudi Arabia,1
 SS,South Sudan,1
+UZ,Uzbekistan,1
 DZ,Algeria,0
 AO,Angola,0
 AI,Anguilla,0
@@ -217,3 +223,4 @@ BL,Saint Barthelemy,
 MF,Saint Martin,
 PM,Saint Pierre and Miquelon,
 SX,Sint Maarten,
+TZ,Tanzania,
