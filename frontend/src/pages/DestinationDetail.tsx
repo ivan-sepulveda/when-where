@@ -3,8 +3,8 @@ import { Link, useParams, useSearchParams } from "react-router";
 import { formatDateRange } from "../lib/formatDate";
 import { getCountryByCode } from "../lib/countries";
 import { countryCodeToFlagEmoji } from "../lib/flagEmoji";
-import { formatMichelinCount, getMichelinAwardCounts } from "../lib/michelin";
-import { formatUnescoCount, getUnescoSiteCounts } from "../lib/unesco";
+import { formatMichelinCount, getMichelinAwardCounts, getMichelinGuideUrl } from "../lib/michelin";
+import { formatUnescoCount, getUnescoSiteCounts, getUnescoStatesPartyUrl } from "../lib/unesco";
 import { useCountryStatCount } from "../lib/useCountryStatCount";
 import { fetchCountryWeather, formatWeatherStats, type CountryWeather } from "../lib/weather";
 
@@ -80,19 +80,43 @@ export default function DestinationDetail() {
       )}
 
       <ul className="destination-detail-stats">
-        <li className="destination-detail-stat-card">
-          {michelin.status === "loading" && "Loading Michelin Guide data..."}
-          {michelin.status === "error" && <span role="alert">Couldn't load Michelin Guide data.</span>}
-          {michelin.status === "loaded" && formatMichelinCount(michelin.count)}
-        </li>
+        {michelin.status === "loaded" ? (
+          <li>
+            <a
+              href={getMichelinGuideUrl(country.code)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="destination-detail-stat-card destination-detail-stat-card-link"
+            >
+              {formatMichelinCount(michelin.count)}
+            </a>
+          </li>
+        ) : (
+          <li className="destination-detail-stat-card">
+            {michelin.status === "loading" && "Loading Michelin Guide data..."}
+            {michelin.status === "error" && <span role="alert">Couldn't load Michelin Guide data.</span>}
+          </li>
+        )}
 
-        <li className="destination-detail-stat-card">
-          {unesco.status === "loading" && "Loading UNESCO World Heritage Site data..."}
-          {unesco.status === "error" && (
-            <span role="alert">Couldn't load UNESCO World Heritage Site data.</span>
-          )}
-          {unesco.status === "loaded" && formatUnescoCount(unesco.count)}
-        </li>
+        {unesco.status === "loaded" ? (
+          <li>
+            <a
+              href={getUnescoStatesPartyUrl(country.code)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="destination-detail-stat-card destination-detail-stat-card-link"
+            >
+              {formatUnescoCount(unesco.count)}
+            </a>
+          </li>
+        ) : (
+          <li className="destination-detail-stat-card">
+            {unesco.status === "loading" && "Loading UNESCO World Heritage Site data..."}
+            {unesco.status === "error" && (
+              <span role="alert">Couldn't load UNESCO World Heritage Site data.</span>
+            )}
+          </li>
+        )}
       </ul>
 
       {hasDateRange && (

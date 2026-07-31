@@ -20,41 +20,59 @@ JP,Japan,671
 CN,China,555
 BG,Bulgaria,538
 AU,Australia,499
+LU,Luxembourg,443
 EE,Estonia,367
 IE,Ireland,364
+LV,Latvia,335
 CL,Chile,289
+LT,Lithuania,288
 AM,Armenia,280
 KR,"Korea, South",209
+ME,Montenegro,196
 CY,Cyprus,190
+LI,Liechtenstein,189
 IS,Iceland,146
 BA,Bosnia and Herzegovina,141
 CO,Colombia,121
 BR,Brazil,120
 CV,Cabo Verde,118
 ID,Indonesia,107
+MY,Malaysia,93
 AL,Albania,91
 KG,Kyrgyzstan,91
 AR,Argentina,84
 JO,Jordan,54
+MT,Malta,38
+NA,Namibia,38
+KZ,Kazakhstan,37
+MK,North Macedonia,35
 GL,Greenland,33
 EC,Ecuador,32
 BY,Belarus,31
 AD,Andorra,28
 AZ,Azerbaijan,27
+LK,Sri Lanka,26
+LB,Lebanon,23
+NI,Nicaragua,21
 CU,Cuba,18
 BT,Bhutan,17
 CR,Costa Rica,16
 BO,Bolivia,12
+LC,Saint Lucia,10
 AF,Afghanistan,7
 AG,Antigua and Barbuda,7
+MX,Mexico,7
 AE,United Arab Emirates,5
 HT,Haiti,4
 KE,Kenya,4
+MU,Mauritius,4
 KH,Cambodia,3
 IR,Iran,3
 IM,Isle of Man,3
+MC,Monaco,3
 DO,Dominican Republic,2
 EG,Egypt,2
+LS,Lesotho,2
 BB,Barbados,1
 BM,Bermuda,1
 CM,Cameroon,1
@@ -67,6 +85,11 @@ GT,Guatemala,1
 HN,Honduras,1
 IQ,Iraq,1
 KP,"Korea, North",1
+LA,Laos,1
+MD,Moldova,1
+MN,Mongolia,1
+MA,Morocco,1
+NG,Nigeria,1
 DZ,Algeria,0
 AO,Angola,0
 AI,Anguilla,0
@@ -77,7 +100,9 @@ BZ,Belize,0
 BJ,Benin,0
 BN,Brunei,0
 BF,Burkina Faso,0
+MM,Burma,0
 BI,Burundi,0
+KY,Cayman Islands,0
 CF,Central African Republic,0
 KM,Comoros,0
 CG,Congo (Brazzaville),0
@@ -98,7 +123,19 @@ GY,Guyana,0
 JM,Jamaica,0
 JE,Jersey,0
 KI,Kiribati,0
+KW,Kuwait,0
+LR,Liberia,0
+LY,Libya,0
+MG,Madagascar,0
+MW,Malawi,0
+MV,Maldives,0
+ML,Mali,0
+MH,Marshall Islands,0
+MR,Mauritania,0
 FM,"Micronesia, Federated States of",0
+MS,Montserrat,0
+MZ,Mozambique,0
+NE,Niger,0
 KN,Saint Kitts and Nevis,0
 GS,South Georgia and South Sandwich Islands,0
 AS,American Samoa,
@@ -113,4 +150,10 @@ GP,Guadeloupe,
 GU,Guam,
 GN,Guinea,
 HK,Hong Kong,
+MO,Macau,
+MQ,Martinique,
+NC,New Caledonia,
+NF,Norfolk Island,
+MP,Northern Mariana Islands,
 BL,Saint Barthelemy,
+MF,Saint Martin,

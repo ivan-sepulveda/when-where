@@ -17,16 +17,29 @@ export function getMichelinAwardCounts(): Promise<Map<string, number>> {
   return awardCountsPromise;
 }
 
-// Above 1000, the exact count reads as false precision, so it's rounded
-// to the nearest 50 and prefixed with "Roughly" -- e.g. 2030 -> "Roughly
-// 2050 Michelin Guide Restaurants". 1000 and below are shown as-is:
+// Below 200, the exact count is shown as-is. From 200 to 499, it reads as
+// false precision, so it's rounded to the nearest 25. At 500 and above,
+// rounded to the nearest 50 instead -- a $25 granularity would just be
+// more (still-false) precision at that scale. Both rounded tiers get a
+// "Roughly" prefix.
 // formatMichelinCount(7) -> "7 Michelin Guide Restaurants",
 // formatMichelinCount(1) -> "1 Michelin Guide Restaurant",
-// formatMichelinCount(893) -> "893 Michelin Guide Restaurants",
+// formatMichelinCount(477) -> "Roughly 475 Michelin Guide Restaurants",
+// formatMichelinCount(495) -> "Roughly 500 Michelin Guide Restaurants",
+// formatMichelinCount(561) -> "Roughly 550 Michelin Guide Restaurants",
 // formatMichelinCount(2030) -> "Roughly 2050 Michelin Guide Restaurants".
 export function formatMichelinCount(count: number): string {
-  const isRounded = count > 1000;
-  const displayCount = isRounded ? Math.round(count / 50) * 50 : count;
-  const prefix = isRounded ? "Roughly " : "";
+  const roundingIncrement = count >= 500 ? 50 : count >= 200 ? 25 : null;
+  const displayCount = roundingIncrement ? Math.round(count / roundingIncrement) * roundingIncrement : count;
+  const prefix = roundingIncrement ? "Roughly " : "";
   return `${prefix}${displayCount} Michelin Guide Restaurant${displayCount === 1 ? "" : "s"}`;
+}
+
+// The MICHELIN Guide's own site keys its restaurant listing pages by
+// lowercased ISO 3166-1 alpha-2 code, e.g. "CN" -> "cn" ->
+// https://guide.michelin.com/en/cn/restaurants. Same code this project
+// already uses everywhere else (DestinationDetail's `country.code`), just
+// lowercased for their URL convention.
+export function getMichelinGuideUrl(iso2: string): string {
+  return `https://guide.michelin.com/en/${iso2.toLowerCase()}/restaurants`;
 }

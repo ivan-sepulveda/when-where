@@ -309,3 +309,17 @@ h1 {
   background: #161b22;
   font-size: 1.05rem;
 }
+
+/* Unlike the plain (non-interactive) stat cards above, the Michelin card
+   links out to guide.michelin.com -- this variant adds the same
+   pointer/hover affordance as .destinations-ranked-link so it reads as
+   clickable. */
+.destination-detail-stat-card-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.destination-detail-stat-card-link:hover {
+  border-color: #3b82f6;
+}

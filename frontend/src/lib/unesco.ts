@@ -24,3 +24,12 @@ export function getUnescoSiteCounts(): Promise<Map<string, number>> {
 export function formatUnescoCount(count: number): string {
   return `${count} UNESCO World Heritage Site${count === 1 ? "" : "s"}`;
 }
+
+// UNESCO's own World Heritage Centre site keys its per-country "States
+// Parties" page by lowercased ISO 3166-1 alpha-2 code too, e.g. "CN" ->
+// "cn" -> https://whc.unesco.org/en/statesparties/cn. Same code this
+// project already uses everywhere else, just lowercased for their URL
+// convention -- same pattern as lib/michelin.ts's getMichelinGuideUrl().
+export function getUnescoStatesPartyUrl(iso2: string): string {
+  return `https://whc.unesco.org/en/statesparties/${iso2.toLowerCase()}`;
+}
