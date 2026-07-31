@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { COUNTRIES, DEFAULT_COUNTRY_CODE } from "../lib/countries";
+import { COUNTRIES } from "../lib/countries";
+import { useDepartureCountry } from "../lib/departureCountry";
 import { countryCodeToFlagEmoji } from "../lib/flagEmoji";
 import { normalizeForSearch } from "../lib/search";
 
@@ -15,10 +16,10 @@ type OpenMenu = "browse" | "country" | null;
 export default function NavBar() {
   const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
 
-  // Defaults to US for now; once the IP-based country lookup
-  // (see useCountry in lib/geolocateCountry.ts) is wired in, its
-  // result should be used to set this instead.
-  const [countryCode, setCountryCode] = useState(DEFAULT_COUNTRY_CODE);
+  // Shared with DestinationDetail's Shortest Flight card -- see
+  // lib/departureCountry.tsx for the geolocation-default/manual-override
+  // behavior.
+  const { countryCode, setCountryCode } = useDepartureCountry();
 
   const [countrySearch, setCountrySearch] = useState("");
   const countrySearchRef = useRef<HTMLInputElement>(null);

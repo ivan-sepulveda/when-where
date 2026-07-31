@@ -5,6 +5,7 @@ import About from "./pages/About";
 import CountrySpecificSources from "./pages/CountrySpecificSources";
 import Destinations from "./pages/Destinations";
 import DestinationDetail from "./pages/DestinationDetail";
+import { DepartureCountryProvider } from "./lib/departureCountry";
 import { getNextWeekRange } from "./lib/nextWeek";
 
 const INTERESTS = ["Hiking", "Beaches", "Food & culture", "Nightlife"] as const;
@@ -79,7 +80,7 @@ function Home() {
 
 function App() {
   return (
-    <>
+    <DepartureCountryProvider>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -93,7 +94,7 @@ function App() {
             since this app is a Vite SPA rather than Next's app router. */}
         <Route path="/destinations/:country" element={<DestinationDetail />} />
       </Routes>
-    </>
+    </DepartureCountryProvider>
   );
 }
 

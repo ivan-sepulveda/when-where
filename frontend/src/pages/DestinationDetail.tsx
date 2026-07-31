@@ -4,8 +4,10 @@ import { formatDateRange } from "../lib/formatDate";
 import { getCountryByCode } from "../lib/countries";
 import { countryCodeToFlagEmoji } from "../lib/flagEmoji";
 import { getTopArtMuseums, useArtMuseums } from "../lib/artMuseums";
+import { useDepartureCountry } from "../lib/departureCountry";
 import { formatHikingTrailCount, useHikingTrailCount } from "../lib/hiking";
 import { formatMichelinCount, getMichelinAwardCounts, getMichelinGuideUrl } from "../lib/michelin";
+import { formatShortestFlight, useShortestFlight } from "../lib/shortestFlight";
 import { formatUnescoCount, getUnescoSiteCounts, getUnescoStatesPartyUrl } from "../lib/unesco";
 import { useCountryStatCount } from "../lib/useCountryStatCount";
 import { fetchCountryWeather, formatWeatherStats, type CountryWeather } from "../lib/weather";
@@ -34,6 +36,10 @@ export default function DestinationDetail() {
   const unesco = useCountryStatCount(country, getUnescoSiteCounts);
   const hiking = useHikingTrailCount(country);
   const artMuseums = useArtMuseums(country);
+
+  const { countryCode: departureCountryCode } = useDepartureCountry();
+  const departureCountry = getCountryByCode(departureCountryCode);
+  const shortestFlight = useShortestFlight(departureCountry, country);
 
   const [weather, setWeather] = useState<WeatherLoadState>({ status: "loading" });
 
@@ -121,6 +127,36 @@ export default function DestinationDetail() {
             )}
           </li>
         )}
+      </ul>
+
+      <h2>Shortest Flight</h2>
+      <ul className="destination-detail-stats">
+        {departureCountry?.code === country.code && (
+          <li className="destination-detail-stat-card">
+            You're departing from {country.name} -- no flight needed.
+          </li>
+        )}
+        {departureCountry?.code !== country.code && shortestFlight.status === "loading" && (
+          <li className="destination-detail-stat-card">Loading shortest flight data...</li>
+        )}
+        {departureCountry?.code !== country.code && shortestFlight.status === "error" && (
+          <li className="destination-detail-stat-card" role="alert">
+            Couldn't load shortest flight data.
+          </li>
+        )}
+        {departureCountry?.code !== country.code &&
+          shortestFlight.status === "loaded" &&
+          shortestFlight.flight === null && (
+            <li className="destination-detail-stat-card">
+              No known flight route from {departureCountry?.name ?? "your departure country"} to{" "}
+              {country.name} in this dataset.
+            </li>
+          )}
+        {departureCountry?.code !== country.code &&
+          shortestFlight.status === "loaded" &&
+          shortestFlight.flight !== null && (
+            <li className="destination-detail-stat-card">{formatShortestFlight(shortestFlight.flight)}</li>
+          )}
       </ul>
 
       {hasDateRange && (

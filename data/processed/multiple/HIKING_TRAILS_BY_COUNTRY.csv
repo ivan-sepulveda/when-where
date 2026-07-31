@@ -64,6 +64,7 @@ SM,San Marino,42
 MT,Malta,38
 NA,Namibia,38
 KZ,Kazakhstan,37
+XK,Kosovo,37
 MK,North Macedonia,35
 GL,Greenland,33
 EC,Ecuador,32
@@ -86,6 +87,7 @@ SC,Seychelles,14
 BO,Bolivia,12
 SG,Singapore,12
 TC,Turks and Caicos Islands,12
+VN,Vietnam,12
 LC,Saint Lucia,10
 AF,Afghanistan,7
 AG,Antigua and Barbuda,7
@@ -107,6 +109,7 @@ DO,Dominican Republic,2
 EG,Egypt,2
 LS,Lesotho,2
 PG,Papua New Guinea,2
+VE,Venezuela,2
 BB,Barbados,1
 BM,Bermuda,1
 CM,Cameroon,1
@@ -182,6 +185,8 @@ PW,Palau,0
 PN,Pitcairn Islands,0
 QA,Qatar,0
 KN,Saint Kitts and Nevis,0
+VC,Saint Vincent and the Grenadines,0
+WS,Samoa,0
 ST,Sao Tome and Principe,0
 SN,Senegal,0
 SL,Sierra Leone,0
@@ -198,6 +203,11 @@ TT,Trinidad and Tobago,0
 TN,Tunisia,0
 TM,Turkmenistan,0
 TV,Tuvalu,0
+VU,Vanuatu,0
+VG,"Virgin Islands, British",0
+YE,Yemen,0
+ZM,Zambia,0
+ZW,Zimbabwe,0
 AS,American Samoa,
 AW,Aruba,
 BQ,"Bonaire, Sint Eustatius, and Saba",
@@ -206,6 +216,7 @@ CX,Christmas Island,
 CW,Curaçao,
 GF,French Guiana,
 PF,French Polynesia,
+XG,Gaza Strip,
 GE,Georgia,
 GP,Guadeloupe,
 GU,Guam,
@@ -213,6 +224,7 @@ GN,Guinea,
 HK,Hong Kong,
 MO,Macau,
 MQ,Martinique,
+YT,Mayotte,
 NC,New Caledonia,
 NF,Norfolk Island,
 MP,Northern Mariana Islands,
@@ -223,4 +235,9 @@ BL,Saint Barthelemy,
 MF,Saint Martin,
 PM,Saint Pierre and Miquelon,
 SX,Sint Maarten,
+ZA,South Africa,
+XR,Svalbard,
 TZ,Tanzania,
+VI,U.S. Virgin Islands,
+WF,Wallis and Futuna,
+XW,West Bank,
