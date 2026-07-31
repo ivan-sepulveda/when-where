@@ -2,23 +2,28 @@ COUNTRY,COUNTRY_NAME,HIKING_ROUTE_COUNT
 DE,Germany,53390
 FR,France,43864
 IT,Italy,34441
+NL,Netherlands,26885
 CH,Switzerland,24841
 AT,Austria,11681
 ES,Spain,7138
 CZ,Czechia,5239
 BE,Belgium,4410
 HU,Hungary,3540
+PL,Poland,3288
+NO,Norway,3104
 GB,United Kingdom,2465
 IL,Israel,1740
 CA,Canada,1360
 DK,Denmark,1352
 GR,Greece,1339
+PT,Portugal,1278
 IN,India,1238
 HR,Croatia,1022
 FI,Finland,733
 JP,Japan,671
 CN,China,555
 BG,Bulgaria,538
+NZ,New Zealand,527
 AU,Australia,499
 LU,Luxembourg,443
 EE,Estonia,367
@@ -33,6 +38,7 @@ CY,Cyprus,190
 LI,Liechtenstein,189
 IS,Iceland,146
 BA,Bosnia and Herzegovina,141
+NP,Nepal,122
 CO,Colombia,121
 BR,Brazil,120
 CV,Cabo Verde,118
@@ -40,6 +46,7 @@ ID,Indonesia,107
 MY,Malaysia,93
 AL,Albania,91
 KG,Kyrgyzstan,91
+PH,Philippines,89
 AR,Argentina,84
 JO,Jordan,54
 MT,Malta,38
@@ -52,8 +59,11 @@ BY,Belarus,31
 AD,Andorra,28
 AZ,Azerbaijan,27
 LK,Sri Lanka,26
+PA,Panama,24
+PE,Peru,24
 LB,Lebanon,23
 NI,Nicaragua,21
+OM,Oman,21
 CU,Cuba,18
 BT,Bhutan,17
 CR,Costa Rica,16
@@ -62,6 +72,7 @@ LC,Saint Lucia,10
 AF,Afghanistan,7
 AG,Antigua and Barbuda,7
 MX,Mexico,7
+PK,Pakistan,5
 AE,United Arab Emirates,5
 HT,Haiti,4
 KE,Kenya,4
@@ -73,6 +84,7 @@ MC,Monaco,3
 DO,Dominican Republic,2
 EG,Egypt,2
 LS,Lesotho,2
+PG,Papua New Guinea,2
 BB,Barbados,1
 BM,Bermuda,1
 CM,Cameroon,1
@@ -135,7 +147,10 @@ MR,Mauritania,0
 FM,"Micronesia, Federated States of",0
 MS,Montserrat,0
 MZ,Mozambique,0
+NR,Nauru,0
 NE,Niger,0
+NU,Niue,0
+PN,Pitcairn Islands,0
 KN,Saint Kitts and Nevis,0
 GS,South Georgia and South Sandwich Islands,0
 AS,American Samoa,
@@ -145,6 +160,7 @@ BW,Botswana,
 CX,Christmas Island,
 CW,Curaçao,
 GF,French Guiana,
+PF,French Polynesia,
 GE,Georgia,
 GP,Guadeloupe,
 GU,Guam,
@@ -155,5 +171,8 @@ MQ,Martinique,
 NC,New Caledonia,
 NF,Norfolk Island,
 MP,Northern Mariana Islands,
+PS,Palestine,
+PR,Puerto Rico,
 BL,Saint Barthelemy,
 MF,Saint Martin,
+PM,Saint Pierre and Miquelon,

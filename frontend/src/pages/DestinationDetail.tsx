@@ -3,6 +3,7 @@ import { Link, useParams, useSearchParams } from "react-router";
 import { formatDateRange } from "../lib/formatDate";
 import { getCountryByCode } from "../lib/countries";
 import { countryCodeToFlagEmoji } from "../lib/flagEmoji";
+import { formatHikingTrailCount, useHikingTrailCount } from "../lib/hiking";
 import { formatMichelinCount, getMichelinAwardCounts, getMichelinGuideUrl } from "../lib/michelin";
 import { formatUnescoCount, getUnescoSiteCounts, getUnescoStatesPartyUrl } from "../lib/unesco";
 import { useCountryStatCount } from "../lib/useCountryStatCount";
@@ -30,6 +31,7 @@ export default function DestinationDetail() {
 
   const michelin = useCountryStatCount(country, getMichelinAwardCounts);
   const unesco = useCountryStatCount(country, getUnescoSiteCounts);
+  const hiking = useHikingTrailCount(country);
 
   const [weather, setWeather] = useState<WeatherLoadState>({ status: "loading" });
 
@@ -151,6 +153,26 @@ export default function DestinationDetail() {
           </ul>
         </>
       )}
+
+      <h2>Hiking and Outdoors</h2>
+      <ul className="destination-detail-stats">
+        {hiking.status === "loading" && (
+          <li className="destination-detail-stat-card">Loading hiking trail data...</li>
+        )}
+        {hiking.status === "error" && (
+          <li className="destination-detail-stat-card" role="alert">
+            Couldn't load hiking trail data.
+          </li>
+        )}
+        {hiking.status === "loaded" && hiking.count === null && (
+          <li className="destination-detail-stat-card">
+            No hiking trail data available for {country.name} yet.
+          </li>
+        )}
+        {hiking.status === "loaded" && hiking.count !== null && (
+          <li className="destination-detail-stat-card">{formatHikingTrailCount(hiking.count)}</li>
+        )}
+      </ul>
     </main>
   );
 }
