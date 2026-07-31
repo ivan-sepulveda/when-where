@@ -24,7 +24,12 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from .data_loader import load_country_weather_metrics, load_country_weather_scores, load_static_country_scores
+from .data_loader import (
+    load_country_capital_names,
+    load_country_weather_metrics,
+    load_country_weather_scores,
+    load_static_country_scores,
+)
 from .scoring import combine_domain_scores, month_weights, resolve_weather_metrics, resolve_weather_score
 
 app = FastAPI(
@@ -61,6 +66,7 @@ app.add_middleware(
 STATIC_SCORES = load_static_country_scores()
 WEATHER_SCORES = load_country_weather_scores()
 WEATHER_METRICS = load_country_weather_metrics()
+CAPITAL_NAMES = load_country_capital_names()
 
 
 class DestinationScore(BaseModel):
@@ -97,6 +103,10 @@ class CountryWeatherResponse(BaseModel):
     end_date: date
     month_weights: dict[str, float]
     weather: Optional[WeatherDetail]
+    # The primary capital city this weather is actually resolved from
+    # (see data_loader.load_country_capital_names) -- e.g. "Tokyo" for
+    # Japan. Null alongside weather when there's no data at all.
+    capital_city: Optional[str]
 
 
 @app.get("/health")
@@ -189,4 +199,5 @@ def country_weather(
         end_date=end_date,
         month_weights=weights,
         weather=WeatherDetail(**metrics) if metrics else None,
+        capital_city=CAPITAL_NAMES.get(iso2),
     )

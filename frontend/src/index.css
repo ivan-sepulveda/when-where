@@ -286,6 +286,12 @@ h1 {
   color: #3b82f6;
 }
 
+.destination-detail-weather-note {
+  margin: -0.5rem 0 1rem;
+  opacity: 0.6;
+  font-size: 0.9rem;
+}
+
 .destination-detail-stats {
   list-style: none;
   padding: 0;

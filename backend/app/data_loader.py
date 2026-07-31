@@ -73,6 +73,17 @@ def _pick_primary_capitals() -> dict[str, dict]:
     return capitals
 
 
+def load_country_capital_names() -> dict[str, str]:
+    """iso2 -> display name of the primary capital city used as this
+    country's weather proxy (e.g. "JP" -> "Tokyo") -- see
+    _pick_primary_capitals(). Weather here is resolved from one
+    representative capital, not a national average, so the frontend
+    captions weather data with which city it's actually based on rather
+    than implying it's country-wide."""
+    capitals = _pick_primary_capitals()
+    return {iso2: capital["city"] for iso2, capital in capitals.items()}
+
+
 def load_country_weather_scores() -> dict[str, dict[str, float]]:
     """iso2 -> {month_name: weather_score_0_10}, for every country whose
     primary capital has weather data in monthly_scores_<year>_by_city.json.

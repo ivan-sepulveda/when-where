@@ -16,23 +16,33 @@ interface CountryWeatherResponse {
   end_date: string;
   month_weights: Record<string, number>;
   weather: WeatherMetrics | null;
+  capital_city: string | null;
+}
+
+export interface CountryWeather {
+  metrics: WeatherMetrics | null;
+  // The primary capital city this weather is actually resolved from
+  // (e.g. "Tokyo" for Japan) -- weather here comes from one
+  // representative capital, not a national average, so the UI should
+  // caption it as such rather than implying country-wide data.
+  capitalCity: string | null;
 }
 
 // Day-weighted average of a country's raw weather metrics over a trip's
 // date range -- see backend/app/scoring.py's resolve_weather_metrics().
-// Null if this project has no weather data for that country at all
-// (not an error -- see backend/app/data_loader.py's docstring for why
-// coverage is a subset of all countries).
+// metrics is null if this project has no weather data for that country
+// at all (not an error -- see backend/app/data_loader.py's docstring for
+// why coverage is a subset of all countries).
 export async function fetchCountryWeather(
   countryCode: string,
   startDate: string,
   endDate: string,
-): Promise<WeatherMetrics | null> {
+): Promise<CountryWeather> {
   const params = new URLSearchParams({ start_date: startDate, end_date: endDate });
   const res = await fetch(`${API_BASE_URL}/api/destinations/${countryCode}/weather?${params.toString()}`);
   if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
   const payload = (await res.json()) as CountryWeatherResponse;
-  return payload.weather;
+  return { metrics: payload.weather, capitalCity: payload.capital_city };
 }
 
 // Display order/labels for DestinationDetail's weather cards. E.g.

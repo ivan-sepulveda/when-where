@@ -6,12 +6,12 @@ import { countryCodeToFlagEmoji } from "../lib/flagEmoji";
 import { formatMichelinCount, getMichelinAwardCounts } from "../lib/michelin";
 import { formatUnescoCount, getUnescoSiteCounts } from "../lib/unesco";
 import { useCountryStatCount } from "../lib/useCountryStatCount";
-import { fetchCountryWeather, formatWeatherStats, type WeatherMetrics } from "../lib/weather";
+import { fetchCountryWeather, formatWeatherStats, type CountryWeather } from "../lib/weather";
 
 type WeatherLoadState =
   | { status: "loading" }
   | { status: "error" }
-  | { status: "loaded"; metrics: WeatherMetrics | null };
+  | ({ status: "loaded" } & CountryWeather);
 
 // Placeholder page for /destinations/:country. One template serves every
 // ISO 3166-1 alpha-2 code -- real content (overarching score, monthly
@@ -39,9 +39,9 @@ export default function DestinationDetail() {
     setWeather({ status: "loading" });
 
     fetchCountryWeather(country.code, startDate, endDate)
-      .then((metrics) => {
+      .then(({ metrics, capitalCity }) => {
         if (cancelled) return;
-        setWeather({ status: "loaded", metrics });
+        setWeather({ status: "loaded", metrics, capitalCity });
       })
       .catch(() => {
         if (cancelled) return;
@@ -98,6 +98,11 @@ export default function DestinationDetail() {
       {hasDateRange && (
         <>
           <h2>Weather for your dates</h2>
+          {weather.status === "loaded" && weather.metrics !== null && weather.capitalCity && (
+            <p className="destination-detail-weather-note">
+              (based off Capital City of {weather.capitalCity})
+            </p>
+          )}
           <ul className="destination-detail-stats">
             {weather.status === "loading" && (
               <li className="destination-detail-stat-card">Loading weather data...</li>
