@@ -84,6 +84,39 @@ France) — now shared by `compute_unesco_score.py` above too, since both
 scripts use the same formula.
 
 ```
+python scripts/build_tourist_cities_enhanced.py
+```
+
+Turns `data/reference/tourist_cities.json` into
+`data/processed/tourist_cities_enhanced.json`: every one of the 3,069
+tourist cities, enriched with UNESCO site and Michelin restaurant counts
+computed directly from each source's own coordinates — not the
+`UNESCO_SCORE_BY_COUNTRY.csv` / `MICHELIN_SCORE_BY_COUNTRY.csv` country
+totals above, which collapse an entire country into one number. For each
+city, records a count at each of 5/10/25/50/100 km (cumulative radii,
+not bands) plus one shared nearest-first list of sites/restaurants
+capped at 100km — each entry carries its own `distance_km`, so which
+radius bucket(s) it belongs to is derivable rather than needing the
+entry duplicated once per bucket (an earlier version did that and
+produced a 60MB file for no informational gain; this version is 26MB).
+E.g. Kyoto has 1 UNESCO site within 5 km but 5 within 100 km (Nara and
+Horyu-ji pull it up); Paris has 434 Michelin restaurants within 5 km.
+Distance is the same haversine formula as
+`distance_calculator.calculate_distance()`, reimplemented in vectorized
+numpy for speed (~63M point-pairs, runs in ~5s) rather than looping over
+that function. 29 of 1,273 UNESCO sites have no coordinates in the
+source and are excluded (tracked in the output's
+`unesco_sites_missing_coordinates_excluded`); all 19,399 Michelin rows
+have coordinates. Not yet joined into `OVERARCHING_TRIP_SCORE_BY_COUNTRY`
+or turned into a 0–10 score — this is raw count+list data, a candidate
+input for a city-level version of the UNESCO/Michelin log-scale scoring
+above once there's a city-level score to fold it into. Worth noting
+Michelin's own guide coverage is geographically lopsided (Europe/East
+Asia-heavy), so a 0 there reflects the guide's coverage as much as the
+destination — unlike UNESCO, which is genuinely global, a 0 is a more
+trustworthy "nothing nearby" signal.
+
+```
 python scripts/compute_price_level_score.py
 ```
 

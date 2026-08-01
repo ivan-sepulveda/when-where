@@ -35,7 +35,8 @@ that you're running from `data/` (`cd data` from the repo root).
   SimpleMaps, Open-Meteo, Michelin), and `processed/` (root) holds output
   from the root-level compute/diff scripts (`monthly_scores_<year>_by_city.json`,
   `PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv`,
-  `michelin_cities_missing_from_tourist_cities.csv`) — those scripts read
+  `michelin_cities_missing_from_tourist_cities.csv`,
+  `tourist_cities_enhanced.json`) — those scripts read
   from a continent/multiple subfolder but aren't geography-scoped
   themselves, so their own output stays at root, same reasoning as why
   they stay at `scripts/` root rather than living in a geography folder.
