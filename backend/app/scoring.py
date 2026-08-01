@@ -26,9 +26,23 @@ combine_domain_scores() reuses the exact "average of whichever domains
 are available, never pad missing with 0" rule from
 build_overarching_trip_scores.py, extended with weather as a fourth,
 optional domain.
+
+great_circle_distance_km() backs the cities/top10 diversity guard (see
+data_loader.load_city_cluster_representatives()) -- same haversine
+formula and Earth-radius constant as data/scripts/distance_calculator.py
+and build_tourist_cities_enhanced.py's haversine_km(), reimplemented
+here rather than imported since this backend deliberately doesn't reach
+into data/scripts/ (see this file's own docstring: "no file I/O here",
+and backend/README.md: "no scoring pipeline work of its own").
 """
 
+import math
 from datetime import date, timedelta
+
+# Mean Earth radius (IUGG value) -- kept in sync with
+# data/scripts/distance_calculator.py's EARTH_RADIUS_KM so this returns
+# identical distances.
+EARTH_RADIUS_KM = 6371.0088
 
 MONTHS = [
     "january", "february", "march", "april", "may", "june",
@@ -183,3 +197,14 @@ def combine_domain_scores(
     if not values:
         return None, 0
     return round(sum(values) / len(values), 2), len(values)
+
+
+def great_circle_distance_km(lat1: float, lng1: float, lat2: float, lng2: float) -> float:
+    """Straight-line (haversine) distance between two lat/lng points, in
+    km. See this file's docstring for why this is reimplemented here
+    rather than imported from data/scripts/distance_calculator.py."""
+    lat1r, lng1r, lat2r, lng2r = math.radians(lat1), math.radians(lng1), math.radians(lat2), math.radians(lng2)
+    dlat = lat2r - lat1r
+    dlng = lng2r - lng1r
+    a = math.sin(dlat / 2) ** 2 + math.cos(lat1r) * math.cos(lat2r) * math.sin(dlng / 2) ** 2
+    return EARTH_RADIUS_KM * 2 * math.asin(math.sqrt(a))

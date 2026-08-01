@@ -1,16 +1,22 @@
 """
 FastAPI app -- the first real "frontend talks to a backend" piece of this
-project (see backend/README.md for the full design writeup). Two routes
-that matter: GET /api/destinations/top10 (ranking) and
-GET /api/destinations/{country}/weather (raw weather metrics for one
-country's DestinationDetail page).
+project (see backend/README.md for the full design writeup). Routes that
+matter: GET /api/destinations/top10 (country ranking),
+GET /api/destinations/cities/top10 (city ranking -- same idea, city
+granularity), and GET /api/destinations/{country}/weather (raw weather
+metrics for one country's DestinationDetail page).
 
 Data is loaded once at import time (see data_loader.py) and kept in
 memory for the life of the process -- every request just does cheap
 arithmetic (month-weight resolution + a handful of weighted averages
-over ~240 countries), no file I/O or heavy computation per request. This
-is deliberate: Render's free tier spins the process down after ~15 min
-idle, but *while running*, every request after the first should be fast.
+over ~240 countries or ~3,069 cities), no file I/O or heavy computation
+per request. This is deliberate: Render's free tier spins the process
+down after ~15 min idle, but *while running*, every request after the
+first should be fast. It's also why cities/top10 exists as a backend
+route at all rather than the frontend fetching tourist_cities_enhanced.json
+directly the way it fetches the small country-level static JSON --
+that file is 27MB, fine to hold in server memory once, not fine to ship
+to a browser per page load. See load_static_city_scores()'s docstring.
 
 Usage (local dev):
     uvicorn app.main:app --reload --port 8000
@@ -25,9 +31,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from .data_loader import (
+    load_city_cluster_representatives,
+    load_city_weather_scores,
     load_country_capital_names,
     load_country_weather_metrics,
     load_country_weather_scores,
+    load_static_city_scores,
     load_static_country_scores,
 )
 from .scoring import (
@@ -68,11 +77,14 @@ app.add_middleware(
 
 # Loaded once at startup -- see data_loader.py's docstrings for what each
 # of these covers and why weather data is a subset of the full country
-# list.
+# (or city) list.
 STATIC_SCORES = load_static_country_scores()
 WEATHER_SCORES = load_country_weather_scores()
 WEATHER_METRICS = load_country_weather_metrics()
 CAPITAL_NAMES = load_country_capital_names()
+STATIC_CITY_SCORES = load_static_city_scores()
+CITY_WEATHER_SCORES = load_city_weather_scores()
+CITY_CLUSTER_REPRESENTATIVES = load_city_cluster_representatives()
 
 
 class DestinationScore(BaseModel):
@@ -92,6 +104,35 @@ class TopDestinationsResponse(BaseModel):
     departure_country: Optional[str]
     month_weights: dict[str, float]
     destinations: list[DestinationScore]
+
+
+class CityDestinationScore(BaseModel):
+    # simplemaps_id, as a string -- the stable unique key for a city in
+    # this dataset (city name alone isn't unique, e.g. two different
+    # real cities are both named "Kanpur"). Not currently used for
+    # routing anywhere in the frontend (there's no per-city detail page
+    # yet), but returned now so one exists once that page gets built.
+    city_id: str
+    city: str
+    country_name: str
+    country_code: str
+    unesco_score: Optional[float]
+    michelin_score: Optional[float]
+    price_score: Optional[float]
+    weather_score: Optional[float]
+    scores_averaged: int
+    trip_score: float
+
+
+class TopCityDestinationsResponse(BaseModel):
+    # Both None if the request didn't include dates (unlike
+    # /api/destinations/top10, where they're required) -- see
+    # top_city_destinations()'s docstring for why cities/top10 supports
+    # a dateless call at all.
+    start_date: Optional[date]
+    end_date: Optional[date]
+    month_weights: dict[str, float]
+    destinations: list[CityDestinationScore]
 
 
 class WeatherDetail(BaseModel):
@@ -129,6 +170,9 @@ def health():
         "countries_loaded": len(STATIC_SCORES),
         "countries_with_weather": len(WEATHER_SCORES),
         "countries_with_weather_metrics": len(WEATHER_METRICS),
+        "cities_loaded": len(STATIC_CITY_SCORES),
+        "cities_with_weather": len(CITY_WEATHER_SCORES),
+        "city_clusters": len(set(CITY_CLUSTER_REPRESENTATIVES.values())),
     }
 
 
@@ -177,6 +221,81 @@ def top_destinations(
         start_date=start_date,
         end_date=end_date,
         departure_country=departure_country,
+        month_weights=weights,
+        destinations=scored[:10],
+    )
+
+
+@app.get("/api/destinations/cities/top10", response_model=TopCityDestinationsResponse)
+def top_city_destinations(
+    start_date: Optional[date] = Query(None, description="Trip start date, YYYY-MM-DD. Omit for a date-less (no weather) ranking."),
+    end_date: Optional[date] = Query(None, description="Trip end date, YYYY-MM-DD. Omit for a date-less (no weather) ranking."),
+):
+    """City-level equivalent of /api/destinations/top10 -- same
+    combine_domain_scores() math, same "average of whichever domains are
+    available" rule, just run over ~3,069 cities (STATIC_CITY_SCORES)
+    instead of ~240 countries.
+
+    Unlike the country endpoint, start_date/end_date are OPTIONAL here
+    (both required if either is given). The country version doesn't need
+    that: with no dates, the frontend fetches
+    OVERARCHING_TRIP_SCORE_BY_COUNTRY.json (48KB) directly from GitHub
+    and sorts client-side, skipping this API entirely. That same static
+    path isn't viable for cities -- tourist_cities_enhanced.json is 27MB
+    -- so this one endpoint has to serve BOTH the static and date-aware
+    cases; the static case just runs combine_domain_scores() with
+    weather_score=None for every city, same "average of 3, not 4"
+    behavior /api/destinations/top10 already has for any country missing
+    weather data.
+
+    Diversity guard: only cities that ARE their own geographic cluster's
+    representative (CITY_CLUSTER_REPRESENTATIVES[city_id] == city_id --
+    see data_loader.load_city_cluster_representatives()) are scored and
+    returned at all. Without this, the top 10 was dominated by single
+    metro areas -- 11 of the top 12 by static score were Osaka-area
+    suburbs sharing nearly the same nearby UNESCO/Michelin density.
+    Non-representative cities (e.g. Higashi-osaka, absorbed into Osaka)
+    simply never appear in this endpoint's results; the representative's
+    OWN score is used for ranking, not borrowed from whichever cluster
+    member scored highest, so a result never shows a number that isn't
+    genuinely that city's own."""
+    if (start_date is None) != (end_date is None):
+        raise HTTPException(status_code=400, detail="start_date and end_date must be provided together, or not at all")
+    if start_date is not None and end_date is not None and end_date < start_date:
+        raise HTTPException(status_code=400, detail="end_date must be on or after start_date")
+
+    weights = month_weights(start_date, end_date) if start_date is not None and end_date is not None else {}
+
+    scored: list[CityDestinationScore] = []
+    for city_id, base in STATIC_CITY_SCORES.items():
+        if CITY_CLUSTER_REPRESENTATIVES.get(city_id) != city_id:
+            continue  # absorbed into a more-populous nearby city's cluster -- see docstring above
+        weather_score = resolve_weather_score(CITY_WEATHER_SCORES.get(city_id), weights) if weights else None
+        trip_score, scores_averaged = combine_domain_scores(
+            base["unesco_score"], base["michelin_score"], base["price_score"], weather_score
+        )
+        if trip_score is None:
+            continue  # shouldn't happen -- see combine_domain_scores' docstring
+        scored.append(
+            CityDestinationScore(
+                city_id=city_id,
+                city=base["city"],
+                country_name=base["country_name"],
+                country_code=base["country_code"],
+                unesco_score=base["unesco_score"],
+                michelin_score=base["michelin_score"],
+                price_score=base["price_score"],
+                weather_score=weather_score,
+                scores_averaged=scores_averaged,
+                trip_score=trip_score,
+            )
+        )
+
+    scored.sort(key=lambda d: d.trip_score, reverse=True)
+
+    return TopCityDestinationsResponse(
+        start_date=start_date,
+        end_date=end_date,
         month_weights=weights,
         destinations=scored[:10],
     )
