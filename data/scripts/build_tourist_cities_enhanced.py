@@ -80,12 +80,49 @@ Note airline_routes.csv is itself an OpenFlights snapshot, not a live
 schedule -- "has a route in this dataset" means "had scheduled service
 as of whenever that snapshot was taken," not "has service today."
 
+Also adds five city-level score fields, the same shape as
+OVERARCHING_TRIP_SCORE_BY_COUNTRY.json's per-country entries
+(unesco_score, michelin_score, price_score, scores_averaged,
+overarching_score), but computed at city granularity instead of
+inheriting an entire country's number:
+
+  - unesco_score / michelin_score: log(count+1) / log(max_count+1) * 10,
+    the exact formula compute_unesco_score.py/compute_michelin_score.py
+    use at country level, for consistency -- but `count` here is each
+    city's `within_50km` count (not the country total), and `max_count`
+    is recomputed as the highest `within_50km` count across all 3,069
+    cities (not reused from the country-level max). Reusing the country
+    max would have been wrong: no city's 50km radius will ever approach
+    Italy's 62 UNESCO sites or France's 3,043 Michelin awards, so nearly
+    every city would flatten toward 0. 50km (not 25 or 100) was chosen
+    to cover a city's metro area plus realistic day trips (Nara from
+    Kyoto, Versailles from Paris) without pulling in a neighboring
+    city's own cluster the way 100km does (see the Antwerp/747 case
+    above). Both scores are 0.0, not missing, for a city with 0 sites/
+    restaurants within 50km -- same "0 is a real data point" philosophy
+    as the country-level scores.
+  - price_score: NOT computed from anything city-specific -- looked up
+    from PRICE_LEVEL_SCORE_BY_COUNTRY.csv by the city's own `iso2` and
+    copied as-is, so every city in a country currently gets the same
+    price_score its country has. A placeholder until (if ever) a real
+    city/metro-level affordability source replaces it -- flagged here so
+    it's obvious later which of the three scores is inherited rather
+    than computed from this city's own data. `None` for cities in the
+    ~80 countries with no World Bank PLI value (same as the country
+    score's blank).
+  - scores_averaged / overarching_score: mean of whichever of the three
+    scores above aren't None, same handling as
+    build_overarching_trip_scores.py -- unesco_score/michelin_score are
+    never None (0 counts as a real value) so scores_averaged is 3 unless
+    a city's country has no PRICE_SCORE, in which case it's 2.
+
 Usage:
     python build_tourist_cities_enhanced.py
 """
 
 import csv
 import json
+import math
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -104,6 +141,10 @@ RADII_KM = [5, 10, 25, 50, 100]
 # city," unlike UNESCO sites/restaurants.
 AIRPORT_RADIUS_KM = 100
 
+# Which of RADII_KM's counts feeds unesco_score/michelin_score -- see the
+# docstring's scoring section for why 50km (not 25 or 100).
+SCORE_RADIUS_KM = 50
+
 # Mean Earth radius (IUGG value) -- same constant distance_calculator.py
 # uses, kept in sync here so the vectorized formula below returns
 # distances identical to calculate_distance().
@@ -118,6 +159,7 @@ UNESCO_SITES_PATH = MULTIPLE_DIR / "unesco_world_heritage_sites.json"
 MICHELIN_CSV_PATH = MULTIPLE_DIR / "michelin_restaurants.csv"
 AIRPORTS_JSON_PATH = REFERENCE_DIR / "airports.json"
 AIRLINE_ROUTES_CSV_PATH = MULTIPLE_DIR / "airline_routes.csv"
+PRICE_SCORE_PATH = PROCESSED_DIR / "PRICE_LEVEL_SCORE_BY_COUNTRY.csv"
 OUTPUT_PATH = PROCESSED_DIR / "tourist_cities_enhanced.json"
 
 # ---------------------------------------------------------------------------
@@ -241,6 +283,69 @@ def load_all_airport_coords_unfiltered() -> np.ndarray:
     return np.array(coords)
 
 
+def load_price_scores() -> dict[str, float]:
+    """iso2 -> PRICE_SCORE, from compute_price_level_score.py's output --
+    a country-level score, inherited as-is by every city in that country
+    (see this file's docstring for why). A country with a blank
+    PRICE_SCORE in the source CSV (no World Bank PLI value) simply isn't
+    a key here; look up with .get(iso2) and treat a miss as None, same
+    as build_overarching_trip_scores.py does for the country-level
+    version of this same join."""
+    if not PRICE_SCORE_PATH.exists():
+        raise FileNotFoundError(f"{PRICE_SCORE_PATH} not found -- run compute_price_level_score.py first.")
+    scores = {}
+    with open(PRICE_SCORE_PATH, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            if row["PRICE_SCORE"] != "":
+                scores[row["COUNTRY"]] = float(row["PRICE_SCORE"])
+    return scores
+
+
+def score_for_count(count: int, max_count: int) -> float:
+    """log(count+1) / log(max_count+1) * 10 -- identical formula to
+    compute_unesco_score.py/compute_michelin_score.py's country-level
+    scores, just fed a city's within_50km count and a city-level max
+    instead of a country total and the country-level max. See this
+    file's docstring for why the max can't be reused from the country
+    scores."""
+    if count <= 0 or max_count <= 0:
+        return 0.0
+    return round(math.log(count + 1) / math.log(max_count + 1) * 10, 2)
+
+
+def add_scores(enhanced: list[dict], price_scores: dict[str, float]) -> tuple[int, int]:
+    """Adds unesco_score/michelin_score/price_score/scores_averaged/
+    overarching_score to every city dict in `enhanced`, in place. Returns
+    (max_unesco_count, max_michelin_count) -- the city-level maxes used,
+    so main() can report them without recomputing.
+
+    Two passes, not one: the log-scale formula needs the max within_50km
+    count across ALL cities before it can score any single one, so this
+    can't be folded into build_enhanced_cities()'s per-city loop (which
+    doesn't know the global max until every city's counts exist)."""
+    max_unesco_count = max(c["unesco_sites"]["counts"][f"within_{SCORE_RADIUS_KM}km"] for c in enhanced)
+    max_michelin_count = max(c["michelin_restaurants"]["counts"][f"within_{SCORE_RADIUS_KM}km"] for c in enhanced)
+
+    for city in enhanced:
+        unesco_count = city["unesco_sites"]["counts"][f"within_{SCORE_RADIUS_KM}km"]
+        michelin_count = city["michelin_restaurants"]["counts"][f"within_{SCORE_RADIUS_KM}km"]
+
+        unesco_score = score_for_count(unesco_count, max_unesco_count)
+        michelin_score = score_for_count(michelin_count, max_michelin_count)
+        price_score = price_scores.get(city["iso2"])
+
+        available = [v for v in (unesco_score, michelin_score, price_score) if v is not None]
+        overarching_score = round(sum(available) / len(available), 2) if available else None
+
+        city["unesco_score"] = unesco_score
+        city["michelin_score"] = michelin_score
+        city["price_score"] = price_score
+        city["scores_averaged"] = len(available)
+        city["overarching_score"] = overarching_score
+
+    return max_unesco_count, max_michelin_count
+
+
 def haversine_km(lat1: np.ndarray, lng1: np.ndarray, lat2: float, lng2: float) -> np.ndarray:
     """Vectorized great-circle distance from many (lat1, lng1) points to one
     (lat2, lng2) point, in km -- same formula/constant as
@@ -354,20 +459,24 @@ def main():
     unesco_sites, unesco_missing = load_unesco_sites()
     michelin_restaurants, michelin_missing = load_michelin_restaurants()
     airports, airport_stats = load_airports()
+    price_scores = load_price_scores()
 
     enhanced = build_enhanced_cities(cities, unesco_sites, michelin_restaurants, airports)
+    max_unesco_count, max_michelin_count = add_scores(enhanced, price_scores)
 
     dataset = {
         "source": (
             "Derived from data/reference/tourist_cities.json (cities), "
             "data/processed/multiple/unesco_world_heritage_sites.json (UNESCO sites), "
             "data/processed/multiple/michelin_restaurants.csv (Michelin restaurants), and "
-            "data/reference/airports.json + data/processed/multiple/airline_routes.csv (airports) "
+            "data/reference/airports.json + data/processed/multiple/airline_routes.csv (airports), and "
+            "data/processed/PRICE_LEVEL_SCORE_BY_COUNTRY.csv (price_score, inherited per city by iso2) "
             "via build_tourist_cities_enhanced.py -- see data/SCORING.md"
         ),
         "generated": datetime.now(timezone.utc).date().isoformat(),
         "radii_km": RADII_KM,
         "airport_radius_km": AIRPORT_RADIUS_KM,
+        "score_radius_km": SCORE_RADIUS_KM,
         "note": (
             'Each unesco_sites/michelin_restaurants radius is cumulative ("within_10km" '
             'includes everything in "within_5km", not a 5-10km band). Each city\'s '
@@ -380,7 +489,17 @@ def main():
             "airports_excluded_no_iata_code / airports_excluded_no_scheduled_service below "
             "for how many that dropped. Distance is straight-line great-circle distance "
             "from the city's own lat/lng, same formula as "
-            "distance_calculator.calculate_distance."
+            "distance_calculator.calculate_distance. unesco_score/michelin_score are "
+            "log(count+1)/log(max_count+1)*10 off each city's within_score_radius_km count, "
+            "normalized against the highest count any city has at that same radius (see "
+            "unesco_score_max_count_used/michelin_score_max_count_used below for this run's "
+            "values) -- NOT the country-level max used by UNESCO_SCORE_BY_COUNTRY.csv/ "
+            "MICHELIN_SCORE_BY_COUNTRY.csv. price_score is inherited as-is from "
+            "PRICE_LEVEL_SCORE_BY_COUNTRY.csv via the city's iso2, not computed from "
+            "anything city-specific -- None for cities in a country with no PLI value. "
+            "scores_averaged/overarching_score are the count/mean of whichever of the "
+            "three scores aren't None, same handling as "
+            "build_overarching_trip_scores.py's country-level version."
         ),
         "total_cities": len(enhanced),
         "total_unesco_sites_used": len(unesco_sites),
@@ -390,6 +509,9 @@ def main():
         "total_airports_used": airport_stats["airports_used"],
         "airports_excluded_no_iata_code": airport_stats["airports_excluded_no_iata_code"],
         "airports_excluded_no_scheduled_service": airport_stats["airports_excluded_no_scheduled_service"],
+        "unesco_score_max_count_used": max_unesco_count,
+        "michelin_score_max_count_used": max_michelin_count,
+        "cities_with_price_score": sum(1 for c in enhanced if c["price_score"] is not None),
         "cities": enhanced,
     }
 
@@ -451,6 +573,23 @@ def main():
         f"(no IATA code), {airport_stats['airports_excluded_no_scheduled_service']} excluded (no scheduled route "
         f"in airline_routes.csv)"
     )
+
+    top_overarching = sorted(
+        [c for c in enhanced if c["overarching_score"] is not None], key=lambda c: -c["overarching_score"]
+    )[:5]
+    with_price = sum(1 for c in enhanced if c["price_score"] is not None)
+    print(
+        f"[tourist_cities_enhanced] scores: within_{SCORE_RADIUS_KM}km max UNESCO count = {max_unesco_count} "
+        f"(used as the log-scale ceiling), max Michelin count = {max_michelin_count}, "
+        f"{with_price}/{len(enhanced)} cities have a price_score (inherited from their country)"
+    )
+    print("[tourist_cities_enhanced] top 5 by overarching_score:")
+    for c in top_overarching:
+        print(
+            f"  {c['city']}, {c['country']}: {c['overarching_score']} "
+            f"(UNESCO {c['unesco_score']}, Michelin {c['michelin_score']}, "
+            f"Price {c['price_score'] if c['price_score'] is not None else 'n/a'}, n={c['scores_averaged']})"
+        )
 
 
 if __name__ == "__main__":

@@ -103,18 +103,14 @@ E.g. Kyoto has 1 UNESCO site within 5 km but 5 within 100 km (Nara and
 Horyu-ji pull it up); Paris has 434 Michelin restaurants within 5 km.
 Distance is the same haversine formula as
 `distance_calculator.calculate_distance()`, reimplemented in vectorized
-numpy for speed (~63M point-pairs, runs in ~5s) rather than looping over
+numpy for speed (~63M point-pairs, runs in ~6s) rather than looping over
 that function. 29 of 1,273 UNESCO sites have no coordinates in the
 source and are excluded (tracked in the output's
 `unesco_sites_missing_coordinates_excluded`); all 19,399 Michelin rows
-have coordinates. Not yet joined into `OVERARCHING_TRIP_SCORE_BY_COUNTRY`
-or turned into a 0–10 score — this is raw count+list data, a candidate
-input for a city-level version of the UNESCO/Michelin log-scale scoring
-above once there's a city-level score to fold it into. Worth noting
-Michelin's own guide coverage is geographically lopsided (Europe/East
-Asia-heavy), so a 0 there reflects the guide's coverage as much as the
-destination — unlike UNESCO, which is genuinely global, a 0 is a more
-trustworthy "nothing nearby" signal.
+have coordinates. Worth noting Michelin's own guide coverage is
+geographically lopsided (Europe/East Asia-heavy), so a 0 there reflects
+the guide's coverage as much as the destination — unlike UNESCO, which
+is genuinely global, a 0 is a more trustworthy "nothing nearby" signal.
 
 Also adds `airports`: which of `data/reference/airports.json`'s 7,698
 airports serve each city, at a single flat 100km radius rather than the
@@ -137,6 +133,35 @@ in China (e.g. Yinchuan's own airport, 18.8km from the city, has no IATA
 code in this source at all) — the other half (163) have nothing within
 100km even unfiltered. That split is logged to the console each run, not
 stored per-city in the output.
+
+Also adds five city-level score fields — `unesco_score`, `michelin_score`,
+`price_score`, `scores_averaged`, `overarching_score` — the same shape as
+`OVERARCHING_TRIP_SCORE_BY_COUNTRY.json`'s per-country entries, but at
+city granularity. `unesco_score`/`michelin_score` use the exact same
+`log(count+1)/log(max_count+1)*10` formula as
+`compute_unesco_score.py`/`compute_michelin_score.py` above, fed each
+city's `within_50km` count (not its country's total) and normalized
+against the highest `within_50km` count any city has (not the country-
+level max — Italy's 62 UNESCO sites or France's 3,043 Michelin awards
+would flatten nearly every city toward 0 if reused as the ceiling here).
+50km, not 25 or 100, was chosen to cover a city's metro area plus
+realistic day trips (Nara from Kyoto, Versailles from Paris) without
+pulling in a neighboring city's own cluster the way 100km does (the
+Antwerp/747 case above). A city with 0 sites/restaurants within 50km
+scores 0.0, not missing — same "0 is real" philosophy as the country
+scores. `price_score` is NOT computed from anything city-specific — it's
+looked up from `PRICE_LEVEL_SCORE_BY_COUNTRY.csv` by the city's `iso2`
+and copied as-is, so every city in a country shares that country's price
+score until (if ever) a real city-level affordability source replaces
+it; `None` for the 87 cities in a country with no World Bank PLI value.
+`scores_averaged`/`overarching_score` are the count/mean of whichever of
+the three aren't `None`, identical handling to
+`build_overarching_trip_scores.py`. Fully verified: formula recomputed
+independently and diffed against the output (zero mismatches across all
+3,069 cities), plus score bounds and averaging consistency checked.
+Current top 5 by `overarching_score` are all Osaka-area Japanese
+suburbs (7.75, driven by Michelin density + nearby Kyoto/Nara UNESCO
+sites + Japan's price score).
 
 ```
 python scripts/compute_price_level_score.py
