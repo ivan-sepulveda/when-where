@@ -116,6 +116,28 @@ Asia-heavy), so a 0 there reflects the guide's coverage as much as the
 destination — unlike UNESCO, which is genuinely global, a 0 is a more
 trustworthy "nothing nearby" signal.
 
+Also adds `airports`: which of `data/reference/airports.json`'s 7,698
+airports serve each city, at a single flat 100km radius rather than the
+5/10/25/50/100km tiers above (100km is deliberately wide for airports —
+travelers routinely fly into one 60–90km out, e.g. Ontario for LA or
+Southend for London — but far too wide for restaurants or heritage
+sites). Filtered to airports with an IATA code AND at least one route in
+`data/processed/multiple/airline_routes.csv`, which drops general-
+aviation/military fields a raw radius query pulls in (unfiltered: 22
+airports for Los Angeles, including Van Nuys and Whiteman; filtered: 7,
+matching LAX/Burbank/Long Beach/John Wayne/Ontario plus two smaller real
+commercial fields, Chino and Riverside Municipal). Confirmed against
+manually fact-checked expectations for Los Angeles, San Diego (correctly
+includes Tijuana — the CBX cross-border walkway is real), and London (all
+6 named airports land within 12.7–80.3km). 309 cities come back with zero
+airports within 100km; about half of those (146) do have an airport in
+the raw, unfiltered source nearby that just lacks an IATA code or a
+matched scheduled route — a known OpenFlights coverage gap concentrated
+in China (e.g. Yinchuan's own airport, 18.8km from the city, has no IATA
+code in this source at all) — the other half (163) have nothing within
+100km even unfiltered. That split is logged to the console each run, not
+stored per-city in the output.
+
 ```
 python scripts/compute_price_level_score.py
 ```

@@ -54,6 +54,32 @@ often reflects the guide's own coverage gap as much as it reflects the
 destination. UNESCO's site list, by contrast, is genuinely global, so a
 0 there is a more trustworthy "nothing nearby" signal.
 
+Also adds `airports`: every airport within AIRPORT_RADIUS_KM (100km,
+one flat radius, not the 5/10/25/50/100 tiers above -- a much wider net
+than makes sense for UNESCO sites or restaurants, since travelers
+routinely fly into an airport 60-90km from where they're actually
+going, e.g. Ontario (ONT) for Los Angeles or Southend (SEN) for
+London), sorted nearest-first as {count, airports: [{iata, name,
+country, distance_km}, ...]}. Filtered down from
+data/reference/airports.json's full 7,698 airports two ways:
+  1. Must have an IATA code -- drops entries with only an ICAO code or
+     no code at all (the ones OpenFlights carries for tiny airfields
+     with no commercial identity).
+  2. Must appear as a Departure or Destination at least once in
+     data/processed/multiple/airline_routes.csv -- drops general-
+     aviation and military fields that happen to sit within range but
+     that no traveler would fly into (a raw within-100km query returns
+     22 airports for Los Angeles and 24 for London, including things
+     like Santa Monica Municipal, Van Nuys, RAF Northolt, and Biggin
+     Hill; filtering to scheduled-service airports brings that down to
+     7 and 7). Both counts are still a little wider than what most
+     people would name off the top of their head (Chino, Riverside
+     Municipal, Cambridge) -- these are real small commercial fields
+     within range, not noise, just not household names.
+Note airline_routes.csv is itself an OpenFlights snapshot, not a live
+schedule -- "has a route in this dataset" means "had scheduled service
+as of whenever that snapshot was taken," not "has service today."
+
 Usage:
     python build_tourist_cities_enhanced.py
 """
@@ -72,6 +98,12 @@ import numpy as np
 
 RADII_KM = [5, 10, 25, 50, 100]
 
+# Flat radius for airports -- deliberately not one of RADII_KM's tiers,
+# see the airports section of this file's docstring for why 100km alone
+# (not 5/10/25/50km too) is the right net for "which airports serve this
+# city," unlike UNESCO sites/restaurants.
+AIRPORT_RADIUS_KM = 100
+
 # Mean Earth radius (IUGG value) -- same constant distance_calculator.py
 # uses, kept in sync here so the vectorized formula below returns
 # distances identical to calculate_distance().
@@ -84,6 +116,8 @@ MULTIPLE_DIR = PROCESSED_DIR / "multiple"
 TOURIST_CITIES_PATH = REFERENCE_DIR / "tourist_cities.json"
 UNESCO_SITES_PATH = MULTIPLE_DIR / "unesco_world_heritage_sites.json"
 MICHELIN_CSV_PATH = MULTIPLE_DIR / "michelin_restaurants.csv"
+AIRPORTS_JSON_PATH = REFERENCE_DIR / "airports.json"
+AIRLINE_ROUTES_CSV_PATH = MULTIPLE_DIR / "airline_routes.csv"
 OUTPUT_PATH = PROCESSED_DIR / "tourist_cities_enhanced.json"
 
 # ---------------------------------------------------------------------------
@@ -138,6 +172,73 @@ def load_michelin_restaurants() -> tuple[list[dict], int]:
                 }
             )
     return restaurants, missing
+
+
+def load_scheduled_service_iatas() -> set[str]:
+    """IATA codes that appear as a Departure or Destination at least once
+    in airline_routes.csv -- the "has scheduled service" filter used by
+    load_airports() below."""
+    if not AIRLINE_ROUTES_CSV_PATH.exists():
+        raise FileNotFoundError(f"{AIRLINE_ROUTES_CSV_PATH} not found -- run fetch_airline_routes.py first.")
+    served: set[str] = set()
+    with open(AIRLINE_ROUTES_CSV_PATH, encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            served.add(row["Departure"])
+            served.add(row["Destination"])
+    return served
+
+
+def load_airports() -> tuple[list[dict], dict]:
+    """Returns (airports_used, stats). Each returned airport is {iata,
+    name, country, lat, lng}. An airport is used only if it has an IATA
+    code AND has at least one scheduled route in airline_routes.csv --
+    see this file's docstring for why (drops general-aviation/military
+    fields OpenFlights otherwise mixes in with real commercial
+    airports)."""
+    if not AIRPORTS_JSON_PATH.exists():
+        raise FileNotFoundError(f"{AIRPORTS_JSON_PATH} not found -- run fetch_openflights_airports.py first.")
+    with open(AIRPORTS_JSON_PATH, encoding="utf-8") as f:
+        data = json.load(f)
+
+    served = load_scheduled_service_iatas()
+
+    total = len(data["airports"])
+    no_iata = 0
+    no_scheduled_service = 0
+    airports = []
+    for a in data["airports"]:
+        iata = a.get("iata")
+        if not iata:
+            no_iata += 1
+            continue
+        if iata not in served:
+            no_scheduled_service += 1
+            continue
+        airports.append({"iata": iata, "name": a.get("name"), "country": a.get("country"), "lat": a["lat"], "lng": a["lng"]})
+
+    stats = {
+        "total_airports_in_source": total,
+        "airports_excluded_no_iata_code": no_iata,
+        "airports_excluded_no_scheduled_service": no_scheduled_service,
+        "airports_used": len(airports),
+    }
+    return airports, stats
+
+
+def load_all_airport_coords_unfiltered() -> np.ndarray:
+    """Every airport in airports.json with coordinates, IATA code or not,
+    scheduled service or not -- used only for the console diagnostic in
+    main() that splits "zero airports within 100km" into "genuinely
+    nothing nearby" vs. "something's there in the raw source but it got
+    filtered out" (see that diagnostic for why this distinction matters:
+    ~half of this project's zero-airport cities turned out to be the
+    latter, e.g. Yinchuan's own airport exists in the source 18.8km away
+    but has no IATA code at all -- a known OpenFlights coverage gap,
+    concentrated in China)."""
+    with open(AIRPORTS_JSON_PATH, encoding="utf-8") as f:
+        data = json.load(f)
+    coords = [(a["lat"], a["lng"]) for a in data["airports"] if a.get("lat") is not None and a.get("lng") is not None]
+    return np.array(coords)
 
 
 def haversine_km(lat1: np.ndarray, lng1: np.ndarray, lat2: float, lng2: float) -> np.ndarray:
@@ -195,11 +296,38 @@ def nearby_by_radius(distances_km: np.ndarray, items: list[dict], extra_fields: 
     return {"counts": counts, list_key: entries}
 
 
-def build_enhanced_cities(cities: list[dict], unesco_sites: list[dict], michelin_restaurants: list[dict]) -> list[dict]:
+def nearby_airports(distances_km: np.ndarray, airports: list[dict]) -> dict:
+    """Builds {"count": N, "airports": [...]} for one city -- a single
+    flat AIRPORT_RADIUS_KM cutoff, not the tiered counts/list shape
+    nearby_by_radius() builds for UNESCO sites/restaurants, since
+    airports only need the one radius here (see this file's docstring)."""
+    order = np.argsort(distances_km)
+    sorted_distances = distances_km[order]
+    cutoff = int(np.searchsorted(sorted_distances, AIRPORT_RADIUS_KM, side="right"))
+
+    entries = []
+    for i in order[:cutoff]:
+        a = airports[i]
+        entries.append(
+            {
+                "iata": a["iata"],
+                "name": a["name"],
+                "country": a["country"],
+                "distance_km": round(float(distances_km[i]), 1),
+            }
+        )
+    return {"count": len(entries), "airports": entries}
+
+
+def build_enhanced_cities(
+    cities: list[dict], unesco_sites: list[dict], michelin_restaurants: list[dict], airports: list[dict]
+) -> list[dict]:
     unesco_lat = np.array([s["lat"] for s in unesco_sites])
     unesco_lng = np.array([s["lng"] for s in unesco_sites])
     michelin_lat = np.array([r["lat"] for r in michelin_restaurants])
     michelin_lng = np.array([r["lng"] for r in michelin_restaurants])
+    airport_lat = np.array([a["lat"] for a in airports])
+    airport_lng = np.array([a["lng"] for a in airports])
 
     enhanced = []
     for city in cities:
@@ -207,12 +335,14 @@ def build_enhanced_cities(cities: list[dict], unesco_sites: list[dict], michelin
 
         unesco_dist = haversine_km(unesco_lat, unesco_lng, city_lat, city_lng)
         michelin_dist = haversine_km(michelin_lat, michelin_lng, city_lat, city_lng)
+        airport_dist = haversine_km(airport_lat, airport_lng, city_lat, city_lng)
 
         enriched = dict(city)
         enriched["unesco_sites"] = nearby_by_radius(unesco_dist, unesco_sites, ["category"], "sites")
         enriched["michelin_restaurants"] = nearby_by_radius(
             michelin_dist, michelin_restaurants, ["award", "cuisine"], "restaurants"
         )
+        enriched["airports"] = nearby_airports(airport_dist, airports)
         enhanced.append(enriched)
     return enhanced
 
@@ -223,32 +353,43 @@ def main():
     cities = load_cities()
     unesco_sites, unesco_missing = load_unesco_sites()
     michelin_restaurants, michelin_missing = load_michelin_restaurants()
+    airports, airport_stats = load_airports()
 
-    enhanced = build_enhanced_cities(cities, unesco_sites, michelin_restaurants)
+    enhanced = build_enhanced_cities(cities, unesco_sites, michelin_restaurants, airports)
 
     dataset = {
         "source": (
             "Derived from data/reference/tourist_cities.json (cities), "
-            "data/processed/multiple/unesco_world_heritage_sites.json (UNESCO sites), and "
-            "data/processed/multiple/michelin_restaurants.csv (Michelin restaurants) "
+            "data/processed/multiple/unesco_world_heritage_sites.json (UNESCO sites), "
+            "data/processed/multiple/michelin_restaurants.csv (Michelin restaurants), and "
+            "data/reference/airports.json + data/processed/multiple/airline_routes.csv (airports) "
             "via build_tourist_cities_enhanced.py -- see data/SCORING.md"
         ),
         "generated": datetime.now(timezone.utc).date().isoformat(),
         "radii_km": RADII_KM,
+        "airport_radius_km": AIRPORT_RADIUS_KM,
         "note": (
-            'Each radius is cumulative ("within_10km" includes everything in '
-            '"within_5km", not a 5-10km band). Each city\'s "sites"/"restaurants" list is '
-            "stored once (nearest-first, capped at max(radii_km)), not once per radius -- "
-            "use each entry's distance_km against radii_km to see which bucket(s) it "
-            'falls in, or just read the matching count in "counts". Distance is '
-            "straight-line great-circle distance from the city's own lat/lng, same "
-            "formula as distance_calculator.calculate_distance."
+            'Each unesco_sites/michelin_restaurants radius is cumulative ("within_10km" '
+            'includes everything in "within_5km", not a 5-10km band). Each city\'s '
+            '"sites"/"restaurants" list is stored once (nearest-first, capped at '
+            "max(radii_km)), not once per radius -- use each entry's distance_km against "
+            'radii_km to see which bucket(s) it falls in, or just read the matching count '
+            'in "counts". airports uses a single flat airport_radius_km cutoff instead '
+            "(see this script's docstring for why) and is filtered to airports with an "
+            "IATA code and at least one scheduled route in airline_routes.csv -- see "
+            "airports_excluded_no_iata_code / airports_excluded_no_scheduled_service below "
+            "for how many that dropped. Distance is straight-line great-circle distance "
+            "from the city's own lat/lng, same formula as "
+            "distance_calculator.calculate_distance."
         ),
         "total_cities": len(enhanced),
         "total_unesco_sites_used": len(unesco_sites),
         "unesco_sites_missing_coordinates_excluded": unesco_missing,
         "total_michelin_restaurants_used": len(michelin_restaurants),
         "michelin_restaurants_missing_coordinates_excluded": michelin_missing,
+        "total_airports_used": airport_stats["airports_used"],
+        "airports_excluded_no_iata_code": airport_stats["airports_excluded_no_iata_code"],
+        "airports_excluded_no_scheduled_service": airport_stats["airports_excluded_no_scheduled_service"],
         "cities": enhanced,
     }
 
@@ -266,9 +407,23 @@ def main():
         if c["unesco_sites"]["counts"][max_radius_key] == 0 and c["michelin_restaurants"]["counts"][max_radius_key] == 0
     )
 
+    max_airport_city = max(enhanced, key=lambda c: c["airports"]["count"])
+    zero_airports = [c for c in enhanced if c["airports"]["count"] == 0]
+
+    # Split the zero-airport cities into "genuinely nothing within 100km"
+    # vs. "something's there in the raw source, just filtered out (no
+    # IATA code / no scheduled route)" -- see load_all_airport_coords_unfiltered().
+    all_airport_coords = load_all_airport_coords_unfiltered()
+    zero_but_something_in_raw = 0
+    for c in zero_airports:
+        d = haversine_km(all_airport_coords[:, 0], all_airport_coords[:, 1], c["lat"], c["lng"])
+        if (d <= AIRPORT_RADIUS_KM).any():
+            zero_but_something_in_raw += 1
+
     print(
         f"[tourist_cities_enhanced] {len(enhanced)} cities x {len(unesco_sites)} UNESCO sites x "
-        f"{len(michelin_restaurants)} Michelin restaurants, radii {RADII_KM} -> {OUTPUT_PATH} ({elapsed:.1f}s)"
+        f"{len(michelin_restaurants)} Michelin restaurants x {len(airports)} airports, radii {RADII_KM} "
+        f"(airports: {AIRPORT_RADIUS_KM}km) -> {OUTPUT_PATH} ({elapsed:.1f}s)"
     )
     print(
         f"[tourist_cities_enhanced] most UNESCO sites within {max(RADII_KM)}km: {max_unesco_city['city']}, "
@@ -278,9 +433,24 @@ def main():
         f"[tourist_cities_enhanced] most Michelin restaurants within {max(RADII_KM)}km: {max_michelin_city['city']}, "
         f"{max_michelin_city['country']} ({max_michelin_city['michelin_restaurants']['counts'][max_radius_key]})"
     )
-    print(f"[tourist_cities_enhanced] {zero_both_100km} cities with zero of both within {max(RADII_KM)}km")
+    print(
+        f"[tourist_cities_enhanced] most airports within {AIRPORT_RADIUS_KM}km: {max_airport_city['city']}, "
+        f"{max_airport_city['country']} ({max_airport_city['airports']['count']})"
+    )
+    print(f"[tourist_cities_enhanced] {zero_both_100km} cities with zero UNESCO sites and zero Michelin restaurants within {max(RADII_KM)}km")
+    print(
+        f"[tourist_cities_enhanced] {len(zero_airports)} cities with zero scheduled-service airports within "
+        f"{AIRPORT_RADIUS_KM}km -- {zero_but_something_in_raw} of those DO have an airport in the raw source "
+        f"nearby, just filtered out (no IATA code or no scheduled route); {len(zero_airports) - zero_but_something_in_raw} "
+        f"have nothing in the raw source either"
+    )
     if unesco_missing:
         print(f"[tourist_cities_enhanced] NOTE: {unesco_missing} UNESCO site(s) excluded (missing coordinates)")
+    print(
+        f"[tourist_cities_enhanced] NOTE: {airport_stats['airports_excluded_no_iata_code']} airport(s) excluded "
+        f"(no IATA code), {airport_stats['airports_excluded_no_scheduled_service']} excluded (no scheduled route "
+        f"in airline_routes.csv)"
+    )
 
 
 if __name__ == "__main__":
