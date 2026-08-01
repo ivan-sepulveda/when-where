@@ -113,7 +113,14 @@ class CityDestinationScore(BaseModel):
     # routing anywhere in the frontend (there's no per-city detail page
     # yet), but returned now so one exists once that page gets built.
     city_id: str
+    # Properly-accented name (e.g. "Ōsaka") and its ASCII-stripped
+    # counterpart (e.g. "Osaka") -- per project decision, the frontend
+    # should default to displaying city_ascii; city is included for
+    # anything that wants the accented version. See
+    # data_loader.load_static_city_scores()'s docstring for why this
+    # isn't a workaround for an encoding bug (there isn't one).
     city: str
+    city_ascii: str
     country_name: str
     country_code: str
     unesco_score: Optional[float]
@@ -280,6 +287,7 @@ def top_city_destinations(
             CityDestinationScore(
                 city_id=city_id,
                 city=base["city"],
+                city_ascii=base["city_ascii"],
                 country_name=base["country_name"],
                 country_code=base["country_code"],
                 unesco_score=base["unesco_score"],

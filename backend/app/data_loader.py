@@ -65,13 +65,23 @@ def load_static_country_scores() -> dict[str, dict]:
 
 
 def load_static_city_scores() -> dict[str, dict]:
-    """simplemaps_id (as str) -> {city, country_name, country_code,
-    unesco_score, michelin_score, price_score}, read from
+    """simplemaps_id (as str) -> {city, city_ascii, country_name,
+    country_code, unesco_score, michelin_score, price_score}, read from
     build_tourist_cities_enhanced.py's JSON output. Same shape and same
     reasoning as load_static_country_scores() just above -- only the
     three static (date-independent) domain scores are pulled from here,
     not that file's own precomputed OVERARCHING_SCORE, since this API
     recomputes a 4-domain (adding weather) average per request instead.
+
+    Both `city` (e.g. "Ōsaka") and `city_ascii` (e.g. "Osaka") are
+    returned -- per project decision, `city_ascii` is what the frontend
+    should default to displaying, `city` is available alongside it for
+    anything that wants the properly-accented name. Not a workaround for
+    any encoding bug (there wasn't one -- source data and this API's own
+    JSON serialization are both correctly UTF-8 throughout; a "Ōsaka"
+    that renders as "ÅŒsaka" is always a client-side terminal/console
+    decoding issue, not something fixable server-side), just a plain
+    product choice about which name to show by default.
 
     Keyed by simplemaps_id, not city name -- city names aren't unique in
     this dataset (e.g. two different real cities are both named
@@ -87,7 +97,20 @@ def load_static_city_scores() -> dict[str, dict]:
     endpoint instead of the frontend fetching that file directly the way
     it does OVERARCHING_TRIP_SCORE_BY_COUNTRY.json (48KB) for the static
     country case; 27MB is fine to hold in server memory once, not fine
-    to ship to a browser per page load."""
+    to ship to a browser per page load.
+
+    Two known-bad records in the source are skipped here rather than
+    passed through: Windhoek, Namibia has `iso2: NaN` (a pandas artifact
+    from upstream SimpleMaps processing -- a float, not the string
+    country_code this dict's callers expect), and one manually-added
+    city (Queenstown, New Zealand -- `included_reason: "manual_override"`,
+    not from the SimpleMaps database) has `simplemaps_id: null`, which
+    would otherwise become the literal string key `"None"` and silently
+    collide with any other such city. Both score low enough (0.0 and 2.7
+    respectively, as of this writing) that neither has actually reached
+    top10's response yet, but skipping them here is the correct fix
+    either way -- a route shouldn't depend on a low score to avoid
+    crashing on bad input."""
     if not TOURIST_CITIES_ENHANCED_PATH.exists():
         raise FileNotFoundError(
             f"{TOURIST_CITIES_ENHANCED_PATH} not found -- run data/scripts/build_tourist_cities_enhanced.py first."
@@ -95,17 +118,28 @@ def load_static_city_scores() -> dict[str, dict]:
     with open(TOURIST_CITIES_ENHANCED_PATH, encoding="utf-8") as f:
         payload = json.load(f)
 
-    return {
-        str(city["simplemaps_id"]): {
+    scores: dict[str, dict] = {}
+    skipped = []
+    for city in payload["cities"]:
+        simplemaps_id = city.get("simplemaps_id")
+        iso2 = city.get("iso2")
+        if simplemaps_id is None or not isinstance(iso2, str):
+            skipped.append(city.get("city", "<unnamed>"))
+            continue
+        scores[str(simplemaps_id)] = {
             "city": city["city"],
+            "city_ascii": city["city_ascii"],
             "country_name": city["country"],
-            "country_code": city["iso2"],
+            "country_code": iso2,
             "unesco_score": city["unesco_score"],
             "michelin_score": city["michelin_score"],
             "price_score": city["price_score"],
         }
-        for city in payload["cities"]
-    }
+
+    if skipped:
+        print(f"[data_loader] load_static_city_scores: skipped {len(skipped)} city record(s) with missing simplemaps_id or non-string iso2: {skipped}")
+
+    return scores
 
 
 def load_city_cluster_representatives() -> dict[str, str]:
@@ -148,7 +182,13 @@ def load_city_cluster_representatives() -> dict[str, str]:
     with open(TOURIST_CITIES_PATH, encoding="utf-8") as f:
         cities = json.load(f)["cities"]
 
-    cities_by_population = sorted(cities, key=lambda c: c["population"] or 0, reverse=True)
+    # Skip the same one record load_static_city_scores() skips (Queenstown,
+    # NZ -- manually added, no simplemaps_id) so this dict's keys stay a
+    # subset of that one's; a "None" cluster entry here would be dead
+    # weight, since STATIC_CITY_SCORES has no matching key for it anyway.
+    cities_by_population = sorted(
+        (c for c in cities if c.get("simplemaps_id") is not None), key=lambda c: c["population"] or 0, reverse=True
+    )
 
     representatives: list[dict] = []  # [{"id": str, "lat": float, "lng": float}, ...], population-descending
     assignment: dict[str, str] = {}
