@@ -251,6 +251,22 @@ h1 {
   border-color: #3b82f6;
 }
 
+/* Same box as .destinations-ranked-link, for rows that aren't a Link --
+   used by the Top 10 Cities list, which has no per-city detail page to
+   navigate to yet. Deliberately has no :hover border-color change,
+   unlike .destinations-ranked-link, so it doesn't read as clickable when
+   it isn't -- same reasoning as .destination-detail-stat-card vs
+   .destination-detail-stat-card-link below. */
+.destinations-ranked-static {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #3a3f47;
+  border-radius: 8px;
+  background: #161b22;
+}
+
 .destinations-ranked-position {
   width: 1.75rem;
   font-weight: 700;
