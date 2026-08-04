@@ -38,6 +38,7 @@ from .data_loader import (
     load_country_weather_scores,
     load_static_city_scores,
     load_static_country_scores,
+    load_visa_requirements,
 )
 from .scoring import (
     combine_domain_scores,
@@ -85,6 +86,7 @@ CAPITAL_NAMES = load_country_capital_names()
 STATIC_CITY_SCORES = load_static_city_scores()
 CITY_WEATHER_SCORES = load_city_weather_scores()
 CITY_CLUSTER_REPRESENTATIVES = load_city_cluster_representatives()
+VISA_REQUIREMENTS = load_visa_requirements()
 
 
 class DestinationScore(BaseModel):
@@ -167,6 +169,22 @@ class CountryWeatherResponse(BaseModel):
     capital_city: Optional[str]
 
 
+class VisaRequirementsResponse(BaseModel):
+    departure_country: str
+    # The departure country's own label as it appears in
+    # visa_requirements.json (e.g. "Mexico") -- null (alongside an empty
+    # requirements dict) if `departure_country` isn't a code this project
+    # has visa data for, same "unknown, not a 404" convention
+    # /api/destinations/{country}/weather uses for missing weather.
+    departure_country_name: Optional[str]
+    # destination iso2 -> requirement string (e.g. "VISA-FREE 90", "EVISA",
+    # "VISA REQUIRED"), passed through verbatim -- keyed by iso2 (not
+    # visa_requirements.json's own name label) so the frontend can join
+    # this against every other country-keyed response by code, see
+    # data_loader.load_visa_requirements()'s docstring.
+    requirements: dict[str, str]
+
+
 @app.get("/health")
 def health():
     """Render hits this (or `/`) for its health check; also handy for
@@ -180,6 +198,7 @@ def health():
         "cities_loaded": len(STATIC_CITY_SCORES),
         "cities_with_weather": len(CITY_WEATHER_SCORES),
         "city_clusters": len(set(CITY_CLUSTER_REPRESENTATIVES.values())),
+        "countries_with_visa_requirements": len(VISA_REQUIREMENTS),
     }
 
 
@@ -345,4 +364,27 @@ def country_weather(
         month_weights=weights,
         weather=weather,
         capital_city=CAPITAL_NAMES.get(iso2),
+    )
+
+
+@app.get("/api/destinations/{departure_country}/visa-requirements", response_model=VisaRequirementsResponse)
+def visa_requirements(departure_country: str):
+    """All of a departure country's visa requirements against every other
+    country, e.g. `/api/destinations/MX/visa-requirements` returns every
+    entry visa_requirements.json has filed under "Mexico" (its own key),
+    keyed by destination iso2 rather than the file's own name labels --
+    see data_loader.load_visa_requirements() for why (short version: this
+    file's destination names don't string-match this project's own
+    country_name values elsewhere, but both resolve to the same iso2).
+    `departure_country` is an ISO 3166-1 alpha-2 code, case-insensitive.
+    `requirements` is an empty dict (not a 404) for a valid-looking code
+    this project simply has no visa data for -- same "unknown, not bad"
+    convention as /api/destinations/{country}/weather's null weather."""
+    iso2 = departure_country.upper()
+    entry = VISA_REQUIREMENTS.get(iso2)
+
+    return VisaRequirementsResponse(
+        departure_country=iso2,
+        departure_country_name=entry["country_name"] if entry is not None else None,
+        requirements=entry["requirements"] if entry is not None else {},
     )

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { API_BASE_URL } from "../lib/apiBaseUrl";
+import { useDepartureCountry } from "../lib/departureCountry";
 
 // Static fallback: build_overarching_trip_scores.py's output (UNESCO +
 // Michelin + affordability only, no weather), read straight from GitHub.
@@ -34,8 +35,16 @@ interface RankedCityDestination {
   // load_static_city_scores() docstring).
   name: string;
   countryName: string;
+  // iso2 -- needed to look up this city's country in VISA_REQUIREMENTS
+  // (keyed by iso2, not countryName -- see visaLabel()'s comment below
+  // for why a name-string join wouldn't work here).
+  countryCode: string;
   score: number;
 }
+
+// destination iso2 -> requirement string (e.g. "VISA-FREE 30"), for the
+// CURRENT departure country only -- see fetchVisaRequirements() below.
+type VisaRequirementsByDestination = Record<string, string>;
 
 type CountryLoadState =
   | { status: "loading" }
@@ -64,8 +73,13 @@ interface TopCityDestinationsResponse {
     city_id: string;
     city_ascii: string;
     country_name: string;
+    country_code: string;
     trip_score: number;
   }[];
+}
+
+interface VisaRequirementsResponse {
+  requirements: Record<string, string>;
 }
 
 function rankStaticCountryScores(payload: StaticCountryScoresPayload): RankedCountryDestination[] {
@@ -113,8 +127,22 @@ async function fetchCityTopTen(startDate: string | null, endDate: string | null)
     cityId: d.city_id,
     name: d.city_ascii,
     countryName: d.country_name,
+    countryCode: d.country_code,
     score: d.trip_score,
   }));
+}
+
+// All of the current departure country's visa requirements in one call
+// (backend/app/main.py's visa_requirements()), rather than one request
+// per destination row -- 10 rows, one fetch. Empty object (not a throw)
+// for a departure country with no visa data at all, same "unknown, not
+// an error" convention the rest of this file's fetchers follow for
+// missing data.
+async function fetchVisaRequirements(departureCountryCode: string): Promise<VisaRequirementsByDestination> {
+  const res = await fetch(`${API_BASE_URL}/api/destinations/${departureCountryCode}/visa-requirements`);
+  if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+  const payload = (await res.json()) as VisaRequirementsResponse;
+  return payload.requirements;
 }
 
 export default function Destinations() {
@@ -124,8 +152,44 @@ export default function Destinations() {
   const interest = searchParams.get("interest");
   const hasDateRange = Boolean(startDate && endDate);
 
+  const { countryCode: departureCountryCode } = useDepartureCountry();
+
   const [countryLoadState, setCountryLoadState] = useState<CountryLoadState>({ status: "loading" });
   const [cityLoadState, setCityLoadState] = useState<CityLoadState>({ status: "loading" });
+  // Not modeled as a loading/error state like the two above -- a failed
+  // or still-in-flight fetch just means no parenthetical shows yet,
+  // which shouldn't block or error out the country/city lists it
+  // annotates. Empty object is also the correct "no data" state, not
+  // just the loading placeholder.
+  const [visaRequirements, setVisaRequirements] = useState<VisaRequirementsByDestination>({});
+
+  useEffect(() => {
+    let cancelled = false;
+    setVisaRequirements({});
+
+    fetchVisaRequirements(departureCountryCode)
+      .then((requirements) => {
+        if (cancelled) return;
+        setVisaRequirements(requirements);
+      })
+      .catch(() => {
+        // Silently leave visaRequirements empty -- see comment on the
+        // state declaration above.
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [departureCountryCode]);
+
+  // "(VISA-FREE 30)" for a destination this project has visa data for,
+  // "" (nothing rendered) otherwise -- e.g. no visa data for that
+  // departure/destination pair yet, or the departure country itself
+  // isn't one visa_requirements.json covers.
+  function visaLabel(destinationCountryCode: string): string {
+    const requirement = visaRequirements[destinationCountryCode.toUpperCase()];
+    return requirement ? ` (${requirement})` : "";
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -215,6 +279,7 @@ export default function Destinations() {
                 <span className="destinations-ranked-position">{index + 1}</span>
                 <span className="destinations-ranked-name">
                   {destination.name}, {destination.countryName}
+                  <span className="destinations-ranked-visa">{visaLabel(destination.countryCode)}</span>
                 </span>
                 <span className="destinations-ranked-score">{destination.score.toFixed(2)}</span>
               </div>
@@ -241,7 +306,10 @@ export default function Destinations() {
                 className="destinations-ranked-link"
               >
                 <span className="destinations-ranked-position">{index + 1}</span>
-                <span className="destinations-ranked-name">{destination.name}</span>
+                <span className="destinations-ranked-name">
+                  {destination.name}
+                  <span className="destinations-ranked-visa">{visaLabel(destination.code)}</span>
+                </span>
                 <span className="destinations-ranked-score">{destination.score.toFixed(2)}</span>
               </Link>
             </li>

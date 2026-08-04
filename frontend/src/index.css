@@ -278,6 +278,17 @@ h1 {
   font-size: 1.05rem;
 }
 
+/* Visa requirement, e.g. "(VISA-FREE 30)", appended after the destination
+   name -- dimmer and smaller than the name itself so it reads as a
+   secondary annotation, not a second heading. Absent entirely (no empty
+   parens) when there's no visa data for that departure/destination pair,
+   see Destinations.tsx's visaLabel(). */
+.destinations-ranked-visa {
+  opacity: 0.65;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
 .destinations-ranked-score {
   font-variant-numeric: tabular-nums;
   font-weight: 600;

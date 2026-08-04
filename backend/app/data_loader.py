@@ -25,6 +25,39 @@ TOURIST_CITIES_PATH = DATA_DIR / "reference" / "tourist_cities.json"
 TOURIST_CITIES_ENHANCED_PATH = DATA_DIR / "processed" / "tourist_cities_enhanced.json"
 MONTHLY_SCORES_PATH = DATA_DIR / "processed" / "monthly_scores_2025_by_city.json"
 WEATHER_METRICS_PATH = DATA_DIR / "processed" / "multiple" / "weather_normals_2025_by_city.json"
+COUNTRY_ALIASES_PATH = DATA_DIR / "reference" / "country_aliases.json"
+VISA_REQUIREMENTS_PATH = DATA_DIR / "reference" / "visa_requirements.json"
+
+# visa_requirements.json labels its ~199 countries (both as top-level
+# departure keys and as destination keys within each) with plain English
+# names pulled from its own source site, not this project's usual
+# country_aliases.json canonical_name/iso2 join key. Most match a
+# canonical_name or alias there case-insensitively (e.g. "Bahamas" is
+# listed as an alias of "Bahamas, The") -- these 8 don't, either because
+# the label is a variant country_aliases.json doesn't carry as an alias
+# ("Viet Nam" vs "vietnam", "Russian Federation" vs "russia") or, for
+# Palestinian Territories, because country_aliases.json has no entry for
+# it at all (SimpleMaps' underlying cities database doesn't carry it).
+# Verified against the full visa_requirements.json name set (all 199
+# departure keys and every destination key nested under them) at the time
+# this was written -- see load_visa_requirements()'s docstring.
+VISA_NAME_ISO2_OVERRIDES = {
+    "congo": "CG",  # country_aliases.json canonical_name is "Congo (Brazzaville)"
+    "congo (dem. rep.)": "CD",  # country_aliases.json canonical_name is "Congo (Kinshasa)"
+    "cote d'ivoire (ivory coast)": "CI",  # country_aliases.json alias is "cote d'ivoire" (no "(ivory coast)")
+    "macao": "MO",  # country_aliases.json canonical_name is "Macau"
+    "palestinian territories": "PS",  # no country_aliases.json entry at all
+    "russian federation": "RU",  # country_aliases.json canonical_name is "Russia"
+    "st. vincent and the grenadines": "VC",  # country_aliases.json alias is "saint vincent and the grenadines"
+    "viet nam": "VN",  # country_aliases.json canonical_name is "Vietnam"
+    # Not actually a name mismatch like the others above -- country_aliases.json
+    # DOES label this "namibia", but its iso2 field is the float NaN, not
+    # the string "NA" (Namibia's real code "NA" got parsed as a pandas
+    # missing-value marker upstream). See _load_country_name_to_iso2()'s
+    # docstring for why this override exists instead of just fixing the
+    # source file here.
+    "namibia": "NA",
+}
 
 # How close two cities need to be to count as "the same area" for the
 # cities/top10 diversity guard (see load_city_cluster_representatives()
@@ -356,3 +389,115 @@ def load_country_weather_metrics() -> dict[str, dict[str, dict[str, float]]]:
             if month in city_entry["months"]
         }
     return metrics_by_country
+
+
+def _load_country_name_to_iso2() -> dict[str, str]:
+    """lowercased country name -> iso2, built from every canonical_name and
+    alias in country_aliases.json plus VISA_NAME_ISO2_OVERRIDES layered on
+    top for the handful of visa_requirements.json labels that don't match
+    anything there (see that constant's comment for which, and why). Exists
+    only to support load_visa_requirements() below -- nothing else in this
+    module needs a name-keyed lookup, everything else here is already
+    iso2-keyed at the source.
+
+    Skips any country_aliases.json entry whose iso2 isn't actually a
+    string -- currently just Namibia, whose real code "NA" got parsed as
+    a pandas missing-value marker upstream and became the float NaN
+    instead (same known issue load_static_city_scores() already works
+    around for Namibia's Windhoode). Namibia's real code is restored via
+    VISA_NAME_ISO2_OVERRIDES below rather than left skipped -- unlike
+    load_static_city_scores()'s low-scoring skip, Namibia is a normal
+    visa_requirements.json entry (both a departure and destination) that
+    would otherwise 500 the whole endpoint (a dict can't have a NaN
+    key -- see load_visa_requirements() for how a bad iso2 here used to
+    propagate)."""
+    if not COUNTRY_ALIASES_PATH.exists():
+        raise FileNotFoundError(f"{COUNTRY_ALIASES_PATH} not found -- run data/scripts/fetch_tourist_cities.py first.")
+    with open(COUNTRY_ALIASES_PATH, encoding="utf-8") as f:
+        countries = json.load(f)["countries"]
+
+    name_to_iso2: dict[str, str] = {}
+    for country in countries.values():
+        iso2 = country["iso2"]
+        if not isinstance(iso2, str):
+            continue
+        name_to_iso2[country["canonical_name"].lower()] = iso2
+        for alias in country["aliases"]:
+            name_to_iso2[alias.lower()] = iso2
+
+    name_to_iso2.update(VISA_NAME_ISO2_OVERRIDES)
+    return name_to_iso2
+
+
+def load_visa_requirements() -> dict[str, dict]:
+    """iso2 (of the DEPARTURE/passport country) -> {"country_name": the
+    departure country's own label as it appears as a top-level key in
+    visa_requirements.json, "requirements": {destination iso2: requirement
+    string, ...}}, read straight from reference/visa_requirements.json.
+
+    Requirement strings are passed through verbatim (e.g. "VISA-FREE 90",
+    "EVISA · VISA ON ARRIVAL 30", "VISA REQUIRED") -- this loader doesn't
+    parse or score them, just regroups the source file by iso2 (both the
+    departure key AND, unlike an earlier version of this function, the
+    destination keys within it) so main.py's response can be joined
+    against every other country-keyed route here -- e.g. the frontend
+    matching a visa requirement to a /api/destinations/top10 row -- by
+    iso2 rather than by name string. Name-string joins don't work here:
+    this file's destination labels are whatever the scraped source site
+    used ("South Korea"), which don't match this project's own
+    country_name values elsewhere ("Korea, South", from World Bank data --
+    see build_overarching_trip_scores.py), even though both resolve to
+    the same iso2 (KR).
+
+    Both departure and destination normalization go through the same
+    _load_country_name_to_iso2() map (country_aliases.json's
+    canonical_name/aliases plus VISA_NAME_ISO2_OVERRIDES for the labels
+    that don't match anything there). A destination that fails to
+    normalize is dropped from that departure country's requirements dict
+    (logged, not raised) rather than the whole departure entry being
+    skipped -- verified at the time this was written that this never
+    actually happens (all 199 names in the file, departure and
+    destination alike, resolve cleanly), but a future refresh of this
+    file could add a new label the override list hasn't caught up to yet,
+    and one bad destination label shouldn't take out an entire country's
+    otherwise-good data.
+
+    A departure country whose OWN label doesn't normalize to any iso2 is
+    still skipped entirely (with a printed warning) -- same "log and
+    continue" handling load_static_city_scores() uses for its two
+    known-bad records."""
+    if not VISA_REQUIREMENTS_PATH.exists():
+        raise FileNotFoundError(f"{VISA_REQUIREMENTS_PATH} not found -- see data/reference/visa_requirements.json.")
+    with open(VISA_REQUIREMENTS_PATH, encoding="utf-8") as f:
+        payload = json.load(f)
+
+    name_to_iso2 = _load_country_name_to_iso2()
+
+    requirements_by_iso2: dict[str, dict] = {}
+    skipped_departures = []
+    skipped_destinations = []
+    for departure_name, requirements in payload.items():
+        departure_iso2 = name_to_iso2.get(departure_name.lower())
+        if departure_iso2 is None:
+            skipped_departures.append(departure_name)
+            continue
+
+        destination_requirements: dict[str, str] = {}
+        for destination_name, requirement in requirements.items():
+            destination_iso2 = name_to_iso2.get(destination_name.lower())
+            if destination_iso2 is None:
+                skipped_destinations.append(f"{departure_name} -> {destination_name}")
+                continue
+            destination_requirements[destination_iso2] = requirement
+
+        requirements_by_iso2[departure_iso2] = {
+            "country_name": departure_name,
+            "requirements": destination_requirements,
+        }
+
+    if skipped_departures:
+        print(f"[data_loader] load_visa_requirements: skipped {len(skipped_departures)} departure countr(ies) with no iso2 match: {skipped_departures}")
+    if skipped_destinations:
+        print(f"[data_loader] load_visa_requirements: skipped {len(skipped_destinations)} destination entr(ies) with no iso2 match: {skipped_destinations}")
+
+    return requirements_by_iso2
