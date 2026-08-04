@@ -5,6 +5,7 @@ const DATA_SOURCES = [
   { name: "UNESCO", url: "https://www.unesco.org/en" },
   { name: "World Bank Open Data", url: "https://data.worldbank.org" },
   { name: "Weather from Open-Meteo", url: "https://open-meteo.com" },
+  { name: "Visa requirements from Passport Index", url: "https://www.passportindex.org" },
   // Airport data (OpenFlights) is pulled in data/ but isn't wired into
   // any score or shown anywhere on the site yet -- re-enable once it
   // actually feeds something user-facing.
