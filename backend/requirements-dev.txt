@@ -1,0 +1,6 @@
+-r requirements.txt
+
+# Test suite only (tests/) -- httpx is what FastAPI's TestClient uses
+# under the hood, not needed by the app itself at runtime.
+pytest>=8.0
+httpx>=0.27
