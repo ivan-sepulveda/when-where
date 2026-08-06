@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router";
+import CarouselLightbox, { type LightboxImage } from "../components/CarouselLightbox";
+import TravelAdvisoryIcon from "../components/TravelAdvisoryIcon";
+import exampleImg from "../assets/example_img.png";
 import { formatDateRange } from "../lib/formatDate";
 import { getCountryByCode } from "../lib/countries";
 import { countryCodeToFlagEmoji } from "../lib/flagEmoji";
@@ -8,6 +11,7 @@ import { useDepartureCountry } from "../lib/departureCountry";
 import { formatHikingTrailCount, useHikingTrailCount } from "../lib/hiking";
 import { formatMichelinCount, getMichelinAwardCounts, getMichelinGuideUrl } from "../lib/michelin";
 import { formatShortestFlight, useShortestFlight } from "../lib/shortestFlight";
+import { useTravelAdvisory } from "../lib/travelAdvisories";
 import { formatUnescoCount, getUnescoSiteCounts, getUnescoStatesPartyUrl } from "../lib/unesco";
 import { useCountryStatCount } from "../lib/useCountryStatCount";
 import { fetchCountryWeather, formatWeatherStats, type CountryWeather } from "../lib/weather";
@@ -16,6 +20,28 @@ type WeatherLoadState =
   | { status: "loading" }
   | { status: "error" }
   | ({ status: "loaded" } & CountryWeather);
+
+// Single switch controlling what clicking the Michelin card does --
+// "link" (today's behavior: opens guide.michelin.com in a new tab),
+// "lightbox" (opens the CarouselLightbox below instead), or "none"
+// (plain, non-interactive card, no click handler at all). Deliberately
+// one variable rather than several independent booleans so there's no
+// invalid combination to accidentally leave the card in (e.g. both a
+// link AND a lightbox wired to the same click).
+type MichelinCardBehavior = "link" | "lightbox" | "none";
+const MICHELIN_CARD_BEHAVIOR: MichelinCardBehavior = "link";
+
+// Placeholder photo set for the Michelin lightbox -- same image three
+// times with "Test N" captions, standing in for real per-country
+// Michelin restaurant photos until that data exists. Swap this for a
+// real per-country array (or fetch) once it does; CarouselLightbox
+// itself is already generic (just an images/isOpen/onClose prop) and
+// doesn't need to change.
+const PLACEHOLDER_MICHELIN_IMAGES: LightboxImage[] = [
+  { src: exampleImg, caption: "Test 1" },
+  { src: exampleImg, caption: "Test 2" },
+  { src: exampleImg, caption: "Test 3" },
+];
 
 // Placeholder page for /destinations/:country. One template serves every
 // ISO 3166-1 alpha-2 code -- real content (overarching score, monthly
@@ -36,12 +62,14 @@ export default function DestinationDetail() {
   const unesco = useCountryStatCount(country, getUnescoSiteCounts);
   const hiking = useHikingTrailCount(country);
   const artMuseums = useArtMuseums(country);
+  const travelAdvisory = useTravelAdvisory(country);
 
   const { countryCode: departureCountryCode } = useDepartureCountry();
   const departureCountry = getCountryByCode(departureCountryCode);
   const shortestFlight = useShortestFlight(departureCountry, country);
 
   const [weather, setWeather] = useState<WeatherLoadState>({ status: "loading" });
+  const [michelinLightboxOpen, setMichelinLightboxOpen] = useState(false);
 
   useEffect(() => {
     if (!country || !startDate || !endDate) return;
@@ -79,6 +107,9 @@ export default function DestinationDetail() {
     <main className="page">
       <h1>
         {countryCodeToFlagEmoji(country.code)} {country.name}
+        {travelAdvisory.status === "loaded" && travelAdvisory.advisory && (
+          <TravelAdvisoryIcon advisory={travelAdvisory.advisory} />
+        )}
       </h1>
       <p className="tagline">
         Trip scores and monthly breakdowns for {country.name} are coming
@@ -90,7 +121,7 @@ export default function DestinationDetail() {
       )}
 
       <ul className="destination-detail-stats">
-        {michelin.status === "loaded" ? (
+        {michelin.status === "loaded" && MICHELIN_CARD_BEHAVIOR === "link" && (
           <li>
             <a
               href={getMichelinGuideUrl(country.code)}
@@ -101,7 +132,25 @@ export default function DestinationDetail() {
               {formatMichelinCount(michelin.count)}
             </a>
           </li>
-        ) : (
+        )}
+
+        {michelin.status === "loaded" && MICHELIN_CARD_BEHAVIOR === "lightbox" && (
+          <li>
+            <button
+              type="button"
+              onClick={() => setMichelinLightboxOpen(true)}
+              className="destination-detail-stat-card destination-detail-stat-card-link"
+            >
+              {formatMichelinCount(michelin.count)}
+            </button>
+          </li>
+        )}
+
+        {michelin.status === "loaded" && MICHELIN_CARD_BEHAVIOR === "none" && (
+          <li className="destination-detail-stat-card">{formatMichelinCount(michelin.count)}</li>
+        )}
+
+        {michelin.status !== "loaded" && (
           <li className="destination-detail-stat-card">
             {michelin.status === "loading" && "Loading Michelin Guide data..."}
             {michelin.status === "error" && <span role="alert">Couldn't load Michelin Guide data.</span>}
@@ -234,6 +283,14 @@ export default function DestinationDetail() {
             </li>
           ))}
       </ul>
+
+      {MICHELIN_CARD_BEHAVIOR === "lightbox" && (
+        <CarouselLightbox
+          images={PLACEHOLDER_MICHELIN_IMAGES}
+          isOpen={michelinLightboxOpen}
+          onClose={() => setMichelinLightboxOpen(false)}
+        />
+      )}
     </main>
   );
 }

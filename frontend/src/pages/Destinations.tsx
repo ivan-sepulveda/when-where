@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
+import TravelAdvisoryIcon from "../components/TravelAdvisoryIcon";
 import { API_BASE_URL } from "../lib/apiBaseUrl";
 import { useDepartureCountry } from "../lib/departureCountry";
+import {
+  getTravelAdvisories,
+  getTravelAdvisoryForCode,
+  type TravelAdvisoriesByCountry,
+} from "../lib/travelAdvisories";
 
 // Static fallback: build_overarching_trip_scores.py's output (UNESCO +
 // Michelin + affordability only, no weather), read straight from GitHub.
@@ -16,10 +22,28 @@ const STATIC_COUNTRY_SCORES_URL =
   "https://raw.githubusercontent.com/ivan-sepulveda/when-where/refs/heads/main/data/processed/OVERARCHING_TRIP_SCORE_BY_COUNTRY.json";
 
 // Both backend endpoints return up to 10 ranked results (they're literally
-// named .../top10) -- this just trims to the 5 actually displayed here,
-// rather than changing what the API returns. Easy to bump back up later;
-// change this one constant, not the API.
-const DISPLAY_COUNT = 5;
+// named .../top10), which is also the ceiling the "Top 5 / Top 10" count
+// dropdown offers below -- so switching to Top 10 is just a wider slice()
+// of data already in hand, never a new fetch.
+type DestinationsCount = 5 | 10;
+const DEFAULT_COUNT: DestinationsCount = 5;
+
+function parseCount(raw: string | null): DestinationsCount {
+  return raw === "10" ? 10 : DEFAULT_COUNT;
+}
+
+// Which section(s) the "Show" dropdown displays. Kept in the "view" URL
+// search param (like start_date/end_date/interest) rather than plain
+// component state, so a filtered view is shareable/bookmarkable and
+// survives a refresh. "both" is the default and is never actually written
+// to the URL -- see setView() below -- so a plain /destinations link
+// still means "both".
+type DestinationsView = "both" | "countries" | "cities";
+const DEFAULT_VIEW: DestinationsView = "both";
+
+function parseView(raw: string | null): DestinationsView {
+  return raw === "countries" || raw === "cities" ? raw : DEFAULT_VIEW;
+}
 
 interface RankedCountryDestination {
   code: string;
@@ -146,11 +170,45 @@ async function fetchVisaRequirements(departureCountryCode: string): Promise<Visa
 }
 
 export default function Destinations() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const startDate = searchParams.get("start_date");
   const endDate = searchParams.get("end_date");
   const interest = searchParams.get("interest");
   const hasDateRange = Boolean(startDate && endDate);
+
+  const view = parseView(searchParams.get("view"));
+  const showCities = view === "both" || view === "cities";
+  const showCountries = view === "both" || view === "countries";
+
+  function setView(next: DestinationsView) {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+      if (next === DEFAULT_VIEW) {
+        params.delete("view");
+      } else {
+        params.set("view", next);
+      }
+      return params;
+    });
+  }
+
+  // Per-section count -- Top 5 or Top 10 EACH, not a combined total. With
+  // both sections showing, Top 5 is 5 countries + 5 cities (10 total) and
+  // Top 10 is 10 + 10 (20 total); with just one section showing, it's
+  // just that section's 5 or 10.
+  const count = parseCount(searchParams.get("count"));
+
+  function setCount(next: DestinationsCount) {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+      if (next === DEFAULT_COUNT) {
+        params.delete("count");
+      } else {
+        params.set("count", String(next));
+      }
+      return params;
+    });
+  }
 
   const { countryCode: departureCountryCode } = useDepartureCountry();
 
@@ -162,6 +220,10 @@ export default function Destinations() {
   // annotates. Empty object is also the correct "no data" state, not
   // just the loading placeholder.
   const [visaRequirements, setVisaRequirements] = useState<VisaRequirementsByDestination>({});
+  // Same "empty object is a valid no-data state, not an error" convention
+  // as visaRequirements above -- fetched once (doesn't depend on
+  // departure country), so no dependency array churn needed.
+  const [travelAdvisories, setTravelAdvisories] = useState<TravelAdvisoriesByCountry>({});
 
   useEffect(() => {
     let cancelled = false;
@@ -181,6 +243,24 @@ export default function Destinations() {
       cancelled = true;
     };
   }, [departureCountryCode]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    getTravelAdvisories()
+      .then((advisories) => {
+        if (cancelled) return;
+        setTravelAdvisories(advisories);
+      })
+      .catch(() => {
+        // Silently leave travelAdvisories empty -- see comment on the
+        // state declaration above.
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // "(VISA-FREE 30)" for a destination this project has visa data for,
   // "" (nothing rendered) otherwise -- e.g. no visa data for that
@@ -261,60 +341,105 @@ export default function Destinations() {
         </ul>
       )}
 
-      <h2>Top 5 Cities</h2>
+      <div className="destinations-controls">
+        <label className="destinations-view-control">
+          Show:{" "}
+          <select
+            value={view}
+            onChange={(e) => setView(e.target.value as DestinationsView)}
+            className="destinations-view-select"
+          >
+            <option value="countries">See Countries</option>
+            <option value="cities">See Cities</option>
+            <option value="both">Both (Default)</option>
+          </select>
+        </label>
 
-      {cityLoadState.status === "loading" && <p>Loading top cities...</p>}
+        <label className="destinations-view-control">
+          Results:{" "}
+          <select
+            value={count}
+            onChange={(e) => setCount(Number(e.target.value) as DestinationsCount)}
+            className="destinations-view-select"
+          >
+            <option value={5}>Top 5{view === "both" ? " (each)" : ""}</option>
+            <option value={10}>Top 10{view === "both" ? " (each)" : ""}</option>
+          </select>
+        </label>
+      </div>
 
-      {cityLoadState.status === "error" && <p role="alert">{cityLoadState.message}</p>}
+      {showCities && (
+        <>
+          <h2>Top {count} Cities</h2>
 
-      {cityLoadState.status === "loaded" && (
-        <ol className="destinations-ranked-list">
-          {cityLoadState.destinations.slice(0, DISPLAY_COUNT).map((destination, index) => (
-            <li key={destination.cityId} className="destinations-ranked-item">
-              {/* Not a Link -- there's no per-city detail page yet, so
-                  these rows are display-only for now (see
-                  .destinations-ranked-static in index.css for the
-                  non-interactive styling variant). */}
-              <div className="destinations-ranked-static">
-                <span className="destinations-ranked-position">{index + 1}</span>
-                <span className="destinations-ranked-name">
-                  {destination.name}, {destination.countryName}
-                  <span className="destinations-ranked-visa">{visaLabel(destination.countryCode)}</span>
-                </span>
-                <span className="destinations-ranked-score">{destination.score.toFixed(2)}</span>
-              </div>
-            </li>
-          ))}
-        </ol>
+          {cityLoadState.status === "loading" && <p>Loading top cities...</p>}
+
+          {cityLoadState.status === "error" && <p role="alert">{cityLoadState.message}</p>}
+
+          {cityLoadState.status === "loaded" && (
+            <ol className="destinations-ranked-list">
+              {cityLoadState.destinations.slice(0, count).map((destination, index) => (
+                <li key={destination.cityId} className="destinations-ranked-item">
+                  {/* Not a Link -- there's no per-city detail page yet, so
+                      these rows are display-only for now (see
+                      .destinations-ranked-static in index.css for the
+                      non-interactive styling variant). */}
+                  <div className="destinations-ranked-static">
+                    <span className="destinations-ranked-position">{index + 1}</span>
+                    <span className="destinations-ranked-name">
+                      {destination.name}, {destination.countryName}
+                      {getTravelAdvisoryForCode(travelAdvisories, destination.countryCode) && (
+                        <TravelAdvisoryIcon
+                          advisory={getTravelAdvisoryForCode(travelAdvisories, destination.countryCode)!}
+                        />
+                      )}
+                      <span className="destinations-ranked-visa">{visaLabel(destination.countryCode)}</span>
+                    </span>
+                    <span className="destinations-ranked-score">{destination.score.toFixed(2)}</span>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          )}
+        </>
       )}
 
-      <h2>Top 5 Countries</h2>
+      {showCountries && (
+        <>
+          <h2>Top {count} Countries</h2>
 
-      {countryLoadState.status === "loading" && <p>Loading top destinations...</p>}
+          {countryLoadState.status === "loading" && <p>Loading top destinations...</p>}
 
-      {countryLoadState.status === "error" && <p role="alert">{countryLoadState.message}</p>}
+          {countryLoadState.status === "error" && <p role="alert">{countryLoadState.message}</p>}
 
-      {countryLoadState.status === "loaded" && (
-        <ol className="destinations-ranked-list">
-          {countryLoadState.destinations.slice(0, DISPLAY_COUNT).map((destination, index) => (
-            <li key={destination.code} className="destinations-ranked-item">
-              <Link
-                to={{
-                  pathname: `/destinations/${destination.code}`,
-                  search: searchParams.toString(),
-                }}
-                className="destinations-ranked-link"
-              >
-                <span className="destinations-ranked-position">{index + 1}</span>
-                <span className="destinations-ranked-name">
-                  {destination.name}
-                  <span className="destinations-ranked-visa">{visaLabel(destination.code)}</span>
-                </span>
-                <span className="destinations-ranked-score">{destination.score.toFixed(2)}</span>
-              </Link>
-            </li>
-          ))}
-        </ol>
+          {countryLoadState.status === "loaded" && (
+            <ol className="destinations-ranked-list">
+              {countryLoadState.destinations.slice(0, count).map((destination, index) => (
+                <li key={destination.code} className="destinations-ranked-item">
+                  <Link
+                    to={{
+                      pathname: `/destinations/${destination.code}`,
+                      search: searchParams.toString(),
+                    }}
+                    className="destinations-ranked-link"
+                  >
+                    <span className="destinations-ranked-position">{index + 1}</span>
+                    <span className="destinations-ranked-name">
+                      {destination.name}
+                      {getTravelAdvisoryForCode(travelAdvisories, destination.code) && (
+                        <TravelAdvisoryIcon
+                          advisory={getTravelAdvisoryForCode(travelAdvisories, destination.code)!}
+                        />
+                      )}
+                      <span className="destinations-ranked-visa">{visaLabel(destination.code)}</span>
+                    </span>
+                    <span className="destinations-ranked-score">{destination.score.toFixed(2)}</span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          )}
+        </>
       )}
     </main>
   );

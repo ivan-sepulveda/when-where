@@ -222,6 +222,36 @@ h1 {
   opacity: 0.9;
 }
 
+/* Row holding the "Show" and "Results" dropdowns above the ranked lists. */
+.destinations-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 0 0 1.5rem;
+}
+
+/* "Show: [Countries / Cities / Both]" and "Results: [Top 5 / Top 10]"
+   controls -- toggle the showCities/showCountries booleans and the
+   per-section count in Destinations.tsx, backed by the "view" and
+   "count" URL search params. */
+.destinations-view-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.destinations-view-select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #3a3f47;
+  border-radius: 8px;
+  background: #161b22;
+  color: #f2f2f2;
+  font: inherit;
+  cursor: pointer;
+}
+
 .destinations-ranked-list {
   list-style: none;
   padding: 0;
@@ -289,6 +319,18 @@ h1 {
   font-weight: 400;
 }
 
+/* Yellow exclamation mark flagging a country with an active travel
+   advisory (data/reference/travel_advisories.json) -- shown inline next
+   to the destination's name wherever it's rendered (Destinations.tsx's
+   ranked lists, DestinationDetail.tsx's h1). The advisory text itself is
+   carried by TravelAdvisoryIcon's title/aria-label, not this class. */
+.travel-advisory-icon {
+  display: inline-flex;
+  vertical-align: -0.1em;
+  margin-left: 0.4em;
+  cursor: help;
+}
+
 .destinations-ranked-score {
   font-variant-numeric: tabular-nums;
   font-weight: 600;
@@ -337,16 +379,151 @@ h1 {
   font-size: 1.05rem;
 }
 
-/* Unlike the plain (non-interactive) stat cards above, the Michelin card
-   links out to guide.michelin.com -- this variant adds the same
-   pointer/hover affordance as .destinations-ranked-link so it reads as
-   clickable. */
+/* Unlike the plain (non-interactive) stat cards above, this variant adds
+   the same pointer/hover affordance as .destinations-ranked-link so it
+   reads as clickable -- used on both the <a> (links out, e.g. UNESCO ->
+   whc.unesco.org) and <button> (opens something in-page, e.g. the
+   Michelin card's lightbox -- see MICHELIN_CARD_BEHAVIOR in
+   DestinationDetail.tsx) variants of a stat card, so either element type
+   looks identical. Deliberately does NOT set border/background here --
+   this class is always combined with .destination-detail-stat-card
+   (which already sets both), and since this rule is declared later in
+   the file, anything it set here would win the cascade over that class's
+   values for BOTH the <a> and <button> case, not just override a
+   <button>'s browser-default border/background like the comment
+   originally (incorrectly) assumed. .destination-detail-stat-card's own
+   border/background already beats the <button> UA default on
+   specificity, so no reset was needed there in the first place. */
 .destination-detail-stat-card-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
   color: inherit;
   text-decoration: none;
   cursor: pointer;
+  font: inherit;
+  text-align: left;
 }
 
 .destination-detail-stat-card-link:hover {
   border-color: #3b82f6;
+}
+
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  z-index: 1000;
+}
+
+.lightbox-dialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: min(90vw, 640px);
+  max-height: 90vh;
+  padding: 2.5rem 1.5rem 1.5rem;
+  border: 1px solid #3a3f47;
+  border-radius: 12px;
+  background: #161b22;
+}
+
+.lightbox-close-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #3a3f47;
+  border-radius: 6px;
+  background: #0b0f14;
+  color: #f2f2f2;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox-close-button:hover {
+  border-color: #3b82f6;
+}
+
+.lightbox-image-area {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 65vh;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.lightbox-nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #3a3f47;
+  border-radius: 50%;
+  background: rgba(11, 15, 20, 0.85);
+  color: #f2f2f2;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox-nav-button:hover {
+  border-color: #3b82f6;
+}
+
+.lightbox-nav-button-prev {
+  left: 0.5rem;
+}
+
+.lightbox-nav-button-next {
+  right: 0.5rem;
+}
+
+.lightbox-caption {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.9;
+  text-align: center;
+}
+
+.lightbox-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.lightbox-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #3a3f47;
+  cursor: pointer;
+}
+
+.lightbox-dot-active {
+  background: #3b82f6;
 }
