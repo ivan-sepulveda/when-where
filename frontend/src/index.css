@@ -260,9 +260,13 @@ h1 {
   gap: 0.6rem;
 }
 
+/* No overflow: hidden here (there used to be one, for corner-clipping
+   the .destinations-ranked-link/-static box below) -- it was clipping
+   .travel-advisory-icon's ::after tooltip, which is positioned absolute
+   relative to the icon and needs to escape this box upward. The link's
+   own border-radius already keeps its corners round without this. */
 .destinations-ranked-item {
   border-radius: 8px;
-  overflow: hidden;
 }
 
 .destinations-ranked-link {
@@ -319,16 +323,53 @@ h1 {
   font-weight: 400;
 }
 
-/* Yellow exclamation mark flagging a country with an active travel
-   advisory (data/reference/travel_advisories.json) -- shown inline next
-   to the destination's name wherever it's rendered (Destinations.tsx's
-   ranked lists, DestinationDetail.tsx's h1). The advisory text itself is
-   carried by TravelAdvisoryIcon's title/aria-label, not this class. */
+/* Yellow "!" badge flagging a country with an active travel advisory
+   (data/reference/travel_advisories.json) -- shown inline next to the
+   destination's name wherever it's rendered (Destinations.tsx's ranked
+   lists, DestinationDetail.tsx's h1). position: relative anchors the
+   ::after tooltip below. */
 .travel-advisory-icon {
   display: inline-flex;
+  position: relative;
   vertical-align: -0.1em;
   margin-left: 0.4em;
   cursor: help;
+}
+
+/* The advisory text itself, shown on hover/focus. A CSS-only tooltip
+   (content: attr(data-tooltip)) rather than the native `title` attribute
+   -- title tooltips turned out to be unreliable (cursor changed but no
+   text ever appeared). Positioned above the icon; z-index keeps it over
+   neighboring ranked-list cards. */
+.travel-advisory-icon::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 260px;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #3a3f47;
+  border-radius: 6px;
+  background: #1f2630;
+  color: #f2f2f2;
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.35;
+  text-align: left;
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.travel-advisory-icon:hover::after,
+.travel-advisory-icon:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
 }
 
 .destinations-ranked-score {

@@ -9,12 +9,24 @@ import type { Country } from "./countries";
 const TRAVEL_ADVISORIES_URL =
   "https://raw.githubusercontent.com/ivan-sepulveda/when-where/refs/heads/main/data/reference/travel_advisories.json";
 
+// Single on/off switch for the whole feature -- flip to false to pull
+// every advisory badge (Destinations.tsx's ranked lists,
+// DestinationDetail.tsx's h1) without touching either of those files or
+// the CSS. Same "one variable controls behavior everywhere" pattern as
+// DestinationDetail.tsx's MICHELIN_CARD_BEHAVIOR. When false,
+// getTravelAdvisories() below resolves to an empty map instead of
+// fetching, so every advisory[...] lookup is just a no-op and no icons
+// render -- callers don't need their own checks against this flag.
+export const TRAVEL_ADVISORIES_ENABLED = true;
+
 // iso2 -> advisory text.
 export type TravelAdvisoriesByCountry = Record<string, string>;
 
 let advisoriesPromise: Promise<TravelAdvisoriesByCountry> | null = null;
 
 export function getTravelAdvisories(): Promise<TravelAdvisoriesByCountry> {
+  if (!TRAVEL_ADVISORIES_ENABLED) return Promise.resolve({});
+
   if (!advisoriesPromise) {
     advisoriesPromise = fetch(TRAVEL_ADVISORIES_URL)
       .then((res) => {
