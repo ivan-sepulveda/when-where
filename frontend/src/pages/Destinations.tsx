@@ -35,14 +35,17 @@ function parseCount(raw: string | null): DestinationsCount {
 // Which section(s) the "Show" dropdown displays. Kept in the "view" URL
 // search param (like start_date/end_date/interest) rather than plain
 // component state, so a filtered view is shareable/bookmarkable and
-// survives a refresh. "both" is the default and is never actually written
-// to the URL -- see setView() below -- so a plain /destinations link
-// still means "both".
+// survives a refresh. "countries" is the default and is never actually
+// written to the URL -- see setView() below -- so a plain /destinations
+// link still means "countries only". Cities are temporarily de-emphasized
+// (the data and the /api/destinations/cities/top10 endpoint are
+// unchanged), so seeing them is now an explicit opt-in via this dropdown;
+// flipping DEFAULT_VIEW back to "both" is the whole revert.
 type DestinationsView = "both" | "countries" | "cities";
-const DEFAULT_VIEW: DestinationsView = "both";
+const DEFAULT_VIEW: DestinationsView = "countries";
 
 function parseView(raw: string | null): DestinationsView {
-  return raw === "countries" || raw === "cities" ? raw : DEFAULT_VIEW;
+  return raw === "both" || raw === "cities" ? raw : DEFAULT_VIEW;
 }
 
 interface RankedCountryDestination {
@@ -301,6 +304,11 @@ export default function Destinations() {
   }, [hasDateRange, startDate, endDate]);
 
   useEffect(() => {
+    // Runs on every load, including the countries-only default view where
+    // the city list isn't rendered -- deliberately kept warm so switching
+    // the dropdown to "cities" or "both" shows results immediately
+    // instead of a loading flash. Deps stay off `showCities` for the same
+    // reason: toggling the view should never refetch.
     let cancelled = false;
     setCityLoadState({ status: "loading" });
 
@@ -349,9 +357,9 @@ export default function Destinations() {
             onChange={(e) => setView(e.target.value as DestinationsView)}
             className="destinations-view-select"
           >
-            <option value="countries">See Countries</option>
+            <option value="countries">See Countries (Default)</option>
             <option value="cities">See Cities</option>
-            <option value="both">Both (Default)</option>
+            <option value="both">Both</option>
           </select>
         </label>
 
