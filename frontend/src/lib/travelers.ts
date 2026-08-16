@@ -85,8 +85,74 @@ export function formatFlight(trip: TravelerTrip): string | null {
   return [trip.carrier_name, route].filter(Boolean).join(" · ") || null;
 }
 
+// Mirrors backend/app/main.py's DestinationEntropy. How spread out this
+// traveler's trips are across destination airports -- see
+// data/scripts/multiple/compute_traveler_entropy.py.
+//
+// `entropy` being null is a real, common case (the 124 Kaggle-sourced
+// travelers record no destination airport) and is NOT the same as 0. Zero
+// means "every trip went to the same place", which is a finding; null means
+// the source doesn't say. The UI has to render them differently, so this is
+// `number | null`, never defaulted to 0.
+export interface DestinationEntropy {
+  entropy: number | null;
+  // entropy / ln(global_distinct_destinations).
+  normalized: number | null;
+  n_destinations: number;
+  trips_with_destination: number;
+  // False when fewer than 2 trips carried a destination -- entropy from one
+  // observation can only be 0 and says nothing about the traveler.
+  is_informative: boolean;
+  top_destination: string | null;
+  top_destination_share: number | null;
+  // The denominator behind `normalized`, sent by the API rather than
+  // hardcoded here: it's a property of the whole dataset and changes whenever
+  // the trip data does.
+  global_distinct_destinations: number | null;
+  destination_unit: string | null;
+}
+
 export interface TravelerDetail extends TravelerSummary {
   trips: TravelerTrip[];
+  // Null when compute_traveler_entropy.py hasn't been run in the backend's
+  // checkout -- distinct from "computed, but unknown for this traveler".
+  destination_entropy?: DestinationEntropy | null;
+}
+
+// The two numbers, plus the sentence that stops them being read wrong.
+// Entropy is jargon and 0 is ambiguous on its own, so the summary always
+// says what produced the value.
+export function describeEntropy(
+  traveler: TravelerDetail,
+): { headline: string; detail: string } | null {
+  const e = traveler.destination_entropy;
+  if (!e || e.entropy === null) return null;
+
+  const unit = e.destination_unit === "city" ? "cities" : "airports";
+  const trips = `${e.trips_with_destination} trip${e.trips_with_destination === 1 ? "" : "s"}`;
+
+  if (!e.is_informative) {
+    return {
+      headline: "Not enough trips",
+      detail: `Entropy needs at least two recorded trips to mean anything; this traveler has ${trips}.`,
+    };
+  }
+  if (e.n_destinations === 1) {
+    return {
+      headline: "Always the same destination",
+      // The whole point of showing 0 rather than hiding it -- name the place,
+      // and the trip count, so it reads as a fact about the person.
+      detail: `All ${trips} went to ${e.top_destination}.`,
+    };
+  }
+  const share = e.top_destination_share === null ? null : Math.round(e.top_destination_share * 100);
+  return {
+    headline: `${e.n_destinations} destinations across ${trips}`,
+    detail:
+      share === null
+        ? `Spread across ${e.n_destinations} ${unit}.`
+        : `Most frequent is ${e.top_destination} at ${share}% of trips.`,
+  };
 }
 
 interface TravelersResponse {

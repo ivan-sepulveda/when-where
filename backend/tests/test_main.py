@@ -466,6 +466,110 @@ class TestTravelers:
             assert all(len(t["origin_airport"]) == 3 for t in detail["trips"])
             assert all(len(t["destination_airport"]) == 3 for t in detail["trips"])
 
+    def test_destination_entropy_is_consistent_with_the_traveler_it_describes(self, client):
+        # The entropy block is computed by a separate script from a separate
+        # file (compute_traveler_entropy.py -> traveler_entropy.json), joined
+        # back on traveler_id at request time -- so the two CAN drift apart.
+        # This recomputes the entropy from the trips in the same response and
+        # checks they agree, which is what would catch a stale entropy file
+        # served alongside freshly rebuilt travelers.
+        import math
+        from collections import Counter
+
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        checked = 0
+        for summary in body["travelers"]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            entropy = detail.get("destination_entropy")
+            if entropy is None:
+                continue  # compute_traveler_entropy.py not run here
+            checked += 1
+
+            counts = Counter(
+                t["destination_airport"] for t in detail["trips"] if t.get("destination_airport")
+            )
+            assert entropy["trips_with_destination"] == sum(counts.values()), summary["traveler_id"]
+            assert entropy["n_destinations"] == len(counts), summary["traveler_id"]
+
+            if not counts:
+                # No airport on any trip -- must be null, NOT 0. A 0 here
+                # would claim the traveler never varies their destination
+                # when the source simply doesn't record where they flew.
+                assert entropy["entropy"] is None, summary["traveler_id"]
+                assert entropy["normalized"] is None, summary["traveler_id"]
+                continue
+
+            total = sum(counts.values())
+            expected = -sum((c / total) * math.log(c / total) for c in counts.values())
+            assert entropy["entropy"] == pytest.approx(expected, abs=1e-3), summary["traveler_id"]
+
+        if checked == 0:
+            pytest.skip("traveler_entropy.json not generated in this checkout")
+
+    def test_entropy_zero_is_distinguishable_from_entropy_unknown(self, client):
+        # The distinction the whole DestinationEntropy model exists to
+        # preserve. A traveler who flew 53 times to one airport and a
+        # traveler whose trips record no airport at all are both "not spread
+        # out" in some loose sense, but only the first is a fact about the
+        # person -- and only the first should ever render as 0.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        saw_real_zero = False
+        for summary in body["travelers"]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            entropy = detail.get("destination_entropy")
+            if entropy is None:
+                continue
+
+            if entropy["entropy"] == 0:
+                # A real zero needs a destination to point at and at least
+                # one trip that went there.
+                assert entropy["n_destinations"] == 1, summary["traveler_id"]
+                assert entropy["top_destination"], summary["traveler_id"]
+                assert entropy["trips_with_destination"] >= 1, summary["traveler_id"]
+                # And it's only meaningful with 2+ observations -- one trip
+                # can only ever produce 0.
+                assert entropy["is_informative"] == (entropy["trips_with_destination"] >= 2)
+                if entropy["is_informative"]:
+                    saw_real_zero = True
+            elif entropy["entropy"] is None:
+                assert entropy["top_destination"] is None, summary["traveler_id"]
+                assert entropy["is_informative"] is False, summary["traveler_id"]
+
+        if not saw_real_zero:
+            pytest.skip("no single-destination traveler in this checkout")
+
+    def test_normalized_entropy_states_its_own_denominator(self, client):
+        # `normalized` is a fraction of a dataset-wide count that moves
+        # whenever the trip data does, so the API has to send that count
+        # rather than let the page hardcode it -- and the fraction has to
+        # actually equal entropy / ln(count).
+        import math
+
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        for summary in body["travelers"]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            entropy = detail.get("destination_entropy")
+            if entropy is None or entropy["entropy"] is None:
+                continue
+
+            k = entropy["global_distinct_destinations"]
+            assert k and k > 1, summary["traveler_id"]
+            assert entropy["destination_unit"] in ("airport", "city")
+            expected = entropy["entropy"] / math.log(k)
+            assert entropy["normalized"] == pytest.approx(expected, abs=1e-3), summary["traveler_id"]
+            # Normalised entropy is a proportion; outside 0-1 means the
+            # denominator is wrong, not the traveler.
+            assert 0.0 <= entropy["normalized"] <= 1.0, summary["traveler_id"]
+
     def test_traveler_ids_are_unique_and_url_safe(self, client):
         body = client.get("/api/travelers").json()
         if not body["dataset_available"]:

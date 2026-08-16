@@ -44,6 +44,7 @@ from .data_loader import (
     load_country_weather_scores,
     load_static_city_scores,
     load_static_country_scores,
+    load_traveler_entropy,
     load_travelers,
     load_visa_requirements,
     resolve_travelers_path,
@@ -99,6 +100,11 @@ CITY_DETAILS = load_city_details()
 CITY_ATTRACTIONS = load_city_attractions()
 # Also None until its data scripts have been run -- see load_travelers().
 TRAVELERS = load_travelers()
+# None until compute_traveler_entropy.py has been run. Kept separate from
+# TRAVELERS rather than merged into travelers_anon.json, because the entropy
+# is DERIVED from that file -- folding it back in would make a build step
+# read its own output.
+TRAVELER_ENTROPY = load_traveler_entropy()
 CITY_WEATHER_SCORES = load_city_weather_scores()
 CITY_WEATHER_METRICS = load_city_weather_metrics()
 CITY_CLUSTER_REPRESENTATIVES = load_city_cluster_representatives()
@@ -340,8 +346,49 @@ class TravelerSummary(BaseModel):
     persona_match: Optional[str] = None
 
 
+class DestinationEntropy(BaseModel):
+    """How spread out one traveler's trips are across destinations. See
+    data/scripts/multiple/compute_traveler_entropy.py, and data/README.md
+    for the derivation.
+
+    Every numeric field here is Optional and that is load-bearing, not
+    defensive: `entropy` is null for the 124 travelers whose trips record no
+    destination airport (the Kaggle-sourced ones). Null is NOT zero -- zero
+    would claim "never varies their destination" where the truth is "the
+    source doesn't say" -- so the page must render the two differently."""
+
+    # -sum(p ln p) in nats. 0.0 is a real value (every trip to one airport);
+    # null means unknown.
+    entropy: Optional[float] = None
+    # entropy / ln(global_distinct_destinations). The canonical normalisation.
+    # Comparable between travelers, but nobody in the current data exceeds
+    # ~0.65, since that would need visiting most of the 106 airports.
+    normalized: Optional[float] = None
+    # How many distinct destinations this traveler has, and how many of their
+    # trips carried one. Both are needed to read `entropy` honestly: a 0 from
+    # one trip is arithmetic, a 0 from 53 trips is a finding.
+    n_destinations: int = 0
+    trips_with_destination: int = 0
+    # False when trips_with_destination < 2 -- an entropy computed from a
+    # single observation can only be 0 and says nothing about the person.
+    is_informative: bool = False
+    # The most-visited destination and its share, so the page can say what a
+    # low number actually means for this traveler ("53 of 53 trips to JFK").
+    top_destination: Optional[str] = None
+    top_destination_share: Optional[float] = None
+    # The denominator, echoed so the page can show what `normalized` is a
+    # fraction OF. It's a property of the whole dataset and moves whenever the
+    # trip data does, so hardcoding 106 in the frontend would silently rot.
+    global_distinct_destinations: Optional[int] = None
+    destination_unit: Optional[str] = None
+
+
 class TravelerDetail(TravelerSummary):
     trips: list[TravelerTrip]
+    # Null when compute_traveler_entropy.py hasn't been run in this checkout,
+    # which is distinct from "ran, but this traveler has no destination data"
+    # (that's a DestinationEntropy with entropy=None).
+    destination_entropy: Optional[DestinationEntropy] = None
 
 
 class TravelersResponse(BaseModel):
@@ -426,6 +473,9 @@ def health():
         "cities_with_attractions": len(CITY_ATTRACTIONS["cities"]) if CITY_ATTRACTIONS else None,
         # Same 0-vs-null convention as the line above.
         "travelers_loaded": len(TRAVELERS) if TRAVELERS is not None else None,
+        "traveler_entropy_loaded": (
+            len(TRAVELER_ENTROPY["by_traveler"]) if TRAVELER_ENTROPY is not None else None
+        ),
         # Which of the two traveler files is actually being served --
         # "travelers_anon.json" (author personas) or "travelers.json" (the
         # source's own names). Worth reporting: they're interchangeable at
@@ -746,6 +796,32 @@ def travelers():
     )
 
 
+def _destination_entropy(traveler_id: str) -> Optional[DestinationEntropy]:
+    """This traveler's entropy row, or None if the file isn't there.
+
+    A traveler present in TRAVELERS but absent from the entropy file means
+    the two were generated at different times -- treated as "not computed"
+    rather than filled with zeros, for the same reason the null/zero
+    distinction matters everywhere else in this block."""
+    if TRAVELER_ENTROPY is None:
+        return None
+    row = TRAVELER_ENTROPY["by_traveler"].get(traveler_id)
+    if row is None:
+        return None
+
+    return DestinationEntropy(
+        entropy=row.get("entropy"),
+        normalized=row.get("norm_global"),
+        n_destinations=row.get("n_destinations", 0),
+        trips_with_destination=row.get("trips_with_destination", 0),
+        is_informative=row.get("entropy_is_informative", False),
+        top_destination=row.get("top_destination"),
+        top_destination_share=row.get("top_destination_share"),
+        global_distinct_destinations=TRAVELER_ENTROPY["global_distinct_destinations"],
+        destination_unit=TRAVELER_ENTROPY["destination_unit"],
+    )
+
+
 @app.get("/api/travelers/{traveler_id}", response_model=TravelerDetail)
 def traveler_detail(traveler_id: str):
     """One traveler and every trip they took.
@@ -764,7 +840,7 @@ def traveler_detail(traveler_id: str):
     if traveler is None:
         raise HTTPException(status_code=404, detail=f"No traveler with id {traveler_id!r}")
 
-    return TravelerDetail(**traveler)
+    return TravelerDetail(**traveler, destination_entropy=_destination_entropy(traveler_id))
 
 
 @app.get("/api/destinations/{departure_country}/visa-requirements", response_model=VisaRequirementsResponse)

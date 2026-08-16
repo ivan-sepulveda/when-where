@@ -4,6 +4,7 @@ import { airlineColor, shortenCarrier } from "../lib/airlineColors";
 import { formatDateRange } from "../lib/formatDate";
 import { carrierBreakdown, domesticInternationalBreakdown } from "../lib/travelerCharts";
 import {
+  describeEntropy,
   formatAge,
   formatBase,
   formatDestination,
@@ -97,6 +98,8 @@ export default function TravelerDetail() {
   const traveler = state.traveler;
   const age = formatAge(traveler);
   const base = formatBase(traveler);
+  const entropy = traveler.destination_entropy;
+  const entropySummary = describeEntropy(traveler);
   const carriers = carrierBreakdown(traveler);
   const domesticInternational = domesticInternationalBreakdown(traveler);
   // Same "only render what's actually there" approach as TripCard's facts.
@@ -145,6 +148,45 @@ export default function TravelerDetail() {
           carrier, while domestic/international can be decided for any trip
           with a destination country -- so each chart states its own, and
           neither pads its total with trips the source is silent about. */}
+      {/* Two numbers, not a chart: this is a single scalar per traveler, and
+          a one-bar bar chart would be a stat tile wearing a costume.
+          Rendered only when the entropy exists -- for the 124 Kaggle-sourced
+          travelers it's null, and a 0 there would claim they never vary
+          their destination when the source simply records no airport. */}
+      {entropy && entropy.entropy !== null && entropySummary && (
+        <>
+          <h2>Destination entropy</h2>
+          <ul className="destination-detail-stats entropy-stats">
+            <li className="destination-detail-stat-card entropy-card">
+              <span className="entropy-value">{entropy.entropy.toFixed(3)}</span>
+              <span className="entropy-label">Shannon entropy (nats)</span>
+            </li>
+            <li className="destination-detail-stat-card entropy-card">
+              <span className="entropy-value">
+                {entropy.normalized === null ? "--" : entropy.normalized.toFixed(3)}
+              </span>
+              <span className="entropy-label">
+                {/* The denominator is stated rather than implied: a bare
+                    0.652 is meaningless without knowing it's a share of
+                    every destination in the dataset, and that count moves
+                    whenever the trip data does. */}
+                Normalized{" "}
+                {entropy.global_distinct_destinations
+                  ? `(of ${entropy.global_distinct_destinations} destination ${
+                      entropy.destination_unit === "city" ? "cities" : "airports"
+                    })`
+                  : ""}
+              </span>
+            </li>
+          </ul>
+          <p className="tagline entropy-note">
+            <strong>{entropySummary.headline}.</strong> {entropySummary.detail} Entropy is 0 when
+            every trip goes to the same place and rises the more evenly trips are spread across
+            destinations.
+          </p>
+        </>
+      )}
+
       <h2>Flying patterns</h2>
       <div className="traveler-charts">
         <StackedShareBar

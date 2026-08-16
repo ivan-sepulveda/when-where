@@ -30,6 +30,7 @@ TRAVELERS_PATH = DATA_DIR / "processed" / "multiple" / "travelers.json"
 # in preference to travelers.json when it exists -- see
 # resolve_travelers_path().
 TRAVELERS_ANON_PATH = DATA_DIR / "processed" / "multiple" / "travelers_anon.json"
+TRAVELER_ENTROPY_PATH = DATA_DIR / "processed" / "multiple" / "traveler_entropy.json"
 MONTHLY_SCORES_PATH = DATA_DIR / "processed" / "monthly_scores_2025_by_city.json"
 WEATHER_METRICS_PATH = DATA_DIR / "processed" / "multiple" / "weather_normals_2025_by_city.json"
 COUNTRY_ALIASES_PATH = DATA_DIR / "reference" / "country_aliases.json"
@@ -381,6 +382,46 @@ def load_travelers() -> dict[str, dict] | None:
         payload = json.load(f)
 
     return {traveler["traveler_id"]: traveler for traveler in payload.get("travelers", [])}
+
+
+def load_traveler_entropy() -> dict | None:
+    """Destination entropy per traveler, from
+    compute_traveler_entropy.py's output -- or None if that file doesn't
+    exist yet.
+
+    Same None-instead-of-raising treatment as load_city_attractions() and
+    load_travelers(): this is derived from travelers_anon.json, which itself
+    may not exist in a given checkout, so a missing file is a normal state
+    and the traveler page just doesn't render the entropy block.
+
+    Returned shape:
+        {"global_distinct_destinations": 106,
+         "ln_global_distinct_destinations": 4.6634,
+         "destination_unit": "airport",
+         "by_traveler": {traveler_id: {entropy, norm_global, ...}}}
+
+    Re-keyed by traveler_id here (the file itself stores a sorted LIST, so
+    that a human reading the CSV/JSON sees the most-varied traveler first).
+    The dataset-level fields are kept alongside because the traveler page has
+    to be able to say what the normalisation was divided BY -- a bare 0.65
+    means nothing without "of 106 destination airports", and that denominator
+    changes whenever the trip data does."""
+    if not TRAVELER_ENTROPY_PATH.exists():
+        print(
+            f"[data_loader] {TRAVELER_ENTROPY_PATH.name} not found -- traveler pages will omit "
+            "the entropy block. Run data/scripts/multiple/compute_traveler_entropy.py."
+        )
+        return None
+
+    with open(TRAVELER_ENTROPY_PATH, encoding="utf-8") as f:
+        payload = json.load(f)
+
+    return {
+        "destination_unit": payload.get("destination_unit"),
+        "global_distinct_destinations": payload.get("global_distinct_destinations"),
+        "ln_global_distinct_destinations": payload.get("ln_global_distinct_destinations"),
+        "by_traveler": {row["traveler_id"]: row for row in payload.get("travelers", [])},
+    }
 
 
 def load_city_cluster_representatives() -> dict[str, str]:

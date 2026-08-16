@@ -2782,6 +2782,59 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   python scripts/multiple/build_travelers_anon.py --quiet   # skip the mapping printout
   ```
 
+### Destination entropy per traveler (`scripts/multiple/compute_traveler_entropy.py`)
+
+Reads `processed/multiple/travelers_anon.json`, writes
+`processed/multiple/traveler_entropy.csv` and `.json` — one row per traveler
+measuring how spread out their trips are across destinations.
+
+    H = -sum(p_i * ln(p_i))
+
+where `p_i` is the share of that traveler's trips going to destination `i`.
+Natural log, so the units are nats.
+
+**A destination is a destination AIRPORT.** Three cities here are served by
+two airports each (New York EWR/JFK, Washington DCA/IAD, Tokyo HND/NRT), so
+airport is strictly finer than city — but no single traveler currently splits
+a city across two airports, so every traveler's entropy is identical either
+way. Airport is the unit because the normalisation denominator counts
+airports; `--by city` recomputes on cities if that ever needs checking.
+
+**`H = 0` means two different things, and the output keeps them apart.** Chet
+Baker's 0 is a finding: 53 trips, every one to JFK. A one-trip traveler's 0
+is arithmetic — a single observation can only ever produce 0. `trip_count`,
+`n_destinations` and `entropy_is_informative` are all in the output so the two
+are never confused.
+
+**Travelers with no airport recorded get `null`, not `0`.** Only the
+hand-authored itineraries carry airports; the 124 Kaggle-sourced travelers
+record a destination string and nothing else. A `0` there would assert "never
+varies their destination" where the truth is "we don't know", and it would
+drag down any average taken over the column.
+
+Three normalisations are emitted. **`norm_global` is the canonical one:**
+
+| column | formula | notes |
+| --- | --- | --- |
+| `norm_global` | `H / ln(K)`, K = all distinct destination airports (106, ln 4.6634) | **Canonical.** Absolute scale, comparable between any two travelers. Nobody exceeds ~0.65, so values live in the bottom two thirds. K is dataset-wide, so adding an airport rescales everyone. |
+| `norm_observed` | `H / ln(k)`, k = that traveler's own destination count | The textbook version, and **undefined for 29 of the 82** — they have k = 1, so it divides by `ln(1) = 0`. Emitted as `null` rather than faked. Also saturates at 1.000 for anyone who never repeats, so a 6-destination traveler ties a 12-destination one. |
+| `norm_capacity` | `H / ln(min(n_trips, K))` | Corrects for opportunity — a 4-trip traveler can't exceed `ln(4)`. 1.0 means "never repeated a destination". |
+
+Current results: **K = 106** destination airports; 82 of 206 travelers have
+airport data; **29 sit at a true zero** (single destination across 8–53
+trips); the most varied is Stan Getz at **H = 3.043** over 25 destinations in
+30 trips.
+
+Verified by recomputing all 206 rows independently, and by the identity that
+`H` must equal `ln(k)` exactly for a traveler with a perfectly even split —
+which holds for Achilles (6 × 5 trips), Miles Davis (12 × 2) and Chet Baker
+(k = 1).
+
+Usage:
+
+    python scripts/multiple/compute_traveler_entropy.py
+    python scripts/multiple/compute_traveler_entropy.py --by city
+
 ### Country name crosswalk (`reference/country_aliases.json`)
 
 - **Problem:** every source names countries differently — SimpleMaps says
