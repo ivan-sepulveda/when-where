@@ -52,6 +52,55 @@ export function getTopArtMuseums(museums: ArtMuseum[], count = 5): ArtMuseum[] {
   return museums.slice(0, count);
 }
 
+// Comparison key for joining a city name across two sources that don't
+// share a naming convention: this dataset's `city` labels are whatever
+// the underlying "largest art museums" list used, while a CityDetail page
+// has SimpleMaps' accented `city` alongside its stripped `city_ascii`.
+// Applied to BOTH sides, so each rule only has to be self-consistent.
+//
+// Measured against the real data at the time this was written: a plain
+// lowercase comparison matched 101 of the 112 museums to a city in
+// tourist_cities_enhanced.json; the four rules below take that to 107.
+// The 5 that still don't match are cities genuinely absent from this
+// project's city list (Messina, Gwacheon, North Adams, Beacon) plus the
+// Vatican Museums, whose iso2 is VA rather than Rome's IT -- none of
+// which more name-munging would fix.
+function cityMatchKey(name: string): string {
+  return (
+    name
+      // "Washington, D.C." -> "Washington", "Beacon, New York" -> "Beacon".
+      // Only this dataset qualifies names this way; SimpleMaps keeps the
+      // state/region in a separate field.
+      .split(",")[0]
+      // NFD splits an accented character into base letter + combining
+      // mark, so stripping the marks leaves "Ōsaka" and "Osaka" equal.
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      .trim()
+      .toLowerCase()
+      // "St. Petersburg" vs SimpleMaps' "Saint Petersburg".
+      .replace(/^st\.? /, "saint ")
+      // "New York City" vs "New York". Safe to apply to both sides: a
+      // city SimpleMaps itself calls "... City" (Quezon City, Ho Chi Minh
+      // City) loses the suffix on both sides and still matches.
+      .replace(/ city$/, "")
+      .trim()
+  );
+}
+
+// The museums in one specific city, matched by name against any of the
+// spellings that city is known by (accented and ASCII). A strict city
+// match by design -- deliberately NOT falling back to "elsewhere in this
+// country," since a museum 600km away isn't something a trip to this
+// city gives you. Remember the underlying dataset is only the ~112
+// LARGEST art museums worldwide (see this module's header), so an empty
+// result is the common case and means "none here made that list," not
+// "no museums here."
+export function getArtMuseumsInCity(museums: ArtMuseum[], cityNames: string[]): ArtMuseum[] {
+  const wanted = new Set(cityNames.map(cityMatchKey));
+  return museums.filter((museum) => wanted.has(cityMatchKey(museum.city)));
+}
+
 export type ArtMuseumsLoadState =
   | { status: "loading" }
   | { status: "error" }

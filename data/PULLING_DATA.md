@@ -182,6 +182,54 @@ indicator below.
 Source: https://www.gob.mx/afac/acciones-y-programas/estadisticas-280404
 
 ```
+python scripts/multiple/fetch_imls_museums.py
+python scripts/multiple/fetch_imls_museums.py --list-columns   # inspect headers without processing
+```
+
+Pulls the IMLS museum directory (the Kaggle mirror of the US federal
+Museum Data Files) and writes `data/processed/multiple/imls_museums.csv`
+— roughly 33,000 US institutions with discipline and coordinates, of
+which three disciplines matter downstream: `ZAW` (zoos, aquariums,
+wildlife conservation), `BOT` (arboretums, botanical gardens, nature
+centers) and `ART` (art museums). Needs Kaggle API credentials, same as
+`fetch_art_museums.py`. **US-only** — pair it with the OSM pull below for
+anywhere else. Public domain, citation required. Run `--list-columns`
+first if the normal run errors on a missing column: the Kaggle mirror and
+the raw IMLS release use different header conventions and the script
+accepts either, but a third variant would need adding to
+`COLUMN_CANDIDATES`.
+
+```
+python scripts/multiple/fetch_osm_zoos_and_gardens.py --limit 3   # pilot first
+python scripts/multiple/fetch_osm_zoos_and_gardens.py            # full run, resumable
+python scripts/multiple/fetch_osm_zoos_and_gardens.py --rebuild  # rebuild output from cache, no network
+```
+
+Pulls every zoo, aquarium, botanical garden and arboretum worldwide from
+OpenStreetMap via the Overpass API (one query per country, no API key)
+and writes `data/processed/multiple/osm_zoos_and_gardens.json`. This is
+the worldwide half of the same categories IMLS covers for the US. Each
+country's raw response is cached under `data/raw/osm_zoos_and_gardens/`,
+so an interrupted run costs nothing and a rerun only fetches what's
+missing; `--rebuild` regenerates the output from that cache with no
+network calls. Expect occasional HTTP 504s on large, densely-mapped
+countries — they're retried, and anything still failing is picked up on
+the next run. ODbL licensed (share-alike), see `data/README.md`.
+
+```
+python scripts/multiple/build_city_attractions.py
+```
+
+Joins both of the above against `data/reference/tourist_cities.json` and
+writes `data/processed/multiple/city_attractions.json` — for every city,
+the zoos/aquariums, botanical gardens and (US-only) art museums within
+100km, nearest-first with counts, deduplicated where OSM and IMLS
+describe the same place. Either input missing is a warning, not an error,
+so you can run this after the OSM pull alone and re-run once IMLS lands.
+This file is what backs the city page's Aquariums & Zoos and Botanical
+Gardens sections; without it the API simply omits those sections.
+
+```
 python scripts/build_country_aliases.py
 ```
 

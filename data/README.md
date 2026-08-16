@@ -2143,6 +2143,187 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   (Messina, Kunsthaus Zürich — correctly left `gallery_space_sqft: null`
   instead of guessing).
 
+### US museum directory — zoos, aquariums, botanical gardens (`scripts/multiple/fetch_imls_museums.py`)
+
+- **Source:** ["Museums, Aquariums, and Zoos" on Kaggle](https://www.kaggle.com/datasets/imls/museum-directory)
+  — a mirror of the [IMLS Museum Data Files](https://www.imls.gov/research-evaluation/data-collection/museum-data-files),
+  pulled via `kagglehub` (needs Kaggle API credentials — same auth
+  requirement as `fetch_art_museums.py`).
+- **What it is:** the US federal museum universe file — roughly 33,000
+  institutions with name, discipline, city/state and geocoded
+  latitude/longitude. Three of its disciplines are what this project is
+  after:
+  - `ZAW` — Zoos, Aquariums, & Wildlife Conservation
+  - `BOT` — Arboretums, Botanical Gardens, & Nature Centers
+  - `ART` — Art Museums
+  The rest (`CMU`, `GMU`, `HSC`, `HST`, `NAT`, `SCI`) are carried through
+  to the output but nothing consumes them yet.
+- **Why it's here:** it's the only source in this project with
+  per-institution coordinates for zoos, aquariums and botanical gardens,
+  which is what `build_city_attractions.py` needs to answer "what's
+  within 100km of this city" the same way UNESCO sites and Michelin
+  restaurants already are. Its `ART` records also fill a real gap: the
+  `art_museums_by_country.json` list above is only the ~112 largest art
+  museums worldwide, so US cities show almost nothing from it.
+- **Coverage caveat, and it's the big one:** IMLS is a US federal agency
+  and this file covers the 50 states plus DC and nothing else. It is not
+  a world museum directory — every non-US city gets zero rows from it,
+  which is exactly why `fetch_osm_zoos_and_gardens.py` below exists
+  alongside it.
+- **License:** public domain, unusually cleanly for this project. The
+  IMLS [data file documentation](https://www.imls.gov/sites/default/files/museum_data_file_documentation_and_users_guide.pdf)
+  states: "Unless specifically noted, all information contained herein is
+  in the public domain and may be used and reprinted without special
+  permission. Citation of this source is required." Citation, not
+  permission — contrast with UNESCO's unresolved license and OSM's
+  share-alike ODbL.
+- **Schema is unconfirmed first-hand** (this sandbox can't reach Kaggle).
+  Two header conventions exist for this data — the raw IMLS release uses
+  short uppercase codes (`COMMONNAME`, `DISCIPLINE`, `LATITUDE`,
+  `LONGITUDE`, `PHCITY`), the Kaggle mirror is described with
+  human-readable ones (`Museum Name`, `Museum Type`, `Latitude`,
+  `Longitude`, `City (Physical Location)`) — so `COLUMN_CANDIDATES` in
+  the script accepts either and prints exactly what it matched. Check
+  that printout on the first real run; the IMLS release is also split
+  across three CSVs by discipline group, so the script reads and
+  concatenates every CSV it finds rather than guessing a filename.
+- **Output:** `processed/multiple/imls_museums.csv` — one row per museum,
+  normalized to `NAME`, `DISCIPLINE`, `DISCIPLINE_LABEL`, `CITY`,
+  `STATE`, `LAT`, `LNG`. Rows with no name, no coordinates, or a `(0, 0)`
+  failed-geocode sentinel are dropped (each count reported), as are exact
+  duplicates on name+coordinates.
+- **Run:**
+  ```
+  python scripts/multiple/fetch_imls_museums.py
+  python scripts/multiple/fetch_imls_museums.py --list-columns   # inspect headers first if the run errors
+  ```
+
+### Zoos, aquariums and botanical gardens worldwide (OpenStreetMap Overpass API, `scripts/multiple/fetch_osm_zoos_and_gardens.py`)
+
+- **Source:** OpenStreetMap via the [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API)
+  (`overpass-api.de`, free, no API key) — one query per country against
+  that country's `admin_level=2` boundary. Same source and same etiquette
+  as the hiking-trail script above.
+- **What it queries, and why exactly these tags:**
+  - `tourism=zoo` — the canonical zoo tag; safari parks, petting zoos and
+    wildlife parks carry it too, differing only by a `zoo=*` subtype that
+    the script reads to label them.
+  - `tourism=aquarium` — public aquariums.
+  - `leisure=garden` + `garden:type=botanical` — botanical gardens. Bare
+    `leisure=garden` is deliberately **not** queried: it covers every
+    residential back garden and planted traffic island in OSM, millions
+    of them, virtually none a destination.
+  - `leisure=garden` + `garden:type=arboretum` — arboretums, grouped with
+    botanical gardens to match IMLS's own `BOT` bundle.
+- **Why it exists alongside IMLS:** IMLS is richer and public domain but
+  US-only, and every city currently in this project's top 10 is outside
+  the US. OSM is the only free source with worldwide coverage of these
+  categories, so the two are merged in `build_city_attractions.py`.
+- **Known asymmetry between the two:** IMLS's `BOT` includes nature
+  centers; the OSM half doesn't, because there's no clean tag for them
+  (they scatter across `tourism=attraction`, `amenity=community_centre`
+  and `leisure=nature_reserve`, the last of which would sweep in
+  thousands of uninhabited reserves). So a US city may list a nature
+  center that a comparable European city won't. Each entry keeps its own
+  `source` and `kind`, and the city page shows both, rather than blending
+  them invisibly.
+- **Coverage caveats:** the same mapping-effort-proxy caveat as hiking
+  trails — a low count often means "not mapped much here" rather than
+  "not much here." Tagging is also inconsistent at the edges (aquariums
+  tagged only as `tourism=attraction`, botanical gardens with no
+  `garden:type`), and those are missed; widening the query costs far more
+  false positives than it gains. A large site can also appear twice (a
+  zoo mapped as both a node and an enclosing way);
+  `build_city_attractions.py` dedupes by name + proximity, which catches
+  most of it.
+- **License:** ODbL (Open Database License) — share-alike in addition to
+  attribution, unlike this project's CC BY / public domain sources. Same
+  unresolved posture as the hiking-trail data: flag before this goes
+  beyond personal/internal use.
+- **Resumability:** every country's raw response is cached under
+  `raw/osm_zoos_and_gardens/<ISO2>.json` and the processed output is
+  rebuilt from that cache each run, so an interrupted run loses nothing.
+  `--rebuild` regenerates the output from cache with no network calls at
+  all (use it after changing which tags are classified into which
+  category).
+- **Not run against a live response from this sandbox** — `overpass-api.de`
+  and its mirrors are unreachable from where this was written, same
+  situation `fetch_hiking_trails.py` was authored in. The query text and
+  parsing follow Overpass's documented `out center tags;` shape and were
+  verified offline against mock responses in that shape. Do a `--limit 3`
+  pilot run and eyeball the output before a full run.
+- **Output:** `processed/multiple/osm_zoos_and_gardens.json` — a flat
+  worldwide list of `{name, category, kind, iso2, lat, lng, osm_type,
+  osm_id}`, plus per-category totals and the counts dropped for having no
+  name or no resolvable coordinates.
+- **Run:**
+  ```
+  python scripts/multiple/fetch_osm_zoos_and_gardens.py --limit 3   # pilot
+  python scripts/multiple/fetch_osm_zoos_and_gardens.py            # full run, resumable
+  python scripts/multiple/fetch_osm_zoos_and_gardens.py --rebuild  # rebuild output from cache, no network
+  ```
+
+### Per-city attractions (`scripts/multiple/build_city_attractions.py`)
+
+- **Inputs:** `processed/multiple/osm_zoos_and_gardens.json` and
+  `processed/multiple/imls_museums.csv`. **Either one missing is a
+  warning, not an error** — the script runs with whichever it has, so OSM
+  can be pulled first and IMLS added later without a broken intermediate
+  state. `sources_used` in the output records which were actually
+  present, so a reader can tell "nothing near this city" from "the source
+  that would have had it wasn't loaded."
+- **What it does:** for every city in `reference/tourist_cities.json`,
+  finds everything within 100km by great-circle distance (same haversine
+  and same Earth radius as `distance_calculator.py`, vectorized in numpy
+  for the same reason `build_tourist_cities_enhanced.py` does it), in
+  three categories:
+  - `zoo_aquarium` — OSM zoos/aquariums/safari parks + IMLS `ZAW`
+  - `botanical_garden` — OSM botanical gardens/arboretums + IMLS `BOT`
+  - `art_museum` — IMLS `ART` only, US-only by design; the frontend
+    merges it with the worldwide largest-art-museums list rather than
+    replacing it
+- **Why a separate file from `tourist_cities_enhanced.json`:** that file
+  is already 27MB and is loaded whole at API startup, and these two
+  sources refresh on a completely different cadence (OSM changes daily,
+  IMLS annually) from the UNESCO/Michelin/airport data it joins. Keeping
+  them apart means refreshing attractions doesn't mean regenerating — or
+  reviewing the diff of — a 27MB file.
+- **Radius:** 100km, matching `CITY_DETAIL_RADIUS_KM` in
+  `backend/app/data_loader.py` and the widest radius
+  `build_tourist_cities_enhanced.py` precomputes, so every "nearby"
+  number on a city page means the same thing. Wider than the 50km
+  `SCORE_RADIUS_KM` that feeds scoring, on purpose: scoring asks "does
+  this make the city better," this asks "could I get there on a day of my
+  trip." Override with `--radius-km`.
+- **Deduplication:** the two sources overlap completely for US zoos and
+  gardens (the San Diego Zoo is in both). Two entries in the same
+  category collapse into one when their names normalize to the same
+  string **and** they're within 5km of each other — name alone would
+  merge the many distinct "Botanical Garden"s across the country,
+  proximity alone would merge a zoo and an aquarium sharing a campus.
+  IMLS wins ties (curated, official names). Counts are post-dedupe, so
+  the headline number always agrees with the list under it.
+- **Output:** `processed/multiple/city_attractions.json`, keyed by
+  `simplemaps_id` as a string (the same key the API and
+  `tourist_cities_enhanced.json` use — city names aren't unique). Each
+  category holds a true `count` within the radius plus a `places` list
+  capped at 10, nearest-first. Cities with nothing in any category are
+  omitted entirely rather than written as three empty objects — with OSM
+  coverage what it is, that's most of the 3,069 cities, and omitting them
+  keeps the file small enough to load at API startup without thinking
+  about it.
+- **Consumed by:** `backend/app/data_loader.py`'s
+  `load_city_attractions()`, which is the one loader there that returns
+  `None` instead of raising when its input is missing — this file is
+  generated from sources that can't be pulled from every environment, so
+  a checkout legitimately might not have it, and the city page hides its
+  Aquariums/Zoos and Botanical Gardens sections rather than the API
+  refusing to start.
+- **Run:**
+  ```
+  python scripts/multiple/build_city_attractions.py
+  ```
+
 ### Country name crosswalk (`reference/country_aliases.json`)
 
 - **Problem:** every source names countries differently — SimpleMaps says

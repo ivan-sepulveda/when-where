@@ -45,6 +45,35 @@ export async function fetchCountryWeather(
   return { metrics: payload.weather, capitalCity: payload.capital_city };
 }
 
+interface CityWeatherResponse {
+  city_id: string;
+  city_ascii: string;
+  start_date: string;
+  end_date: string;
+  month_weights: Record<string, number>;
+  weather: WeatherMetrics | null;
+}
+
+// City-level counterpart of fetchCountryWeather() above -- same metrics,
+// resolved from the city's OWN normals rather than its country's primary
+// capital, which is why there's no capitalCity here to caption them
+// with. Resolves to null (not an error) for a city whose normals haven't
+// been pulled yet -- roughly 1,770 of 3,069 cities are covered so far,
+// see backend/app/data_loader.py's load_city_weather_metrics().
+export async function fetchCityWeather(
+  cityId: string,
+  startDate: string,
+  endDate: string,
+): Promise<WeatherMetrics | null> {
+  const params = new URLSearchParams({ start_date: startDate, end_date: endDate });
+  const res = await fetch(
+    `${API_BASE_URL}/api/destinations/cities/${encodeURIComponent(cityId)}/weather?${params.toString()}`,
+  );
+  if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+  const payload = (await res.json()) as CityWeatherResponse;
+  return payload.weather;
+}
+
 const celsiusToFahrenheit = (c: number) => Math.round((c * 9) / 5 + 32);
 const mmToInches = (mm: number) => Math.round(mm / 25.4);
 

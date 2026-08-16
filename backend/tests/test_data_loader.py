@@ -350,3 +350,68 @@ class TestLoadVisaRequirements:
         monkeypatch.setattr(data_loader, "VISA_REQUIREMENTS_PATH", tmp_path / "nope.json")
         with pytest.raises(FileNotFoundError):
             data_loader.load_visa_requirements()
+
+
+class TestLoadCityAttractions:
+    """The one loader in this module that returns None instead of raising on
+    a missing file -- see load_city_attractions()'s docstring for why that
+    asymmetry is deliberate."""
+
+    def _write(self, tmp_path, monkeypatch, payload):
+        path = tmp_path / "city_attractions.json"
+        write_json(path, payload)
+        monkeypatch.setattr(data_loader, "CITY_ATTRACTIONS_PATH", path)
+
+    def test_missing_file_returns_none_rather_than_raising(self, tmp_path, monkeypatch):
+        # Every other loader here raises FileNotFoundError instead. This file
+        # is generated from sources that can't be pulled everywhere (Kaggle
+        # credentials, Overpass reachability), so a checkout without it is
+        # legitimate and must not stop the API from starting.
+        monkeypatch.setattr(data_loader, "CITY_ATTRACTIONS_PATH", tmp_path / "nope.json")
+        assert data_loader.load_city_attractions() is None
+
+    def test_reads_expected_shape(self, tmp_path, monkeypatch):
+        self._write(
+            tmp_path,
+            monkeypatch,
+            {
+                "radius_km": 100,
+                "sources_used": {"openstreetmap": True, "imls": False},
+                "cities": {
+                    "1": {
+                        "zoo_aquarium": {
+                            "count": 1,
+                            "places": [
+                                {
+                                    "name": "Antwerp Zoo",
+                                    "kind": "Zoo",
+                                    "source": "OpenStreetMap",
+                                    "distance_km": 43.2,
+                                }
+                            ],
+                        }
+                    }
+                },
+            },
+        )
+
+        result = data_loader.load_city_attractions()
+
+        assert result["radius_km"] == 100
+        assert result["sources_used"] == {"openstreetmap": True, "imls": False}
+        assert result["cities"]["1"]["zoo_aquarium"]["places"][0]["name"] == "Antwerp Zoo"
+
+    def test_radius_falls_back_to_the_page_radius_when_absent(self, tmp_path, monkeypatch):
+        # An older/hand-edited file without the field shouldn't make the
+        # frontend label its headings "within nullkm".
+        self._write(tmp_path, monkeypatch, {"cities": {}})
+        assert data_loader.load_city_attractions()["radius_km"] == data_loader.CITY_DETAIL_RADIUS_KM
+
+    def test_empty_cities_map_is_not_the_same_as_a_missing_file(self, tmp_path, monkeypatch):
+        # "Generated, but no city has anything nearby" -> a real (empty)
+        # dataset, not None. main.py turns the two into different responses:
+        # empty sections vs hidden sections.
+        self._write(tmp_path, monkeypatch, {"radius_km": 50, "cities": {}})
+        result = data_loader.load_city_attractions()
+        assert result is not None
+        assert result["cities"] == {}

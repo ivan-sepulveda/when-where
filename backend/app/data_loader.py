@@ -23,6 +23,7 @@ DATA_DIR = REPO_ROOT / "data"
 OVERARCHING_PATH = DATA_DIR / "processed" / "OVERARCHING_TRIP_SCORE_BY_COUNTRY.json"
 TOURIST_CITIES_PATH = DATA_DIR / "reference" / "tourist_cities.json"
 TOURIST_CITIES_ENHANCED_PATH = DATA_DIR / "processed" / "tourist_cities_enhanced.json"
+CITY_ATTRACTIONS_PATH = DATA_DIR / "processed" / "multiple" / "city_attractions.json"
 MONTHLY_SCORES_PATH = DATA_DIR / "processed" / "monthly_scores_2025_by_city.json"
 WEATHER_METRICS_PATH = DATA_DIR / "processed" / "multiple" / "weather_normals_2025_by_city.json"
 COUNTRY_ALIASES_PATH = DATA_DIR / "reference" / "country_aliases.json"
@@ -70,6 +71,27 @@ VISA_NAME_ISO2_OVERRIDES = {
 # comfortably inside 50km, while a genuinely separate trip (e.g.
 # Philadelphia from NYC, ~130km) stays outside it.
 CITY_CLUSTER_RADIUS_KM = 50
+
+# Radius the per-city detail page reports UNESCO sites and Michelin
+# restaurants over (see load_city_details() below and main.py's
+# city_destination_detail()). Not a new constant this project invented
+# here -- 100km is the largest radius build_tourist_cities_enhanced.py
+# already precomputes counts for (radii_km: [5, 10, 25, 50, 100]), and
+# also the radius each city's stored sites/restaurants list is itself
+# capped at, so serving it recomputes nothing. Deliberately NOT the same
+# as CITY_CLUSTER_RADIUS_KM/SCORE_RADIUS_KM (50km, what actually feeds a
+# city's unesco_score/michelin_score): scoring asks "close enough to make
+# this city a better trip," this page answers "what could I reasonably
+# day-trip to," which is a wider net.
+CITY_DETAIL_RADIUS_KM = 100
+
+# How many Michelin restaurants load_city_details() keeps per city. The
+# count is reported in full (Tokyo has 550 within 100km); only the named
+# list is capped -- both because holding a 550-entry list per city in
+# memory for 3,069 cities is a lot for a page that shows the first
+# handful, and because that's what the frontend renders. UNESCO sites get
+# no equivalent cap: the most any city has within 100km is 16.
+CITY_DETAIL_MICHELIN_LIMIT = 10
 
 
 def load_static_country_scores() -> dict[str, dict]:
@@ -173,6 +195,128 @@ def load_static_city_scores() -> dict[str, dict]:
         print(f"[data_loader] load_static_city_scores: skipped {len(skipped)} city record(s) with missing simplemaps_id or non-string iso2: {skipped}")
 
     return scores
+
+
+def load_city_details() -> dict[str, dict]:
+    """simplemaps_id (as str) -> everything the per-city detail page shows
+    that load_static_city_scores() throws away: where the city is (lat,
+    lng, admin_name, population) and its nearby UNESCO sites / Michelin
+    restaurants within CITY_DETAIL_RADIUS_KM, named individually rather
+    than reduced to a score.
+
+    This is the same "load the 27MB file once at startup, keep only what's
+    needed" pass load_static_city_scores() already does, just keeping a
+    different (larger) slice -- the two exist separately because ranking
+    3,069 cities and rendering one city's page want genuinely different
+    data, and folding both into one dict would mean the ranking endpoint
+    carries per-restaurant detail it never reads. Reading the file twice
+    at startup (once per loader) is deliberate over caching the parsed
+    payload between them: the parse is ~0.1s, while holding the full
+    payload alive long enough for both loaders to share it would keep
+    several hundred MB resident on a 512MB Render instance.
+
+    What's kept per city, and why it stays small:
+      * unesco_sites -- ALL sites within the radius (max 16 for any city).
+      * michelin_restaurants -- the CITY_DETAIL_MICHELIN_LIMIT nearest
+        only, though michelin_count is the true full count within the
+        radius (up to 550+).
+    Source lists are already nearest-first and already capped at 100km
+    (see tourist_cities_enhanced.json's own "note" field), so the
+    distance filter below is a defensive no-op today -- it exists so
+    that bumping radii_km in build_tourist_cities_enhanced.py can't
+    silently widen this page's radius past CITY_DETAIL_RADIUS_KM.
+
+    Skips the same two known-bad records load_static_city_scores() skips
+    (see its docstring) so this dict's keys stay a subset of that one's."""
+    if not TOURIST_CITIES_ENHANCED_PATH.exists():
+        raise FileNotFoundError(
+            f"{TOURIST_CITIES_ENHANCED_PATH} not found -- run data/scripts/build_tourist_cities_enhanced.py first."
+        )
+    with open(TOURIST_CITIES_ENHANCED_PATH, encoding="utf-8") as f:
+        payload = json.load(f)
+
+    details: dict[str, dict] = {}
+    for city in payload["cities"]:
+        simplemaps_id = city.get("simplemaps_id")
+        iso2 = city.get("iso2")
+        if simplemaps_id is None or not isinstance(iso2, str):
+            continue  # see load_static_city_scores() for what these two records are
+
+        unesco = city.get("unesco_sites") or {}
+        michelin = city.get("michelin_restaurants") or {}
+        radius_key = f"within_{CITY_DETAIL_RADIUS_KM}km"
+
+        nearby_sites = [
+            site for site in unesco.get("sites", []) if site["distance_km"] <= CITY_DETAIL_RADIUS_KM
+        ]
+        nearby_restaurants = [
+            restaurant
+            for restaurant in michelin.get("restaurants", [])
+            if restaurant["distance_km"] <= CITY_DETAIL_RADIUS_KM
+        ]
+
+        details[str(simplemaps_id)] = {
+            "city": city["city"],
+            "city_ascii": city["city_ascii"],
+            "country_name": city["country"],
+            "country_code": iso2,
+            "admin_name": city.get("admin_name"),
+            "lat": city["lat"],
+            "lng": city["lng"],
+            "population": city.get("population"),
+            "unesco_site_count": unesco.get("counts", {}).get(radius_key, len(nearby_sites)),
+            "unesco_sites": nearby_sites,
+            "michelin_count": michelin.get("counts", {}).get(radius_key, len(nearby_restaurants)),
+            "michelin_restaurants": nearby_restaurants[:CITY_DETAIL_MICHELIN_LIMIT],
+        }
+
+    return details
+
+
+def load_city_attractions() -> dict | None:
+    """The zoos/aquariums, botanical gardens and (US-only) art museums near
+    each city, from build_city_attractions.py's output -- or None if that
+    file doesn't exist yet.
+
+    None is a first-class case here, unlike every other loader in this
+    module, which raises FileNotFoundError on a missing input. The
+    difference: those inputs are all already committed to this repo, so a
+    missing one means a broken checkout and failing loudly at startup is
+    correct. city_attractions.json is generated from two sources that CAN'T
+    be pulled from every environment (Kaggle needs credentials, Overpass
+    needs to be reachable), so a checkout legitimately might not have it --
+    and an API that refuses to start over a page section that hasn't been
+    populated yet would be a much worse failure than that section quietly
+    not rendering. main.py turns the None into null response fields, and the
+    frontend hides those sections rather than claiming a city has no zoo.
+
+    Returned shape (see build_city_attractions.py for how it's produced):
+        {"radius_km": 100,
+         "sources_used": {"openstreetmap": bool, "imls": bool},
+         "cities": {simplemaps_id: {category: {"count": N, "places": [...]}}}}
+    Cities with nothing in any category are absent from "cities" entirely,
+    which is NOT the same as the file being absent -- the first means
+    "nothing nearby," the second means "we haven't looked yet.\""""
+    if not CITY_ATTRACTIONS_PATH.exists():
+        print(
+            f"[data_loader] {CITY_ATTRACTIONS_PATH.name} not found -- the city page's "
+            "Aquariums/Zoos and Botanical Gardens sections will be hidden. Run "
+            "data/scripts/multiple/build_city_attractions.py to populate them."
+        )
+        return None
+
+    with open(CITY_ATTRACTIONS_PATH, encoding="utf-8") as f:
+        payload = json.load(f)
+
+    return {
+        # Read from the file rather than assumed to equal
+        # CITY_DETAIL_RADIUS_KM -- build_city_attractions.py takes a
+        # --radius-km flag, so the two can legitimately differ, and the
+        # frontend labels its headings from whatever this says.
+        "radius_km": payload.get("radius_km", CITY_DETAIL_RADIUS_KM),
+        "sources_used": payload.get("sources_used", {}),
+        "cities": payload.get("cities", {}),
+    }
 
 
 def load_city_cluster_representatives() -> dict[str, str]:
@@ -389,6 +533,38 @@ def load_country_weather_metrics() -> dict[str, dict[str, dict[str, float]]]:
             if month in city_entry["months"]
         }
     return metrics_by_country
+
+
+def load_city_weather_metrics() -> dict[str, dict[str, dict[str, float]]]:
+    """simplemaps_id (as str) -> {month_name: {raw metric name: value}},
+    the city-level counterpart of load_country_weather_metrics() just
+    above -- same fields, same units, same display-not-scoring purpose
+    (DestinationDetail shows these for a country, CityDetail for a city).
+
+    No primary-capital proxy step here, for the same reason
+    load_city_weather_scores() doesn't need one:
+    weather_normals_<year>_by_city.json is already keyed by the exact city
+    being asked about, so there's no country -> representative-city
+    indirection to do. Same coverage caveat still applies though -- only
+    ~1,770 of 3,069 cities have normals pulled so far (see
+    fetch_weather_normals.py), so a city missing here gets a null
+    `weather` in the response rather than a 404 or a fabricated number."""
+    if not WEATHER_METRICS_PATH.exists():
+        raise FileNotFoundError(
+            f"{WEATHER_METRICS_PATH} not found -- run data/scripts/multiple/fetch_weather_normals.py first."
+        )
+    with open(WEATHER_METRICS_PATH, encoding="utf-8") as f:
+        weather_cities = json.load(f)["cities"]
+
+    keys_to_pull = RAW_WEATHER_METRIC_KEYS + EXTRA_MONTHLY_KEYS
+    return {
+        city_id: {
+            month: {key: entry["months"][month][key] for key in keys_to_pull}
+            for month in MONTHS
+            if month in entry["months"]
+        }
+        for city_id, entry in weather_cities.items()
+    }
 
 
 def _load_country_name_to_iso2() -> dict[str, str]:

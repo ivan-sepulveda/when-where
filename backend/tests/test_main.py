@@ -16,6 +16,17 @@ iso2-length codes), and the specific "unknown code -> null/empty, not a
 import pytest
 
 
+@pytest.fixture(scope="module")
+def a_city_id(client) -> str:
+    """A city_id that's guaranteed to exist right now, taken from
+    cities/top10 rather than hardcoded -- simplemaps_ids are stable, but
+    which cities rank is not, and this suite deliberately doesn't pin
+    today's specific data (see this module's docstring). Module-scoped
+    and defined here rather than inside TestCityDetail/TestCityWeather so
+    both classes share one lookup."""
+    return client.get("/api/destinations/cities/top10").json()["destinations"][0]["city_id"]
+
+
 class TestHealth:
     def test_ok(self, client):
         res = client.get("/health")
@@ -104,6 +115,156 @@ class TestTopCityDestinations:
         res = client.get("/api/destinations/cities/top10")
         for d in res.json()["destinations"]:
             assert len(d["country_code"]) == 2
+
+
+class TestCityDetail:
+    def test_returns_detail_for_a_ranked_city(self, client, a_city_id):
+        res = client.get(f"/api/destinations/cities/{a_city_id}")
+        assert res.status_code == 200
+        body = res.json()
+        assert body["city_id"] == a_city_id
+        assert body["city_ascii"]
+        assert len(body["country_code"]) == 2
+        assert -90 <= body["lat"] <= 90
+        assert -180 <= body["lng"] <= 180
+        assert body["radius_km"] == 100
+
+    def test_unknown_city_id_is_404(self, client):
+        # Unlike the weather/visa routes' "unknown code -> null/empty, not
+        # a 404" convention (which is about missing DATA for a real
+        # place), an unrecognized city_id is a place this project has
+        # never heard of -- there's no partial answer to give.
+        res = client.get("/api/destinations/cities/0")
+        assert res.status_code == 404
+
+    def test_top10_still_wins_the_route_over_city_id(self, client):
+        # /api/destinations/cities/{city_id} would swallow "top10" if it
+        # were declared first -- FastAPI matches in declaration order.
+        res = client.get("/api/destinations/cities/top10")
+        assert res.status_code == 200
+        assert "destinations" in res.json()
+
+    def test_nearby_lists_are_within_the_radius_and_nearest_first(self, client, a_city_id):
+        body = client.get(f"/api/destinations/cities/{a_city_id}").json()
+        radius = body["radius_km"]
+        for key in ("unesco_sites", "michelin_restaurants"):
+            distances = [entry["distance_km"] for entry in body[key]]
+            assert all(d <= radius for d in distances)
+            assert distances == sorted(distances)
+
+    def test_counts_are_full_totals_not_the_truncated_list_length(self, client, a_city_id):
+        # michelin_restaurants is capped at CITY_DETAIL_MICHELIN_LIMIT
+        # while michelin_count is the real total within the radius, so the
+        # count may exceed the list -- but never the other way around.
+        body = client.get(f"/api/destinations/cities/{a_city_id}").json()
+        assert body["michelin_count"] >= len(body["michelin_restaurants"])
+        assert body["unesco_site_count"] >= len(body["unesco_sites"])
+
+    def test_every_top10_city_has_a_detail_page(self, client):
+        # Same reasoning as TestVisaRequirements' every-departure-country
+        # test: one bad record in tourist_cities_enhanced.json shouldn't
+        # be discoverable only by a user clicking the row that happens to
+        # hit it. Every city the ranking can link to must resolve.
+        for destination in client.get("/api/destinations/cities/top10").json()["destinations"]:
+            res = client.get(f"/api/destinations/cities/{destination['city_id']}")
+            assert res.status_code == 200, f"{destination['city_id']} returned {res.status_code}: {res.text}"
+
+
+class TestCityAttractions:
+    """The Aquariums/Zoos, Botanical Gardens and (US-only) local art museum
+    fields on the city detail response.
+
+    These assert the null-vs-empty contract rather than any particular
+    city having a zoo, because city_attractions.json is generated from
+    sources that can't be pulled everywhere (Kaggle credentials, Overpass
+    reachability) -- so this checkout may or may not have the file, and both
+    states are legitimate. See data_loader.load_city_attractions()."""
+
+    ATTRACTION_FIELDS = ("zoos_and_aquariums", "botanical_gardens", "local_art_museums")
+
+    def test_fields_are_present_on_the_response(self, client, a_city_id):
+        body = client.get(f"/api/destinations/cities/{a_city_id}").json()
+        for field in self.ATTRACTION_FIELDS:
+            assert field in body, f"{field} missing from the city detail response"
+
+    def test_all_categories_agree_on_whether_the_dataset_exists(self, client, a_city_id):
+        # Either the dataset is loaded (every category is an object) or it
+        # isn't (every category is null). A mix would mean the frontend could
+        # show one section and hide another for the same city, which is a bug
+        # in city_attractions() rather than a data condition.
+        body = client.get(f"/api/destinations/cities/{a_city_id}").json()
+        nulls = [body[field] is None for field in self.ATTRACTION_FIELDS]
+        assert all(nulls) or not any(nulls)
+        # The radius field follows the same all-or-nothing rule.
+        assert (body["attractions_radius_km"] is None) == all(nulls)
+
+    def test_loaded_categories_have_a_valid_shape(self, client, a_city_id):
+        body = client.get(f"/api/destinations/cities/{a_city_id}").json()
+        if body["zoos_and_aquariums"] is None:
+            pytest.skip("city_attractions.json not generated in this checkout")
+
+        assert body["attractions_radius_km"] > 0
+        for field in self.ATTRACTION_FIELDS:
+            payload = body[field]
+            assert payload["count"] >= len(payload["places"])  # count is the true total, list is capped
+            distances = [p["distance_km"] for p in payload["places"]]
+            assert distances == sorted(distances)  # nearest-first
+            assert all(d <= body["attractions_radius_km"] for d in distances)
+            assert all(p["name"] and p["kind"] for p in payload["places"])
+            assert all(p["source"] in ("IMLS", "OpenStreetMap") for p in payload["places"])
+
+    def test_health_reports_attractions_coverage(self, client):
+        body = client.get("/health").json()
+        assert "cities_with_attractions" in body
+        count = body["cities_with_attractions"]
+        assert count is None or count >= 0
+
+
+class TestCityWeather:
+    def test_requires_dates(self, client, a_city_id):
+        res = client.get(f"/api/destinations/cities/{a_city_id}/weather")
+        assert res.status_code == 422
+
+    def test_end_before_start_is_400(self, client, a_city_id):
+        res = client.get(
+            f"/api/destinations/cities/{a_city_id}/weather",
+            params={"start_date": "2026-07-10", "end_date": "2026-07-01"},
+        )
+        assert res.status_code == 400
+
+    def test_unknown_city_id_is_404(self, client):
+        res = client.get(
+            "/api/destinations/cities/0/weather", params={"start_date": "2026-07-05", "end_date": "2026-07-15"}
+        )
+        assert res.status_code == 404
+
+    def test_known_city_returns_weather_or_an_explicit_null(self, client, a_city_id):
+        res = client.get(
+            f"/api/destinations/cities/{a_city_id}/weather",
+            params={"start_date": "2026-07-05", "end_date": "2026-07-15"},
+        )
+        assert res.status_code == 200
+        body = res.json()
+        assert sum(body["month_weights"].values()) == pytest.approx(1.0)
+        # weather may legitimately be null -- only ~1,770 of 3,069 cities
+        # have normals pulled so far (see load_city_weather_metrics).
+        if body["weather"] is None:
+            pytest.skip(f"no weather normals for city {a_city_id} in this checkout")
+        assert isinstance(body["weather"]["avg_high_c"], float)
+        assert body["weather"]["rainy_days"] >= 0
+
+    def test_rainy_days_never_exceeds_trip_length(self, client, a_city_id):
+        # Regression guard for the bug resolve_rainy_days_estimate()
+        # exists to prevent (a 7-day trip reporting 11 rainy days) -- same
+        # scaling the country route already gets, now on the city path.
+        res = client.get(
+            f"/api/destinations/cities/{a_city_id}/weather",
+            params={"start_date": "2026-07-05", "end_date": "2026-07-11"},
+        )
+        weather = res.json()["weather"]
+        if weather is None:
+            pytest.skip(f"no weather normals for city {a_city_id} in this checkout")
+        assert weather["rainy_days"] <= 7
 
 
 class TestCountryWeather:

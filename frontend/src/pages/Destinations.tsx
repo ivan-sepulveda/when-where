@@ -388,11 +388,19 @@ export default function Destinations() {
             <ol className="destinations-ranked-list">
               {cityLoadState.destinations.slice(0, count).map((destination, index) => (
                 <li key={destination.cityId} className="destinations-ranked-item">
-                  {/* Not a Link -- there's no per-city detail page yet, so
-                      these rows are display-only for now (see
-                      .destinations-ranked-static in index.css for the
-                      non-interactive styling variant). */}
-                  <div className="destinations-ranked-static">
+                  {/* Links by cityId (a simplemaps_id), never by name --
+                      city names aren't unique in this dataset (two real
+                      cities are both named "Kanpur"). Forwards the
+                      current searchParams the same way the country rows
+                      below do, so CityDetail inherits the searched dates
+                      and can show weather for them. */}
+                  <Link
+                    to={{
+                      pathname: `/destinations/cities/${destination.cityId}`,
+                      search: searchParams.toString(),
+                    }}
+                    className="destinations-ranked-link"
+                  >
                     <span className="destinations-ranked-position">{index + 1}</span>
                     <span className="destinations-ranked-name">
                       {destination.name}, {destination.countryName}
@@ -404,7 +412,7 @@ export default function Destinations() {
                       <span className="destinations-ranked-visa">{visaLabel(destination.countryCode)}</span>
                     </span>
                     <span className="destinations-ranked-score">{destination.score.toFixed(2)}</span>
-                  </div>
+                  </Link>
                 </li>
               ))}
             </ol>

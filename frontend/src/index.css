@@ -285,21 +285,11 @@ h1 {
   border-color: #3b82f6;
 }
 
-/* Same box as .destinations-ranked-link, for rows that aren't a Link --
-   used by the Top 10 Cities list, which has no per-city detail page to
-   navigate to yet. Deliberately has no :hover border-color change,
-   unlike .destinations-ranked-link, so it doesn't read as clickable when
-   it isn't -- same reasoning as .destination-detail-stat-card vs
-   .destination-detail-stat-card-link below. */
-.destinations-ranked-static {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 1rem;
-  border: 1px solid #3a3f47;
-  border-radius: 8px;
-  background: #161b22;
-}
+/* (A .destinations-ranked-static rule used to live here: the same box as
+   .destinations-ranked-link above, minus the hover affordance, for the
+   Top N Cities rows back when there was no per-city detail page to
+   navigate to. Those rows are Links now -- see pages/CityDetail.tsx --
+   so nothing rendered it any more.) */
 
 .destinations-ranked-position {
   width: 1.75rem;
@@ -448,6 +438,39 @@ h1 {
 
 .destination-detail-stat-card-link:hover {
   border-color: #3b82f6;
+}
+
+/* One nearby UNESCO site / Michelin restaurant on a CityDetail page.
+   Same card box as .destination-detail-stat-card (which it's always
+   combined with) -- this only changes the internal layout from one line
+   of text to a name stacked over a dimmer metadata line, since these
+   rows carry more than a single fact. */
+.city-detail-nearby-card {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.city-detail-nearby-name {
+  font-weight: 600;
+}
+
+/* Award/cuisine/distance under a nearby entry's name, e.g.
+   "1 Star · French · 2km away" -- secondary to the name, same treatment
+   as .destinations-ranked-visa gets next to a destination name. */
+.city-detail-nearby-meta {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* "the 10 closest to Osaka" -- a plain caption sitting between the
+   headline count card and the (deliberately truncated) list it
+   describes, so a "roughly 550 restaurants" count over 10 rows doesn't
+   read as a bug. A list item, not a card: no border or background. */
+.city-detail-list-note {
+  padding: 0 0.25rem;
+  font-size: 0.85rem;
+  opacity: 0.6;
 }
 
 .lightbox-backdrop {

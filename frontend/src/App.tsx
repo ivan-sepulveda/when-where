@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router";
 import NavBar from "./components/NavBar";
 import About from "./pages/About";
+import CityDetail from "./pages/CityDetail";
 import CountrySpecificSources from "./pages/CountrySpecificSources";
 import Destinations from "./pages/Destinations";
 import DestinationDetail from "./pages/DestinationDetail";
@@ -88,6 +89,15 @@ function App() {
         {/* Deliberately not in NavBar -- reachable directly by URL only. */}
         <Route path="/country-specific-sources" element={<CountrySpecificSources />} />
         <Route path="/destinations" element={<Destinations />} />
+        {/* :cityId is a simplemaps_id (e.g. "1392419823"), the stable
+            unique key for a city in this project's data -- city names
+            aren't unique (two real cities are both named "Kanpur"), so
+            the id is what the ranked list links with. Declared before
+            /destinations/:country so "cities" can't be read as a country
+            code -- react-router ranks static segments above dynamic ones
+            regardless of order, but the explicit ordering documents the
+            intent. */}
+        <Route path="/destinations/cities/:cityId" element={<CityDetail />} />
         {/* :country is the ISO 3166-1 alpha-2 code (e.g. "JP"). One
             component template renders a page for all ~249 countries --
             the react-router equivalent of a Next.js [country] route,

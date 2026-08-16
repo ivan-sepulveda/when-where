@@ -3,8 +3,10 @@ FastAPI app -- the first real "frontend talks to a backend" piece of this
 project (see backend/README.md for the full design writeup). Routes that
 matter: GET /api/destinations/top10 (country ranking),
 GET /api/destinations/cities/top10 (city ranking -- same idea, city
-granularity), and GET /api/destinations/{country}/weather (raw weather
-metrics for one country's DestinationDetail page).
+granularity), GET /api/destinations/{country}/weather (raw weather
+metrics for one country's DestinationDetail page), and the city pair
+GET /api/destinations/cities/{city_id} (+ /weather), which back
+CityDetail.tsx the way those country routes back DestinationDetail.tsx.
 
 Data is loaded once at import time (see data_loader.py) and kept in
 memory for the life of the process -- every request just does cheap
@@ -31,7 +33,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from .data_loader import (
+    CITY_DETAIL_RADIUS_KM,
+    load_city_attractions,
     load_city_cluster_representatives,
+    load_city_details,
+    load_city_weather_metrics,
     load_city_weather_scores,
     load_country_capital_names,
     load_country_weather_metrics,
@@ -84,7 +90,13 @@ WEATHER_SCORES = load_country_weather_scores()
 WEATHER_METRICS = load_country_weather_metrics()
 CAPITAL_NAMES = load_country_capital_names()
 STATIC_CITY_SCORES = load_static_city_scores()
+CITY_DETAILS = load_city_details()
+# None until data/scripts/multiple/build_city_attractions.py has been run --
+# see load_city_attractions()'s docstring for why that's tolerated here when
+# every other missing input is fatal.
+CITY_ATTRACTIONS = load_city_attractions()
 CITY_WEATHER_SCORES = load_city_weather_scores()
+CITY_WEATHER_METRICS = load_city_weather_metrics()
 CITY_CLUSTER_REPRESENTATIVES = load_city_cluster_representatives()
 VISA_REQUIREMENTS = load_visa_requirements()
 
@@ -111,9 +123,9 @@ class TopDestinationsResponse(BaseModel):
 class CityDestinationScore(BaseModel):
     # simplemaps_id, as a string -- the stable unique key for a city in
     # this dataset (city name alone isn't unique, e.g. two different
-    # real cities are both named "Kanpur"). Not currently used for
-    # routing anywhere in the frontend (there's no per-city detail page
-    # yet), but returned now so one exists once that page gets built.
+    # real cities are both named "Kanpur"). This is what the frontend
+    # routes on -- /destinations/cities/:cityId, backed by
+    # /api/destinations/cities/{city_id} below.
     city_id: str
     # Properly-accented name (e.g. "Ōsaka") and its ASCII-stripped
     # counterpart (e.g. "Osaka") -- per project decision, the frontend
@@ -144,6 +156,93 @@ class TopCityDestinationsResponse(BaseModel):
     destinations: list[CityDestinationScore]
 
 
+class NearbyUnescoSite(BaseModel):
+    name: str
+    category: str  # "Cultural" / "Natural" / "Mixed"
+    distance_km: float
+
+
+class NearbyMichelinRestaurant(BaseModel):
+    name: str
+    award: str  # "3 Stars" / "2 Stars" / "1 Star" / "Bib Gourmand" / "Selected Restaurants"
+    cuisine: str
+    distance_km: float
+
+
+class NearbyPlace(BaseModel):
+    name: str
+    # Specific label for this one entry, e.g. "Safari Park", "Aquarium",
+    # "Botanical Garden or Nature Center" -- narrower than the category it's
+    # filed under, since a section groups several real-world kinds.
+    kind: str
+    # "OpenStreetMap" or "IMLS". Surfaced rather than hidden because the two
+    # aren't equivalent in scope (IMLS is US-only but curated and includes
+    # nature centers; OSM is worldwide but community-mapped) -- see
+    # data/scripts/multiple/build_city_attractions.py.
+    source: str
+    distance_km: float
+
+
+class NearbyPlaces(BaseModel):
+    # Total within the attractions radius. May exceed len(places), which
+    # build_city_attractions.py caps per category.
+    count: int
+    places: list[NearbyPlace]
+
+
+class CityDetailResponse(BaseModel):
+    """One city's page data -- the counterpart to what
+    DestinationDetail.tsx assembles for a country out of several
+    country-keyed CSV/JSON files fetched straight from GitHub. Cities
+    can't work that way (their source file is 27MB -- see this module's
+    docstring), so this endpoint does the same assembly server-side and
+    returns it in one response."""
+
+    city_id: str
+    city: str
+    city_ascii: str
+    country_name: str
+    country_code: str
+    # State/province/prefecture (e.g. "Tōkyō"). Null for the 18 cities in
+    # this dataset that have no admin_name -- mostly city-states and small
+    # territories, where there's no meaningful subdivision to name.
+    admin_name: Optional[str]
+    lat: float
+    lng: float
+    population: Optional[int]
+    # Echoed back so the frontend labels its own headings from the
+    # response ("...within 100km") instead of hardcoding a radius that
+    # could drift from what the backend actually filtered on.
+    radius_km: int
+    # Full count within radius_km. May be larger than len(michelin_restaurants)
+    # -- see data_loader.CITY_DETAIL_MICHELIN_LIMIT.
+    unesco_site_count: int
+    unesco_sites: list[NearbyUnescoSite]
+    michelin_count: int
+    michelin_restaurants: list[NearbyMichelinRestaurant]
+    # The same three static domain scores /api/destinations/cities/top10
+    # ranks on, for this one city. Weather (the fourth domain) isn't here
+    # -- it depends on a date range, so it lives on
+    # /api/destinations/cities/{city_id}/weather instead.
+    unesco_score: Optional[float]
+    michelin_score: Optional[float]
+    price_score: Optional[float]
+    # ALL FOUR of the fields below are null together, and only when
+    # city_attractions.json hasn't been generated in this checkout (see
+    # data_loader.load_city_attractions). The frontend hides those sections
+    # entirely in that case. A field that's present but empty
+    # (count=0, places=[]) means the opposite: the data IS loaded and there's
+    # genuinely nothing within the radius -- worth saying out loud on the
+    # page, since "no botanical garden within 100km" is real information.
+    attractions_radius_km: Optional[float]
+    zoos_and_aquariums: Optional[NearbyPlaces]
+    botanical_gardens: Optional[NearbyPlaces]
+    # US-only (IMLS). Deliberately NOT the whole art museum story: the
+    # frontend merges this with the worldwide largest-art-museums list it
+    # already fetches, which covers non-US cities well and US cities badly.
+    local_art_museums: Optional[NearbyPlaces]
+
+
 class WeatherDetail(BaseModel):
     avg_high_c: float
     avg_low_c: float
@@ -155,6 +254,19 @@ class WeatherDetail(BaseModel):
     # count -- the frontend presents this as a range (e.g. "1-2 days").
     rainy_days: float
     avg_sunshine_hours: float
+
+
+class CityWeatherResponse(BaseModel):
+    city_id: str
+    city_ascii: str
+    start_date: date
+    end_date: date
+    month_weights: dict[str, float]
+    # Null (not a 404) for a city this project has no weather normals for
+    # yet -- ~1,770 of 3,069 cities are covered so far, see
+    # data_loader.load_city_weather_metrics(). Same "unknown, not bad"
+    # convention as the country route below.
+    weather: Optional[WeatherDetail]
 
 
 class CountryWeatherResponse(BaseModel):
@@ -197,6 +309,11 @@ def health():
         "countries_with_weather_metrics": len(WEATHER_METRICS),
         "cities_loaded": len(STATIC_CITY_SCORES),
         "cities_with_weather": len(CITY_WEATHER_SCORES),
+        "cities_with_weather_metrics": len(CITY_WEATHER_METRICS),
+        # 0 vs null: 0 means the attractions dataset is loaded but no city has
+        # anything in it (shouldn't happen), null means it hasn't been
+        # generated in this checkout -- see load_city_attractions().
+        "cities_with_attractions": len(CITY_ATTRACTIONS["cities"]) if CITY_ATTRACTIONS else None,
         "city_clusters": len(set(CITY_CLUSTER_REPRESENTATIVES.values())),
         "countries_with_visa_requirements": len(VISA_REQUIREMENTS),
     }
@@ -325,6 +442,128 @@ def top_city_destinations(
         end_date=end_date,
         month_weights=weights,
         destinations=scored[:10],
+    )
+
+
+def city_attractions(city_id: str):
+    """Returns a lookup for one city's attraction categories:
+    `attractions("zoo_aquarium")` -> NearbyPlaces, or None if the dataset
+    isn't loaded at all.
+
+    The null-vs-empty distinction is the whole point of this helper, so it
+    lives in one place rather than being repeated per category:
+      * dataset absent  -> None for every category ("we haven't looked").
+      * dataset present, city has no entry for this category -> an EMPTY
+        NearbyPlaces ("we looked, there's nothing within the radius").
+    A city can be missing from the dataset's `cities` map entirely and still
+    get the empty form -- build_city_attractions.py omits cities with nothing
+    in any category, which means the same thing as an empty category."""
+    if CITY_ATTRACTIONS is None:
+        return lambda category: None
+
+    by_category = CITY_ATTRACTIONS["cities"].get(city_id, {})
+
+    def lookup(category: str) -> NearbyPlaces:
+        entry = by_category.get(category)
+        if entry is None:
+            return NearbyPlaces(count=0, places=[])
+        return NearbyPlaces(
+            count=entry["count"], places=[NearbyPlace(**place) for place in entry["places"]]
+        )
+
+    return lookup
+
+
+@app.get("/api/destinations/cities/{city_id}", response_model=CityDetailResponse)
+def city_destination_detail(city_id: str):
+    """Everything CityDetail.tsx renders for one city: where it is, the
+    UNESCO World Heritage Sites and Michelin Guide restaurants within
+    CITY_DETAIL_RADIUS_KM (100km) named individually, and its three
+    static domain scores. Weather is a separate route (it needs a date
+    range); art museums aren't here at all -- that dataset is small and
+    country-keyed, so the frontend already fetches it directly from
+    GitHub the same way DestinationDetail does.
+
+    `city_id` is a simplemaps_id as a string, exactly as
+    /api/destinations/cities/top10 returns it. Unlike the "unknown, not a
+    404" convention the weather/visa routes use for *missing data about a
+    valid place*, an unrecognized city_id genuinely is a 404 here: it
+    isn't a city this project knows about at all, so there's no partial
+    answer to give.
+
+    Declared after cities/top10 so that literal path keeps matching first
+    -- FastAPI resolves routes in declaration order, and "top10" would
+    otherwise be swallowed by {city_id}."""
+    detail = CITY_DETAILS.get(city_id)
+    if detail is None:
+        raise HTTPException(status_code=404, detail=f"No city with id {city_id!r}")
+
+    scores = STATIC_CITY_SCORES.get(city_id, {})
+    attractions = city_attractions(city_id)
+
+    return CityDetailResponse(
+        city_id=city_id,
+        city=detail["city"],
+        city_ascii=detail["city_ascii"],
+        country_name=detail["country_name"],
+        country_code=detail["country_code"],
+        admin_name=detail["admin_name"],
+        lat=detail["lat"],
+        lng=detail["lng"],
+        population=detail["population"],
+        radius_km=CITY_DETAIL_RADIUS_KM,
+        unesco_site_count=detail["unesco_site_count"],
+        unesco_sites=[NearbyUnescoSite(**site) for site in detail["unesco_sites"]],
+        michelin_count=detail["michelin_count"],
+        michelin_restaurants=[
+            NearbyMichelinRestaurant(**restaurant) for restaurant in detail["michelin_restaurants"]
+        ],
+        unesco_score=scores.get("unesco_score"),
+        michelin_score=scores.get("michelin_score"),
+        price_score=scores.get("price_score"),
+        attractions_radius_km=CITY_ATTRACTIONS["radius_km"] if CITY_ATTRACTIONS else None,
+        zoos_and_aquariums=attractions("zoo_aquarium"),
+        botanical_gardens=attractions("botanical_garden"),
+        local_art_museums=attractions("art_museum"),
+    )
+
+
+@app.get("/api/destinations/cities/{city_id}/weather", response_model=CityWeatherResponse)
+def city_weather(
+    city_id: str,
+    start_date: date = Query(..., description="Trip start date, YYYY-MM-DD"),
+    end_date: date = Query(..., description="Trip end date, YYYY-MM-DD"),
+):
+    """City-level equivalent of /api/destinations/{country}/weather --
+    same day-weighted averaging and same trip-length-scaled rainy-day
+    estimate, just read from this city's own normals instead of its
+    country's primary capital's. No capital_city field in the response,
+    for that reason: there's no proxy city to disclose, the numbers are
+    the city's own.
+
+    404s on an unknown city_id (same reasoning as
+    city_destination_detail() above), but returns `weather: null` for a
+    known city whose normals simply haven't been pulled yet."""
+    if city_id not in CITY_DETAILS:
+        raise HTTPException(status_code=404, detail=f"No city with id {city_id!r}")
+    if end_date < start_date:
+        raise HTTPException(status_code=400, detail="end_date must be on or after start_date")
+
+    weights = month_weights(start_date, end_date)
+    trip_days = (end_date - start_date).days + 1
+    city_metrics = CITY_WEATHER_METRICS.get(city_id)
+    metrics = resolve_weather_metrics(city_metrics, weights)
+    rainy_days_estimate = resolve_rainy_days_estimate(city_metrics, weights, trip_days)
+
+    weather = WeatherDetail(**metrics, rainy_days=rainy_days_estimate) if metrics is not None else None
+
+    return CityWeatherResponse(
+        city_id=city_id,
+        city_ascii=CITY_DETAILS[city_id]["city_ascii"],
+        start_date=start_date,
+        end_date=end_date,
+        month_weights=weights,
+        weather=weather,
     )
 
 
