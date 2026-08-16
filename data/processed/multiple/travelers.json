@@ -1777,7 +1777,7 @@
      "transportation_cost": 300.0,
      "transportation_cost_raw": "$300",
      "synthetic": true,
-     "carrier_name": "United Parcel Service",
+     "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "JAX",
      "destination_airport": "PHL"
     },
@@ -1921,7 +1921,7 @@
      "transportation_cost": 300.0,
      "transportation_cost_raw": "$300",
      "synthetic": true,
-     "carrier_name": "Frontier Airlines Inc.",
+     "carrier_name": "American Airlines Inc.",
      "origin_airport": "JAX",
      "destination_airport": "PHL"
     },
@@ -2065,7 +2065,7 @@
      "transportation_cost": 325.0,
      "transportation_cost_raw": "$325",
      "synthetic": true,
-     "carrier_name": "American Airlines Inc.",
+     "carrier_name": "PSA Airlines Inc.",
      "origin_airport": "JAX",
      "destination_airport": "PHL"
     },
@@ -2209,7 +2209,7 @@
      "transportation_cost": 350.0,
      "transportation_cost_raw": "$350",
      "synthetic": true,
-     "carrier_name": "PSA Airlines Inc.",
+     "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "JAX",
      "destination_airport": "PHL"
     },
@@ -8821,7 +8821,7 @@
      "transportation_cost": 325.0,
      "transportation_cost_raw": "$325",
      "synthetic": true,
-     "carrier_name": "United Parcel Service",
+     "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "MIA"
     },
@@ -8869,7 +8869,7 @@
      "transportation_cost": 300.0,
      "transportation_cost_raw": "$300",
      "synthetic": true,
-     "carrier_name": "United Parcel Service",
+     "carrier_name": "United Air Lines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "ORD"
     },
@@ -8917,7 +8917,7 @@
      "transportation_cost": 300.0,
      "transportation_cost_raw": "$300",
      "synthetic": true,
-     "carrier_name": "United Parcel Service",
+     "carrier_name": "Republic Airline",
      "origin_airport": "PHL",
      "destination_airport": "BOS"
     },
@@ -8965,7 +8965,7 @@
      "transportation_cost": 325.0,
      "transportation_cost_raw": "$325",
      "synthetic": true,
-     "carrier_name": "American Airlines Inc.",
+     "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "MIA"
     },
@@ -9013,7 +9013,7 @@
      "transportation_cost": 300.0,
      "transportation_cost_raw": "$300",
      "synthetic": true,
-     "carrier_name": "United Air Lines Inc.",
+     "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "ORD"
     },
@@ -9061,7 +9061,7 @@
      "transportation_cost": 325.0,
      "transportation_cost_raw": "$325",
      "synthetic": true,
-     "carrier_name": "Republic Airline",
+     "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "BOS"
     },
@@ -9109,7 +9109,7 @@
      "transportation_cost": 350.0,
      "transportation_cost_raw": "$350",
      "synthetic": true,
-     "carrier_name": "Frontier Airlines Inc.",
+     "carrier_name": "Spirit Air Lines",
      "origin_airport": "PHL",
      "destination_airport": "MIA"
     }
@@ -12840,7 +12840,7 @@
      "transportation_cost": 350.0,
      "transportation_cost_raw": "$350",
      "synthetic": true,
-     "carrier_name": "United Parcel Service",
+     "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "TPA"
     },
@@ -12888,7 +12888,7 @@
      "transportation_cost": 350.0,
      "transportation_cost_raw": "$350",
      "synthetic": true,
-     "carrier_name": "United Parcel Service",
+     "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "MCO"
     },
@@ -12984,7 +12984,7 @@
      "transportation_cost": 375.0,
      "transportation_cost_raw": "$375",
      "synthetic": true,
-     "carrier_name": "American Airlines Inc.",
+     "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "TPA"
     }
@@ -13587,7 +13587,7 @@
      "transportation_cost": 350.0,
      "transportation_cost_raw": "$350",
      "synthetic": true,
-     "carrier_name": "United Parcel Service",
+     "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "MIA"
     },
@@ -13683,7 +13683,7 @@
      "transportation_cost": 350.0,
      "transportation_cost_raw": "$350",
      "synthetic": true,
-     "carrier_name": "United Parcel Service",
+     "carrier_name": "SkyWest Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "ORD"
     },
@@ -13731,7 +13731,7 @@
      "transportation_cost": 375.0,
      "transportation_cost_raw": "$375",
      "synthetic": true,
-     "carrier_name": "American Airlines Inc.",
+     "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "MIA"
     }
@@ -15732,7 +15732,7 @@
      "transportation_cost": 325.0,
      "transportation_cost_raw": "$325",
      "synthetic": true,
-     "carrier_name": "Air Transport International",
+     "carrier_name": "United Air Lines Inc.",
      "origin_airport": "IAH",
      "destination_airport": "DEN"
     },
@@ -15876,7 +15876,7 @@
      "transportation_cost": 350.0,
      "transportation_cost_raw": "$350",
      "synthetic": true,
-     "carrier_name": "United Air Lines Inc.",
+     "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "IAH",
      "destination_airport": "DEN"
     },
@@ -22931,7 +22931,7 @@
      "transportation_cost": 325.0,
      "transportation_cost_raw": "$325",
      "synthetic": true,
-     "carrier_name": "United Parcel Service",
+     "carrier_name": "United Air Lines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "EWR"
     },
@@ -28316,7 +28316,7 @@
      "transportation_cost": 300.0,
      "transportation_cost_raw": "$300",
      "synthetic": true,
-     "carrier_name": "United Parcel Service",
+     "carrier_name": "Piedmont Airlines",
      "origin_airport": "CLT",
      "destination_airport": "PHL"
     },
@@ -28460,7 +28460,7 @@
      "transportation_cost": 300.0,
      "transportation_cost_raw": "$300",
      "synthetic": true,
-     "carrier_name": "Piedmont Airlines",
+     "carrier_name": "American Airlines Inc.",
      "origin_airport": "CLT",
      "destination_airport": "PHL"
     },
@@ -29063,7 +29063,7 @@
      "transportation_cost": 325.0,
      "transportation_cost_raw": "$325",
      "synthetic": true,
-     "carrier_name": "United Parcel Service",
+     "carrier_name": "American Airlines Inc.",
      "origin_airport": "SAT",
      "destination_airport": "PHX"
     },
@@ -39518,7 +39518,7 @@
      "transportation_cost": 300.0,
      "transportation_cost_raw": "$300",
      "synthetic": true,
-     "carrier_name": "United Parcel Service",
+     "carrier_name": "Envoy Air",
      "origin_airport": "DFW",
      "destination_airport": "SAT"
     },
@@ -47441,7 +47441,7 @@
     },
     {
      "trip_id": "79",
-     "destination_raw": "Sydney, Aus",
+     "destination_raw": "Sydney",
      "destination_city": "Sydney",
      "destination_country": "Australia",
      "destination_country_code": "AU",

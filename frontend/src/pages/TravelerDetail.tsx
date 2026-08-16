@@ -1,5 +1,8 @@
 import { Link, useParams } from "react-router";
+import StackedShareBar from "../components/StackedShareBar";
+import { airlineColor, shortenCarrier } from "../lib/airlineColors";
 import { formatDateRange } from "../lib/formatDate";
+import { carrierBreakdown, domesticInternationalBreakdown } from "../lib/travelerCharts";
 import {
   formatAge,
   formatBase,
@@ -94,6 +97,8 @@ export default function TravelerDetail() {
   const traveler = state.traveler;
   const age = formatAge(traveler);
   const base = formatBase(traveler);
+  const carriers = carrierBreakdown(traveler);
+  const domesticInternational = domesticInternationalBreakdown(traveler);
   // Same "only render what's actually there" approach as TripCard's facts.
   const details = [
     traveler.nationality && { label: "Nationality", value: traveler.nationality },
@@ -133,6 +138,44 @@ export default function TravelerDetail() {
           </li>
         ))}
       </ul>
+
+      {/* Two 100% stacked bars: which airlines this person flies, and how
+          much of their flying leaves the country. They deliberately have
+          DIFFERENT denominators -- only hand-authored trips record a
+          carrier, while domestic/international can be decided for any trip
+          with a destination country -- so each chart states its own, and
+          neither pads its total with trips the source is silent about. */}
+      <h2>Flying patterns</h2>
+      <div className="traveler-charts">
+        <StackedShareBar
+          title="Airlines flown"
+          data={carriers}
+          // Brand colors, plus the airline's short name drawn inside each
+          // segment. The label isn't decoration: airline brands are almost
+          // all red or blue, so on a crowded chart the colors alone can't be
+          // told apart -- see lib/airlineColors.ts for the measurements.
+          colorOf={airlineColor}
+          shortLabelOf={shortenCarrier}
+          caption={
+            carriers.total === traveler.trip_count
+              ? `Share of all ${formatTripCount(traveler.trip_count)}.`
+              : `Share of the ${formatTripCount(carriers.total)} with a recorded airline, of ${traveler.trip_count}.`
+          }
+          emptyMessage={`No airline is recorded on any of ${traveler.name}'s trips, so there's nothing to break down. Only the hand-authored itineraries carry a carrier.`}
+        />
+        <StackedShareBar
+          title="Domestic vs international"
+          data={domesticInternational}
+          // Domestic is pinned to the left rather than sorted by size, so
+          // the bar doesn't flip layout between one traveler and the next.
+          caption={
+            base
+              ? `Relative to ${base}, this traveler's home country.`
+              : "Share of trips leaving the traveler's home country."
+          }
+          emptyMessage={`${traveler.name} has no trip whose destination country can be compared against a home country, so this split can't be computed.`}
+        />
+      </div>
 
       <h2>Trips</h2>
       <ul className="destination-detail-stats">

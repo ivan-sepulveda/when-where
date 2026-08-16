@@ -2577,9 +2577,42 @@ def load_bts_domestic_routes() -> dict[tuple[str, str, str], tuple[int, int]]:
 MIN_INTL_PASSENGERS = 1000
 MIN_DOMESTIC_SEGMENTS = 5
 
+# The volume floors above catch charter and business-jet operators, but not
+# CARGO airlines -- those fly plenty of scheduled segments on exactly the
+# trunk routes these travelers use, so they clear MIN_DOMESTIC_SEGMENTS
+# comfortably and get handed out as if you could book a seat. United Parcel
+# Service picked up 12 legs that way (Odysseus flew it three times) before
+# this list existed.
+#
+# Excluded by name rather than by a "does it carry passengers" test because
+# T-100's domestic segment file has no passenger column at all -- existence
+# is the only thing it can prove, which is the whole reason
+# MIN_DOMESTIC_SEGMENTS counts segments instead. Matched case-insensitively
+# on the full carrier name, NOT as a substring: "Swiss International
+# Airlines" contains the letters of "national air" and a loose pattern would
+# quietly drop a real passenger airline.
+#
+# All five clear the floors on routes currently in use. Adding one is safe
+# -- resolve_carriers() treats a route with nothing left as a hard failure,
+# so an over-broad entry breaks the build loudly instead of silently
+# reshuffling somebody's airline.
+CARGO_CARRIERS = frozenset(
+    {
+        "united parcel service",
+        "federal express corporation",
+        "atlas air inc.",
+        "abx air inc",
+        "air transport international",
+    }
+)
+
 
 def resolve_carriers(origin: str, dest: str, routes: dict, domestic_routes: dict) -> list[str]:
     """Every airline that really flies origin -> dest, busiest first.
+
+    Cargo airlines are dropped here rather than in the caller (see
+    CARGO_CARRIERS) -- they belong to the same question this function
+    answers, "which airline would you actually book on this route".
 
     Returns a LIST, not one carrier, because the travelers who use this take
     whatever's convenient: someone flying New York-London four times should
@@ -2592,13 +2625,19 @@ def resolve_carriers(origin: str, dest: str, routes: dict, domestic_routes: dict
         found = [
             (segments, carrier)
             for (carrier, o, d), (segments, _months) in domestic_routes.items()
-            if o == origin and d == dest and segments >= MIN_DOMESTIC_SEGMENTS
+            if o == origin
+            and d == dest
+            and segments >= MIN_DOMESTIC_SEGMENTS
+            and carrier.casefold() not in CARGO_CARRIERS
         ]
     else:
         found = [
             (passengers, carrier)
             for (carrier, o, d), passengers in routes.items()
-            if o == origin and d == dest and passengers >= MIN_INTL_PASSENGERS
+            if o == origin
+            and d == dest
+            and passengers >= MIN_INTL_PASSENGERS
+            and carrier.casefold() not in CARGO_CARRIERS
         ]
     # Sorted by volume then name, so the order -- and therefore which airline
     # a given trip ends up on -- is identical on every run.
