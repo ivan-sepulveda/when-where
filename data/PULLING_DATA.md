@@ -230,6 +230,77 @@ This file is what backs the city page's Aquariums & Zoos and Botanical
 Gardens sections; without it the API simply omits those sections.
 
 ```
+python scripts/multiple/fetch_traveler_trips.py
+python scripts/multiple/build_synthetic_trips.py
+python scripts/multiple/build_trips_enhanced.py
+python scripts/multiple/build_travelers.py
+```
+
+Pulls the Kaggle traveler/trip sample dataset (139 trips) into
+`data/processed/multiple/traveler_trips.csv`, cleans it into
+`data/processed/multiple/trips_enhanced.json`, then groups those trips by
+traveler into `data/processed/multiple/travelers.json`. Needs Kaggle API
+credentials for the first script.
+
+`build_trips_enhanced.py` is where all the cleaning lives: display-string
+costs (`"800 USD"`, `"1200"`), `"7 days"` durations, mixed date formats —
+each kept as both a parsed value and the original string, since there's
+no currency column to trust — and the split of the source's single
+`Destination` column into `destination_city` + `destination_country`
+(plus an ISO country code). That split is a hand-written table, not a
+comma split: the source abbreviates (`"Sydney, Aus"`), omits the country
+(`"Tokyo"`), names a US state instead (`"Honolulu, Hawaii"`) and
+sometimes gives only a country. Run it with `--report` to see how every
+destination string resolves. An unmapped destination is a hard failure,
+not a null.
+
+`build_synthetic_trips.py` adds hand-authored travelers the Kaggle data
+can't supply — people with an actual travel *pattern*, since 113 of its
+124 travelers have exactly one trip. 82 of them now, 1,887 trips, each
+one a different shape, and named to a convention that makes the airline
+legible from the name alone: United loyalists are painters and architects,
+Delta loyalists are jazz musicians, American loyalists are scientists,
+Southwest loyalists are DC characters, Alaska loyalists are Marvel
+characters, and the 31 travelers loyal to **no** airline are named after
+Greek myth. Those 31 live two per city across the fifteen most populous US
+cities and name no carrier at all: each leg is resolved from the T-100 data
+at build time to whoever actually flies that route, so they average nine or
+ten airlines each against exactly one for every loyalist. Their patterns range from one city for a decade (Bill Evans)
+to a biweekly Monday-Friday commute (Chet Baker) to a traveler who stops
+for two years and resumes (Wes Montgomery). Eight fly domestically only,
+once to three times a year to see family in a single US city, and stay
+with relatives, so those trips carry no accommodation cost at all. The
+thirty on American, Southwest and Alaska follow one repeated three-way
+split — three international-only to the same destination every time, three
+domestic-only taking (paid-for) holidays, four mixed. Routes are checked
+against both T-100 extracts in `data/raw/bts_t100/`: the international one
+for legs that cross a border, the domestic segment one for those that
+don't. An unflown route is a hard failure.
+`build_trips_enhanced.py` merges its output.
+
+`build_travelers.py` then does two things: group trips by name +
+nationality (the source has no traveler ID), and infer a home base for
+everyone who doesn't declare one. These files back the
+`/rec-sys` page; without them it shows the commands above instead of a
+traveler grid. Sample data, not a real booking log — see
+`data/README.md`.
+
+```
+python scripts/multiple/build_travelers_anon.py
+```
+
+Rewrites `travelers.json` into
+`data/processed/multiple/travelers_anon.json`, replacing each traveler's
+filler name with a real deceased author of the same nationality and
+gender (Nobel laureates first), and dropping the `-nationality` suffix
+from `traveler_id` (`jane-austen`, not `jane-austen-british`). Trips,
+dates, costs and nationalities are unchanged. The API serves this file in
+preference to `travelers.json` whenever it exists — delete it to go back
+to the raw names. Prints the old → new mapping on each run; that mapping
+is not written into the output. Not anonymization: the source data is
+fictional to begin with. See `data/README.md`.
+
+```
 python scripts/build_country_aliases.py
 ```
 

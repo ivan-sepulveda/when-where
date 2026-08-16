@@ -415,3 +415,83 @@ class TestLoadCityAttractions:
         result = data_loader.load_city_attractions()
         assert result is not None
         assert result["cities"] == {}
+
+
+class TestLoadTravelers:
+    def _write(self, tmp_path, monkeypatch, payload):
+        path = tmp_path / "travelers.json"
+        write_json(path, payload)
+        monkeypatch.setattr(data_loader, "TRAVELERS_PATH", path)
+        # Both paths have to be redirected, not just the one under test:
+        # load_travelers() resolves between them (see resolve_travelers_path),
+        # so leaving TRAVELERS_ANON_PATH pointing at the real repo file would
+        # make these tests read that instead of the fixture.
+        monkeypatch.setattr(data_loader, "TRAVELERS_ANON_PATH", tmp_path / "no-anon.json")
+
+    def test_missing_file_returns_none_rather_than_raising(self, tmp_path, monkeypatch):
+        # Same reasoning as TestLoadCityAttractions' equivalent test -- this
+        # file comes from a Kaggle dataset that can't be pulled everywhere.
+        monkeypatch.setattr(data_loader, "TRAVELERS_PATH", tmp_path / "nope.json")
+        monkeypatch.setattr(data_loader, "TRAVELERS_ANON_PATH", tmp_path / "nope-anon.json")
+        assert data_loader.load_travelers() is None
+
+    def test_keys_by_traveler_id_and_preserves_file_order(self, tmp_path, monkeypatch):
+        # Order matters: build_travelers.py sorts most-trips-first and
+        # /api/travelers doesn't re-sort, so the page's ordering comes from
+        # the file through this dict unchanged.
+        self._write(
+            tmp_path,
+            monkeypatch,
+            {
+                "travelers": [
+                    {"traveler_id": "john-smith-american", "name": "John Smith", "trip_count": 3, "trips": []},
+                    {"traveler_id": "jane-doe-canadian", "name": "Jane Doe", "trip_count": 1, "trips": []},
+                ]
+            },
+        )
+
+        result = data_loader.load_travelers()
+
+        assert list(result) == ["john-smith-american", "jane-doe-canadian"]
+        assert result["john-smith-american"]["name"] == "John Smith"
+
+    def test_empty_traveler_list_is_not_the_same_as_a_missing_file(self, tmp_path, monkeypatch):
+        self._write(tmp_path, monkeypatch, {"travelers": []})
+        assert data_loader.load_travelers() == {}
+
+
+class TestResolveTravelersPath:
+    """Which of the two traveler files gets served. The anonymized one wins
+    when present -- see resolve_travelers_path()'s docstring for why that's a
+    file-existence check rather than a config flag."""
+
+    def _paths(self, tmp_path, monkeypatch):
+        raw = tmp_path / "travelers.json"
+        anon = tmp_path / "travelers_anon.json"
+        monkeypatch.setattr(data_loader, "TRAVELERS_PATH", raw)
+        monkeypatch.setattr(data_loader, "TRAVELERS_ANON_PATH", anon)
+        return raw, anon
+
+    def test_neither_file_resolves_to_none(self, tmp_path, monkeypatch):
+        self._paths(tmp_path, monkeypatch)
+        assert data_loader.resolve_travelers_path() is None
+
+    def test_raw_only_resolves_to_raw(self, tmp_path, monkeypatch):
+        raw, _ = self._paths(tmp_path, monkeypatch)
+        write_json(raw, {"travelers": []})
+        assert data_loader.resolve_travelers_path() == raw
+
+    def test_anon_wins_when_both_exist(self, tmp_path, monkeypatch):
+        raw, anon = self._paths(tmp_path, monkeypatch)
+        write_json(raw, {"travelers": [{"traveler_id": "john-smith-american", "name": "John Smith"}]})
+        write_json(anon, {"travelers": [{"traveler_id": "ernest-hemingway", "name": "Ernest Hemingway"}]})
+
+        assert data_loader.resolve_travelers_path() == anon
+        # And the loader actually reads the one this resolves to, rather than
+        # resolving correctly and then loading the other.
+        assert list(data_loader.load_travelers()) == ["ernest-hemingway"]
+
+    def test_anon_only_resolves_to_anon(self, tmp_path, monkeypatch):
+        _, anon = self._paths(tmp_path, monkeypatch)
+        write_json(anon, {"travelers": []})
+        assert data_loader.resolve_travelers_path() == anon

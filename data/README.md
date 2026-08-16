@@ -2324,6 +2324,464 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   python scripts/multiple/build_city_attractions.py
   ```
 
+### Traveler trips (`scripts/multiple/fetch_traveler_trips.py`, `scripts/multiple/build_travelers.py`)
+
+- **Source:** ["Traveler Trip Data" on Kaggle](https://www.kaggle.com/datasets/rkiattisak/traveler-trip-data)
+  (uploader: rkiattisak), pulled via `kagglehub` (needs Kaggle API
+  credentials — same auth requirement as `fetch_art_museums.py` and
+  `fetch_imls_museums.py`).
+- **What it is:** 139 trips (~13KB), one row per trip, with 13 columns:
+  `Trip ID`, `Destination`, `Start date`, `End date`, `Duration (days)`,
+  `Traveler name`, `Traveler age`, `Traveler gender`,
+  `Traveler nationality`, `Accommodation type`, `Accommodation cost`,
+  `Transportation type`, `Transportation cost`.
+- **What it is NOT:** a real booking log or survey. This is a small
+  teaching/sample dataset — enough to build and demo a recommendation UI
+  against, which is what `/rec-sys` uses it for, but not a basis for any
+  claim about how people actually travel. Treat it as fixture data with a
+  plausible shape.
+- **License:** CC BY 4.0. The [Zenodo mirror](https://zenodo.org/records/10907914)
+  (DOI 10.5281/zenodo.10907914) states Creative Commons Attribution 4.0
+  International — attribution required, redistribution and reuse allowed.
+  Confirm the Kaggle listing's own license field on the first real run: a
+  mirror's license statement and the original uploader's aren't guaranteed
+  to match.
+- **Data quirks (handled by `build_travelers.py`):**
+  - **Costs are display strings**, not numbers — `"$1,200"`, `"1200 USD"`,
+    `"1,500"`, and there's no currency column. Each cost is stored **both**
+    parsed (`accommodation_cost: 1200.0`) and raw
+    (`accommodation_cost_raw: "$1,200"`). The UI renders the raw string, so
+    a value in an unexpected currency shows as `£900` rather than an
+    unlabeled `900`; the parsed number exists for future scoring. Nothing
+    is summed or converted across trips, precisely because the currency
+    isn't known — a "total spend" figure would be quietly meaningless.
+  - **Durations** are `"7 days"`-style strings; the first integer wins, so
+    `"7 days, 6 nights"` still parses to 7. Raw string kept alongside.
+  - **Dates** are parsed month-first (the documented samples are US-style
+    `M/D/YYYY`). A `D/M/YYYY` source would be misread for days 1–12 — which
+    is why the raw string is kept next to the ISO one, so a wrong reading
+    is visible rather than invisible.
+  - **Blank rows:** the source is documented as 139 rows with ~137 usable.
+    Rows with no traveler name or no destination are dropped and counted.
+- **There is no traveler ID in the source**, so who counts as "the same
+  person" is a decision, not a lookup: **two rows are the same traveler
+  when their name AND nationality both match** (case- and
+  accent-insensitively). Name alone would merge two different people
+  sharing a common name; adding age would split one traveler across trips
+  taken in different years, since age changes per trip. The rule can still
+  be wrong in both directions on this data — it's a small sample with
+  repeated generic names — which is why `traveler_id` is derived from
+  exactly those two fields (`john-smith-american`) and nothing else, so the
+  grouping is legible from the URL rather than hidden in a hash.
+- **Output:**
+  - `processed/multiple/traveler_trips.csv` — the source CSV written
+    through unchanged (a `raw/kaggle_traveler_trips/` cache copy, no
+    reshaping), so a parsing bug is fixable without re-downloading.
+  - `processed/multiple/travelers.json` — one entry per traveler with their
+    trips nested, sorted most-trips-first, plus `age_range` (the spread
+    across their trips), `trip_count` and `destinations`.
+- **Note on the split of work:** `build_travelers.py` no longer reads the CSV
+  or does any parsing. `build_trips_enhanced.py` (below) owns the cleaning —
+  costs, dates, durations and the destination city/country split — and
+  `build_travelers.py` reads *its* output and does two things: decide who
+  counts as the same person, and infer where they live.
+- **Inferred home base.** The source never says where a traveler is based, so
+  `build_travelers.py` derives `base_city` / `base_country` /
+  `base_country_code` from the two things it does say — nationality, and
+  where they went:
+  - `base_country` is the country of their nationality.
+  - `base_city` is the first city in that country's `BASE_CITIES` list that
+    they did **not** visit on any trip. That fall-through is the whole trick:
+    an Australian who flew to Sydney three times is evidently not based in
+    Sydney, so they get Melbourne; a Spanish traveler whose only domestic trip
+    was Barcelona gets Madrid.
+  - The lists are ordered "most plausible home first", which is usually but
+    not always the capital: Australia leads with **Sydney** rather than
+    Canberra, Canada with **Toronto** over Ottawa, Brazil with **São Paulo**
+    over Brasília. The United States is the deliberate counter-example —
+    **Washington, D.C.** leads rather than New York, because New York is one
+    of this dataset's most-visited destinations and reading "based in New
+    York" off a trip list that flies *to* New York is exactly the inference
+    this is meant to avoid.
+  - `base_inference` records which case a traveler was: `primary` (the
+    country's default, 96 of 124), `avoided_visited` (they'd been to the ones
+    ahead of it, 28), `visited_all_candidates`, or `unmapped` (no city list
+    for that nationality — currently none).
+  - It's a guess, and the site labels it "Likely base" for that reason. It is
+    **not** research about the real authors whose names these travelers carry
+    in `travelers_anon.json` — those biographies have nothing to do with
+    these bases.
+- **Consumed by:** `backend/app/data_loader.py`'s `load_travelers()` →
+  `GET /api/travelers` (card grid) and `GET /api/travelers/{traveler_id}`
+  (traveler + trips), which back the `/rec-sys` page. Like
+  `load_city_attractions()`, this loader returns `None` rather than raising
+  when its file is missing — `/api/travelers` then answers
+  `dataset_available: false` and the page shows the two commands to run
+  instead of an empty grid.
+- **Run:**
+  ```
+  python scripts/multiple/fetch_traveler_trips.py
+  python scripts/multiple/build_travelers.py
+  ```
+
+### Cleaned trips + destination split (`scripts/multiple/build_trips_enhanced.py`)
+
+- **Input:** `processed/multiple/traveler_trips.csv` (the untouched Kaggle
+  export — see the entry above).
+- **What it is:** the canonical cleaned trip record for this project, one
+  JSON object per trip. Everything downstream reads *this*, not the CSV:
+  `build_travelers.py` groups these trips by traveler,
+  `build_travelers_anon.py` renames those travelers, and the API serves the
+  result. The pipeline is linear, each step with one job:
+  ```
+  fetch_traveler_trips.py   Kaggle           -> traveler_trips.csv
+  build_trips_enhanced.py   clean + split    -> trips_enhanced.json
+  build_travelers.py        group by person  -> travelers.json
+  build_travelers_anon.py   author personas  -> travelers_anon.json
+  ```
+- **The destination split is the point, and it can't be done with
+  `str.split(",")`.** The source has 60 distinct destination strings,
+  inconsistent in five separate ways, all resolved by hand in a
+  `DESTINATIONS` table:
+  1. **City only, country implied** — `"Tokyo"`, `"Paris"`, `"Sydney"`.
+     Resolved from the city: Tokyo → Japan. **55 of 137 trips** needed this.
+  2. **Abbreviated or truncated countries** — `"Sydney, Aus"`,
+     `"Sydney, AUS"`, `"Bangkok, Thai"`, `"Cape Town, SA"`, `"London, UK"`,
+     `"New York, USA"`.
+  3. **Country only, no city** — `"Japan"`, `"Brazil"`, `"Thailand"`.
+     `destination_city` is `null`, **not** a guessed capital. 11 trips.
+  4. **A sub-national region in the country slot** — `"Honolulu, Hawaii"`
+     (a US state), `"Edinburgh, Scotland"` (a UK constituent country). The
+     country column has to hold the sovereign state or every downstream join
+     silently misses them.
+  5. **Destinations that aren't cities** — `"Bali"`, `"Santorini"`,
+     `"Hawaii"`, `"Phuket"` are islands, provinces or states. Kept in
+     `destination_city` (they *are* the destination as this dataset means it)
+     and flagged `destination_kind: "region"`, so a later join against a city
+     database knows not to expect a match. 17 trips.
+- **Fields per trip:** `destination_raw` (the original string, verbatim, so
+  every inference stays auditable), `destination_city`,
+  `destination_country`, `destination_country_code` (ISO 3166-1 alpha-2),
+  `destination_kind` (`city` / `region` / `country`), plus the parsed and raw
+  forms of every date, duration and cost, plus the traveler's name, age,
+  gender and nationality so the file stands alone.
+- **Why the ISO code:** country *names* are for display; the code is the join
+  key every other dataset here is keyed by (weather, visas, UNESCO, Michelin,
+  prices). That's what eventually makes "how good would this trip have been"
+  answerable without a name-matching step.
+- **Coverage is enforced, not best-effort.** Every non-empty destination
+  string must resolve through `DESTINATIONS` or the script exits with the
+  list of what didn't. There's deliberately no comma-splitting fallback: a
+  fallback would let `"Bangkok, Thai"` through as country `"Thai"`, which is
+  worse than failing — it looks resolved, joins to nothing, and nobody
+  notices. Adding a destination means adding a line, since the whole value of
+  this file is that a human decided what `"Bangkok, Thai"` means.
+- **Country names are the readable ones** ("South Korea", "United States"),
+  not this project's World Bank-derived `country_name` values ("Korea,
+  South") — `destination_country_code` is what joins to those.
+- **Output:** `processed/multiple/trips_enhanced.json` — 137 trips (2 of the
+  CSV's 139 rows have no traveler name or destination and are skipped),
+  across 22 countries.
+- **Run:**
+  ```
+  python scripts/multiple/build_trips_enhanced.py
+  python scripts/multiple/build_trips_enhanced.py --report   # print how every destination string resolves
+  ```
+  `--report` is the fastest way to check the table is saying what you meant.
+
+### Hand-authored travelers (`scripts/multiple/build_synthetic_trips.py`)
+
+- **Inputs:** none required. Optionally reads
+  `raw/bts_t100/T_T100I_MARKET_ALL_CARRIER.csv` — a US DOT [T-100
+  International Market](https://www.transtats.bts.gov/) extract (carrier,
+  origin, destination, passengers) — to verify its itineraries are real
+  routes.
+- **Why:** the Kaggle dataset is 137 one-off trips with almost no repeat
+  travelers — **113 of its 124 people have exactly one trip**. That's fine
+  for filling a page and useless for the thing this project is building
+  toward: recommending a destination from where someone has already been. A
+  recommender needs a traveler with a *pattern*, so this script adds
+  travelers who have one.
+- **82 travelers, 1,887 trips, and as many shapes of pattern as possible** —
+  the variety is the point, since a recommender that only ever sees one kind
+  of habit learns nothing. The thirteen below came first, each built to be a
+  different *kind* of traveler:
+
+  | Traveler | Base | Pattern |
+  |---|---|---|
+  | **Joaquín Sorolla** | New York City (EWR) | 20 trips, 2016–2025. Two weeks in Europe every August (France/Italy/Spain/Portugal, never the same city twice) + Christmas week in Houston every December. United throughout. |
+  | **Edward Hopper** | San Francisco (SFO) | 10 trips, 2016–2025. One long Asia trip each autumn, cities repeating freely (Tokyo ×3, Hong Kong ×2), carriers varying by route. A loyalist to a *region* rather than to an airline or a city. |
+  | **Georgia O'Keeffe** | Houston (IAH) | 5 trips, 2021–2025. One week in Mexico every January, a different Mexican city each time. A tight, short, seasonal habit. |
+  | **Pablo Picasso** | Barcelona (BCN) | 4 trips, one each August 2021–2024, a different US city each time. The only non-US base, so the "home country" side of a recommendation isn't all one place. |
+  | **Jackson Pollock** | Chicago (ORD) | 12 trips, all 2025. Toronto the first week of *every* month — one route, one year. What a recommender should read as a commute, not twelve holidays. |
+  | **Andy Warhol** | Houston (IAH) | 15 trips, 2020–2025. Mexico two or three times a year, working through **all twelve** routes mainline United flies from Houston into Mexico. Same base and same country as O'Keeffe, completely different rhythm — the pair a recommender should be able to tell apart. |
+  | **Miles Davis** | Boston (BOS) | 24 trips, 2020–2025. Four European trips a year, twice around Delta's entire Boston transatlantic network (12 routes). |
+  | **Stan Getz** | New York (JFK) | 30 trips, 2020–2025. All 24 of Delta's JFK transatlantic routes, one apiece, plus a week in Cancún every July. The widest spread here — 25 cities, 16 countries. Shares a city with Joaquín Sorolla and nothing else: Delta from JFK vs United from Newark. |
+  | **Chet Baker** | Atlanta (ATL) | 53 trips, 2024–2025. New York every other week, Monday to Friday. The only pure business commuter — no holiday in any of it. |
+  | **Bill Evans** | Detroit (DTW) | 10 trips, 2016–2025. Ten days in Amsterdam every April, and nowhere else. Total destination loyalty — the hardest case to recommend anything new to. |
+  | **John Coltrane** | Minneapolis (MSP) | 15 trips, 2021–2025. Three Caribbean/Mexican beach trips every winter (Jan–Mar), never another season. Defined by *when*, not where: 8 countries, all warm, all in three months. |
+  | **Thelonious Monk** | Los Angeles (LAX) | 14 trips, 2019–2025. Australia and New Zealand twice a year, on the southern hemisphere's seasons. Four cities, all ultra-long-haul. |
+  | **Wes Montgomery** | Seattle (SEA) | 16 trips. Asia twice a year 2016–2019, **nothing in 2020–2021**, then straight back to it 2022–2025. The lapsed-and-returned traveler — the only one here whose calendar reflects that those two years happened. |
+
+- **Plus eight domestic-only travelers**, 2018–2025 — one US city, one to
+  three times a year, to see family, and nowhere else ever. United
+  (painters): **Pierre-Auguste Renoir** San Francisco→San Diego ×3/yr,
+  **Edgar Degas** Denver→Boston ×2/yr, **Claude Monet** Chicago→Cleveland
+  ×2/yr, **Alfred d'Orsay** Dulles→Pittsburgh ×1/yr. Delta (jazz musicians):
+  **Ella Fitzgerald** Cincinnati→Orlando ×3/yr, **Duke Ellington** Salt
+  Lake→Portland ×2/yr, **Sarah Vaughan** LaGuardia→New Orleans ×2/yr,
+  **Charlie Parker** Nashville→Detroit ×1/yr. This is the most common travel pattern there is
+  and the one everything above lacked: the destination isn't chosen, so
+  nothing about it can be recommended. They also **stay with family rather
+  than in hotels**, so their trips carry `accommodation_type: "Family home"`
+  and no accommodation cost at all — 128 of the dataset's trips have no
+  place-to-sleep spend, which is a signal in its own right.
+
+- **Plus thirty more on three other airlines**, built on one repeated
+  three-way split so the file has every combination of domestic and
+  international rather than only the extremes. Ten per airline: **three**
+  international-only flying to the *same destination every time*, **three**
+  domestic-only taking *holidays* (not visiting family — see below), and
+  **four** mixed, with both in the same year.
+
+  | Airline | International only (one destination) | Domestic only (holidays) | Mixed |
+  |---|---|---|---|
+  | **American** (scientists) | Albert Einstein DFW→London ×2/yr, Marie Curie MIA→Buenos Aires ×2/yr, Niels Bohr PHL→Lisbon ×1/yr | Isaac Newton ORD→Denver (Thanksgiving + Christmas), Galileo Galilei DCA→Orlando ×3/yr, Louis Pasteur PHL→Palm Beach ×2/yr | Charles Darwin (MIA: São Paulo, Lima, Boston, LA), Nikola Tesla (DFW: Cancún, London, San Antonio, Nashville), Stephen Hawking (LAX: Sydney, Tokyo, JFK, Miami), Richard Feynman (CLT: Madrid, New Orleans, Pittsburgh) |
+  | **Southwest** (DC characters) | Clark Kent HOU→Cancún ×2/yr, Bruce Wayne BWI→Montego Bay ×2/yr, Diana Prince PHX→Los Cabos ×2/yr | Barry Allen MDW→Tampa ×2/yr, Hal Jordan DEN→San Diego ×2/yr, Arthur Curry BNA→Sarasota ×3/yr | Victor Stone (MCO: Nassau, San José CR, Baltimore, St. Louis), Oliver Queen (DEN: Los Cabos, Cancún, San Antonio, Seattle), Billy Batson (STL: Cancún, Orlando, Phoenix), Dick Grayson (MCI: Cancún, Las Vegas, Tampa) |
+  | **Alaska** (Marvel characters) | Peter Parker SEA→Tokyo ×2/yr, Tony Stark LAX→Guadalajara ×2/yr, Steve Rogers HNL→Sydney ×1/yr | Bruce Banner SEA→Maui ×2/yr, Thor Odinson PDX→Palm Springs ×2/yr, Natasha Romanoff SFO→Orlando ×2/yr | Clint Barton (SEA: Seoul, Toronto, Anchorage, Spokane), Matt Murdock (SFO: Los Cabos, Puerto Vallarta, JFK, Orlando), Logan (LAX: Liberia CR, Belize City, Kona, Newark), Stephen Strange (SAN: Los Cabos, Puerto Vallarta, Boise, Honolulu) |
+
+  Three things these thirty add that nothing above had:
+  - **Holiday travel that isn't family travel.** Same low frequency and same
+    single destination as the eight family visitors, but pinned to actual
+    holidays (Thanksgiving, Christmas, Memorial Day, the 4th) and **paid
+    for**. A traveler with no accommodation cost is visiting relatives; one
+    with a hotel bill chose the destination. That distinction is the whole
+    reason both groups exist.
+  - **Short-haul international.** Southwest flies no long-haul at all in this
+    data — its entire international network is Mexico, Central America and
+    the Caribbean — so "flies abroad twice a year" now means something
+    different at four hours than it does at ten. It also flies from the
+    *secondary* airport where a city has one, which is why Chicago here means
+    Midway (Barry Allen) alongside O'Hare (Jackson Pollock, Claude Monet,
+    Isaac Newton), and Houston means Hobby (Clark Kent) alongside
+    Intercontinental (O'Keeffe, Warhol).
+  - **Domestic flights longer than most international ones.** Alaska supplies
+    the only non-mainland base in the file (Steve Rogers, Honolulu — Sydney is
+    a shorter flight from there than New York is) plus Seattle–Maui and
+    LA–Kona, which are domestic by passport and six hours over open ocean by
+    any other measure. Anything that treats "domestic" as a proxy for "short"
+    gets these wrong.
+
+- **Plus thirty-one travelers who are loyal to nothing**, spread two per city
+  (three in New York) across the **fifteen most populous US cities**, named
+  after Greek myth. They exist because everything above is somebody's
+  loyalist, and a file of nothing but loyalists teaches a recommender that
+  airline choice is a fact about a *person* rather than a fact about a
+  *route*.
+
+  | City | Travelers |
+  |---|---|
+  | New York (JFK / LGA / EWR) | Zeus, Hermes, Narcissus |
+  | Los Angeles (LAX) | Apollo, Pandora |
+  | Chicago (ORD / MDW) | Hades, Artemis |
+  | Houston (IAH) | Poseidon, Circe |
+  | Phoenix (PHX) | Prometheus, Persephone |
+  | Philadelphia (PHL) | Athena, Odysseus |
+  | San Antonio (SAT) | Ares, Medusa |
+  | San Diego (SAN) | Aphrodite, Sisyphus |
+  | Dallas (DFW) | Cronus, Demeter |
+  | Fort Worth (DFW) | Hercules, Theseus |
+  | Jacksonville (JAX) | Perseus, Chiron |
+  | Austin (AUS) | Dionysus, Icarus |
+  | San Jose (SJC) | Daedalus, Atlas |
+  | Columbus (CMH) | Orpheus, Hera |
+  | Charlotte (CLT) | Achilles, King Midas |
+
+  - **Not one of their legs names an airline.** Every one is the
+    `ANY_CARRIER` sentinel, resolved at build time from the T-100 data and
+    stepped through that route's operators in volume order. Zeus's five
+    New York–London trips come out on British Airways, Virgin Atlantic,
+    American, Delta and JetBlue; Hera's Columbus–Orlando hops on Frontier,
+    Southwest and Spirit. They average **nine or ten distinct airlines each,
+    against exactly one for every loyalist above** — so "how loyal is this
+    traveler" is now a number you can compute from the data rather than a
+    claim this file makes.
+  - **A volume floor keeps the answer to scheduled service.** Both T-100
+    files include charter and business-jet operators, so an unfiltered "who
+    flies this route" returns VistaJet on San Antonio–Madrid and Chartright
+    on Jacksonville–Toronto. Legs need ≥1,000 international passengers or ≥5
+    domestic segment records to count, and a route where nothing clears that
+    is a hard failure. Four planned destinations were replaced because of it.
+  - **Hobby vetoed itself.** Circe was going to be based at Houston Hobby, to
+    use both of that city's airports. Every destination Hobby serves has
+    exactly one operator above the floor — Southwest — so a traveler based
+    there *cannot* be a non-loyalist. She flies from Intercontinental
+    instead, and the attempt is left in a comment because the finding is more
+    interesting than the fix.
+  - **Trip shape is a property of the destination, not the traveler** (see
+    the `PLACES` table): a week in Cancún, four nights in Toronto, twelve in
+    Tokyo. That's what lets thirty-one itineraries be written as bare lists
+    of airport codes.
+  - **They don't leave on Saturdays.** Every loyalist above departs on the
+    second Saturday of the month; these cycle through six days of the month,
+    so day-of-week isn't a constant across the whole dataset.
+
+- **The names are a convention, not a joke.** One category per airline, so
+  which airline a traveler flies is legible from their name alone while
+  reading the raw data: United → painters and architects, Delta → jazz
+  musicians, American → scientists, Southwest → DC characters, Alaska →
+  Marvel characters, **and no airline at all → Greek myth**. The last three
+  also make the fiction unmissable, which is the point of naming these people
+  at all. The pairings are deliberately **not** biographical — Marie Curie
+  flies to Buenos Aires, Galileo to Orlando, Thor to Palm Springs, and
+  Daedalus and Icarus live in different cities — because matching each name
+  to its obvious city would imply this file knows something about real people
+  (or invents something about invented ones) that it doesn't. Gender is
+  lopsided but no longer nearly-uniform: the Greek group is 9 women to 22
+  men, bringing the file to **15 women against 67 men**.
+- **Two `id_prefix` collisions are resolved by suffixing, not renaming** —
+  `PPK` for Peter Parker (Pablo Picasso holds `PP`), `BBN` for Bruce Banner
+  (Billy Batson holds `BB`), `CBA` for Clint Barton (Chet Baker holds `CB`).
+  `trip_id` starts with this prefix, so a duplicate would silently merge two
+  people's trips.
+
+- **Carriers come from the data, not from plausibility.** Hopper flies Cathay
+  Pacific to Hong Kong and EVA Air to Taipei because those are the busiest
+  operators on those routes out of SFO in the T-100 file; Picasso flies
+  American to Chicago because it outflies United on BCN–ORD there (13,957
+  passengers to 9,137). Everyone else flies the airline they're a loyalist
+  to, on routes that airline actually operates from that hub — which is also
+  what picked most of the destinations: Einstein's DFW–London and Clark
+  Kent's Hobby–Cancún are the busiest international route each carrier flies
+  from that airport.
+- **Destination sets come from the data too.** Warhol's twelve Mexican cities
+  aren't a guess at United's network — they *are* United's network from
+  Houston as the T-100 file records it, in passenger order: Cancún, Mexico
+  City, Los Cabos, Querétaro, Guadalajara, Puerto Vallarta, Mérida, Cozumel,
+  Veracruz, Monterrey, León and San Luis Potosí. His itinerary rotates
+  through that list and wraps, so fifteen trips cover all twelve and revisit
+  the three busiest. Beach destinations get a week, cities a long weekend.
+- **The routes are verified, not asserted — now including domestic ones.**
+  Every leg must appear in T-100 data as *that carrier* flying *that origin →
+  that destination*, or the script exits. Two files, because BTS splits the
+  world that way:
+  - `T_T100I_MARKET_ALL_CARRIER.csv` (international, ~2.6MB) carries
+    passenger counts, so international legs print theirs (EWR–CDG 56,789 on
+    United; SFO–HKG 103,614 on Cathay).
+  - `T_T100D_SEGMENT_ALL_CARRIER.csv` (domestic, ~15MB) has **no passenger
+    column** — only which carrier flew which segment in which month on which
+    aircraft. That's enough for the question this check asks, which is
+    whether a route is real rather than how busy it is; domestic legs print
+    segment counts and months flown instead (ATL–JFK: 50 segments across 5
+    months on Delta).
+  Joaquín Sorolla's EWR–IAH Christmas hop and Chet Baker's entire ATL–JFK
+  commute were exempted from checking until the domestic file arrived. They're
+  verified now, and a domestic leg is only skipped when that file is missing
+  from the checkout. Pass `--skip-route-check` to bypass both.
+- **Two caveats left visible rather than smoothed away:**
+  - **2020 and 2021 entries** are in most of these itineraries because the
+    briefs asked for unbroken runs of years, not because those trips could
+    have happened — a US traveler taking a European holiday in August 2020,
+    or an Asia trip that autumn, ran into entry bans that were very much in
+    force. They're the obviously fictional years in otherwise plausible
+    patterns. Wes Montgomery is the deliberate exception: he doesn't fly at
+    all in 2020 or 2021, which is both more realistic and a useful shape in
+    its own right (a traveler who lapses and returns).
+- **Everything else is fabricated:** costs (a plausible first-year baseline
+  per trip type — transatlantic, transpacific, Mexico, domestic, short-haul —
+  compounded ~3–5%/year and rounded to $25, so a decade of trips shows drift
+  rather than identical numbers), exact dates (most departures are the second
+  Saturday of the month; Christmas week is fixed 21st–28th; Pollock's are the
+  1st), and ages. No randomness — rerunning produces the same file.
+- **Declared home bases.** `synthetic_trips.json` carries a `declared_bases`
+  map that `build_travelers.py` prefers over its own inference. Without it
+  every American traveler here would be filed under Washington, D.C. (the
+  American default) and Picasso under Madrid — right for someone whose home
+  is unknown, wrong for someone whose home is the entire point of the
+  record. All 82 come through as `base_inference: "declared"`. The site
+  labels a declared base "Base" and an inferred one "Likely base".
+- **They keep their names.** `build_travelers_anon.py` renames every Kaggle
+  traveler after a deceased author, but passes hand-authored travelers
+  through untouched with `persona_match: "authored"` — these 82 *are* the
+  persona. Their `traveler_id`s are still re-slugged to that file's bare-name
+  convention (`joaquin-sorolla`, not `joaquin-sorolla-american`).
+- **Output:** `processed/multiple/synthetic_trips.json`, merged into
+  `trips_enhanced.json` by `build_trips_enhanced.py`. Every trip in that file
+  now carries `synthetic` (false for Kaggle rows), and synthetic ones also
+  carry `carrier_name`, `origin_airport` and `destination_airport`.
+- **Run:**
+  ```
+  python scripts/multiple/build_synthetic_trips.py
+  python scripts/multiple/build_synthetic_trips.py --skip-route-check
+  ```
+  Run it **before** `build_trips_enhanced.py`.
+
+### Author personas for travelers (`scripts/multiple/build_travelers_anon.py`)
+
+- **Input:** `processed/multiple/travelers.json` (above).
+- **What it does:** rewrites every traveler's `name` and `traveler_id`,
+  replacing the source's filler names with a real, **deceased** author of
+  the **same nationality and gender** — Nobel laureates and the
+  best-known names first. Trips, dates, costs, ages, genders and
+  nationalities are untouched; only who the trips are attributed to
+  changes. `traveler_id` becomes the plain slug of the author's name
+  (`jane-austen`, not `jane-austen-british`) — the nationality suffix
+  existed to disambiguate sample travelers who shared a name, and real
+  author names don't collide.
+- **Why:** the source names are filler, and filler makes 124 cards
+  unreadable — half of them are permutations of Smith/Lee/Kim, and two
+  cards apart are indistinguishable at a glance. Hemingway, Woolf,
+  Kawabata and Alice Munro are memorable, which is what a demo grid of
+  traveler profiles needs.
+- **Rules, in order:** same nationality + gender → deceased only (no
+  living author is put in someone else's shoes, and it keeps the roster
+  stable) → best-known first (travelers.json is sorted most-trips-first
+  and assignment follows that order, so the most-travelled travelers get
+  the most recognizable names) → each author used at most once.
+- **Match quality is recorded in the data, not hidden.** Each traveler
+  carries `persona_match`:
+  - `nationality` — exact nationality and gender match. **123 of 124** on
+    the current dataset.
+  - `region` — an author from the same broad literary region, used where a
+    nationality has too few deceased authors on record. Currently **1**:
+    an Emirati traveler mapped to a Palestinian poet, since only one
+    deceased Emirati woman writer is in the roster.
+  - `unmapped` — nothing available; the original name is kept. Currently
+    none. If this ever appears, the script prints who and why so `ROSTER`
+    can be extended.
+- **Nationality strings in the source are inconsistent** ("Brazil" and
+  "Brazilian", "USA" and "American", "Korean"/"South Korea"/"South
+  Korean"), so everything is normalized through `NATIONALITY_ALIASES`
+  before lookup — which is also why the roster is keyed by demonym rather
+  than by country name.
+- **Judgment calls worth knowing:** author nationality is often contested
+  (Kafka is filed under Czech here), and Anne Frank is deliberately
+  excluded from the Dutch list — she fits the criteria on paper, but
+  reassigning a murdered child's name to a fictional tourist taking beach
+  holidays isn't a trade this project makes.
+- **This is not anonymization.** It's a name swap in data that was
+  fictional to begin with (see the traveler trips entry above). Nothing
+  here protects anyone's privacy and it shouldn't be described as if it
+  does. The old-name → new-name mapping is printed on each run but
+  deliberately **not** written into the output file.
+- **Output:** `processed/multiple/travelers_anon.json` — same shape as
+  `travelers.json` plus `persona_match`. Nothing else is added: an earlier
+  version also wrote a `persona_note` per author ("Nobel Prize in
+  Literature, 1938") and rendered it on their page, which turned a list of
+  travelers into a list of literary credentials — the ordering of `ROSTER`
+  still encodes that judgment, the site just doesn't state it.
+- **Consumed by:** `backend/app/data_loader.py`'s
+  `resolve_travelers_path()`, which serves this file **in preference to**
+  `travelers.json` whenever it exists. Deleting it is all it takes to go
+  back to the raw names — that's why the choice is a file-existence check
+  rather than a config flag. `/health`'s `travelers_source` reports which
+  of the two is live.
+- **Run:**
+  ```
+  python scripts/multiple/build_travelers_anon.py
+  python scripts/multiple/build_travelers_anon.py --quiet   # skip the mapping printout
+  ```
+
 ### Country name crosswalk (`reference/country_aliases.json`)
 
 - **Problem:** every source names countries differently — SimpleMaps says

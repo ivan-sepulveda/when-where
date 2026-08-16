@@ -13,6 +13,8 @@ iso2-length codes), and the specific "unknown code -> null/empty, not a
 404" convention this API uses throughout, not today's specific numbers.
 """
 
+import re
+
 import pytest
 
 
@@ -364,3 +366,164 @@ class TestVisaRequirements:
             assert res.status_code == 200, f"{iso2} returned {res.status_code}: {res.text}"
             requirements = res.json()["requirements"]
             assert all(isinstance(v, str) for v in requirements.values())
+
+
+class TestTravelers:
+    """The /rec-sys data routes. Like TestCityAttractions above, these assert
+    the contract rather than any particular traveler existing -- travelers.json
+    comes from a Kaggle dataset that can't be pulled from every environment,
+    so this checkout may or may not have it and both states are legitimate."""
+
+    def test_list_route_always_answers(self, client):
+        res = client.get("/api/travelers")
+        assert res.status_code == 200
+        body = res.json()
+        assert isinstance(body["dataset_available"], bool)
+        assert isinstance(body["travelers"], list)
+        # A missing dataset is an explicit flag, never an error and never an
+        # empty list masquerading as "no travelers exist" -- /rec-sys uses
+        # the flag to decide between an empty state and a "run these scripts"
+        # message.
+        if not body["dataset_available"]:
+            assert body["travelers"] == []
+
+    def test_summaries_omit_trips_and_carry_an_id(self, client):
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        for traveler in body["travelers"]:
+            assert traveler["traveler_id"]
+            assert traveler["name"]
+            assert traveler["trip_count"] >= 1
+            # The card grid doesn't need trips, and shipping them would make
+            # this response scale with total trips rather than travelers.
+            assert "trips" not in traveler
+
+    def test_every_traveler_has_an_inferred_base(self, client):
+        # The base is a guess (nationality + which cities they flew to), but
+        # it should exist for every traveler in this dataset -- an "unmapped"
+        # one means a nationality BASE_CITIES doesn't cover yet, which the
+        # build script also reports.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        for traveler in body["travelers"]:
+            assert traveler["base_inference"] in (
+                "declared",  # a hand-authored traveler who states their own home
+                "primary",
+                "avoided_visited",
+                "visited_all_candidates",
+                "unmapped",
+            )
+            if traveler["base_inference"] != "unmapped":
+                assert traveler["base_city"]
+                assert traveler["base_country"]
+                assert len(traveler["base_country_code"]) == 2
+
+    def test_base_city_is_never_somewhere_they_visited(self, client):
+        # The entire point of the inference: three trips to Sydney means the
+        # traveler is not based in Sydney. The one allowed exception is a
+        # country whose whole candidate list they've visited (Singapore has
+        # exactly one city), which is flagged rather than silently kept.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        for summary in body["travelers"]:
+            # "declared" is exempt for the same reason it wins over inference:
+            # it's a stated home, not a guess, so nothing about their trip
+            # list constrains it.
+            if summary["base_inference"] in ("declared", "unmapped", "visited_all_candidates"):
+                continue
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            visited = {t["destination_city"] for t in detail["trips"] if t["destination_city"]}
+            assert summary["base_city"] not in visited, summary
+
+    def test_hand_authored_travelers_keep_their_own_name(self, client):
+        # build_travelers_anon.py renames every Kaggle traveler after a
+        # deceased author, but a hand-authored traveler already IS the persona
+        # -- renaming Frank Lloyd Wright would undo the point of authoring
+        # him. Their id is still re-slugged to this file's bare-name
+        # convention, so it must not carry a nationality suffix.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        authored = [t for t in body["travelers"] if t.get("synthetic")]
+        if not authored:
+            pytest.skip("no hand-authored travelers in this checkout")
+
+        for traveler in authored:
+            assert traveler["persona_match"] == "authored"
+            assert traveler["base_inference"] == "declared"
+            detail = client.get(f"/api/travelers/{traveler['traveler_id']}").json()
+            # Their trips carry the airline and route their itinerary was
+            # built from; Kaggle trips have none of that.
+            assert all(t["synthetic"] for t in detail["trips"])
+            assert all(t["carrier_name"] for t in detail["trips"])
+            assert all(len(t["origin_airport"]) == 3 for t in detail["trips"])
+            assert all(len(t["destination_airport"]) == 3 for t in detail["trips"])
+
+    def test_traveler_ids_are_unique_and_url_safe(self, client):
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        ids = [t["traveler_id"] for t in body["travelers"]]
+        assert len(ids) == len(set(ids))  # a collision would make one traveler unreachable
+        assert all(re.fullmatch(r"[a-z0-9-]+", i) for i in ids)
+
+    def test_detail_returns_every_trip_for_that_traveler(self, client):
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        summary = body["travelers"][0]
+        res = client.get(f"/api/travelers/{summary['traveler_id']}")
+        assert res.status_code == 200
+        detail = res.json()
+        assert detail["name"] == summary["name"]
+        assert len(detail["trips"]) == summary["trip_count"]
+        assert all(trip["destination_raw"] for trip in detail["trips"])
+
+    def test_every_trip_has_a_resolved_destination_country(self, client):
+        # build_trips_enhanced.py resolves every destination string through a
+        # hand-written table and refuses to write an unmapped one, so a trip
+        # reaching the API without a country means that guarantee broke
+        # somewhere between the table and here.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        for summary in body["travelers"]:
+            for trip in client.get(f"/api/travelers/{summary['traveler_id']}").json()["trips"]:
+                assert trip["destination_country"], trip
+                assert len(trip["destination_country_code"]) == 2
+                assert trip["destination_kind"] in ("city", "region", "country")
+                # A city is absent only when the source named no city at all;
+                # any other combination means the split lost information.
+                assert (trip["destination_city"] is None) == (trip["destination_kind"] == "country")
+
+    def test_every_listed_traveler_has_a_reachable_detail_page(self, client):
+        # Same reasoning as the equivalent city and visa tests: a card the
+        # grid can link to must resolve, and finding that out shouldn't
+        # depend on which card someone happens to click.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        for traveler in body["travelers"]:
+            res = client.get(f"/api/travelers/{traveler['traveler_id']}")
+            assert res.status_code == 200, f"{traveler['traveler_id']} returned {res.status_code}"
+
+    def test_unknown_traveler_id_is_404(self, client):
+        res = client.get("/api/travelers/not-a-real-traveler")
+        assert res.status_code == 404
+
+    def test_health_reports_traveler_coverage(self, client):
+        body = client.get("/health").json()
+        assert "travelers_loaded" in body
+        count = body["travelers_loaded"]
+        assert count is None or count >= 0

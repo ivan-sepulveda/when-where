@@ -24,6 +24,12 @@ OVERARCHING_PATH = DATA_DIR / "processed" / "OVERARCHING_TRIP_SCORE_BY_COUNTRY.j
 TOURIST_CITIES_PATH = DATA_DIR / "reference" / "tourist_cities.json"
 TOURIST_CITIES_ENHANCED_PATH = DATA_DIR / "processed" / "tourist_cities_enhanced.json"
 CITY_ATTRACTIONS_PATH = DATA_DIR / "processed" / "multiple" / "city_attractions.json"
+TRAVELERS_PATH = DATA_DIR / "processed" / "multiple" / "travelers.json"
+# Same travelers and trips, with each sample name replaced by a deceased
+# author of the same nationality and gender (build_travelers_anon.py). Served
+# in preference to travelers.json when it exists -- see
+# resolve_travelers_path().
+TRAVELERS_ANON_PATH = DATA_DIR / "processed" / "multiple" / "travelers_anon.json"
 MONTHLY_SCORES_PATH = DATA_DIR / "processed" / "monthly_scores_2025_by_city.json"
 WEATHER_METRICS_PATH = DATA_DIR / "processed" / "multiple" / "weather_normals_2025_by_city.json"
 COUNTRY_ALIASES_PATH = DATA_DIR / "reference" / "country_aliases.json"
@@ -317,6 +323,64 @@ def load_city_attractions() -> dict | None:
         "sources_used": payload.get("sources_used", {}),
         "cities": payload.get("cities", {}),
     }
+
+
+def resolve_travelers_path() -> Path | None:
+    """Which travelers file the API actually serves, or None if neither has
+    been generated yet.
+
+    travelers_anon.json wins whenever it's present: it's the same travelers
+    and the same trips with the source's filler names ("John Smith",
+    "Ken Tanaka") swapped for real deceased authors, which is what makes a
+    grid of 124 cards legible -- half the source names are permutations of
+    Smith/Lee/Kim. Deleting that file is all it takes to go back to the raw
+    names; nothing else in the stack needs to change, which is why this is a
+    file-existence check rather than a config flag.
+
+    Exposed separately from load_travelers() so /health can report WHICH file
+    is being served without re-deriving the rule."""
+    if TRAVELERS_ANON_PATH.exists():
+        return TRAVELERS_ANON_PATH
+    if TRAVELERS_PATH.exists():
+        return TRAVELERS_PATH
+    return None
+
+
+def load_travelers() -> dict[str, dict] | None:
+    """traveler_id -> one traveler and every trip they took, from
+    build_travelers.py's output (or build_travelers_anon.py's, when that
+    exists -- see resolve_travelers_path()) -- or None if neither file does.
+
+    Same "None instead of raising" treatment as load_city_attractions()
+    above, for the same reason: travelers.json is generated from a Kaggle
+    dataset that can't be pulled from every environment, so a checkout
+    legitimately might not have it, and /rec-sys showing an empty state is a
+    far better failure than the whole API refusing to start. (main.py's
+    /api/travelers turns the None into an explicit "dataset not generated"
+    response rather than an empty list, so the page can tell "no travelers
+    loaded" from "zero travelers in the data.")
+
+    Keyed by traveler_id here rather than kept as the source file's list,
+    since both routes that use it look one up by id or iterate all of them --
+    the dict does both, the list only does the second.
+
+    Ordering is preserved (python dicts keep insertion order), so
+    /api/travelers can return them in build_travelers.py's own
+    most-trips-first order without re-sorting."""
+    path = resolve_travelers_path()
+    if path is None:
+        print(
+            f"[data_loader] {TRAVELERS_PATH.name} not found -- /rec-sys will show an empty "
+            "state. Run data/scripts/multiple/fetch_traveler_trips.py then build_travelers.py "
+            "to populate it."
+        )
+        return None
+
+    print(f"[data_loader] serving travelers from {path.name}")
+    with open(path, encoding="utf-8") as f:
+        payload = json.load(f)
+
+    return {traveler["traveler_id"]: traveler for traveler in payload.get("travelers", [])}
 
 
 def load_city_cluster_representatives() -> dict[str, str]:

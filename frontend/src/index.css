@@ -473,6 +473,88 @@ h1 {
   opacity: 0.6;
 }
 
+/* The /rec-sys traveler grid. auto-fill + minmax rather than a fixed column
+   count so it reflows from three columns down to one on a narrow screen
+   without a media query -- the page is a plain list of names, and how many
+   fit per row is a function of width, not of a breakpoint someone picked. */
+.traveler-card-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.6rem;
+}
+
+/* Same card box and hover affordance as .destinations-ranked-link, so a
+   clickable traveler reads the same way as a clickable destination. */
+.traveler-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  height: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid #3a3f47;
+  border-radius: 8px;
+  background: #161b22;
+  color: inherit;
+  text-decoration: none;
+}
+
+.traveler-card:hover {
+  border-color: #3b82f6;
+}
+
+.traveler-card-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.traveler-card-meta {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* "Only show travelers with multiple trips" -- sits in .destinations-controls
+   alongside the count, so the row matches the Show/Results controls on the
+   destinations page. */
+.rec-sys-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.rec-sys-filter input {
+  cursor: pointer;
+}
+
+.rec-sys-filter-count {
+  align-self: center;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+/* The "dataset hasn't been generated yet" state -- a real instruction with a
+   copyable command, not a shrug. Only ever seen by whoever is running this
+   locally, so it's addressed to them. */
+.rec-sys-empty pre {
+  margin: 0.75rem 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid #3a3f47;
+  border-radius: 8px;
+  background: #161b22;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+
+.rec-sys-empty-note {
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
 .lightbox-backdrop {
   position: fixed;
   inset: 0;

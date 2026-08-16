@@ -6,6 +6,8 @@ import CityDetail from "./pages/CityDetail";
 import CountrySpecificSources from "./pages/CountrySpecificSources";
 import Destinations from "./pages/Destinations";
 import DestinationDetail from "./pages/DestinationDetail";
+import RecSys from "./pages/RecSys";
+import TravelerDetail from "./pages/TravelerDetail";
 import { DepartureCountryProvider } from "./lib/departureCountry";
 import { getNextWeekRange } from "./lib/nextWeek";
 
@@ -88,6 +90,14 @@ function App() {
         <Route path="/about" element={<About />} />
         {/* Deliberately not in NavBar -- reachable directly by URL only. */}
         <Route path="/country-specific-sources" element={<CountrySpecificSources />} />
+        {/* Same "URL only, not in the nav yet" treatment as the route above,
+            for the same reason: it's a placeholder. See pages/RecSys.tsx. */}
+        <Route path="/rec-sys" element={<RecSys />} />
+        {/* :travelerId is build_travelers.py's slug (e.g.
+            "john-smith-american"), derived from the name and nationality it
+            groups trips by -- so the URL shows what decided that this person
+            is one person. */}
+        <Route path="/rec-sys/travelers/:travelerId" element={<TravelerDetail />} />
         <Route path="/destinations" element={<Destinations />} />
         {/* :cityId is a simplemaps_id (e.g. "1392419823"), the stable
             unique key for a city in this project's data -- city names

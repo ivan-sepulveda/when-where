@@ -44,7 +44,9 @@ from .data_loader import (
     load_country_weather_scores,
     load_static_city_scores,
     load_static_country_scores,
+    load_travelers,
     load_visa_requirements,
+    resolve_travelers_path,
 )
 from .scoring import (
     combine_domain_scores,
@@ -95,6 +97,8 @@ CITY_DETAILS = load_city_details()
 # see load_city_attractions()'s docstring for why that's tolerated here when
 # every other missing input is fatal.
 CITY_ATTRACTIONS = load_city_attractions()
+# Also None until its data scripts have been run -- see load_travelers().
+TRAVELERS = load_travelers()
 CITY_WEATHER_SCORES = load_city_weather_scores()
 CITY_WEATHER_METRICS = load_city_weather_metrics()
 CITY_CLUSTER_REPRESENTATIVES = load_city_cluster_representatives()
@@ -243,6 +247,112 @@ class CityDetailResponse(BaseModel):
     local_art_museums: Optional[NearbyPlaces]
 
 
+class TravelerTrip(BaseModel):
+    """One trip from the traveler dataset. Every cost/date/duration is
+    carried BOTH parsed and raw on purpose -- see build_travelers.py: the
+    parsed value is for future scoring, the raw string is what the UI shows,
+    so a value in an unexpected format or currency degrades to "exactly what
+    the source said" instead of a confidently wrong number."""
+
+    trip_id: Optional[str]
+    # The source's single free-text destination string, split by hand into a
+    # city and a sovereign country -- see
+    # data/scripts/multiple/build_trips_enhanced.py, which resolves
+    # "Sydney, Aus", "Tokyo" and "Honolulu, Hawaii" through a written table
+    # rather than by splitting on a comma.
+    destination_raw: str
+    # Null only when destination_kind is "country" (the source named no city).
+    destination_city: Optional[str]
+    destination_country: str
+    # ISO 3166-1 alpha-2 -- the join key every other dataset in this project
+    # is keyed by (weather, visas, UNESCO, Michelin, prices), which is what
+    # eventually makes "how good would this trip have been" answerable
+    # without a name match.
+    destination_country_code: str
+    # "city", "region" (an island/state/province used as a destination, e.g.
+    # Bali or Hawaii -- kept in destination_city but flagged so a later
+    # city-database join knows not to expect a hit), or "country".
+    destination_kind: str
+    start_date: Optional[str]  # ISO, or null when the source value didn't parse
+    start_date_raw: Optional[str]
+    end_date: Optional[str]
+    end_date_raw: Optional[str]
+    duration_days: Optional[int]
+    duration_raw: Optional[str]
+    accommodation_type: Optional[str]
+    accommodation_cost: Optional[float]
+    accommodation_cost_raw: Optional[str]
+    transportation_type: Optional[str]
+    transportation_cost: Optional[float]
+    transportation_cost_raw: Optional[str]
+    # True for hand-authored trips (data/scripts/multiple/build_synthetic_trips.py),
+    # false for the Kaggle rows. The three fields below are only set on the
+    # former: their itineraries are built on real airline routes, verified
+    # against US DOT T-100 data, so the carrier and airport codes are worth
+    # carrying. Defaulted so an older travelers.json without them still loads.
+    synthetic: bool = False
+    carrier_name: Optional[str] = None
+    origin_airport: Optional[str] = None
+    destination_airport: Optional[str] = None
+
+
+class TravelerSummary(BaseModel):
+    """A traveler without their trips -- what /rec-sys renders as a card.
+    The trips themselves are only sent by the detail route, so the grid stays
+    a small response no matter how many trips the dataset grows to."""
+
+    traveler_id: str
+    name: str
+    nationality: Optional[str]
+    # INFERRED, never stated by the source: their nationality's country, and
+    # the first plausible home city in it that they didn't visit on any trip
+    # (an Australian who flew to Sydney three times gets Melbourne). See
+    # data/scripts/multiple/build_travelers.py's infer_base(). Null only for a
+    # nationality that script has no city list for.
+    base_city: Optional[str] = None
+    base_country: Optional[str] = None
+    base_country_code: Optional[str] = None
+    # How that city was picked: "primary" (the country's default),
+    # "avoided_visited" (they'd been to the ones ahead of it),
+    # "visited_all_candidates", or "unmapped". Carried so the guess is
+    # inspectable rather than reading as fact.
+    base_inference: Optional[str] = None
+    gender: Optional[str]
+    age: Optional[int]
+    # [youngest, oldest] across this traveler's trips -- age is recorded
+    # per-trip in the source, so it moves for anyone who travelled across
+    # years. Null when no trip of theirs has an age at all.
+    age_range: Optional[list[int]]
+    # True when every one of this traveler's trips is hand-authored -- see
+    # TravelerTrip.synthetic. Their name is their own rather than an author
+    # persona (persona_match: "authored").
+    synthetic: bool = False
+    trip_count: int
+    destinations: list[str]
+    # Only present when travelers_anon.json is what's being served (see
+    # data_loader.resolve_travelers_path), and never rendered -- this is
+    # provenance, not page content.
+    # "nationality" (author matches the traveler's nationality and gender
+    # exactly), "region" (same broad literary region -- used where a
+    # nationality has too few deceased authors on record), or "unmapped" (name
+    # left as the source had it). Null when serving raw names. Carried through
+    # so an imperfect match is inspectable rather than invisible.
+    persona_match: Optional[str] = None
+
+
+class TravelerDetail(TravelerSummary):
+    trips: list[TravelerTrip]
+
+
+class TravelersResponse(BaseModel):
+    # False when travelers.json hasn't been generated in this checkout (see
+    # data_loader.load_travelers). The distinction matters to the page: with
+    # this false, /rec-sys explains which scripts to run; with it true and an
+    # empty list, the data genuinely has no travelers in it.
+    dataset_available: bool
+    travelers: list[TravelerSummary]
+
+
 class WeatherDetail(BaseModel):
     avg_high_c: float
     avg_low_c: float
@@ -314,6 +424,13 @@ def health():
         # anything in it (shouldn't happen), null means it hasn't been
         # generated in this checkout -- see load_city_attractions().
         "cities_with_attractions": len(CITY_ATTRACTIONS["cities"]) if CITY_ATTRACTIONS else None,
+        # Same 0-vs-null convention as the line above.
+        "travelers_loaded": len(TRAVELERS) if TRAVELERS is not None else None,
+        # Which of the two traveler files is actually being served --
+        # "travelers_anon.json" (author personas) or "travelers.json" (the
+        # source's own names). Worth reporting: they're interchangeable at
+        # the API level, so this is the only way to tell from outside.
+        "travelers_source": resolve_travelers_path().name if resolve_travelers_path() else None,
         "city_clusters": len(set(CITY_CLUSTER_REPRESENTATIVES.values())),
         "countries_with_visa_requirements": len(VISA_REQUIREMENTS),
     }
@@ -604,6 +721,50 @@ def country_weather(
         weather=weather,
         capital_city=CAPITAL_NAMES.get(iso2),
     )
+
+
+@app.get("/api/travelers", response_model=TravelersResponse)
+def travelers():
+    """Every traveler in the dataset, without their trips -- the /rec-sys
+    card grid. Already ordered most-trips-first by build_travelers.py, and
+    not re-sorted here so the page's ordering has exactly one source of
+    truth.
+
+    No pagination: this is 139 trips' worth of travelers, and the whole point
+    of the page is showing all of them at once. Revisit if the dataset is
+    ever swapped for a real one.
+
+    `dataset_available: false` with an empty list means travelers.json hasn't
+    been generated here -- see load_travelers(). That's deliberately NOT a
+    500 or an empty 200: the page tells the user which scripts to run."""
+    if TRAVELERS is None:
+        return TravelersResponse(dataset_available=False, travelers=[])
+
+    return TravelersResponse(
+        dataset_available=True,
+        travelers=[TravelerSummary(**{k: v for k, v in t.items() if k != "trips"}) for t in TRAVELERS.values()],
+    )
+
+
+@app.get("/api/travelers/{traveler_id}", response_model=TravelerDetail)
+def traveler_detail(traveler_id: str):
+    """One traveler and every trip they took.
+
+    404 on an unknown traveler_id, and also when the dataset isn't loaded at
+    all -- same reasoning as the city routes: an id this project can't
+    resolve has no partial answer to give. The list route above is where the
+    "dataset not generated" case is communicated, since that's the page
+    someone lands on first; getting here with a real id but no dataset means
+    a stale bookmark, which reads as "not found" anyway.
+
+    `traveler_id` is build_travelers.py's slug (e.g. "john-smith-american"),
+    derived from the name and nationality it grouped on -- so the URL shows
+    which two fields decided that this person is one person."""
+    traveler = TRAVELERS.get(traveler_id) if TRAVELERS else None
+    if traveler is None:
+        raise HTTPException(status_code=404, detail=f"No traveler with id {traveler_id!r}")
+
+    return TravelerDetail(**traveler)
 
 
 @app.get("/api/destinations/{departure_country}/visa-requirements", response_model=VisaRequirementsResponse)
