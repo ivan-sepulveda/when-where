@@ -31,6 +31,7 @@ TRAVELERS_PATH = DATA_DIR / "processed" / "multiple" / "travelers.json"
 # resolve_travelers_path().
 TRAVELERS_ANON_PATH = DATA_DIR / "processed" / "multiple" / "travelers_anon.json"
 TRAVELER_ENTROPY_PATH = DATA_DIR / "processed" / "multiple" / "traveler_entropy.json"
+TRAVELER_TAGS_PATH = DATA_DIR / "processed" / "multiple" / "traveler_tags.json"
 MONTHLY_SCORES_PATH = DATA_DIR / "processed" / "monthly_scores_2025_by_city.json"
 WEATHER_METRICS_PATH = DATA_DIR / "processed" / "multiple" / "weather_normals_2025_by_city.json"
 COUNTRY_ALIASES_PATH = DATA_DIR / "reference" / "country_aliases.json"
@@ -420,6 +421,40 @@ def load_traveler_entropy() -> dict | None:
         "destination_unit": payload.get("destination_unit"),
         "global_distinct_destinations": payload.get("global_distinct_destinations"),
         "ln_global_distinct_destinations": payload.get("ln_global_distinct_destinations"),
+        "by_traveler": {row["traveler_id"]: row for row in payload.get("travelers", [])},
+    }
+
+
+def load_traveler_tags() -> dict | None:
+    """Tags per traveler, from compute_traveler_tags.py's output -- or None
+    if that file doesn't exist yet.
+
+    Same None-instead-of-raising treatment as load_traveler_entropy(), and
+    for the same reason: this is derived from travelers_anon.json, so a
+    missing file is a normal checkout state and the pages simply render no
+    chips.
+
+    Returned shape:
+        {"rules": {"airline_loyalist": {"threshold": 0.8, ...}},
+         "by_traveler": {traveler_id: {tags: [...], top_carrier, ...}}}
+
+    Re-keyed by traveler_id here; the file itself stores a sorted LIST so a
+    human reading the CSV sees the tagged travelers first. The rule
+    parameters ride along because a chip's tooltip has to be able to say
+    what threshold produced it -- 80% is a choice, not a constant, and
+    --threshold can change it without the frontend knowing."""
+    if not TRAVELER_TAGS_PATH.exists():
+        print(
+            f"[data_loader] {TRAVELER_TAGS_PATH.name} not found -- travelers will be served "
+            "with no tags. Run data/scripts/multiple/compute_traveler_tags.py."
+        )
+        return None
+
+    with open(TRAVELER_TAGS_PATH, encoding="utf-8") as f:
+        payload = json.load(f)
+
+    return {
+        "rules": payload.get("rules", {}),
         "by_traveler": {row["traveler_id"]: row for row in payload.get("travelers", [])},
     }
 

@@ -1,4 +1,5 @@
 import { Link, useSearchParams } from "react-router";
+import TravelerTags from "../components/TravelerTags";
 import { formatTripCount, useTravelers } from "../lib/travelers";
 
 // Whether the grid is filtered to travelers with more than one trip. Kept in
@@ -121,6 +122,12 @@ export default function RecSys() {
                         .filter(Boolean)
                         .join(" · ")}
                     </span>
+                    {/* Below the meta line, not beside the name: a chip is
+                        the most eye-catching thing on the card, and putting
+                        it above the trip count would make the 49 tagged
+                        travelers look like a different kind of card from
+                        the other 157. */}
+                    <TravelerTags tags={traveler.tags} />
                   </Link>
                 </li>
               ))}

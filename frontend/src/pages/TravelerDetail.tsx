@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router";
 import StackedShareBar from "../components/StackedShareBar";
+import TravelerTags from "../components/TravelerTags";
 import { airlineColor, shortenCarrier } from "../lib/airlineColors";
 import { formatDateRange } from "../lib/formatDate";
 import { carrierBreakdown, domesticInternationalBreakdown } from "../lib/travelerCharts";
@@ -130,6 +131,10 @@ export default function TravelerDetail() {
   return (
     <main className="page">
       <h1>{traveler.name}</h1>
+      {/* Directly under the name, above the stats: the tags are the one thing
+          on this page that's a conclusion rather than a field, and they're
+          what the "Airlines flown" bar further down is the evidence for. */}
+      <TravelerTags tags={traveler.tags} className="traveler-tags-detail" />
       <p className="tagline">
         <Link to="/rec-sys">Back to travelers</Link>
       </p>

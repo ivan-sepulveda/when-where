@@ -43,6 +43,33 @@ export interface TravelerTrip {
   destination_airport?: string | null;
 }
 
+// Mirrors backend/app/main.py's TravelerTag. A computed label -- see
+// data/scripts/multiple/compute_traveler_tags.py -- describing a pattern in
+// the trips AS RECORDED, never something the itinerary's author declared.
+//
+// `denominator` is not the traveler's trip_count. For an airline_loyalist tag
+// it counts only trips that record a carrier, which is the same denominator
+// the "Airlines flown" chart uses, so a 100% bar and a Loyalist chip can't
+// contradict each other on the same page.
+export interface TravelerTag {
+  // "airline-loyalist:delta-air-lines-inc" -- stable, built from the full
+  // legal carrier name.
+  tag_id: string;
+  // The rule that produced it, e.g. "airline_loyalist". Branch on this rather
+  // than parsing `label`, so a second rule can be styled differently without
+  // touching the first.
+  kind: string;
+  // What the chip says, e.g. "Delta Loyalist" -- already shortened by the
+  // script.
+  label: string;
+  // Rule-specific evidence, all optional: a future rule needn't involve an
+  // airline, and only tag_id/kind/label are guaranteed.
+  carrier_name?: string | null;
+  share?: number | null;
+  trips?: number | null;
+  denominator?: number | null;
+}
+
 export interface TravelerSummary {
   // build_travelers.py's slug, e.g. "john-smith-american" -- derived from the
   // name and nationality it grouped on, so the URL shows what decided that
@@ -72,6 +99,10 @@ export interface TravelerSummary {
   // something the UI renders -- and absent entirely when the raw names are
   // being served.
   persona_match?: string | null;
+  // Always an array, never null -- the API sends [] both for "no rule
+  // matched" and for a checkout where compute_traveler_tags.py hasn't run.
+  // Optional here only so an older cached response still typechecks.
+  tags?: TravelerTag[];
 }
 
 // "United Air Lines Inc. · EWR - CDG" for a hand-authored trip, null for a

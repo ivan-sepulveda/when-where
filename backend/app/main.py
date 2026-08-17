@@ -45,6 +45,7 @@ from .data_loader import (
     load_static_city_scores,
     load_static_country_scores,
     load_traveler_entropy,
+    load_traveler_tags,
     load_travelers,
     load_visa_requirements,
     resolve_travelers_path,
@@ -105,6 +106,10 @@ TRAVELERS = load_travelers()
 # is DERIVED from that file -- folding it back in would make a build step
 # read its own output.
 TRAVELER_ENTROPY = load_traveler_entropy()
+# Also None until compute_traveler_tags.py has been run, and kept separate
+# from TRAVELERS for the same reason as the entropy above: it is DERIVED
+# from travelers_anon.json.
+TRAVELER_TAGS = load_traveler_tags()
 CITY_WEATHER_SCORES = load_city_weather_scores()
 CITY_WEATHER_METRICS = load_city_weather_metrics()
 CITY_CLUSTER_REPRESENTATIVES = load_city_cluster_representatives()
@@ -302,6 +307,39 @@ class TravelerTrip(BaseModel):
     destination_airport: Optional[str] = None
 
 
+class TravelerTag(BaseModel):
+    """One computed label on a traveler -- see
+    data/scripts/multiple/compute_traveler_tags.py.
+
+    A tag is a fact about the trips AS RECORDED, never something the
+    itinerary's author declared. Two travelers written as United loyalists
+    fly routes United doesn't serve and so aren't tagged; that disagreement
+    is the point of computing tags rather than storing them.
+
+    `share`, `trips` and `denominator` ride along with every tag so the UI can
+    show the arithmetic behind it. `denominator` is NOT the traveler's
+    trip_count: for airline_loyalist it counts only trips that record a
+    carrier at all (124 of 206 travelers record none), matching the
+    "Airlines flown" chart exactly."""
+
+    # Stable machine id, e.g. "airline-loyalist:delta-air-lines-inc" -- built
+    # from the full legal carrier name, so two airlines that shorten to the
+    # same word can't collide.
+    tag_id: str
+    # Which rule produced it, e.g. "airline_loyalist". The frontend groups and
+    # styles by this, not by parsing the label.
+    kind: str
+    # What gets drawn on the chip, e.g. "Delta Loyalist".
+    label: str
+    # Rule-specific evidence. Optional because a future rule needn't have a
+    # carrier -- a tag always has an id, kind and label, and nothing else is
+    # guaranteed.
+    carrier_name: Optional[str] = None
+    share: Optional[float] = None
+    trips: Optional[int] = None
+    denominator: Optional[int] = None
+
+
 class TravelerSummary(BaseModel):
     """A traveler without their trips -- what /rec-sys renders as a card.
     The trips themselves are only sent by the detail route, so the grid stays
@@ -344,6 +382,13 @@ class TravelerSummary(BaseModel):
     # left as the source had it). Null when serving raw names. Carried through
     # so an imperfect match is inspectable rather than invisible.
     persona_match: Optional[str] = None
+    # Computed labels (see TravelerTag). ALWAYS a list, never null: an empty
+    # list means "the rules ran and none matched", which is a real answer, and
+    # the same empty list is what a checkout with no traveler_tags.json sends.
+    # Those two cases are deliberately not distinguished here -- unlike
+    # entropy, a tag has nothing useful to say about its own absence, and the
+    # server log already reports the missing file.
+    tags: list[TravelerTag] = []
 
 
 class DestinationEntropy(BaseModel):
@@ -792,8 +837,26 @@ def travelers():
 
     return TravelersResponse(
         dataset_available=True,
-        travelers=[TravelerSummary(**{k: v for k, v in t.items() if k != "trips"}) for t in TRAVELERS.values()],
+        travelers=[
+            TravelerSummary(
+                **{k: v for k, v in t.items() if k != "trips"},
+                tags=_tags(t["traveler_id"]),
+            )
+            for t in TRAVELERS.values()
+        ],
     )
+
+
+def _tags(traveler_id: str) -> list[TravelerTag]:
+    """This traveler's tags, or an empty list when the tags file isn't there
+    or predates them. Attached to the SUMMARY as well as the detail, so the
+    /rec-sys grid can show chips without fetching every traveler's trips."""
+    if TRAVELER_TAGS is None:
+        return []
+    row = TRAVELER_TAGS["by_traveler"].get(traveler_id)
+    if row is None:
+        return []
+    return [TravelerTag(**tag) for tag in row.get("tags", [])]
 
 
 def _destination_entropy(traveler_id: str) -> Optional[DestinationEntropy]:
@@ -840,7 +903,11 @@ def traveler_detail(traveler_id: str):
     if traveler is None:
         raise HTTPException(status_code=404, detail=f"No traveler with id {traveler_id!r}")
 
-    return TravelerDetail(**traveler, destination_entropy=_destination_entropy(traveler_id))
+    return TravelerDetail(
+        **traveler,
+        tags=_tags(traveler_id),
+        destination_entropy=_destination_entropy(traveler_id),
+    )
 
 
 @app.get("/api/destinations/{departure_country}/visa-requirements", response_model=VisaRequirementsResponse)

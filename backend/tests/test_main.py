@@ -14,6 +14,7 @@ iso2-length codes), and the specific "unknown code -> null/empty, not a
 """
 
 import re
+from collections import Counter
 
 import pytest
 
@@ -569,6 +570,134 @@ class TestTravelers:
             # Normalised entropy is a proportion; outside 0-1 means the
             # denominator is wrong, not the traveler.
             assert 0.0 <= entropy["normalized"] <= 1.0, summary["traveler_id"]
+
+    def test_loyalist_tags_agree_with_the_carriers_in_the_same_response(self, client):
+        # Tags come from a separate script and a separate file
+        # (compute_traveler_tags.py -> traveler_tags.json), joined back on
+        # traveler_id at request time, so they CAN drift from the trips they
+        # describe. This recomputes the rule from the trips in the same
+        # response -- which is what would catch a stale tags file served
+        # alongside freshly rebuilt travelers.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        checked = 0
+        for summary in body["travelers"]:
+            tags = summary.get("tags") or []
+            loyalist = [t for t in tags if t["kind"] == "airline_loyalist"]
+            if not loyalist:
+                continue
+
+            # One airline can be a majority, so one loyalist tag at most.
+            assert len(loyalist) == 1, summary["traveler_id"]
+            tag = loyalist[0]
+
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            counts = Counter(
+                trip["carrier_name"] for trip in detail["trips"] if trip["carrier_name"]
+            )
+            # THE DENOMINATOR IS TRIPS WITH A CARRIER, not trip_count -- the
+            # rule's one non-obvious choice, and the one a future refactor is
+            # most likely to get wrong.
+            assert tag["denominator"] == sum(counts.values()), summary["traveler_id"]
+            assert tag["trips"] == counts[tag["carrier_name"]], summary["traveler_id"]
+            assert tag["carrier_name"] == counts.most_common(1)[0][0], summary["traveler_id"]
+            assert tag["share"] == pytest.approx(
+                tag["trips"] / tag["denominator"], abs=1e-3
+            ), summary["traveler_id"]
+            checked += 1
+
+        if checked == 0:
+            pytest.skip("traveler_tags.json not generated in this checkout")
+
+    def test_an_untagged_traveler_genuinely_fails_the_rule(self, client):
+        # The other direction: every traveler WITHOUT the tag must actually
+        # miss it, on share or on trip count. A rule that silently stopped
+        # firing would still pass the test above, which only inspects the
+        # tags that exist.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+        if not any(t.get("tags") for t in body["travelers"]):
+            pytest.skip("traveler_tags.json not generated in this checkout")
+
+        for summary in body["travelers"]:
+            if any(t["kind"] == "airline_loyalist" for t in summary.get("tags") or []):
+                continue
+
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            counts = Counter(
+                trip["carrier_name"] for trip in detail["trips"] if trip["carrier_name"]
+            )
+            n = sum(counts.values())
+            if n == 0:
+                continue  # no carrier recorded at all -- unknown, not disloyal
+
+            share = counts.most_common(1)[0][1] / n
+            # 0.8 and 5 are compute_traveler_tags.py's defaults; both are
+            # --flags there, so a checkout built with stricter ones still
+            # satisfies this.
+            assert share < 0.8 or n < 5, summary["traveler_id"]
+
+    def test_tags_are_a_list_on_both_routes_and_identical_between_them(self, client):
+        # Tags are attached to the SUMMARY as well as the detail so the
+        # /rec-sys grid can show chips without fetching every traveler's
+        # trips -- which only works if the two agree.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        for summary in body["travelers"]:
+            # Never null: "no rule matched" and "the file isn't there" are
+            # both an empty list, and the frontend maps over it unguarded.
+            assert isinstance(summary["tags"], list), summary["traveler_id"]
+
+        for summary in body["travelers"][:20]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            assert detail["tags"] == summary["tags"], summary["traveler_id"]
+
+    def test_tag_shape_is_stable_enough_to_render(self, client):
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        tags = [tag for t in body["travelers"] for tag in t.get("tags") or []]
+        if not tags:
+            pytest.skip("traveler_tags.json not generated in this checkout")
+
+        for tag in tags:
+            # The three fields every tag has, whatever rule made it.
+            assert tag["tag_id"] and tag["kind"] and tag["label"]
+            assert re.fullmatch(r"[a-z0-9:-]+", tag["tag_id"]), tag
+            if tag["kind"] != "airline_loyalist":
+                continue
+            # The label is the SHORT airline name -- a chip has to fit a
+            # 180px card, and "Delta Air Lines Inc. Loyalist" does not.
+            assert tag["label"].endswith(" Loyalist"), tag
+            assert tag["label"] != f"{tag['carrier_name']} Loyalist", tag
+            assert tag["tag_id"].startswith("airline-loyalist:"), tag
+            assert tag["share"] >= 0.8, tag
+            assert tag["denominator"] >= 5, tag
+
+    def test_a_traveler_with_no_recorded_airline_gets_no_loyalist_tag(self, client):
+        # The 124 Kaggle-sourced travelers record no carrier anywhere. "We
+        # don't know who they fly with" must not come out as a tag, and
+        # equally must not come out as a "no airline" tag -- it comes out as
+        # nothing at all.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        checked = 0
+        for summary in body["travelers"]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            if any(trip["carrier_name"] for trip in detail["trips"]):
+                continue
+            assert not [t for t in detail["tags"] if t["kind"] == "airline_loyalist"], summary
+            checked += 1
+            if checked >= 15:
+                break
 
     def test_traveler_ids_are_unique_and_url_safe(self, client):
         body = client.get("/api/travelers").json()

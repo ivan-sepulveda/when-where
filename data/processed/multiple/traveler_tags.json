@@ -1,0 +1,2781 @@
+{
+  "source": "travelers_anon.json (built by build_travelers_anon.py)",
+  "generated": "2026-08-17",
+  "rules": {
+    "airline_loyalist": {
+      "threshold": 0.8,
+      "min_trips": 5,
+      "denominator": "trips with a recorded carrier_name",
+      "label_format": "{Airline} Loyalist"
+    }
+  },
+  "travelers_total": 206,
+  "travelers_with_carrier_data": 82,
+  "travelers_tagged": 49,
+  "tag_counts": {
+    "Delta Loyalist": 11,
+    "Alaska Loyalist": 10,
+    "American Loyalist": 10,
+    "Southwest Loyalist": 10,
+    "United Loyalist": 8
+  },
+  "near_misses_below_min_trips": 0,
+  "travelers": [
+    {
+      "traveler_id": "albert-einstein",
+      "name": "Albert Einstein",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        }
+      ]
+    },
+    {
+      "traveler_id": "alfred-d-orsay",
+      "name": "Alfred d'Orsay",
+      "trip_count": 8,
+      "trips_with_carrier": 8,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "share": 1.0,
+          "trips": 8,
+          "denominator": 8
+        }
+      ]
+    },
+    {
+      "traveler_id": "andy-warhol",
+      "name": "Andy Warhol",
+      "trip_count": 15,
+      "trips_with_carrier": 15,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "share": 1.0,
+          "trips": 15,
+          "denominator": 15
+        }
+      ]
+    },
+    {
+      "traveler_id": "arthur-curry",
+      "name": "Arthur Curry",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 1,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:southwest-airlines-co",
+          "label": "Southwest Loyalist",
+          "carrier_name": "Southwest Airlines Co.",
+          "share": 1.0,
+          "trips": 24,
+          "denominator": 24
+        }
+      ]
+    },
+    {
+      "traveler_id": "barry-allen",
+      "name": "Barry Allen",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:southwest-airlines-co",
+          "label": "Southwest Loyalist",
+          "carrier_name": "Southwest Airlines Co.",
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        }
+      ]
+    },
+    {
+      "traveler_id": "bill-evans",
+      "name": "Bill Evans",
+      "trip_count": 10,
+      "trips_with_carrier": 10,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "share": 1.0,
+          "trips": 10,
+          "denominator": 10
+        }
+      ]
+    },
+    {
+      "traveler_id": "billy-batson",
+      "name": "Billy Batson",
+      "trip_count": 21,
+      "trips_with_carrier": 21,
+      "distinct_carriers": 1,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:southwest-airlines-co",
+          "label": "Southwest Loyalist",
+          "carrier_name": "Southwest Airlines Co.",
+          "share": 1.0,
+          "trips": 21,
+          "denominator": 21
+        }
+      ]
+    },
+    {
+      "traveler_id": "bruce-banner",
+      "name": "Bruce Banner",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:alaska-airlines-inc",
+          "label": "Alaska Loyalist",
+          "carrier_name": "Alaska Airlines Inc.",
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        }
+      ]
+    },
+    {
+      "traveler_id": "bruce-wayne",
+      "name": "Bruce Wayne",
+      "trip_count": 16,
+      "trips_with_carrier": 16,
+      "distinct_carriers": 1,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:southwest-airlines-co",
+          "label": "Southwest Loyalist",
+          "carrier_name": "Southwest Airlines Co.",
+          "share": 1.0,
+          "trips": 16,
+          "denominator": 16
+        }
+      ]
+    },
+    {
+      "traveler_id": "charles-darwin",
+      "name": "Charles Darwin",
+      "trip_count": 36,
+      "trips_with_carrier": 36,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "share": 1.0,
+          "trips": 36,
+          "denominator": 36
+        }
+      ]
+    },
+    {
+      "traveler_id": "charlie-parker",
+      "name": "Charlie Parker",
+      "trip_count": 8,
+      "trips_with_carrier": 8,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "share": 1.0,
+          "trips": 8,
+          "denominator": 8
+        }
+      ]
+    },
+    {
+      "traveler_id": "chet-baker",
+      "name": "Chet Baker",
+      "trip_count": 53,
+      "trips_with_carrier": 53,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "share": 1.0,
+          "trips": 53,
+          "denominator": 53
+        }
+      ]
+    },
+    {
+      "traveler_id": "clark-kent",
+      "name": "Clark Kent",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:southwest-airlines-co",
+          "label": "Southwest Loyalist",
+          "carrier_name": "Southwest Airlines Co.",
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        }
+      ]
+    },
+    {
+      "traveler_id": "claude-monet",
+      "name": "Claude Monet",
+      "trip_count": 16,
+      "trips_with_carrier": 16,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "share": 1.0,
+          "trips": 16,
+          "denominator": 16
+        }
+      ]
+    },
+    {
+      "traveler_id": "clint-barton",
+      "name": "Clint Barton",
+      "trip_count": 36,
+      "trips_with_carrier": 36,
+      "distinct_carriers": 1,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:alaska-airlines-inc",
+          "label": "Alaska Loyalist",
+          "carrier_name": "Alaska Airlines Inc.",
+          "share": 1.0,
+          "trips": 36,
+          "denominator": 36
+        }
+      ]
+    },
+    {
+      "traveler_id": "diana-prince",
+      "name": "Diana Prince",
+      "trip_count": 18,
+      "trips_with_carrier": 18,
+      "distinct_carriers": 1,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:southwest-airlines-co",
+          "label": "Southwest Loyalist",
+          "carrier_name": "Southwest Airlines Co.",
+          "share": 1.0,
+          "trips": 18,
+          "denominator": 18
+        }
+      ]
+    },
+    {
+      "traveler_id": "dick-grayson",
+      "name": "Dick Grayson",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 1,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:southwest-airlines-co",
+          "label": "Southwest Loyalist",
+          "carrier_name": "Southwest Airlines Co.",
+          "share": 1.0,
+          "trips": 24,
+          "denominator": 24
+        }
+      ]
+    },
+    {
+      "traveler_id": "duke-ellington",
+      "name": "Duke Ellington",
+      "trip_count": 16,
+      "trips_with_carrier": 16,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "share": 1.0,
+          "trips": 16,
+          "denominator": 16
+        }
+      ]
+    },
+    {
+      "traveler_id": "edgar-degas",
+      "name": "Edgar Degas",
+      "trip_count": 16,
+      "trips_with_carrier": 16,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "share": 1.0,
+          "trips": 16,
+          "denominator": 16
+        }
+      ]
+    },
+    {
+      "traveler_id": "ella-fitzgerald",
+      "name": "Ella Fitzgerald",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "share": 1.0,
+          "trips": 24,
+          "denominator": 24
+        }
+      ]
+    },
+    {
+      "traveler_id": "galileo-galilei",
+      "name": "Galileo Galilei",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "share": 1.0,
+          "trips": 24,
+          "denominator": 24
+        }
+      ]
+    },
+    {
+      "traveler_id": "georgia-o-keeffe",
+      "name": "Georgia O'Keeffe",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        }
+      ]
+    },
+    {
+      "traveler_id": "hal-jordan",
+      "name": "Hal Jordan",
+      "trip_count": 18,
+      "trips_with_carrier": 18,
+      "distinct_carriers": 1,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:southwest-airlines-co",
+          "label": "Southwest Loyalist",
+          "carrier_name": "Southwest Airlines Co.",
+          "share": 1.0,
+          "trips": 18,
+          "denominator": 18
+        }
+      ]
+    },
+    {
+      "traveler_id": "isaac-newton",
+      "name": "Isaac Newton",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        }
+      ]
+    },
+    {
+      "traveler_id": "jackson-pollock",
+      "name": "Jackson Pollock",
+      "trip_count": 12,
+      "trips_with_carrier": 12,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "share": 1.0,
+          "trips": 12,
+          "denominator": 12
+        }
+      ]
+    },
+    {
+      "traveler_id": "joaquin-sorolla",
+      "name": "Joaquín Sorolla",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        }
+      ]
+    },
+    {
+      "traveler_id": "john-coltrane",
+      "name": "John Coltrane",
+      "trip_count": 15,
+      "trips_with_carrier": 15,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "share": 1.0,
+          "trips": 15,
+          "denominator": 15
+        }
+      ]
+    },
+    {
+      "traveler_id": "logan",
+      "name": "Logan",
+      "trip_count": 28,
+      "trips_with_carrier": 28,
+      "distinct_carriers": 1,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:alaska-airlines-inc",
+          "label": "Alaska Loyalist",
+          "carrier_name": "Alaska Airlines Inc.",
+          "share": 1.0,
+          "trips": 28,
+          "denominator": 28
+        }
+      ]
+    },
+    {
+      "traveler_id": "louis-pasteur",
+      "name": "Louis Pasteur",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        }
+      ]
+    },
+    {
+      "traveler_id": "marie-curie",
+      "name": "Marie Curie",
+      "trip_count": 16,
+      "trips_with_carrier": 16,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "share": 1.0,
+          "trips": 16,
+          "denominator": 16
+        }
+      ]
+    },
+    {
+      "traveler_id": "matt-murdock",
+      "name": "Matt Murdock",
+      "trip_count": 32,
+      "trips_with_carrier": 32,
+      "distinct_carriers": 1,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:alaska-airlines-inc",
+          "label": "Alaska Loyalist",
+          "carrier_name": "Alaska Airlines Inc.",
+          "share": 1.0,
+          "trips": 32,
+          "denominator": 32
+        }
+      ]
+    },
+    {
+      "traveler_id": "miles-davis",
+      "name": "Miles Davis",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "share": 1.0,
+          "trips": 24,
+          "denominator": 24
+        }
+      ]
+    },
+    {
+      "traveler_id": "natasha-romanoff",
+      "name": "Natasha Romanoff",
+      "trip_count": 16,
+      "trips_with_carrier": 16,
+      "distinct_carriers": 1,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:alaska-airlines-inc",
+          "label": "Alaska Loyalist",
+          "carrier_name": "Alaska Airlines Inc.",
+          "share": 1.0,
+          "trips": 16,
+          "denominator": 16
+        }
+      ]
+    },
+    {
+      "traveler_id": "niels-bohr",
+      "name": "Niels Bohr",
+      "trip_count": 10,
+      "trips_with_carrier": 10,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "share": 1.0,
+          "trips": 10,
+          "denominator": 10
+        }
+      ]
+    },
+    {
+      "traveler_id": "nikola-tesla",
+      "name": "Nikola Tesla",
+      "trip_count": 36,
+      "trips_with_carrier": 36,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "share": 1.0,
+          "trips": 36,
+          "denominator": 36
+        }
+      ]
+    },
+    {
+      "traveler_id": "oliver-queen",
+      "name": "Oliver Queen",
+      "trip_count": 36,
+      "trips_with_carrier": 36,
+      "distinct_carriers": 1,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:southwest-airlines-co",
+          "label": "Southwest Loyalist",
+          "carrier_name": "Southwest Airlines Co.",
+          "share": 1.0,
+          "trips": 36,
+          "denominator": 36
+        }
+      ]
+    },
+    {
+      "traveler_id": "peter-parker",
+      "name": "Peter Parker",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:alaska-airlines-inc",
+          "label": "Alaska Loyalist",
+          "carrier_name": "Alaska Airlines Inc.",
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        }
+      ]
+    },
+    {
+      "traveler_id": "pierre-auguste-renoir",
+      "name": "Pierre-Auguste Renoir",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "share": 1.0,
+          "trips": 24,
+          "denominator": 24
+        }
+      ]
+    },
+    {
+      "traveler_id": "richard-feynman",
+      "name": "Richard Feynman",
+      "trip_count": 21,
+      "trips_with_carrier": 21,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "share": 1.0,
+          "trips": 21,
+          "denominator": 21
+        }
+      ]
+    },
+    {
+      "traveler_id": "sarah-vaughan",
+      "name": "Sarah Vaughan",
+      "trip_count": 16,
+      "trips_with_carrier": 16,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "share": 1.0,
+          "trips": 16,
+          "denominator": 16
+        }
+      ]
+    },
+    {
+      "traveler_id": "stan-getz",
+      "name": "Stan Getz",
+      "trip_count": 30,
+      "trips_with_carrier": 30,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "share": 1.0,
+          "trips": 30,
+          "denominator": 30
+        }
+      ]
+    },
+    {
+      "traveler_id": "stephen-hawking",
+      "name": "Stephen Hawking",
+      "trip_count": 32,
+      "trips_with_carrier": 32,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "share": 1.0,
+          "trips": 32,
+          "denominator": 32
+        }
+      ]
+    },
+    {
+      "traveler_id": "stephen-strange",
+      "name": "Stephen Strange",
+      "trip_count": 32,
+      "trips_with_carrier": 32,
+      "distinct_carriers": 1,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:alaska-airlines-inc",
+          "label": "Alaska Loyalist",
+          "carrier_name": "Alaska Airlines Inc.",
+          "share": 1.0,
+          "trips": 32,
+          "denominator": 32
+        }
+      ]
+    },
+    {
+      "traveler_id": "steve-rogers",
+      "name": "Steve Rogers",
+      "trip_count": 10,
+      "trips_with_carrier": 10,
+      "distinct_carriers": 1,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:alaska-airlines-inc",
+          "label": "Alaska Loyalist",
+          "carrier_name": "Alaska Airlines Inc.",
+          "share": 1.0,
+          "trips": 10,
+          "denominator": 10
+        }
+      ]
+    },
+    {
+      "traveler_id": "thelonious-monk",
+      "name": "Thelonious Monk",
+      "trip_count": 14,
+      "trips_with_carrier": 14,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "share": 1.0,
+          "trips": 14,
+          "denominator": 14
+        }
+      ]
+    },
+    {
+      "traveler_id": "thor-odinson",
+      "name": "Thor Odinson",
+      "trip_count": 18,
+      "trips_with_carrier": 18,
+      "distinct_carriers": 1,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:alaska-airlines-inc",
+          "label": "Alaska Loyalist",
+          "carrier_name": "Alaska Airlines Inc.",
+          "share": 1.0,
+          "trips": 18,
+          "denominator": 18
+        }
+      ]
+    },
+    {
+      "traveler_id": "tony-stark",
+      "name": "Tony Stark",
+      "trip_count": 18,
+      "trips_with_carrier": 18,
+      "distinct_carriers": 1,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:alaska-airlines-inc",
+          "label": "Alaska Loyalist",
+          "carrier_name": "Alaska Airlines Inc.",
+          "share": 1.0,
+          "trips": 18,
+          "denominator": 18
+        }
+      ]
+    },
+    {
+      "traveler_id": "victor-stone",
+      "name": "Victor Stone",
+      "trip_count": 36,
+      "trips_with_carrier": 36,
+      "distinct_carriers": 1,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:southwest-airlines-co",
+          "label": "Southwest Loyalist",
+          "carrier_name": "Southwest Airlines Co.",
+          "share": 1.0,
+          "trips": 36,
+          "denominator": 36
+        }
+      ]
+    },
+    {
+      "traveler_id": "wes-montgomery",
+      "name": "Wes Montgomery",
+      "trip_count": 16,
+      "trips_with_carrier": 16,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "share": 1.0,
+          "trips": 16,
+          "denominator": 16
+        }
+      ]
+    },
+    {
+      "traveler_id": "pablo-picasso",
+      "name": "Pablo Picasso",
+      "trip_count": 4,
+      "trips_with_carrier": 4,
+      "distinct_carriers": 2,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 0.75,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "edward-hopper",
+      "name": "Edward Hopper",
+      "trip_count": 10,
+      "trips_with_carrier": 10,
+      "distinct_carriers": 3,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 0.7,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "odysseus",
+      "name": "Odysseus",
+      "trip_count": 32,
+      "trips_with_carrier": 32,
+      "distinct_carriers": 7,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.625,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "king-midas",
+      "name": "King Midas",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 9,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.5833,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "chiron",
+      "name": "Chiron",
+      "trip_count": 40,
+      "trips_with_carrier": 40,
+      "distinct_carriers": 6,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.55,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "artemis",
+      "name": "Artemis",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 4,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 0.5417,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "achilles",
+      "name": "Achilles",
+      "trip_count": 30,
+      "trips_with_carrier": 30,
+      "distinct_carriers": 8,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.5333,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "narcissus",
+      "name": "Narcissus",
+      "trip_count": 21,
+      "trips_with_carrier": 21,
+      "distinct_carriers": 8,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 0.4762,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "athena",
+      "name": "Athena",
+      "trip_count": 30,
+      "trips_with_carrier": 30,
+      "distinct_carriers": 7,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.4667,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "cronus",
+      "name": "Cronus",
+      "trip_count": 30,
+      "trips_with_carrier": 30,
+      "distinct_carriers": 10,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.4667,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "theseus",
+      "name": "Theseus",
+      "trip_count": 18,
+      "trips_with_carrier": 18,
+      "distinct_carriers": 9,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.4444,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "aphrodite",
+      "name": "Aphrodite",
+      "trip_count": 27,
+      "trips_with_carrier": 27,
+      "distinct_carriers": 8,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 0.4074,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "poseidon",
+      "name": "Poseidon",
+      "trip_count": 30,
+      "trips_with_carrier": 30,
+      "distinct_carriers": 12,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 0.4,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "hercules",
+      "name": "Hercules",
+      "trip_count": 27,
+      "trips_with_carrier": 27,
+      "distinct_carriers": 9,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.3704,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "prometheus",
+      "name": "Prometheus",
+      "trip_count": 27,
+      "trips_with_carrier": 27,
+      "distinct_carriers": 8,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.3704,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "circe",
+      "name": "Circe",
+      "trip_count": 28,
+      "trips_with_carrier": 28,
+      "distinct_carriers": 10,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 0.3571,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "demeter",
+      "name": "Demeter",
+      "trip_count": 28,
+      "trips_with_carrier": 28,
+      "distinct_carriers": 9,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.3571,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "perseus",
+      "name": "Perseus",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 9,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 0.3333,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "zeus",
+      "name": "Zeus",
+      "trip_count": 30,
+      "trips_with_carrier": 30,
+      "distinct_carriers": 8,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 0.3333,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "hermes",
+      "name": "Hermes",
+      "trip_count": 32,
+      "trips_with_carrier": 32,
+      "distinct_carriers": 11,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 0.3125,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "daedalus",
+      "name": "Daedalus",
+      "trip_count": 30,
+      "trips_with_carrier": 30,
+      "distinct_carriers": 8,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 0.3,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "persephone",
+      "name": "Persephone",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 12,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.2917,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "orpheus",
+      "name": "Orpheus",
+      "trip_count": 27,
+      "trips_with_carrier": 27,
+      "distinct_carriers": 8,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 0.2593,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "atlas",
+      "name": "Atlas",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 7,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 0.25,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "hera",
+      "name": "Hera",
+      "trip_count": 28,
+      "trips_with_carrier": 28,
+      "distinct_carriers": 11,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 0.25,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "ares",
+      "name": "Ares",
+      "trip_count": 21,
+      "trips_with_carrier": 21,
+      "distinct_carriers": 9,
+      "top_carrier": "Aeroenlaces Nacionales, S.A. de C.V. d/b/a VivaAerobus",
+      "top_carrier_share": 0.2381,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "hades",
+      "name": "Hades",
+      "trip_count": 30,
+      "trips_with_carrier": 30,
+      "distinct_carriers": 13,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.2,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "icarus",
+      "name": "Icarus",
+      "trip_count": 15,
+      "trips_with_carrier": 15,
+      "distinct_carriers": 8,
+      "top_carrier": "Aeromexico",
+      "top_carrier_share": 0.2,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "dionysus",
+      "name": "Dionysus",
+      "trip_count": 21,
+      "trips_with_carrier": 21,
+      "distinct_carriers": 8,
+      "top_carrier": "British Airways Plc",
+      "top_carrier_share": 0.1905,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "pandora",
+      "name": "Pandora",
+      "trip_count": 28,
+      "trips_with_carrier": 28,
+      "distinct_carriers": 12,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 0.1786,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "medusa",
+      "name": "Medusa",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 8,
+      "top_carrier": "Aeroenlaces Nacionales, S.A. de C.V. d/b/a VivaAerobus",
+      "top_carrier_share": 0.1667,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "sisyphus",
+      "name": "Sisyphus",
+      "trip_count": 32,
+      "trips_with_carrier": 32,
+      "distinct_carriers": 10,
+      "top_carrier": "Japan Air Lines Co. Ltd.",
+      "top_carrier_share": 0.1562,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "apollo",
+      "name": "Apollo",
+      "trip_count": 27,
+      "trips_with_carrier": 27,
+      "distinct_carriers": 13,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 0.1481,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "agatha-christie",
+      "name": "Agatha Christie",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "alan-paton",
+      "name": "Alan Paton",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "alice-munro",
+      "name": "Alice Munro",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "amrita-pritam",
+      "name": "Amrita Pritam",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "ana-maria-matute",
+      "name": "Ana Maria Matute",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "andre-brink",
+      "name": "Andre Brink",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "annie-m-g-schmidt",
+      "name": "Annie M. G. Schmidt",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "arthur-yap",
+      "name": "Arthur Yap",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "ba-jin",
+      "name": "Ba Jin",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "bing-xin",
+      "name": "Bing Xin",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "carlos-drummond-de-andrade",
+      "name": "Carlos Drummond de Andrade",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "carmen-laforet",
+      "name": "Carmen Laforet",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "carmen-martin-gaite",
+      "name": "Carmen Martin Gaite",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "carol-shields",
+      "name": "Carol Shields",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "charles-dickens",
+      "name": "Charles Dickens",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "charlotte-bronte",
+      "name": "Charlotte Bronte",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "choi-in-hun",
+      "name": "Choi In-hun",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "christina-stead",
+      "name": "Christina Stead",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "clarice-lispector",
+      "name": "Clarice Lispector",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "colleen-mccullough",
+      "name": "Colleen McCullough",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "dante-alighieri",
+      "name": "Dante Alighieri",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "daphne-du-maurier",
+      "name": "Daphne du Maurier",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "ding-ling",
+      "name": "Ding Ling",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "doris-lessing",
+      "name": "Doris Lessing",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "edgar-allan-poe",
+      "name": "Edgar Allan Poe",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "edith-wharton",
+      "name": "Edith Wharton",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "eileen-chang",
+      "name": "Eileen Chang",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "elizabeth-jolley",
+      "name": "Elizabeth Jolley",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "elsa-morante",
+      "name": "Elsa Morante",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "emilia-pardo-bazan",
+      "name": "Emilia Pardo Bazan",
+      "trip_count": 2,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "emily-bronte",
+      "name": "Emily Bronte",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "emily-dickinson",
+      "name": "Emily Dickinson",
+      "trip_count": 2,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "ernest-hemingway",
+      "name": "Ernest Hemingway",
+      "trip_count": 3,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "f-scott-fitzgerald",
+      "name": "F. Scott Fitzgerald",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "fadwa-tuqan",
+      "name": "Fadwa Tuqan",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "fatema-mernissi",
+      "name": "Fatema Mernissi",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "frank-sargeson",
+      "name": "Frank Sargeson",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "gabrielle-roy",
+      "name": "Gabrielle Roy",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "george-eliot",
+      "name": "George Eliot",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "george-orwell",
+      "name": "George Orwell",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "grazia-deledda",
+      "name": "Grazia Deledda",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "han-yong-un",
+      "name": "Han Yong-un",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "harper-lee",
+      "name": "Harper Lee",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "hella-haasse",
+      "name": "Hella Haasse",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "henry-lawson",
+      "name": "Henry Lawson",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "heo-nanseolheon",
+      "name": "Heo Nanseolheon",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "herman-melville",
+      "name": "Herman Melville",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "ho-xuan-huong",
+      "name": "Ho Xuan Huong",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "hwang-jini",
+      "name": "Hwang Jini",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "hyun-jin-geon",
+      "name": "Hyun Jin-geon",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "jack-london",
+      "name": "Jack London",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "james-baldwin",
+      "name": "James Baldwin",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "jane-austen",
+      "name": "Jane Austen",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "jin-yong",
+      "name": "Jin Yong",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "joao-guimaraes-rosa",
+      "name": "Joao Guimaraes Rosa",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "johann-wolfgang-von-goethe",
+      "name": "Johann Wolfgang von Goethe",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "john-steinbeck",
+      "name": "John Steinbeck",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "jorge-amado",
+      "name": "Jorge Amado",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "kamala-das",
+      "name": "Kamala Das",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "kang-kyeong-ae",
+      "name": "Kang Kyeong-ae",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "kenzaburo-oe",
+      "name": "Kenzaburo Oe",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "kim-dong-ni",
+      "name": "Kim Dong-ni",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "kim-myeong-sun",
+      "name": "Kim Myeong-sun",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "kim-su-yong",
+      "name": "Kim Su-yong",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "kurt-vonnegut",
+      "name": "Kurt Vonnegut",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "l-m-montgomery",
+      "name": "L. M. Montgomery",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "lao-she",
+      "name": "Lao She",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "leonard-cohen",
+      "name": "Leonard Cohen",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "lin-hai-yin",
+      "name": "Lin Hai-yin",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "lu-xun",
+      "name": "Lu Xun",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "machado-de-assis",
+      "name": "Machado de Assis",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "mahasweta-devi",
+      "name": "Mahasweta Devi",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "margaret-laurence",
+      "name": "Margaret Laurence",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "maria-zambrano",
+      "name": "Maria Zambrano",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "mark-twain",
+      "name": "Mark Twain",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "mary-shelley",
+      "name": "Mary Shelley",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "mavis-gallant",
+      "name": "Mavis Gallant",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "maya-angelou",
+      "name": "Maya Angelou",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "miguel-de-cervantes",
+      "name": "Miguel de Cervantes",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "miles-franklin",
+      "name": "Miles Franklin",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "mordecai-richler",
+      "name": "Mordecai Richler",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "na-hye-sok",
+      "name": "Na Hye-sok",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "natalia-ginzburg",
+      "name": "Natalia Ginzburg",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "nguyen-du",
+      "name": "Nguyen Du",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "nhok-them",
+      "name": "Nhok Them",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "nieh-hualing",
+      "name": "Nieh Hualing",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "nikos-kazantzakis",
+      "name": "Nikos Kazantzakis",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "no-cheon-myeong",
+      "name": "No Cheon-myeong",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "oriana-fallaci",
+      "name": "Oriana Fallaci",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "ousha-bint-khalifa-al-suwaidi",
+      "name": "Ousha bint Khalifa Al Suwaidi",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "p-k-page",
+      "name": "P. K. Page",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "park-kyong-ni",
+      "name": "Park Kyong-ni",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "park-wan-suh",
+      "name": "Park Wan-suh",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "patrick-white",
+      "name": "Patrick White",
+      "trip_count": 3,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "pearl-s-buck",
+      "name": "Pearl S. Buck",
+      "trip_count": 2,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "pramoedya-ananta-toer",
+      "name": "Pramoedya Ananta Toer",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "rabindranath-tagore",
+      "name": "Rabindranath Tagore",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "robert-frost",
+      "name": "Robert Frost",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "robert-louis-stevenson",
+      "name": "Robert Louis Stevenson",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "robertson-davies",
+      "name": "Robertson Davies",
+      "trip_count": 2,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "rosalia-de-castro",
+      "name": "Rosalia de Castro",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "rosario-castellanos",
+      "name": "Rosario Castellanos",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "rudyard-kipling",
+      "name": "Rudyard Kipling",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "sanmao",
+      "name": "Sanmao",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "saul-bellow",
+      "name": "Saul Bellow",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "shen-congwen",
+      "name": "Shen Congwen",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "shin-saimdang",
+      "name": "Shin Saimdang",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "simone-de-beauvoir",
+      "name": "Simone de Beauvoir",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "sinclair-lewis",
+      "name": "Sinclair Lewis",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "sor-juana-ines-de-la-cruz",
+      "name": "Sor Juana Ines de la Cruz",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "sultan-bin-ali-al-owais",
+      "name": "Sultan bin Ali Al Owais",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "thomas-mann",
+      "name": "Thomas Mann",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "toni-morrison",
+      "name": "Toni Morrison",
+      "trip_count": 2,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "virginia-woolf",
+      "name": "Virginia Woolf",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "walt-whitman",
+      "name": "Walt Whitman",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "william-faulkner",
+      "name": "William Faulkner",
+      "trip_count": 2,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "william-golding",
+      "name": "William Golding",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "william-shakespeare",
+      "name": "William Shakespeare",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "xiao-hong",
+      "name": "Xiao Hong",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "xuan-quynh",
+      "name": "Xuan Quynh",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "yasunari-kawabata",
+      "name": "Yasunari Kawabata",
+      "trip_count": 2,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "yi-kwang-su",
+      "name": "Yi Kwang-su",
+      "trip_count": 1,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "yi-sang",
+      "name": "Yi Sang",
+      "trip_count": 2,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    },
+    {
+      "traveler_id": "yun-dong-ju",
+      "name": "Yun Dong-ju",
+      "trip_count": 2,
+      "trips_with_carrier": 0,
+      "distinct_carriers": 0,
+      "top_carrier": null,
+      "top_carrier_share": null,
+      "below_min_trips": false,
+      "tags": []
+    }
+  ]
+}

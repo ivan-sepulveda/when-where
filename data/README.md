@@ -2835,6 +2835,59 @@ Usage:
     python scripts/multiple/compute_traveler_entropy.py
     python scripts/multiple/compute_traveler_entropy.py --by city
 
+### Traveler tags (`scripts/multiple/compute_traveler_tags.py`)
+
+Reads `processed/multiple/travelers_anon.json`, writes
+`processed/multiple/traveler_tags.csv` and `.json` — one row per traveler,
+carrying a list of short labels describing a pattern that is **true of the
+trips as recorded**, plus the diagnostics behind each decision.
+
+The first (and so far only) rule is **airline loyalist**: a traveler is
+tagged `"{Airline} Loyalist"` when at least **80%** of their trips are on one
+airline. `--threshold` and `--min-trips` change both numbers without editing
+the file.
+
+**The denominator is trips with a recorded carrier, not all trips.** Only the
+hand-authored itineraries name an airline; the 124 Kaggle-sourced travelers
+record a destination string and nothing else. Counting those against the
+share would drop a tag because of a gap in the source rather than because of
+how someone flies. This is the same denominator the "Airlines flown" chart
+states in its caption, so a 100% bar and a Loyalist chip can never disagree
+on one page. **A traveler with no carrier data anywhere gets no tag and no
+near-miss** — the answer is "unknown", which is not "not loyal".
+
+**Minimum 5 carrier-recorded trips.** Two trips that happened to share an
+airline are a coincidence, and 100% of 2 would otherwise outrank 85% of 40.
+The floor changes nothing today (the lowest-trip qualifier has 5) but stops
+the rule degenerating the moment a short itinerary is added. `below_min_trips`
+marks a traveler who cleared the share and missed the floor, so "no tag" stays
+separable from "not enough evidence".
+
+Current results: **82 of 206** travelers have carrier data, **49 are tagged** —
+11 Delta, 10 each Alaska / American / Southwest, 8 United.
+
+**The share is strikingly bimodal, so the 80% is currently doing no cutting:**
+49 travelers sit at exactly 100% and the next-highest is 75%. Nobody at all
+lands between 80% and 100%, so any threshold from ~76% to 100% tags the same
+49 people. Worth knowing before reading meaning into the exact number.
+
+**Two intended loyalists don't get the tag, and that's the rule working.**
+Pablo Picasso (3 of 4 United, 75%) and Edward Hopper (7 of 10 United, 70%)
+were authored as United travelers, but BCN–ORD, SFO–HKG and SFO–TPE aren't
+United routes, so `build_synthetic_trips.py` put those legs on carriers that
+do fly them. The tag describes the data, not the author's intent — which is
+the whole reason it's computed rather than declared.
+
+The API serves these on both `/api/travelers` and
+`/api/travelers/{id}`; the frontend draws them as chips on the `/rec-sys`
+cards and the traveler page, with a dot in the airline's own brand color
+(`frontend/src/lib/airlineColors.ts`).
+
+Usage:
+
+    python scripts/multiple/compute_traveler_tags.py
+    python scripts/multiple/compute_traveler_tags.py --threshold 0.9 --min-trips 10
+
 ### Country name crosswalk (`reference/country_aliases.json`)
 
 - **Problem:** every source names countries differently — SimpleMaps says
