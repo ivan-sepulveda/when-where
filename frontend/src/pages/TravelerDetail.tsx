@@ -3,7 +3,11 @@ import StackedShareBar from "../components/StackedShareBar";
 import TravelerTags from "../components/TravelerTags";
 import { airlineColor, shortenCarrier } from "../lib/airlineColors";
 import { formatDateRange } from "../lib/formatDate";
-import { carrierBreakdown, domesticInternationalBreakdown } from "../lib/travelerCharts";
+import {
+  carrierBreakdown,
+  domesticInternationalBreakdown,
+  subregionBreakdown,
+} from "../lib/travelerCharts";
 import {
   describeEntropy,
   formatAge,
@@ -103,6 +107,7 @@ export default function TravelerDetail() {
   const entropySummary = describeEntropy(traveler);
   const carriers = carrierBreakdown(traveler);
   const domesticInternational = domesticInternationalBreakdown(traveler);
+  const subregions = subregionBreakdown(traveler);
   // Same "only render what's actually there" approach as TripCard's facts.
   const details = [
     traveler.nationality && { label: "Nationality", value: traveler.nationality },
@@ -221,6 +226,19 @@ export default function TravelerDetail() {
               : "Share of trips leaving the traveler's home country."
           }
           emptyMessage={`${traveler.name} has no trip whose destination country can be compared against a home country, so this split can't be computed.`}
+        />
+        <StackedShareBar
+          title="Destination subregion"
+          data={subregions}
+          // No colorOf: a region has no brand, so this falls back to the
+          // categorical palette assigned by position. Airlines are the
+          // exception on this page, not the rule -- see lib/airlineColors.ts.
+          caption={
+            subregions.total === traveler.trip_count
+              ? `Share of all ${formatTripCount(traveler.trip_count)}, by UN M49 subregion.`
+              : `Share of the ${formatTripCount(subregions.total)} whose destination country is in the UN M49 list, of ${traveler.trip_count}.`
+          }
+          emptyMessage={`No destination on ${traveler.name}'s trips could be placed in a UN M49 subregion. If that's every traveler, data/reference/m49_regions.json probably hasn't been built yet.`}
         />
       </div>
 

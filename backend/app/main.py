@@ -45,6 +45,7 @@ from .data_loader import (
     load_static_city_scores,
     load_static_country_scores,
     load_traveler_entropy,
+    load_m49_regions,
     load_traveler_tags,
     load_travelers,
     load_visa_requirements,
@@ -110,6 +111,11 @@ TRAVELER_ENTROPY = load_traveler_entropy()
 # from TRAVELERS for the same reason as the entropy above: it is DERIVED
 # from travelers_anon.json.
 TRAVELER_TAGS = load_traveler_tags()
+# None until build_m49_regions.py has been run. Joined onto each trip at
+# request time rather than baked into the trip data, because it's a
+# property of the destination country, not of the trip -- and the M49
+# standard is refreshed on its own schedule.
+M49_REGIONS = load_m49_regions()
 CITY_WEATHER_SCORES = load_city_weather_scores()
 CITY_WEATHER_METRICS = load_city_weather_metrics()
 CITY_CLUSTER_REPRESENTATIVES = load_city_cluster_representatives()
@@ -305,6 +311,18 @@ class TravelerTrip(BaseModel):
     carrier_name: Optional[str] = None
     origin_airport: Optional[str] = None
     destination_airport: Optional[str] = None
+    # UN M49 geography for destination_country_code, joined on at request
+    # time (see data_loader.load_m49_regions). Null when m49_regions.json
+    # hasn't been built here, or when the destination country isn't in it --
+    # the charts drop those trips from their denominator rather than
+    # inventing an "Unknown" region, same convention as a trip with no
+    # carrier.
+    destination_region: Optional[str] = None
+    # M49's INTERMEDIATE region where the country has one, else its
+    # sub-region -- 22 values, which is the tier that keeps Central America,
+    # the Caribbean and South America apart instead of merging them into
+    # "Latin America and the Caribbean".
+    destination_subregion: Optional[str] = None
 
 
 class TravelerTag(BaseModel):
@@ -867,6 +885,25 @@ def travelers():
     )
 
 
+def _with_regions(trip: dict) -> dict:
+    """A trip dict plus its destination's M49 region and detailed region.
+
+    Returns the trip unchanged when the lookup isn't loaded or the country
+    isn't in it, leaving both fields null -- which is what the charts treat
+    as "not classifiable", as distinct from a region named "Unknown"."""
+    if M49_REGIONS is None:
+        return trip
+    code = (trip.get("destination_country_code") or "").upper()
+    record = M49_REGIONS["by_iso2"].get(code)
+    if record is None:
+        return trip
+    return {
+        **trip,
+        "destination_region": record.get("region"),
+        "destination_subregion": record.get("detailed_region"),
+    }
+
+
 def _tags(traveler_id: str) -> list[TravelerTag]:
     """This traveler's tags, or an empty list when the tags file isn't there
     or predates them. Attached to the SUMMARY as well as the detail, so the
@@ -924,7 +961,8 @@ def traveler_detail(traveler_id: str):
         raise HTTPException(status_code=404, detail=f"No traveler with id {traveler_id!r}")
 
     return TravelerDetail(
-        **traveler,
+        **{k: v for k, v in traveler.items() if k != "trips"},
+        trips=[_with_regions(trip) for trip in traveler["trips"]],
         tags=_tags(traveler_id),
         destination_entropy=_destination_entropy(traveler_id),
     )

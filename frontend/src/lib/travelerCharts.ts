@@ -110,6 +110,38 @@ export function carrierBreakdown(traveler: TravelerDetail): ShareBreakdown {
   return buildShareBreakdown(counts);
 }
 
+// Which parts of the world this traveler's trips go to, by UN M49 detailed
+// region -- the intermediate region where the country has one (Caribbean,
+// Central America, South America, and the four African ones), else the
+// sub-region. 22 possible values.
+//
+// WHY THAT TIER AND NOT M49's LITERAL `subregion`: the literal one has just
+// 17 values and folds Mexico, Costa Rica, Belize, Jamaica, the Bahamas and
+// every South American country into a single "Latin America and the
+// Caribbean". With 341 Mexico trips in this dataset that one segment would
+// be most of the non-domestic bar and the chart would say almost nothing.
+// The join and the choice both happen server-side -- see
+// data/scripts/multiple/build_m49_regions.py.
+//
+// Trips whose destination has no region are EXCLUDED from the denominator,
+// not counted as "Unknown" -- the same treatment carrierBreakdown gives a
+// trip with no airline, and for the same reason: a category invented to
+// cover a gap in the data reads as a finding about the traveler.
+//
+// This bar leans on buildShareBreakdown's fold harder than the others do: 22
+// categories against MAX_NAMED_SEGMENTS means a well-travelled person can
+// genuinely produce a "N others" tail, which is the intended behaviour rather
+// than a cap to raise.
+export function subregionBreakdown(traveler: TravelerDetail): ShareBreakdown {
+  const counts = new Map<string, number>();
+  for (const trip of traveler.trips) {
+    const subregion = trip.destination_subregion;
+    if (!subregion) continue;
+    counts.set(subregion, (counts.get(subregion) ?? 0) + 1);
+  }
+  return buildShareBreakdown(counts);
+}
+
 // A trip is domestic when its destination country is the traveler's own base
 // country. Compared on ISO country CODE, not the display name -- the source
 // spells the same country several ways ("USA", "United States"), and

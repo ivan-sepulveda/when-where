@@ -41,6 +41,20 @@ export interface TravelerTrip {
   carrier_name?: string | null;
   origin_airport?: string | null;
   destination_airport?: string | null;
+  // UN M49 geography for this trip's destination country, joined on by the
+  // API (see backend/app/data_loader.py's load_m49_regions and
+  // data/scripts/multiple/build_m49_regions.py).
+  //
+  // Null is a real state, not an oversight: it means m49_regions.json hasn't
+  // been built in the backend's checkout, or the destination country isn't
+  // in M49. The charts drop those trips from their denominator rather than
+  // showing an "Unknown" region -- same convention as a trip with no carrier.
+  destination_region?: string | null;
+  // M49's INTERMEDIATE region where the country has one, else its sub-region
+  // -- 22 values. This is the tier that keeps Central America, the Caribbean
+  // and South America apart rather than merging them into "Latin America and
+  // the Caribbean", which on this dataset would be most of the bar.
+  destination_subregion?: string | null;
 }
 
 // Mirrors backend/app/main.py's TravelerTag. A computed label -- see

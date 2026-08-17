@@ -35,6 +35,7 @@ TRAVELER_TAGS_PATH = DATA_DIR / "processed" / "multiple" / "traveler_tags.json"
 MONTHLY_SCORES_PATH = DATA_DIR / "processed" / "monthly_scores_2025_by_city.json"
 WEATHER_METRICS_PATH = DATA_DIR / "processed" / "multiple" / "weather_normals_2025_by_city.json"
 COUNTRY_ALIASES_PATH = DATA_DIR / "reference" / "country_aliases.json"
+M49_REGIONS_PATH = DATA_DIR / "reference" / "m49_regions.json"
 VISA_REQUIREMENTS_PATH = DATA_DIR / "reference" / "visa_requirements.json"
 
 # visa_requirements.json labels its ~199 countries (both as top-level
@@ -456,6 +457,61 @@ def load_traveler_tags() -> dict | None:
     return {
         "rules": payload.get("rules", {}),
         "by_traveler": {row["traveler_id"]: row for row in payload.get("travelers", [])},
+    }
+
+
+def load_m49_regions() -> dict | None:
+    """UN M49 geographic regions per country, from build_m49_regions.py's
+    output -- or None if that file doesn't exist yet.
+
+    Same tolerated-absence treatment as the other derived loaders: a missing
+    file means the region charts render their empty state rather than the
+    server refusing to start.
+
+    RE-KEYED BY ISO-ALPHA2 HERE. The file itself is keyed by ISO-alpha3,
+    which is what tourist_cities.json carries and what the M49 export is
+    organised around -- but every traveler trip records
+    `destination_country_code`, which is alpha-2, so the API would otherwise
+    re-derive this index on every request.
+
+    `detailed_region` is the value worth charting: M49's intermediate region
+    where one exists, else its sub-region, 22 values in all. See
+    build_m49_regions.py for why the literal `subregion` tier isn't the one
+    (short version: it puts Mexico, the Caribbean and all of South America in
+    one bucket, and this dataset has 341 Mexico trips).
+
+    `additions` is merged into the index but NOT into the file's own
+    `countries` body: M49 has no entry for Taiwan and this dataset visits
+    Taipei. Merging here keeps the lookup complete while leaving the on-disk
+    copy of the standard faithful. The count is logged so the addition can't
+    become invisible."""
+    if not M49_REGIONS_PATH.exists():
+        print(
+            f"[data_loader] {M49_REGIONS_PATH.name} not found -- traveler pages will omit "
+            "the region charts. Run data/scripts/multiple/build_m49_regions.py."
+        )
+        return None
+
+    with open(M49_REGIONS_PATH, encoding="utf-8") as f:
+        payload = json.load(f)
+
+    additions = payload.get("additions", {})
+    by_iso2: dict[str, dict] = {}
+    for record in list(payload.get("countries", {}).values()) + list(additions.values()):
+        iso2 = record.get("iso2")
+        # Namibia's iso2 is the string "NA" -- a falsy-check on it would be
+        # fine, but a None-check is what's meant, so be explicit.
+        if iso2 is not None:
+            by_iso2[iso2.upper()] = record
+
+    if additions:
+        print(f"[data_loader] m49_regions.json: {len(additions)} non-M49 addition(s) merged "
+              f"({', '.join(a['name'] for a in additions.values())})")
+
+    return {
+        "by_iso2": by_iso2,
+        "regions": payload.get("regions", []),
+        "detailed_regions": payload.get("detailed_regions", []),
     }
 
 

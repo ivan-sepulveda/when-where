@@ -831,6 +831,106 @@ class TestTravelers:
         if checked == 0:
             pytest.skip("traveler_tags.json not generated in this checkout")
 
+    def test_every_destination_country_resolves_to_an_m49_region(self, client):
+        # Coverage, asserted rather than assumed. M49 covers 248 countries and
+        # areas but NOT Taiwan, which this dataset visits -- build_m49_regions.py
+        # supplies that one as a documented addition. If a new destination
+        # country appears in the trip data and isn't in M49 either, its trips
+        # would silently drop out of the region chart's denominator; this is
+        # what makes that loud instead.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        unresolved, checked = set(), 0
+        for summary in body["travelers"]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            for trip in detail["trips"]:
+                if trip["destination_subregion"] is None:
+                    unresolved.add((trip["destination_country_code"], trip["destination_country"]))
+                else:
+                    checked += 1
+
+        if checked == 0:
+            pytest.skip("m49_regions.json not built in this checkout")
+        assert not unresolved, f"destination countries with no M49 region: {sorted(unresolved)}"
+
+    def test_region_and_subregion_agree_with_each_other(self, client):
+        # M49's own rule is that each country appears in exactly one region,
+        # so the two fields can never disagree -- a subregion always implies
+        # its parent region. Catches an index built from a half-parsed file.
+        PARENT = {
+            "Northern Africa": "Africa", "Eastern Africa": "Africa",
+            "Middle Africa": "Africa", "Southern Africa": "Africa",
+            "Western Africa": "Africa",
+            "Caribbean": "Americas", "Central America": "Americas",
+            "South America": "Americas", "Northern America": "Americas",
+            "Central Asia": "Asia", "Eastern Asia": "Asia",
+            "South-eastern Asia": "Asia", "Southern Asia": "Asia",
+            "Western Asia": "Asia",
+            "Eastern Europe": "Europe", "Northern Europe": "Europe",
+            "Southern Europe": "Europe", "Western Europe": "Europe",
+            "Australia and New Zealand": "Oceania", "Melanesia": "Oceania",
+            "Micronesia": "Oceania", "Polynesia": "Oceania",
+        }
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        seen, checked = {}, 0
+        for summary in body["travelers"][:40]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            for trip in detail["trips"]:
+                subregion = trip["destination_subregion"]
+                if subregion is None:
+                    continue
+                # One of the 22, never M49's coarser "Latin America and the
+                # Caribbean" or "Sub-Saharan Africa" -- those are the parents
+                # the detailed tier exists to replace.
+                assert subregion in PARENT, subregion
+                assert trip["destination_region"] == PARENT[subregion], trip
+                # And the join is 1:1: one country code, one region, always.
+                code = trip["destination_country_code"]
+                assert seen.setdefault(code, subregion) == subregion, code
+                checked += 1
+
+        if checked == 0:
+            pytest.skip("m49_regions.json not built in this checkout")
+
+    def test_mexico_is_central_america_not_lumped_with_south_america(self, client):
+        # The whole reason the charted tier is the intermediate region rather
+        # than M49's literal sub-region. On the literal tier Mexico, Jamaica,
+        # Costa Rica and Argentina all read as one "Latin America and the
+        # Caribbean" segment -- and with 341 Mexico trips that segment would
+        # be most of the non-domestic bar.
+        EXPECTED = {
+            "MX": ("Americas", "Central America"),
+            "JM": ("Americas", "Caribbean"),
+            "AR": ("Americas", "South America"),
+            "US": ("Americas", "Northern America"),
+            "JP": ("Asia", "Eastern Asia"),
+            "GB": ("Europe", "Northern Europe"),
+        }
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        found = {}
+        for summary in body["travelers"]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            for trip in detail["trips"]:
+                code = trip["destination_country_code"]
+                if code in EXPECTED and trip["destination_subregion"]:
+                    found[code] = (trip["destination_region"], trip["destination_subregion"])
+            if len(found) == len(EXPECTED):
+                break
+
+        if not found:
+            pytest.skip("m49_regions.json not built in this checkout")
+        for code, expected in EXPECTED.items():
+            if code in found:
+                assert found[code] == expected, code
+
     def test_traveler_ids_are_unique_and_url_safe(self, client):
         body = client.get("/api/travelers").json()
         if not body["dataset_available"]:

@@ -2935,6 +2935,95 @@ Usage:
     python scripts/multiple/compute_traveler_tags.py
     python scripts/multiple/compute_traveler_tags.py --threshold 0.9 --min-trips 10
 
+### UN M49 geographic regions (`scripts/multiple/build_m49_regions.py`)
+
+Reads the UN Statistics Division's own CSV export of the M49 "Full view"
+table — committed at `raw/unsd_m49/UNSD_M49_2026-08-17.csv` — and writes
+`reference/m49_regions.json`, a country → region lookup keyed by ISO-alpha3
+and carrying ISO-alpha2 as well.
+
+**Source:** [UNSD, Standard country or area codes for statistical use
+(M49)](https://unstats.un.org/unsd/methodology/m49/overview/). 248 countries
+and areas.
+
+**It's a `build_`, not a `fetch_`.** The TODO assumed this would need
+scraping, since the M49 site is built for browsing. It doesn't — the overview
+page offers the whole table as a semicolon-delimited CSV download, and that
+15KB file is committed under `raw/` the same way the T-100 extracts are. So
+the build is reproducible offline with no scraper to rot when UNSD restyles
+the page. To refresh: re-download, drop it in `raw/unsd_m49/`, point
+`RAW_CSV` at it.
+
+#### Four tiers, one of them derived
+
+M49 nests as World → region → sub-region → intermediate region, and its own
+rule is that *each country or area is shown in one region only* — so every
+join through this file is 1:1 and totals can't double-count.
+
+| field | count | notes |
+| --- | --- | --- |
+| `region` | 5 | Africa, Americas, Asia, Europe, Oceania |
+| `subregion` | 17 | Northern Africa, Sub-Saharan Africa, Northern America, Latin America and the Caribbean, … |
+| `intermediate_region` | 7 | **Only** under Sub-Saharan Africa (Eastern/Middle/Southern/Western Africa) and Latin America and the Caribbean (Caribbean/Central America/South America). Null everywhere else. |
+| `detailed_region` | 22 | **Derived, not an M49 tier**: the intermediate region where one exists, else the sub-region. |
+
+**`detailed_region` is the one that gets charted, and it is the list this
+repo's TODO actually enumerated** ("Northern Africa, Eastern Africa, …
+Melanesia, Micronesia, Polynesia — 22 in total"). Eastern Africa is an
+*intermediate* region, not a sub-region, so that list was already this
+derived tier rather than M49's literal `subregion`.
+
+The difference is not cosmetic here: the literal `subregion` tier puts
+Mexico, Costa Rica, Belize, Jamaica, the Bahamas and all of South America
+into one "Latin America and the Caribbean" bucket. With 341 Mexico trips
+that single segment would be most of the non-domestic bar.
+
+#### Three things worth knowing
+
+**M49 answers the continent question this repo's README left open.** Its own
+footnote defines **North America (003) = Northern America (021) + Caribbean
+(029) + Central America (013)**, so a North/South America split is available
+*within* M49 and doesn't require adopting a second, non-M49 continent scheme.
+Nothing uses it yet; it's recorded in the output's `notes`.
+
+**Taiwan is not in M49, and is added separately.** The UN's list has no entry
+for it, so a join on the M49 table alone drops it — and this dataset has 5
+trips to Taipei, which would then vanish from a 100%-share chart and
+misreport those travelers' totals. A geographic assignment (Asia / Eastern
+Asia) is supplied in the script's `ADDITIONS`, kept **out of** the file's
+`countries` body and listed under its own `additions` key, so the M49 part of
+the file stays a faithful copy of the source and the addition can't be
+mistaken for one. The backend logs it at startup.
+
+**Antarctica has no region** — it sits directly under World and its row has
+every region column blank. It's emitted with nulls rather than skipped, so a
+lookup on `ATA` answers "no region" instead of missing.
+
+**Namibia's ISO-alpha2 is the string `"NA"`.** This script uses the stdlib
+`csv` module precisely so it stays a string — `pandas.read_csv` turns it into
+`NaN` unless told otherwise, which is the same bug this README already tracks
+against `country_aliases.json`. `validate()` asserts it explicitly. Don't
+port this to pandas without `keep_default_na=False`.
+
+#### Output
+
+The build refuses to write anything that isn't shaped like M49 — 5 regions,
+22 detailed regions, 7 intermediate regions, ≥240 countries, no duplicate
+ISO codes, exactly one region-less country. A parse that silently produces a
+plausible-but-wrong file is the failure mode worth spending code on.
+
+The API joins this onto every trip as `destination_region` and
+`destination_subregion` (keyed on `destination_country_code`, so the backend
+re-indexes by ISO-alpha2 at load time), and the traveler page renders the
+third 100% stacked bar, "Destination subregion". Trips whose destination has
+no region are excluded from that bar's denominator rather than counted as
+"Unknown" — same convention as a trip with no airline.
+
+Usage:
+
+    python scripts/multiple/build_m49_regions.py
+    python scripts/multiple/build_m49_regions.py --csv path/to/other/export.csv
+
 ### Country name crosswalk (`reference/country_aliases.json`)
 
 - **Problem:** every source names countries differently — SimpleMaps says

@@ -4,6 +4,8 @@ import {
   carrierBreakdown,
   domesticInternationalBreakdown,
   isDomesticTrip,
+  MAX_NAMED_SEGMENTS,
+  subregionBreakdown,
   toPercentages,
 } from "./travelerCharts";
 import type { TravelerDetail, TravelerTrip } from "./travelers";
@@ -295,5 +297,66 @@ describe("airline colors", () => {
     expect(shortenCarrier("CommuteAir LLC dba CommuteAir")).toBe("CommuteAir");
     // Unmapped names go through the trimmer rather than rendering in full.
     expect(shortenCarrier("Example Airways Inc.")).toBe("Example");
+  });
+});
+
+describe("subregionBreakdown", () => {
+  it("counts trips by M49 detailed region, largest first", () => {
+    const data = subregionBreakdown(
+      traveler([
+        trip({ destination_subregion: "Northern America" }),
+        trip({ destination_subregion: "Northern America" }),
+        trip({ destination_subregion: "Central America" }),
+        trip({ destination_subregion: "Western Europe" }),
+      ]),
+    );
+    expect(data.total).toBe(4);
+    expect(data.segments.map((s) => s.label)).toEqual([
+      "Northern America",
+      "Central America",
+      "Western Europe",
+    ]);
+    expect(data.segments[0].percent).toBe(50);
+  });
+
+  it("excludes trips with no subregion from the denominator", () => {
+    // Not counted as "Unknown" -- an invented category reads as a finding
+    // about the traveler. Same treatment carrierBreakdown gives a trip with
+    // no airline. Taiwan is the live case: M49 has no entry for it, and the
+    // build script's addition is what keeps these 5 trips in.
+    const data = subregionBreakdown(
+      traveler([
+        trip({ destination_subregion: "Eastern Asia" }),
+        trip({ destination_subregion: null }),
+        trip({ destination_subregion: undefined }),
+      ]),
+    );
+    expect(data.total).toBe(1);
+    expect(data.segments).toHaveLength(1);
+    expect(data.segments[0].percent).toBe(100);
+  });
+
+  it("renders an empty breakdown when no trip has a region at all", () => {
+    // What a checkout with no m49_regions.json looks like -- the component
+    // shows its empty message rather than a bar of nothing.
+    const data = subregionBreakdown(traveler([trip(), trip()]));
+    expect(data).toEqual({ segments: [], hasAggregate: false, total: 0 });
+  });
+
+  it("folds a long tail, which this bar can actually produce", () => {
+    // 22 possible regions against MAX_NAMED_SEGMENTS = 7, so unlike the
+    // other bars this one really does fold for a well-travelled person.
+    const REGIONS = [
+      "Northern America", "Central America", "Caribbean", "South America",
+      "Western Europe", "Northern Europe", "Southern Europe", "Eastern Europe",
+      "Eastern Asia", "South-eastern Asia",
+    ];
+    const data = subregionBreakdown(
+      traveler(REGIONS.map((destination_subregion) => trip({ destination_subregion }))),
+    );
+    expect(data.hasAggregate).toBe(true);
+    expect(data.segments).toHaveLength(MAX_NAMED_SEGMENTS + 1);
+    expect(data.segments.at(-1)?.label).toBe("3 others");
+    expect(data.total).toBe(10);
   });
 });
