@@ -33,6 +33,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from .data_loader import (
+    TRAVELER_ENTROPY_REGION_PATH,
     CITY_DETAIL_RADIUS_KM,
     load_city_attractions,
     load_city_cluster_representatives,
@@ -107,6 +108,15 @@ TRAVELERS = load_travelers()
 # is DERIVED from that file -- folding it back in would make a build step
 # read its own output.
 TRAVELER_ENTROPY = load_traveler_entropy()
+# The same measure over a coarser unit: UN M49 detailed region instead of
+# destination airport. Loaded separately, never merged -- the two are on
+# different scales (K = 106 observed airports vs a fixed K = 22 regions),
+# so averaging or comparing them across units would be meaningless.
+#
+# It also covers far more travelers: only the hand-authored itineraries
+# record an airport, but every trip records a destination country, so this
+# one is defined for all 206 rather than 82.
+TRAVELER_ENTROPY_REGION = load_traveler_entropy(TRAVELER_ENTROPY_REGION_PATH)
 # Also None until compute_traveler_tags.py has been run, and kept separate
 # from TRAVELERS for the same reason as the entropy above: it is DERIVED
 # from travelers_anon.json.
@@ -471,7 +481,21 @@ class TravelerDetail(TravelerSummary):
     # Null when compute_traveler_entropy.py hasn't been run in this checkout,
     # which is distinct from "ran, but this traveler has no destination data"
     # (that's a DestinationEntropy with entropy=None).
+    #
+    # BY DESTINATION AIRPORT. Null `entropy` inside it is the common case --
+    # 124 of 206 travelers record no airport at all.
     destination_entropy: Optional[DestinationEntropy] = None
+    # THE SAME MEASURE BY UN M49 DETAILED REGION. Deliberately a separate
+    # field rather than a variant of the one above: the two are on different
+    # scales and answer different questions ("does this person use different
+    # airports?" vs "does this person visit different parts of the world?"),
+    # so the page shows both, labelled, rather than picking one.
+    #
+    # Its `normalized` divides by a FIXED 22 -- every M49 detailed region
+    # there is, not the 14 this dataset visits -- so the number doesn't
+    # rescale when a trip to a new region is added. `destination_unit` says
+    # which unit any given block came from.
+    region_entropy: Optional[DestinationEntropy] = None
 
 
 class TravelersResponse(BaseModel):
@@ -916,16 +940,21 @@ def _tags(traveler_id: str) -> list[TravelerTag]:
     return [TravelerTag(**tag) for tag in row.get("tags", [])]
 
 
-def _destination_entropy(traveler_id: str) -> Optional[DestinationEntropy]:
-    """This traveler's entropy row, or None if the file isn't there.
+def _destination_entropy(
+    traveler_id: str, source: Optional[dict] = None
+) -> Optional[DestinationEntropy]:
+    """This traveler's entropy row for one unit, or None if that file isn't
+    there. `source` is a loaded entropy payload -- the airport one by default,
+    or the region one.
 
     A traveler present in TRAVELERS but absent from the entropy file means
     the two were generated at different times -- treated as "not computed"
     rather than filled with zeros, for the same reason the null/zero
     distinction matters everywhere else in this block."""
-    if TRAVELER_ENTROPY is None:
+    source = TRAVELER_ENTROPY if source is None else source
+    if source is None:
         return None
-    row = TRAVELER_ENTROPY["by_traveler"].get(traveler_id)
+    row = source["by_traveler"].get(traveler_id)
     if row is None:
         return None
 
@@ -937,8 +966,8 @@ def _destination_entropy(traveler_id: str) -> Optional[DestinationEntropy]:
         is_informative=row.get("entropy_is_informative", False),
         top_destination=row.get("top_destination"),
         top_destination_share=row.get("top_destination_share"),
-        global_distinct_destinations=TRAVELER_ENTROPY["global_distinct_destinations"],
-        destination_unit=TRAVELER_ENTROPY["destination_unit"],
+        global_distinct_destinations=source["global_distinct_destinations"],
+        destination_unit=source["destination_unit"],
     )
 
 
@@ -965,6 +994,7 @@ def traveler_detail(traveler_id: str):
         trips=[_with_regions(trip) for trip in traveler["trips"]],
         tags=_tags(traveler_id),
         destination_entropy=_destination_entropy(traveler_id),
+        region_entropy=_destination_entropy(traveler_id, TRAVELER_ENTROPY_REGION),
     )
 
 

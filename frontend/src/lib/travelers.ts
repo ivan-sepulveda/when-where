@@ -177,19 +177,55 @@ export interface TravelerDetail extends TravelerSummary {
   trips: TravelerTrip[];
   // Null when compute_traveler_entropy.py hasn't been run in the backend's
   // checkout -- distinct from "computed, but unknown for this traveler".
+  //
+  // BY DESTINATION AIRPORT. `entropy` being null inside it is the common
+  // case, not an error: 124 of 206 travelers record no airport at all.
   destination_entropy?: DestinationEntropy | null;
+  // THE SAME MEASURE BY UN M49 DETAILED REGION -- a separate field, not a
+  // variant, because the two are on different scales and answer different
+  // questions: "does this person use different airports?" versus "does this
+  // person visit different parts of the world?". A traveler can be high on
+  // one and zero on the other, so the page shows both, labelled.
+  //
+  // Defined for every traveler, unlike the airport one: every trip records a
+  // destination country and every country resolves to a region.
+  region_entropy?: DestinationEntropy | null;
+}
+
+// What each unit is called in prose. The page shows two entropy blocks whose
+// numbers are NOT comparable, so every sentence names its own unit -- "4
+// airports" and "3 regions" are the only thing distinguishing two otherwise
+// identically-worded summaries sitting one above the other.
+const UNIT_NOUNS: Record<string, { one: string; many: string }> = {
+  airport: { one: "airport", many: "airports" },
+  city: { one: "city", many: "cities" },
+  region: { one: "region", many: "regions" },
+};
+
+function unitNouns(unit: string | null | undefined) {
+  // A unit this UI hasn't been taught still gets readable prose rather than
+  // "undefineds".
+  return UNIT_NOUNS[unit ?? ""] ?? { one: "destination", many: "destinations" };
+}
+
+// Which unit produced a block, for its heading: "by airport" / "by region".
+export function entropyUnitLabel(entropy: DestinationEntropy | null | undefined): string {
+  return `by ${unitNouns(entropy?.destination_unit).one}`;
 }
 
 // The two numbers, plus the sentence that stops them being read wrong.
 // Entropy is jargon and 0 is ambiguous on its own, so the summary always
 // says what produced the value.
+//
+// Takes the entropy block itself rather than the traveler, because there is
+// more than one of them per traveler now and they render identically.
 export function describeEntropy(
-  traveler: TravelerDetail,
+  entropy: DestinationEntropy | null | undefined,
 ): { headline: string; detail: string } | null {
-  const e = traveler.destination_entropy;
+  const e = entropy;
   if (!e || e.entropy === null) return null;
 
-  const unit = e.destination_unit === "city" ? "cities" : "airports";
+  const noun = unitNouns(e.destination_unit);
   const trips = `${e.trips_with_destination} trip${e.trips_with_destination === 1 ? "" : "s"}`;
 
   if (!e.is_informative) {
@@ -200,7 +236,10 @@ export function describeEntropy(
   }
   if (e.n_destinations === 1) {
     return {
-      headline: "Always the same destination",
+      // Names the unit, because "always the same destination" is true of a
+      // person who flew to six different airports in one region, and that is
+      // exactly the traveler these two blocks exist to tell apart.
+      headline: `Always the same ${noun.one}`,
       // The whole point of showing 0 rather than hiding it -- name the place,
       // and the trip count, so it reads as a fact about the person.
       detail: `All ${trips} went to ${e.top_destination}.`,
@@ -208,10 +247,10 @@ export function describeEntropy(
   }
   const share = e.top_destination_share === null ? null : Math.round(e.top_destination_share * 100);
   return {
-    headline: `${e.n_destinations} destinations across ${trips}`,
+    headline: `${e.n_destinations} ${noun.many} across ${trips}`,
     detail:
       share === null
-        ? `Spread across ${e.n_destinations} ${unit}.`
+        ? `Spread across ${e.n_destinations} ${noun.many}.`
         : `Most frequent is ${e.top_destination} at ${share}% of trips.`,
   };
 }

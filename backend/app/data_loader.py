@@ -31,6 +31,11 @@ TRAVELERS_PATH = DATA_DIR / "processed" / "multiple" / "travelers.json"
 # resolve_travelers_path().
 TRAVELERS_ANON_PATH = DATA_DIR / "processed" / "multiple" / "travelers_anon.json"
 TRAVELER_ENTROPY_PATH = DATA_DIR / "processed" / "multiple" / "traveler_entropy.json"
+# Same script, --by region. compute_traveler_entropy.py suffixes every unit
+# except airport, which keeps the original filename above.
+TRAVELER_ENTROPY_REGION_PATH = (
+    DATA_DIR / "processed" / "multiple" / "traveler_entropy_region.json"
+)
 TRAVELER_TAGS_PATH = DATA_DIR / "processed" / "multiple" / "traveler_tags.json"
 MONTHLY_SCORES_PATH = DATA_DIR / "processed" / "monthly_scores_2025_by_city.json"
 WEATHER_METRICS_PATH = DATA_DIR / "processed" / "multiple" / "weather_normals_2025_by_city.json"
@@ -386,10 +391,17 @@ def load_travelers() -> dict[str, dict] | None:
     return {traveler["traveler_id"]: traveler for traveler in payload.get("travelers", [])}
 
 
-def load_traveler_entropy() -> dict | None:
+def load_traveler_entropy(path: Path = TRAVELER_ENTROPY_PATH) -> dict | None:
     """Destination entropy per traveler, from
     compute_traveler_entropy.py's output -- or None if that file doesn't
     exist yet.
+
+    Called once per UNIT: the airport file (the default) and the region file
+    are two runs of the same script over the same travelers, differing only
+    in what counts as a distinct destination. They are loaded and served
+    separately rather than merged, because their scales are not comparable --
+    see `global_distinct_destinations` below, which is 106 for airports and a
+    fixed 22 for regions.
 
     Same None-instead-of-raising treatment as load_city_attractions() and
     load_travelers(): this is derived from travelers_anon.json, which itself
@@ -408,14 +420,15 @@ def load_traveler_entropy() -> dict | None:
     to be able to say what the normalisation was divided BY -- a bare 0.65
     means nothing without "of 106 destination airports", and that denominator
     changes whenever the trip data does."""
-    if not TRAVELER_ENTROPY_PATH.exists():
+    if not path.exists():
+        unit_flag = "" if path == TRAVELER_ENTROPY_PATH else " --by region"
         print(
-            f"[data_loader] {TRAVELER_ENTROPY_PATH.name} not found -- traveler pages will omit "
-            "the entropy block. Run data/scripts/multiple/compute_traveler_entropy.py."
+            f"[data_loader] {path.name} not found -- traveler pages will omit that "
+            f"entropy block. Run data/scripts/multiple/compute_traveler_entropy.py{unit_flag}."
         )
         return None
 
-    with open(TRAVELER_ENTROPY_PATH, encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         payload = json.load(f)
 
     return {

@@ -10,6 +10,7 @@ import {
 } from "../lib/travelerCharts";
 import {
   describeEntropy,
+  entropyUnitLabel,
   formatAge,
   formatBase,
   formatDestination,
@@ -17,6 +18,7 @@ import {
   formatTripCount,
   formatTripDates,
   useTraveler,
+  type DestinationEntropy,
   type TravelerTrip,
 } from "../lib/travelers";
 
@@ -66,6 +68,63 @@ function TripCard({ trip }: { trip: TravelerTrip }) {
   );
 }
 
+// One entropy measure: two numbers and the sentence that stops them being
+// misread. Rendered once per unit -- destination airport and UN M49 detailed
+// region -- because the two answer different questions and a traveler can be
+// high on one and zero on the other (six New York-area airports is high
+// airport entropy and zero region entropy).
+//
+// THE TWO ARE NOT COMPARABLE and the markup works to prevent that reading:
+// each block names its unit in the heading, each states the denominator its
+// own normalisation used, and each carries its own summary sentence. Showing
+// them as four bare numbers under one heading would invite exactly the
+// cross-unit comparison that means nothing.
+function EntropyBlock({ entropy }: { entropy: DestinationEntropy | null | undefined }) {
+  const summary = describeEntropy(entropy);
+  // Rendered only when the entropy exists. For the airport unit it's null on
+  // the 124 Kaggle-sourced travelers, and a 0 there would claim they never
+  // vary their destination when the source simply records no airport.
+  if (!entropy || entropy.entropy === null || !summary) return null;
+
+  const plural = entropy.destination_unit === "city" ? "cities" : `${entropy.destination_unit}s`;
+
+  return (
+    <>
+      <h2>Destination entropy ({entropyUnitLabel(entropy)})</h2>
+      <ul className="destination-detail-stats entropy-stats">
+        <li className="destination-detail-stat-card entropy-card">
+          <span className="entropy-value">{entropy.entropy.toFixed(3)}</span>
+          <span className="entropy-label">Shannon entropy (nats)</span>
+        </li>
+        <li className="destination-detail-stat-card entropy-card">
+          <span className="entropy-value">
+            {entropy.normalized === null ? "--" : entropy.normalized.toFixed(3)}
+          </span>
+          <span className="entropy-label">
+            {/* The denominator is stated rather than implied: a bare 0.652
+                is meaningless without knowing what it's a share OF, and the
+                two blocks on this page divide by different things -- the
+                airport one by however many airports the dataset happens to
+                contain, the region one by all 22 M49 regions whether or not
+                anyone visits them. */}
+            Normalized{" "}
+            {entropy.global_distinct_destinations
+              ? `(of ${entropy.global_distinct_destinations} ${
+                  entropy.destination_unit === "region" ? "possible " : ""
+                }destination ${plural})`
+              : ""}
+          </span>
+        </li>
+      </ul>
+      <p className="tagline entropy-note">
+        <strong>{summary.headline}.</strong> {summary.detail} Entropy is 0 when every trip goes to
+        the same {entropy.destination_unit ?? "place"} and rises the more evenly trips are spread
+        across {plural}.
+      </p>
+    </>
+  );
+}
+
 export default function TravelerDetail() {
   const { travelerId } = useParams<{ travelerId: string }>();
   const state = useTraveler(travelerId);
@@ -103,8 +162,6 @@ export default function TravelerDetail() {
   const traveler = state.traveler;
   const age = formatAge(traveler);
   const base = formatBase(traveler);
-  const entropy = traveler.destination_entropy;
-  const entropySummary = describeEntropy(traveler);
   const carriers = carrierBreakdown(traveler);
   const domesticInternational = domesticInternationalBreakdown(traveler);
   const subregions = subregionBreakdown(traveler);
@@ -159,43 +216,13 @@ export default function TravelerDetail() {
           with a destination country -- so each chart states its own, and
           neither pads its total with trips the source is silent about. */}
       {/* Two numbers, not a chart: this is a single scalar per traveler, and
-          a one-bar bar chart would be a stat tile wearing a costume.
-          Rendered only when the entropy exists -- for the 124 Kaggle-sourced
-          travelers it's null, and a 0 there would claim they never vary
-          their destination when the source simply records no airport. */}
-      {entropy && entropy.entropy !== null && entropySummary && (
-        <>
-          <h2>Destination entropy</h2>
-          <ul className="destination-detail-stats entropy-stats">
-            <li className="destination-detail-stat-card entropy-card">
-              <span className="entropy-value">{entropy.entropy.toFixed(3)}</span>
-              <span className="entropy-label">Shannon entropy (nats)</span>
-            </li>
-            <li className="destination-detail-stat-card entropy-card">
-              <span className="entropy-value">
-                {entropy.normalized === null ? "--" : entropy.normalized.toFixed(3)}
-              </span>
-              <span className="entropy-label">
-                {/* The denominator is stated rather than implied: a bare
-                    0.652 is meaningless without knowing it's a share of
-                    every destination in the dataset, and that count moves
-                    whenever the trip data does. */}
-                Normalized{" "}
-                {entropy.global_distinct_destinations
-                  ? `(of ${entropy.global_distinct_destinations} destination ${
-                      entropy.destination_unit === "city" ? "cities" : "airports"
-                    })`
-                  : ""}
-              </span>
-            </li>
-          </ul>
-          <p className="tagline entropy-note">
-            <strong>{entropySummary.headline}.</strong> {entropySummary.detail} Entropy is 0 when
-            every trip goes to the same place and rises the more evenly trips are spread across
-            destinations.
-          </p>
-        </>
-      )}
+          a one-bar bar chart would be a stat tile wearing a costume. Two
+          blocks, one per unit -- see EntropyBlock for why they aren't merged
+          into one. The airport block simply doesn't render for a traveler
+          whose trips record no airport; the region one renders for everyone,
+          since every trip records a destination country. */}
+      <EntropyBlock entropy={traveler.destination_entropy} />
+      <EntropyBlock entropy={traveler.region_entropy} />
 
       <h2>Flying patterns</h2>
       <div className="traveler-charts">

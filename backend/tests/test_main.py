@@ -13,6 +13,7 @@ iso2-length codes), and the specific "unknown code -> null/empty, not a
 404" convention this API uses throughout, not today's specific numbers.
 """
 
+import math
 import re
 from collections import Counter
 
@@ -930,6 +931,87 @@ class TestTravelers:
         for code, expected in EXPECTED.items():
             if code in found:
                 assert found[code] == expected, code
+
+    def test_region_entropy_covers_every_traveler_unlike_the_airport_one(self, client):
+        # The reason the region unit exists. Only hand-authored itineraries
+        # record an airport, so airport entropy is null for most travelers;
+        # every trip records a destination country and every country resolves
+        # to an M49 region, so the region one is defined for all of them.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        with_airport = with_region = 0
+        for summary in body["travelers"]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            region = detail.get("region_entropy")
+            airport = detail.get("destination_entropy")
+            if region is None:
+                pytest.skip("traveler_entropy_region.json not generated in this checkout")
+            if airport and airport["entropy"] is not None:
+                with_airport += 1
+            if region["entropy"] is not None:
+                with_region += 1
+                assert region["destination_unit"] == "region", summary["traveler_id"]
+                # Fixed denominator: every M49 detailed region there is, not
+                # the subset this dataset visits -- so a score doesn't
+                # rescale when a trip to a new region is added.
+                assert region["global_distinct_destinations"] == 22, summary["traveler_id"]
+
+        assert with_region == len(body["travelers"])
+        assert with_airport < with_region  # the whole point
+
+    def test_the_two_entropies_are_separate_and_consistent(self, client):
+        # They measure the same trips at different grains, so region can
+        # never be the finer one: you cannot visit more regions than
+        # airports. A traveler with high airport entropy and zero region
+        # entropy is the interesting case and must be representable.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        checked = 0
+        for summary in body["travelers"]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            airport, region = detail.get("destination_entropy"), detail.get("region_entropy")
+            if not airport or not region:
+                continue
+            if airport["entropy"] is None or region["entropy"] is None:
+                continue
+
+            assert airport["destination_unit"] == "airport", summary["traveler_id"]
+            # Coarser unit, so never more categories and never more spread.
+            assert region["n_destinations"] <= airport["n_destinations"], summary["traveler_id"]
+            assert region["entropy"] <= airport["entropy"] + 1e-9, summary["traveler_id"]
+            # Same trips counted either way for these travelers -- both units
+            # are derivable from every hand-authored trip.
+            assert region["trips_with_destination"] == airport["trips_with_destination"]
+            checked += 1
+
+        if checked == 0:
+            pytest.skip("entropy files not generated in this checkout")
+
+    def test_normalized_region_entropy_uses_the_fixed_22(self, client):
+        # Guards the choice itself: dividing by the 14 regions this dataset
+        # happens to visit would make every score jump the moment a 15th
+        # appeared. ln(22) = 3.0910.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        checked = 0
+        for summary in body["travelers"][:40]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            region = detail.get("region_entropy")
+            if not region or region["entropy"] is None or region["normalized"] is None:
+                continue
+            expected = region["entropy"] / math.log(22)
+            assert region["normalized"] == pytest.approx(expected, abs=1e-3), summary["traveler_id"]
+            assert 0.0 <= region["normalized"] <= 1.0, summary["traveler_id"]
+            checked += 1
+
+        if checked == 0:
+            pytest.skip("traveler_entropy_region.json not generated in this checkout")
 
     def test_traveler_ids_are_unique_and_url_safe(self, client):
         body = client.get("/api/travelers").json()

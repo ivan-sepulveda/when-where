@@ -2,6 +2,8 @@
   "destination_unit": "airport",
   "log_base": "natural (nats)",
   "global_distinct_destinations": 106,
+  "global_distinct_destinations_source": "observed in this dataset",
+  "observed_distinct_destinations": 106,
   "ln_global_distinct_destinations": 4.6634,
   "travelers_total": 206,
   "travelers_with_destination_data": 82,

@@ -2793,7 +2793,34 @@ measuring how spread out their trips are across destinations.
 where `p_i` is the share of that traveler's trips going to destination `i`.
 Natural log, so the units are nats.
 
-**A destination is a destination AIRPORT.** Three cities here are served by
+**Run once per unit.** `--by airport` (the default) and `--by region` answer
+different questions and the traveler page shows both, labelled. Output paths
+are per-unit — airport keeps `traveler_entropy.{csv,json}`, everything else is
+suffixed (`traveler_entropy_region.{csv,json}`). Before this, `--by city`
+silently overwrote the airport file.
+
+**`--by region` covers every traveler; `--by airport` cannot.** Only the
+hand-authored itineraries record an airport, so airport entropy is null for
+**124 of the 206** travelers. Every trip records a destination country and
+every country resolves to an M49 region, so region entropy is defined for
+**all 206**. That coverage is the main reason the unit exists — a Kaggle
+traveler who previously showed no entropy block at all now gets one.
+
+**A region is a UN M49 detailed region** — intermediate where the country has
+one, else sub-region, 22 possible values. Joined from
+`reference/m49_regions.json` on `destination_country_code` (see
+`build_m49_regions.py`), including its `additions`, so the Taipei trips count
+rather than dropping out of the denominator.
+
+**The two are not comparable, and the page is built to prevent that reading.**
+They measure the same trips at different grains: 30 trips spread across five
+New York, Boston and Washington airports is high airport entropy and *zero*
+region entropy, because it never leaves Northern America. Region entropy can
+never exceed airport entropy for the same traveler, and a backend test
+asserts it. Each block on the page names its unit in the heading, states its
+own denominator, and carries its own summary sentence.
+
+**A destination is a destination AIRPORT (for `--by airport`).** Three cities here are served by
 two airports each (New York EWR/JFK, Washington DCA/IAD, Tokyo HND/NRT), so
 airport is strictly finer than city — but no single traveler currently splits
 a city across two airports, so every traveler's entropy is identical either
@@ -2816,7 +2843,7 @@ Three normalisations are emitted. **`norm_global` is the canonical one:**
 
 | column | formula | notes |
 | --- | --- | --- |
-| `norm_global` | `H / ln(K)`, K = all distinct destination airports (106, ln 4.6634) | **Canonical.** Absolute scale, comparable between any two travelers. Nobody exceeds ~0.65, so values live in the bottom two thirds. K is dataset-wide, so adding an airport rescales everyone. |
+| `norm_global` | `H / ln(K)` | **Canonical.** For airport/city, K is every distinct destination *observed* (106 airports, ln 4.6634) — dataset-wide, so adding an airport rescales everyone. **For region, K is fixed at 22** (ln 3.0910): every M49 detailed region that *exists*, not the 14 this data visits. That removes the instability — the 22 are a closed set, so a region score means the same thing across data refreshes — and keeps the scale honest about unvisited parts of the world. Highest region score today is Stan Getz at 0.477 across 5 regions. |
 | `norm_observed` | `H / ln(k)`, k = that traveler's own destination count | The textbook version, and **undefined for 29 of the 82** — they have k = 1, so it divides by `ln(1) = 0`. Emitted as `null` rather than faked. Also saturates at 1.000 for anyone who never repeats, so a 6-destination traveler ties a 12-destination one. |
 | `norm_capacity` | `H / ln(min(n_trips, K))` | Corrects for opportunity — a 4-trip traveler can't exceed `ln(4)`. 1.0 means "never repeated a destination". |
 
@@ -2830,9 +2857,15 @@ Verified by recomputing all 206 rows independently, and by the identity that
 which holds for Achilles (6 × 5 trips), Miles Davis (12 × 2) and Chet Baker
 (k = 1).
 
+The API serves the airport unit as `destination_entropy` and the region unit
+as `region_entropy` on `/api/travelers/{id}`; both are `DestinationEntropy`
+objects carrying their own `destination_unit` and
+`global_distinct_destinations`.
+
 Usage:
 
     python scripts/multiple/compute_traveler_entropy.py
+    python scripts/multiple/compute_traveler_entropy.py --by region
     python scripts/multiple/compute_traveler_entropy.py --by city
 
 ### Traveler tags (`scripts/multiple/compute_traveler_tags.py`)
