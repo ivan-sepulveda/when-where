@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { describeTag } from "./travelerTags";
+import { describeTag, joinNames, tagCarriers } from "./travelerTags";
 import type { TravelerTag } from "./travelers";
 
 function tag(overrides: Partial<TravelerTag> = {}): TravelerTag {
@@ -61,5 +61,99 @@ describe("describeTag", () => {
     // silent rather than described in airline terms it has nothing to do
     // with.
     expect(describeTag(tag({ kind: "budget_traveler", carrier_name: null }))).toBeUndefined();
+  });
+});
+
+function hub(overrides: Partial<TravelerTag> = {}): TravelerTag {
+  return {
+    tag_id: "airline-hub:united-air-lines-inc",
+    kind: "airline_hub",
+    label: "United Hub",
+    carrier_name: "United Air Lines Inc.",
+    carrier_names: ["United Air Lines Inc."],
+    airlines: ["United"],
+    hub_city: "Denver",
+    hub_airports: ["DEN"],
+    ...overrides,
+  };
+}
+
+const MULTI_HUB_NYC: TravelerTag = {
+  tag_id: "multi-hub",
+  kind: "multi_hub",
+  label: "Multi Hub",
+  carrier_name: null,
+  carrier_names: [
+    "United Air Lines Inc.",
+    "Delta Air Lines Inc.",
+    "American Airlines Inc.",
+  ],
+  airlines: ["United", "Delta", "American"],
+  hub_city: "New York City",
+  hub_airports: ["EWR", "JFK", "LGA"],
+};
+
+describe("describeTag for hub tags", () => {
+  it("leads with where the traveler lives, not who they fly", () => {
+    // The tag is about geography. Without "Lives in", a "United Hub" chip
+    // beside a "Southwest Loyalist" chip reads as a contradiction instead of
+    // the real case it is.
+    expect(describeTag(hub())).toBe("Lives in Denver, a United hub (DEN).");
+  });
+
+  it("lists every airline in a multi-hub city, in words", () => {
+    expect(describeTag(MULTI_HUB_NYC)).toBe(
+      "Lives in New York City, a hub for United, Delta and American (EWR, JFK, LGA).",
+    );
+  });
+
+  it("uses 'and' without a comma for exactly two airlines", () => {
+    expect(
+      describeTag({
+        ...MULTI_HUB_NYC,
+        airlines: ["United", "American"],
+        hub_city: "Chicago",
+        hub_airports: ["ORD"],
+      }),
+    ).toBe("Lives in Chicago, a hub for United and American (ORD).");
+  });
+
+  it("still says something useful with no airports listed", () => {
+    expect(describeTag(hub({ hub_airports: [] }))).toBe("Lives in Denver, a United hub.");
+  });
+
+  it("returns undefined without a city, which is the whole basis of the tag", () => {
+    expect(describeTag(hub({ hub_city: null }))).toBeUndefined();
+  });
+});
+
+describe("tagCarriers", () => {
+  it("returns one entry per dot the chip should draw", () => {
+    expect(tagCarriers(MULTI_HUB_NYC)).toHaveLength(3);
+    expect(tagCarriers(hub())).toEqual(["United Air Lines Inc."]);
+  });
+
+  it("falls back to the single carrier_name", () => {
+    // A tag written before carrier_names existed still gets its dot.
+    expect(tagCarriers({ ...hub(), carrier_names: undefined })).toEqual([
+      "United Air Lines Inc.",
+    ]);
+  });
+
+  it("returns nothing for a tag about no airline", () => {
+    // Which draws no dots rather than a grey one -- a dot always means
+    // "this color identifies that airline".
+    expect(
+      tagCarriers({ tag_id: "x", kind: "budget_traveler", label: "Budget", carrier_name: null }),
+    ).toEqual([]);
+  });
+});
+
+describe("joinNames", () => {
+  it("handles zero, one, two and three", () => {
+    expect(joinNames([])).toBe("");
+    expect(joinNames(["United"])).toBe("United");
+    expect(joinNames(["United", "American"])).toBe("United and American");
+    expect(joinNames(["United", "Delta", "American"])).toBe("United, Delta and American");
   });
 });

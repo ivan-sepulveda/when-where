@@ -331,13 +331,33 @@ class TravelerTag(BaseModel):
     kind: str
     # What gets drawn on the chip, e.g. "Delta Loyalist".
     label: str
-    # Rule-specific evidence. Optional because a future rule needn't have a
-    # carrier -- a tag always has an id, kind and label, and nothing else is
-    # guaranteed.
+    # Rule-specific evidence. All optional because a future rule needn't
+    # have any of it -- a tag always has an id, kind and label, and nothing
+    # else is guaranteed.
+    #
+    # The ONE airline this tag is about, or null when it isn't about one:
+    # "Multi Hub" leaves this null deliberately rather than naming the first
+    # of its airlines, so nothing downstream can mistake it for a
+    # single-airline tag.
     carrier_name: Optional[str] = None
+    # Every airline the chip draws a dot for, as full legal names -- one
+    # entry for a loyalist or single-airline hub tag, several for Multi Hub.
+    # A list on every kind so the component has one code path.
+    carrier_names: list[str] = []
+    # The same airlines in their short form ("United", "American"), for
+    # wording a sentence about them without re-shortening the legal names.
+    airlines: Optional[list[str]] = None
+    # airline_loyalist: how much of their flying is on `carrier_name`, out of
+    # how many carrier-recorded trips. NOT out of trip_count.
     share: Optional[float] = None
     trips: Optional[int] = None
     denominator: Optional[int] = None
+    # airline_hub / multi_hub: the home city that earned the tag, and the hub
+    # airports in it. The city is the unit -- every New Yorker is Multi Hub
+    # whether they fly EWR, JFK or LGA -- so the airports are context, not
+    # the thing matched on.
+    hub_city: Optional[str] = None
+    hub_airports: Optional[list[str]] = None
 
 
 class TravelerSummary(BaseModel):

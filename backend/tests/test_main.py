@@ -699,6 +699,138 @@ class TestTravelers:
             if checked >= 15:
                 break
 
+    def test_hub_tags_only_go_to_travelers_who_declare_where_they_live(self, client):
+        # The rule's sharpest edge. 124 travelers have a base INFERRED from
+        # their nationality -- "Washington, D.C." is just the US default --
+        # and a chip saying where someone lives must not be built on a guess.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        hub_kinds = {"airline_hub", "multi_hub"}
+        tagged = [
+            t for t in body["travelers"]
+            if any(tag["kind"] in hub_kinds for tag in t.get("tags") or [])
+        ]
+        if not tagged:
+            pytest.skip("traveler_tags.json not generated in this checkout")
+
+        for traveler in tagged:
+            assert traveler["base_inference"] == "declared", traveler["traveler_id"]
+            assert traveler["base_country_code"] == "US", traveler["traveler_id"]
+
+    def test_a_multi_hub_tag_replaces_the_individual_hub_tags(self, client):
+        # Chicago gets one chip, not three. If both kinds ever appear on one
+        # traveler the card grid is wrong and so is the rule.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        seen = 0
+        for traveler in body["travelers"]:
+            kinds = [tag["kind"] for tag in traveler.get("tags") or []]
+            if "multi_hub" not in kinds:
+                continue
+            assert "airline_hub" not in kinds, traveler["traveler_id"]
+            assert kinds.count("multi_hub") == 1, traveler["traveler_id"]
+            seen += 1
+
+        if seen == 0:
+            pytest.skip("no multi-hub travelers in this checkout")
+
+    def test_hub_tags_carry_the_city_and_airlines_they_claim(self, client):
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        hubs = [
+            tag for t in body["travelers"] for tag in t.get("tags") or []
+            if tag["kind"] in ("airline_hub", "multi_hub")
+        ]
+        if not hubs:
+            pytest.skip("traveler_tags.json not generated in this checkout")
+
+        for tag in hubs:
+            # The city is the whole basis of the tag -- the tooltip is built
+            # from it, and without one the chip can't say anything.
+            assert tag["hub_city"], tag
+            assert tag["hub_airports"], tag
+            assert all(len(code) == 3 for code in tag["hub_airports"]), tag
+            # One dot per airline, and the short names line up with them.
+            assert len(tag["carrier_names"]) == len(tag["airlines"]), tag
+
+            if tag["kind"] == "multi_hub":
+                # More than one airline is what the tag MEANS.
+                assert len(tag["airlines"]) >= 2, tag
+                # Null rather than the first of them, so nothing downstream
+                # can treat this as a single-airline tag.
+                assert tag["carrier_name"] is None, tag
+            else:
+                assert len(tag["airlines"]) == 1, tag
+                assert tag["carrier_name"] == tag["carrier_names"][0], tag
+                assert tag["label"] == f"{tag['airlines'][0]} Hub", tag
+
+    def test_a_hub_tag_makes_no_claim_about_who_the_traveler_flies(self, client):
+        # Living at a hub and being loyal to that airline are independent --
+        # the dataset has travelers who are both, either, and neither, and
+        # the two rules must not have been quietly wired together. Barry
+        # Allen (Chicago, Southwest, flies Midway) is the case that matters.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        hub_only = loyalist_only = both = 0
+        for traveler in body["travelers"]:
+            kinds = {tag["kind"] for tag in traveler.get("tags") or []}
+            has_hub = bool(kinds & {"airline_hub", "multi_hub"})
+            has_loyalty = "airline_loyalist" in kinds
+            hub_only += has_hub and not has_loyalty
+            loyalist_only += has_loyalty and not has_hub
+            both += has_hub and has_loyalty
+
+        if hub_only + loyalist_only + both == 0:
+            pytest.skip("traveler_tags.json not generated in this checkout")
+        # All three populations exist, which is what proves the rules are
+        # independent rather than one implying the other.
+        assert hub_only > 0 and loyalist_only > 0 and both > 0
+
+    def test_a_hub_traveler_actually_flies_out_of_that_metro(self, client):
+        # Independent check on the hand-written city table in
+        # compute_traveler_tags.py: every declared traveler departs from
+        # exactly one airport, so a tag claiming they live in Denver had
+        # better not belong to someone who only ever flies out of Boston.
+        #
+        # The hub airports themselves are NOT asserted -- three travelers
+        # live in a hub city and use its secondary field (Midway, Hobby),
+        # which is real. What's checked is the metro, via the destination
+        # cities their own trips reach.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        # Airports that are in one of the table's metros but aren't the hub.
+        SECONDARY = {"MDW": "Chicago", "HOU": "Houston"}
+        checked = 0
+        for summary in body["travelers"]:
+            hub = next(
+                (t for t in summary.get("tags") or [] if t["kind"] in ("airline_hub", "multi_hub")),
+                None,
+            )
+            if hub is None:
+                continue
+
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            origins = {t["origin_airport"] for t in detail["trips"] if t["origin_airport"]}
+            assert len(origins) == 1, summary["traveler_id"]
+            origin = origins.pop()
+            assert (
+                origin in hub["hub_airports"] or SECONDARY.get(origin) == hub["hub_city"]
+            ), f"{summary['traveler_id']} flies {origin}, tagged for {hub['hub_city']}"
+            checked += 1
+
+        if checked == 0:
+            pytest.skip("traveler_tags.json not generated in this checkout")
+
     def test_traveler_ids_are_unique_and_url_safe(self, client):
         body = client.get("/api/travelers").json()
         if not body["dataset_available"]:

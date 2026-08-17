@@ -64,10 +64,26 @@ export interface TravelerTag {
   label: string;
   // Rule-specific evidence, all optional: a future rule needn't involve an
   // airline, and only tag_id/kind/label are guaranteed.
+  //
+  // The ONE airline this tag is about, or null when it isn't about one --
+  // "Multi Hub" leaves it null rather than naming the first of its airlines.
   carrier_name?: string | null;
+  // Every airline the chip draws a dot for, as full legal names (which is
+  // what airlineColors.ts is keyed on): one entry for a loyalist or
+  // single-airline hub tag, several for Multi Hub.
+  carrier_names?: string[] | null;
+  // The same airlines shortened ("United", "American"), for wording.
+  airlines?: string[] | null;
+  // airline_loyalist evidence.
   share?: number | null;
   trips?: number | null;
   denominator?: number | null;
+  // airline_hub / multi_hub: the home city that earned the tag, and the hub
+  // airports in it. The CITY is what was matched -- every New Yorker is
+  // Multi Hub whether they fly EWR, JFK or LGA -- so the airports are
+  // context in the tooltip, not the thing the rule keyed on.
+  hub_city?: string | null;
+  hub_airports?: string[] | null;
 }
 
 export interface TravelerSummary {

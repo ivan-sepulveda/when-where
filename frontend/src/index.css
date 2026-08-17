@@ -544,6 +544,16 @@ h1 {
   white-space: nowrap;
 }
 
+/* One dot per airline the tag names -- three for a New York "Multi Hub".
+   Tighter than the chip's own gap so a group of them reads as one mark
+   rather than as three separate things sharing a label. */
+.traveler-tag-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex: none;
+}
+
 .traveler-tag-dot {
   width: 7px;
   height: 7px;

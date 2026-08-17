@@ -2840,12 +2840,15 @@ Usage:
 Reads `processed/multiple/travelers_anon.json`, writes
 `processed/multiple/traveler_tags.csv` and `.json` — one row per traveler,
 carrying a list of short labels describing a pattern that is **true of the
-trips as recorded**, plus the diagnostics behind each decision.
+data as recorded**, plus the diagnostics behind each decision. Two rules so
+far; everything downstream is a list of tags and doesn't know how many rules
+produced them.
 
-The first (and so far only) rule is **airline loyalist**: a traveler is
-tagged `"{Airline} Loyalist"` when at least **80%** of their trips are on one
-airline. `--threshold` and `--min-trips` change both numbers without editing
-the file.
+#### Rule 1 — airline loyalist
+
+A traveler is tagged `"{Airline} Loyalist"` when at least **80%** of their
+trips are on one airline. `--threshold` and `--min-trips` change both numbers
+without editing the file.
 
 **The denominator is trips with a recorded carrier, not all trips.** Only the
 hand-authored itineraries name an airline; the 124 Kaggle-sourced travelers
@@ -2878,10 +2881,54 @@ United routes, so `build_synthetic_trips.py` put those legs on carriers that
 do fly them. The tag describes the data, not the author's intent — which is
 the whole reason it's computed rather than declared.
 
+#### Rule 2 — home hub
+
+A traveler whose home city is a hub for exactly one airline in `AIRLINE_HUBS`
+is tagged `"{Airline} Hub"`; one whose city is a hub for two or more is
+tagged **`"Multi Hub"` instead of** the individual tags. The hub lists are
+hand-curated (United, Delta, American and Alaska), not derived from the T-100
+data — a hub is a network-design fact, not a schedule-volume ranking.
+
+**The unit is the city, not the airport.** Every New York resident is Multi
+Hub whether they fly EWR (United), JFK or LGA (Delta and American), because
+the question the tag answers is "does this person have a choice of airline at
+home?" — and a New Yorker does. Splitting by airport would tag three
+neighbours three different ways.
+
+**Declared bases only.** All 82 hand-authored travelers state where they live;
+the other 124 have a base *inferred* from nationality by `build_travelers.py`,
+and "Washington, D.C." is simply the US default — 20 travelers carry it
+without the source ever saying where they live. A chip about someone's home
+must not be built on a guess.
+
+**The city table is verified, not trusted.** Every declared traveler's trips
+depart from exactly one airport — that airport *is* their home airport, stated
+by the data rather than by the table — so every match is checked against it
+and `home_airport_is_hub` records the result. It never suppresses a tag.
+Three are False today and all three are real: **Barry Allen** and **Artemis**
+live in Chicago and fly Midway, **Clark Kent** lives in Houston and flies
+Hobby. All three are Southwest travelers, and Southwest flies the secondary
+field in both metros — they live in the hub city and use the airport the hub
+airline isn't at. Anything *above* those three should be read as a table bug.
+
+Hub results: **59 hub tags** — 20 Multi Hub (Chicago, New York, Los Angeles,
+Washington D.C.), 18 American, 12 United, 5 Alaska, 4 Delta. **69 travelers
+carry at least one tag of either kind.**
+
+**The two rules are independent, and the data proves it**: travelers exist who
+are loyal without living at a hub, live at a hub without being loyal, and
+both. Oliver Queen lives in Denver (United's hub) and is a Southwest loyalist;
+Barry Allen lives in Chicago and flies Southwest out of Midway. A hub chip
+makes no claim about who someone flies.
+
+#### Output
+
 The API serves these on both `/api/travelers` and
 `/api/travelers/{id}`; the frontend draws them as chips on the `/rec-sys`
-cards and the traveler page, with a dot in the airline's own brand color
-(`frontend/src/lib/airlineColors.ts`).
+cards and the traveler page, with **one dot per airline the tag names**, in
+that airline's own brand color (`frontend/src/lib/airlineColors.ts`) — so a
+Chicago Multi Hub chip (two dots) is visibly different from a New York one
+(three) without spending more of a 180px card on text.
 
 Usage:
 

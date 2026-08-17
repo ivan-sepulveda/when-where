@@ -1,22 +1,28 @@
 import { airlineColor } from "../lib/airlineColors";
-import { describeTag } from "../lib/travelerTags";
+import { describeTag, tagCarriers } from "../lib/travelerTags";
 import type { TravelerTag } from "../lib/travelers";
 
 // The computed labels on a traveler, drawn as a row of chips. Used on both
 // the /rec-sys card grid and the traveler detail page, so a person's tags
 // read identically wherever you meet them.
 //
-// WHAT A CHIP MEANS: a fact about this traveler's trips as recorded, produced
-// by data/scripts/multiple/compute_traveler_tags.py -- not something the
+// WHAT A CHIP MEANS: a fact about this traveler as recorded, produced by
+// data/scripts/multiple/compute_traveler_tags.py -- not something the
 // dataset's author asserted. Two travelers written as United loyalists fly
-// routes United doesn't serve and get no chip; that gap is the point.
+// routes United doesn't serve and get no loyalist chip; that gap is the
+// point.
 //
-// THE DOT IS THE AIRLINE'S OWN COLOR, from the same lib the "Airlines flown"
-// bar uses. Delta's chip carries Delta red on both pages and inside the chart
-// on one of them -- lib/airlineColors.ts fixes color to the ENTITY rather
-// than to a slot precisely so this holds across components. Tags with no
-// carrier get no dot rather than a grey one, so the dot always means "this
-// color identifies that airline".
+// THE DOTS ARE THE AIRLINES' OWN COLORS, from the same lib the "Airlines
+// flown" bar uses. Delta's chip carries Delta red on both pages and inside
+// the chart on one of them -- lib/airlineColors.ts fixes color to the ENTITY
+// rather than to a slot precisely so this holds across components.
+//
+// A tag can name more than one airline: "Multi Hub" draws a dot per airline
+// that hubs in the traveler's home city, which is what makes a Chicago chip
+// (United, American) visibly different from a New York one (United, Delta,
+// American) without spending any more of a 180px card on text. A tag about
+// no airline draws no dots rather than a grey one, so a dot always means
+// "this color identifies that airline".
 export default function TravelerTags({
   tags,
   className,
@@ -30,18 +36,25 @@ export default function TravelerTags({
 
   return (
     <ul className={["traveler-tags", className].filter(Boolean).join(" ")}>
-      {tags.map((tag) => (
-        <li key={tag.tag_id} className="traveler-tag" title={describeTag(tag)}>
-          {tag.carrier_name && (
-            <span
-              className="traveler-tag-dot"
-              style={{ background: airlineColor(tag.carrier_name) }}
-              aria-hidden="true"
-            />
-          )}
-          {tag.label}
-        </li>
-      ))}
+      {tags.map((tag) => {
+        const carriers = tagCarriers(tag);
+        return (
+          <li key={tag.tag_id} className="traveler-tag" title={describeTag(tag)}>
+            {carriers.length > 0 && (
+              <span className="traveler-tag-dots" aria-hidden="true">
+                {carriers.map((carrier) => (
+                  <span
+                    key={carrier}
+                    className="traveler-tag-dot"
+                    style={{ background: airlineColor(carrier) }}
+                  />
+                ))}
+              </span>
+            )}
+            {tag.label}
+          </li>
+        );
+      })}
     </ul>
   );
 }
