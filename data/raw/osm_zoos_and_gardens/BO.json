@@ -1,0 +1,459 @@
+{
+    "version": 0.6,
+    "generator": "Overpass API 0.7.62.11 87bfad18",
+    "osm3s": {
+        "timestamp_osm_base": "2026-08-18T07:30:06Z",
+        "timestamp_areas_base": "2026-08-17T11:51:51Z",
+        "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+    },
+    "elements": [
+        {
+            "type": "node",
+            "id": 4381151737,
+            "lat": -16.5380446,
+            "lon": -68.0763855,
+            "tags": {
+                "name": "Acuario Nemo",
+                "source": "Reconocimiento cartográfico de campo 2016 por KG",
+                "tourism": "aquarium"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4408703590,
+            "lat": -19.5901325,
+            "lon": -65.7454829,
+            "tags": {
+                "name": "Caja del Agua",
+                "opening_hours": "We-Su 08:00-12:00, 15:00-19:00",
+                "tourism": "aquarium"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514836,
+            "lat": -21.5068257,
+            "lon": -64.7446472,
+            "tags": {
+                "name": "Cóndor",
+                "tourism": "zoo",
+                "wikidata": "Q170598",
+                "wikipedia": "es:Vultur gryphus"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514837,
+            "lat": -21.5084977,
+            "lon": -64.7451085,
+            "tags": {
+                "name": "Mono silbador",
+                "species:wikidata": "Q1061964",
+                "species:wikipedia": "es:Sapajus apella",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514838,
+            "lat": -21.508333,
+            "lon": -64.7443521,
+            "tags": {
+                "name": "Socorí",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514839,
+            "lat": -21.508323,
+            "lon": -64.7445238,
+            "tags": {
+                "name": "Loro hablador",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514840,
+            "lat": -21.5078339,
+            "lon": -64.7446364,
+            "tags": {
+                "name": "Taitetú",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514841,
+            "lat": -21.5080036,
+            "lon": -64.7449637,
+            "tags": {
+                "name": "Tortuga terrestre",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514842,
+            "lat": -21.5074745,
+            "lon": -64.7445184,
+            "tags": {
+                "name": "Puma",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514843,
+            "lat": -21.5068457,
+            "lon": -64.745248,
+            "tags": {
+                "name": "Puma",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514844,
+            "lat": -21.5060571,
+            "lon": -64.7447598,
+            "tags": {
+                "name": "Jaguar",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514845,
+            "lat": -21.5059074,
+            "lon": -64.7454733,
+            "tags": {
+                "name": "Jaguar",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514846,
+            "lat": -21.5058475,
+            "lon": -64.7459829,
+            "tags": {
+                "name": "Jaguar",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514847,
+            "lat": -21.5060821,
+            "lon": -64.7474152,
+            "tags": {
+                "name": "Mono silbador",
+                "name:la": "Sapajus apella",
+                "species:wikidata": "Q1061964",
+                "species:wikipedia": "es:Sapajus apella",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4955514848,
+            "lat": -21.507749,
+            "lon": -64.746058,
+            "tags": {
+                "name": "Cóndor",
+                "name:es": "Vultur gryphus",
+                "tourism": "zoo",
+                "wikidata": "Q170598",
+                "wikipedia": "es:Vultur gryphus"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4965335915,
+            "lat": -17.384908,
+            "lon": -66.1469709,
+            "tags": {
+                "addr:city": "Cochabamba",
+                "addr:neighbourhood": "Seminario San Luis",
+                "addr:street": "Avenida Aniceto Arce",
+                "name": "Mundo Marino",
+                "opening_hours": "Mo-Su 09:00-21:00",
+                "tourism": "aquarium"
+            }
+        },
+        {
+            "type": "node",
+            "id": 4978535216,
+            "lat": -17.3951852,
+            "lon": -66.1850926,
+            "tags": {
+                "tourism": "aquarium"
+            }
+        },
+        {
+            "type": "node",
+            "id": 5276246763,
+            "lat": -17.3956217,
+            "lon": -66.0506164,
+            "tags": {
+                "fee": "yes",
+                "operator": "GAMS",
+                "tourism": "aquarium"
+            }
+        },
+        {
+            "type": "node",
+            "id": 6006131647,
+            "lat": -14.5459317,
+            "lon": -67.3174758,
+            "tags": {
+                "addr:housenumber": "lote 11 y 13",
+                "addr:street": "Carretera (Rurrenabaque - Yucumo) , Villa del Carmen",
+                "description": "Crianza de peces, pesca deportiva, próximamente un lugar de recreación entretenimiento juegos infantiles y otros",
+                "name": "PescaR2 Inc.",
+                "opening_hours": "Mo-Sa 08:00-18:00",
+                "phone": "+591 68166614",
+                "tourism": "aquarium",
+                "website": "https://m.facebook.com/PescaR2inc"
+            }
+        },
+        {
+            "type": "node",
+            "id": 6193592270,
+            "lat": -17.3994058,
+            "lon": -66.1751701,
+            "tags": {
+                "fee": "yes",
+                "indoor": "yes",
+                "tourism": "aquarium"
+            }
+        },
+        {
+            "type": "node",
+            "id": 6193592271,
+            "lat": -17.3993082,
+            "lon": -66.1748747,
+            "tags": {
+                "indoor": "yes",
+                "layer": "-1",
+                "tourism": "aquarium"
+            }
+        },
+        {
+            "type": "node",
+            "id": 6193592272,
+            "lat": -17.3996011,
+            "lon": -66.1751542,
+            "tags": {
+                "fee": "yes",
+                "indoor": "yes",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "node",
+            "id": 7252818385,
+            "lat": -17.0267347,
+            "lon": -61.86459,
+            "tags": {
+                "addr:city": "Hacienda San Miguelito",
+                "name": "San Miguelito Jaguar Conservation Ranch",
+                "tourism": "zoo",
+                "zoo": "wildlife_park"
+            }
+        },
+        {
+            "type": "node",
+            "id": 11220463831,
+            "lat": -17.3903983,
+            "lon": -66.1488981,
+            "tags": {
+                "addr:city": "Cochabamba",
+                "addr:neighbourhood": "San Pedro",
+                "addr:street": "Calle Luis Pasteur",
+                "payment:cash": "yes",
+                "tourism": "aquarium"
+            }
+        },
+        {
+            "type": "node",
+            "id": 13671884493,
+            "lat": -17.7479235,
+            "lon": -63.1879421,
+            "tags": {
+                "addr:city": "Santa Cruz de la Sierra",
+                "addr:neighbourhood": "Santa Cruz",
+                "addr:street": "Calle Tiluchi Este",
+                "check_date": "2026-03-17",
+                "check_date:currency:XBT": "2026-03-17",
+                "currency:XBT": "yes",
+                "name": "Fish Room",
+                "opening_hours": "Mo-Su 09:00-21:00",
+                "payment:lightning": "yes",
+                "payment:onchain": "yes",
+                "tourism": "aquarium",
+                "whatsapp": "60919393"
+            }
+        },
+        {
+            "type": "way",
+            "id": 34156282,
+            "center": {
+                "lat": -17.377684,
+                "lon": -66.1402039
+            },
+            "tags": {
+                "access": "yes",
+                "addr:city": "Cochabamba",
+                "addr:neighbourhood": "Martín Cárdenas",
+                "addr:street": "Calle Raúl Rivero Torrez",
+                "barrier": "fence",
+                "description": "El Jardín Botánico Martín Cárdenas promueve la investigación, la enseñanza y el de exhibición de la flora del Departamento de Cochabamba, así como la conservación de la diversidad florística y de sus endemismos.",
+                "fee": "no",
+                "fence_type": "chain_link",
+                "garden:type": "botanical",
+                "kerb": "raised",
+                "leisure": "garden",
+                "name": "Jardín Botánico Martín Cárdenas",
+                "opening_hours": "Mo-Fr 09:30-16:30; Sa 10:00-16:30; Su,PH Off",
+                "operator": "Empresa Municipal de Áreas Verdes y Recreación Alternativa",
+                "operator:short": "EMAVRA",
+                "operator:type": "public",
+                "ref:alcjb": "cocha",
+                "start_date": "1962",
+                "wikidata": "Q5926777",
+                "wikimedia_commons": "File:Jardín Botánico de Cochabamba.jpg",
+                "wikipedia": "es:Jardín botánico Martín Cárdenas"
+            }
+        },
+        {
+            "type": "way",
+            "id": 85949308,
+            "center": {
+                "lat": -17.759644,
+                "lon": -63.1853988
+            },
+            "tags": {
+                "name": "Zoológico Municipal de Fauna Sudamericana Noel Kempff Mercado",
+                "opening_hours": "Tu-Su 09:00-17:00",
+                "operator": "Unidad Desconcentrada Zoológico Botánico Municipal",
+                "start_date": "1979-08-19",
+                "tourism": "zoo",
+                "wikidata": "Q6171768",
+                "wikimedia_commons": "Category:Zoológico de Fauna Sudamericana",
+                "wikipedia": "es:Zoológico Municipal de Fauna Sudamericana Noel Kempff Mercado"
+            }
+        },
+        {
+            "type": "way",
+            "id": 261104149,
+            "center": {
+                "lat": -14.8202956,
+                "lon": -64.8868456
+            },
+            "tags": {
+                "barrier": "yes",
+                "garden:type": "botanical",
+                "leisure": "garden",
+                "name": "Vivero Municipal Jardín Botánico"
+            }
+        },
+        {
+            "type": "way",
+            "id": 323470487,
+            "center": {
+                "lat": -16.5387188,
+                "lon": -68.0688829
+            },
+            "tags": {
+                "access": "permit",
+                "addr:city": "La Paz",
+                "addr:neighbourhood": "Cota Cota",
+                "description": "El jardín botánico promueve la investigación, la enseñanza y la exhibición de la flora de los valles secos interandinos de La Paz y alrededores. Creado mediante Resolución Rectoral 279/88",
+                "email": "mariel.fcg.mu@gmail.com",
+                "fee": "no",
+                "garden:type": "botanical",
+                "leisure": "garden",
+                "name": "Jardín Botánico La Paz",
+                "name:ja": "ラパス植物園",
+                "opening_hours": "Mo-Fr 08:00-17:00",
+                "operator": "Jardín Botánico La Paz",
+                "operator:type": "public",
+                "ref": "LPB",
+                "source": "Aeronave DRON-UAV/Survey",
+                "university": "Universidad Mayor de San Andrés-UMSA",
+                "wheelchair": "limited",
+                "wikidata": "Q5926773",
+                "wikipedia": "es:Jardín botánico La Paz"
+            }
+        },
+        {
+            "type": "way",
+            "id": 363833188,
+            "center": {
+                "lat": -16.527869,
+                "lon": -68.1651078
+            },
+            "tags": {
+                "barrier": "yes",
+                "garden:type": "botanical",
+                "leisure": "garden",
+                "name": "Jardín Botánico Santiago I",
+                "source": "Actualizaciones en Bolivia. Reconocimiento cartográfico por KG 2016"
+            }
+        },
+        {
+            "type": "way",
+            "id": 657658649,
+            "center": {
+                "lat": -17.979574,
+                "lon": -67.122856
+            },
+            "tags": {
+                "addr:city": "Oruro",
+                "addr:street": "Calle Tomás Frías",
+                "barrier": "fence",
+                "fee": "yes",
+                "name": "Zoológico de Oruro",
+                "operator": "Gobierno Autónomo Municipal de Oruro",
+                "tourism": "zoo"
+            }
+        },
+        {
+            "type": "way",
+            "id": 661067213,
+            "center": {
+                "lat": -17.7825123,
+                "lon": -63.2457484
+            },
+            "tags": {
+                "building": "yes",
+                "name": "Acuario Amazonico",
+                "tourism": "aquarium"
+            }
+        },
+        {
+            "type": "way",
+            "id": 827508693,
+            "center": {
+                "lat": -19.5741181,
+                "lon": -65.7620129
+            },
+            "tags": {
+                "barrier": "wall",
+                "garden:type": "botanical",
+                "leisure": "garden",
+                "name": "Jardín Botánico",
+                "operator": "GAMP",
+                "operator:type": "public"
+            }
+        }
+    ],
+    "_when_where": {
+        "fetched": "2026-08-18",
+        "mode": "combined",
+        "queries": 1
+    }
+}
