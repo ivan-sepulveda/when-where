@@ -175,6 +175,13 @@ export default function StackedShareBar({
             <XAxis type="number" domain={[0, 100]} hide />
             <YAxis type="category" hide />
             <Tooltip
+              // ONE SEGMENT, NOT THE WHOLE STACK. Recharts' default is an
+              // axis-shared tooltip: every segment of the stack comes back
+              // in `payload` on any hover, in series order, so reading
+              // payload[0] showed the FIRST segment wherever the pointer
+              // was -- "Domestic" while hovering International. shared
+              // makes the hovered item the only one in the payload.
+              shared={false}
               cursor={false}
               content={({ active, payload }) => (
                 <TooltipContent
@@ -235,6 +242,12 @@ export default function StackedShareBar({
                       fontSize={12}
                       textAnchor="middle"
                       dominantBaseline="central"
+                      // The label sits ON TOP of its segment, so without
+                      // this it eats the pointer events the segment needs
+                      // to raise the tooltip -- the tooltip vanished in a
+                      // band across the middle of every labelled segment,
+                      // which is exactly where a pointer lands.
+                      pointerEvents="none"
                     >
                       {text}
                     </text>
