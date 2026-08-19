@@ -11,8 +11,9 @@ serves the result. The CSV stays exactly as fetched (see
 fetch_traveler_trips.py), so a cleaning mistake is fixable by re-running this
 script alone.
 
-It also MERGES data/processed/multiple/synthetic_trips.json when that file
-exists -- hand-authored travelers with deliberate travel patterns, which the
+It also MERGES data/processed/multiple/synthetic_trips.json and
+bourdain_traveler.json when those files exist (see SYNTHETIC_SOURCES) --
+hand-authored travelers with deliberate travel patterns, which the
 Kaggle rows can't supply (113 of its 124 people have exactly one trip). Every
 trip here carries a `synthetic` flag so the two origins can always be told
 apart, and the synthetic ones additionally carry the airline and airport codes
@@ -220,7 +221,13 @@ DATA_DIR = Path(__file__).resolve().parent.parent.parent
 PROCESSED_DIR = DATA_DIR / "processed" / "multiple"
 TRIPS_CSV_PATH = PROCESSED_DIR / "traveler_trips.csv"
 SYNTHETIC_PATH = PROCESSED_DIR / "synthetic_trips.json"
+BOURDAIN_PATH = PROCESSED_DIR / "bourdain_traveler.json"
 OUTPUT_PATH = PROCESSED_DIR / "trips_enhanced.json"
+
+# Every file that contributes fabricated trips in trips_enhanced.json's own
+# record shape. Each is optional and merged the same way; add a path here
+# when a new generator starts producing travelers.
+SYNTHETIC_SOURCES = (SYNTHETIC_PATH, BOURDAIN_PATH)
 
 
 def resolve_columns(columns) -> dict[str, str]:
@@ -437,25 +444,33 @@ def build_trips() -> tuple[list[dict], dict]:
 
 
 def load_synthetic_trips() -> tuple[list[dict], dict]:
-    """(trips, declared_bases) from build_synthetic_trips.py's output, or
-    ([], {}) if it hasn't been run. Optional by design: the Kaggle half of
-    this pipeline has to work on its own in a fresh checkout, and a missing
-    synthetic file means "no hand-authored travelers", not an error.
+    """(trips, declared_bases) from every generator in SYNTHETIC_SOURCES --
+    build_synthetic_trips.py's 82 authored travelers and
+    build_bourdain_traveler.py's one -- or ([], {}) if none has been run.
+    Optional by design: the Kaggle half of this pipeline has to work on its
+    own in a fresh checkout, and a missing synthetic file means "no
+    hand-authored travelers", not an error.
 
     declared_bases is passed straight through to trips_enhanced.json for
     build_travelers.py, which prefers a declared home base over its own
     nationality-based guess."""
-    if not SYNTHETIC_PATH.exists():
-        print(f"{SYNTHETIC_PATH.name} not found -- no synthetic travelers merged.")
-        return [], {}
+    trips: list[dict] = []
+    bases: dict = {}
 
-    with open(SYNTHETIC_PATH, encoding="utf-8") as f:
-        payload = json.load(f)
+    for path in SYNTHETIC_SOURCES:
+        if not path.exists():
+            print(f"{path.name} not found -- nothing merged from it.")
+            continue
 
-    trips = payload.get("trips", [])
-    bases = payload.get("declared_bases", {})
-    names = sorted({t.get("traveler_name") for t in trips if t.get("traveler_name")})
-    print(f"{SYNTHETIC_PATH.name}: {len(trips)} trips from {len(names)} hand-authored traveler(s): {names}")
+        with open(path, encoding="utf-8") as f:
+            payload = json.load(f)
+
+        found = payload.get("trips", [])
+        names = sorted({t.get("traveler_name") for t in found if t.get("traveler_name")})
+        print(f"{path.name}: {len(found)} trips from {len(names)} hand-authored traveler(s): {names}")
+        trips.extend(found)
+        bases.update(payload.get("declared_bases", {}))
+
     return trips, bases
 
 

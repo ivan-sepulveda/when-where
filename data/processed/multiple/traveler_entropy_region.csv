@@ -1,4 +1,5 @@
 traveler_id,name,trip_count,trips_with_destination,n_destinations,top_destination,top_destination_share,entropy,entropy_is_informative,norm_global,norm_observed,norm_capacity
+anthony-bourdain,Anthony Bourdain,130,130,16,Northern America,0.3308,2.2683,True,0.7338,0.8181,0.7338
 stan-getz,Stan Getz,30,30,5,Southern Europe,0.3,1.4756,True,0.4774,0.9168,0.4774
 dionysus,Dionysus,21,21,4,Northern America,0.4762,1.263,True,0.4086,0.9111,0.4148
 narcissus,Narcissus,21,21,4,Northern America,0.4762,1.263,True,0.4086,0.9111,0.4148

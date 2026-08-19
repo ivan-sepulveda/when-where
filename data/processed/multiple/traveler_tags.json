@@ -1,6 +1,6 @@
 {
   "source": "travelers_anon.json (built by build_travelers_anon.py)",
-  "generated": "2026-08-17",
+  "generated": "2026-08-19",
   "rules": {
     "airline_loyalist": {
       "threshold": 0.8,
@@ -116,12 +116,12 @@
       }
     }
   },
-  "travelers_total": 206,
-  "travelers_with_carrier_data": 82,
-  "travelers_with_declared_base": 82,
-  "travelers_tagged": 69,
+  "travelers_total": 207,
+  "travelers_with_carrier_data": 83,
+  "travelers_with_declared_base": 83,
+  "travelers_tagged": 70,
   "tag_counts": {
-    "Multi Hub": 20,
+    "Multi Hub": 21,
     "American Hub": 18,
     "United Hub": 12,
     "Delta Loyalist": 11,
@@ -2395,6 +2395,50 @@
           "hub_city": "San Francisco",
           "hub_airports": [
             "SFO"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "anthony-bourdain",
+      "name": "Anthony Bourdain",
+      "trip_count": 130,
+      "trips_with_carrier": 130,
+      "distinct_carriers": 16,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 0.6615,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": null,
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": null,
+      "tags": [
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
           ]
         }
       ]
