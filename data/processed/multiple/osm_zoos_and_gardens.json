@@ -2,7 +2,7 @@
  "source": "OpenStreetMap via the Overpass API (tourism=zoo, tourism=aquarium, leisure=garden + garden:type=botanical/arboretum), one query per country, via fetch_osm_zoos_and_gardens.py -- see data/README.md",
  "attribution": "OpenStreetMap contributors, via the Overpass API -- https://wiki.openstreetmap.org/wiki/Overpass_API -- ODbL licensed, see data/README.md",
  "generated": "2026-08-19",
- "countries_queried": 164,
+ "countries_queried": 168,
  "countries_with_no_results": [
   "AD",
   "AG",
@@ -45,14 +45,15 @@
   "MQ",
   "NC",
   "NF",
-  "NR"
+  "NR",
+  "NU"
  ],
- "total_places": 6990,
+ "total_places": 7124,
  "places_by_category": {
-  "botanical_garden": 2024,
-  "zoo_aquarium": 4966
+  "botanical_garden": 2062,
+  "zoo_aquarium": 5062
  },
- "dropped_unnamed": 2616,
+ "dropped_unnamed": 2656,
  "dropped_missing_coordinates": 0,
  "note": "Coverage reflects OSM mapping density, not just what exists on the ground -- a low count in a region is often under-mapping. Nature centers are NOT included (no clean OSM tag); IMLS's BOT discipline does include them, so US cities may list nature centers that comparable cities elsewhere won't. See fetch_osm_zoos_and_gardens.py.",
  "places": [
@@ -69867,6 +69868,576 @@
    "osm_id": 1455384834
   },
   {
+   "name": "1769 Seed Archive",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -38.61303,
+   "lng": 178.05775,
+   "osm_type": "node",
+   "osm_id": 13656990260
+  },
+  {
+   "name": "Azalea & Magnolia Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -43.52999,
+   "lng": 172.61859,
+   "osm_type": "way",
+   "osm_id": 497947647
+  },
+  {
+   "name": "Begonia House",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -41.28087,
+   "lng": 174.76913,
+   "osm_type": "way",
+   "osm_id": 27165812
+  },
+  {
+   "name": "Botanica Whangārei",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -35.72562,
+   "lng": 174.31606,
+   "osm_type": "node",
+   "osm_id": 14069520494
+  },
+  {
+   "name": "Centenial Rose Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -41.50596,
+   "lng": 173.94832,
+   "osm_type": "node",
+   "osm_id": 12654070698
+  },
+  {
+   "name": "Central Rose Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -43.53042,
+   "lng": 172.62117,
+   "osm_type": "way",
+   "osm_id": 497947637
+  },
+  {
+   "name": "Discovery Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -41.28286,
+   "lng": 174.76608,
+   "osm_type": "way",
+   "osm_id": 668423787
+  },
+  {
+   "name": "Hackfalls Arboretum",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "NZ",
+   "lat": -38.77018,
+   "lng": 177.54349,
+   "osm_type": "way",
+   "osm_id": 1501233406
+  },
+  {
+   "name": "Hamilton Lake Rose Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -37.79856,
+   "lng": 175.28044,
+   "osm_type": "node",
+   "osm_id": 7658975765
+  },
+  {
+   "name": "Herbaceous Border",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -43.53066,
+   "lng": 172.6239,
+   "osm_type": "way",
+   "osm_id": 496378357
+  },
+  {
+   "name": "McHardy's Arboretum",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "NZ",
+   "lat": -40.38512,
+   "lng": 175.62351,
+   "osm_type": "way",
+   "osm_id": 200242257
+  },
+  {
+   "name": "New Zealand Gardens",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -43.53114,
+   "lng": 172.61968,
+   "osm_type": "way",
+   "osm_id": 497947640
+  },
+  {
+   "name": "Queenstown Gardens",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -45.03638,
+   "lng": 168.66044,
+   "osm_type": "way",
+   "osm_id": 30473059
+  },
+  {
+   "name": "The Hosking Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -40.94883,
+   "lng": 175.66592,
+   "osm_type": "way",
+   "osm_id": 985660608
+  },
+  {
+   "name": "Victoria University of Wellington Native Forest Reserve",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "NZ",
+   "lat": -41.20518,
+   "lng": 174.79854,
+   "osm_type": "node",
+   "osm_id": 9021439200
+  },
+  {
+   "name": "Water Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -43.53045,
+   "lng": 172.6189,
+   "osm_type": "way",
+   "osm_id": 499414376
+  },
+  {
+   "name": "Wellington Botanic Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -41.28253,
+   "lng": 174.76613,
+   "osm_type": "way",
+   "osm_id": 20266439
+  },
+  {
+   "name": "Woodland Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "NZ",
+   "lat": -43.53081,
+   "lng": 172.62197,
+   "osm_type": "way",
+   "osm_id": 497947643
+  },
+  {
+   "name": "Animal Reserve",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -46.40191,
+   "lng": 168.36086,
+   "osm_type": "way",
+   "osm_id": 664651752
+  },
+  {
+   "name": "Animal Reserve",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -46.40196,
+   "lng": 168.35862,
+   "osm_type": "way",
+   "osm_id": 664651753
+  },
+  {
+   "name": "Aqua Rays Studio",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "NZ",
+   "lat": -36.91377,
+   "lng": 174.90153,
+   "osm_type": "node",
+   "osm_id": 12585430507
+  },
+  {
+   "name": "Auckland Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -36.86258,
+   "lng": 174.72122,
+   "osm_type": "way",
+   "osm_id": 37789882
+  },
+  {
+   "name": "Aviary",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "NZ",
+   "lat": -43.1559,
+   "lng": 172.72881,
+   "osm_type": "way",
+   "osm_id": 1472532811
+  },
+  {
+   "name": "Aviary Dome",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "NZ",
+   "lat": -46.40377,
+   "lng": 168.36042,
+   "osm_type": "way",
+   "osm_id": 664647175
+  },
+  {
+   "name": "Brooklands Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -39.06998,
+   "lng": 174.08237,
+   "osm_type": "way",
+   "osm_id": 665399006
+  },
+  {
+   "name": "Butterfly Creek",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "NZ",
+   "lat": -36.99935,
+   "lng": 174.79463,
+   "osm_type": "way",
+   "osm_id": 314041400
+  },
+  {
+   "name": "Caroline Bay Aviary",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "NZ",
+   "lat": -44.39027,
+   "lng": 171.24633,
+   "osm_type": "way",
+   "osm_id": 83664829
+  },
+  {
+   "name": "Dannevirke Domain",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -40.20984,
+   "lng": 176.11083,
+   "osm_type": "node",
+   "osm_id": 2267244442
+  },
+  {
+   "name": "Farmyard Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -39.6155,
+   "lng": 176.95336,
+   "osm_type": "way",
+   "osm_id": 372930075
+  },
+  {
+   "name": "Franz Josef Wildlife Center",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -43.38747,
+   "lng": 170.1829,
+   "osm_type": "way",
+   "osm_id": 228660440
+  },
+  {
+   "name": "Hamilton Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -37.77276,
+   "lng": 175.21441,
+   "osm_type": "way",
+   "osm_id": 149532211
+  },
+  {
+   "name": "Hammer Springs Animal Park",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "NZ",
+   "lat": -42.5336,
+   "lng": 172.82709,
+   "osm_type": "node",
+   "osm_id": 7718912436
+  },
+  {
+   "name": "Hollywood Fish Farm",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "NZ",
+   "lat": -36.91177,
+   "lng": 174.74878,
+   "osm_type": "node",
+   "osm_id": 13897833106
+  },
+  {
+   "name": "Kiwi Birdlife Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -45.02769,
+   "lng": 168.65728,
+   "osm_type": "way",
+   "osm_id": 248085277
+  },
+  {
+   "name": "Kiwi Valley Farm Park",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "NZ",
+   "lat": -36.89679,
+   "lng": 174.60109,
+   "osm_type": "node",
+   "osm_id": 12829725256
+  },
+  {
+   "name": "Lilliputt Farm",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "NZ",
+   "lat": -38.60232,
+   "lng": 176.055,
+   "osm_type": "way",
+   "osm_id": 1082822207
+  },
+  {
+   "name": "Living Springs Farm Park",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "NZ",
+   "lat": -43.64355,
+   "lng": 172.64788,
+   "osm_type": "node",
+   "osm_id": 8004964444
+  },
+  {
+   "name": "Marshalls Animal Park",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "NZ",
+   "lat": -37.81058,
+   "lng": 176.04615,
+   "osm_type": "node",
+   "osm_id": 5826328391
+  },
+  {
+   "name": "Millcreek Bird Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -36.89996,
+   "lng": 175.63706,
+   "osm_type": "way",
+   "osm_id": 529225006
+  },
+  {
+   "name": "National Aquarium of New Zealand",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "NZ",
+   "lat": -39.5008,
+   "lng": 176.91897,
+   "osm_type": "way",
+   "osm_id": 89202812
+  },
+  {
+   "name": "National Kiwi Centre",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -42.71685,
+   "lng": 170.96352,
+   "osm_type": "node",
+   "osm_id": 1106939067
+  },
+  {
+   "name": "Natureland Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "NZ",
+   "lat": -41.28096,
+   "lng": 173.24392,
+   "osm_type": "way",
+   "osm_id": 223096995
+  },
+  {
+   "name": "Orana Wildlife Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -43.46749,
+   "lng": 172.46334,
+   "osm_type": "way",
+   "osm_id": 27035489
+  },
+  {
+   "name": "Owlcatraz Native Bird and Wildlife Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -40.5521,
+   "lng": 175.41443,
+   "osm_type": "node",
+   "osm_id": 1894197628
+  },
+  {
+   "name": "Paradise Valley Springs",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "NZ",
+   "lat": -38.13355,
+   "lng": 176.15098,
+   "osm_type": "way",
+   "osm_id": 369945356
+  },
+  {
+   "name": "Pūkaha National Wildlife Centre",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "NZ",
+   "lat": -40.72314,
+   "lng": 175.63803,
+   "osm_type": "way",
+   "osm_id": 1075469997
+  },
+  {
+   "name": "SEA LIFE Kelly Tarlton's Aquarium",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "NZ",
+   "lat": -36.84635,
+   "lng": 174.81717,
+   "osm_type": "way",
+   "osm_id": 28529921
+  },
+  {
+   "name": "Silverleigh Alpacas",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "NZ",
+   "lat": -39.0277,
+   "lng": 174.2274,
+   "osm_type": "node",
+   "osm_id": 12809110853
+  },
+  {
+   "name": "Staglands Wildlife Reserve",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "NZ",
+   "lat": -40.98749,
+   "lng": 175.12348,
+   "osm_type": "way",
+   "osm_id": 1246221711
+  },
+  {
+   "name": "Te Anau Bird Sanctuary / Punanga Manu o Te Anau",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "NZ",
+   "lat": -45.43299,
+   "lng": 167.71333,
+   "osm_type": "way",
+   "osm_id": 1330766851
+  },
+  {
+   "name": "The Parrot Place",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -35.21206,
+   "lng": 173.96246,
+   "osm_type": "way",
+   "osm_id": 552084376
+  },
+  {
+   "name": "Wellington Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -41.32191,
+   "lng": 174.78432,
+   "osm_type": "relation",
+   "osm_id": 12750214
+  },
+  {
+   "name": "Whangarata Zoo Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -37.25455,
+   "lng": 174.98677,
+   "osm_type": "way",
+   "osm_id": 108855775
+  },
+  {
+   "name": "Whitford Bird Garden",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "NZ",
+   "lat": -36.94885,
+   "lng": 174.97607,
+   "osm_type": "way",
+   "osm_id": 1234192975
+  },
+  {
+   "name": "Willowbank Wildlife Reserve",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -43.46371,
+   "lng": 172.59396,
+   "osm_type": "way",
+   "osm_id": 559607945
+  },
+  {
+   "name": "Wingspan Bird of Prey Centre",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "NZ",
+   "lat": -38.09187,
+   "lng": 176.19638,
+   "osm_type": "way",
+   "osm_id": 1392011979
+  },
+  {
+   "name": "Ōtorohanga Kiwi House",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "NZ",
+   "lat": -38.17999,
+   "lng": 175.21357,
+   "osm_type": "way",
+   "osm_id": 827790129
+  },
+  {
    "name": "Botanical garden",
    "category": "botanical_garden",
    "kind": "Botanical Garden",
@@ -69955,6 +70526,776 @@
    "lng": -82.00798,
    "osm_type": "node",
    "osm_id": 12898245702
+  },
+  {
+   "name": "Santos 50th Anniversary Orchid Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PG",
+   "lat": -9.4053,
+   "lng": 147.16629,
+   "osm_type": "way",
+   "osm_id": 1463035347
+  },
+  {
+   "name": "Rainforest Habitat",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PG",
+   "lat": -6.66164,
+   "lng": 146.99559,
+   "osm_type": "way",
+   "osm_id": 169425325
+  },
+  {
+   "name": "Arboretum of Philippine Native Trees",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PH",
+   "lat": 14.64884,
+   "lng": 121.0428,
+   "osm_type": "way",
+   "osm_id": 1434820990
+  },
+  {
+   "name": "Baguio Botanical Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 16.41429,
+   "lng": 120.61376,
+   "osm_type": "relation",
+   "osm_id": 14181288
+  },
+  {
+   "name": "Botanical Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 7.06952,
+   "lng": 125.60049,
+   "osm_type": "way",
+   "osm_id": 37624467
+  },
+  {
+   "name": "Botanical Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 6.07014,
+   "lng": 125.12494,
+   "osm_type": "way",
+   "osm_id": 316893855
+  },
+  {
+   "name": "Botanical Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 14.56512,
+   "lng": 120.98923,
+   "osm_type": "way",
+   "osm_id": 1338001935
+  },
+  {
+   "name": "Botanical Garden Park",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 14.32167,
+   "lng": 120.96159,
+   "osm_type": "way",
+   "osm_id": 1149875909
+  },
+  {
+   "name": "Buendia Plant Nursery",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 14.5587,
+   "lng": 121.00867,
+   "osm_type": "node",
+   "osm_id": 13516275216
+  },
+  {
+   "name": "Culian Botanical Garden and Nature Park",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 6.97071,
+   "lng": 126.176,
+   "osm_type": "way",
+   "osm_id": 1528494355
+  },
+  {
+   "name": "Doña Pacencia Botanic Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 7.14241,
+   "lng": 125.64499,
+   "osm_type": "way",
+   "osm_id": 1027615490
+  },
+  {
+   "name": "Dr. Emilio V Osmeña Botanical Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 10.37321,
+   "lng": 123.8694,
+   "osm_type": "way",
+   "osm_id": 1156122191
+  },
+  {
+   "name": "Kherekhetec Forest Tree Nursery",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 9.80364,
+   "lng": 118.69643,
+   "osm_type": "node",
+   "osm_id": 9148451175
+  },
+  {
+   "name": "Lalaline  Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 10.10875,
+   "lng": 124.89984,
+   "osm_type": "way",
+   "osm_id": 1101470579
+  },
+  {
+   "name": "Museo Vivo de Ilocos",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 18.19631,
+   "lng": 120.59257,
+   "osm_type": "way",
+   "osm_id": 1224443319
+  },
+  {
+   "name": "San Agustin Botanical Park",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 7.48456,
+   "lng": 125.83599,
+   "osm_type": "node",
+   "osm_id": 13196867440
+  },
+  {
+   "name": "Secret Gsarden Cae",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 10.80774,
+   "lng": 122.50442,
+   "osm_type": "node",
+   "osm_id": 13743861090
+  },
+  {
+   "name": "St. Therese Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 6.17435,
+   "lng": 125.21697,
+   "osm_type": "node",
+   "osm_id": 9071260658
+  },
+  {
+   "name": "Timfanel Garden Ornamental Plant Farm",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 8.15133,
+   "lng": 123.82493,
+   "osm_type": "node",
+   "osm_id": 4641100993
+  },
+  {
+   "name": "UMak Laudato Si’",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 14.56303,
+   "lng": 121.05709,
+   "osm_type": "node",
+   "osm_id": 13362767492
+  },
+  {
+   "name": "Villaluna Crops Farm",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PH",
+   "lat": 18.27775,
+   "lng": 121.98463,
+   "osm_type": "node",
+   "osm_id": 13167509317
+  },
+  {
+   "name": "A.Y. Reyes Zoological and Botanical Garden",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PH",
+   "lat": 9.31924,
+   "lng": 123.30417,
+   "osm_type": "relation",
+   "osm_id": 20113249
+  },
+  {
+   "name": "Albay Park and Wildlife",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 13.15773,
+   "lng": 123.73027,
+   "osm_type": "way",
+   "osm_id": 32481605
+  },
+  {
+   "name": "Aviary",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 9.80755,
+   "lng": 118.73527,
+   "osm_type": "node",
+   "osm_id": 1215610157
+  },
+  {
+   "name": "Aviary",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.38411,
+   "lng": 120.58012,
+   "osm_type": "node",
+   "osm_id": 4874776708
+  },
+  {
+   "name": "Avilon Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.74429,
+   "lng": 121.15201,
+   "osm_type": "way",
+   "osm_id": 28847767
+  },
+  {
+   "name": "Baluarte",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 17.55095,
+   "lng": 120.37743,
+   "osm_type": "way",
+   "osm_id": 149337185
+  },
+  {
+   "name": "Bohol Biodiversity Complex",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 9.71561,
+   "lng": 124.10477,
+   "osm_type": "node",
+   "osm_id": 1758102300
+  },
+  {
+   "name": "Bohol Butterfly Bonsai Garden",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 9.61953,
+   "lng": 124.0233,
+   "osm_type": "node",
+   "osm_id": 4856734421
+  },
+  {
+   "name": "Bohol Tarsier conservation area",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 9.67604,
+   "lng": 124.09087,
+   "osm_type": "way",
+   "osm_id": 1155388613
+  },
+  {
+   "name": "Botolan Wildlife Farm",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 15.28892,
+   "lng": 120.07001,
+   "osm_type": "node",
+   "osm_id": 6094910559
+  },
+  {
+   "name": "Bukidnon Zoological Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 8.1572,
+   "lng": 125.1338,
+   "osm_type": "way",
+   "osm_id": 694646326
+  },
+  {
+   "name": "Butterfly Garden",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 6.95322,
+   "lng": 122.07205,
+   "osm_type": "way",
+   "osm_id": 275008379
+  },
+  {
+   "name": "Butterfly House",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.57485,
+   "lng": 121.09785,
+   "osm_type": "way",
+   "osm_id": 1370472873
+  },
+  {
+   "name": "Candaba Bird Sanctuary",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 15.07291,
+   "lng": 120.87436,
+   "osm_type": "relation",
+   "osm_id": 18224172
+  },
+  {
+   "name": "Candon City Eco Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 17.14744,
+   "lng": 120.5038,
+   "osm_type": "node",
+   "osm_id": 10861621896
+  },
+  {
+   "name": "Cebu Safari and Adventure Park",
+   "category": "zoo_aquarium",
+   "kind": "Safari Park",
+   "iso2": "PH",
+   "lat": 10.58871,
+   "lng": 123.96131,
+   "osm_type": "way",
+   "osm_id": 614142037
+  },
+  {
+   "name": "Crocodile Park Manila",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.55431,
+   "lng": 120.98819,
+   "osm_type": "way",
+   "osm_id": 526691359
+  },
+  {
+   "name": "Crocolandia",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 10.24672,
+   "lng": 123.83417,
+   "osm_type": "way",
+   "osm_id": 128274776
+  },
+  {
+   "name": "Dauin South",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PH",
+   "lat": 9.18005,
+   "lng": 123.26222,
+   "osm_type": "node",
+   "osm_id": 13820361001
+  },
+  {
+   "name": "Davao Butterfly House",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 7.09575,
+   "lng": 125.59559,
+   "osm_type": "way",
+   "osm_id": 81605496
+  },
+  {
+   "name": "Davao Crocodile Park & Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 7.09721,
+   "lng": 125.59898,
+   "osm_type": "way",
+   "osm_id": 81347693
+  },
+  {
+   "name": "Dreamland Nature and Adventure Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 9.44276,
+   "lng": 123.19964,
+   "osm_type": "way",
+   "osm_id": 1194698767
+  },
+  {
+   "name": "Eco park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 17.14377,
+   "lng": 120.4983,
+   "osm_type": "node",
+   "osm_id": 10731007358
+  },
+  {
+   "name": "Eltoro Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 10.32638,
+   "lng": 123.02119,
+   "osm_type": "node",
+   "osm_id": 4994841821
+  },
+  {
+   "name": "Island Butterfly Garden",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 9.19181,
+   "lng": 123.60259,
+   "osm_type": "node",
+   "osm_id": 616341810
+  },
+  {
+   "name": "Laguna Wildlife Park and Rescue Center",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.17829,
+   "lng": 121.1914,
+   "osm_type": "way",
+   "osm_id": 487112992
+  },
+  {
+   "name": "Lyger Animal Sanctuary",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.48091,
+   "lng": 121.32514,
+   "osm_type": "node",
+   "osm_id": 11332413423
+  },
+  {
+   "name": "Malabon Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.66355,
+   "lng": 120.98281,
+   "osm_type": "way",
+   "osm_id": 109373101
+  },
+  {
+   "name": "Malagos Petting Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PH",
+   "lat": 7.19033,
+   "lng": 125.42687,
+   "osm_type": "way",
+   "osm_id": 693445997
+  },
+  {
+   "name": "Mangrove Monkey's Habitat",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 9.85896,
+   "lng": 123.83691,
+   "osm_type": "node",
+   "osm_id": 1758175497
+  },
+  {
+   "name": "Manila Ocean Park",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PH",
+   "lat": 14.57954,
+   "lng": 120.9729,
+   "osm_type": "node",
+   "osm_id": 12452999173
+  },
+  {
+   "name": "Manila Zoological & Botanical Garden",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.56471,
+   "lng": 120.98857,
+   "osm_type": "way",
+   "osm_id": 22739717
+  },
+  {
+   "name": "Mantianak Botanical Garden and Zoological Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 8.95528,
+   "lng": 124.78645,
+   "osm_type": "way",
+   "osm_id": 1209088749
+  },
+  {
+   "name": "Minasawa Island Bird Sanctuary",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "PH",
+   "lat": 14.75284,
+   "lng": 122.1579,
+   "osm_type": "node",
+   "osm_id": 5487734121
+  },
+  {
+   "name": "Moal Shoal",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PH",
+   "lat": 11.28115,
+   "lng": 124.2409,
+   "osm_type": "node",
+   "osm_id": 13810121801
+  },
+  {
+   "name": "Negros Forests and Ecological Foundation Biodiversity Conservation Center",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 10.67507,
+   "lng": 122.95105,
+   "osm_type": "way",
+   "osm_id": 317092403
+  },
+  {
+   "name": "Palawan Butterfly Ecological Garden and Tribal Village",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 9.79508,
+   "lng": 118.73246,
+   "osm_type": "node",
+   "osm_id": 4388771089
+  },
+  {
+   "name": "Palawan Wildlife Rescue and Conservation Center",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 9.79923,
+   "lng": 118.69372,
+   "osm_type": "way",
+   "osm_id": 105563294
+  },
+  {
+   "name": "Paradizoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.12831,
+   "lng": 120.89572,
+   "osm_type": "way",
+   "osm_id": 185401333
+  },
+  {
+   "name": "People's Park Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.69141,
+   "lng": 120.96963,
+   "osm_type": "node",
+   "osm_id": 5073367419
+  },
+  {
+   "name": "Pet Club",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PH",
+   "lat": 7.05029,
+   "lng": 125.58543,
+   "osm_type": "node",
+   "osm_id": 13255183951
+  },
+  {
+   "name": "Philippine Eagle Center",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "PH",
+   "lat": 7.18488,
+   "lng": 125.41529,
+   "osm_type": "node",
+   "osm_id": 747886405
+  },
+  {
+   "name": "Philippine Tarsier Sanctuary",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PH",
+   "lat": 9.69153,
+   "lng": 123.95256,
+   "osm_type": "node",
+   "osm_id": 394807633
+  },
+  {
+   "name": "Reptiland Adventure",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.10232,
+   "lng": 120.85341,
+   "osm_type": "node",
+   "osm_id": 6482278885
+  },
+  {
+   "name": "Simply Butterflies Conservation Center",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 9.69814,
+   "lng": 124.10102,
+   "osm_type": "way",
+   "osm_id": 142342074
+  },
+  {
+   "name": "The Aquatic Reef",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PH",
+   "lat": 14.60106,
+   "lng": 120.97948,
+   "osm_type": "node",
+   "osm_id": 9905264860
+  },
+  {
+   "name": "The Family Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 10.35661,
+   "lng": 123.91078,
+   "osm_type": "way",
+   "osm_id": 38192178
+  },
+  {
+   "name": "The Little PetHouse",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PH",
+   "lat": 7.09772,
+   "lng": 125.58112,
+   "osm_type": "node",
+   "osm_id": 11484481802
+  },
+  {
+   "name": "Tibiao Butterfly House",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 11.29786,
+   "lng": 122.05473,
+   "osm_type": "node",
+   "osm_id": 4783959126
+  },
+  {
+   "name": "Tropik",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 9.5524,
+   "lng": 123.78266,
+   "osm_type": "way",
+   "osm_id": 704811463
+  },
+  {
+   "name": "Walk-through Aviary",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "PH",
+   "lat": 14.57312,
+   "lng": 121.09859,
+   "osm_type": "way",
+   "osm_id": 1370470775
+  },
+  {
+   "name": "Wildlife Rescue Center and Bird Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 7.51229,
+   "lng": 125.83743,
+   "osm_type": "node",
+   "osm_id": 13196867404
+  },
+  {
+   "name": "XZootic Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 9.61312,
+   "lng": 124.0223,
+   "osm_type": "way",
+   "osm_id": 1220466965
+  },
+  {
+   "name": "Zoobic Safari",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.75328,
+   "lng": 120.26915,
+   "osm_type": "way",
+   "osm_id": 1290016772
+  },
+  {
+   "name": "Zoori",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PH",
+   "lat": 14.08761,
+   "lng": 120.89438,
+   "osm_type": "relation",
+   "osm_id": 18952435
+  },
+  {
+   "name": "athena aquashop",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PH",
+   "lat": 14.93167,
+   "lng": 120.88377,
+   "osm_type": "node",
+   "osm_id": 8929544120
   }
  ]
 }
