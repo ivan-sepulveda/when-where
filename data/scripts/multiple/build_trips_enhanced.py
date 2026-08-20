@@ -11,13 +11,18 @@ serves the result. The CSV stays exactly as fetched (see
 fetch_traveler_trips.py), so a cleaning mistake is fixable by re-running this
 script alone.
 
-It also MERGES data/processed/multiple/synthetic_trips.json and
-bourdain_traveler.json when those files exist (see SYNTHETIC_SOURCES) --
-hand-authored travelers with deliberate travel patterns, which the
-Kaggle rows can't supply (113 of its 124 people have exactly one trip). Every
-trip here carries a `synthetic` flag so the two origins can always be told
-apart, and the synthetic ones additionally carry the airline and airport codes
+It also MERGES data/processed/multiple/synthetic_trips.json plus the
+per-traveler files listed in SYNTHETIC_SOURCES -- the travel-show hosts
+(bourdain_traveler.json, ramsay_traveler.json, conan_traveler.json) and
+one real person's flight log under a pseudonym (gomez_traveler.json) --
+whenever those files exist. They supply the deliberate travel patterns the
+Kaggle rows can't (113 of its 124 people have exactly one trip). Every
+trip here carries a `synthetic` flag so the origins can always be told
+apart, and those ones additionally carry the airline and airport codes
 their itinerary was built from. See build_synthetic_trips.py.
+
+NOTE the `synthetic` flag means "not from the Kaggle CSV", not "made up":
+the flight log's legs are real. See build_gomez_trips.py.
 
 THE DESTINATION SPLIT IS THE POINT, and it can't be done with str.split(",").
 The source's 60 distinct destination strings are inconsistent in five separate
@@ -222,12 +227,15 @@ PROCESSED_DIR = DATA_DIR / "processed" / "multiple"
 TRIPS_CSV_PATH = PROCESSED_DIR / "traveler_trips.csv"
 SYNTHETIC_PATH = PROCESSED_DIR / "synthetic_trips.json"
 BOURDAIN_PATH = PROCESSED_DIR / "bourdain_traveler.json"
+RAMSAY_PATH = PROCESSED_DIR / "ramsay_traveler.json"
+CONAN_PATH = PROCESSED_DIR / "conan_traveler.json"
+GOMEZ_PATH = PROCESSED_DIR / "gomez_traveler.json"
 OUTPUT_PATH = PROCESSED_DIR / "trips_enhanced.json"
 
 # Every file that contributes fabricated trips in trips_enhanced.json's own
 # record shape. Each is optional and merged the same way; add a path here
 # when a new generator starts producing travelers.
-SYNTHETIC_SOURCES = (SYNTHETIC_PATH, BOURDAIN_PATH)
+SYNTHETIC_SOURCES = (SYNTHETIC_PATH, BOURDAIN_PATH, RAMSAY_PATH, CONAN_PATH, GOMEZ_PATH)
 
 
 def resolve_columns(columns) -> dict[str, str]:
@@ -445,8 +453,9 @@ def build_trips() -> tuple[list[dict], dict]:
 
 def load_synthetic_trips() -> tuple[list[dict], dict]:
     """(trips, declared_bases) from every generator in SYNTHETIC_SOURCES --
-    build_synthetic_trips.py's 82 authored travelers and
-    build_bourdain_traveler.py's one -- or ([], {}) if none has been run.
+    build_synthetic_trips.py's 82 authored travelers, plus one each from
+    the travel-show builders (Bourdain, Ramsay, Conan) -- or ([], {}) if
+    none has been run.
     Optional by design: the Kaggle half of this pipeline has to work on its
     own in a fresh checkout, and a missing synthetic file means "no
     hand-authored travelers", not an error.

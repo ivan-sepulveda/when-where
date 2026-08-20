@@ -2,7 +2,7 @@
  "source": "OpenStreetMap via the Overpass API (tourism=zoo, tourism=aquarium, leisure=garden + garden:type=botanical/arboretum), one query per country, via fetch_osm_zoos_and_gardens.py -- see data/README.md",
  "attribution": "OpenStreetMap contributors, via the Overpass API -- https://wiki.openstreetmap.org/wiki/Overpass_API -- ODbL licensed, see data/README.md",
  "generated": "2026-08-19",
- "countries_queried": 168,
+ "countries_queried": 184,
  "countries_with_no_results": [
   "AD",
   "AG",
@@ -46,14 +46,20 @@
   "NC",
   "NF",
   "NR",
-  "NU"
+  "NU",
+  "PF",
+  "PM",
+  "PN",
+  "PR",
+  "PS",
+  "RE"
  ],
- "total_places": 7124,
+ "total_places": 7658,
  "places_by_category": {
-  "botanical_garden": 2062,
-  "zoo_aquarium": 5062
+  "botanical_garden": 2205,
+  "zoo_aquarium": 5453
  },
- "dropped_unnamed": 2656,
+ "dropped_unnamed": 2820,
  "dropped_missing_coordinates": 0,
  "note": "Coverage reflects OSM mapping density, not just what exists on the ground -- a low count in a region is often under-mapping. Nature centers are NOT included (no clean OSM tag); IMLS's BOT discipline does include them, so US cities may list nature centers that comparable cities elsewhere won't. See fetch_osm_zoos_and_gardens.py.",
  "places": [
@@ -70528,6 +70534,416 @@
    "osm_id": 12898245702
   },
   {
+   "name": "Cactario",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PE",
+   "lat": -8.14109,
+   "lng": -78.99166,
+   "osm_type": "way",
+   "osm_id": 1302385736
+  },
+  {
+   "name": "Jardín Botánico",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PE",
+   "lat": -12.06722,
+   "lng": -77.08728,
+   "osm_type": "way",
+   "osm_id": 293484043
+  },
+  {
+   "name": "Proyecto Jardin Botanico UCSM",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PE",
+   "lat": -16.36936,
+   "lng": -71.62518,
+   "osm_type": "way",
+   "osm_id": 1416512282
+  },
+  {
+   "name": "Vivero CEPAN - Mariana",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PE",
+   "lat": -9.03565,
+   "lng": -77.80401,
+   "osm_type": "node",
+   "osm_id": 13257017599
+  },
+  {
+   "name": "Vivero Palo Santo",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PE",
+   "lat": -4.13791,
+   "lng": -81.10483,
+   "osm_type": "way",
+   "osm_id": 1483412867
+  },
+  {
+   "name": "AQP AQUARIUM",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PE",
+   "lat": -16.41964,
+   "lng": -71.47529,
+   "osm_type": "way",
+   "osm_id": 552240877
+  },
+  {
+   "name": "Acuario \"Acuavivi\"",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PE",
+   "lat": -9.1264,
+   "lng": -78.51614,
+   "osm_type": "node",
+   "osm_id": 6659461113
+  },
+  {
+   "name": "Acuario Arrecife - Cusco",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PE",
+   "lat": -13.54064,
+   "lng": -71.89563,
+   "osm_type": "node",
+   "osm_id": 13542048701
+  },
+  {
+   "name": "Acuario Inaqua Cusco",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PE",
+   "lat": -13.53143,
+   "lng": -71.97024,
+   "osm_type": "node",
+   "osm_id": 13542048704
+  },
+  {
+   "name": "Acuario Real",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PE",
+   "lat": -12.11767,
+   "lng": -77.03595,
+   "osm_type": "node",
+   "osm_id": 6042858780
+  },
+  {
+   "name": "Aquatic World",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PE",
+   "lat": -9.05081,
+   "lng": -77.81123,
+   "osm_type": "node",
+   "osm_id": 13070077201
+  },
+  {
+   "name": "Aviario de la Muralla",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -12.04381,
+   "lng": -77.02808,
+   "osm_type": "way",
+   "osm_id": 1548735452
+  },
+  {
+   "name": "Centro de investigación y observación de mariposas",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -13.16206,
+   "lng": -72.53442,
+   "osm_type": "node",
+   "osm_id": 4365037029
+  },
+  {
+   "name": "Complejo Turístico San Pedro de Carash",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -9.52933,
+   "lng": -77.13743,
+   "osm_type": "way",
+   "osm_id": 444438548
+  },
+  {
+   "name": "Granja Municipal",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PE",
+   "lat": -11.93002,
+   "lng": -77.07398,
+   "osm_type": "way",
+   "osm_id": 1357525623
+  },
+  {
+   "name": "Granja interactiva",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PE",
+   "lat": -12.19004,
+   "lng": -76.96944,
+   "osm_type": "way",
+   "osm_id": 478737996
+  },
+  {
+   "name": "Jardín Zoológico UNSAAC",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -13.52008,
+   "lng": -71.95954,
+   "osm_type": "node",
+   "osm_id": 11064266734
+  },
+  {
+   "name": "La Granjita",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PE",
+   "lat": -9.06079,
+   "lng": -77.79305,
+   "osm_type": "node",
+   "osm_id": 12329593314
+  },
+  {
+   "name": "La Jungla",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -8.33086,
+   "lng": -74.57112,
+   "osm_type": "node",
+   "osm_id": 8586774389
+  },
+  {
+   "name": "Mini Zoológico",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PE",
+   "lat": -12.23093,
+   "lng": -76.9305,
+   "osm_type": "node",
+   "osm_id": 7156636000
+  },
+  {
+   "name": "Mundo Granja",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PE",
+   "lat": -12.24608,
+   "lng": -76.87215,
+   "osm_type": "way",
+   "osm_id": 454030958
+  },
+  {
+   "name": "Parque Natural de Pucallpa",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -8.39263,
+   "lng": -74.55636,
+   "osm_type": "way",
+   "osm_id": 64069578
+  },
+  {
+   "name": "Parque Tematico de Aves Gigantes",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -6.81266,
+   "lng": -79.94152,
+   "osm_type": "way",
+   "osm_id": 1310665753
+  },
+  {
+   "name": "Parque Zoológico La Totorilla Ayacucho",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -13.1569,
+   "lng": -74.21184,
+   "osm_type": "node",
+   "osm_id": 1824460960
+  },
+  {
+   "name": "Parque de las Leyendas",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -12.01465,
+   "lng": -76.89694,
+   "osm_type": "relation",
+   "osm_id": 3902955
+  },
+  {
+   "name": "Parque de las Leyendas",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -12.06948,
+   "lng": -77.08674,
+   "osm_type": "relation",
+   "osm_id": 6159452
+  },
+  {
+   "name": "Parque de las Leyendas Palmira - Zoológico Caraz",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -9.06267,
+   "lng": -77.79281,
+   "osm_type": "node",
+   "osm_id": 13782119396
+  },
+  {
+   "name": "Prueba",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PE",
+   "lat": -15.84003,
+   "lng": -70.02196,
+   "osm_type": "node",
+   "osm_id": 14049910701
+  },
+  {
+   "name": "Quistococha Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -3.82804,
+   "lng": -73.32187,
+   "osm_type": "way",
+   "osm_id": 291023463
+  },
+  {
+   "name": "Safari Puquio",
+   "category": "zoo_aquarium",
+   "kind": "Safari Park",
+   "iso2": "PE",
+   "lat": -14.6766,
+   "lng": -74.11604,
+   "osm_type": "way",
+   "osm_id": 820449185
+  },
+  {
+   "name": "Selva Viva Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -6.45356,
+   "lng": -76.46491,
+   "osm_type": "way",
+   "osm_id": 1013135264
+  },
+  {
+   "name": "Zoocriadero Vida Salvaje",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -8.07551,
+   "lng": -79.07028,
+   "osm_type": "way",
+   "osm_id": 1377856759
+  },
+  {
+   "name": "Zoologico Huanchaco",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -8.08772,
+   "lng": -79.09185,
+   "osm_type": "way",
+   "osm_id": 1377675758
+  },
+  {
+   "name": "Zoologico Mundo Andino - Tipon",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -13.58015,
+   "lng": -71.78573,
+   "osm_type": "way",
+   "osm_id": 1476322364
+  },
+  {
+   "name": "Zoologico Taraccasa",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -13.62475,
+   "lng": -72.86318,
+   "osm_type": "way",
+   "osm_id": 820492381
+  },
+  {
+   "name": "Zoológico - Mariposario Zhaveta Yard",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -10.97094,
+   "lng": -75.30018,
+   "osm_type": "way",
+   "osm_id": 776410959
+  },
+  {
+   "name": "Zoológico Municipal de Ica",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PE",
+   "lat": -14.07618,
+   "lng": -75.733,
+   "osm_type": "way",
+   "osm_id": 763209920
+  },
+  {
+   "name": "Zoológico Universitario",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -6.70661,
+   "lng": -79.90593,
+   "osm_type": "way",
+   "osm_id": 551192085
+  },
+  {
+   "name": "Zoológico el duque",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -12.59397,
+   "lng": -71.12981,
+   "osm_type": "node",
+   "osm_id": 12826046401
+  },
+  {
+   "name": "Zoomundo Arequipa",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -16.41983,
+   "lng": -71.47546,
+   "osm_type": "way",
+   "osm_id": 437383686
+  },
+  {
+   "name": "Zooparque de Ferreñafe",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PE",
+   "lat": -6.62844,
+   "lng": -79.78225,
+   "osm_type": "way",
+   "osm_id": 553191913
+  },
+  {
    "name": "Santos 50th Anniversary Orchid Garden",
    "category": "botanical_garden",
    "kind": "Botanical Garden",
@@ -71296,6 +71712,4936 @@
    "lng": 120.88377,
    "osm_type": "node",
    "osm_id": 8929544120
+  },
+  {
+   "name": "Botanical Garden Jallo",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PK",
+   "lat": 31.57179,
+   "lng": 74.49055,
+   "osm_type": "way",
+   "osm_id": 862809327
+  },
+  {
+   "name": "D-Botanical Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PK",
+   "lat": 31.49328,
+   "lng": 73.11849,
+   "osm_type": "node",
+   "osm_id": 8273875988
+  },
+  {
+   "name": "D-Botanical Garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PK",
+   "lat": 31.49327,
+   "lng": 73.11846,
+   "osm_type": "way",
+   "osm_id": 890124207
+  },
+  {
+   "name": "Rose & Jasmine garden",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PK",
+   "lat": 33.70164,
+   "lng": 73.0884,
+   "osm_type": "node",
+   "osm_id": 2247175638
+  },
+  {
+   "name": "360 Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 30.29168,
+   "lng": 71.52351,
+   "osm_type": "way",
+   "osm_id": 1153221854
+  },
+  {
+   "name": "ASAB Animal House",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 33.64805,
+   "lng": 72.98802,
+   "osm_type": "way",
+   "osm_id": 209841365
+  },
+  {
+   "name": "Animal Kingdom Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 24.95115,
+   "lng": 67.07533,
+   "osm_type": "node",
+   "osm_id": 5157033895
+  },
+  {
+   "name": "Aquarium Palace",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PK",
+   "lat": 24.92503,
+   "lng": 67.06665,
+   "osm_type": "node",
+   "osm_id": 5334959091
+  },
+  {
+   "name": "Bahawalnagar Wildlife Park",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PK",
+   "lat": 30.00258,
+   "lng": 73.27334,
+   "osm_type": "way",
+   "osm_id": 864645421
+  },
+  {
+   "name": "Bahria Enclave Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 33.68735,
+   "lng": 73.21105,
+   "osm_type": "way",
+   "osm_id": 562050986
+  },
+  {
+   "name": "Bahria Town Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 33.51593,
+   "lng": 73.11913,
+   "osm_type": "way",
+   "osm_id": 892388371
+  },
+  {
+   "name": "Bahria Town Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 26.24677,
+   "lng": 68.26335,
+   "osm_type": "way",
+   "osm_id": 1120946464
+  },
+  {
+   "name": "Bhagat Wildlife Park",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PK",
+   "lat": 30.87361,
+   "lng": 72.58182,
+   "osm_type": "way",
+   "osm_id": 864646428
+  },
+  {
+   "name": "Bird Aviary",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 33.68855,
+   "lng": 73.21342,
+   "osm_type": "way",
+   "osm_id": 562135792
+  },
+  {
+   "name": "Changa Manga Forest and Wildlife Park",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PK",
+   "lat": 31.06063,
+   "lng": 73.96733,
+   "osm_type": "node",
+   "osm_id": 8059137683
+  },
+  {
+   "name": "Changa Mange Wildlife Park",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PK",
+   "lat": 31.08087,
+   "lng": 73.99641,
+   "osm_type": "way",
+   "osm_id": 865111703
+  },
+  {
+   "name": "Clifton Aquarium",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PK",
+   "lat": 24.81221,
+   "lng": 67.02711,
+   "osm_type": "way",
+   "osm_id": 691602025
+  },
+  {
+   "name": "DG Khan Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 30.04122,
+   "lng": 70.62623,
+   "osm_type": "way",
+   "osm_id": 387623636
+  },
+  {
+   "name": "Fish Aquarium Korangi Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PK",
+   "lat": 24.82736,
+   "lng": 67.1588,
+   "osm_type": "way",
+   "osm_id": 1142920425
+  },
+  {
+   "name": "Fishery",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PK",
+   "lat": 24.84651,
+   "lng": 66.97634,
+   "osm_type": "node",
+   "osm_id": 5490314982
+  },
+  {
+   "name": "Jallo Park",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PK",
+   "lat": 31.57177,
+   "lng": 74.47453,
+   "osm_type": "node",
+   "osm_id": 2406886867
+  },
+  {
+   "name": "Jungle Kingdom",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 33.56587,
+   "lng": 73.08474,
+   "osm_type": "way",
+   "osm_id": 233578977
+  },
+  {
+   "name": "Kamalia Wildlife Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 30.71486,
+   "lng": 72.67541,
+   "osm_type": "way",
+   "osm_id": 1370964589
+  },
+  {
+   "name": "Karachi Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 24.87669,
+   "lng": 67.0234,
+   "osm_type": "way",
+   "osm_id": 10385819
+  },
+  {
+   "name": "Korangi Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 24.8266,
+   "lng": 67.15879,
+   "osm_type": "way",
+   "osm_id": 1142920424
+  },
+  {
+   "name": "Lahore Wildlife Safari",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 31.38249,
+   "lng": 74.21421,
+   "osm_type": "way",
+   "osm_id": 321227897
+  },
+  {
+   "name": "Lahore Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 31.55628,
+   "lng": 74.32586,
+   "osm_type": "way",
+   "osm_id": 290937634
+  },
+  {
+   "name": "Lal Suhanra National Park",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PK",
+   "lat": 29.44442,
+   "lng": 71.9857,
+   "osm_type": "way",
+   "osm_id": 864642555
+  },
+  {
+   "name": "Loi Bher Wildlife Park",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PK",
+   "lat": 33.57739,
+   "lng": 73.12728,
+   "osm_type": "way",
+   "osm_id": 864652049
+  },
+  {
+   "name": "Marghazar Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 33.73378,
+   "lng": 73.05888,
+   "osm_type": "way",
+   "osm_id": 846939063
+  },
+  {
+   "name": "Mini Zoo, Nisar Shaheed Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 24.82629,
+   "lng": 67.06308,
+   "osm_type": "node",
+   "osm_id": 12168235120
+  },
+  {
+   "name": "Multi Gardens Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 33.68309,
+   "lng": 72.82827,
+   "osm_type": "way",
+   "osm_id": 1444403244
+  },
+  {
+   "name": "Old Zoo Jutial Gilgit",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 35.89873,
+   "lng": 74.35226,
+   "osm_type": "way",
+   "osm_id": 1054507048
+  },
+  {
+   "name": "Peshawar",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 34.08831,
+   "lng": 71.51338,
+   "osm_type": "node",
+   "osm_id": 1350039439
+  },
+  {
+   "name": "Pha Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 24.92037,
+   "lng": 67.14409,
+   "osm_type": "node",
+   "osm_id": 12218988769
+  },
+  {
+   "name": "Pirowal Wildlife Park",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PK",
+   "lat": 30.34389,
+   "lng": 72.03431,
+   "osm_type": "way",
+   "osm_id": 864655217
+  },
+  {
+   "name": "Rahim Yar Khan Wildlife Park",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PK",
+   "lat": 28.40378,
+   "lng": 70.25965,
+   "osm_type": "way",
+   "osm_id": 864640674
+  },
+  {
+   "name": "Rani Bagh Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 25.3841,
+   "lng": 68.34137,
+   "osm_type": "node",
+   "osm_id": 5252043371
+  },
+  {
+   "name": "Rehmat e Zaiqa",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PK",
+   "lat": 24.92437,
+   "lng": 67.06726,
+   "osm_type": "node",
+   "osm_id": 12153216613
+  },
+  {
+   "name": "Safari Vilas Park and Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 31.38781,
+   "lng": 74.19408,
+   "osm_type": "way",
+   "osm_id": 445224242
+  },
+  {
+   "name": "Safari Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 31.38786,
+   "lng": 74.19465,
+   "osm_type": "node",
+   "osm_id": 4427363552
+  },
+  {
+   "name": "Shahbaz Sharif Forest Park",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PK",
+   "lat": 30.63487,
+   "lng": 73.48176,
+   "osm_type": "way",
+   "osm_id": 864676264
+  },
+  {
+   "name": "The Happy Aquarium- Tauheed Commercial",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PK",
+   "lat": 24.80771,
+   "lng": 67.03886,
+   "osm_type": "node",
+   "osm_id": 4801771625
+  },
+  {
+   "name": "Vehari Wildlife Park",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 30.03733,
+   "lng": 72.35049,
+   "osm_type": "way",
+   "osm_id": 431792074
+  },
+  {
+   "name": "Whale Exhibit",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 24.93514,
+   "lng": 67.05837,
+   "osm_type": "node",
+   "osm_id": 12173141591
+  },
+  {
+   "name": "Wildlife Aquarium",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PK",
+   "lat": 24.89263,
+   "lng": 67.06215,
+   "osm_type": "node",
+   "osm_id": 5101017469
+  },
+  {
+   "name": "Zoo - General Block Blue World City",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 33.36227,
+   "lng": 72.8771,
+   "osm_type": "node",
+   "osm_id": 8976467289
+  },
+  {
+   "name": "بنگیال",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 32.82635,
+   "lng": 74.03786,
+   "osm_type": "node",
+   "osm_id": 2557450262
+  },
+  {
+   "name": "بہاولپور چڑیا گھر",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PK",
+   "lat": 29.40244,
+   "lng": 71.68168,
+   "osm_type": "way",
+   "osm_id": 756188959
+  },
+  {
+   "name": "جلو پارک",
+   "category": "zoo_aquarium",
+   "kind": "Safari Park",
+   "iso2": "PK",
+   "lat": 31.57115,
+   "lng": 74.47407,
+   "osm_type": "relation",
+   "osm_id": 21013655
+  },
+  {
+   "name": "Alpinarium",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 52.42104,
+   "lng": 16.87976,
+   "osm_type": "way",
+   "osm_id": 469931800
+  },
+  {
+   "name": "Arboretum",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 50.69142,
+   "lng": 22.42253,
+   "osm_type": "node",
+   "osm_id": 8753730286
+  },
+  {
+   "name": "Arboretum",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PL",
+   "lat": 52.8559,
+   "lng": 15.81386,
+   "osm_type": "way",
+   "osm_id": 534372628
+  },
+  {
+   "name": "Arboretum",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 50.44538,
+   "lng": 23.40399,
+   "osm_type": "way",
+   "osm_id": 747126157
+  },
+  {
+   "name": "Arboretum",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 52.95184,
+   "lng": 16.93825,
+   "osm_type": "way",
+   "osm_id": 816606155
+  },
+  {
+   "name": "Arboretum",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PL",
+   "lat": 54.55547,
+   "lng": 18.10312,
+   "osm_type": "way",
+   "osm_id": 1007346837
+  },
+  {
+   "name": "Arboretum - Leśny Ogród Drzew i Krzewów Egzotycznych",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 50.33646,
+   "lng": 16.89555,
+   "osm_type": "node",
+   "osm_id": 2300522162
+  },
+  {
+   "name": "Arboretum Bolestraszyce",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 49.81725,
+   "lng": 22.8596,
+   "osm_type": "way",
+   "osm_id": 44096475
+  },
+  {
+   "name": "Arboretum Kórnickie",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PL",
+   "lat": 52.24189,
+   "lng": 17.09284,
+   "osm_type": "way",
+   "osm_id": 35162001
+  },
+  {
+   "name": "Arboretum Leśne im. prof. S. Białoboka",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 51.26628,
+   "lng": 17.67781,
+   "osm_type": "way",
+   "osm_id": 366786978
+  },
+  {
+   "name": "Arboretum Park Gródek",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 50.22649,
+   "lng": 19.3149,
+   "osm_type": "node",
+   "osm_id": 9592793398
+  },
+  {
+   "name": "Arboretum Petzolda w Łęknicy",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 51.54681,
+   "lng": 14.74645,
+   "osm_type": "relation",
+   "osm_id": 7937913
+  },
+  {
+   "name": "Arboretum SGGW",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 51.82524,
+   "lng": 19.90481,
+   "osm_type": "relation",
+   "osm_id": 19776288
+  },
+  {
+   "name": "Arboretum Wojsławice w Niemczy",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 50.71161,
+   "lng": 16.86129,
+   "osm_type": "way",
+   "osm_id": 166907057
+  },
+  {
+   "name": "Arboretum w Kopnej Górze im. Powstańców 1863",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 53.25196,
+   "lng": 23.47535,
+   "osm_type": "way",
+   "osm_id": 163374882
+  },
+  {
+   "name": "Barokowy Ogród Opata",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 50.52056,
+   "lng": 16.87465,
+   "osm_type": "way",
+   "osm_id": 1465356379
+  },
+  {
+   "name": "Bonsai Park",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 50.88195,
+   "lng": 20.54596,
+   "osm_type": "way",
+   "osm_id": 670536913
+  },
+  {
+   "name": "Bonsai park",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 50.88321,
+   "lng": 20.51582,
+   "osm_type": "way",
+   "osm_id": 987129547
+  },
+  {
+   "name": "Gołubieński Ogród Botaniczny",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 54.21808,
+   "lng": 18.05077,
+   "osm_type": "way",
+   "osm_id": 180047741
+  },
+  {
+   "name": "Leśne Arboretum Warmii i Mazur",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PL",
+   "lat": 53.76749,
+   "lng": 20.38309,
+   "osm_type": "way",
+   "osm_id": 1158532987
+  },
+  {
+   "name": "Leśny Ogródek Botaniczny",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 52.29372,
+   "lng": 20.83866,
+   "osm_type": "way",
+   "osm_id": 1347109287
+  },
+  {
+   "name": "Nowe Arboretum",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PL",
+   "lat": 52.24385,
+   "lng": 17.09822,
+   "osm_type": "way",
+   "osm_id": 585981003
+  },
+  {
+   "name": "Ogrodowisko - Ogrody Pokazowe",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 52.0143,
+   "lng": 20.81038,
+   "osm_type": "way",
+   "osm_id": 1511006681
+  },
+  {
+   "name": "Ogród Botaniczny",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 52.21758,
+   "lng": 21.02821,
+   "osm_type": "way",
+   "osm_id": 5081150
+  },
+  {
+   "name": "Ogród Botaniczny",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 51.11598,
+   "lng": 17.04746,
+   "osm_type": "way",
+   "osm_id": 61361695
+  },
+  {
+   "name": "Ogród Botaniczny",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 53.4948,
+   "lng": 18.76383,
+   "osm_type": "way",
+   "osm_id": 173821863
+  },
+  {
+   "name": "Ogród Botaniczny",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 51.75699,
+   "lng": 19.4053,
+   "osm_type": "way",
+   "osm_id": 175159908
+  },
+  {
+   "name": "Ogród Botaniczny",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 54.38088,
+   "lng": 19.82426,
+   "osm_type": "way",
+   "osm_id": 286822294
+  },
+  {
+   "name": "Ogród Botaniczny",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 51.39702,
+   "lng": 19.69193,
+   "osm_type": "way",
+   "osm_id": 839014270
+  },
+  {
+   "name": "Ogród Botaniczny - Arboretum Uniwersytetu Kazimierza Wielkiego w Bydgoszczy",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 53.13126,
+   "lng": 18.01772,
+   "osm_type": "way",
+   "osm_id": 153789922
+  },
+  {
+   "name": "Ogród Botaniczny IHAR w Bydgoszczy",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 53.1742,
+   "lng": 18.04415,
+   "osm_type": "way",
+   "osm_id": 320044191
+  },
+  {
+   "name": "Ogród Botaniczny Leśnego Parku Kultury i Wypoczynku w Bydgoszczy",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 53.17176,
+   "lng": 18.04219,
+   "osm_type": "way",
+   "osm_id": 320458459
+  },
+  {
+   "name": "Ogród Botaniczny PAN",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 52.10755,
+   "lng": 21.09624,
+   "osm_type": "way",
+   "osm_id": 26309716
+  },
+  {
+   "name": "Ogród Botaniczny UMCS",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 51.2624,
+   "lng": 22.51477,
+   "osm_type": "way",
+   "osm_id": 40114241
+  },
+  {
+   "name": "Ogród Botaniczny Uniwersytetu Jagiellońskiego",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 50.06251,
+   "lng": 19.95748,
+   "osm_type": "way",
+   "osm_id": 25131339
+  },
+  {
+   "name": "Ogród Botaniczny w Brwinowie",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 52.13977,
+   "lng": 20.71101,
+   "osm_type": "way",
+   "osm_id": 926238643
+  },
+  {
+   "name": "Ogród Japoński",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 50.28203,
+   "lng": 18.98442,
+   "osm_type": "way",
+   "osm_id": 909607649
+  },
+  {
+   "name": "Ogród Roślin Leczniczych",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 54.38202,
+   "lng": 18.62283,
+   "osm_type": "way",
+   "osm_id": 371531289
+  },
+  {
+   "name": "Ogród Sensoryczny",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 52.29064,
+   "lng": 21.03362,
+   "osm_type": "node",
+   "osm_id": 12248067961
+  },
+  {
+   "name": "Ogród botaniczny im. Krystyny Sowińskiej",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 49.90512,
+   "lng": 22.51176,
+   "osm_type": "way",
+   "osm_id": 989829076
+  },
+  {
+   "name": "Ogród sensoryczny",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 53.92099,
+   "lng": 14.24822,
+   "osm_type": "relation",
+   "osm_id": 14382027
+  },
+  {
+   "name": "Palmiarnia Poznańska",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 52.4019,
+   "lng": 16.90125,
+   "osm_type": "way",
+   "osm_id": 35270118
+  },
+  {
+   "name": "Park Dendrologiczny w Lipnie",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PL",
+   "lat": 50.61628,
+   "lng": 17.60526,
+   "osm_type": "way",
+   "osm_id": 448023726
+  },
+  {
+   "name": "Podlaski Ogród Botaniczny - Kolekcja Ziół",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 52.64204,
+   "lng": 22.76196,
+   "osm_type": "way",
+   "osm_id": 836360244
+  },
+  {
+   "name": "Rozłogi",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 50.22092,
+   "lng": 21.77361,
+   "osm_type": "way",
+   "osm_id": 1104822836
+  },
+  {
+   "name": "Strefa śmierci dendrologicznej",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 51.92664,
+   "lng": 15.49396,
+   "osm_type": "way",
+   "osm_id": 863913235
+  },
+  {
+   "name": "Wieluński Ogród Botaniczny",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 51.2196,
+   "lng": 18.53586,
+   "osm_type": "way",
+   "osm_id": 1382241421
+  },
+  {
+   "name": "ogród japoński",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PL",
+   "lat": 53.10606,
+   "lng": 15.08095,
+   "osm_type": "way",
+   "osm_id": 1508072341
+  },
+  {
+   "name": "ogród skalny",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PL",
+   "lat": 53.10775,
+   "lng": 15.08365,
+   "osm_type": "way",
+   "osm_id": 1508072363
+  },
+  {
+   "name": "ogródek meteorologiczny",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PL",
+   "lat": 50.91772,
+   "lng": 22.66683,
+   "osm_type": "way",
+   "osm_id": 946669713
+  },
+  {
+   "name": "ALPAQUERO",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 49.82645,
+   "lng": 18.94368,
+   "osm_type": "node",
+   "osm_id": 11206976603
+  },
+  {
+   "name": "Akwarium",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PL",
+   "lat": 50.30153,
+   "lng": 18.66926,
+   "osm_type": "node",
+   "osm_id": 3178391793
+  },
+  {
+   "name": "Akwarium - Centrum Obsługi Ruchu Turystycznego",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PL",
+   "lat": 50.75054,
+   "lng": 16.42023,
+   "osm_type": "way",
+   "osm_id": 840871639
+  },
+  {
+   "name": "Akwarium Gdyńskie",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PL",
+   "lat": 54.51832,
+   "lng": 18.55716,
+   "osm_type": "way",
+   "osm_id": 49803787
+  },
+  {
+   "name": "Ale Heca! Zagroda Edukacyjna",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.42555,
+   "lng": 21.03717,
+   "osm_type": "way",
+   "osm_id": 624423235
+  },
+  {
+   "name": "Alpafarm D&K",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.25911,
+   "lng": 19.29282,
+   "osm_type": "way",
+   "osm_id": 1392441210
+  },
+  {
+   "name": "Alpaka Farm",
+   "category": "zoo_aquarium",
+   "kind": "Safari Park",
+   "iso2": "PL",
+   "lat": 50.25211,
+   "lng": 18.90622,
+   "osm_type": "node",
+   "osm_id": 7075367806
+  },
+  {
+   "name": "Alpaka Konradów",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.31655,
+   "lng": 16.79265,
+   "osm_type": "node",
+   "osm_id": 13994530172
+  },
+  {
+   "name": "AlpakaTeam - Przygoda z Alpaką",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.01878,
+   "lng": 21.88876,
+   "osm_type": "node",
+   "osm_id": 11064766907
+  },
+  {
+   "name": "Alpakarnia Poczesna",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.72302,
+   "lng": 19.16027,
+   "osm_type": "node",
+   "osm_id": 13200856802
+  },
+  {
+   "name": "Alpaki Bojano",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 54.47413,
+   "lng": 18.36838,
+   "osm_type": "node",
+   "osm_id": 4597122434
+  },
+  {
+   "name": "Alpaki Bojano",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 54.47339,
+   "lng": 18.36866,
+   "osm_type": "way",
+   "osm_id": 1539709145
+  },
+  {
+   "name": "Alpaki Yakari",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.36647,
+   "lng": 22.34036,
+   "osm_type": "way",
+   "osm_id": 1021121245
+  },
+  {
+   "name": "Alpaki z Lipnika",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 49.81742,
+   "lng": 19.11232,
+   "osm_type": "node",
+   "osm_id": 10799245856
+  },
+  {
+   "name": "Alpaki z Malinowej Chaty",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.65059,
+   "lng": 19.58516,
+   "osm_type": "way",
+   "osm_id": 1525221579
+  },
+  {
+   "name": "Alpakowe Łąki",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.50031,
+   "lng": 22.20569,
+   "osm_type": "node",
+   "osm_id": 12094165176
+  },
+  {
+   "name": "Azyl Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.50414,
+   "lng": 17.87957,
+   "osm_type": "node",
+   "osm_id": 3028074543
+  },
+  {
+   "name": "Bajkowa Zagroda",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.92204,
+   "lng": 15.49533,
+   "osm_type": "way",
+   "osm_id": 291330407
+  },
+  {
+   "name": "Bardoniówka",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.6146,
+   "lng": 20.66002,
+   "osm_type": "node",
+   "osm_id": 3052110868
+  },
+  {
+   "name": "Bochenkowa Zagroda - Mini ZOO - Skansen",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.62445,
+   "lng": 16.99481,
+   "osm_type": "way",
+   "osm_id": 1392052919
+  },
+  {
+   "name": "Centrum Edukacyjno-Turystyczne NATURUM w Rudzie Sułowskiej - ZWIERZYNIEC",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.51348,
+   "lng": 17.11297,
+   "osm_type": "way",
+   "osm_id": 1103580188
+  },
+  {
+   "name": "Dobronianka",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.64063,
+   "lng": 19.25776,
+   "osm_type": "way",
+   "osm_id": 1083089262
+  },
+  {
+   "name": "Dolny Zwierzyniec",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.01341,
+   "lng": 21.5509,
+   "osm_type": "way",
+   "osm_id": 1114993684
+  },
+  {
+   "name": "Donkey Szot",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 54.07981,
+   "lng": 15.16496,
+   "osm_type": "way",
+   "osm_id": 1417057362
+  },
+  {
+   "name": "Dziadkowizna",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 54.08142,
+   "lng": 15.10411,
+   "osm_type": "way",
+   "osm_id": 1075407312
+  },
+  {
+   "name": "Farma Goławice",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 52.50133,
+   "lng": 20.70412,
+   "osm_type": "way",
+   "osm_id": 1502136609
+  },
+  {
+   "name": "Farma Motyli",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.25837,
+   "lng": 18.445,
+   "osm_type": "way",
+   "osm_id": 928946915
+  },
+  {
+   "name": "Farma Strusi w Kniewie",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 54.66597,
+   "lng": 18.12191,
+   "osm_type": "way",
+   "osm_id": 1085123767
+  },
+  {
+   "name": "Farma wuja Toma – Dyniolandia",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 52.29467,
+   "lng": 20.89924,
+   "osm_type": "way",
+   "osm_id": 1043758459
+  },
+  {
+   "name": "Fiord",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 54.33801,
+   "lng": 18.13983,
+   "osm_type": "node",
+   "osm_id": 9166751401
+  },
+  {
+   "name": "Fokarium Stacji Morskiej Instytutu Oceanografii Uniwersytetu Gdańskiego",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.60689,
+   "lng": 18.80005,
+   "osm_type": "way",
+   "osm_id": 49300162
+  },
+  {
+   "name": "Gdański Ogród Zoologiczny",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.41445,
+   "lng": 18.53306,
+   "osm_type": "way",
+   "osm_id": 227750438
+  },
+  {
+   "name": "Gminna Pasieka Edukacyjna",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PL",
+   "lat": 49.8215,
+   "lng": 19.21826,
+   "osm_type": "node",
+   "osm_id": 11196293679
+  },
+  {
+   "name": "Happy Alpaca",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 49.69453,
+   "lng": 19.46099,
+   "osm_type": "node",
+   "osm_id": 9245591631
+  },
+  {
+   "name": "Hodowla jeleni, kucyków, kóz",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.14101,
+   "lng": 20.13091,
+   "osm_type": "node",
+   "osm_id": 2115102892
+  },
+  {
+   "name": "Insektarium",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.40164,
+   "lng": 17.00391,
+   "osm_type": "way",
+   "osm_id": 526517044
+  },
+  {
+   "name": "Kazimierskie Alpaki",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.31384,
+   "lng": 21.94591,
+   "osm_type": "node",
+   "osm_id": 13793700814
+  },
+  {
+   "name": "Kozia Zagroda",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 49.71981,
+   "lng": 18.92202,
+   "osm_type": "way",
+   "osm_id": 975935111
+  },
+  {
+   "name": "Kraina Dolnej Wisly",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 53.23539,
+   "lng": 18.22732,
+   "osm_type": "way",
+   "osm_id": 1253192556
+  },
+  {
+   "name": "Lappyland",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.90421,
+   "lng": 19.50358,
+   "osm_type": "way",
+   "osm_id": 1324223122
+  },
+  {
+   "name": "Leśny Park Niespodzianek",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 49.717,
+   "lng": 18.83256,
+   "osm_type": "way",
+   "osm_id": 261627231
+  },
+  {
+   "name": "Leśny Zwierzyniec",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 49.19144,
+   "lng": 22.30705,
+   "osm_type": "node",
+   "osm_id": 12208618053
+  },
+  {
+   "name": "Małe ZOO",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.2872,
+   "lng": 22.66794,
+   "osm_type": "node",
+   "osm_id": 2187677587
+  },
+  {
+   "name": "Małe ZOO",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.28678,
+   "lng": 22.6658,
+   "osm_type": "way",
+   "osm_id": 184319092
+  },
+  {
+   "name": "Mini Oaza Ptaków",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.11087,
+   "lng": 18.13173,
+   "osm_type": "node",
+   "osm_id": 2412369233
+  },
+  {
+   "name": "Mini ZOO",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 49.72412,
+   "lng": 21.50995,
+   "osm_type": "node",
+   "osm_id": 9457534718
+  },
+  {
+   "name": "Mini ZOO",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.06389,
+   "lng": 18.9549,
+   "osm_type": "way",
+   "osm_id": 298995083
+  },
+  {
+   "name": "Mini ZOO",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.27308,
+   "lng": 21.69535,
+   "osm_type": "way",
+   "osm_id": 311110083
+  },
+  {
+   "name": "Mini ZOO",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.74255,
+   "lng": 17.57404,
+   "osm_type": "way",
+   "osm_id": 437153623
+  },
+  {
+   "name": "Mini ZOO",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.68429,
+   "lng": 23.33025,
+   "osm_type": "way",
+   "osm_id": 506529002
+  },
+  {
+   "name": "Mini ZOO",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.5962,
+   "lng": 21.10245,
+   "osm_type": "way",
+   "osm_id": 784038052
+  },
+  {
+   "name": "Mini ZOO Caritas",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 49.4459,
+   "lng": 22.40038,
+   "osm_type": "way",
+   "osm_id": 403928077
+  },
+  {
+   "name": "Mini ZOO Leśny Zwierzyniec",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 49.18752,
+   "lng": 22.31196,
+   "osm_type": "way",
+   "osm_id": 403928078
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.50154,
+   "lng": 14.57184,
+   "osm_type": "node",
+   "osm_id": 1690896381
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.50436,
+   "lng": 16.47157,
+   "osm_type": "node",
+   "osm_id": 5549580302
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.09892,
+   "lng": 18.26571,
+   "osm_type": "way",
+   "osm_id": 180868437
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.30033,
+   "lng": 19.24395,
+   "osm_type": "way",
+   "osm_id": 184686598
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.06188,
+   "lng": 18.15302,
+   "osm_type": "way",
+   "osm_id": 228358049
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.3306,
+   "lng": 19.05126,
+   "osm_type": "way",
+   "osm_id": 259033874
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.13336,
+   "lng": 19.41323,
+   "osm_type": "way",
+   "osm_id": 360165443
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 49.95475,
+   "lng": 21.72018,
+   "osm_type": "way",
+   "osm_id": 403928079
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.60801,
+   "lng": 22.90284,
+   "osm_type": "way",
+   "osm_id": 503859266
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.15377,
+   "lng": 15.57858,
+   "osm_type": "way",
+   "osm_id": 614188336
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.65644,
+   "lng": 19.32173,
+   "osm_type": "way",
+   "osm_id": 753724971
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 54.81654,
+   "lng": 17.95886,
+   "osm_type": "way",
+   "osm_id": 1308015764
+  },
+  {
+   "name": "Mini Zoo \"Kucyk\"",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 49.87727,
+   "lng": 19.4083,
+   "osm_type": "way",
+   "osm_id": 427526872
+  },
+  {
+   "name": "Mini Zoo Brzoza Toruńska",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.96315,
+   "lng": 18.68845,
+   "osm_type": "node",
+   "osm_id": 3558231664
+  },
+  {
+   "name": "Mini Zoo Kopytkowo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 49.8739,
+   "lng": 19.77966,
+   "osm_type": "node",
+   "osm_id": 13760616301
+  },
+  {
+   "name": "Mini Zoo Kwidzyn",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.70905,
+   "lng": 18.95676,
+   "osm_type": "node",
+   "osm_id": 2295880994
+  },
+  {
+   "name": "Mini Zoo Warszawa",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 52.18774,
+   "lng": 20.89092,
+   "osm_type": "node",
+   "osm_id": 8920356657
+  },
+  {
+   "name": "Mini Zoo w Mostkach",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.27148,
+   "lng": 15.37718,
+   "osm_type": "way",
+   "osm_id": 242036937
+  },
+  {
+   "name": "Mini Zoo w Raszkowie",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.71545,
+   "lng": 17.72637,
+   "osm_type": "way",
+   "osm_id": 889928664
+  },
+  {
+   "name": "Mini Zoo w Wojciechowie",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.22551,
+   "lng": 22.2373,
+   "osm_type": "way",
+   "osm_id": 601148294
+  },
+  {
+   "name": "Mini zoo",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.11206,
+   "lng": 15.77096,
+   "osm_type": "way",
+   "osm_id": 276357354
+  },
+  {
+   "name": "Mini zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.87956,
+   "lng": 18.48533,
+   "osm_type": "way",
+   "osm_id": 326724573
+  },
+  {
+   "name": "Mini zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.29673,
+   "lng": 16.75667,
+   "osm_type": "way",
+   "osm_id": 579915587
+  },
+  {
+   "name": "Mini zoo",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 53.80491,
+   "lng": 17.01684,
+   "osm_type": "way",
+   "osm_id": 682772922
+  },
+  {
+   "name": "Mini zoo",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 52.66376,
+   "lng": 20.72649,
+   "osm_type": "way",
+   "osm_id": 1217569838
+  },
+  {
+   "name": "Mini zoo \"Zamkowa zagroda\"",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.09983,
+   "lng": 19.58321,
+   "osm_type": "node",
+   "osm_id": 9004488042
+  },
+  {
+   "name": "Mini zoo w Komorowie",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.04758,
+   "lng": 20.90734,
+   "osm_type": "way",
+   "osm_id": 190633120
+  },
+  {
+   "name": "Mini-Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.4,
+   "lng": 18.35844,
+   "osm_type": "node",
+   "osm_id": 4172503377
+  },
+  {
+   "name": "Minizoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.2558,
+   "lng": 15.83946,
+   "osm_type": "way",
+   "osm_id": 512209473
+  },
+  {
+   "name": "Motylarnia",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 49.71997,
+   "lng": 18.8209,
+   "osm_type": "node",
+   "osm_id": 12116693337
+  },
+  {
+   "name": "Motylarnia",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.09436,
+   "lng": 15.06465,
+   "osm_type": "way",
+   "osm_id": 656084587
+  },
+  {
+   "name": "Nowe Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.39975,
+   "lng": 17.00579,
+   "osm_type": "way",
+   "osm_id": 480832184
+  },
+  {
+   "name": "Oceanarium",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PL",
+   "lat": 54.05878,
+   "lng": 14.92529,
+   "osm_type": "node",
+   "osm_id": 7536489042
+  },
+  {
+   "name": "Oceanarium",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PL",
+   "lat": 54.75532,
+   "lng": 17.55911,
+   "osm_type": "way",
+   "osm_id": 1075185380
+  },
+  {
+   "name": "Oceanarium Międzyzdroje",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PL",
+   "lat": 53.93033,
+   "lng": 14.44589,
+   "osm_type": "way",
+   "osm_id": 699524107
+  },
+  {
+   "name": "Oceanarium Niechorze",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PL",
+   "lat": 54.09477,
+   "lng": 15.07974,
+   "osm_type": "node",
+   "osm_id": 11155770241
+  },
+  {
+   "name": "Oceanika",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PL",
+   "lat": 50.96722,
+   "lng": 20.66771,
+   "osm_type": "way",
+   "osm_id": 689650803
+  },
+  {
+   "name": "Ogrody Pamięci Antonina Gajos",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.36213,
+   "lng": 22.69354,
+   "osm_type": "way",
+   "osm_id": 1266595002
+  },
+  {
+   "name": "Ogrody żywe - królestwo zwierząt",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "PL",
+   "lat": 49.34464,
+   "lng": 20.88235,
+   "osm_type": "way",
+   "osm_id": 941145236
+  },
+  {
+   "name": "Ogród Parafialny św. Franciszka",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 49.85279,
+   "lng": 19.34371,
+   "osm_type": "way",
+   "osm_id": 323688593
+  },
+  {
+   "name": "Ogród Zoobotaniczny w Toruniu",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.00896,
+   "lng": 18.59064,
+   "osm_type": "way",
+   "osm_id": 136482733
+  },
+  {
+   "name": "Ogród Zoologiczny",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.71684,
+   "lng": 23.23789,
+   "osm_type": "way",
+   "osm_id": 439454605
+  },
+  {
+   "name": "Ogród Zoologiczny \"Leśne Zacisze\"",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.68881,
+   "lng": 20.6418,
+   "osm_type": "way",
+   "osm_id": 835344791
+  },
+  {
+   "name": "Ogród Zoologiczny Akcent",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.12064,
+   "lng": 23.16588,
+   "osm_type": "way",
+   "osm_id": 61044715
+  },
+  {
+   "name": "Ogród Zoologiczny Canpol w Sieroczynie",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PL",
+   "lat": 53.65066,
+   "lng": 17.31584,
+   "osm_type": "way",
+   "osm_id": 1051800202
+  },
+  {
+   "name": "Ogród Zoologiczny Dolina Charlotty w Strzelinku",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.5299,
+   "lng": 16.94881,
+   "osm_type": "way",
+   "osm_id": 508821490
+  },
+  {
+   "name": "Ogród Zoologiczny Opole",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.6529,
+   "lng": 17.92626,
+   "osm_type": "way",
+   "osm_id": 337765496
+  },
+  {
+   "name": "Ogród Zoologiczny w Bydgoszczy",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.16236,
+   "lng": 18.03304,
+   "osm_type": "way",
+   "osm_id": 165032295
+  },
+  {
+   "name": "Ogród Zoologiczny w Krakowie",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.05316,
+   "lng": 19.85005,
+   "osm_type": "way",
+   "osm_id": 25171269
+  },
+  {
+   "name": "Ogród Zoologiczny w Lesznie",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.83183,
+   "lng": 16.5905,
+   "osm_type": "node",
+   "osm_id": 4523589803
+  },
+  {
+   "name": "Ogród Zoologiczny w Nowym Tomyślu",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.31045,
+   "lng": 16.1399,
+   "osm_type": "way",
+   "osm_id": 269071382
+  },
+  {
+   "name": "Ogród Zoologiczny w Płocku",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.53551,
+   "lng": 19.70021,
+   "osm_type": "relation",
+   "osm_id": 11609029
+  },
+  {
+   "name": "Orientarium ZOO Łódź",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.76098,
+   "lng": 19.41234,
+   "osm_type": "way",
+   "osm_id": 27749053
+  },
+  {
+   "name": "Papugarnia",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.14984,
+   "lng": 23.16457,
+   "osm_type": "node",
+   "osm_id": 11486445213
+  },
+  {
+   "name": "Papugarnia",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "PL",
+   "lat": 53.78634,
+   "lng": 20.51464,
+   "osm_type": "node",
+   "osm_id": 12639594481
+  },
+  {
+   "name": "Papugarnia",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.04242,
+   "lng": 21.99711,
+   "osm_type": "node",
+   "osm_id": 12944480357
+  },
+  {
+   "name": "Papugarnia Carmen",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "PL",
+   "lat": 50.26743,
+   "lng": 18.96994,
+   "osm_type": "node",
+   "osm_id": 5760485217
+  },
+  {
+   "name": "Papugarnia Gdańsk",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.38858,
+   "lng": 18.65332,
+   "osm_type": "node",
+   "osm_id": 6389235613
+  },
+  {
+   "name": "Papugarnia Karpacz",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.79165,
+   "lng": 15.76062,
+   "osm_type": "node",
+   "osm_id": 3613025171
+  },
+  {
+   "name": "Papugarnia Kubuś & Endriu",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "PL",
+   "lat": 51.31742,
+   "lng": 16.9471,
+   "osm_type": "way",
+   "osm_id": 1324442587
+  },
+  {
+   "name": "Papugarnia Mazury",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 54.0125,
+   "lng": 21.73818,
+   "osm_type": "way",
+   "osm_id": 1054048148
+  },
+  {
+   "name": "Papugarnia Rio",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.90636,
+   "lng": 15.50929,
+   "osm_type": "node",
+   "osm_id": 6206163444
+  },
+  {
+   "name": "Park Czarnego Daniela",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PL",
+   "lat": 49.64228,
+   "lng": 19.60006,
+   "osm_type": "way",
+   "osm_id": 719324794
+  },
+  {
+   "name": "Park Dzikich Zwierząt w Kadzidłowie",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.71338,
+   "lng": 21.4896,
+   "osm_type": "way",
+   "osm_id": 157458531
+  },
+  {
+   "name": "Park Edukacyjny Zoo - Egzotyczne Kaszuby",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.30496,
+   "lng": 17.85904,
+   "osm_type": "way",
+   "osm_id": 300863759
+  },
+  {
+   "name": "Park Ptaków",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.81148,
+   "lng": 20.50264,
+   "osm_type": "node",
+   "osm_id": 7472934246
+  },
+  {
+   "name": "Pasieka Nieznajowa",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 49.49261,
+   "lng": 21.411,
+   "osm_type": "node",
+   "osm_id": 11876554914
+  },
+  {
+   "name": "Podlaska Toskania",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.06987,
+   "lng": 22.84649,
+   "osm_type": "way",
+   "osm_id": 1193112484
+  },
+  {
+   "name": "Podlaskie MiniZoo",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PL",
+   "lat": 54.27385,
+   "lng": 23.11737,
+   "osm_type": "way",
+   "osm_id": 702858300
+  },
+  {
+   "name": "Podwodny Świat",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PL",
+   "lat": 49.29436,
+   "lng": 19.93683,
+   "osm_type": "node",
+   "osm_id": 12198711891
+  },
+  {
+   "name": "Pokazowa Zagroda Żubrów Nadleśnictwa Rybnik w Raciborzu-Brzeziu",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.07909,
+   "lng": 18.28639,
+   "osm_type": "way",
+   "osm_id": 1238543082
+  },
+  {
+   "name": "Prywatne Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.23665,
+   "lng": 18.97081,
+   "osm_type": "way",
+   "osm_id": 1024248803
+  },
+  {
+   "name": "Przykościelne minizoo",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 52.50218,
+   "lng": 18.71026,
+   "osm_type": "way",
+   "osm_id": 695611564
+  },
+  {
+   "name": "Przytulisko",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.46672,
+   "lng": 18.81295,
+   "osm_type": "way",
+   "osm_id": 116696213
+  },
+  {
+   "name": "Ptaszarnia",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.13638,
+   "lng": 19.41299,
+   "osm_type": "way",
+   "osm_id": 360165400
+  },
+  {
+   "name": "Ptaszarnia",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.96234,
+   "lng": 18.793,
+   "osm_type": "way",
+   "osm_id": 383851392
+  },
+  {
+   "name": "Ptaszarnia",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.53889,
+   "lng": 23.22791,
+   "osm_type": "way",
+   "osm_id": 678374520
+  },
+  {
+   "name": "Ptaszarnia",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "PL",
+   "lat": 49.81627,
+   "lng": 22.85772,
+   "osm_type": "way",
+   "osm_id": 955925768
+  },
+  {
+   "name": "Ranczo AgroBanda",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.72582,
+   "lng": 20.09874,
+   "osm_type": "node",
+   "osm_id": 11042741796
+  },
+  {
+   "name": "Ranczo Arka",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.43129,
+   "lng": 22.66032,
+   "osm_type": "way",
+   "osm_id": 1122904918
+  },
+  {
+   "name": "Ranczo Grapa",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.11287,
+   "lng": 15.77259,
+   "osm_type": "node",
+   "osm_id": 10028917304
+  },
+  {
+   "name": "Ranczo Nati",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.42568,
+   "lng": 19.41818,
+   "osm_type": "way",
+   "osm_id": 868454945
+  },
+  {
+   "name": "Ranczo Patataj",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.67698,
+   "lng": 20.75689,
+   "osm_type": "node",
+   "osm_id": 12316292689
+  },
+  {
+   "name": "Ranczo Przytulna Zagroda",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 53.50451,
+   "lng": 17.44112,
+   "osm_type": "way",
+   "osm_id": 1545395806
+  },
+  {
+   "name": "Ranczo Urzecze",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 52.11639,
+   "lng": 21.17648,
+   "osm_type": "node",
+   "osm_id": 13922256849
+  },
+  {
+   "name": "Reefguard",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PL",
+   "lat": 53.44297,
+   "lng": 14.54297,
+   "osm_type": "node",
+   "osm_id": 6699445182
+  },
+  {
+   "name": "Rezerwat Pokazowy Żubrów",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.7062,
+   "lng": 23.79948,
+   "osm_type": "way",
+   "osm_id": 39135567
+  },
+  {
+   "name": "Rybaczówka MiniZOO Wodzisław Śląski - Zawada",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.0158,
+   "lng": 18.36807,
+   "osm_type": "way",
+   "osm_id": 833610531
+  },
+  {
+   "name": "Sielankowo Siedlisko",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 52.53907,
+   "lng": 20.92641,
+   "osm_type": "node",
+   "osm_id": 10867117821
+  },
+  {
+   "name": "Stacja Badawcza Instytutu Parazytologii PAN",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 53.80857,
+   "lng": 21.41013,
+   "osm_type": "node",
+   "osm_id": 12122899544
+  },
+  {
+   "name": "Stacja Chile'out",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.68997,
+   "lng": 15.9591,
+   "osm_type": "way",
+   "osm_id": 1360569077
+  },
+  {
+   "name": "Stare Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.40813,
+   "lng": 16.90489,
+   "osm_type": "way",
+   "osm_id": 369544154
+  },
+  {
+   "name": "Strefa Gadów",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.95314,
+   "lng": 16.33182,
+   "osm_type": "node",
+   "osm_id": 9910191232
+  },
+  {
+   "name": "Tatrzańskie ZOO i Bagno Shreka",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 49.28631,
+   "lng": 19.96158,
+   "osm_type": "way",
+   "osm_id": 1149914436
+  },
+  {
+   "name": "Venomous Art",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.1115,
+   "lng": 17.02656,
+   "osm_type": "node",
+   "osm_id": 3162352751
+  },
+  {
+   "name": "Warszawski Ogród Zoologiczny",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.25854,
+   "lng": 21.02151,
+   "osm_type": "way",
+   "osm_id": 5200311
+  },
+  {
+   "name": "Wiejskie \"ZOO\"",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 49.38848,
+   "lng": 22.39782,
+   "osm_type": "way",
+   "osm_id": 564042435
+  },
+  {
+   "name": "Wiewiórki Świata",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.08861,
+   "lng": 21.94167,
+   "osm_type": "way",
+   "osm_id": 511554886
+  },
+  {
+   "name": "Wodne Zoo Safari",
+   "category": "zoo_aquarium",
+   "kind": "Safari Park",
+   "iso2": "PL",
+   "lat": 54.53064,
+   "lng": 16.947,
+   "osm_type": "way",
+   "osm_id": 1359161883
+  },
+  {
+   "name": "Wodny Świat",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PL",
+   "lat": 50.6554,
+   "lng": 17.92707,
+   "osm_type": "way",
+   "osm_id": 207031920
+  },
+  {
+   "name": "Woliera",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "PL",
+   "lat": 52.8826,
+   "lng": 18.79207,
+   "osm_type": "way",
+   "osm_id": 624216876
+  },
+  {
+   "name": "Woliera dla bażantów",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "PL",
+   "lat": 51.41272,
+   "lng": 21.96123,
+   "osm_type": "way",
+   "osm_id": 863231668
+  },
+  {
+   "name": "Wypoczynek w Eurostruś",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 52.46389,
+   "lng": 21.92149,
+   "osm_type": "node",
+   "osm_id": 5973048548
+  },
+  {
+   "name": "Wystawa Pająków",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.09503,
+   "lng": 17.0196,
+   "osm_type": "node",
+   "osm_id": 11509695408
+  },
+  {
+   "name": "ZOO Gorzów",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 52.75962,
+   "lng": 15.29408,
+   "osm_type": "way",
+   "osm_id": 1181328362
+  },
+  {
+   "name": "ZOO Lubin",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.39297,
+   "lng": 16.21375,
+   "osm_type": "way",
+   "osm_id": 863398247
+  },
+  {
+   "name": "ZOO Safari",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.26909,
+   "lng": 22.28337,
+   "osm_type": "node",
+   "osm_id": 3813317822
+  },
+  {
+   "name": "ZOO Safari Borysew",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.88176,
+   "lng": 18.93971,
+   "osm_type": "way",
+   "osm_id": 148313523
+  },
+  {
+   "name": "ZOO Wrocław",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.10423,
+   "lng": 17.07443,
+   "osm_type": "way",
+   "osm_id": 35922689
+  },
+  {
+   "name": "ZOObaczysko",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.81949,
+   "lng": 15.73035,
+   "osm_type": "way",
+   "osm_id": 1092550493
+  },
+  {
+   "name": "Zagroda Dzicza",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 52.86962,
+   "lng": 16.48414,
+   "osm_type": "way",
+   "osm_id": 857938710
+  },
+  {
+   "name": "Zagroda Edukacyjna STEFANÓWKA",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.82568,
+   "lng": 19.03619,
+   "osm_type": "node",
+   "osm_id": 12812227760
+  },
+  {
+   "name": "Zagroda Jelenia Szlachetnego \"Cypis\"",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PL",
+   "lat": 50.28732,
+   "lng": 17.48891,
+   "osm_type": "node",
+   "osm_id": 13965944854
+  },
+  {
+   "name": "Zagroda Pokazowa Żubrów",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.32626,
+   "lng": 16.30493,
+   "osm_type": "node",
+   "osm_id": 5763679055
+  },
+  {
+   "name": "Zagroda Pokazowa Żubrów",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.934,
+   "lng": 14.47635,
+   "osm_type": "way",
+   "osm_id": 231967710
+  },
+  {
+   "name": "Zagroda danieli",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.20758,
+   "lng": 18.3571,
+   "osm_type": "way",
+   "osm_id": 396563887
+  },
+  {
+   "name": "Zagroda ze zwierzętami",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.37876,
+   "lng": 16.85707,
+   "osm_type": "node",
+   "osm_id": 9814387906
+  },
+  {
+   "name": "Zagroda Żubrów",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 54.10126,
+   "lng": 22.08697,
+   "osm_type": "way",
+   "osm_id": 264926224
+  },
+  {
+   "name": "Zielone Alpaki",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.57198,
+   "lng": 23.09321,
+   "osm_type": "node",
+   "osm_id": 9915192189
+  },
+  {
+   "name": "Zoo Team",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 51.11864,
+   "lng": 17.04277,
+   "osm_type": "node",
+   "osm_id": 1200521628
+  },
+  {
+   "name": "Zoo Łączna",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.66747,
+   "lng": 16.141,
+   "osm_type": "way",
+   "osm_id": 303941881
+  },
+  {
+   "name": "Zwierzaki Nad Potokiem Mini ZOO",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 54.21915,
+   "lng": 18.61012,
+   "osm_type": "node",
+   "osm_id": 10296775135
+  },
+  {
+   "name": "Zwierzoo Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 52.32628,
+   "lng": 20.94931,
+   "osm_type": "node",
+   "osm_id": 12444714254
+  },
+  {
+   "name": "Zwierzyniec",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.56029,
+   "lng": 17.01081,
+   "osm_type": "way",
+   "osm_id": 493104654
+  },
+  {
+   "name": "Zwierzyniec",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.21035,
+   "lng": 18.24247,
+   "osm_type": "way",
+   "osm_id": 1244237456
+  },
+  {
+   "name": "Zwierzyniec",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.20994,
+   "lng": 18.24228,
+   "osm_type": "way",
+   "osm_id": 1349201519
+  },
+  {
+   "name": "Zwierzyniec",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.21061,
+   "lng": 18.24334,
+   "osm_type": "relation",
+   "osm_id": 18521770
+  },
+  {
+   "name": "Zwierzyniec Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.3975,
+   "lng": 21.04257,
+   "osm_type": "way",
+   "osm_id": 1191795277
+  },
+  {
+   "name": "Zwierzyniec Pod Topolą",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.24386,
+   "lng": 21.47793,
+   "osm_type": "node",
+   "osm_id": 13649953101
+  },
+  {
+   "name": "Zwierzyniec pana Jana",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PL",
+   "lat": 50.9091,
+   "lng": 21.28037,
+   "osm_type": "node",
+   "osm_id": 10036636603
+  },
+  {
+   "name": "Zwierzyniec Św.Franciszka",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 53.68156,
+   "lng": 16.71981,
+   "osm_type": "way",
+   "osm_id": 545210118
+  },
+  {
+   "name": "Zwierzęta regionalne",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 51.57222,
+   "lng": 17.83425,
+   "osm_type": "way",
+   "osm_id": 306447989
+  },
+  {
+   "name": "prawie ZOO",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.6586,
+   "lng": 22.18091,
+   "osm_type": "node",
+   "osm_id": 7644387887
+  },
+  {
+   "name": "zagroda pokazowa Żubrów",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PL",
+   "lat": 53.25562,
+   "lng": 23.48132,
+   "osm_type": "node",
+   "osm_id": 11541225930
+  },
+  {
+   "name": "Śląski Ogród Zoologiczny",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 50.28216,
+   "lng": 18.99402,
+   "osm_type": "way",
+   "osm_id": 38610477
+  },
+  {
+   "name": "Śremskie ZOO",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 52.09879,
+   "lng": 17.02397,
+   "osm_type": "relation",
+   "osm_id": 17345256
+  },
+  {
+   "name": "Żywieckie mini-zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PL",
+   "lat": 49.68311,
+   "lng": 19.20278,
+   "osm_type": "way",
+   "osm_id": 1012896509
+  },
+  {
+   "name": "Arboreto Municipal",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PT",
+   "lat": 41.56539,
+   "lng": -8.7444,
+   "osm_type": "way",
+   "osm_id": 979427471
+  },
+  {
+   "name": "Camélias",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 32.66024,
+   "lng": -16.86776,
+   "osm_type": "node",
+   "osm_id": 6101032030
+  },
+  {
+   "name": "Jardim António Borges",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 37.74387,
+   "lng": -25.67594,
+   "osm_type": "relation",
+   "osm_id": 12768197
+  },
+  {
+   "name": "Jardim Barroco",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PT",
+   "lat": 41.77043,
+   "lng": -8.58815,
+   "osm_type": "node",
+   "osm_id": 13371417767
+  },
+  {
+   "name": "Jardim Botânico",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 38.68363,
+   "lng": -9.15991,
+   "osm_type": "node",
+   "osm_id": 6544813272
+  },
+  {
+   "name": "Jardim Botânico",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 38.70628,
+   "lng": -9.1993,
+   "osm_type": "node",
+   "osm_id": 12320531554
+  },
+  {
+   "name": "Jardim Botânico",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 38.01372,
+   "lng": -7.87468,
+   "osm_type": "relation",
+   "osm_id": 18419322
+  },
+  {
+   "name": "Jardim Botânico da Ajuda",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 38.70622,
+   "lng": -9.20081,
+   "osm_type": "relation",
+   "osm_id": 8800175
+  },
+  {
+   "name": "Jardim Botânico da Madeira Engenheiro Rui Vieira",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 32.66222,
+   "lng": -16.89556,
+   "osm_type": "way",
+   "osm_id": 26391452
+  },
+  {
+   "name": "Jardim Botânico da Ribeira do Guilherme",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 37.83254,
+   "lng": -25.15556,
+   "osm_type": "node",
+   "osm_id": 11047475789
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Aromáticas e Medicinais",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28778,
+   "lng": -7.74036,
+   "osm_type": "relation",
+   "osm_id": 11230656
+  },
+  {
+   "name": "Jardim Botânico da UTAD - As Idades do Homem",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28871,
+   "lng": -7.7394,
+   "osm_type": "way",
+   "osm_id": 818865008
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Cistáceas e Leguminosas",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28733,
+   "lng": -7.74129,
+   "osm_type": "way",
+   "osm_id": 818865007
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Ericáceas",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28581,
+   "lng": -7.74052,
+   "osm_type": "way",
+   "osm_id": 818864996
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Fagáceas",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28904,
+   "lng": -7.74147,
+   "osm_type": "way",
+   "osm_id": 818865019
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Fruteiras Silvestres",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28764,
+   "lng": -7.74262,
+   "osm_type": "way",
+   "osm_id": 818865021
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Mediterrânicas Silicícolas",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28726,
+   "lng": -7.73993,
+   "osm_type": "way",
+   "osm_id": 818865001
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Mediterrênicas Calcícolas",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28695,
+   "lng": -7.73958,
+   "osm_type": "way",
+   "osm_id": 818865000
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Mirtáceas",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28797,
+   "lng": -7.74173,
+   "osm_type": "way",
+   "osm_id": 818865020
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Mortórios do Douro",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28472,
+   "lng": -7.74479,
+   "osm_type": "way",
+   "osm_id": 818865023
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Plantas Arcaicas",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28865,
+   "lng": -7.73986,
+   "osm_type": "way",
+   "osm_id": 818865011
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Plantas de Cobertura",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28595,
+   "lng": -7.73906,
+   "osm_type": "way",
+   "osm_id": 818875576
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Plantas de Cobertura",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28616,
+   "lng": -7.73968,
+   "osm_type": "way",
+   "osm_id": 818875578
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Resinosas Ornamentais",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28687,
+   "lng": -7.73886,
+   "osm_type": "way",
+   "osm_id": 818864994
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Rosáceas",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28448,
+   "lng": -7.74572,
+   "osm_type": "way",
+   "osm_id": 818865024
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Vitáceas",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28901,
+   "lng": -7.73943,
+   "osm_type": "way",
+   "osm_id": 818875575
+  },
+  {
+   "name": "Jardim Botânico da UTAD - Viveiros Florestais",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.28847,
+   "lng": -7.73683,
+   "osm_type": "way",
+   "osm_id": 818864992
+  },
+  {
+   "name": "Jardim Botânico de Queluz",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 38.74819,
+   "lng": -9.26002,
+   "osm_type": "way",
+   "osm_id": 1396425794
+  },
+  {
+   "name": "Jardim José do Canto",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 37.74854,
+   "lng": -25.67006,
+   "osm_type": "way",
+   "osm_id": 73553404
+  },
+  {
+   "name": "Jardim Labirinto",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PT",
+   "lat": 41.77012,
+   "lng": -8.58855,
+   "osm_type": "way",
+   "osm_id": 1498675184
+  },
+  {
+   "name": "Jardim Nascente",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.29664,
+   "lng": -7.71192,
+   "osm_type": "relation",
+   "osm_id": 12903500
+  },
+  {
+   "name": "Jardim Romano",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PT",
+   "lat": 41.77004,
+   "lng": -8.58812,
+   "osm_type": "node",
+   "osm_id": 13371417769
+  },
+  {
+   "name": "Jardim das Coroas",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.29609,
+   "lng": -7.71184,
+   "osm_type": "way",
+   "osm_id": 902479474
+  },
+  {
+   "name": "Jardim das Flores",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.29636,
+   "lng": -7.71161,
+   "osm_type": "relation",
+   "osm_id": 12903501
+  },
+  {
+   "name": "Jardim de Água",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.2966,
+   "lng": -7.71146,
+   "osm_type": "way",
+   "osm_id": 902479463
+  },
+  {
+   "name": "Jardim do Palácio de Sant'Ana",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 37.74882,
+   "lng": -25.67227,
+   "osm_type": "relation",
+   "osm_id": 12769624
+  },
+  {
+   "name": "Jardim dos Canteiros",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 38.39874,
+   "lng": -7.71284,
+   "osm_type": "way",
+   "osm_id": 1022451356
+  },
+  {
+   "name": "Largo Conde de Ottolini",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "PT",
+   "lat": 38.74303,
+   "lng": -9.1777,
+   "osm_type": "way",
+   "osm_id": 675647967
+  },
+  {
+   "name": "Mata-Jardim José do Canto",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 37.75026,
+   "lng": -25.33237,
+   "osm_type": "node",
+   "osm_id": 4510936689
+  },
+  {
+   "name": "Pomar de Recreio",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 41.29643,
+   "lng": -7.71252,
+   "osm_type": "relation",
+   "osm_id": 12903502
+  },
+  {
+   "name": "Quinta de São Francisco",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 40.6196,
+   "lng": -8.56693,
+   "osm_type": "way",
+   "osm_id": 1208811331
+  },
+  {
+   "name": "Quinta do Lomelino - Jardim Natural",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 38.52893,
+   "lng": -28.66256,
+   "osm_type": "way",
+   "osm_id": 452072104
+  },
+  {
+   "name": "Quinta do Palheiro Ferreiro",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 32.65984,
+   "lng": -16.86954,
+   "osm_type": "node",
+   "osm_id": 3995321266
+  },
+  {
+   "name": "jardim da vila",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "PT",
+   "lat": 37.60343,
+   "lng": -8.69343,
+   "osm_type": "way",
+   "osm_id": 949407400
+  },
+  {
+   "name": "Animais SFN",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 37.82786,
+   "lng": -25.14908,
+   "osm_type": "node",
+   "osm_id": 3133049169
+  },
+  {
+   "name": "Animais do Palace Hotel da Curia",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 40.42354,
+   "lng": -8.46126,
+   "osm_type": "node",
+   "osm_id": 1435549871
+  },
+  {
+   "name": "Aquário Oceanus",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PT",
+   "lat": 37.12601,
+   "lng": -8.31601,
+   "osm_type": "way",
+   "osm_id": 107610567
+  },
+  {
+   "name": "Aquário Vasco da Gama",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PT",
+   "lat": 38.69921,
+   "lng": -9.23854,
+   "osm_type": "way",
+   "osm_id": 144636459
+  },
+  {
+   "name": "Aquário da Estação Litoral da Aguda",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PT",
+   "lat": 41.04773,
+   "lng": -8.65327,
+   "osm_type": "node",
+   "osm_id": 12768454162
+  },
+  {
+   "name": "Aquário da Madeira",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PT",
+   "lat": 32.86731,
+   "lng": -17.16542,
+   "osm_type": "node",
+   "osm_id": 11409977906
+  },
+  {
+   "name": "Badoca Safari Park",
+   "category": "zoo_aquarium",
+   "kind": "Safari Park",
+   "iso2": "PT",
+   "lat": 38.03913,
+   "lng": -8.74399,
+   "osm_type": "way",
+   "osm_id": 195979495
+  },
+  {
+   "name": "Borboletário João Pedro Cardoso da Conceição",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 38.69634,
+   "lng": -9.34578,
+   "osm_type": "way",
+   "osm_id": 564856017
+  },
+  {
+   "name": "Borboletário Tropical de Constância",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 39.44558,
+   "lng": -8.31894,
+   "osm_type": "way",
+   "osm_id": 297547542
+  },
+  {
+   "name": "Cappas InsectoZoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 38.24599,
+   "lng": -7.93723,
+   "osm_type": "node",
+   "osm_id": 8519159470
+  },
+  {
+   "name": "Casa de animais",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 42.07405,
+   "lng": -8.48945,
+   "osm_type": "node",
+   "osm_id": 1494169465
+  },
+  {
+   "name": "Centro Nacional de Reprodução de Lince Ibérico",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 37.25453,
+   "lng": -8.36898,
+   "osm_type": "node",
+   "osm_id": 4838844550
+  },
+  {
+   "name": "Cercados do Lince Ibérico",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 37.25363,
+   "lng": -8.37047,
+   "osm_type": "way",
+   "osm_id": 172320696
+  },
+  {
+   "name": "Europaradise - Parque Zoológico",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 40.19649,
+   "lng": -8.67701,
+   "osm_type": "way",
+   "osm_id": 179947536
+  },
+  {
+   "name": "Expositor de Gamos",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 38.48566,
+   "lng": -28.24202,
+   "osm_type": "way",
+   "osm_id": 723241356
+  },
+  {
+   "name": "Fluviário de Mora",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PT",
+   "lat": 38.95569,
+   "lng": -8.10669,
+   "osm_type": "way",
+   "osm_id": 111449490
+  },
+  {
+   "name": "Gaiola das Aves",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 38.65362,
+   "lng": -8.98934,
+   "osm_type": "node",
+   "osm_id": 5446430704
+  },
+  {
+   "name": "Gamos e Pavões",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 38.5837,
+   "lng": -28.78273,
+   "osm_type": "way",
+   "osm_id": 1038391800
+  },
+  {
+   "name": "Ilha das Aves",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "PT",
+   "lat": 32.66433,
+   "lng": -17.03425,
+   "osm_type": "relation",
+   "osm_id": 18212287
+  },
+  {
+   "name": "Jardim Zoológico de Lisboa",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 38.74536,
+   "lng": -9.17148,
+   "osm_type": "way",
+   "osm_id": 30104081
+  },
+  {
+   "name": "KrazyWorld Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 37.18221,
+   "lng": -8.28105,
+   "osm_type": "node",
+   "osm_id": 1665582030
+  },
+  {
+   "name": "KrazyWorld Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 37.18274,
+   "lng": -8.28093,
+   "osm_type": "way",
+   "osm_id": 608142805
+  },
+  {
+   "name": "Lontrário",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PT",
+   "lat": 38.95559,
+   "lng": -8.10635,
+   "osm_type": "way",
+   "osm_id": 384893722
+  },
+  {
+   "name": "Monte Selvagem",
+   "category": "zoo_aquarium",
+   "kind": "Safari Park",
+   "iso2": "PT",
+   "lat": 38.80241,
+   "lng": -8.30329,
+   "osm_type": "way",
+   "osm_id": 251387657
+  },
+  {
+   "name": "Oceanário de Lisboa",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PT",
+   "lat": 38.76352,
+   "lng": -9.09372,
+   "osm_type": "way",
+   "osm_id": 1016189633
+  },
+  {
+   "name": "Oceanário de Lisboa",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PT",
+   "lat": 38.76277,
+   "lng": -9.09372,
+   "osm_type": "relation",
+   "osm_id": 3084517
+  },
+  {
+   "name": "Parque Ambiental do Bucheiro",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 41.51555,
+   "lng": -7.79364,
+   "osm_type": "node",
+   "osm_id": 1219208115
+  },
+  {
+   "name": "Parque Ecológico de Gouveia",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 40.50362,
+   "lng": -7.57614,
+   "osm_type": "way",
+   "osm_id": 609529046
+  },
+  {
+   "name": "Parque Natureza do Agroal",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "PT",
+   "lat": 39.68341,
+   "lng": -8.43778,
+   "osm_type": "way",
+   "osm_id": 850061278
+  },
+  {
+   "name": "Parque Zoológico de Lagos",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 37.14464,
+   "lng": -8.76548,
+   "osm_type": "way",
+   "osm_id": 229478429
+  },
+  {
+   "name": "Parque de Fauna e Flora de Castelo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 41.03922,
+   "lng": -7.61997,
+   "osm_type": "node",
+   "osm_id": 3474656729
+  },
+  {
+   "name": "Quinta Pedagógica",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 37.25912,
+   "lng": -8.43907,
+   "osm_type": "way",
+   "osm_id": 121261899
+  },
+  {
+   "name": "Quinta Pedagógica de Braga",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 41.5614,
+   "lng": -8.43797,
+   "osm_type": "relation",
+   "osm_id": 18233688
+  },
+  {
+   "name": "Quinta Pedagógica dos Olivais",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PT",
+   "lat": 38.76319,
+   "lng": -9.11183,
+   "osm_type": "way",
+   "osm_id": 181491591
+  },
+  {
+   "name": "Quinta Pedagógica dos Prazeres - Padre Rui Sousa",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PT",
+   "lat": 32.75414,
+   "lng": -17.20177,
+   "osm_type": "way",
+   "osm_id": 979848412
+  },
+  {
+   "name": "Quinta das Palmeiras",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 33.06701,
+   "lng": -16.36511,
+   "osm_type": "node",
+   "osm_id": 13100853474
+  },
+  {
+   "name": "Quinta das Palmeiras",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 33.06649,
+   "lng": -16.36513,
+   "osm_type": "way",
+   "osm_id": 441891718
+  },
+  {
+   "name": "Quinta dos Bichos",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PT",
+   "lat": 38.58178,
+   "lng": -9.11117,
+   "osm_type": "way",
+   "osm_id": 707077840
+  },
+  {
+   "name": "Quinta pedagógica",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PT",
+   "lat": 40.08138,
+   "lng": -8.33329,
+   "osm_type": "way",
+   "osm_id": 973594086
+  },
+  {
+   "name": "Quintinha",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PT",
+   "lat": 38.04147,
+   "lng": -8.74231,
+   "osm_type": "way",
+   "osm_id": 1320134324
+  },
+  {
+   "name": "Quintinha",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PT",
+   "lat": 38.80376,
+   "lng": -8.30379,
+   "osm_type": "way",
+   "osm_id": 1374281759
+  },
+  {
+   "name": "Sea Life Porto",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PT",
+   "lat": 41.16869,
+   "lng": -8.6875,
+   "osm_type": "way",
+   "osm_id": 110801272
+  },
+  {
+   "name": "Vila do Gin - Parque Temático Black Pig",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "PT",
+   "lat": 38.05228,
+   "lng": -8.73997,
+   "osm_type": "way",
+   "osm_id": 1363889411
+  },
+  {
+   "name": "Waterfall and carp pond",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PT",
+   "lat": 37.12668,
+   "lng": -8.31435,
+   "osm_type": "way",
+   "osm_id": 1238841314
+  },
+  {
+   "name": "Zoo Santo Inácio",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 41.09825,
+   "lng": -8.53632,
+   "osm_type": "way",
+   "osm_id": 109604628
+  },
+  {
+   "name": "Zoo da Maia",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PT",
+   "lat": 41.23429,
+   "lng": -8.63166,
+   "osm_type": "way",
+   "osm_id": 468730481
+  },
+  {
+   "name": "Zoo de Lourosa",
+   "category": "zoo_aquarium",
+   "kind": "Aviary",
+   "iso2": "PT",
+   "lat": 40.9946,
+   "lng": -8.54628,
+   "osm_type": "way",
+   "osm_id": 764423966
+  },
+  {
+   "name": "Palau Aquarium",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PW",
+   "lat": 7.3385,
+   "lng": 134.46636,
+   "osm_type": "node",
+   "osm_id": 4411044392
+  },
+  {
+   "name": "Palau International Coral Reef Centre",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "PW",
+   "lat": 7.33864,
+   "lng": 134.46623,
+   "osm_type": "node",
+   "osm_id": 685785953
+  },
+  {
+   "name": "Jardín Botánico y Zoológico de Asunción",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PY",
+   "lat": -25.24692,
+   "lng": -57.57102,
+   "osm_type": "way",
+   "osm_id": 29045875
+  },
+  {
+   "name": "Minizoologico",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PY",
+   "lat": -27.26308,
+   "lng": -55.64229,
+   "osm_type": "node",
+   "osm_id": 6913629226
+  },
+  {
+   "name": "Puma",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PY",
+   "lat": -22.31847,
+   "lng": -59.9041,
+   "osm_type": "node",
+   "osm_id": 7948520909
+  },
+  {
+   "name": "Tapir",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PY",
+   "lat": -22.31852,
+   "lng": -59.90404,
+   "osm_type": "node",
+   "osm_id": 7948490715
+  },
+  {
+   "name": "Venado",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PY",
+   "lat": -22.31855,
+   "lng": -59.90418,
+   "osm_type": "node",
+   "osm_id": 7948499879
+  },
+  {
+   "name": "Zoologico",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "PY",
+   "lat": -25.44758,
+   "lng": -54.63544,
+   "osm_type": "way",
+   "osm_id": 427825996
+  },
+  {
+   "name": "Al Khor park small zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "QA",
+   "lat": 25.64881,
+   "lng": 51.42211,
+   "osm_type": "way",
+   "osm_id": 466181480
+  },
+  {
+   "name": "Al Wabra Wildlife Sanctury",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "QA",
+   "lat": 25.34136,
+   "lng": 51.17448,
+   "osm_type": "way",
+   "osm_id": 223539478
+  },
+  {
+   "name": "Aviary zoo [Al Khor park]",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "QA",
+   "lat": 25.65059,
+   "lng": 51.42316,
+   "osm_type": "way",
+   "osm_id": 466181478
+  },
+  {
+   "name": "Panda House",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "QA",
+   "lat": 25.6483,
+   "lng": 51.4249,
+   "osm_type": "node",
+   "osm_id": 13069204003
+  },
+  {
+   "name": "حديقة حيوان الدوحة",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "QA",
+   "lat": 25.24732,
+   "lng": 51.43505,
+   "osm_type": "way",
+   "osm_id": 112969308
+  },
+  {
+   "name": "Grădina Agro-Botanică",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "RO",
+   "lat": 46.75948,
+   "lng": 23.57378,
+   "osm_type": "way",
+   "osm_id": 951903106
+  },
+  {
+   "name": "Grădina Botanică",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "RO",
+   "lat": 44.43767,
+   "lng": 26.06335,
+   "osm_type": "way",
+   "osm_id": 23557199
+  },
+  {
+   "name": "Grădina Botanică Alexandru Borza",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "RO",
+   "lat": 46.76044,
+   "lng": 23.58697,
+   "osm_type": "way",
+   "osm_id": 23892944
+  },
+  {
+   "name": "Grădina Botanică Anastasie Fătu",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "RO",
+   "lat": 47.18514,
+   "lng": 27.55135,
+   "osm_type": "relation",
+   "osm_id": 1251249
+  },
+  {
+   "name": "Grădina Botanică Bucov (Ploiești)",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "RO",
+   "lat": 44.977,
+   "lng": 26.05179,
+   "osm_type": "way",
+   "osm_id": 83990870
+  },
+  {
+   "name": "Grădina Botanică Galați",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "RO",
+   "lat": 45.42117,
+   "lng": 28.03155,
+   "osm_type": "way",
+   "osm_id": 12503918
+  },
+  {
+   "name": "Grădina Botanică Universitară Alexandru Buia",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "RO",
+   "lat": 44.32431,
+   "lng": 23.78637,
+   "osm_type": "way",
+   "osm_id": 223929490
+  },
+  {
+   "name": "Grădinile Fermecate ale Dragonilor",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "RO",
+   "lat": 46.43277,
+   "lng": 24.65727,
+   "osm_type": "node",
+   "osm_id": 14020660145
+  },
+  {
+   "name": "Parcul dendrologic Golescu",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "RO",
+   "lat": 45.27517,
+   "lng": 25.04196,
+   "osm_type": "way",
+   "osm_id": 1007781028
+  },
+  {
+   "name": "Acvariu extern",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "RO",
+   "lat": 45.40681,
+   "lng": 25.52803,
+   "osm_type": "way",
+   "osm_id": 1197319404
+  },
+  {
+   "name": "Acvariul",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "RO",
+   "lat": 44.94177,
+   "lng": 26.02191,
+   "osm_type": "node",
+   "osm_id": 9762735661
+  },
+  {
+   "name": "Acvariul Constanța",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "RO",
+   "lat": 44.17093,
+   "lng": 28.66321,
+   "osm_type": "way",
+   "osm_id": 106434440
+  },
+  {
+   "name": "Arca lui Noe",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 47.60083,
+   "lng": 26.14966,
+   "osm_type": "way",
+   "osm_id": 1434430742
+  },
+  {
+   "name": "Casa Fluturilor",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 46.54927,
+   "lng": 25.11451,
+   "osm_type": "node",
+   "osm_id": 8740380550
+  },
+  {
+   "name": "Enduro Ranch",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 47.09089,
+   "lng": 27.63115,
+   "osm_type": "node",
+   "osm_id": 14081669801
+  },
+  {
+   "name": "Ferma animalelor Udesti",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "RO",
+   "lat": 47.58437,
+   "lng": 26.40313,
+   "osm_type": "node",
+   "osm_id": 14031973067
+  },
+  {
+   "name": "Grădina Zoologică",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 44.97671,
+   "lng": 26.05545,
+   "osm_type": "node",
+   "osm_id": 2634653084
+  },
+  {
+   "name": "Grădina Zoologică",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 45.56468,
+   "lng": 28.01009,
+   "osm_type": "node",
+   "osm_id": 2634653085
+  },
+  {
+   "name": "Grădina Zoologică",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "RO",
+   "lat": 44.4639,
+   "lng": 25.97342,
+   "osm_type": "node",
+   "osm_id": 6621302168
+  },
+  {
+   "name": "Grădina Zoologică \"Dragoș Vodă\"",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 47.24674,
+   "lng": 26.22479,
+   "osm_type": "node",
+   "osm_id": 2634651917
+  },
+  {
+   "name": "Grădina Zoologică Bejan",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 45.85588,
+   "lng": 22.90345,
+   "osm_type": "way",
+   "osm_id": 240875129
+  },
+  {
+   "name": "Grădina Zoologică Brăila",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 45.23762,
+   "lng": 27.93151,
+   "osm_type": "way",
+   "osm_id": 28468519
+  },
+  {
+   "name": "Grădina Zoologică Bucov (Ploiești)",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 44.97643,
+   "lng": 26.05538,
+   "osm_type": "way",
+   "osm_id": 83991244
+  },
+  {
+   "name": "Grădina Zoologică Bucureşti",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 44.51716,
+   "lng": 26.10432,
+   "osm_type": "node",
+   "osm_id": 13164499536
+  },
+  {
+   "name": "Grădina Zoologică București",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 44.51708,
+   "lng": 26.10441,
+   "osm_type": "way",
+   "osm_id": 369588750
+  },
+  {
+   "name": "Grădina Zoologică Bârlad",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 46.24431,
+   "lng": 27.67539,
+   "osm_type": "way",
+   "osm_id": 208636059
+  },
+  {
+   "name": "Grădina Zoologică Craiova",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 44.30164,
+   "lng": 23.8063,
+   "osm_type": "way",
+   "osm_id": 369579055
+  },
+  {
+   "name": "Grădina Zoologică Călărași",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 44.19412,
+   "lng": 27.3185,
+   "osm_type": "way",
+   "osm_id": 296880019
+  },
+  {
+   "name": "Grădina Zoologică Hunedoara",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 45.74939,
+   "lng": 22.91581,
+   "osm_type": "way",
+   "osm_id": 601316443
+  },
+  {
+   "name": "Grădina Zoologică Ion Crișan",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 45.2937,
+   "lng": 21.92131,
+   "osm_type": "way",
+   "osm_id": 349580768
+  },
+  {
+   "name": "Grădina Zoologică Oradea",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 47.04967,
+   "lng": 21.91652,
+   "osm_type": "way",
+   "osm_id": 290565675
+  },
+  {
+   "name": "Grădina Zoologică Pitești",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 44.85628,
+   "lng": 24.82587,
+   "osm_type": "way",
+   "osm_id": 369567055
+  },
+  {
+   "name": "Grădina Zoologică Pădurea Verde Timișoara",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 45.78107,
+   "lng": 21.26778,
+   "osm_type": "way",
+   "osm_id": 27544644
+  },
+  {
+   "name": "Grădina Zoologică Râmnicu Vâlcea",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 45.083,
+   "lng": 24.37167,
+   "osm_type": "way",
+   "osm_id": 369579059
+  },
+  {
+   "name": "Grădina Zoologică Rădăuți",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 47.842,
+   "lng": 25.90659,
+   "osm_type": "way",
+   "osm_id": 709897581
+  },
+  {
+   "name": "Grădina Zoologică Sibiu",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 45.76237,
+   "lng": 24.12329,
+   "osm_type": "way",
+   "osm_id": 369563945
+  },
+  {
+   "name": "Grădina Zoologică Turda",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 46.57531,
+   "lng": 23.81014,
+   "osm_type": "node",
+   "osm_id": 2634653091
+  },
+  {
+   "name": "Grădina Zoologică Târgoviște",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 44.9357,
+   "lng": 25.45704,
+   "osm_type": "way",
+   "osm_id": 28174613
+  },
+  {
+   "name": "Grădina Zoologică Târgu Mureș",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 46.5519,
+   "lng": 24.59462,
+   "osm_type": "way",
+   "osm_id": 31133222
+  },
+  {
+   "name": "Microrezervație",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 44.20448,
+   "lng": 28.64033,
+   "osm_type": "way",
+   "osm_id": 1010745567
+  },
+  {
+   "name": "Mini Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 44.25077,
+   "lng": 28.58273,
+   "osm_type": "node",
+   "osm_id": 1897956820
+  },
+  {
+   "name": "Parcul Zoologic Brașov",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 45.61264,
+   "lng": 25.63217,
+   "osm_type": "way",
+   "osm_id": 25361452
+  },
+  {
+   "name": "Parcul de Agrement - Moara de Vânt",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 46.67004,
+   "lng": 23.55558,
+   "osm_type": "way",
+   "osm_id": 241456582
+  },
+  {
+   "name": "Rezervația de Zimbri și Faună Carpatină Dragoș Vodă",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 47.24652,
+   "lng": 26.22278,
+   "osm_type": "node",
+   "osm_id": 415769367
+  },
+  {
+   "name": "Rezervația de Zimbri și Faună Carpatină Dragoș Vodă",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 47.24608,
+   "lng": 26.21855,
+   "osm_type": "way",
+   "osm_id": 1000911671
+  },
+  {
+   "name": "Zooland Farm Arad",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 46.11997,
+   "lng": 21.53967,
+   "osm_type": "node",
+   "osm_id": 10860052163
+  },
+  {
+   "name": "punct zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 47.01017,
+   "lng": 27.42866,
+   "osm_type": "way",
+   "osm_id": 208115461
+  },
+  {
+   "name": "punct zoo",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RO",
+   "lat": 46.84688,
+   "lng": 27.80457,
+   "osm_type": "way",
+   "osm_id": 222607265
+  },
+  {
+   "name": "Арборетум Шумарског факултета",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.7825,
+   "lng": 20.42491,
+   "osm_type": "way",
+   "osm_id": 845194811
+  },
+  {
+   "name": "Ботаничка башта Јевремовац",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "RS",
+   "lat": 44.81559,
+   "lng": 20.47323,
+   "osm_type": "relation",
+   "osm_id": 1347976
+  },
+  {
+   "name": "Ботаничка башта у Шумарицама",
+   "category": "botanical_garden",
+   "kind": "Botanical Garden",
+   "iso2": "RS",
+   "lat": 44.02334,
+   "lng": 20.88599,
+   "osm_type": "way",
+   "osm_id": 94398240
+  },
+  {
+   "name": "Т1",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82114,
+   "lng": 20.43908,
+   "osm_type": "way",
+   "osm_id": 1132397777
+  },
+  {
+   "name": "Т10",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.81964,
+   "lng": 20.43763,
+   "osm_type": "way",
+   "osm_id": 1132397764
+  },
+  {
+   "name": "Т11а",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82009,
+   "lng": 20.43645,
+   "osm_type": "way",
+   "osm_id": 1132394760
+  },
+  {
+   "name": "Т11б",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82025,
+   "lng": 20.43721,
+   "osm_type": "way",
+   "osm_id": 1132394762
+  },
+  {
+   "name": "Т11ц",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82027,
+   "lng": 20.43665,
+   "osm_type": "way",
+   "osm_id": 1132394761
+  },
+  {
+   "name": "Т12а",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82001,
+   "lng": 20.43628,
+   "osm_type": "way",
+   "osm_id": 1132394759
+  },
+  {
+   "name": "Т12б",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.81994,
+   "lng": 20.437,
+   "osm_type": "way",
+   "osm_id": 1132393919
+  },
+  {
+   "name": "Т12ц",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.81956,
+   "lng": 20.43666,
+   "osm_type": "way",
+   "osm_id": 1132393918
+  },
+  {
+   "name": "Т13",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.81921,
+   "lng": 20.43735,
+   "osm_type": "way",
+   "osm_id": 1132397763
+  },
+  {
+   "name": "Т14а",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.81986,
+   "lng": 20.43622,
+   "osm_type": "way",
+   "osm_id": 1132394758
+  },
+  {
+   "name": "Т14б",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.81979,
+   "lng": 20.43605,
+   "osm_type": "way",
+   "osm_id": 1132394756
+  },
+  {
+   "name": "Т14ц",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.8194,
+   "lng": 20.43638,
+   "osm_type": "way",
+   "osm_id": 1132394757
+  },
+  {
+   "name": "Т15",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.8189,
+   "lng": 20.43691,
+   "osm_type": "way",
+   "osm_id": 1132397761
+  },
+  {
+   "name": "Т16",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.81858,
+   "lng": 20.4375,
+   "osm_type": "way",
+   "osm_id": 1132397762
+  },
+  {
+   "name": "Т18",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.81918,
+   "lng": 20.43581,
+   "osm_type": "way",
+   "osm_id": 1132397759
+  },
+  {
+   "name": "Т18",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.81986,
+   "lng": 20.43867,
+   "osm_type": "way",
+   "osm_id": 1132397765
+  },
+  {
+   "name": "Т19а",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.81866,
+   "lng": 20.43576,
+   "osm_type": "way",
+   "osm_id": 1132397760
+  },
+  {
+   "name": "Т2а",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82128,
+   "lng": 20.43837,
+   "osm_type": "way",
+   "osm_id": 1132397772
+  },
+  {
+   "name": "Т2б",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82152,
+   "lng": 20.43853,
+   "osm_type": "way",
+   "osm_id": 1132397773
+  },
+  {
+   "name": "Т2ц",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82155,
+   "lng": 20.43837,
+   "osm_type": "way",
+   "osm_id": 1132397774
+  },
+  {
+   "name": "Т3",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82097,
+   "lng": 20.43817,
+   "osm_type": "way",
+   "osm_id": 1132397771
+  },
+  {
+   "name": "Т4",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82137,
+   "lng": 20.43787,
+   "osm_type": "way",
+   "osm_id": 1132397776
+  },
+  {
+   "name": "Т5",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82099,
+   "lng": 20.43701,
+   "osm_type": "way",
+   "osm_id": 1132397775
+  },
+  {
+   "name": "Т6",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82072,
+   "lng": 20.43726,
+   "osm_type": "way",
+   "osm_id": 1132397770
+  },
+  {
+   "name": "Т7а",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82044,
+   "lng": 20.43677,
+   "osm_type": "way",
+   "osm_id": 1132397766
+  },
+  {
+   "name": "Т7б",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82054,
+   "lng": 20.43803,
+   "osm_type": "way",
+   "osm_id": 1132397767
+  },
+  {
+   "name": "Т7ц",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.8206,
+   "lng": 20.43885,
+   "osm_type": "way",
+   "osm_id": 1132397768
+  },
+  {
+   "name": "Т9",
+   "category": "botanical_garden",
+   "kind": "Arboretum",
+   "iso2": "RS",
+   "lat": 44.82016,
+   "lng": 20.43783,
+   "osm_type": "way",
+   "osm_id": 1132397769
+  },
+  {
+   "name": "Magic Zoo",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "RS",
+   "lat": 44.81374,
+   "lng": 19.94449,
+   "osm_type": "way",
+   "osm_id": 1484945175
+  },
+  {
+   "name": "Mini zoološki vrt (ptice)",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 44.75327,
+   "lng": 20.58308,
+   "osm_type": "way",
+   "osm_id": 1167701323
+  },
+  {
+   "name": "Јавни акваријум и тропикаријум",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "RS",
+   "lat": 44.78424,
+   "lng": 20.45038,
+   "osm_type": "way",
+   "osm_id": 399380046
+  },
+  {
+   "name": "Акваријум",
+   "category": "zoo_aquarium",
+   "kind": "Aquarium",
+   "iso2": "RS",
+   "lat": 44.75338,
+   "lng": 20.58377,
+   "osm_type": "way",
+   "osm_id": 1167575975
+  },
+  {
+   "name": "Бео зоо врт",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 44.82592,
+   "lng": 20.45368,
+   "osm_type": "way",
+   "osm_id": 33517093
+  },
+  {
+   "name": "Зоо Нови Пазар",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 43.12121,
+   "lng": 20.38891,
+   "osm_type": "way",
+   "osm_id": 53660720
+  },
+  {
+   "name": "Зоо врт Јасеново",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 44.94032,
+   "lng": 21.29169,
+   "osm_type": "node",
+   "osm_id": 12104946575
+  },
+  {
+   "name": "Зоо врт Бор",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 44.05833,
+   "lng": 22.09661,
+   "osm_type": "way",
+   "osm_id": 155425377
+  },
+  {
+   "name": "Зоо врт Илина вода",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 44.017,
+   "lng": 20.94185,
+   "osm_type": "node",
+   "osm_id": 2091661861
+  },
+  {
+   "name": "Зоо врт Палић",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 46.09947,
+   "lng": 19.7494,
+   "osm_type": "way",
+   "osm_id": 224232099
+  },
+  {
+   "name": "Зоо врт „Мишић”",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 42.52696,
+   "lng": 21.96494,
+   "osm_type": "way",
+   "osm_id": 1226745221
+  },
+  {
+   "name": "Зоолошки врт Врњци",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 43.64625,
+   "lng": 20.90191,
+   "osm_type": "way",
+   "osm_id": 997468816
+  },
+  {
+   "name": "Зоолошки врт „Тигар”",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 43.96441,
+   "lng": 21.26483,
+   "osm_type": "way",
+   "osm_id": 212085932
+  },
+  {
+   "name": "Коки",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 45.05481,
+   "lng": 20.06495,
+   "osm_type": "relation",
+   "osm_id": 15981525
+  },
+  {
+   "name": "Мини зоо",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 44.57713,
+   "lng": 20.38809,
+   "osm_type": "way",
+   "osm_id": 436528609
+  },
+  {
+   "name": "Мини зоо врт Ждрал",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 44.95761,
+   "lng": 20.27202,
+   "osm_type": "node",
+   "osm_id": 5009728398
+  },
+  {
+   "name": "Мини зоолошки врт",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RS",
+   "lat": 45.42096,
+   "lng": 19.88588,
+   "osm_type": "way",
+   "osm_id": 1255614185
+  },
+  {
+   "name": "Пони село",
+   "category": "zoo_aquarium",
+   "kind": "Petting Zoo",
+   "iso2": "RS",
+   "lat": 44.25953,
+   "lng": 19.86626,
+   "osm_type": "way",
+   "osm_id": 709203093
+  },
+  {
+   "name": "Kigali zoo for Moussa",
+   "category": "zoo_aquarium",
+   "kind": "Zoo",
+   "iso2": "RW",
+   "lat": -1.96838,
+   "lng": 30.05506,
+   "osm_type": "way",
+   "osm_id": 212725136
+  },
+  {
+   "name": "Umusambi Village",
+   "category": "zoo_aquarium",
+   "kind": "Wildlife Park",
+   "iso2": "RW",
+   "lat": -1.98447,
+   "lng": 30.20984,
+   "osm_type": "node",
+   "osm_id": 9982102622
   }
  ]
 }

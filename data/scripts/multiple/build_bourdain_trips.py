@@ -59,7 +59,7 @@ flight to begin with:
   * no_single_destination -- regional travelogues with no one gateway:
     "U.S. Southwest", "U.S. Heartland", "Caribbean Island Hopping",
     "Off the Charts"
-  * no_nyc_nonstop -- nowhere to fly nonstop from New York. Roughly half
+  * no_home_nonstop -- nowhere to fly nonstop from New York. Roughly half
     the Parts Unknown catalogue falls here, which is the point of the
     show: Myanmar, Libya, Congo, Madagascar, Tanzania, Iran, Bhutan,
     Armenia, Oman, Borneo, Sichuan, Okinawa, the Punjab, Paraguay,
@@ -86,18 +86,21 @@ Usage:
 """
 
 import argparse
-import csv
-import json
-from collections import defaultdict
-from datetime import date, datetime, timedelta
-from pathlib import Path
 
-DATA_DIR = Path(__file__).resolve().parent.parent.parent
-REFERENCE_DIR = DATA_DIR / "reference"
-PROCESSED_DIR = DATA_DIR / "processed" / "multiple"
+# The rules, the resolution and the output shape live in chef_trips.py,
+# which build_ramsay_trips.py uses too -- this file is the research: which
+# episodes exist, where each one went, and which airport serves it.
+from chef_trips import (  # noqa: E402
+    AMBIGUOUS,
+    COMPILATION,
+    GROUND,
+    NO_NONSTOP,
+    PROCESSED_DIR,
+    build_rows,
+    print_summary,
+    write_outputs,
+)
 
-AIRPORTS_PATH = REFERENCE_DIR / "airports.json"
-ROUTES_PATH = PROCESSED_DIR / "airline_routes_enhanced.csv"
 OUT_CSV_PATH = PROCESSED_DIR / "bourdain_trips.csv"
 OUT_JSON_PATH = PROCESSED_DIR / "bourdain_trips.json"
 
@@ -121,19 +124,10 @@ TRAVELER = {
     "traveler_name": "Anthony Bourdain",
     "home_city": "New York City",
     "home_country": "United States",
-    "source_series": "Anthony Bourdain: No Reservations",
+    "source_series": "Anthony Bourdain: No Reservations; Anthony Bourdain: Parts Unknown",
 }
 
-# Exclusion reason codes -- see the module docstring.
-GROUND = "ground_trip"          # home turf or driven, no flight involved
-COMPILATION = "compilation"     # clip show, not a new journey
-AMBIGUOUS = "no_single_destination"  # a region or several countries, no one gateway
-NO_NONSTOP = "no_nyc_nonstop"   # no nonstop from JFK/LGA/EWR in the route data
 
-# season, episode, title and air_date transcribed from the IMDb episode
-# list PDFs. `airports` is the ordered list of candidate destination
-# airports for the place the episode is about -- ordered by how well the
-# airport serves that place, NOT by which New York airport flies there.
 NO_RESERVATIONS = [
     # ---- Season 1 (2005-2006) ----
     {"season": 1, "episode": 1, "title": "France: Why the French Don't Suck",
@@ -385,8 +379,9 @@ NO_RESERVATIONS = [
      "air_date": "2009-03-02", "city": "Colombo", "country": "Sri Lanka",
      "airports": ["CMB"]},
     {"season": 5, "episode": 10, "title": "Vietnam: There's No Place Like Home",
-     "air_date": "2009-03-09", "city": "Ho Chi Minh City", "country": "Vietnam",
-     "airports": ["SGN", "HAN"]},
+     "air_date": "2009-03-09", "city": "Hanoi", "country": "Vietnam",
+     "airports": ["HAN", "SGN"],
+     "note": "the synopsis names no city, so the capital rule applies -- see chef_trips.py"},
     {"season": 5, "episode": 11, "title": "Chile",
      "air_date": "2009-07-13", "city": "Santiago", "country": "Chile",
      "airports": ["SCL"]},
@@ -1014,187 +1009,6 @@ EPISODES = (
     + [{**ep, "show": "Parts Unknown", "show_code": "PU"} for ep in PARTS_UNKNOWN]
 )
 
-CSV_FIELDS = [
-    "trip_id",
-    "show",
-    "season",
-    "episode",
-    "episode_code",
-    "episode_title",
-    "episode_destination",
-    "air_date",
-    "start_date",
-    "end_date",
-    "duration_days",
-    "traveler_name",
-    "destination_city",
-    "destination_country",
-    "destination_airport",
-    "destination_airport_name",
-    "destination_lat",
-    "destination_lng",
-    "origin_airport",
-    "origin_alternates",
-    "nonstop_airlines",
-    "nonstop_airline_count",
-    "distance_km",
-    "is_domestic",
-    "notes",
-]
-
-
-def load_airports():
-    """IATA -> airport record, from data/reference/airports.json."""
-    with AIRPORTS_PATH.open() as fh:
-        payload = json.load(fh)
-    return {a["iata"]: a for a in payload["airports"] if a.get("iata")}
-
-
-def load_nyc_routes():
-    """
-    (origin, destination) -> route facts, for origins in ORIGIN_PREFERENCE
-    only. airline_routes_enhanced.csv has one row per airline per route, so
-    the airlines are collected into a sorted list and the route's distance
-    is taken from the first row that carries one.
-    """
-    routes = defaultdict(lambda: {"airlines": set(), "distance_km": None, "is_domestic": None})
-    with ROUTES_PATH.open(newline="") as fh:
-        for row in csv.DictReader(fh):
-            origin = row["Departure"]
-            if origin not in ORIGIN_PREFERENCE:
-                continue
-            route = routes[(origin, row["Destination"])]
-            route["airlines"].add(row["Airline ID"])
-            if route["distance_km"] is None and row.get("distance_km"):
-                route["distance_km"] = float(row["distance_km"])
-            if route["is_domestic"] is None and row.get("is_domestic"):
-                route["is_domestic"] = int(row["is_domestic"])
-    return {k: {**v, "airlines": sorted(v["airlines"])} for k, v in routes.items()}
-
-
-def resolve_flight(candidate_airports, routes):
-    """
-    Walk the episode's candidate destination airports in order and return
-    the first one any New York airport flies to nonstop, together with the
-    winning origin (JFK before LGA before EWR) and the other New York
-    airports that also serve it. Returns None when nothing is flyable.
-    """
-    for destination in candidate_airports:
-        serving = [o for o in ORIGIN_PREFERENCE if (o, destination) in routes]
-        if not serving:
-            continue
-        origin, alternates = serving[0], serving[1:]
-        return {
-            "destination_airport": destination,
-            "origin_airport": origin,
-            "origin_alternates": alternates,
-            **routes[(origin, destination)],
-        }
-    return None
-
-
-def build_rows():
-    airports = load_airports()
-    routes = load_nyc_routes()
-
-    trips, excluded = [], []
-    trip_id = 0
-
-    for ep in EPISODES:
-        code = f"{ep['show_code']} S{ep['season']}.E{ep['episode']}"
-        base = {
-            "show": ep["show"],
-            "season": ep["season"],
-            "episode": ep["episode"],
-            "episode_code": code,
-            "episode_title": ep["title"],
-            "air_date": ep["air_date"],
-            "destination_city": ep.get("city"),
-            "destination_country": ep.get("country"),
-        }
-
-        if ep.get("exclude"):
-            excluded.append({**base, "reason": ep["exclude"], "reason_note": ep.get("exclude_note", "")})
-            continue
-
-        flight = resolve_flight(ep["airports"], routes)
-        if flight is None:
-            excluded.append({
-                **base,
-                "reason": NO_NONSTOP,
-                "reason_note": "no nonstop from JFK/LGA/EWR to "
-                               + "/".join(ep["airports"]) + " in airline_routes_enhanced.csv",
-            })
-            continue
-
-        start = datetime.strptime(ep["air_date"], "%Y-%m-%d").date()
-        end = start + timedelta(days=TRIP_DAYS)
-        airport = airports.get(flight["destination_airport"], {})
-
-        notes = []
-        if ep.get("note"):
-            notes.append(ep["note"])
-
-        # When the episode's first-choice airport has no New York nonstop
-        # and a later candidate wins, the trip is really to that second
-        # airport's city -- so the destination columns follow the airport
-        # (Kolkata -> Mumbai for S2.E10), and the episode's own subject
-        # stays visible in episode_destination and the note.
-        # The airport can also be in a DIFFERENT COUNTRY from the place the
-        # episode is about even when it was the first choice -- Chamonix in
-        # the French Alps is flown to via Geneva, in Switzerland. Following
-        # the episode there would file a Swiss airport under France and
-        # break the country-code join, so the country follows the airport
-        # in that case too.
-        resolved = dict(base)
-        substituted = flight["destination_airport"] != ep["airports"][0]
-        crosses_border = bool(airport.get("country")) and airport["country"] != ep["country"]
-        if substituted or crosses_border:
-            if substituted:
-                notes.append(
-                    f"{ep['airports'][0]} ({ep['city']}) has no New York nonstop; "
-                    f"resolved to {flight['destination_airport']}"
-                )
-            if crosses_border:
-                notes.append(
-                    f"{ep['city']}, {ep['country']} is served from "
-                    f"{flight['destination_airport']} in {airport['country']}"
-                )
-            if airport.get("city"):
-                resolved["destination_city"] = airport["city"]
-                resolved["destination_country"] = airport.get("country", ep["country"])
-
-        trip_id += 1
-        trips.append({
-            "trip_id": trip_id,
-            **resolved,
-            "episode_destination": f"{ep['city']}, {ep['country']}",
-            "start_date": start.isoformat(),
-            "end_date": end.isoformat(),
-            "duration_days": TRIP_DAYS,
-            "traveler_name": TRAVELER["traveler_name"],
-            "destination_airport": flight["destination_airport"],
-            "destination_airport_name": airport.get("name", ""),
-            "destination_lat": airport.get("lat"),
-            "destination_lng": airport.get("lng"),
-            "origin_airport": flight["origin_airport"],
-            "origin_alternates": flight["origin_alternates"],
-            "nonstop_airlines": flight["airlines"],
-            "nonstop_airline_count": len(flight["airlines"]),
-            "distance_km": flight["distance_km"],
-            "is_domestic": flight["is_domestic"],
-            "notes": "; ".join(notes),
-        })
-
-    return trips, excluded
-
-
-def to_csv_row(trip):
-    row = {k: trip.get(k) for k in CSV_FIELDS}
-    row["origin_alternates"] = "|".join(trip.get("origin_alternates") or [])
-    row["nonstop_airlines"] = "|".join(trip.get("nonstop_airlines") or [])
-    return row
-
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -1205,27 +1019,12 @@ def main():
     )
     args = parser.parse_args()
 
-    trips, excluded = build_rows()
+    trips, excluded = build_rows(EPISODES, ORIGIN_PREFERENCE, TRAVELER["traveler_name"], TRIP_DAYS)
 
-    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
-    with OUT_CSV_PATH.open("w", newline="") as fh:
-        writer = csv.DictWriter(fh, fieldnames=CSV_FIELDS)
-        writer.writeheader()
-        for trip in trips:
-            writer.writerow(to_csv_row(trip))
-        if args.include_excluded:
-            for ep in excluded:
-                writer.writerow(to_csv_row({
-                    **ep,
-                    "traveler_name": TRAVELER["traveler_name"],
-                    "notes": f"EXCLUDED ({ep['reason']}): {ep['reason_note']}",
-                }))
-
-    payload = {
+    meta = {
         "source": f"IMDb episode list for No Reservations (tt0475900), seasons 1-9 -- {IMDB_URL} "
                   f"-- and Wikipedia's episode table for Parts Unknown (CNN, 2013-2018), "
                   f"seasons 1-12 -- {PARTS_UNKNOWN_URL}",
-        "generated": date.today().isoformat(),
         "traveler": TRAVELER,
         "assumptions": {
             "start_date": "episode original air date (the only date these sources publish; "
@@ -1236,55 +1035,12 @@ def main():
             "flights_only": "an episode is kept only if a nonstop from JFK, LGA or EWR to the "
                             "destination airport exists in airline_routes_enhanced.csv",
             "route_data_vintage": "airline_routes_enhanced.csv is a present-day route snapshot, "
-                                  "not a 2005-2007 schedule -- exclusions mean 'no nonstop today'",
+                                  "not a 2005-2018 schedule -- exclusions mean 'no nonstop today'",
         },
-        "counts": {
-            "episodes": len(EPISODES),
-            "trips": len(trips),
-            "excluded": len(excluded),
-            "by_show": {
-                show: {
-                    "episodes": sum(1 for ep in EPISODES if ep["show"] == show),
-                    "trips": sum(1 for t in trips if t["show"] == show),
-                    "excluded": sum(1 for e in excluded if e["show"] == show),
-                }
-                for show in ("No Reservations", "Parts Unknown")
-            },
-        },
-        "trips": trips,
-        "excluded_episodes": excluded,
     }
-    with OUT_JSON_PATH.open("w") as fh:
-        json.dump(payload, fh, indent=2)
-        fh.write("\n")
-
-    print(f"Wrote {len(trips)} trips to {OUT_CSV_PATH}")
-    print(f"Wrote {len(trips)} trips + {len(excluded)} excluded episodes to {OUT_JSON_PATH}")
-
-    by_origin = defaultdict(int)
-    for trip in trips:
-        by_origin[trip["origin_airport"]] += 1
-    print("Origins: " + ", ".join(f"{k} {v}" for k, v in sorted(by_origin.items())))
-
-    # airports.json is an OpenFlights snapshot and lags new airport codes
-    # (BER, for one), so a route can exist for an airport the reference
-    # file has never heard of -- that would silently blank the name and
-    # coordinates, so say so instead.
-    unknown = [(t["episode_code"], t["destination_airport"])
-               for t in trips if not t["destination_airport_name"]]
-    if unknown:
-        print("\nWARNING -- destination airport missing from airports.json "
-              "(no name or coordinates): "
-              + ", ".join(f"{code} {iata}" for code, iata in unknown))
-
-    for show in ("No Reservations", "Parts Unknown"):
-        kept = sum(1 for t in trips if t["show"] == show)
-        total = sum(1 for ep in EPISODES if ep["show"] == show)
-        print(f"  {show:<16} {kept:>3} trips from {total:>3} episodes")
-
-    print(f"\nExcluded {len(excluded)} episodes:")
-    for ep in excluded:
-        print(f"  {ep['episode_code']:<12} {ep['episode_title'][:40]:<40} {ep['reason']}")
+    write_outputs(OUT_CSV_PATH, OUT_JSON_PATH, trips, excluded, EPISODES, meta,
+                  include_excluded=args.include_excluded)
+    print_summary(trips, excluded, EPISODES, OUT_CSV_PATH, OUT_JSON_PATH)
 
 
 if __name__ == "__main__":

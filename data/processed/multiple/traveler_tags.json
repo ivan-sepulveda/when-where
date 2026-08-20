@@ -1,6 +1,6 @@
 {
   "source": "travelers_anon.json (built by build_travelers_anon.py)",
-  "generated": "2026-08-19",
+  "generated": "2026-08-20",
   "rules": {
     "airline_loyalist": {
       "threshold": 0.8,
@@ -116,14 +116,14 @@
       }
     }
   },
-  "travelers_total": 207,
-  "travelers_with_carrier_data": 83,
-  "travelers_with_declared_base": 83,
-  "travelers_tagged": 70,
+  "travelers_total": 210,
+  "travelers_with_carrier_data": 86,
+  "travelers_with_declared_base": 86,
+  "travelers_tagged": 73,
   "tag_counts": {
-    "Multi Hub": 21,
+    "Multi Hub": 23,
     "American Hub": 18,
-    "United Hub": 12,
+    "United Hub": 13,
     "Delta Loyalist": 11,
     "Alaska Loyalist": 10,
     "American Loyalist": 10,
@@ -132,7 +132,7 @@
     "Alaska Hub": 5,
     "Delta Hub": 4
   },
-  "near_misses_below_min_trips": 0,
+  "near_misses_below_min_trips": 1,
   "hub_city_airport_mismatches": 3,
   "travelers": [
     {
@@ -963,6 +963,42 @@
           "hub_city": "Denver",
           "hub_airports": [
             "DEN"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "eduardo-gomez",
+      "name": "Eduardo Gomez",
+      "trip_count": 1,
+      "trips_with_carrier": 1,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": true,
+      "base_city": "Houston",
+      "base_inference": "declared",
+      "home_airport": "IAH",
+      "hub_city": "Houston",
+      "hub_airlines": [
+        "United"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:united-air-lines-inc",
+          "label": "United Hub",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "airlines": [
+            "United"
+          ],
+          "hub_city": "Houston",
+          "hub_airports": [
+            "IAH"
           ]
         }
       ]
@@ -2480,6 +2516,50 @@
       ]
     },
     {
+      "traveler_id": "conan-o-brien",
+      "name": "Conan O'Brien",
+      "trip_count": 17,
+      "trips_with_carrier": 17,
+      "distinct_carriers": 5,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 0.5882,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "JFK",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "king-midas",
       "name": "King Midas",
       "trip_count": 24,
@@ -2738,6 +2818,45 @@
           "hub_city": "Fort Worth",
           "hub_airports": [
             "DFW"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "gordon-ramsay",
+      "name": "Gordon Ramsay",
+      "trip_count": 15,
+      "trips_with_carrier": 15,
+      "distinct_carriers": 8,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 0.4,
+      "below_min_trips": false,
+      "base_city": "Los Angeles",
+      "base_inference": "declared",
+      "home_airport": null,
+      "hub_city": "Los Angeles",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": null,
+      "tags": [
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Los Angeles",
+          "hub_airports": [
+            "LAX"
           ]
         }
       ]

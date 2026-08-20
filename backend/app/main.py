@@ -437,6 +437,18 @@ class TravelerSummary(BaseModel):
     # entropy, a tag has nothing useful to say about its own absence, and the
     # server log already reports the missing file.
     tags: list[TravelerTag] = []
+    # THE SAME NUMBER the detail route's `region_entropy.normalized` carries
+    # (see DestinationEntropy) -- how spread out this traveler's trips are
+    # across UN M49 detailed regions, over a FIXED denominator of all 22.
+    # Duplicated onto the summary so /rec-sys can filter the grid on it
+    # without fetching all 2000-odd trips; computed from the same row, so the
+    # card and the traveler's own page can never disagree.
+    #
+    # Null means "not computed" -- compute_traveler_entropy.py --by region
+    # hasn't been run here, or this traveler postdates the run. NOT zero:
+    # zero is a real value meaning every trip went to the same region, which
+    # 154 of the current travelers genuinely do.
+    region_entropy_normalized: Optional[float] = None
 
 
 class DestinationEntropy(BaseModel):
@@ -903,10 +915,21 @@ def travelers():
             TravelerSummary(
                 **{k: v for k, v in t.items() if k != "trips"},
                 tags=_tags(t["traveler_id"]),
+                region_entropy_normalized=_region_entropy_normalized(t["traveler_id"]),
             )
             for t in TRAVELERS.values()
         ],
     )
+
+
+def _region_entropy_normalized(traveler_id: str) -> Optional[float]:
+    """The region-entropy figure the /rec-sys grid filters on, or None when
+    that file hasn't been built. Deliberately routed through
+    _destination_entropy() rather than reading the row directly, so the
+    number on a card is by construction the number on that traveler's own
+    page."""
+    entropy = _destination_entropy(traveler_id, TRAVELER_ENTROPY_REGION)
+    return entropy.normalized if entropy is not None else None
 
 
 def _with_regions(trip: dict) -> dict:

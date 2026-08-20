@@ -1,6 +1,11 @@
 import { Link, useSearchParams } from "react-router";
 import TravelerTags from "../components/TravelerTags";
-import { formatTripCount, useTravelers } from "../lib/travelers";
+import {
+  filterByRegionEntropy,
+  formatTripCount,
+  maxRegionEntropy,
+  useTravelers,
+} from "../lib/travelers";
 
 // Whether the grid is filtered to travelers with more than one trip. Kept in
 // the URL rather than component state, same as Destinations.tsx's "view" and
@@ -10,6 +15,20 @@ import { formatTripCount, useTravelers } from "../lib/travelers";
 // appears as ?show=all when the box is unchecked.
 const SHOW_ALL_PARAM = "show";
 const SHOW_ALL_VALUE = "all";
+
+// The region-entropy floor, in the URL for the same reason: a filtered grid
+// should survive a refresh and paste into a message. 0 is the off position
+// and is never written, so a plain /rec-sys link means "no entropy filter".
+const REGION_ENTROPY_PARAM = "region-entropy";
+const REGION_ENTROPY_STEP = 0.01;
+
+function parseRegionEntropy(raw: string | null): number {
+  const value = Number(raw);
+  // Anything unparseable reads as "off" rather than as an error: this is a
+  // shareable URL, and a typo in it should show the whole grid, not a
+  // broken page.
+  return Number.isFinite(value) && value > 0 ? value : 0;
+}
 
 // The recommendation system page (/rec-sys): every traveler in the dataset as
 // a clickable card, each linking to that traveler's own page.
@@ -23,7 +42,9 @@ const SHOW_ALL_VALUE = "all";
 // destination, a date range, and a traveler's interests, how good would this
 // trip be?", and this is the first half of it (who is asking) rendered as
 // something you can click. Someone with several trips is a far better test
-// case for that than someone with one, which is what the filter below is for.
+// case for that than someone with one, which is what the filters below are
+// for -- trip count, and how evenly a traveler spreads across world regions
+// (see compute_traveler_entropy.py --by region).
 export default function RecSys() {
   const [searchParams, setSearchParams] = useSearchParams();
   const multiTripOnly = searchParams.get(SHOW_ALL_PARAM) !== SHOW_ALL_VALUE;
@@ -40,9 +61,29 @@ export default function RecSys() {
     });
   }
 
+  const minRegionEntropy = parseRegionEntropy(searchParams.get(REGION_ENTROPY_PARAM));
+
+  function setMinRegionEntropy(next: number) {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+      if (next <= 0) {
+        params.delete(REGION_ENTROPY_PARAM);
+      } else {
+        params.set(REGION_ENTROPY_PARAM, next.toFixed(2));
+      }
+      return params;
+    });
+  }
+
   const travelers = useTravelers();
   const all = travelers.status === "loaded" ? travelers.travelers : [];
-  const shown = multiTripOnly ? all.filter((traveler) => traveler.trip_count > 1) : all;
+  const byTripCount = multiTripOnly ? all.filter((traveler) => traveler.trip_count > 1) : all;
+  const shown = filterByRegionEntropy(byTripCount, minRegionEntropy);
+
+  // The slider's range comes from the WHOLE dataset, not from what the other
+  // filter currently leaves -- a control whose maximum jumped every time the
+  // checkbox moved would be unusable.
+  const sliderMax = maxRegionEntropy(all);
 
   return (
     <main className="page">
@@ -91,20 +132,48 @@ export default function RecSys() {
               />
               Only show travelers with multiple trips
             </label>
+            {/* Only rendered when the dataset actually carries region
+                entropy: with compute_traveler_entropy.py --by region
+                un-run every value is null, and a slider that filtered the
+                grid to nothing would look like it was working. */}
+            {sliderMax > 0 && (
+              <label className="rec-sys-slider">
+                <span className="rec-sys-slider-label">
+                  Region entropy at least{" "}
+                  {/* The number is shown, not implied by the knob position:
+                      this is an unfamiliar 0-1 measure, and the value is
+                      what makes the control legible. */}
+                  <strong>{minRegionEntropy.toFixed(2)}</strong>
+                </span>
+                <input
+                  type="range"
+                  min={0}
+                  max={sliderMax}
+                  step={REGION_ENTROPY_STEP}
+                  value={Math.min(minRegionEntropy, sliderMax)}
+                  onChange={(e) => setMinRegionEntropy(Number(e.target.value))}
+                  aria-label="Minimum destination entropy by region, normalized"
+                />
+              </label>
+            )}
             {/* Says what's hidden as well as what's shown -- with this
-                dataset the filter removes most of the grid, and a bare
+                dataset the filters remove most of the grid, and a bare
                 count of 11 with no context reads like missing data. */}
             <span className="rec-sys-filter-count">
-              {multiTripOnly
-                ? `Showing ${shown.length} of ${all.length}`
-                : `Showing all ${all.length}`}
+              {shown.length === all.length
+                ? `Showing all ${all.length}`
+                : `Showing ${shown.length} of ${all.length}`}
             </span>
           </div>
 
           {all.length === 0 && <p>The traveler dataset is loaded, but it has no travelers in it.</p>}
 
           {all.length > 0 && shown.length === 0 && (
-            <p>No traveler in this dataset has more than one trip. Uncheck the box above to see all of them.</p>
+            <p>
+              {minRegionEntropy > 0
+                ? `No traveler spreads their trips across regions that evenly. Slide the region entropy filter back below ${minRegionEntropy.toFixed(2)} to see more.`
+                : "No traveler in this dataset has more than one trip. Uncheck the box above to see all of them."}
+            </p>
           )}
 
           {shown.length > 0 && (

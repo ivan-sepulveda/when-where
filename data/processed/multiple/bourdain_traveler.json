@@ -1,6 +1,6 @@
 {
-  "source": "bourdain_trips.json (No Reservations episodes, see build_bourdain_trips.py), with an airline chosen per trip from the operators of that route",
-  "generated": "2026-08-19",
+  "source": "bourdain_trips.json (No Reservations and Parts Unknown episodes, see build_bourdain_trips.py), with an airline chosen per trip from the operators of that route",
+  "generated": "2026-08-20",
   "note": "FABRICATED trips for one real person: the episodes, dates and routes are real, the journey, its 5-day length and the airline are not. Costs are deliberately null rather than invented. Merged into trips_enhanced.json by build_trips_enhanced.py.",
   "carrier_preference": [
     "DL (Delta)",

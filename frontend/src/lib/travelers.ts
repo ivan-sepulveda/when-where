@@ -133,6 +133,52 @@ export interface TravelerSummary {
   // matched" and for a checkout where compute_traveler_tags.py hasn't run.
   // Optional here only so an older cached response still typechecks.
   tags?: TravelerTag[];
+  // Mirrors backend/app/main.py's TravelerSummary.region_entropy_normalized:
+  // the same figure the traveler's own page shows as region entropy,
+  // normalized over all 22 M49 detailed regions. Carried on the card so the
+  // grid can be filtered on it without loading anyone's trips.
+  //
+  // null means NOT COMPUTED (the region entropy file isn't built in this
+  // checkout), which the filter treats differently from a real 0 -- see
+  // filterByRegionEntropy().
+  region_entropy_normalized?: number | null;
+}
+
+// The /rec-sys region-entropy slider, as two pure functions so the page
+// stays about layout.
+//
+// WHY A MINIMUM AND NOT A RANGE: the question the slider answers is "show me
+// the travelers who actually move between regions". A max would only ever be
+// used to look at the 154 travelers sitting at 0.0, which the multi-trip
+// checkbox already handles better.
+export function filterByRegionEntropy(
+  travelers: TravelerSummary[],
+  min: number,
+): TravelerSummary[] {
+  // Zero is the off position, and it has to pass EVERYTHING -- including
+  // travelers whose entropy was never computed. Filtering them out at 0
+  // would make an un-run script look like an empty dataset.
+  if (min <= 0) return travelers;
+  return travelers.filter(
+    (t) =>
+      typeof t.region_entropy_normalized === "number" && t.region_entropy_normalized >= min,
+  );
+}
+
+// The slider's right-hand end: the highest value anyone in THIS dataset has,
+// rounded up to the next 0.05. Derived rather than hardcoded, for the same
+// reason the entropy charts echo their denominator -- the ceiling moves when
+// the data does, and a slider whose top half is permanently empty is a
+// slider that lies about the data. Returns 0 when nobody has a value, which
+// the page reads as "no slider to show".
+export function maxRegionEntropy(travelers: TravelerSummary[]): number {
+  const values = travelers
+    .map((t) => t.region_entropy_normalized)
+    .filter((v): v is number => typeof v === "number");
+  if (values.length === 0) return 0;
+  const highest = Math.max(...values);
+  if (highest <= 0) return 0;
+  return Math.min(1, Math.ceil(highest * 20) / 20);
 }
 
 // "United Air Lines Inc. · EWR - CDG" for a hand-authored trip, null for a

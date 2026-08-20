@@ -991,6 +991,36 @@ class TestTravelers:
         if checked == 0:
             pytest.skip("entropy files not generated in this checkout")
 
+    def test_summary_region_entropy_matches_the_travelers_own_page(self, client):
+        # The /rec-sys grid filters on region_entropy_normalized without ever
+        # fetching a traveler's trips, so the card and the detail page each
+        # carry their own copy of that number. They are computed from one
+        # row on purpose (see _region_entropy_normalized) -- this is the test
+        # that would catch them drifting apart, which would show up as a
+        # slider that hides travelers the page says should qualify.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        checked = 0
+        for summary in body["travelers"]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            region = detail.get("region_entropy")
+            if region is None:
+                # No region entropy file here: the summary must say the same
+                # by being null, NOT by inventing a 0 -- the slider treats
+                # those two differently.
+                assert summary.get("region_entropy_normalized") is None, summary["traveler_id"]
+                continue
+
+            assert summary.get("region_entropy_normalized") == region["normalized"], (
+                summary["traveler_id"]
+            )
+            checked += 1
+
+        if checked == 0:
+            pytest.skip("region entropy file not generated in this checkout")
+
     def test_normalized_region_entropy_uses_the_fixed_22(self, client):
         # Guards the choice itself: dividing by the 14 regions this dataset
         # happens to visit would make every score jump the moment a 15th

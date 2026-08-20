@@ -589,6 +589,27 @@ h1 {
   cursor: pointer;
 }
 
+/* The region-entropy slider, next to the multi-trip checkbox in
+   .destinations-controls. The label sits above the track rather than
+   beside it, so the control doesn't stretch the row. */
+.rec-sys-slider {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.rec-sys-slider-label {
+  white-space: nowrap;
+}
+
+.rec-sys-slider input {
+  width: 12rem;
+  cursor: pointer;
+  accent-color: #3987e5;
+}
+
 .rec-sys-filter-count {
   align-self: center;
   font-size: 0.85rem;

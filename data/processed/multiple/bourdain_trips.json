@@ -1,12 +1,11 @@
 {
   "source": "IMDb episode list for No Reservations (tt0475900), seasons 1-9 -- https://www.imdb.com/title/tt0475900/episodes/ -- and Wikipedia's episode table for Parts Unknown (CNN, 2013-2018), seasons 1-12 -- https://en.wikipedia.org/wiki/Anthony_Bourdain:_Parts_Unknown",
-  "generated": "2026-08-19",
   "traveler": {
     "traveler_id": "bourdain",
     "traveler_name": "Anthony Bourdain",
     "home_city": "New York City",
     "home_country": "United States",
-    "source_series": "Anthony Bourdain: No Reservations"
+    "source_series": "Anthony Bourdain: No Reservations; Anthony Bourdain: Parts Unknown"
   },
   "assumptions": {
     "start_date": "episode original air date (the only date these sources publish; filming predates it)",
@@ -18,8 +17,9 @@
       "EWR"
     ],
     "flights_only": "an episode is kept only if a nonstop from JFK, LGA or EWR to the destination airport exists in airline_routes_enhanced.csv",
-    "route_data_vintage": "airline_routes_enhanced.csv is a present-day route snapshot, not a 2005-2007 schedule -- exclusions mean 'no nonstop today'"
+    "route_data_vintage": "airline_routes_enhanced.csv is a present-day route snapshot, not a 2005-2018 schedule -- exclusions mean 'no nonstop today'"
   },
+  "generated": "2026-08-19",
   "counts": {
     "episodes": 246,
     "trips": 130,
@@ -378,7 +378,7 @@
       "nonstop_airline_count": 1,
       "distance_km": 12532.3,
       "is_domestic": 0,
-      "notes": "two-city episode, Kolkata and Bombay; CCU (Kolkata) has no New York nonstop; resolved to BOM"
+      "notes": "two-city episode, Kolkata and Bombay; CCU (Kolkata) has no nonstop from JFK/LGA/EWR; resolved to BOM"
     },
     {
       "trip_id": 11,
@@ -945,7 +945,7 @@
       "nonstop_airline_count": 1,
       "distance_km": 7932.5,
       "is_domestic": 0,
-      "notes": "island-hopping episode; Athens is the mainland gateway; JTR (Santorini) has no New York nonstop; resolved to ATH"
+      "notes": "island-hopping episode; Athens is the mainland gateway; JTR (Santorini) has no nonstop from JFK/LGA/EWR; resolved to ATH"
     },
     {
       "trip_id": 28,
@@ -1649,7 +1649,7 @@
       "nonstop_airline_count": 4,
       "distance_km": 4799.0,
       "is_domestic": 0,
-      "notes": "UIO (Quito) has no New York nonstop; resolved to GYE"
+      "notes": "UIO (Quito) has no nonstop from JFK/LGA/EWR; resolved to GYE"
     },
     {
       "trip_id": 49,
@@ -1679,7 +1679,7 @@
       "nonstop_airline_count": 2,
       "distance_km": 6406.9,
       "is_domestic": 0,
-      "notes": "MRS (Marseille) has no New York nonstop; resolved to NCE"
+      "notes": "MRS (Marseille) has no nonstop from JFK/LGA/EWR; resolved to NCE"
     },
     {
       "trip_id": 50,
@@ -2128,7 +2128,7 @@
       "nonstop_airline_count": 11,
       "distance_km": 1901.5,
       "is_domestic": 1,
-      "notes": "LFT (Lafayette) has no New York nonstop; resolved to MSY"
+      "notes": "LFT (Lafayette) has no nonstop from JFK/LGA/EWR; resolved to MSY"
     },
     {
       "trip_id": 63,
@@ -2227,7 +2227,7 @@
       "nonstop_airline_count": 5,
       "distance_km": 10830.5,
       "is_domestic": 0,
-      "notes": "Cook It Raw was held in Ishikawa; Tokyo is the international gateway; KMQ (Kanazawa) has no New York nonstop; resolved to NRT"
+      "notes": "Cook It Raw was held in Ishikawa; Tokyo is the international gateway; KMQ (Kanazawa) has no nonstop from JFK/LGA/EWR; resolved to NRT"
     },
     {
       "trip_id": 66,
@@ -2295,7 +2295,7 @@
       "nonstop_airline_count": 6,
       "distance_km": 3928.0,
       "is_domestic": 1,
-      "notes": "Baja California; San Diego is the usual gateway across the border; TIJ (Tijuana) has no New York nonstop; resolved to SAN; Tijuana, Mexico is served from SAN in United States"
+      "notes": "Baja California; San Diego is the usual gateway across the border; TIJ (Tijuana) has no nonstop from JFK/LGA/EWR; resolved to SAN; Tijuana, Mexico is served from SAN in United States"
     },
     {
       "trip_id": 68,
@@ -2522,7 +2522,7 @@
       "nonstop_airline_count": 1,
       "distance_km": 5795.0,
       "is_domestic": 0,
-      "notes": "TNG (Tangier) has no New York nonstop; resolved to CMN"
+      "notes": "TNG (Tangier) has no nonstop from JFK/LGA/EWR; resolved to CMN"
     },
     {
       "trip_id": 75,
@@ -2555,7 +2555,7 @@
       "nonstop_airline_count": 3,
       "distance_km": 5865.8,
       "is_domestic": 0,
-      "notes": "CUZ (Cusco) has no New York nonstop; resolved to LIM"
+      "notes": "CUZ (Cusco) has no nonstop from JFK/LGA/EWR; resolved to LIM"
     },
     {
       "trip_id": 76,
@@ -2817,7 +2817,7 @@
       "nonstop_airline_count": 2,
       "distance_km": 11754.5,
       "is_domestic": 0,
-      "notes": "ATQ (Amritsar) has no New York nonstop; resolved to DEL"
+      "notes": "ATQ (Amritsar) has no nonstop from JFK/LGA/EWR; resolved to DEL"
     },
     {
       "trip_id": 84,
@@ -2988,7 +2988,7 @@
       "nonstop_airline_count": 6,
       "distance_km": 7664.0,
       "is_domestic": 0,
-      "notes": "SSA (Salvador) has no New York nonstop; resolved to GRU"
+      "notes": "SSA (Salvador) has no nonstop from JFK/LGA/EWR; resolved to GRU"
     },
     {
       "trip_id": 89,
@@ -3307,7 +3307,7 @@
       "nonstop_airline_count": 2,
       "distance_km": 6406.9,
       "is_domestic": 0,
-      "notes": "MRS (Marseille) has no New York nonstop; resolved to NCE"
+      "notes": "MRS (Marseille) has no nonstop from JFK/LGA/EWR; resolved to NCE"
     },
     {
       "trip_id": 99,
@@ -3473,7 +3473,7 @@
       "nonstop_airline_count": 1,
       "distance_km": 7932.5,
       "is_domestic": 0,
-      "notes": "island episode; Athens is the mainland gateway; JTR (Naxos) has no New York nonstop; resolved to ATH"
+      "notes": "island episode; Athens is the mainland gateway; JTR (Naxos) has no nonstop from JFK/LGA/EWR; resolved to ATH"
     },
     {
       "trip_id": 104,
@@ -3564,7 +3564,7 @@
       "nonstop_airline_count": 3,
       "distance_km": 6017.2,
       "is_domestic": 0,
-      "notes": "CGN (Cologne) has no New York nonstop; resolved to DUS"
+      "notes": "CGN (Cologne) has no nonstop from JFK/LGA/EWR; resolved to DUS"
     },
     {
       "trip_id": 107,
@@ -3778,7 +3778,7 @@
       "nonstop_airline_count": 6,
       "distance_km": 7664.0,
       "is_domestic": 0,
-      "notes": "CNF (Belo Horizonte) has no New York nonstop; resolved to GRU"
+      "notes": "CNF (Belo Horizonte) has no nonstop from JFK/LGA/EWR; resolved to GRU"
     },
     {
       "trip_id": 113,
@@ -4150,7 +4150,7 @@
       "nonstop_airline_count": 7,
       "distance_km": 6865.7,
       "is_domestic": 0,
-      "notes": "Apulia and Basilicata; Bari is the regional airport, Rome the intercontinental one; BRI (Bari) has no New York nonstop; resolved to FCO"
+      "notes": "Apulia and Basilicata; Bari is the regional airport, Rome the intercontinental one; BRI (Bari) has no nonstop from JFK/LGA/EWR; resolved to FCO"
     },
     {
       "trip_id": 124,
@@ -4184,7 +4184,7 @@
       "nonstop_airline_count": 3,
       "distance_km": 545.3,
       "is_domestic": 1,
-      "notes": "Charleston, West Virginia -- not the South Carolina one; CRW (Charleston) has no New York nonstop; resolved to PIT"
+      "notes": "Charleston, West Virginia -- not the South Carolina one; CRW (Charleston) has no nonstop from JFK/LGA/EWR; resolved to PIT"
     },
     {
       "trip_id": 125,
@@ -4319,7 +4319,7 @@
       "nonstop_airline_count": 11,
       "distance_km": 1901.5,
       "is_domestic": 1,
-      "notes": "LFT (Lafayette) has no New York nonstop; resolved to MSY"
+      "notes": "LFT (Lafayette) has no nonstop from JFK/LGA/EWR; resolved to MSY"
     },
     {
       "trip_id": 129,
@@ -4387,7 +4387,7 @@
       "nonstop_airline_count": 9,
       "distance_km": 5762.2,
       "is_domestic": 0,
-      "notes": "OVD (Oviedo) has no New York nonstop; resolved to MAD"
+      "notes": "OVD (Oviedo) has no nonstop from JFK/LGA/EWR; resolved to MAD"
     }
   ],
   "excluded_episodes": [
@@ -4412,7 +4412,7 @@
       "air_date": "2005-08-15",
       "destination_city": "Hanoi",
       "destination_country": "Vietnam",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to HAN in airline_routes_enhanced.csv"
     },
     {
@@ -4424,7 +4424,7 @@
       "air_date": "2005-08-22",
       "destination_city": "Kuala Lumpur",
       "destination_country": "Malaysia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to KUL in airline_routes_enhanced.csv"
     },
     {
@@ -4436,7 +4436,7 @@
       "air_date": "2005-10-10",
       "destination_city": "Palermo",
       "destination_country": "Italy",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to PMO/CTA in airline_routes_enhanced.csv"
     },
     {
@@ -4448,7 +4448,7 @@
       "air_date": "2005-10-24",
       "destination_city": "Tashkent",
       "destination_country": "Uzbekistan",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to TAS in airline_routes_enhanced.csv"
     },
     {
@@ -4460,7 +4460,7 @@
       "air_date": "2005-11-07",
       "destination_city": "Christchurch",
       "destination_country": "New Zealand",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to CHC in airline_routes_enhanced.csv"
     },
     {
@@ -4520,7 +4520,7 @@
       "air_date": "2006-05-29",
       "destination_city": "Jaipur",
       "destination_country": "India",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to JAI in airline_routes_enhanced.csv"
     },
     {
@@ -4532,7 +4532,7 @@
       "air_date": "2006-06-19",
       "destination_city": "Jakarta",
       "destination_country": "Indonesia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to CGK/DPS in airline_routes_enhanced.csv"
     },
     {
@@ -4544,7 +4544,7 @@
       "air_date": "2006-08-21",
       "destination_city": "Beirut",
       "destination_country": "Lebanon",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to BEY in airline_routes_enhanced.csv"
     },
     {
@@ -4568,7 +4568,7 @@
       "air_date": "2007-01-22",
       "destination_city": "Windhoek",
       "destination_country": "Namibia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to WDH in airline_routes_enhanced.csv"
     },
     {
@@ -4592,7 +4592,7 @@
       "air_date": "2007-08-20",
       "destination_city": "Papeete",
       "destination_country": "French Polynesia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to PPT in airline_routes_enhanced.csv"
     },
     {
@@ -4604,7 +4604,7 @@
       "air_date": "2007-09-24",
       "destination_city": "Florence",
       "destination_country": "Italy",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to FLR/PSA in airline_routes_enhanced.csv"
     },
     {
@@ -4628,7 +4628,7 @@
       "air_date": "2008-02-25",
       "destination_city": "Bucharest",
       "destination_country": "Romania",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to OTP in airline_routes_enhanced.csv"
     },
     {
@@ -4652,7 +4652,7 @@
       "air_date": "2008-07-07",
       "destination_city": "Luang Prabang",
       "destination_country": "Laos",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to LPQ/VTE in airline_routes_enhanced.csv"
     },
     {
@@ -4664,7 +4664,7 @@
       "air_date": "2008-07-28",
       "destination_city": "Montevideo",
       "destination_country": "Uruguay",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to MVD in airline_routes_enhanced.csv"
     },
     {
@@ -4712,7 +4712,7 @@
       "air_date": "2009-01-26",
       "destination_city": "Ponta Delgada",
       "destination_country": "Portugal",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to PDL in airline_routes_enhanced.csv"
     },
     {
@@ -4736,7 +4736,7 @@
       "air_date": "2009-02-16",
       "destination_city": "Manila",
       "destination_country": "Philippines",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to MNL in airline_routes_enhanced.csv"
     },
     {
@@ -4760,7 +4760,7 @@
       "air_date": "2009-03-02",
       "destination_city": "Colombo",
       "destination_country": "Sri Lanka",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to CMB in airline_routes_enhanced.csv"
     },
     {
@@ -4770,10 +4770,10 @@
       "episode_code": "NR S5.E10",
       "episode_title": "Vietnam: There's No Place Like Home",
       "air_date": "2009-03-09",
-      "destination_city": "Ho Chi Minh City",
+      "destination_city": "Hanoi",
       "destination_country": "Vietnam",
-      "reason": "no_nyc_nonstop",
-      "reason_note": "no nonstop from JFK/LGA/EWR to SGN/HAN in airline_routes_enhanced.csv"
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to HAN/SGN in airline_routes_enhanced.csv"
     },
     {
       "show": "No Reservations",
@@ -4784,7 +4784,7 @@
       "air_date": "2009-07-20",
       "destination_city": "Melbourne",
       "destination_country": "Australia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to MEL in airline_routes_enhanced.csv"
     },
     {
@@ -4808,7 +4808,7 @@
       "air_date": "2009-03-16",
       "destination_city": "Bangkok",
       "destination_country": "Thailand",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to BKK in airline_routes_enhanced.csv"
     },
     {
@@ -4844,7 +4844,7 @@
       "air_date": "2009-09-14",
       "destination_city": "Cagliari",
       "destination_country": "Italy",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to CAG/OLB in airline_routes_enhanced.csv"
     },
     {
@@ -4856,7 +4856,7 @@
       "air_date": "2010-01-25",
       "destination_city": "Rennes",
       "destination_country": "France",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to RNS/BES in airline_routes_enhanced.csv"
     },
     {
@@ -4892,7 +4892,7 @@
       "air_date": "2010-03-15",
       "destination_city": "Harbin",
       "destination_country": "China",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to HRB in airline_routes_enhanced.csv"
     },
     {
@@ -4904,7 +4904,7 @@
       "air_date": "2010-03-29",
       "destination_city": "Da Lat",
       "destination_country": "Vietnam",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to DLI/SGN in airline_routes_enhanced.csv"
     },
     {
@@ -4964,7 +4964,7 @@
       "air_date": "2010-07-19",
       "destination_city": "Monrovia",
       "destination_country": "Liberia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to ROB in airline_routes_enhanced.csv"
     },
     {
@@ -4976,7 +4976,7 @@
       "air_date": "2010-07-26",
       "destination_city": "Kochi",
       "destination_country": "India",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to COK in airline_routes_enhanced.csv"
     },
     {
@@ -5000,7 +5000,7 @@
       "air_date": "2010-08-23",
       "destination_city": "Beirut",
       "destination_country": "Lebanon",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to BEY in airline_routes_enhanced.csv"
     },
     {
@@ -5048,7 +5048,7 @@
       "air_date": "2011-03-07",
       "destination_city": "Phnom Penh",
       "destination_country": "Cambodia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to PNH/REP in airline_routes_enhanced.csv"
     },
     {
@@ -5060,7 +5060,7 @@
       "air_date": "2011-03-14",
       "destination_city": "Managua",
       "destination_country": "Nicaragua",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to MGA in airline_routes_enhanced.csv"
     },
     {
@@ -5072,7 +5072,7 @@
       "air_date": "2011-03-28",
       "destination_city": "Branson",
       "destination_country": "United States",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to BKG/SGF in airline_routes_enhanced.csv"
     },
     {
@@ -5084,7 +5084,7 @@
       "air_date": "2011-04-11",
       "destination_city": "Manaus",
       "destination_country": "Brazil",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to MAO in airline_routes_enhanced.csv"
     },
     {
@@ -5096,7 +5096,7 @@
       "air_date": "2011-04-25",
       "destination_city": "Sapporo",
       "destination_country": "Japan",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to CTS in airline_routes_enhanced.csv"
     },
     {
@@ -5108,7 +5108,7 @@
       "air_date": "2011-07-18",
       "destination_city": "Macau",
       "destination_country": "Macau",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to MFM in airline_routes_enhanced.csv"
     },
     {
@@ -5120,7 +5120,7 @@
       "air_date": "2011-07-25",
       "destination_city": "Naples",
       "destination_country": "Italy",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to NAP in airline_routes_enhanced.csv"
     },
     {
@@ -5132,7 +5132,7 @@
       "air_date": "2011-08-22",
       "destination_city": "Erbil",
       "destination_country": "Iraq",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to EBL in airline_routes_enhanced.csv"
     },
     {
@@ -5156,7 +5156,7 @@
       "air_date": "2012-04-09",
       "destination_city": "Maputo",
       "destination_country": "Mozambique",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to MPM in airline_routes_enhanced.csv"
     },
     {
@@ -5168,7 +5168,7 @@
       "air_date": "2012-04-23",
       "destination_city": "Split",
       "destination_country": "Croatia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to SPU/DBV/ZAG in airline_routes_enhanced.csv"
     },
     {
@@ -5180,7 +5180,7 @@
       "air_date": "2012-06-04",
       "destination_city": "Penang",
       "destination_country": "Malaysia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to PEN in airline_routes_enhanced.csv"
     },
     {
@@ -5192,7 +5192,7 @@
       "air_date": "2012-09-10",
       "destination_city": "Sydney",
       "destination_country": "Australia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to SYD in airline_routes_enhanced.csv"
     },
     {
@@ -5216,7 +5216,7 @@
       "air_date": "2012-09-24",
       "destination_city": "Bologna",
       "destination_country": "Italy",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to BLQ in airline_routes_enhanced.csv"
     },
     {
@@ -5228,7 +5228,7 @@
       "air_date": "2012-10-01",
       "destination_city": "Lyon",
       "destination_country": "France",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to LYS in airline_routes_enhanced.csv"
     },
     {
@@ -5276,7 +5276,7 @@
       "air_date": "2013-04-14",
       "destination_city": "Yangon",
       "destination_country": "Myanmar",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to RGN in airline_routes_enhanced.csv"
     },
     {
@@ -5288,7 +5288,7 @@
       "air_date": "2013-05-19",
       "destination_city": "Tripoli",
       "destination_country": "Libya",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to TIP/BEN in airline_routes_enhanced.csv"
     },
     {
@@ -5300,7 +5300,7 @@
       "air_date": "2013-06-09",
       "destination_city": "Brazzaville",
       "destination_country": "Congo",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to BZV/FIH in airline_routes_enhanced.csv"
     },
     {
@@ -5324,7 +5324,7 @@
       "air_date": "2013-10-13",
       "destination_city": "Palermo",
       "destination_country": "Italy",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to PMO/CTA in airline_routes_enhanced.csv"
     },
     {
@@ -5348,7 +5348,7 @@
       "air_date": "2014-04-27",
       "destination_city": "Lyon",
       "destination_country": "France",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to LYS in airline_routes_enhanced.csv"
     },
     {
@@ -5360,7 +5360,7 @@
       "air_date": "2014-06-01",
       "destination_city": "Chiang Mai",
       "destination_country": "Thailand",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to CNX/BKK in airline_routes_enhanced.csv"
     },
     {
@@ -5396,7 +5396,7 @@
       "air_date": "2014-10-12",
       "destination_city": "Asuncion",
       "destination_country": "Paraguay",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to ASU in airline_routes_enhanced.csv"
     },
     {
@@ -5408,7 +5408,7 @@
       "air_date": "2014-10-19",
       "destination_city": "Ho Chi Minh City",
       "destination_country": "Vietnam",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to SGN/HAN in airline_routes_enhanced.csv"
     },
     {
@@ -5420,7 +5420,7 @@
       "air_date": "2014-10-26",
       "destination_city": "Dar es Salaam",
       "destination_country": "Tanzania",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to DAR/JRO in airline_routes_enhanced.csv"
     },
     {
@@ -5432,7 +5432,7 @@
       "air_date": "2014-11-02",
       "destination_city": "Tehran",
       "destination_country": "Iran",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to IKA in airline_routes_enhanced.csv"
     },
     {
@@ -5456,7 +5456,7 @@
       "air_date": "2015-05-17",
       "destination_city": "Antananarivo",
       "destination_country": "Madagascar",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to TNR in airline_routes_enhanced.csv"
     },
     {
@@ -5480,7 +5480,7 @@
       "air_date": "2015-06-21",
       "destination_city": "Beirut",
       "destination_country": "Lebanon",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to BEY in airline_routes_enhanced.csv"
     },
     {
@@ -5504,7 +5504,7 @@
       "air_date": "2015-10-11",
       "destination_city": "Naha",
       "destination_country": "Japan",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to OKA in airline_routes_enhanced.csv"
     },
     {
@@ -5516,7 +5516,7 @@
       "air_date": "2015-10-25",
       "destination_city": "Addis Ababa",
       "destination_country": "Ethiopia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to ADD in airline_routes_enhanced.csv"
     },
     {
@@ -5528,7 +5528,7 @@
       "air_date": "2015-11-01",
       "destination_city": "Kuching",
       "destination_country": "Malaysia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to KCH/BKI/KUL in airline_routes_enhanced.csv"
     },
     {
@@ -5552,7 +5552,7 @@
       "air_date": "2016-04-24",
       "destination_city": "Manila",
       "destination_country": "Philippines",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to MNL in airline_routes_enhanced.csv"
     },
     {
@@ -5564,7 +5564,7 @@
       "air_date": "2016-05-22",
       "destination_city": "Tbilisi",
       "destination_country": "Georgia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to TBS in airline_routes_enhanced.csv"
     },
     {
@@ -5588,7 +5588,7 @@
       "air_date": "2016-09-25",
       "destination_city": "Hanoi",
       "destination_country": "Vietnam",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to HAN in airline_routes_enhanced.csv"
     },
     {
@@ -5600,7 +5600,7 @@
       "air_date": "2016-10-16",
       "destination_city": "Chengdu",
       "destination_country": "China",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to CTU in airline_routes_enhanced.csv"
     },
     {
@@ -5624,7 +5624,7 @@
       "air_date": "2017-05-07",
       "destination_city": "San Sebastian",
       "destination_country": "Spain",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to EAS/BIO/BIQ in airline_routes_enhanced.csv"
     },
     {
@@ -5636,7 +5636,7 @@
       "air_date": "2017-05-14",
       "destination_city": "Luang Prabang",
       "destination_country": "Laos",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to LPQ/VTE in airline_routes_enhanced.csv"
     },
     {
@@ -5660,7 +5660,7 @@
       "air_date": "2017-06-04",
       "destination_city": "Antarctica",
       "destination_country": "Antarctica",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no scheduled passenger service exists; the crew flew in from Punta Arenas"
     },
     {
@@ -5672,7 +5672,7 @@
       "air_date": "2017-06-11",
       "destination_city": "Muscat",
       "destination_country": "Oman",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to MCT in airline_routes_enhanced.csv"
     },
     {
@@ -5684,7 +5684,7 @@
       "air_date": "2017-10-29",
       "destination_city": "Colombo",
       "destination_country": "Sri Lanka",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to CMB in airline_routes_enhanced.csv"
     },
     {
@@ -5696,7 +5696,7 @@
       "air_date": "2018-05-06",
       "destination_city": "Montevideo",
       "destination_country": "Uruguay",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to MVD in airline_routes_enhanced.csv"
     },
     {
@@ -5708,7 +5708,7 @@
       "air_date": "2018-05-20",
       "destination_city": "Yerevan",
       "destination_country": "Armenia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to EVN in airline_routes_enhanced.csv"
     },
     {
@@ -5720,7 +5720,7 @@
       "air_date": "2018-06-24",
       "destination_city": "Paro",
       "destination_country": "Bhutan",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to PBH in airline_routes_enhanced.csv"
     },
     {
@@ -5732,7 +5732,7 @@
       "air_date": "2018-10-07",
       "destination_city": "Denpasar",
       "destination_country": "Indonesia",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to DPS/CGK in airline_routes_enhanced.csv"
     },
     {
@@ -5756,7 +5756,7 @@
       "air_date": "2018-10-21",
       "destination_city": "El Paso",
       "destination_country": "United States",
-      "reason": "no_nyc_nonstop",
+      "reason": "no_home_nonstop",
       "reason_note": "no nonstop from JFK/LGA/EWR to ELP/MAF in airline_routes_enhanced.csv"
     },
     {

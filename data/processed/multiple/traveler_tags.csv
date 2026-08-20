@@ -18,6 +18,7 @@ diana-prince,Diana Prince,18,18,1,Southwest Airlines Co.,1.0,False,Phoenix,decla
 dick-grayson,Dick Grayson,24,24,1,Southwest Airlines Co.,1.0,False,Kansas City,declared,MCI,,,,Southwest Loyalist
 duke-ellington,Duke Ellington,16,16,1,Delta Air Lines Inc.,1.0,False,Salt Lake City,declared,SLC,Salt Lake City,Delta,True,Delta Loyalist; Delta Hub
 edgar-degas,Edgar Degas,16,16,1,United Air Lines Inc.,1.0,False,Denver,declared,DEN,Denver,United,True,United Loyalist; United Hub
+eduardo-gomez,Eduardo Gomez,1,1,1,United Air Lines Inc.,1.0,True,Houston,declared,IAH,Houston,United,True,United Hub
 ella-fitzgerald,Ella Fitzgerald,24,24,1,Delta Air Lines Inc.,1.0,False,Cincinnati,declared,CVG,,,,Delta Loyalist
 galileo-galilei,Galileo Galilei,24,24,1,American Airlines Inc.,1.0,False,Washington,declared,DCA,"Washington, D.C.",United; American,True,American Loyalist; Multi Hub
 georgia-o-keeffe,Georgia O'Keeffe,5,5,1,United Air Lines Inc.,1.0,False,Houston,declared,IAH,Houston,United,True,United Loyalist; United Hub
@@ -51,6 +52,7 @@ wes-montgomery,Wes Montgomery,16,16,1,Delta Air Lines Inc.,1.0,False,Seattle,dec
 edward-hopper,Edward Hopper,10,10,3,United Air Lines Inc.,0.7,False,San Francisco,declared,SFO,San Francisco,United,True,United Hub
 anthony-bourdain,Anthony Bourdain,130,130,16,Delta Air Lines Inc.,0.6615,False,New York City,declared,,New York City,United; Delta; American,,Multi Hub
 odysseus,Odysseus,32,32,7,American Airlines Inc.,0.625,False,Philadelphia,declared,PHL,Philadelphia,American,True,American Hub
+conan-o-brien,Conan O'Brien,17,17,5,Delta Air Lines Inc.,0.5882,False,New York City,declared,JFK,New York City,United; Delta; American,True,Multi Hub
 king-midas,King Midas,24,24,9,American Airlines Inc.,0.5833,False,Charlotte,declared,CLT,Charlotte,American,True,American Hub
 artemis,Artemis,24,24,4,Southwest Airlines Co.,0.5417,False,Chicago,declared,MDW,Chicago,United; American,False,Multi Hub
 achilles,Achilles,30,30,8,American Airlines Inc.,0.5333,False,Charlotte,declared,CLT,Charlotte,American,True,American Hub
@@ -58,6 +60,7 @@ narcissus,Narcissus,21,21,8,United Air Lines Inc.,0.4762,False,New York City,dec
 athena,Athena,30,30,7,American Airlines Inc.,0.4667,False,Philadelphia,declared,PHL,Philadelphia,American,True,American Hub
 cronus,Cronus,30,30,10,American Airlines Inc.,0.4667,False,Dallas,declared,DFW,Dallas,American,True,American Hub
 theseus,Theseus,18,18,9,American Airlines Inc.,0.4444,False,Fort Worth,declared,DFW,Fort Worth,American,True,American Hub
+gordon-ramsay,Gordon Ramsay,15,15,8,United Air Lines Inc.,0.4,False,Los Angeles,declared,,Los Angeles,United; American,,Multi Hub
 poseidon,Poseidon,30,30,12,United Air Lines Inc.,0.4,False,Houston,declared,IAH,Houston,United,True,United Hub
 hercules,Hercules,27,27,9,American Airlines Inc.,0.3704,False,Fort Worth,declared,DFW,Fort Worth,American,True,American Hub
 prometheus,Prometheus,27,27,8,American Airlines Inc.,0.3704,False,Phoenix,declared,PHX,Phoenix,American,True,American Hub

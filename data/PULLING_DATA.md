@@ -369,3 +369,59 @@ UA, then AA by IATA code, then a seeded random draw from whoever else
 flies it — and names them with the T-100 spellings the rest of the
 rec-sys data uses. Re-run `build_trips_enhanced.py`, `build_travelers.py`
 and `build_travelers_anon.py` after this to see him on `/rec-sys`.
+
+```
+python scripts/multiple/build_ramsay_trips.py
+python scripts/multiple/build_ramsay_traveler.py
+python scripts/multiple/build_ramsay_traveler.py --report   # route, airlines available, pick
+```
+
+The same two steps for Gordon Ramsay, from the 29 episodes of *Gordon
+Ramsay: Uncharted* (National Geographic 2019-2024, from Wikipedia's
+episode table). **15 trips out**, flying nonstop from **LAX**, falling
+back to **LAS** only where LAX has no nonstop, and preferring **United,
+then Delta, then American**. Writes `ramsay_trips.csv` / `.json` and
+`ramsay_traveler.json`. Half the show's episodes drop out under the
+flights-only rule, which is what a series about hard-to-reach places
+looks like once you insist on a nonstop.
+
+```
+python scripts/multiple/build_conan_trips.py
+python scripts/multiple/build_conan_traveler.py
+```
+
+The same two steps for Conan O'Brien, from both of his travel series —
+the 13 specials of *Conan Without Borders* (TBS 2015-2019) and the 7
+episodes of *Conan O'Brien Must Go* (Max 2024-2025), both from
+Wikipedia's episode tables. 20 episodes in, **16 trips out**, using
+**exactly Bourdain's settings** — JFK then LGA then EWR, Delta then
+United then American — so the two profiles differ only in where they
+went. Must Go's episodes are titled by country only, so their city comes
+from **the capital rule** — when a source names a country and no city, the
+row records that country's capital (stated in full in `chef_trips.py`, and
+noted on every row it decides). Includes the announced-but-unaired
+Netherlands episode of 2026-08-28. Note that the show taped in Los Angeles; New
+York is a deliberate choice, recorded in the script's docstring and in
+the output's `assumptions.home_airports`.
+
+```
+python scripts/multiple/build_gomez_trips.py
+python scripts/multiple/build_gomez_traveler.py
+```
+
+A HAND-KEPT FLIGHT LOG, not a derived itinerary: real flights typed into
+the `FLIGHTS` table in `build_gomez_trips.py` as they happen, under the
+pseudonym Eduardo Gomez. One row per leg, exactly as flown — airports,
+dates, local times, block time and the airline actually taken. Nothing is
+inferred but the destination's city and country, and no age, gender or
+nationality is recorded. Writes `gomez_trips.csv` / `.json` and
+`gomez_traveler.json`. Add a flight by appending to `FLIGHTS` and re-running
+both, then `build_trips_enhanced.py` onward.
+
+All three travel-show hosts share `chef_trips.py` (airport resolution,
+the flights-only rule, dates, output shape) and `chef_traveler.py`
+(carrier choice, the trip record). The per-host scripts hold only the
+episode research and the settings — home airports, airline preference,
+birthdate, id prefix. Add a fourth by writing those two files, then
+adding the traveler file to `SYNTHETIC_SOURCES` in
+`build_trips_enhanced.py`.
