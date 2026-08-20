@@ -1,7 +1,7 @@
 {
  "source": "data/processed/multiple/trips_enhanced.json (itself built from the Kaggle traveler-trip dataset -- see build_trips_enhanced.py), grouped by traveler -- see build_travelers.py and data/README.md",
  "attribution": "Traveler Trip Data (rkiattisak) via Kaggle -- CC BY 4.0",
- "generated": "2026-08-20",
+ "generated": "2026-08-19",
  "note": "Sample/teaching data, not a real booking log. Travelers are grouped by name + nationality (the source has no traveler ID). Trip fields come through from trips_enhanced.json unchanged, including the hand-resolved destination_city / destination_country split; costs carry both a parsed number and the original string, and there is no currency column, so nothing is summed across trips.",
  "total_travelers": 210,
  "total_trips": 2187,
