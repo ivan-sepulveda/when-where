@@ -1,7 +1,7 @@
 {
  "source": "data/processed/multiple/traveler_trips.csv (Kaggle rkiattisak/traveler-trip-data), cleaned and with Destination split into city/country by hand -- see build_trips_enhanced.py and data/README.md",
  "attribution": "Traveler Trip Data (rkiattisak) via Kaggle -- CC BY 4.0",
- "generated": "2026-08-19",
+ "generated": "2026-08-20",
  "note": "destination_city/destination_country are resolved from a hand-written table, not by splitting on a comma: the source abbreviates countries ('Sydney, Aus'), omits them ('Tokyo'), names a region instead ('Honolulu, Hawaii') and sometimes gives only a country. destination_kind says which case a row was; destination_raw keeps the original string. Costs are currency-blind numbers plus the original string -- the source has no currency column, so nothing here should be summed across trips.",
  "rows_in_csv": 139,
  "skipped_rows": 2,

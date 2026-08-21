@@ -1,6 +1,6 @@
 {
   "source": "gomez_trips.json (a hand-kept flight log, see build_gomez_trips.py), with the airline recorded as flown",
-  "generated": "2026-08-19",
+  "generated": "2026-08-20",
   "note": "REAL trips under a pseudonym: the legs, dates, airports and airlines are as flown, not fabricated. Costs are null because none were recorded, and age/gender/nationality are absent because inventing them for a real person would be the one made-up thing in a true file. Merged into trips_enhanced.json by build_trips_enhanced.py.",
   "carrier_preference": [
     "(recorded as flown)"
