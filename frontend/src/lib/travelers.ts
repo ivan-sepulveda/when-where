@@ -147,46 +147,137 @@ export interface TravelerSummary {
   //
   // null means NOT COMPUTED (the region entropy file isn't built in this
   // checkout), which the filter treats differently from a real 0 -- see
-  // filterByRegionEntropy().
+  // filterByEntropy().
   region_entropy_normalized?: number | null;
+  // The full DestinationEntropy blocks -- BY AIRPORT and the RAW (non-
+  // normalized) side of region -- that only the detail route sends (see
+  // TravelerDetail below). Absent/undefined on a plain summary row; filled
+  // in by useTravelersWithEntropy()'s per-traveler enrichment fetch once
+  // /rec-sys needs to filter on one of those three metrics. Distinct from
+  // `null`, which means the backend itself has no entropy for this
+  // traveler -- same convention as everywhere else entropy appears.
+  destination_entropy?: DestinationEntropy | null;
+  region_entropy?: DestinationEntropy | null;
 }
 
-// The /rec-sys region-entropy slider, as two pure functions so the page
-// stays about layout.
+// The /rec-sys entropy filter: pick a metric (airport vs region, raw vs
+// normalized), a comparator, and a threshold. Replaces the old region-only
+// "at least" slider -- added so low-entropy travelers (the ones whose "next
+// destination" is closer to a lookup than a prediction, see the loyalist-
+// template discussion in the project) can be hand-inspected directly, at any
+// of the four entropy figures the traveler detail page already computes,
+// with any of the five comparisons, not just a minimum on one of them.
+export type EntropyMetric = "airport" | "airport_normalized" | "region" | "region_normalized";
+export type EntropyComparator = "gte" | "lte" | "gt" | "lt" | "eq";
+
+export const ENTROPY_METRIC_OPTIONS: { value: EntropyMetric; label: string }[] = [
+  { value: "airport", label: "Airport entropy" },
+  { value: "airport_normalized", label: "Airport entropy (normalized)" },
+  { value: "region", label: "Region entropy" },
+  { value: "region_normalized", label: "Region entropy (normalized)" },
+];
+
+export const ENTROPY_COMPARATOR_OPTIONS: { value: EntropyComparator; label: string }[] = [
+  { value: "gte", label: "≥" },
+  { value: "lte", label: "≤" },
+  { value: "gt", label: ">" },
+  { value: "lt", label: "<" },
+  { value: "eq", label: "=" },
+];
+
+// Comparators as data, not a switch buried inside the filter -- reused
+// as-is by filterByEntropy below.
+const ENTROPY_COMPARATORS: Record<EntropyComparator, (value: number, threshold: number) => boolean> = {
+  gte: (v, t) => v >= t,
+  lte: (v, t) => v <= t,
+  gt: (v, t) => v > t,
+  lt: (v, t) => v < t,
+  // These are JSON floats, not values arithmetic was done on in JS, so exact
+  // equality would usually be fine -- but a threshold TYPED by hand is
+  // fuzzed to a tolerance far finer than these entropy values are ever
+  // meaningfully distinguished at (the smallest digit the UI shows is
+  // thousandths), rather than relying on that.
+  eq: (v, t) => Math.abs(v - t) < 1e-6,
+};
+
+// One extractor per metric, so entropyMetricValue is a lookup rather than a
+// branch. `airport` and the raw side of `region` only resolve once
+// useTravelersWithEntropy() below has enriched the row from its detail route
+// (see the two new fields on TravelerSummary) -- absent there reads as "not
+// known yet", which filterByEntropy treats the same as "not computed" at
+// all. `region_normalized` is the one metric with a fallback: it also reads
+// `region_entropy_normalized`, which IS on the plain /api/travelers summary,
+// so that metric alone keeps working before enrichment finishes.
+const ENTROPY_EXTRACTORS: Record<EntropyMetric, (t: TravelerSummary) => number | null> = {
+  airport: (t) => t.destination_entropy?.entropy ?? null,
+  airport_normalized: (t) => t.destination_entropy?.normalized ?? null,
+  region: (t) => t.region_entropy?.entropy ?? null,
+  region_normalized: (t) => t.region_entropy?.normalized ?? t.region_entropy_normalized ?? null,
+};
+
+export function entropyMetricValue(traveler: TravelerSummary, metric: EntropyMetric): number | null {
+  return ENTROPY_EXTRACTORS[metric](traveler);
+}
+
+// `metric: null` is the off position -- explicit, rather than overloading a
+// threshold of zero the way the old region-only slider did, because zero is
+// now a real, useful threshold to filter ON: "=" 0 is exactly the
+// deterministic-destination travelers this filter was built to surface.
 //
-// WHY A MINIMUM AND NOT A RANGE: the question the slider answers is "show me
-// the travelers who actually move between regions". A max would only ever be
-// used to look at the 154 travelers sitting at 0.0, which the multi-trip
-// checkbox already handles better.
-export function filterByRegionEntropy(
+// A traveler whose value for this metric is null -- not yet enriched, or the
+// backend genuinely has no entropy for them -- never satisfies any
+// comparator, including "<". Unknown is not the same as low.
+export function filterByEntropy(
   travelers: TravelerSummary[],
-  min: number,
+  metric: EntropyMetric | null,
+  comparator: EntropyComparator,
+  threshold: number,
 ): TravelerSummary[] {
-  // Zero is the off position, and it has to pass EVERYTHING -- including
-  // travelers whose entropy was never computed. Filtering them out at 0
-  // would make an un-run script look like an empty dataset.
-  if (min <= 0) return travelers;
-  return travelers.filter(
-    (t) =>
-      typeof t.region_entropy_normalized === "number" && t.region_entropy_normalized >= min,
-  );
+  if (metric === null) return travelers;
+  const test = ENTROPY_COMPARATORS[comparator];
+  return travelers.filter((t) => {
+    const value = entropyMetricValue(t, metric);
+    return value !== null && test(value, threshold);
+  });
 }
 
-// The slider's right-hand end: the highest value anyone in THIS dataset has,
-// rounded up to the next 0.05. Derived rather than hardcoded, for the same
-// reason the entropy charts echo their denominator -- the ceiling moves when
-// the data does, and a slider whose top half is permanently empty is a
-// slider that lies about the data. Returns 0 when nobody has a value, which
-// the page reads as "no slider to show".
-export function maxRegionEntropy(travelers: TravelerSummary[]): number {
+// The observed range for one metric across a set of travelers -- shown next
+// to the filter as a hint ("data ranges 0.000-4.372") rather than driving a
+// slider's bounds the way the old control did: a typed number has no
+// natural max the way a range input does, and a hint stays honest under any
+// comparator, not just "at least". Null when nobody in the set has a value
+// for this metric yet -- an un-enriched page load, or an un-run entropy
+// script.
+export function entropyMetricRange(
+  travelers: TravelerSummary[],
+  metric: EntropyMetric,
+): { min: number; max: number } | null {
   const values = travelers
-    .map((t) => t.region_entropy_normalized)
+    .map((t) => entropyMetricValue(t, metric))
     .filter((v): v is number => typeof v === "number");
-  if (values.length === 0) return 0;
-  const highest = Math.max(...values);
-  if (highest <= 0) return 0;
-  return Math.min(1, Math.ceil(highest * 20) / 20);
+  if (values.length === 0) return null;
+  return { min: Math.min(...values), max: Math.max(...values) };
 }
+
+// THREE decimals for every metric, normalized ones included. Not a cosmetic
+// choice: it's the precision the filter's threshold input accepts, and the
+// two have to agree. At 2 places a normalized range rendered "0.00-0.87"
+// while the values behind it ran 0.001-0.8697, so a threshold typed at
+// 0.007 -- a perfectly good query, and a discriminating one down where most
+// of this dataset's travelers sit -- looked like it was outside the data.
+// One function, one precision, so the range hint, the per-card value and
+// what you can type into the box can't disagree.
+const ENTROPY_DECIMALS = 3;
+
+export function formatEntropyValue(value: number): string {
+  return value.toFixed(ENTROPY_DECIMALS);
+}
+
+// The threshold input's `step`, matching ENTROPY_DECIMALS. A coarser step
+// (0.01) makes the browser mark 0.007 as a step mismatch -- the value still
+// reads, but the field renders as invalid, which is a confusing way to
+// refuse a query the filter handles fine.
+export const ENTROPY_STEP = 0.001;
 
 // "United Air Lines Inc. · EWR - CDG" for a hand-authored trip, null for a
 // Kaggle one (which records no airline at all). Shown as its own line on the
@@ -366,6 +457,70 @@ export function useTravelers(): TravelersLoadState {
   }, []);
 
   return state;
+}
+
+// /rec-sys's data source once the entropy filter needs more than
+// region_entropy_normalized: the plain summary list, then every traveler's
+// own detail fetched in parallel to pick up destination_entropy (airport)
+// and the raw side of region_entropy -- neither is on /api/travelers (see
+// TravelerSummary above). This is the frontend-only way to get there: it
+// re-fetches per traveler (currently ~210 requests) rather than the backend
+// growing a richer summary route, which is heavier than the design comment
+// on region_entropy_normalized wants -- accepted because this filter is a
+// one-person analysis tool, not the page most visitors land on.
+//
+// "enriching" is a real, renderable state, not just a spinner: the grid can
+// and does render during it -- the multi-trip checkbox and
+// region_normalized both already work off the summary alone -- it's only
+// the other three metrics that are incomplete until every detail fetch
+// lands.
+export type EnrichedTravelersLoadState =
+  | { status: "loading" }
+  | { status: "error" }
+  | { status: "unavailable" }
+  | { status: "enriching"; travelers: TravelerSummary[] }
+  | { status: "loaded"; travelers: TravelerSummary[] };
+
+export function useTravelersWithEntropy(): EnrichedTravelersLoadState {
+  const base = useTravelers();
+  const [enriched, setEnriched] = useState<TravelerSummary[] | null>(null);
+
+  useEffect(() => {
+    if (base.status !== "loaded") {
+      setEnriched(null);
+      return;
+    }
+    let cancelled = false;
+    setEnriched(null);
+
+    Promise.allSettled(base.travelers.map((t) => fetchTraveler(t.traveler_id))).then((results) => {
+      if (cancelled) return;
+      // A failed detail fetch (a stale id, a dropped connection) falls back
+      // to the summary row unchanged, rather than dropping the traveler --
+      // they just won't clear a filter on the two fields that request would
+      // have supplied.
+      setEnriched(
+        base.travelers.map((summary, i) => {
+          const result = results[i];
+          if (result.status !== "fulfilled") return summary;
+          return {
+            ...summary,
+            destination_entropy: result.value.destination_entropy,
+            region_entropy: result.value.region_entropy,
+          };
+        }),
+      );
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [base]);
+
+  if (base.status !== "loaded") return base;
+  return enriched === null
+    ? { status: "enriching", travelers: base.travelers }
+    : { status: "loaded", travelers: enriched };
 }
 
 export type TravelerLoadState =

@@ -589,25 +589,63 @@ h1 {
   cursor: pointer;
 }
 
-/* The region-entropy slider, next to the multi-trip checkbox in
-   .destinations-controls. The label sits above the track rather than
-   beside it, so the control doesn't stretch the row. */
-.rec-sys-slider {
-  display: grid;
-  gap: 0.25rem;
+/* The entropy filter -- metric + comparator + threshold -- next to the
+   multi-trip checkbox in .destinations-controls. One row that wraps rather
+   than three stacked controls, so it reads as one filter with three parts,
+   not three separate filters. */
+.rec-sys-entropy-filter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
 }
 
-.rec-sys-slider-label {
+.rec-sys-entropy-field {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+}
+
+.rec-sys-entropy-filter select,
+.rec-sys-entropy-filter input[type="number"] {
+  background: #161b22;
+  color: inherit;
+  border: 1px solid #3a3f47;
+  border-radius: 6px;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.9rem;
+}
+
+/* Narrow on purpose -- "≥"/"≤"/">"/"<"/"=" never need more room, and a wide
+   comparator select would read as if it held the metric name. */
+.rec-sys-entropy-comparator {
+  width: 3.5rem;
+}
+
+.rec-sys-entropy-value {
+  width: 5.5rem;
+}
+
+.rec-sys-entropy-hint {
+  opacity: 0.6;
+  font-size: 0.8rem;
   white-space: nowrap;
 }
 
-.rec-sys-slider input {
-  width: 12rem;
-  cursor: pointer;
-  accent-color: #3987e5;
+.rec-sys-entropy-loading {
+  opacity: 0.7;
+  font-size: 0.85rem;
+  margin: -0.5rem 0 1rem;
+}
+
+/* The active filter's exact value on a card -- lets the low-entropy
+   travelers this filter exists to find be read off the grid directly,
+   without opening each one. */
+.traveler-card-entropy {
+  font-size: 0.75rem;
+  opacity: 0.65;
 }
 
 .rec-sys-filter-count {
