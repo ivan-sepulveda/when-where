@@ -1,6 +1,11 @@
 """
-Derived from: the published episode lists for BOTH of Anthony Bourdain's
-              travel series, transcribed by hand from saved PDFs --
+Derived from: the published episode lists for ALL THREE of Anthony
+              Bourdain's travel series, transcribed by hand from saved
+              PDFs --
+                * A Cook's Tour (Food Network, 2002-2003), 35 episodes
+                  over 2 seasons, from IMDb tt0306306
+                  (https://www.imdb.com/title/tt0306306/episodes/?season=1
+                  and &season=2)
                 * No Reservations (Travel Channel, 2005-2012), 42 episodes
                   over 9 seasons, from IMDb tt0475900
                   (https://www.imdb.com/title/tt0475900/episodes/?season=1
@@ -18,11 +23,11 @@ Requires: data/reference/airports.json (IATA -> name/city/country/coords),
           build_airline_routes_enhanced.py -- which airports are actually
           connected by a nonstop, and how far apart they are)
 
-Turns each episode of either show into one "trip opportunity" row: a
-5-day round trip out of New York, departing on the episode's air date,
-flying nonstop to the airport that serves the place Bourdain visited.
-Writes data/processed/multiple/bourdain_trips.csv and .json, with a
-`show` column on every row so the two series can be read apart.
+Turns each episode of any of the three shows into one "trip opportunity"
+row: a 5-day round trip out of New York, departing on the episode's air
+date, flying nonstop to the airport that serves the place Bourdain
+visited. Writes data/processed/multiple/bourdain_trips.csv and .json,
+with a `show` column on every row so the three series can be read apart.
 
 WHAT THIS IS AND IS NOT
 -----------------------
@@ -51,7 +56,9 @@ flight to begin with:
   * ground_trip -- home turf or driven: New Jersey (twice, one per show),
     the Bronx, Queens, Brooklyn, the Lower East Side, the Hudson Valley,
     the Connecticut holiday special, the US/Mexico border, the Les Halles
-    kitchen episode
+    kitchen episode, and A Cook's Tour's three New York episodes -- "My
+    Hometown Favorites", "My Life as a Cook" and "Elements of a Great
+    Bar", all of them Bourdain eating and drinking in his own city
   * compilation -- clip shows and studio specials: "Leftovers 1" and "2",
     "Food Porn" 1 and 2, the holiday specials, all eight Parts Unknown
     "Prime Cuts" season openers, and the two posthumous specials
@@ -65,7 +72,12 @@ flight to begin with:
     Armenia, Oman, Borneo, Sichuan, Okinawa, the Punjab, Paraguay,
     Asuncion, Tbilisi, Cologne, Antarctica (no scheduled service at all),
     alongside the No Reservations list -- Tashkent, Christchurch, Jaipur,
-    Jakarta, Beirut, Windhoek, Papeete, Florence and the rest.
+    Jakarta, Beirut, Windhoek, Papeete, Florence and the rest. A Cook's
+    Tour loses the most of any show proportionally: Saigon, Phnom Penh,
+    the Mekong, San Sebastian, Arcachon, Fes, St. Petersburg twice,
+    Oaxaca, Puebla, Salvador, Sydney, Melbourne, Chiang Mai, Hanoi and
+    Bangkok are all secondary-city or long-haul-Asia destinations that
+    New York does not reach without a connection.
 
 Excluded episodes are not silently dropped: every one of them is kept in
 the EPISODES tables below with an `exclude` reason, echoed into the JSON
@@ -104,6 +116,7 @@ from chef_trips import (  # noqa: E402
 OUT_CSV_PATH = PROCESSED_DIR / "bourdain_trips.csv"
 OUT_JSON_PATH = PROCESSED_DIR / "bourdain_trips.json"
 
+COOKS_TOUR_URL = "https://www.imdb.com/title/tt0306306/episodes/"
 IMDB_URL = "https://www.imdb.com/title/tt0475900/episodes/"
 PARTS_UNKNOWN_URL = "https://en.wikipedia.org/wiki/Anthony_Bourdain:_Parts_Unknown"
 
@@ -124,7 +137,8 @@ TRAVELER = {
     "traveler_name": "Anthony Bourdain",
     "home_city": "New York City",
     "home_country": "United States",
-    "source_series": "Anthony Bourdain: No Reservations; Anthony Bourdain: Parts Unknown",
+    "source_series": "Anthony Bourdain's A Cook's Tour; Anthony Bourdain: No Reservations; "
+                     "Anthony Bourdain: Parts Unknown",
 }
 
 
@@ -1001,11 +1015,180 @@ PARTS_UNKNOWN = [
      "exclude_note": "series finale in Manhattan, Bourdain's home city"},
 ]
 
-# Both shows in one table, each row tagged with which show it came from.
-# The show code also prefixes episode_code, because "S1.E1" alone is
-# ambiguous once there are two series in the file.
+# A COOK'S TOUR (Food Network, 2002-2003) -- the FIRST of the three shows,
+# and the one that reads least like the later two. Half of it is places
+# with no New York nonstop (Oaxaca, Puebla, Fes, San Sebastian, Chiang
+# Mai, Salvador) and three episodes are New York itself, so the kept rows
+# are a much smaller fraction than No Reservations manages.
+#
+# IMDb lists its episodes in production order, not broadcast order, so the
+# air dates below run out of sequence within season 1 (E1 Jan 8, E4 Jan 15,
+# E3 Mar 19). The dates are transcribed as IMDb gives them; nothing here
+# reorders them, and the trips are dated by air date like every other row
+# in this file.
+#
+# ONE CONSEQUENCE: two pairs of kept trips overlap, because the show aired
+# episodes closer together than the 5-day TRIP_DAYS window -- E1 and E2
+# (Jan 8 and Jan 12, both Tokyo) and E10 and E21 (Jul 8 and Jul 12). Same
+# artifact as Conan's four same-day Season 1 releases: an air-date model
+# meeting a broadcast schedule, not two journeys that really overlapped.
+# The rows are kept, since the alternative is discarding real destinations
+# over a scheduling artifact.
+COOKS_TOUR = [
+    # ---- Season 1 (2002) ----
+    {"season": 1, "episode": 1, "title": "A Taste of Tokyo",
+     "air_date": "2002-01-08", "city": "Tokyo", "country": "Japan",
+     "airports": ["NRT", "HND"],
+     "note": "Tsukiji fish market and the sumo stable's chanko-nabe"},
+    {"season": 1, "episode": 2, "title": "Dining with Geishas",
+     "air_date": "2002-01-12", "city": "Tokyo", "country": "Japan",
+     "airports": ["NRT", "HND"],
+     "note": "the synopsis says only 'rural Japan' -- a kaiseki ryokan it never "
+             "names -- so the row is the capital by the capital rule"},
+    {"season": 1, "episode": 3, "title": "Cobra Heart - Food That Makes You Manly",
+     "air_date": "2002-03-19", "city": "Ho Chi Minh City", "country": "Vietnam",
+     "airports": ["SGN"]},
+    {"season": 1, "episode": 4, "title": "Eating on the Mekong",
+     "air_date": "2002-01-15", "city": "Hanoi", "country": "Vietnam",
+     "airports": ["HAN", "SGN"],
+     "note": "the synopsis names the Mekong and no city, so the row is the capital by "
+             "the capital rule; Ho Chi Minh City checked second as the delta's own gateway"},
+    {"season": 1, "episode": 5, "title": "Wild Delicacies",
+     "air_date": "2002-01-22", "city": "Phnom Penh", "country": "Cambodia",
+     "airports": ["PNH"]},
+    {"season": 1, "episode": 6, "title": "Eating on the Edge of Nowhere",
+     "air_date": "2002-03-26", "city": "Pailin", "country": "Cambodia",
+     "airports": ["PNH", "NRT", "HND"],
+     "note": "Pailin has no airport of its own and the episode ends back in Japan, so "
+             "both countries are candidates -- Phnom Penh first, Tokyo second"},
+    {"season": 1, "episode": 7, "title": "Cod Crazy",
+     "air_date": "2002-06-17", "city": "Porto", "country": "Portugal",
+     "airports": ["OPO", "LIS"],
+     "note": "bacalhau and Port in Porto; Lisbon checked as the other Portuguese gateway"},
+    {"season": 1, "episode": 8, "title": "San Sebastian: A Food Lover's Town",
+     "air_date": "2002-07-05", "city": "San Sebastian", "country": "Spain",
+     "airports": ["EAS", "BIO"],
+     "note": "Basque gastronomic societies; Bilbao checked as the region's larger gateway"},
+    {"season": 1, "episode": 9, "title": "Childhood Flavors",
+     "air_date": "2002-01-29", "city": "Arcachon", "country": "France",
+     "airports": ["BOD"],
+     "note": "Arcachon has no airport; Bordeaux is the gateway to the basin where "
+             "Bourdain ate his first oyster"},
+    {"season": 1, "episode": 10, "title": "Stuffed Like a Pig",
+     "air_date": "2002-07-08", "city": "Lisbon", "country": "Portugal",
+     "airports": ["LIS", "OPO", "BOD", "TLS"],
+     "note": "the episode is Portugal then south-west France and names no city in either, "
+             "so the row is the Portuguese capital by the capital rule, with Bordeaux and "
+             "Toulouse checked for the foie gras leg"},
+    {"season": 1, "episode": 11, "title": "Morocco: A Desert Feast",
+     "air_date": "2002-03-05", "city": "Rabat", "country": "Morocco",
+     "airports": ["RBA", "CMN"],
+     "note": "the synopsis says only 'Morocco (Sahara)', so the row is the capital by the "
+             "capital rule, with Casablanca checked as the country's gateway"},
+    {"season": 1, "episode": 12, "title": "Traditional Tastes",
+     "air_date": "2002-05-07", "city": "Fes", "country": "Morocco",
+     "airports": ["FEZ"],
+     "note": "the medina of Fes -- a city the source does name, so no capital rule here"},
+    {"season": 1, "episode": 13, "title": "The Cook Who Came in from the Cold",
+     "air_date": "2002-02-19", "city": "St. Petersburg", "country": "Russia",
+     "airports": ["LED"]},
+    {"season": 1, "episode": 14, "title": "So Much Vodka, So Little Time",
+     "air_date": "2002-04-16", "city": "St. Petersburg", "country": "Russia",
+     "airports": ["LED"],
+     "note": "second St. Petersburg episode, filmed on the same trip as S1.E13"},
+    {"season": 1, "episode": 15, "title": "Tamales and Iguana, Oaxacan Style",
+     "air_date": "2002-04-02", "city": "Oaxaca", "country": "Mexico",
+     "airports": ["OAX"]},
+    {"season": 1, "episode": 16, "title": "Puebla, Where the Cooks Are From",
+     "air_date": "2002-02-12", "city": "Puebla", "country": "Mexico",
+     "airports": ["PBC"]},
+    {"season": 1, "episode": 17, "title": "Los Angeles, My Own Heart of Darkness",
+     "air_date": "2002-02-26", "city": "Los Angeles", "country": "United States",
+     "airports": ["LAX"]},
+    {"season": 1, "episode": 18, "title": "The French Laundry Experience",
+     "air_date": "2002-04-30", "city": "Napa", "country": "United States",
+     "airports": ["SFO", "OAK"],
+     "note": "San Francisco first, then the drive to Thomas Keller's dining room in "
+             "Yountville; Napa has no commercial airport"},
+    {"season": 1, "episode": 19, "title": "My Hometown Favorites",
+     "air_date": "2002-04-23", "city": "New York City", "country": "United States",
+     "airports": [], "exclude": GROUND,
+     "exclude_note": "a tour of Bourdain's own city -- sturgeon, bagels and a hot dog, no flight"},
+    {"season": 1, "episode": 20, "title": "My Life as a Cook - NYC",
+     "air_date": "2002-02-05", "city": "New York City", "country": "United States",
+     "airports": [], "exclude": GROUND,
+     "exclude_note": "his first kitchen, the CIA and Les Halles, plus Provincetown by road"},
+    {"season": 1, "episode": 21, "title": "Highland Grub",
+     "air_date": "2002-07-12", "city": "Glasgow", "country": "United Kingdom",
+     "airports": ["GLA", "EDI"],
+     "note": "Scotland is a UK constituent country, so the country column holds the "
+             "sovereign state; begins in Glasgow, Edinburgh checked as the other gateway"},
+    {"season": 1, "episode": 22, "title": "A Pleasing Palate",
+     "air_date": "2002-04-20", "city": "London", "country": "United Kingdom",
+     "airports": ["LHR", "LGW"],
+     "note": "nose-to-tail eating at St. John, pie and mash, and Brick Lane"},
+
+    # ---- Season 2 (2003) ----
+    {"season": 2, "episode": 1, "title": "Food Tastes Better with Sand Between Your Toes",
+     "air_date": "2003-02-21", "city": "Philipsburg", "country": "Netherlands Antilles",
+     "airports": ["SXM"],
+     "note": "the episode says 'St. Martin'; the island is split French/Dutch and SXM sits "
+             "on the Dutch side, which is the country airports.json files it under"},
+    {"season": 2, "episode": 2, "title": "No Beads, No Babes, No Bourbon Street",
+     "air_date": "2003-02-28", "city": "New Orleans", "country": "United States",
+     "airports": ["MSY"]},
+    {"season": 2, "episode": 3, "title": "A Mystical World",
+     "air_date": "2003-03-07", "city": "Salvador", "country": "Brazil",
+     "airports": ["SSA"],
+     "note": "Salvador da Bahia, named by the source"},
+    {"season": 2, "episode": 4, "title": "How to Be a Carioca",
+     "air_date": "2003-03-14", "city": "Rio de Janeiro", "country": "Brazil",
+     "airports": ["GIG", "SDU"]},
+    {"season": 2, "episode": 5, "title": "Elements of a Great Bar",
+     "air_date": "2003-03-21", "city": "New York City", "country": "United States",
+     "airports": [], "exclude": GROUND,
+     "exclude_note": "a search for the perfect bar in his own city, no flight involved"},
+    {"season": 2, "episode": 6, "title": "The Struggle for the Soul of America",
+     "air_date": "2003-03-28", "city": "Minneapolis", "country": "United States",
+     "airports": ["MSP"]},
+    {"season": 2, "episode": 7, "title": "The BBQ Triangle",
+     "air_date": "2003-04-04", "city": "Kansas City", "country": "United States",
+     "airports": ["MCI", "IAH", "RDU"],
+     "note": "three barbecue cities in one episode -- Kansas City, Houston and North "
+             "Carolina; resolved to the first with a New York nonstop, and North Carolina "
+             "names no city so Raleigh-Durham stands for it"},
+    {"season": 2, "episode": 8, "title": "Mad Tony: The Food Warrior",
+     "air_date": "2003-04-18", "city": "Sydney", "country": "Australia",
+     "airports": ["SYD"],
+     "note": "a pilgrimage to Tetsuya Wakuda's dining room"},
+    {"season": 2, "episode": 9, "title": "Down Under: The Wild West of Cooking",
+     "air_date": "2003-05-02", "city": "Melbourne", "country": "Australia",
+     "airports": ["MEL"]},
+    {"season": 2, "episode": 10, "title": "Singapore: New York in Twenty Years",
+     "air_date": "2003-05-16", "city": "Singapore", "country": "Singapore",
+     "airports": ["SIN"]},
+    {"season": 2, "episode": 11, "title": "Let's Get Lost",
+     "air_date": "2003-06-13", "city": "Chiang Mai", "country": "Thailand",
+     "airports": ["CNX"]},
+    {"season": 2, "episode": 12, "title": "My Friend Linh",
+     "air_date": "2003-05-30", "city": "Hanoi", "country": "Vietnam",
+     "airports": ["HAN"],
+     "note": "back to Hanoi for Tet with his friend Linh"},
+    {"season": 2, "episode": 13, "title": "Thailand: One Night in Bangkok",
+     "air_date": "2003-06-27", "city": "Bangkok", "country": "Thailand",
+     "airports": ["BKK"],
+     "note": "a layover that became an episode"},
+]
+
+# All three shows in one table, each row tagged with which show it came
+# from. The show code also prefixes episode_code, because "S1.E1" alone is
+# ambiguous once there is more than one series in the file.
+#
+# A Cook's Tour comes first because it aired first (2002-2003, three years
+# before No Reservations), so the rows read in the order Bourdain made them.
 EPISODES = (
-    [{**ep, "show": "No Reservations", "show_code": "NR"} for ep in NO_RESERVATIONS]
+    [{**ep, "show": "A Cook's Tour", "show_code": "CT"} for ep in COOKS_TOUR]
+    + [{**ep, "show": "No Reservations", "show_code": "NR"} for ep in NO_RESERVATIONS]
     + [{**ep, "show": "Parts Unknown", "show_code": "PU"} for ep in PARTS_UNKNOWN]
 )
 
@@ -1022,13 +1205,22 @@ def main():
     trips, excluded = build_rows(EPISODES, ORIGIN_PREFERENCE, TRAVELER["traveler_name"], TRIP_DAYS)
 
     meta = {
-        "source": f"IMDb episode list for No Reservations (tt0475900), seasons 1-9 -- {IMDB_URL} "
-                  f"-- and Wikipedia's episode table for Parts Unknown (CNN, 2013-2018), "
-                  f"seasons 1-12 -- {PARTS_UNKNOWN_URL}",
+        "source": f"IMDb episode list for A Cook's Tour (tt0306306), seasons 1-2 -- "
+                  f"{COOKS_TOUR_URL} -- IMDb episode list for No Reservations (tt0475900), "
+                  f"seasons 1-9 -- {IMDB_URL} -- and Wikipedia's episode table for Parts "
+                  f"Unknown (CNN, 2013-2018), seasons 1-12 -- {PARTS_UNKNOWN_URL}",
         "traveler": TRAVELER,
         "assumptions": {
             "start_date": "episode original air date (the only date these sources publish; "
                           "filming predates it)",
+            "cooks_tour_episode_order": "IMDb lists A Cook's Tour in production order, so its "
+                                        "air dates run out of sequence within season 1 -- the "
+                                        "dates are transcribed as published and the trips are "
+                                        "dated by air date like every other row",
+            "cooks_tour_overlapping_trips": "two pairs of kept A Cook's Tour trips overlap "
+                                            "(S1.E1/S1.E2 and S1.E10/S1.E21) because episodes "
+                                            "aired closer together than the 5-day window -- a "
+                                            "broadcast-schedule artifact, not overlapping travel",
             "duration_days": TRIP_DAYS,
             "trip_shape": "round trip out of New York, nonstop each way",
             "origin_preference": list(ORIGIN_PREFERENCE),

@@ -1,14 +1,16 @@
 {
-  "source": "IMDb episode list for No Reservations (tt0475900), seasons 1-9 -- https://www.imdb.com/title/tt0475900/episodes/ -- and Wikipedia's episode table for Parts Unknown (CNN, 2013-2018), seasons 1-12 -- https://en.wikipedia.org/wiki/Anthony_Bourdain:_Parts_Unknown",
+  "source": "IMDb episode list for A Cook's Tour (tt0306306), seasons 1-2 -- https://www.imdb.com/title/tt0306306/episodes/ -- IMDb episode list for No Reservations (tt0475900), seasons 1-9 -- https://www.imdb.com/title/tt0475900/episodes/ -- and Wikipedia's episode table for Parts Unknown (CNN, 2013-2018), seasons 1-12 -- https://en.wikipedia.org/wiki/Anthony_Bourdain:_Parts_Unknown",
   "traveler": {
     "traveler_id": "bourdain",
     "traveler_name": "Anthony Bourdain",
     "home_city": "New York City",
     "home_country": "United States",
-    "source_series": "Anthony Bourdain: No Reservations; Anthony Bourdain: Parts Unknown"
+    "source_series": "Anthony Bourdain's A Cook's Tour; Anthony Bourdain: No Reservations; Anthony Bourdain: Parts Unknown"
   },
   "assumptions": {
     "start_date": "episode original air date (the only date these sources publish; filming predates it)",
+    "cooks_tour_episode_order": "IMDb lists A Cook's Tour in production order, so its air dates run out of sequence within season 1 -- the dates are transcribed as published and the trips are dated by air date like every other row",
+    "cooks_tour_overlapping_trips": "two pairs of kept A Cook's Tour trips overlap (S1.E1/S1.E2 and S1.E10/S1.E21) because episodes aired closer together than the 5-day window -- a broadcast-schedule artifact, not overlapping travel",
     "duration_days": 5,
     "trip_shape": "round trip out of New York, nonstop each way",
     "origin_preference": [
@@ -19,12 +21,17 @@
     "flights_only": "an episode is kept only if a nonstop from JFK, LGA or EWR to the destination airport exists in airline_routes_enhanced.csv",
     "route_data_vintage": "airline_routes_enhanced.csv is a present-day route snapshot, not a 2005-2018 schedule -- exclusions mean 'no nonstop today'"
   },
-  "generated": "2026-08-19",
+  "generated": "2026-08-23",
   "counts": {
-    "episodes": 246,
-    "trips": 130,
-    "excluded": 116,
+    "episodes": 281,
+    "trips": 146,
+    "excluded": 135,
     "by_show": {
+      "A Cook's Tour": {
+        "episodes": 35,
+        "trips": 16,
+        "excluded": 19
+      },
       "No Reservations": {
         "episodes": 143,
         "trips": 70,
@@ -40,6 +47,552 @@
   "trips": [
     {
       "trip_id": 1,
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 1,
+      "episode_code": "CT S1.E1",
+      "episode_title": "A Taste of Tokyo",
+      "air_date": "2002-01-08",
+      "destination_city": "Tokyo",
+      "destination_country": "Japan",
+      "episode_destination": "Tokyo, Japan",
+      "start_date": "2002-01-08",
+      "end_date": "2002-01-13",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "NRT",
+      "destination_airport_name": "Narita International Airport",
+      "destination_lat": 35.7647018433,
+      "destination_lng": 140.386001587,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "AA",
+        "DL",
+        "JL",
+        "NH",
+        "UA"
+      ],
+      "nonstop_airline_count": 5,
+      "distance_km": 10830.5,
+      "is_domestic": 0,
+      "notes": "Tsukiji fish market and the sumo stable's chanko-nabe"
+    },
+    {
+      "trip_id": 2,
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 2,
+      "episode_code": "CT S1.E2",
+      "episode_title": "Dining with Geishas",
+      "air_date": "2002-01-12",
+      "destination_city": "Tokyo",
+      "destination_country": "Japan",
+      "episode_destination": "Tokyo, Japan",
+      "start_date": "2002-01-12",
+      "end_date": "2002-01-17",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "NRT",
+      "destination_airport_name": "Narita International Airport",
+      "destination_lat": 35.7647018433,
+      "destination_lng": 140.386001587,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "AA",
+        "DL",
+        "JL",
+        "NH",
+        "UA"
+      ],
+      "nonstop_airline_count": 5,
+      "distance_km": 10830.5,
+      "is_domestic": 0,
+      "notes": "the synopsis says only 'rural Japan' -- a kaiseki ryokan it never names -- so the row is the capital by the capital rule"
+    },
+    {
+      "trip_id": 3,
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 6,
+      "episode_code": "CT S1.E6",
+      "episode_title": "Eating on the Edge of Nowhere",
+      "air_date": "2002-03-26",
+      "destination_city": "Tokyo",
+      "destination_country": "Japan",
+      "episode_destination": "Pailin, Cambodia",
+      "start_date": "2002-03-26",
+      "end_date": "2002-03-31",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "NRT",
+      "destination_airport_name": "Narita International Airport",
+      "destination_lat": 35.7647018433,
+      "destination_lng": 140.386001587,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "AA",
+        "DL",
+        "JL",
+        "NH",
+        "UA"
+      ],
+      "nonstop_airline_count": 5,
+      "distance_km": 10830.5,
+      "is_domestic": 0,
+      "notes": "Pailin has no airport of its own and the episode ends back in Japan, so both countries are candidates -- Phnom Penh first, Tokyo second; PNH (Pailin) has no nonstop from JFK/LGA/EWR; resolved to NRT; Pailin, Cambodia is served from NRT in Japan"
+    },
+    {
+      "trip_id": 4,
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 7,
+      "episode_code": "CT S1.E7",
+      "episode_title": "Cod Crazy",
+      "air_date": "2002-06-17",
+      "destination_city": "Porto",
+      "destination_country": "Portugal",
+      "episode_destination": "Porto, Portugal",
+      "start_date": "2002-06-17",
+      "end_date": "2002-06-22",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "OPO",
+      "destination_airport_name": "Francisco de S\u00e1 Carneiro Airport",
+      "destination_lat": 41.2481002808,
+      "destination_lng": -8.68138980865,
+      "origin_airport": "EWR",
+      "origin_alternates": [],
+      "nonstop_airlines": [
+        "TP",
+        "US"
+      ],
+      "nonstop_airline_count": 2,
+      "distance_km": 5360.7,
+      "is_domestic": 0,
+      "notes": "bacalhau and Port in Porto; Lisbon checked as the other Portuguese gateway"
+    },
+    {
+      "trip_id": 5,
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 10,
+      "episode_code": "CT S1.E10",
+      "episode_title": "Stuffed Like a Pig",
+      "air_date": "2002-07-08",
+      "destination_city": "Lisbon",
+      "destination_country": "Portugal",
+      "episode_destination": "Lisbon, Portugal",
+      "start_date": "2002-07-08",
+      "end_date": "2002-07-13",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "LIS",
+      "destination_airport_name": "Humberto Delgado Airport (Lisbon Portela Airport)",
+      "destination_lat": 38.7813,
+      "destination_lng": -9.13592,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "DL",
+        "TP"
+      ],
+      "nonstop_airline_count": 2,
+      "distance_km": 5404.4,
+      "is_domestic": 0,
+      "notes": "the episode is Portugal then south-west France and names no city in either, so the row is the Portuguese capital by the capital rule, with Bordeaux and Toulouse checked for the foie gras leg"
+    },
+    {
+      "trip_id": 6,
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 11,
+      "episode_code": "CT S1.E11",
+      "episode_title": "Morocco: A Desert Feast",
+      "air_date": "2002-03-05",
+      "destination_city": "Casablanca",
+      "destination_country": "Morocco",
+      "episode_destination": "Rabat, Morocco",
+      "start_date": "2002-03-05",
+      "end_date": "2002-03-10",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "CMN",
+      "destination_airport_name": "Mohammed V International Airport",
+      "destination_lat": 33.36750030517578,
+      "destination_lng": -7.589970111846924,
+      "origin_airport": "JFK",
+      "origin_alternates": [],
+      "nonstop_airlines": [
+        "AT"
+      ],
+      "nonstop_airline_count": 1,
+      "distance_km": 5795.0,
+      "is_domestic": 0,
+      "notes": "the synopsis says only 'Morocco (Sahara)', so the row is the capital by the capital rule, with Casablanca checked as the country's gateway; RBA (Rabat) has no nonstop from JFK/LGA/EWR; resolved to CMN"
+    },
+    {
+      "trip_id": 7,
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 17,
+      "episode_code": "CT S1.E17",
+      "episode_title": "Los Angeles, My Own Heart of Darkness",
+      "air_date": "2002-02-26",
+      "destination_city": "Los Angeles",
+      "destination_country": "United States",
+      "episode_destination": "Los Angeles, United States",
+      "start_date": "2002-02-26",
+      "end_date": "2002-03-03",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "LAX",
+      "destination_airport_name": "Los Angeles International Airport",
+      "destination_lat": 33.94250107,
+      "destination_lng": -118.4079971,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "AA",
+        "AS",
+        "B6",
+        "DL",
+        "QF",
+        "UA",
+        "US",
+        "VX"
+      ],
+      "nonstop_airline_count": 8,
+      "distance_km": 3974.2,
+      "is_domestic": 1,
+      "notes": ""
+    },
+    {
+      "trip_id": 8,
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 18,
+      "episode_code": "CT S1.E18",
+      "episode_title": "The French Laundry Experience",
+      "air_date": "2002-04-30",
+      "destination_city": "Napa",
+      "destination_country": "United States",
+      "episode_destination": "Napa, United States",
+      "start_date": "2002-04-30",
+      "end_date": "2002-05-05",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "SFO",
+      "destination_airport_name": "San Francisco International Airport",
+      "destination_lat": 37.61899948120117,
+      "destination_lng": -122.375,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "AA",
+        "AS",
+        "B6",
+        "DL",
+        "UA",
+        "US",
+        "VX"
+      ],
+      "nonstop_airline_count": 7,
+      "distance_km": 4151.8,
+      "is_domestic": 1,
+      "notes": "San Francisco first, then the drive to Thomas Keller's dining room in Yountville; Napa has no commercial airport"
+    },
+    {
+      "trip_id": 9,
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 21,
+      "episode_code": "CT S1.E21",
+      "episode_title": "Highland Grub",
+      "air_date": "2002-07-12",
+      "destination_city": "Glasgow",
+      "destination_country": "United Kingdom",
+      "episode_destination": "Glasgow, United Kingdom",
+      "start_date": "2002-07-12",
+      "end_date": "2002-07-17",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "GLA",
+      "destination_airport_name": "Glasgow International Airport",
+      "destination_lat": 55.8718986511,
+      "destination_lng": -4.43306016922,
+      "origin_airport": "EWR",
+      "origin_alternates": [],
+      "nonstop_airlines": [
+        "LH",
+        "UA"
+      ],
+      "nonstop_airline_count": 2,
+      "distance_km": 5182.0,
+      "is_domestic": 0,
+      "notes": "Scotland is a UK constituent country, so the country column holds the sovereign state; begins in Glasgow, Edinburgh checked as the other gateway"
+    },
+    {
+      "trip_id": 10,
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 22,
+      "episode_code": "CT S1.E22",
+      "episode_title": "A Pleasing Palate",
+      "air_date": "2002-04-20",
+      "destination_city": "London",
+      "destination_country": "United Kingdom",
+      "episode_destination": "London, United Kingdom",
+      "start_date": "2002-04-20",
+      "end_date": "2002-04-25",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "LHR",
+      "destination_airport_name": "London Heathrow Airport",
+      "destination_lat": 51.4706,
+      "destination_lng": -0.461941,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "AA",
+        "AF",
+        "AI",
+        "AY",
+        "BA",
+        "DL",
+        "IB",
+        "KL",
+        "KU",
+        "MH",
+        "US",
+        "VS"
+      ],
+      "nonstop_airline_count": 12,
+      "distance_km": 5539.7,
+      "is_domestic": 0,
+      "notes": "nose-to-tail eating at St. John, pie and mash, and Brick Lane"
+    },
+    {
+      "trip_id": 11,
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 1,
+      "episode_code": "CT S2.E1",
+      "episode_title": "Food Tastes Better with Sand Between Your Toes",
+      "air_date": "2003-02-21",
+      "destination_city": "Philipsburg",
+      "destination_country": "Netherlands Antilles",
+      "episode_destination": "Philipsburg, Netherlands Antilles",
+      "start_date": "2003-02-21",
+      "end_date": "2003-02-26",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "SXM",
+      "destination_airport_name": "Princess Juliana International Airport",
+      "destination_lat": 18.0410003662,
+      "destination_lng": -63.1088981628,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "AA",
+        "B6",
+        "DL",
+        "US"
+      ],
+      "nonstop_airline_count": 4,
+      "distance_km": 2712.2,
+      "is_domestic": 0,
+      "notes": "the episode says 'St. Martin'; the island is split French/Dutch and SXM sits on the Dutch side, which is the country airports.json files it under"
+    },
+    {
+      "trip_id": 12,
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 2,
+      "episode_code": "CT S2.E2",
+      "episode_title": "No Beads, No Babes, No Bourbon Street",
+      "air_date": "2003-02-28",
+      "destination_city": "New Orleans",
+      "destination_country": "United States",
+      "episode_destination": "New Orleans, United States",
+      "start_date": "2003-02-28",
+      "end_date": "2003-03-05",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "MSY",
+      "destination_airport_name": "Louis Armstrong New Orleans International Airport",
+      "destination_lat": 29.99340057373047,
+      "destination_lng": -90.25800323486328,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "LGA",
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "9E",
+        "AF",
+        "AZ",
+        "B6",
+        "DL",
+        "EY",
+        "JL",
+        "KL",
+        "LH",
+        "QR",
+        "VS"
+      ],
+      "nonstop_airline_count": 11,
+      "distance_km": 1901.5,
+      "is_domestic": 1,
+      "notes": ""
+    },
+    {
+      "trip_id": 13,
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 4,
+      "episode_code": "CT S2.E4",
+      "episode_title": "How to Be a Carioca",
+      "air_date": "2003-03-14",
+      "destination_city": "Rio de Janeiro",
+      "destination_country": "Brazil",
+      "episode_destination": "Rio de Janeiro, Brazil",
+      "start_date": "2003-03-14",
+      "end_date": "2003-03-19",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "GIG",
+      "destination_airport_name": "Rio Gale\u00e3o \u2013 Tom Jobim International Airport",
+      "destination_lat": -22.8099994659,
+      "destination_lng": -43.2505569458,
+      "origin_airport": "JFK",
+      "origin_alternates": [],
+      "nonstop_airlines": [
+        "AA",
+        "JJ",
+        "US"
+      ],
+      "nonstop_airline_count": 3,
+      "distance_km": 7729.3,
+      "is_domestic": 0,
+      "notes": ""
+    },
+    {
+      "trip_id": 14,
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 6,
+      "episode_code": "CT S2.E6",
+      "episode_title": "The Struggle for the Soul of America",
+      "air_date": "2003-03-28",
+      "destination_city": "Minneapolis",
+      "destination_country": "United States",
+      "episode_destination": "Minneapolis, United States",
+      "start_date": "2003-03-28",
+      "end_date": "2003-04-02",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "MSP",
+      "destination_airport_name": "Minneapolis-St Paul International/Wold-Chamberlain Airport",
+      "destination_lat": 44.882,
+      "destination_lng": -93.221802,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "LGA",
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "DL",
+        "SY"
+      ],
+      "nonstop_airline_count": 2,
+      "distance_km": 1651.3,
+      "is_domestic": 1,
+      "notes": ""
+    },
+    {
+      "trip_id": 15,
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 7,
+      "episode_code": "CT S2.E7",
+      "episode_title": "The BBQ Triangle",
+      "air_date": "2003-04-04",
+      "destination_city": "Kansas City",
+      "destination_country": "United States",
+      "episode_destination": "Kansas City, United States",
+      "start_date": "2003-04-04",
+      "end_date": "2003-04-09",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "MCI",
+      "destination_airport_name": "Kansas City International Airport",
+      "destination_lat": 39.2976,
+      "destination_lng": -94.713898,
+      "origin_airport": "LGA",
+      "origin_alternates": [
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "DL",
+        "WN"
+      ],
+      "nonstop_airline_count": 2,
+      "distance_km": 1777.7,
+      "is_domestic": 1,
+      "notes": "three barbecue cities in one episode -- Kansas City, Houston and North Carolina; resolved to the first with a New York nonstop, and North Carolina names no city so Raleigh-Durham stands for it"
+    },
+    {
+      "trip_id": 16,
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 10,
+      "episode_code": "CT S2.E10",
+      "episode_title": "Singapore: New York in Twenty Years",
+      "air_date": "2003-05-16",
+      "destination_city": "Singapore",
+      "destination_country": "Singapore",
+      "episode_destination": "Singapore, Singapore",
+      "start_date": "2003-05-16",
+      "end_date": "2003-05-21",
+      "duration_days": 5,
+      "traveler_name": "Anthony Bourdain",
+      "destination_airport": "SIN",
+      "destination_airport_name": "Singapore Changi Airport",
+      "destination_lat": 1.35019,
+      "destination_lng": 103.994003,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "SQ"
+      ],
+      "nonstop_airline_count": 1,
+      "distance_km": 15340.6,
+      "is_domestic": 0,
+      "notes": ""
+    },
+    {
+      "trip_id": 17,
       "show": "No Reservations",
       "season": 1,
       "episode": 1,
@@ -80,7 +633,7 @@
       "notes": ""
     },
     {
-      "trip_id": 2,
+      "trip_id": 18,
       "show": "No Reservations",
       "season": 1,
       "episode": 2,
@@ -112,7 +665,7 @@
       "notes": ""
     },
     {
-      "trip_id": 3,
+      "trip_id": 19,
       "show": "No Reservations",
       "season": 1,
       "episode": 7,
@@ -150,7 +703,7 @@
       "notes": ""
     },
     {
-      "trip_id": 4,
+      "trip_id": 20,
       "show": "No Reservations",
       "season": 2,
       "episode": 2,
@@ -185,7 +738,7 @@
       "notes": ""
     },
     {
-      "trip_id": 5,
+      "trip_id": 21,
       "show": "No Reservations",
       "season": 2,
       "episode": 3,
@@ -218,7 +771,7 @@
       "notes": ""
     },
     {
-      "trip_id": 6,
+      "trip_id": 22,
       "show": "No Reservations",
       "season": 2,
       "episode": 4,
@@ -255,7 +808,7 @@
       "notes": "synopsis names the Montreal Culinary Institute"
     },
     {
-      "trip_id": 7,
+      "trip_id": 23,
       "show": "No Reservations",
       "season": 2,
       "episode": 5,
@@ -286,7 +839,7 @@
       "notes": ""
     },
     {
-      "trip_id": 8,
+      "trip_id": 24,
       "show": "No Reservations",
       "season": 2,
       "episode": 6,
@@ -321,7 +874,7 @@
       "notes": ""
     },
     {
-      "trip_id": 9,
+      "trip_id": 25,
       "show": "No Reservations",
       "season": 2,
       "episode": 7,
@@ -350,7 +903,7 @@
       "notes": "synopsis begins the episode in Osaka, not Tokyo"
     },
     {
-      "trip_id": 10,
+      "trip_id": 26,
       "show": "No Reservations",
       "season": 2,
       "episode": 10,
@@ -381,7 +934,7 @@
       "notes": "two-city episode, Kolkata and Bombay; CCU (Kolkata) has no nonstop from JFK/LGA/EWR; resolved to BOM"
     },
     {
-      "trip_id": 11,
+      "trip_id": 27,
       "show": "No Reservations",
       "season": 2,
       "episode": 11,
@@ -413,7 +966,7 @@
       "notes": ""
     },
     {
-      "trip_id": 12,
+      "trip_id": 28,
       "show": "No Reservations",
       "season": 2,
       "episode": 13,
@@ -452,7 +1005,7 @@
       "notes": "elBulli is in Roses, Catalonia -- Barcelona is its gateway airport"
     },
     {
-      "trip_id": 13,
+      "trip_id": 29,
       "show": "No Reservations",
       "season": 3,
       "episode": 1,
@@ -491,7 +1044,7 @@
       "notes": ""
     },
     {
-      "trip_id": 14,
+      "trip_id": 30,
       "show": "No Reservations",
       "season": 3,
       "episode": 2,
@@ -520,7 +1073,7 @@
       "notes": ""
     },
     {
-      "trip_id": 15,
+      "trip_id": 31,
       "show": "No Reservations",
       "season": 3,
       "episode": 3,
@@ -556,7 +1109,7 @@
       "notes": "episode covers Washington and Oregon; Seattle is the primary gateway"
     },
     {
-      "trip_id": 16,
+      "trip_id": 32,
       "show": "No Reservations",
       "season": 3,
       "episode": 5,
@@ -586,7 +1139,7 @@
       "notes": ""
     },
     {
-      "trip_id": 17,
+      "trip_id": 33,
       "show": "No Reservations",
       "season": 3,
       "episode": 6,
@@ -624,7 +1177,7 @@
       "notes": ""
     },
     {
-      "trip_id": 18,
+      "trip_id": 34,
       "show": "No Reservations",
       "season": 3,
       "episode": 7,
@@ -657,7 +1210,7 @@
       "notes": ""
     },
     {
-      "trip_id": 19,
+      "trip_id": 35,
       "show": "No Reservations",
       "season": 3,
       "episode": 9,
@@ -693,7 +1246,7 @@
       "notes": "synopsis is about Sao Paulo, not Rio"
     },
     {
-      "trip_id": 20,
+      "trip_id": 36,
       "show": "No Reservations",
       "season": 3,
       "episode": 11,
@@ -727,7 +1280,7 @@
       "notes": ""
     },
     {
-      "trip_id": 21,
+      "trip_id": 37,
       "show": "No Reservations",
       "season": 3,
       "episode": 12,
@@ -759,7 +1312,7 @@
       "notes": ""
     },
     {
-      "trip_id": 22,
+      "trip_id": 38,
       "show": "No Reservations",
       "season": 3,
       "episode": 13,
@@ -792,7 +1345,7 @@
       "notes": "journey begins in Buenos Aires before continuing to Patagonia"
     },
     {
-      "trip_id": 23,
+      "trip_id": 39,
       "show": "No Reservations",
       "season": 3,
       "episode": 14,
@@ -825,7 +1378,7 @@
       "notes": ""
     },
     {
-      "trip_id": 24,
+      "trip_id": 40,
       "show": "No Reservations",
       "season": 4,
       "episode": 1,
@@ -856,7 +1409,7 @@
       "notes": ""
     },
     {
-      "trip_id": 25,
+      "trip_id": 41,
       "show": "No Reservations",
       "season": 4,
       "episode": 2,
@@ -888,7 +1441,7 @@
       "notes": "Tegel was Berlin's gateway in 2008; BER replaced it in 2020, but airports.json (OpenFlights) predates BER so TXL is checked first"
     },
     {
-      "trip_id": 26,
+      "trip_id": 42,
       "show": "No Reservations",
       "season": 4,
       "episode": 3,
@@ -919,7 +1472,7 @@
       "notes": ""
     },
     {
-      "trip_id": 27,
+      "trip_id": 43,
       "show": "No Reservations",
       "season": 4,
       "episode": 4,
@@ -948,7 +1501,7 @@
       "notes": "island-hopping episode; Athens is the mainland gateway; JTR (Santorini) has no nonstop from JFK/LGA/EWR; resolved to ATH"
     },
     {
-      "trip_id": 28,
+      "trip_id": 44,
       "show": "No Reservations",
       "season": 4,
       "episode": 5,
@@ -990,7 +1543,7 @@
       "notes": ""
     },
     {
-      "trip_id": 29,
+      "trip_id": 45,
       "show": "No Reservations",
       "season": 4,
       "episode": 6,
@@ -1032,7 +1585,7 @@
       "notes": "two-city episode, London and Edinburgh"
     },
     {
-      "trip_id": 30,
+      "trip_id": 46,
       "show": "No Reservations",
       "season": 4,
       "episode": 7,
@@ -1064,7 +1617,7 @@
       "notes": ""
     },
     {
-      "trip_id": 31,
+      "trip_id": 47,
       "show": "No Reservations",
       "season": 4,
       "episode": 9,
@@ -1095,7 +1648,7 @@
       "notes": ""
     },
     {
-      "trip_id": 32,
+      "trip_id": 48,
       "show": "No Reservations",
       "season": 4,
       "episode": 12,
@@ -1129,7 +1682,7 @@
       "notes": ""
     },
     {
-      "trip_id": 33,
+      "trip_id": 49,
       "show": "No Reservations",
       "season": 4,
       "episode": 13,
@@ -1158,7 +1711,7 @@
       "notes": ""
     },
     {
-      "trip_id": 34,
+      "trip_id": 50,
       "show": "No Reservations",
       "season": 4,
       "episode": 16,
@@ -1193,7 +1746,7 @@
       "notes": ""
     },
     {
-      "trip_id": 35,
+      "trip_id": 51,
       "show": "No Reservations",
       "season": 4,
       "episode": 17,
@@ -1232,7 +1785,7 @@
       "notes": ""
     },
     {
-      "trip_id": 36,
+      "trip_id": 52,
       "show": "No Reservations",
       "season": 4,
       "episode": 18,
@@ -1262,7 +1815,7 @@
       "notes": ""
     },
     {
-      "trip_id": 37,
+      "trip_id": 53,
       "show": "No Reservations",
       "season": 5,
       "episode": 1,
@@ -1297,7 +1850,7 @@
       "notes": "trip built around Carlos's home state of Puebla; Mexico City is its gateway"
     },
     {
-      "trip_id": 38,
+      "trip_id": 54,
       "show": "No Reservations",
       "season": 5,
       "episode": 2,
@@ -1329,7 +1882,7 @@
       "notes": ""
     },
     {
-      "trip_id": 39,
+      "trip_id": 55,
       "show": "No Reservations",
       "season": 5,
       "episode": 3,
@@ -1363,7 +1916,7 @@
       "notes": ""
     },
     {
-      "trip_id": 40,
+      "trip_id": 56,
       "show": "No Reservations",
       "season": 5,
       "episode": 5,
@@ -1400,7 +1953,7 @@
       "notes": ""
     },
     {
-      "trip_id": 41,
+      "trip_id": 57,
       "show": "No Reservations",
       "season": 5,
       "episode": 11,
@@ -1430,7 +1983,7 @@
       "notes": ""
     },
     {
-      "trip_id": 42,
+      "trip_id": 58,
       "show": "No Reservations",
       "season": 5,
       "episode": 13,
@@ -1463,7 +2016,7 @@
       "notes": "three-city rust belt episode"
     },
     {
-      "trip_id": 43,
+      "trip_id": 59,
       "show": "No Reservations",
       "season": 5,
       "episode": 15,
@@ -1500,7 +2053,7 @@
       "notes": ""
     },
     {
-      "trip_id": 44,
+      "trip_id": 60,
       "show": "No Reservations",
       "season": 5,
       "episode": 17,
@@ -1529,7 +2082,7 @@
       "notes": "Bozeman is the airport for Livingston, Montana"
     },
     {
-      "trip_id": 45,
+      "trip_id": 61,
       "show": "No Reservations",
       "season": 6,
       "episode": 1,
@@ -1561,7 +2114,7 @@
       "notes": ""
     },
     {
-      "trip_id": 46,
+      "trip_id": 62,
       "show": "No Reservations",
       "season": 6,
       "episode": 2,
@@ -1591,7 +2144,7 @@
       "notes": ""
     },
     {
-      "trip_id": 47,
+      "trip_id": 63,
       "show": "No Reservations",
       "season": 6,
       "episode": 4,
@@ -1620,7 +2173,7 @@
       "notes": ""
     },
     {
-      "trip_id": 48,
+      "trip_id": 64,
       "show": "No Reservations",
       "season": 6,
       "episode": 6,
@@ -1652,7 +2205,7 @@
       "notes": "UIO (Quito) has no nonstop from JFK/LGA/EWR; resolved to GYE"
     },
     {
-      "trip_id": 49,
+      "trip_id": 65,
       "show": "No Reservations",
       "season": 6,
       "episode": 9,
@@ -1682,7 +2235,7 @@
       "notes": "MRS (Marseille) has no nonstop from JFK/LGA/EWR; resolved to NCE"
     },
     {
-      "trip_id": 50,
+      "trip_id": 66,
       "show": "No Reservations",
       "season": 6,
       "episode": 12,
@@ -1715,7 +2268,7 @@
       "notes": ""
     },
     {
-      "trip_id": 51,
+      "trip_id": 67,
       "show": "No Reservations",
       "season": 6,
       "episode": 19,
@@ -1745,7 +2298,7 @@
       "notes": ""
     },
     {
-      "trip_id": 52,
+      "trip_id": 68,
       "show": "No Reservations",
       "season": 6,
       "episode": 20,
@@ -1782,7 +2335,7 @@
       "notes": ""
     },
     {
-      "trip_id": 53,
+      "trip_id": 69,
       "show": "No Reservations",
       "season": 6,
       "episode": 24,
@@ -1823,7 +2376,7 @@
       "notes": ""
     },
     {
-      "trip_id": 54,
+      "trip_id": 70,
       "show": "No Reservations",
       "season": 6,
       "episode": 25,
@@ -1862,7 +2415,7 @@
       "notes": ""
     },
     {
-      "trip_id": 55,
+      "trip_id": 71,
       "show": "No Reservations",
       "season": 7,
       "episode": 1,
@@ -1894,7 +2447,7 @@
       "notes": ""
     },
     {
-      "trip_id": 56,
+      "trip_id": 72,
       "show": "No Reservations",
       "season": 7,
       "episode": 4,
@@ -1926,7 +2479,7 @@
       "notes": ""
     },
     {
-      "trip_id": 57,
+      "trip_id": 73,
       "show": "No Reservations",
       "season": 7,
       "episode": 7,
@@ -1961,7 +2514,7 @@
       "notes": ""
     },
     {
-      "trip_id": 58,
+      "trip_id": 74,
       "show": "No Reservations",
       "season": 7,
       "episode": 9,
@@ -1992,7 +2545,7 @@
       "notes": ""
     },
     {
-      "trip_id": 59,
+      "trip_id": 75,
       "show": "No Reservations",
       "season": 7,
       "episode": 12,
@@ -2031,7 +2584,7 @@
       "notes": "return to elBulli in Roses, Catalonia, before it closed"
     },
     {
-      "trip_id": 60,
+      "trip_id": 76,
       "show": "No Reservations",
       "season": 7,
       "episode": 13,
@@ -2060,7 +2613,7 @@
       "notes": "California High Desert; Palm Springs is the nearest served airport"
     },
     {
-      "trip_id": 61,
+      "trip_id": 77,
       "show": "No Reservations",
       "season": 7,
       "episode": 14,
@@ -2089,7 +2642,7 @@
       "notes": ""
     },
     {
-      "trip_id": 62,
+      "trip_id": 78,
       "show": "No Reservations",
       "season": 7,
       "episode": 16,
@@ -2131,7 +2684,7 @@
       "notes": "LFT (Lafayette) has no nonstop from JFK/LGA/EWR; resolved to MSY"
     },
     {
-      "trip_id": 63,
+      "trip_id": 79,
       "show": "No Reservations",
       "season": 8,
       "episode": 2,
@@ -2163,7 +2716,7 @@
       "notes": ""
     },
     {
-      "trip_id": 64,
+      "trip_id": 80,
       "show": "No Reservations",
       "season": 8,
       "episode": 4,
@@ -2195,7 +2748,7 @@
       "notes": ""
     },
     {
-      "trip_id": 65,
+      "trip_id": 81,
       "show": "No Reservations",
       "season": 8,
       "episode": 5,
@@ -2230,7 +2783,7 @@
       "notes": "Cook It Raw was held in Ishikawa; Tokyo is the international gateway; KMQ (Kanazawa) has no nonstop from JFK/LGA/EWR; resolved to NRT"
     },
     {
-      "trip_id": 66,
+      "trip_id": 82,
       "show": "No Reservations",
       "season": 8,
       "episode": 6,
@@ -2262,7 +2815,7 @@
       "notes": ""
     },
     {
-      "trip_id": 67,
+      "trip_id": 83,
       "show": "No Reservations",
       "season": 8,
       "episode": 7,
@@ -2298,7 +2851,7 @@
       "notes": "Baja California; San Diego is the usual gateway across the border; TIJ (Tijuana) has no nonstop from JFK/LGA/EWR; resolved to SAN; Tijuana, Mexico is served from SAN in United States"
     },
     {
-      "trip_id": 68,
+      "trip_id": 84,
       "show": "No Reservations",
       "season": 9,
       "episode": 1,
@@ -2332,7 +2885,7 @@
       "notes": ""
     },
     {
-      "trip_id": 69,
+      "trip_id": 85,
       "show": "No Reservations",
       "season": 9,
       "episode": 7,
@@ -2363,7 +2916,7 @@
       "notes": ""
     },
     {
-      "trip_id": 70,
+      "trip_id": 86,
       "show": "No Reservations",
       "season": 9,
       "episode": 9,
@@ -2395,7 +2948,7 @@
       "notes": ""
     },
     {
-      "trip_id": 71,
+      "trip_id": 87,
       "show": "Parts Unknown",
       "season": 1,
       "episode": 2,
@@ -2433,7 +2986,7 @@
       "notes": ""
     },
     {
-      "trip_id": 72,
+      "trip_id": 88,
       "show": "Parts Unknown",
       "season": 1,
       "episode": 3,
@@ -2467,7 +3020,7 @@
       "notes": ""
     },
     {
-      "trip_id": 73,
+      "trip_id": 89,
       "show": "Parts Unknown",
       "season": 1,
       "episode": 4,
@@ -2496,7 +3049,7 @@
       "notes": ""
     },
     {
-      "trip_id": 74,
+      "trip_id": 90,
       "show": "Parts Unknown",
       "season": 1,
       "episode": 5,
@@ -2525,7 +3078,7 @@
       "notes": "TNG (Tangier) has no nonstop from JFK/LGA/EWR; resolved to CMN"
     },
     {
-      "trip_id": 75,
+      "trip_id": 91,
       "show": "Parts Unknown",
       "season": 1,
       "episode": 7,
@@ -2558,7 +3111,7 @@
       "notes": "CUZ (Cusco) has no nonstop from JFK/LGA/EWR; resolved to LIM"
     },
     {
-      "trip_id": 76,
+      "trip_id": 92,
       "show": "Parts Unknown",
       "season": 2,
       "episode": 2,
@@ -2590,7 +3143,7 @@
       "notes": "Tel Aviv is the gateway; the episode covers Jerusalem, Gaza and the West Bank"
     },
     {
-      "trip_id": 77,
+      "trip_id": 93,
       "show": "Parts Unknown",
       "season": 2,
       "episode": 3,
@@ -2629,7 +3182,7 @@
       "notes": ""
     },
     {
-      "trip_id": 78,
+      "trip_id": 94,
       "show": "Parts Unknown",
       "season": 2,
       "episode": 4,
@@ -2658,7 +3211,7 @@
       "notes": ""
     },
     {
-      "trip_id": 79,
+      "trip_id": 95,
       "show": "Parts Unknown",
       "season": 2,
       "episode": 5,
@@ -2689,7 +3242,7 @@
       "notes": ""
     },
     {
-      "trip_id": 80,
+      "trip_id": 96,
       "show": "Parts Unknown",
       "season": 2,
       "episode": 7,
@@ -2721,7 +3274,7 @@
       "notes": ""
     },
     {
-      "trip_id": 81,
+      "trip_id": 97,
       "show": "Parts Unknown",
       "season": 2,
       "episode": 8,
@@ -2756,7 +3309,7 @@
       "notes": ""
     },
     {
-      "trip_id": 82,
+      "trip_id": 98,
       "show": "Parts Unknown",
       "season": 2,
       "episode": 9,
@@ -2788,7 +3341,7 @@
       "notes": ""
     },
     {
-      "trip_id": 83,
+      "trip_id": 99,
       "show": "Parts Unknown",
       "season": 3,
       "episode": 2,
@@ -2820,7 +3373,7 @@
       "notes": "ATQ (Amritsar) has no nonstop from JFK/LGA/EWR; resolved to DEL"
     },
     {
-      "trip_id": 84,
+      "trip_id": 100,
       "show": "Parts Unknown",
       "season": 3,
       "episode": 3,
@@ -2858,7 +3411,7 @@
       "notes": ""
     },
     {
-      "trip_id": 85,
+      "trip_id": 101,
       "show": "Parts Unknown",
       "season": 3,
       "episode": 5,
@@ -2893,7 +3446,7 @@
       "notes": ""
     },
     {
-      "trip_id": 86,
+      "trip_id": 102,
       "show": "Parts Unknown",
       "season": 3,
       "episode": 6,
@@ -2923,7 +3476,7 @@
       "notes": ""
     },
     {
-      "trip_id": 87,
+      "trip_id": 103,
       "show": "Parts Unknown",
       "season": 3,
       "episode": 7,
@@ -2955,7 +3508,7 @@
       "notes": "the Delta is driven from Memphis, its northern gateway"
     },
     {
-      "trip_id": 88,
+      "trip_id": 104,
       "show": "Parts Unknown",
       "season": 3,
       "episode": 9,
@@ -2991,7 +3544,7 @@
       "notes": "SSA (Salvador) has no nonstop from JFK/LGA/EWR; resolved to GRU"
     },
     {
-      "trip_id": 89,
+      "trip_id": 105,
       "show": "Parts Unknown",
       "season": 4,
       "episode": 2,
@@ -3024,7 +3577,7 @@
       "notes": ""
     },
     {
-      "trip_id": 90,
+      "trip_id": 106,
       "show": "Parts Unknown",
       "season": 4,
       "episode": 8,
@@ -3059,7 +3612,7 @@
       "notes": "Provincetown, where Bourdain started cooking; Boston is its gateway"
     },
     {
-      "trip_id": 91,
+      "trip_id": 107,
       "show": "Parts Unknown",
       "season": 4,
       "episode": 9,
@@ -3091,7 +3644,7 @@
       "notes": ""
     },
     {
-      "trip_id": 92,
+      "trip_id": 108,
       "show": "Parts Unknown",
       "season": 5,
       "episode": 2,
@@ -3123,7 +3676,7 @@
       "notes": ""
     },
     {
-      "trip_id": 93,
+      "trip_id": 109,
       "show": "Parts Unknown",
       "season": 5,
       "episode": 3,
@@ -3158,7 +3711,7 @@
       "notes": ""
     },
     {
-      "trip_id": 94,
+      "trip_id": 110,
       "show": "Parts Unknown",
       "season": 5,
       "episode": 4,
@@ -3189,7 +3742,7 @@
       "notes": ""
     },
     {
-      "trip_id": 95,
+      "trip_id": 111,
       "show": "Parts Unknown",
       "season": 5,
       "episode": 7,
@@ -3218,7 +3771,7 @@
       "notes": ""
     },
     {
-      "trip_id": 96,
+      "trip_id": 112,
       "show": "Parts Unknown",
       "season": 5,
       "episode": 8,
@@ -3249,7 +3802,7 @@
       "notes": ""
     },
     {
-      "trip_id": 97,
+      "trip_id": 113,
       "show": "Parts Unknown",
       "season": 6,
       "episode": 2,
@@ -3280,7 +3833,7 @@
       "notes": ""
     },
     {
-      "trip_id": 98,
+      "trip_id": 114,
       "show": "Parts Unknown",
       "season": 6,
       "episode": 3,
@@ -3310,7 +3863,7 @@
       "notes": "MRS (Marseille) has no nonstop from JFK/LGA/EWR; resolved to NCE"
     },
     {
-      "trip_id": 99,
+      "trip_id": 115,
       "show": "Parts Unknown",
       "season": 6,
       "episode": 5,
@@ -3347,7 +3900,7 @@
       "notes": ""
     },
     {
-      "trip_id": 100,
+      "trip_id": 116,
       "show": "Parts Unknown",
       "season": 6,
       "episode": 8,
@@ -3377,7 +3930,7 @@
       "notes": ""
     },
     {
-      "trip_id": 101,
+      "trip_id": 117,
       "show": "Parts Unknown",
       "season": 6,
       "episode": 9,
@@ -3410,7 +3963,7 @@
       "notes": ""
     },
     {
-      "trip_id": 102,
+      "trip_id": 118,
       "show": "Parts Unknown",
       "season": 7,
       "episode": 3,
@@ -3447,7 +4000,7 @@
       "notes": ""
     },
     {
-      "trip_id": 103,
+      "trip_id": 119,
       "show": "Parts Unknown",
       "season": 7,
       "episode": 4,
@@ -3476,7 +4029,7 @@
       "notes": "island episode; Athens is the mainland gateway; JTR (Naxos) has no nonstop from JFK/LGA/EWR; resolved to ATH"
     },
     {
-      "trip_id": 104,
+      "trip_id": 120,
       "show": "Parts Unknown",
       "season": 7,
       "episode": 5,
@@ -3505,7 +4058,7 @@
       "notes": "a return to Livingston, also the subject of No Reservations S5.E17"
     },
     {
-      "trip_id": 105,
+      "trip_id": 121,
       "show": "Parts Unknown",
       "season": 7,
       "episode": 7,
@@ -3534,7 +4087,7 @@
       "notes": ""
     },
     {
-      "trip_id": 106,
+      "trip_id": 122,
       "show": "Parts Unknown",
       "season": 7,
       "episode": 8,
@@ -3567,7 +4120,7 @@
       "notes": "CGN (Cologne) has no nonstop from JFK/LGA/EWR; resolved to DUS"
     },
     {
-      "trip_id": 107,
+      "trip_id": 123,
       "show": "Parts Unknown",
       "season": 8,
       "episode": 3,
@@ -3601,7 +4154,7 @@
       "notes": ""
     },
     {
-      "trip_id": 108,
+      "trip_id": 124,
       "show": "Parts Unknown",
       "season": 8,
       "episode": 5,
@@ -3643,7 +4196,7 @@
       "notes": ""
     },
     {
-      "trip_id": 109,
+      "trip_id": 125,
       "show": "Parts Unknown",
       "season": 8,
       "episode": 6,
@@ -3677,7 +4230,7 @@
       "notes": ""
     },
     {
-      "trip_id": 110,
+      "trip_id": 126,
       "show": "Parts Unknown",
       "season": 8,
       "episode": 7,
@@ -3712,7 +4265,7 @@
       "notes": ""
     },
     {
-      "trip_id": 111,
+      "trip_id": 127,
       "show": "Parts Unknown",
       "season": 8,
       "episode": 8,
@@ -3745,7 +4298,7 @@
       "notes": ""
     },
     {
-      "trip_id": 112,
+      "trip_id": 128,
       "show": "Parts Unknown",
       "season": 8,
       "episode": 9,
@@ -3781,7 +4334,7 @@
       "notes": "CNF (Belo Horizonte) has no nonstop from JFK/LGA/EWR; resolved to GRU"
     },
     {
-      "trip_id": 113,
+      "trip_id": 129,
       "show": "Parts Unknown",
       "season": 8,
       "episode": 10,
@@ -3818,7 +4371,7 @@
       "notes": ""
     },
     {
-      "trip_id": 114,
+      "trip_id": 130,
       "show": "Parts Unknown",
       "season": 9,
       "episode": 2,
@@ -3856,7 +4409,7 @@
       "notes": ""
     },
     {
-      "trip_id": 115,
+      "trip_id": 131,
       "show": "Parts Unknown",
       "season": 9,
       "episode": 8,
@@ -3888,7 +4441,7 @@
       "notes": ""
     },
     {
-      "trip_id": 116,
+      "trip_id": 132,
       "show": "Parts Unknown",
       "season": 9,
       "episode": 9,
@@ -3918,7 +4471,7 @@
       "notes": ""
     },
     {
-      "trip_id": 117,
+      "trip_id": 133,
       "show": "Parts Unknown",
       "season": 10,
       "episode": 1,
@@ -3949,7 +4502,7 @@
       "notes": ""
     },
     {
-      "trip_id": 118,
+      "trip_id": 134,
       "show": "Parts Unknown",
       "season": 10,
       "episode": 2,
@@ -3981,7 +4534,7 @@
       "notes": "Chamonix is served from Geneva, across the Swiss border; Chamonix, France is served from GVA in Switzerland"
     },
     {
-      "trip_id": 119,
+      "trip_id": 135,
       "show": "Parts Unknown",
       "season": 10,
       "episode": 3,
@@ -4011,7 +4564,7 @@
       "notes": ""
     },
     {
-      "trip_id": 120,
+      "trip_id": 136,
       "show": "Parts Unknown",
       "season": 10,
       "episode": 4,
@@ -4045,7 +4598,7 @@
       "notes": ""
     },
     {
-      "trip_id": 121,
+      "trip_id": 137,
       "show": "Parts Unknown",
       "season": 10,
       "episode": 6,
@@ -4080,7 +4633,7 @@
       "notes": ""
     },
     {
-      "trip_id": 122,
+      "trip_id": 138,
       "show": "Parts Unknown",
       "season": 10,
       "episode": 7,
@@ -4116,7 +4669,7 @@
       "notes": ""
     },
     {
-      "trip_id": 123,
+      "trip_id": 139,
       "show": "Parts Unknown",
       "season": 10,
       "episode": 8,
@@ -4153,7 +4706,7 @@
       "notes": "Apulia and Basilicata; Bari is the regional airport, Rome the intercontinental one; BRI (Bari) has no nonstop from JFK/LGA/EWR; resolved to FCO"
     },
     {
-      "trip_id": 124,
+      "trip_id": 140,
       "show": "Parts Unknown",
       "season": 11,
       "episode": 1,
@@ -4187,7 +4740,7 @@
       "notes": "Charleston, West Virginia -- not the South Carolina one; CRW (Charleston) has no nonstop from JFK/LGA/EWR; resolved to PIT"
     },
     {
-      "trip_id": 125,
+      "trip_id": 141,
       "show": "Parts Unknown",
       "season": 11,
       "episode": 3,
@@ -4216,7 +4769,7 @@
       "notes": ""
     },
     {
-      "trip_id": 126,
+      "trip_id": 142,
       "show": "Parts Unknown",
       "season": 11,
       "episode": 5,
@@ -4248,7 +4801,7 @@
       "notes": ""
     },
     {
-      "trip_id": 127,
+      "trip_id": 143,
       "show": "Parts Unknown",
       "season": 11,
       "episode": 6,
@@ -4280,7 +4833,7 @@
       "notes": ""
     },
     {
-      "trip_id": 128,
+      "trip_id": 144,
       "show": "Parts Unknown",
       "season": 11,
       "episode": 7,
@@ -4322,7 +4875,7 @@
       "notes": "LFT (Lafayette) has no nonstop from JFK/LGA/EWR; resolved to MSY"
     },
     {
-      "trip_id": 129,
+      "trip_id": 145,
       "show": "Parts Unknown",
       "season": 12,
       "episode": 1,
@@ -4351,7 +4904,7 @@
       "notes": ""
     },
     {
-      "trip_id": 130,
+      "trip_id": 146,
       "show": "Parts Unknown",
       "season": 12,
       "episode": 2,
@@ -4391,6 +4944,234 @@
     }
   ],
   "excluded_episodes": [
+    {
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 3,
+      "episode_code": "CT S1.E3",
+      "episode_title": "Cobra Heart - Food That Makes You Manly",
+      "air_date": "2002-03-19",
+      "destination_city": "Ho Chi Minh City",
+      "destination_country": "Vietnam",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to SGN in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 4,
+      "episode_code": "CT S1.E4",
+      "episode_title": "Eating on the Mekong",
+      "air_date": "2002-01-15",
+      "destination_city": "Hanoi",
+      "destination_country": "Vietnam",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to HAN/SGN in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 5,
+      "episode_code": "CT S1.E5",
+      "episode_title": "Wild Delicacies",
+      "air_date": "2002-01-22",
+      "destination_city": "Phnom Penh",
+      "destination_country": "Cambodia",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to PNH in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 8,
+      "episode_code": "CT S1.E8",
+      "episode_title": "San Sebastian: A Food Lover's Town",
+      "air_date": "2002-07-05",
+      "destination_city": "San Sebastian",
+      "destination_country": "Spain",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to EAS/BIO in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 9,
+      "episode_code": "CT S1.E9",
+      "episode_title": "Childhood Flavors",
+      "air_date": "2002-01-29",
+      "destination_city": "Arcachon",
+      "destination_country": "France",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to BOD in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 12,
+      "episode_code": "CT S1.E12",
+      "episode_title": "Traditional Tastes",
+      "air_date": "2002-05-07",
+      "destination_city": "Fes",
+      "destination_country": "Morocco",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to FEZ in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 13,
+      "episode_code": "CT S1.E13",
+      "episode_title": "The Cook Who Came in from the Cold",
+      "air_date": "2002-02-19",
+      "destination_city": "St. Petersburg",
+      "destination_country": "Russia",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to LED in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 14,
+      "episode_code": "CT S1.E14",
+      "episode_title": "So Much Vodka, So Little Time",
+      "air_date": "2002-04-16",
+      "destination_city": "St. Petersburg",
+      "destination_country": "Russia",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to LED in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 15,
+      "episode_code": "CT S1.E15",
+      "episode_title": "Tamales and Iguana, Oaxacan Style",
+      "air_date": "2002-04-02",
+      "destination_city": "Oaxaca",
+      "destination_country": "Mexico",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to OAX in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 16,
+      "episode_code": "CT S1.E16",
+      "episode_title": "Puebla, Where the Cooks Are From",
+      "air_date": "2002-02-12",
+      "destination_city": "Puebla",
+      "destination_country": "Mexico",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to PBC in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 19,
+      "episode_code": "CT S1.E19",
+      "episode_title": "My Hometown Favorites",
+      "air_date": "2002-04-23",
+      "destination_city": "New York City",
+      "destination_country": "United States",
+      "reason": "ground_trip",
+      "reason_note": "a tour of Bourdain's own city -- sturgeon, bagels and a hot dog, no flight"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 1,
+      "episode": 20,
+      "episode_code": "CT S1.E20",
+      "episode_title": "My Life as a Cook - NYC",
+      "air_date": "2002-02-05",
+      "destination_city": "New York City",
+      "destination_country": "United States",
+      "reason": "ground_trip",
+      "reason_note": "his first kitchen, the CIA and Les Halles, plus Provincetown by road"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 3,
+      "episode_code": "CT S2.E3",
+      "episode_title": "A Mystical World",
+      "air_date": "2003-03-07",
+      "destination_city": "Salvador",
+      "destination_country": "Brazil",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to SSA in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 5,
+      "episode_code": "CT S2.E5",
+      "episode_title": "Elements of a Great Bar",
+      "air_date": "2003-03-21",
+      "destination_city": "New York City",
+      "destination_country": "United States",
+      "reason": "ground_trip",
+      "reason_note": "a search for the perfect bar in his own city, no flight involved"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 8,
+      "episode_code": "CT S2.E8",
+      "episode_title": "Mad Tony: The Food Warrior",
+      "air_date": "2003-04-18",
+      "destination_city": "Sydney",
+      "destination_country": "Australia",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to SYD in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 9,
+      "episode_code": "CT S2.E9",
+      "episode_title": "Down Under: The Wild West of Cooking",
+      "air_date": "2003-05-02",
+      "destination_city": "Melbourne",
+      "destination_country": "Australia",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to MEL in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 11,
+      "episode_code": "CT S2.E11",
+      "episode_title": "Let's Get Lost",
+      "air_date": "2003-06-13",
+      "destination_city": "Chiang Mai",
+      "destination_country": "Thailand",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to CNX in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 12,
+      "episode_code": "CT S2.E12",
+      "episode_title": "My Friend Linh",
+      "air_date": "2003-05-30",
+      "destination_city": "Hanoi",
+      "destination_country": "Vietnam",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to HAN in airline_routes_enhanced.csv"
+    },
+    {
+      "show": "A Cook's Tour",
+      "season": 2,
+      "episode": 13,
+      "episode_code": "CT S2.E13",
+      "episode_title": "Thailand: One Night in Bangkok",
+      "air_date": "2003-06-27",
+      "destination_city": "Bangkok",
+      "destination_country": "Thailand",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to BKK in airline_routes_enhanced.csv"
+    },
     {
       "show": "No Reservations",
       "season": 1,
