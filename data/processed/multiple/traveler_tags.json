@@ -1,6 +1,6 @@
 {
   "source": "travelers_anon.json (built by build_travelers_anon.py)",
-  "generated": "2026-08-20",
+  "generated": "2026-08-23",
   "rules": {
     "airline_loyalist": {
       "threshold": 0.8,
@@ -132,7 +132,7 @@
     "Alaska Hub": 5,
     "Delta Hub": 4
   },
-  "near_misses_below_min_trips": 1,
+  "near_misses_below_min_trips": 0,
   "hub_city_airport_mismatches": 3,
   "travelers": [
     {
@@ -963,42 +963,6 @@
           "hub_city": "Denver",
           "hub_airports": [
             "DEN"
-          ]
-        }
-      ]
-    },
-    {
-      "traveler_id": "eduardo-gomez",
-      "name": "Eduardo Gomez",
-      "trip_count": 1,
-      "trips_with_carrier": 1,
-      "distinct_carriers": 1,
-      "top_carrier": "United Air Lines Inc.",
-      "top_carrier_share": 1.0,
-      "below_min_trips": true,
-      "base_city": "Houston",
-      "base_inference": "declared",
-      "home_airport": "IAH",
-      "hub_city": "Houston",
-      "hub_airlines": [
-        "United"
-      ],
-      "home_airport_is_hub": true,
-      "tags": [
-        {
-          "kind": "airline_hub",
-          "tag_id": "airline-hub:united-air-lines-inc",
-          "label": "United Hub",
-          "carrier_name": "United Air Lines Inc.",
-          "carrier_names": [
-            "United Air Lines Inc."
-          ],
-          "airlines": [
-            "United"
-          ],
-          "hub_city": "Houston",
-          "hub_airports": [
-            "IAH"
           ]
         }
       ]
@@ -2431,6 +2395,42 @@
           "hub_city": "San Francisco",
           "hub_airports": [
             "SFO"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "eduardo-gomez",
+      "name": "Eduardo Gomez",
+      "trip_count": 12,
+      "trips_with_carrier": 12,
+      "distinct_carriers": 3,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 0.6667,
+      "below_min_trips": false,
+      "base_city": "Houston",
+      "base_inference": "declared",
+      "home_airport": null,
+      "hub_city": "Houston",
+      "hub_airlines": [
+        "United"
+      ],
+      "home_airport_is_hub": null,
+      "tags": [
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:united-air-lines-inc",
+          "label": "United Hub",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "airlines": [
+            "United"
+          ],
+          "hub_city": "Houston",
+          "hub_airports": [
+            "IAH"
           ]
         }
       ]

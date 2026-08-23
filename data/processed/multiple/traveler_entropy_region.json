@@ -7,7 +7,7 @@
   "ln_global_distinct_destinations": 3.091,
   "travelers_total": 210,
   "travelers_with_destination_data": 210,
-  "travelers_with_informative_entropy": 96,
+  "travelers_with_informative_entropy": 97,
   "travelers": [
     {
       "traveler_id": "anthony-bourdain",
@@ -148,6 +148,20 @@
       "norm_global": 0.402,
       "norm_observed": 0.8962,
       "norm_capacity": 0.402
+    },
+    {
+      "traveler_id": "eduardo-gomez",
+      "name": "Eduardo Gomez",
+      "trip_count": 12,
+      "trips_with_destination": 12,
+      "n_destinations": 5,
+      "top_destination": "Northern America",
+      "top_destination_share": 0.5833,
+      "entropy": 1.2343,
+      "entropy_is_informative": true,
+      "norm_global": 0.3993,
+      "norm_observed": 0.7669,
+      "norm_capacity": 0.4967
     },
     {
       "traveler_id": "ernest-hemingway",
@@ -1360,20 +1374,6 @@
       "trips_with_destination": 1,
       "n_destinations": 1,
       "top_destination": "Western Europe",
-      "top_destination_share": 1.0,
-      "entropy": 0.0,
-      "entropy_is_informative": false,
-      "norm_global": 0.0,
-      "norm_observed": null,
-      "norm_capacity": null
-    },
-    {
-      "traveler_id": "eduardo-gomez",
-      "name": "Eduardo Gomez",
-      "trip_count": 1,
-      "trips_with_destination": 1,
-      "n_destinations": 1,
-      "top_destination": "Northern America",
       "top_destination_share": 1.0,
       "entropy": 0.0,
       "entropy_is_informative": false,

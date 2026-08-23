@@ -1,13 +1,13 @@
 {
   "destination_unit": "airport",
   "log_base": "natural (nats)",
-  "global_distinct_destinations": 151,
+  "global_distinct_destinations": 152,
   "global_distinct_destinations_source": "observed in this dataset",
-  "observed_distinct_destinations": 151,
-  "ln_global_distinct_destinations": 5.0173,
+  "observed_distinct_destinations": 152,
+  "ln_global_distinct_destinations": 5.0239,
   "travelers_total": 210,
   "travelers_with_destination_data": 86,
-  "travelers_with_informative_entropy": 85,
+  "travelers_with_informative_entropy": 86,
   "travelers": [
     {
       "traveler_id": "anthony-bourdain",
@@ -19,7 +19,7 @@
       "top_destination_share": 0.0308,
       "entropy": 4.3716,
       "entropy_is_informative": true,
-      "norm_global": 0.8713,
+      "norm_global": 0.8702,
       "norm_observed": 0.9789,
       "norm_capacity": 0.8981
     },
@@ -33,7 +33,7 @@
       "top_destination_share": 0.2,
       "entropy": 3.0428,
       "entropy_is_informative": true,
-      "norm_global": 0.6065,
+      "norm_global": 0.6057,
       "norm_observed": 0.9453,
       "norm_capacity": 0.8946
     },
@@ -47,7 +47,7 @@
       "top_destination_share": 0.0588,
       "entropy": 2.8332,
       "entropy_is_informative": true,
-      "norm_global": 0.5647,
+      "norm_global": 0.5639,
       "norm_observed": 1.0,
       "norm_capacity": 1.0
     },
@@ -61,7 +61,21 @@
       "top_destination_share": 0.0667,
       "entropy": 2.7081,
       "entropy_is_informative": true,
-      "norm_global": 0.5397,
+      "norm_global": 0.539,
+      "norm_observed": 1.0,
+      "norm_capacity": 1.0
+    },
+    {
+      "traveler_id": "eduardo-gomez",
+      "name": "Eduardo Gomez",
+      "trip_count": 12,
+      "trips_with_destination": 12,
+      "n_destinations": 12,
+      "top_destination": "NCE",
+      "top_destination_share": 0.0833,
+      "entropy": 2.4849,
+      "entropy_is_informative": true,
+      "norm_global": 0.4946,
       "norm_observed": 1.0,
       "norm_capacity": 1.0
     },
@@ -75,7 +89,7 @@
       "top_destination_share": 0.0833,
       "entropy": 2.4849,
       "entropy_is_informative": true,
-      "norm_global": 0.4953,
+      "norm_global": 0.4946,
       "norm_observed": 1.0,
       "norm_capacity": 0.7819
     },
@@ -89,7 +103,7 @@
       "top_destination_share": 0.1333,
       "entropy": 2.4308,
       "entropy_is_informative": true,
-      "norm_global": 0.4845,
+      "norm_global": 0.4838,
       "norm_observed": 0.9782,
       "norm_capacity": 0.8976
     },
@@ -103,7 +117,7 @@
       "top_destination_share": 0.1333,
       "entropy": 2.3384,
       "entropy_is_informative": true,
-      "norm_global": 0.4661,
+      "norm_global": 0.4655,
       "norm_observed": 0.9752,
       "norm_capacity": 0.8635
     },
@@ -117,7 +131,7 @@
       "top_destination_share": 0.5,
       "entropy": 1.8444,
       "entropy_is_informative": true,
-      "norm_global": 0.3676,
+      "norm_global": 0.3671,
       "norm_observed": 0.7692,
       "norm_capacity": 0.6157
     },
@@ -131,7 +145,7 @@
       "top_destination_share": 0.3,
       "entropy": 1.8344,
       "entropy_is_informative": true,
-      "norm_global": 0.3656,
+      "norm_global": 0.3651,
       "norm_observed": 0.9427,
       "norm_capacity": 0.7967
     },
@@ -145,7 +159,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5268
     },
@@ -159,7 +173,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5638
     },
@@ -173,7 +187,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5268
     },
@@ -187,7 +201,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5638
     },
@@ -201,7 +215,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5268
     },
@@ -215,7 +229,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5268
     },
@@ -229,7 +243,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5268
     },
@@ -243,7 +257,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5638
     },
@@ -257,7 +271,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5638
     },
@@ -271,7 +285,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5638
     },
@@ -285,7 +299,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5638
     },
@@ -299,7 +313,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5268
     },
@@ -313,7 +327,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.6199
     },
@@ -327,7 +341,7 @@
       "top_destination_share": 0.1667,
       "entropy": 1.7918,
       "entropy_is_informative": true,
-      "norm_global": 0.3571,
+      "norm_global": 0.3566,
       "norm_observed": 1.0,
       "norm_capacity": 0.5268
     },
@@ -341,7 +355,7 @@
       "top_destination_share": 0.175,
       "entropy": 1.7892,
       "entropy_is_informative": true,
-      "norm_global": 0.3566,
+      "norm_global": 0.3561,
       "norm_observed": 0.9986,
       "norm_capacity": 0.485
     },
@@ -355,7 +369,7 @@
       "top_destination_share": 0.1875,
       "entropy": 1.7879,
       "entropy_is_informative": true,
-      "norm_global": 0.3564,
+      "norm_global": 0.3559,
       "norm_observed": 0.9979,
       "norm_capacity": 0.5159
     },
@@ -369,7 +383,7 @@
       "top_destination_share": 0.1875,
       "entropy": 1.7879,
       "entropy_is_informative": true,
-      "norm_global": 0.3564,
+      "norm_global": 0.3559,
       "norm_observed": 0.9979,
       "norm_capacity": 0.5159
     },
@@ -383,7 +397,7 @@
       "top_destination_share": 0.1875,
       "entropy": 1.7879,
       "entropy_is_informative": true,
-      "norm_global": 0.3564,
+      "norm_global": 0.3559,
       "norm_observed": 0.9979,
       "norm_capacity": 0.5159
     },
@@ -397,7 +411,7 @@
       "top_destination_share": 0.1786,
       "entropy": 1.7865,
       "entropy_is_informative": true,
-      "norm_global": 0.3561,
+      "norm_global": 0.3556,
       "norm_observed": 0.9971,
       "norm_capacity": 0.5361
     },
@@ -411,7 +425,7 @@
       "top_destination_share": 0.1786,
       "entropy": 1.7865,
       "entropy_is_informative": true,
-      "norm_global": 0.3561,
+      "norm_global": 0.3556,
       "norm_observed": 0.9971,
       "norm_capacity": 0.5361
     },
@@ -425,7 +439,7 @@
       "top_destination_share": 0.1786,
       "entropy": 1.7865,
       "entropy_is_informative": true,
-      "norm_global": 0.3561,
+      "norm_global": 0.3556,
       "norm_observed": 0.9971,
       "norm_capacity": 0.5361
     },
@@ -439,7 +453,7 @@
       "top_destination_share": 0.1786,
       "entropy": 1.7865,
       "entropy_is_informative": true,
-      "norm_global": 0.3561,
+      "norm_global": 0.3556,
       "norm_observed": 0.9971,
       "norm_capacity": 0.5361
     },
@@ -453,7 +467,7 @@
       "top_destination_share": 0.1852,
       "entropy": 1.7856,
       "entropy_is_informative": true,
-      "norm_global": 0.3559,
+      "norm_global": 0.3554,
       "norm_observed": 0.9965,
       "norm_capacity": 0.5418
     },
@@ -467,7 +481,7 @@
       "top_destination_share": 0.1852,
       "entropy": 1.7856,
       "entropy_is_informative": true,
-      "norm_global": 0.3559,
+      "norm_global": 0.3554,
       "norm_observed": 0.9965,
       "norm_capacity": 0.5418
     },
@@ -481,7 +495,7 @@
       "top_destination_share": 0.1852,
       "entropy": 1.7856,
       "entropy_is_informative": true,
-      "norm_global": 0.3559,
+      "norm_global": 0.3554,
       "norm_observed": 0.9965,
       "norm_capacity": 0.5418
     },
@@ -495,7 +509,7 @@
       "top_destination_share": 0.1852,
       "entropy": 1.7856,
       "entropy_is_informative": true,
-      "norm_global": 0.3559,
+      "norm_global": 0.3554,
       "norm_observed": 0.9965,
       "norm_capacity": 0.5418
     },
@@ -509,7 +523,7 @@
       "top_destination_share": 0.1852,
       "entropy": 1.7856,
       "entropy_is_informative": true,
-      "norm_global": 0.3559,
+      "norm_global": 0.3554,
       "norm_observed": 0.9965,
       "norm_capacity": 0.5418
     },
@@ -523,7 +537,7 @@
       "top_destination_share": 0.1905,
       "entropy": 1.7815,
       "entropy_is_informative": true,
-      "norm_global": 0.3551,
+      "norm_global": 0.3546,
       "norm_observed": 0.9943,
       "norm_capacity": 0.5852
     },
@@ -537,7 +551,7 @@
       "top_destination_share": 0.1905,
       "entropy": 1.7815,
       "entropy_is_informative": true,
-      "norm_global": 0.3551,
+      "norm_global": 0.3546,
       "norm_observed": 0.9943,
       "norm_capacity": 0.5852
     },
@@ -551,7 +565,7 @@
       "top_destination_share": 0.1905,
       "entropy": 1.7815,
       "entropy_is_informative": true,
-      "norm_global": 0.3551,
+      "norm_global": 0.3546,
       "norm_observed": 0.9943,
       "norm_capacity": 0.5852
     },
@@ -565,7 +579,7 @@
       "top_destination_share": 0.2,
       "entropy": 1.7716,
       "entropy_is_informative": true,
-      "norm_global": 0.3531,
+      "norm_global": 0.3526,
       "norm_observed": 0.9888,
       "norm_capacity": 0.6542
     },
@@ -579,7 +593,7 @@
       "top_destination_share": 0.2,
       "entropy": 1.6094,
       "entropy_is_informative": true,
-      "norm_global": 0.3208,
+      "norm_global": 0.3204,
       "norm_observed": 1.0,
       "norm_capacity": 1.0
     },
@@ -593,7 +607,7 @@
       "top_destination_share": 0.25,
       "entropy": 1.3863,
       "entropy_is_informative": true,
-      "norm_global": 0.2763,
+      "norm_global": 0.2759,
       "norm_observed": 1.0,
       "norm_capacity": 0.3869
     },
@@ -607,7 +621,7 @@
       "top_destination_share": 0.25,
       "entropy": 1.3863,
       "entropy_is_informative": true,
-      "norm_global": 0.2763,
+      "norm_global": 0.2759,
       "norm_observed": 1.0,
       "norm_capacity": 0.3869
     },
@@ -621,7 +635,7 @@
       "top_destination_share": 0.25,
       "entropy": 1.3863,
       "entropy_is_informative": true,
-      "norm_global": 0.2763,
+      "norm_global": 0.2759,
       "norm_observed": 1.0,
       "norm_capacity": 0.416
     },
@@ -635,7 +649,7 @@
       "top_destination_share": 0.25,
       "entropy": 1.3863,
       "entropy_is_informative": true,
-      "norm_global": 0.2763,
+      "norm_global": 0.2759,
       "norm_observed": 1.0,
       "norm_capacity": 0.4
     },
@@ -649,7 +663,7 @@
       "top_destination_share": 0.25,
       "entropy": 1.3863,
       "entropy_is_informative": true,
-      "norm_global": 0.2763,
+      "norm_global": 0.2759,
       "norm_observed": 1.0,
       "norm_capacity": 0.3869
     },
@@ -663,7 +677,7 @@
       "top_destination_share": 0.25,
       "entropy": 1.3863,
       "entropy_is_informative": true,
-      "norm_global": 0.2763,
+      "norm_global": 0.2759,
       "norm_observed": 1.0,
       "norm_capacity": 0.3869
     },
@@ -677,7 +691,7 @@
       "top_destination_share": 0.25,
       "entropy": 1.3863,
       "entropy_is_informative": true,
-      "norm_global": 0.2763,
+      "norm_global": 0.2759,
       "norm_observed": 1.0,
       "norm_capacity": 1.0
     },
@@ -691,7 +705,7 @@
       "top_destination_share": 0.25,
       "entropy": 1.3863,
       "entropy_is_informative": true,
-      "norm_global": 0.2763,
+      "norm_global": 0.2759,
       "norm_observed": 1.0,
       "norm_capacity": 0.4
     },
@@ -705,7 +719,7 @@
       "top_destination_share": 0.25,
       "entropy": 1.3863,
       "entropy_is_informative": true,
-      "norm_global": 0.2763,
+      "norm_global": 0.2759,
       "norm_observed": 1.0,
       "norm_capacity": 0.4
     },
@@ -719,7 +733,7 @@
       "top_destination_share": 0.25,
       "entropy": 1.3863,
       "entropy_is_informative": true,
-      "norm_global": 0.2763,
+      "norm_global": 0.2759,
       "norm_observed": 1.0,
       "norm_capacity": 0.3869
     },
@@ -733,7 +747,7 @@
       "top_destination_share": 0.25,
       "entropy": 1.3863,
       "entropy_is_informative": true,
-      "norm_global": 0.2763,
+      "norm_global": 0.2759,
       "norm_observed": 1.0,
       "norm_capacity": 0.5
     },
@@ -747,7 +761,7 @@
       "top_destination_share": 0.2857,
       "entropy": 1.3761,
       "entropy_is_informative": true,
-      "norm_global": 0.2743,
+      "norm_global": 0.2739,
       "norm_observed": 0.9926,
       "norm_capacity": 0.5214
     },
@@ -761,7 +775,7 @@
       "top_destination_share": 0.3333,
       "entropy": 1.0986,
       "entropy_is_informative": true,
-      "norm_global": 0.219,
+      "norm_global": 0.2187,
       "norm_observed": 1.0,
       "norm_capacity": 0.3608
     },
@@ -775,7 +789,7 @@
       "top_destination_share": 0.3333,
       "entropy": 1.0986,
       "entropy_is_informative": true,
-      "norm_global": 0.219,
+      "norm_global": 0.2187,
       "norm_observed": 1.0,
       "norm_capacity": 0.3457
     },
@@ -789,7 +803,7 @@
       "top_destination_share": 0.3333,
       "entropy": 1.0986,
       "entropy_is_informative": true,
-      "norm_global": 0.219,
+      "norm_global": 0.2187,
       "norm_observed": 1.0,
       "norm_capacity": 0.3608
     },
@@ -988,20 +1002,6 @@
       "norm_global": 0.0,
       "norm_observed": null,
       "norm_capacity": 0.0
-    },
-    {
-      "traveler_id": "eduardo-gomez",
-      "name": "Eduardo Gomez",
-      "trip_count": 1,
-      "trips_with_destination": 1,
-      "n_destinations": 1,
-      "top_destination": "IAD",
-      "top_destination_share": 1.0,
-      "entropy": 0.0,
-      "entropy_is_informative": false,
-      "norm_global": 0.0,
-      "norm_observed": null,
-      "norm_capacity": null
     },
     {
       "traveler_id": "ella-fitzgerald",

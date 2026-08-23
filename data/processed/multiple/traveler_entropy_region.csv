@@ -9,6 +9,7 @@ apollo,Apollo,27,27,4,Northern America,0.4815,1.2594,True,0.4074,0.9085,0.4074
 achilles,Achilles,30,30,4,Northern America,0.5,1.2425,True,0.402,0.8962,0.402
 king-midas,King Midas,24,24,4,Northern America,0.5,1.2425,True,0.402,0.8962,0.402
 zeus,Zeus,30,30,4,Northern America,0.5,1.2425,True,0.402,0.8962,0.402
+eduardo-gomez,Eduardo Gomez,12,12,5,Northern America,0.5833,1.2343,True,0.3993,0.7669,0.4967
 ernest-hemingway,Ernest Hemingway,3,3,3,Western Europe,0.3333,1.0986,True,0.3554,1.0,1.0
 icarus,Icarus,15,15,3,Northern America,0.4667,1.0438,True,0.3377,0.9501,0.3854
 miles-davis,Miles Davis,24,24,3,Southern Europe,0.5,1.0397,True,0.3364,0.9464,0.3364
@@ -96,7 +97,6 @@ duke-ellington,Duke Ellington,16,16,1,Northern America,1.0,0.0,True,0.0,,0.0
 edgar-allan-poe,Edgar Allan Poe,1,1,1,Western Europe,1.0,0.0,False,0.0,,
 edgar-degas,Edgar Degas,16,16,1,Northern America,1.0,0.0,True,0.0,,0.0
 edith-wharton,Edith Wharton,1,1,1,Western Europe,1.0,0.0,False,0.0,,
-eduardo-gomez,Eduardo Gomez,1,1,1,Northern America,1.0,0.0,False,0.0,,
 eileen-chang,Eileen Chang,1,1,1,Australia and New Zealand,1.0,0.0,False,0.0,,
 elizabeth-jolley,Elizabeth Jolley,1,1,1,Australia and New Zealand,1.0,0.0,False,0.0,,
 ella-fitzgerald,Ella Fitzgerald,24,24,1,Northern America,1.0,0.0,True,0.0,,0.0

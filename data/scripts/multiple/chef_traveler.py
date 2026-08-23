@@ -82,6 +82,7 @@ EXTRA_CARRIER_NAMES = {
     "TN": "Air Tahiti Nui",
     "FJ": "Fiji Airways",
     "AM": "Aeromexico",
+    "U2": "easyJet Airline Company Limited",  # never files with BTS -- no US operations
 }
 
 ACCOMMODATION_TYPE = "Hotel"
