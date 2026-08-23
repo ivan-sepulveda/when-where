@@ -103,6 +103,11 @@ export function buildShareBreakdown(
 export function carrierBreakdown(traveler: TravelerDetail): ShareBreakdown {
   const counts = new Map<string, number>();
   for (const trip of traveler.trips) {
+    // A layover leg is a real flight but not "which airline this person
+    // flies" any more than it's a place they went -- same exclusion
+    // compute_traveler_tags.py's Loyalist tag makes, so this bar and that
+    // chip can't disagree about the same trips.
+    if (trip.layover) continue;
     const carrier = trip.carrier_name;
     if (!carrier) continue;
     counts.set(carrier, (counts.get(carrier) ?? 0) + 1);
@@ -135,6 +140,9 @@ export function carrierBreakdown(traveler: TravelerDetail): ShareBreakdown {
 export function subregionBreakdown(traveler: TravelerDetail): ShareBreakdown {
   const counts = new Map<string, number>();
   for (const trip of traveler.trips) {
+    // Same layover exclusion as carrierBreakdown above: Atlanta and Paris on
+    // a Houston-to-Lisbon trip aren't places this traveler went.
+    if (trip.layover) continue;
     const subregion = trip.destination_subregion;
     if (!subregion) continue;
     counts.set(subregion, (counts.get(subregion) ?? 0) + 1);
@@ -165,6 +173,9 @@ export function domesticInternationalBreakdown(traveler: TravelerDetail): ShareB
   let international = 0;
 
   for (const trip of traveler.trips) {
+    // Same layover exclusion as the other breakdowns above: a layover isn't
+    // a trip this traveler took to that country, domestic or not.
+    if (trip.layover) continue;
     const domesticFlag = isDomesticTrip(trip, traveler.base_country_code);
     if (domesticFlag === null) continue; // can't classify; leave it out of the denominator
     if (domesticFlag) domestic += 1;

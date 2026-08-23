@@ -308,9 +308,14 @@ assert all(
 
 def carrier_counts(traveler: dict) -> Counter:
     """Trips per airline. Trips with no carrier are absent entirely rather
-    than counted under a "None" key -- they are outside the denominator."""
+    than counted under a "None" key -- they are outside the denominator.
+    A layover leg is excluded too, by the same rule as trip_count and
+    destination entropy: Atlanta and Paris on a Houston-to-Lisbon trip
+    shouldn't move the needle on which airline someone "flies", any more than
+    they should count as places visited. See gomez_flight_log.md."""
     return Counter(
-        trip["carrier_name"] for trip in traveler["trips"] if trip.get("carrier_name")
+        trip["carrier_name"] for trip in traveler["trips"]
+        if trip.get("carrier_name") and not trip.get("layover")
     )
 
 

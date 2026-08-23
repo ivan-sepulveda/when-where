@@ -3,7 +3,7 @@
  "generated": "2026-08-23",
  "note": "Trips, dates, costs, ages, genders and nationalities are unchanged from travelers.json; only the traveler_id and name differ. persona_match records how good the nationality match is: 'nationality' exact, 'region' an author from the same broad literary region (used where a nationality has too few deceased authors on record), 'unmapped' left as the original name. This is a name swap in fictional sample data, not anonymization of real people.",
  "total_travelers": 210,
- "total_trips": 2198,
+ "total_trips": 2199,
  "persona_match_counts": {
   "authored": 86,
   "nationality": 123,
@@ -50122,11 +50122,12 @@
    "age": null,
    "age_range": null,
    "synthetic": true,
-   "trip_count": 12,
+   "trip_count": 13,
    "destinations": [
     "Atlanta, United States",
     "Buenos Aires, Argentina",
     "Guadalajara, Mexico",
+    "Lisbon, Portugal",
     "London, United Kingdom",
     "Monterrey, Mexico",
     "Newark, United States",
@@ -50138,6 +50139,84 @@
     "Washington, United States"
    ],
    "trips": [
+    {
+     "trip_id": "EG-2024-06-07",
+     "destination_raw": "Atlanta, United States",
+     "destination_city": "Atlanta",
+     "destination_country": "United States",
+     "destination_country_code": "US",
+     "destination_kind": "city",
+     "start_date": "2024-06-07",
+     "start_date_raw": "2024-06-07",
+     "end_date": "2024-06-07",
+     "end_date_raw": "2024-06-07",
+     "duration_days": 0,
+     "duration_raw": "0 days",
+     "accommodation_type": null,
+     "accommodation_cost": null,
+     "accommodation_cost_raw": null,
+     "transportation_type": "Flight",
+     "transportation_cost": null,
+     "transportation_cost_raw": null,
+     "synthetic": true,
+     "carrier_name": "Delta Air Lines Inc.",
+     "carrier_code": "DL",
+     "origin_airport": "IAH",
+     "destination_airport": "ATL",
+     "layover": true
+    },
+    {
+     "trip_id": "EG-2024-06-07-2",
+     "destination_raw": "Paris, France",
+     "destination_city": "Paris",
+     "destination_country": "France",
+     "destination_country_code": "FR",
+     "destination_kind": "city",
+     "start_date": "2024-06-07",
+     "start_date_raw": "2024-06-07",
+     "end_date": "2024-06-08",
+     "end_date_raw": "2024-06-08",
+     "duration_days": 1,
+     "duration_raw": "1 day",
+     "accommodation_type": null,
+     "accommodation_cost": null,
+     "accommodation_cost_raw": null,
+     "transportation_type": "Flight",
+     "transportation_cost": null,
+     "transportation_cost_raw": null,
+     "synthetic": true,
+     "carrier_name": "Delta Air Lines Inc.",
+     "carrier_code": "DL",
+     "origin_airport": "ATL",
+     "destination_airport": "CDG",
+     "layover": true
+    },
+    {
+     "trip_id": "EG-2024-06-08",
+     "destination_raw": "Lisbon, Portugal",
+     "destination_city": "Lisbon",
+     "destination_country": "Portugal",
+     "destination_country_code": "FR",
+     "destination_kind": "city",
+     "start_date": "2024-06-08",
+     "start_date_raw": "2024-06-08",
+     "end_date": "2024-06-08",
+     "end_date_raw": "2024-06-08",
+     "duration_days": 0,
+     "duration_raw": "0 days",
+     "accommodation_type": null,
+     "accommodation_cost": null,
+     "accommodation_cost_raw": null,
+     "transportation_type": "Flight",
+     "transportation_cost": null,
+     "transportation_cost_raw": null,
+     "synthetic": true,
+     "carrier_name": "Delta Air Lines Inc.",
+     "carrier_code": "DL",
+     "origin_airport": "CDG",
+     "destination_airport": "LIS",
+     "layover": false
+    },
     {
      "trip_id": "EG-2024-06-14",
      "destination_raw": "Nice, France",
@@ -50161,7 +50240,8 @@
      "carrier_name": "easyJet Airline Company Limited",
      "carrier_code": "U2",
      "origin_airport": "LIS",
-     "destination_airport": "NCE"
+     "destination_airport": "NCE",
+     "layover": false
     },
     {
      "trip_id": "EG-2024-09-07",
@@ -50186,7 +50266,8 @@
      "carrier_name": "United Air Lines Inc.",
      "carrier_code": "UA",
      "origin_airport": "IAH",
-     "destination_airport": "EZE"
+     "destination_airport": "EZE",
+     "layover": false
     },
     {
      "trip_id": "EG-2025-05-24",
@@ -50211,7 +50292,8 @@
      "carrier_name": "United Air Lines Inc.",
      "carrier_code": "UA",
      "origin_airport": "IAH",
-     "destination_airport": "LHR"
+     "destination_airport": "LHR",
+     "layover": false
     },
     {
      "trip_id": "EG-2025-07-31",
@@ -50236,7 +50318,8 @@
      "carrier_name": "United Air Lines Inc.",
      "carrier_code": "UA",
      "origin_airport": "EWR",
-     "destination_airport": "ATL"
+     "destination_airport": "ATL",
+     "layover": false
     },
     {
      "trip_id": "EG-2025-08-05",
@@ -50261,7 +50344,8 @@
      "carrier_name": "United Air Lines Inc.",
      "carrier_code": "UA",
      "origin_airport": "ATL",
-     "destination_airport": "EWR"
+     "destination_airport": "EWR",
+     "layover": false
     },
     {
      "trip_id": "EG-2025-11-07",
@@ -50286,7 +50370,8 @@
      "carrier_name": "United Air Lines Inc.",
      "carrier_code": "UA",
      "origin_airport": "IAH",
-     "destination_airport": "SAN"
+     "destination_airport": "SAN",
+     "layover": false
     },
     {
      "trip_id": "EG-2026-03-06",
@@ -50311,7 +50396,8 @@
      "carrier_name": "Concesionaria Vuela Compania De Aviacion SA de CV (Volaris)",
      "carrier_code": "Y4",
      "origin_airport": "GDL",
-     "destination_airport": "MTY"
+     "destination_airport": "MTY",
+     "layover": false
     },
     {
      "trip_id": "EG-2026-03-08",
@@ -50336,7 +50422,8 @@
      "carrier_name": "Concesionaria Vuela Compania De Aviacion SA de CV (Volaris)",
      "carrier_code": "Y4",
      "origin_airport": "MTY",
-     "destination_airport": "GDL"
+     "destination_airport": "GDL",
+     "layover": false
     },
     {
      "trip_id": "EG-2026-05-22",
@@ -50361,7 +50448,8 @@
      "carrier_name": "Concesionaria Vuela Compania De Aviacion SA de CV (Volaris)",
      "carrier_code": "Y4",
      "origin_airport": "GDL",
-     "destination_airport": "PBC"
+     "destination_airport": "PBC",
+     "layover": false
     },
     {
      "trip_id": "EG-2026-09-26",
@@ -50386,7 +50474,8 @@
      "carrier_name": "United Air Lines Inc.",
      "carrier_code": "UA",
      "origin_airport": "IAH",
-     "destination_airport": "IAD"
+     "destination_airport": "IAD",
+     "layover": false
     },
     {
      "trip_id": "EG-2026-10-30",
@@ -50411,7 +50500,8 @@
      "carrier_name": "United Air Lines Inc.",
      "carrier_code": "UA",
      "origin_airport": "LAX",
-     "destination_airport": "HND"
+     "destination_airport": "HND",
+     "layover": false
     },
     {
      "trip_id": "EG-2026-11-13",
@@ -50436,7 +50526,8 @@
      "carrier_name": "United Air Lines Inc.",
      "carrier_code": "UA",
      "origin_airport": "HKG",
-     "destination_airport": "SFO"
+     "destination_airport": "SFO",
+     "layover": false
     }
    ],
    "persona_match": "authored"
@@ -52551,7 +52642,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "64",
@@ -52575,7 +52667,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "79",
@@ -52599,7 +52692,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -52648,7 +52742,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "1",
@@ -52672,7 +52767,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "42",
@@ -52696,7 +52792,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -52744,7 +52841,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "28",
@@ -52768,7 +52866,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -52816,7 +52915,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "29",
@@ -52840,7 +52940,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -52888,7 +52989,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "26",
@@ -52912,7 +53014,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -52960,7 +53063,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "3",
@@ -52984,7 +53088,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53031,7 +53136,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "134",
@@ -53055,7 +53161,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53102,7 +53209,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "95",
@@ -53126,7 +53234,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53173,7 +53282,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "20",
@@ -53197,7 +53307,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53245,7 +53356,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "27",
@@ -53269,7 +53381,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53317,7 +53430,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     },
     {
      "trip_id": "36",
@@ -53341,7 +53455,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53388,7 +53503,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53435,7 +53551,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53482,7 +53599,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53529,7 +53647,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53576,7 +53695,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53623,7 +53743,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53670,7 +53791,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53717,7 +53839,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53764,7 +53887,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53811,7 +53935,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53858,7 +53983,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53905,7 +54031,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53952,7 +54079,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -53999,7 +54127,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54046,7 +54175,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54093,7 +54223,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54140,7 +54271,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54187,7 +54319,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54234,7 +54367,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54281,7 +54415,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54328,7 +54463,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54375,7 +54511,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54422,7 +54559,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54469,7 +54607,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54516,7 +54655,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54563,7 +54703,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54610,7 +54751,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54657,7 +54799,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54704,7 +54847,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54751,7 +54895,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54798,7 +54943,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54845,7 +54991,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54892,7 +55039,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54939,7 +55087,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -54986,7 +55135,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55033,7 +55183,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55080,7 +55231,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55127,7 +55279,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55174,7 +55327,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55221,7 +55375,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55268,7 +55423,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55315,7 +55471,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55362,7 +55519,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55409,7 +55567,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55456,7 +55615,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55503,7 +55663,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55550,7 +55711,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55597,7 +55759,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55644,7 +55807,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55691,7 +55855,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55738,7 +55903,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55785,7 +55951,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55832,7 +55999,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55879,7 +56047,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55926,7 +56095,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -55973,7 +56143,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56020,7 +56191,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56067,7 +56239,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56114,7 +56287,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56161,7 +56335,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56208,7 +56383,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56255,7 +56431,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56302,7 +56479,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56349,7 +56527,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56396,7 +56575,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56443,7 +56623,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56490,7 +56671,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56537,7 +56719,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56584,7 +56767,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56631,7 +56815,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56678,7 +56863,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56725,7 +56911,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56772,7 +56959,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56819,7 +57007,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56866,7 +57055,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56913,7 +57103,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -56960,7 +57151,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57007,7 +57199,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57054,7 +57247,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57101,7 +57295,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57148,7 +57343,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57195,7 +57391,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57242,7 +57439,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57289,7 +57487,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57336,7 +57535,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57383,7 +57583,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57430,7 +57631,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57477,7 +57679,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57524,7 +57727,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57571,7 +57775,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57618,7 +57823,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57665,7 +57871,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57712,7 +57919,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57759,7 +57967,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57806,7 +58015,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57853,7 +58063,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57900,7 +58111,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57947,7 +58159,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -57994,7 +58207,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58041,7 +58255,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58088,7 +58303,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58135,7 +58351,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58182,7 +58399,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58229,7 +58447,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58276,7 +58495,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58323,7 +58543,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58370,7 +58591,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58417,7 +58639,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "region"
@@ -58464,7 +58687,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58511,7 +58735,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58558,7 +58783,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58605,7 +58831,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"
@@ -58652,7 +58879,8 @@
      "synthetic": false,
      "carrier_name": null,
      "origin_airport": null,
-     "destination_airport": null
+     "destination_airport": null,
+     "layover": false
     }
    ],
    "persona_match": "nationality"

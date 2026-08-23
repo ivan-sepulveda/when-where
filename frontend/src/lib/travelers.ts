@@ -41,6 +41,13 @@ export interface TravelerTrip {
   carrier_name?: string | null;
   origin_airport?: string | null;
   destination_airport?: string | null;
+  // True for a leg that's part of a longer journey but wasn't its point --
+  // Atlanta and Paris on a Houston-to-Lisbon trip, say (see
+  // data/scripts/multiple/chef_traveler.py). Always false/undefined outside
+  // a hand-kept flight log. Consumers that count "trips" or "destinations"
+  // (the Trips list, the airline/region share charts) should filter it out;
+  // it stays in this list because the underlying itinerary is real.
+  layover?: boolean;
   // UN M49 geography for this trip's destination country, joined on by the
   // API (see backend/app/data_loader.py's load_m49_regions and
   // data/scripts/multiple/build_m49_regions.py).

@@ -264,6 +264,18 @@ def build_trips(trips_path, traveler, preference, id_prefix, birth_date, rebuild
             "carrier_code": code,
             "origin_airport": origin,
             "destination_airport": dest,
+            # True for a leg that's part of a longer journey but isn't its
+            # point -- Atlanta and Paris on a Houston-to-Lisbon trip, say.
+            # Only a hand-kept log can know this (an episode-derived trip is
+            # always nonstop by construction), so it's always False for the
+            # show travelers. Present on every trip regardless, for the same
+            # reason `synthetic` is: a consumer should never have to check
+            # whether the key exists. build_travelers.py, compute_traveler_
+            # tags.py and compute_traveler_entropy.py all exclude layover=True
+            # rows from trip_count / destinations / airline share -- Ivan's
+            # call, see gomez_flight_log.md. The row stays in the data either
+            # way: this flag hides it from AGGREGATES, not from the log.
+            "layover": bool(trip.get("layover", False)),
             **{k: trip[k] for k in ("show", "episode_code", "episode_title") if k in trip},
         })
 

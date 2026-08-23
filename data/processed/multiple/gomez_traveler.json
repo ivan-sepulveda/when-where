@@ -13,8 +13,98 @@
     }
   },
   "total_travelers": 1,
-  "total_trips": 12,
+  "total_trips": 15,
   "trips": [
+    {
+      "trip_id": "EG-2024-06-07",
+      "destination_raw": "Atlanta, United States",
+      "destination_city": "Atlanta",
+      "destination_country": "United States",
+      "destination_country_code": "US",
+      "destination_kind": "city",
+      "start_date": "2024-06-07",
+      "start_date_raw": "2024-06-07",
+      "end_date": "2024-06-07",
+      "end_date_raw": "2024-06-07",
+      "duration_days": 0,
+      "duration_raw": "0 days",
+      "accommodation_type": null,
+      "accommodation_cost": null,
+      "accommodation_cost_raw": null,
+      "transportation_type": "Flight",
+      "transportation_cost": null,
+      "transportation_cost_raw": null,
+      "traveler_name": "Eduardo Gomez",
+      "traveler_age": null,
+      "traveler_gender": null,
+      "traveler_nationality": null,
+      "synthetic": true,
+      "carrier_name": "Delta Air Lines Inc.",
+      "carrier_code": "DL",
+      "origin_airport": "IAH",
+      "destination_airport": "ATL",
+      "layover": true
+    },
+    {
+      "trip_id": "EG-2024-06-07-2",
+      "destination_raw": "Paris, France",
+      "destination_city": "Paris",
+      "destination_country": "France",
+      "destination_country_code": "FR",
+      "destination_kind": "city",
+      "start_date": "2024-06-07",
+      "start_date_raw": "2024-06-07",
+      "end_date": "2024-06-08",
+      "end_date_raw": "2024-06-08",
+      "duration_days": 1,
+      "duration_raw": "1 day",
+      "accommodation_type": null,
+      "accommodation_cost": null,
+      "accommodation_cost_raw": null,
+      "transportation_type": "Flight",
+      "transportation_cost": null,
+      "transportation_cost_raw": null,
+      "traveler_name": "Eduardo Gomez",
+      "traveler_age": null,
+      "traveler_gender": null,
+      "traveler_nationality": null,
+      "synthetic": true,
+      "carrier_name": "Delta Air Lines Inc.",
+      "carrier_code": "DL",
+      "origin_airport": "ATL",
+      "destination_airport": "CDG",
+      "layover": true
+    },
+    {
+      "trip_id": "EG-2024-06-08",
+      "destination_raw": "Lisbon, Portugal",
+      "destination_city": "Lisbon",
+      "destination_country": "Portugal",
+      "destination_country_code": "FR",
+      "destination_kind": "city",
+      "start_date": "2024-06-08",
+      "start_date_raw": "2024-06-08",
+      "end_date": "2024-06-08",
+      "end_date_raw": "2024-06-08",
+      "duration_days": 0,
+      "duration_raw": "0 days",
+      "accommodation_type": null,
+      "accommodation_cost": null,
+      "accommodation_cost_raw": null,
+      "transportation_type": "Flight",
+      "transportation_cost": null,
+      "transportation_cost_raw": null,
+      "traveler_name": "Eduardo Gomez",
+      "traveler_age": null,
+      "traveler_gender": null,
+      "traveler_nationality": null,
+      "synthetic": true,
+      "carrier_name": "Delta Air Lines Inc.",
+      "carrier_code": "DL",
+      "origin_airport": "CDG",
+      "destination_airport": "LIS",
+      "layover": false
+    },
     {
       "trip_id": "EG-2024-06-14",
       "destination_raw": "Nice, France",
@@ -42,7 +132,8 @@
       "carrier_name": "easyJet Airline Company Limited",
       "carrier_code": "U2",
       "origin_airport": "LIS",
-      "destination_airport": "NCE"
+      "destination_airport": "NCE",
+      "layover": false
     },
     {
       "trip_id": "EG-2024-09-07",
@@ -71,7 +162,8 @@
       "carrier_name": "United Air Lines Inc.",
       "carrier_code": "UA",
       "origin_airport": "IAH",
-      "destination_airport": "EZE"
+      "destination_airport": "EZE",
+      "layover": false
     },
     {
       "trip_id": "EG-2025-05-24",
@@ -100,7 +192,8 @@
       "carrier_name": "United Air Lines Inc.",
       "carrier_code": "UA",
       "origin_airport": "IAH",
-      "destination_airport": "LHR"
+      "destination_airport": "LHR",
+      "layover": false
     },
     {
       "trip_id": "EG-2025-07-31",
@@ -129,7 +222,8 @@
       "carrier_name": "United Air Lines Inc.",
       "carrier_code": "UA",
       "origin_airport": "EWR",
-      "destination_airport": "ATL"
+      "destination_airport": "ATL",
+      "layover": false
     },
     {
       "trip_id": "EG-2025-08-05",
@@ -158,7 +252,8 @@
       "carrier_name": "United Air Lines Inc.",
       "carrier_code": "UA",
       "origin_airport": "ATL",
-      "destination_airport": "EWR"
+      "destination_airport": "EWR",
+      "layover": false
     },
     {
       "trip_id": "EG-2025-11-07",
@@ -187,7 +282,8 @@
       "carrier_name": "United Air Lines Inc.",
       "carrier_code": "UA",
       "origin_airport": "IAH",
-      "destination_airport": "SAN"
+      "destination_airport": "SAN",
+      "layover": false
     },
     {
       "trip_id": "EG-2026-03-06",
@@ -216,7 +312,8 @@
       "carrier_name": "Concesionaria Vuela Compania De Aviacion SA de CV (Volaris)",
       "carrier_code": "Y4",
       "origin_airport": "GDL",
-      "destination_airport": "MTY"
+      "destination_airport": "MTY",
+      "layover": false
     },
     {
       "trip_id": "EG-2026-03-08",
@@ -245,7 +342,8 @@
       "carrier_name": "Concesionaria Vuela Compania De Aviacion SA de CV (Volaris)",
       "carrier_code": "Y4",
       "origin_airport": "MTY",
-      "destination_airport": "GDL"
+      "destination_airport": "GDL",
+      "layover": false
     },
     {
       "trip_id": "EG-2026-05-22",
@@ -274,7 +372,8 @@
       "carrier_name": "Concesionaria Vuela Compania De Aviacion SA de CV (Volaris)",
       "carrier_code": "Y4",
       "origin_airport": "GDL",
-      "destination_airport": "PBC"
+      "destination_airport": "PBC",
+      "layover": false
     },
     {
       "trip_id": "EG-2026-09-26",
@@ -303,7 +402,8 @@
       "carrier_name": "United Air Lines Inc.",
       "carrier_code": "UA",
       "origin_airport": "IAH",
-      "destination_airport": "IAD"
+      "destination_airport": "IAD",
+      "layover": false
     },
     {
       "trip_id": "EG-2026-10-30",
@@ -332,7 +432,8 @@
       "carrier_name": "United Air Lines Inc.",
       "carrier_code": "UA",
       "origin_airport": "LAX",
-      "destination_airport": "HND"
+      "destination_airport": "HND",
+      "layover": false
     },
     {
       "trip_id": "EG-2026-11-13",
@@ -361,7 +462,8 @@
       "carrier_name": "United Air Lines Inc.",
       "carrier_code": "UA",
       "origin_airport": "HKG",
-      "destination_airport": "SFO"
+      "destination_airport": "SFO",
+      "layover": false
     }
   ]
 }

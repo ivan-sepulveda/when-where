@@ -399,6 +399,13 @@ def group_travelers(trips: list[dict], declared_bases: dict | None = None) -> li
             # doesn't push a trip to the top of the list as if it were oldest.
             key=lambda t: (t["start_date"] is None, t["start_date"] or "", format_destination(t)),
         )
+        # A layover leg (Atlanta and Paris on a Houston-to-Lisbon trip, say)
+        # stays in `trips` -- the full itinerary a detail page would want --
+        # but doesn't count as a trip of its own: it's not where anyone was
+        # headed. trip_count and destinations are what the /rec-sys grid
+        # sorts and displays by, so both are computed off the real trips
+        # only. Ivan's call, see gomez_flight_log.md.
+        real_trips = [t for t in trips_sorted if not t.get("layover")]
 
         travelers.append(
             {
@@ -417,8 +424,8 @@ def group_travelers(trips: list[dict], declared_bases: dict | None = None) -> li
                 "age": ages[-1] if ages else None,
                 "age_range": [ages[0], ages[-1]] if ages else None,
                 "synthetic": traveler["synthetic"],
-                "trip_count": len(trips_sorted),
-                "destinations": sorted({format_destination(t) for t in trips_sorted}),
+                "trip_count": len(real_trips),
+                "destinations": sorted({format_destination(t) for t in real_trips}),
                 "trips": trips_sorted,
             }
         )

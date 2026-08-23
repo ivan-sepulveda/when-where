@@ -66,6 +66,20 @@
       "norm_capacity": 0.5222
     },
     {
+      "traveler_id": "eduardo-gomez",
+      "name": "Eduardo Gomez",
+      "trip_count": 13,
+      "trips_with_destination": 13,
+      "n_destinations": 5,
+      "top_destination": "Northern America",
+      "top_destination_share": 0.5385,
+      "entropy": 1.3039,
+      "entropy_is_informative": true,
+      "norm_global": 0.4218,
+      "norm_observed": 0.8101,
+      "norm_capacity": 0.5083
+    },
+    {
       "traveler_id": "dionysus",
       "name": "Dionysus",
       "trip_count": 21,
@@ -148,20 +162,6 @@
       "norm_global": 0.402,
       "norm_observed": 0.8962,
       "norm_capacity": 0.402
-    },
-    {
-      "traveler_id": "eduardo-gomez",
-      "name": "Eduardo Gomez",
-      "trip_count": 12,
-      "trips_with_destination": 12,
-      "n_destinations": 5,
-      "top_destination": "Northern America",
-      "top_destination_share": 0.5833,
-      "entropy": 1.2343,
-      "entropy_is_informative": true,
-      "norm_global": 0.3993,
-      "norm_observed": 0.7669,
-      "norm_capacity": 0.4967
     },
     {
       "traveler_id": "ernest-hemingway",

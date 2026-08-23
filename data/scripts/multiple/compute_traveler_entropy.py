@@ -191,6 +191,12 @@ def compute(travelers: list[dict], by: str = "airport",
     global_destinations: set[str] = set()
     for traveler in travelers:
         for trip in traveler["trips"]:
+            if trip.get("layover"):
+                # A layover isn't a destination -- Atlanta and Paris on a
+                # Houston-to-Lisbon trip don't belong in K any more than they
+                # belong in this traveler's own count below. A real trip
+                # elsewhere to the same city still adds it via its own row.
+                continue
             key = destination_key(trip, by, regions)
             if key:
                 global_destinations.add(key)
@@ -206,7 +212,9 @@ def compute(travelers: list[dict], by: str = "airport",
     rows = []
     for traveler in travelers:
         counts = Counter(
-            key for key in (destination_key(t, by, regions) for t in traveler["trips"]) if key
+            key for key in (
+                destination_key(t, by, regions) for t in traveler["trips"] if not t.get("layover")
+            ) if key
         )
         n_trips = sum(counts.values())
         k = len(counts)

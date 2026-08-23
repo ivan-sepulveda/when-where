@@ -16,7 +16,7 @@
     "base_country_code": "US"
   },
   "counts": {
-    "legs": 12
+    "legs": 15
   },
   "legs": [
     {
@@ -41,6 +41,7 @@
       "carrier_code": "UA",
       "distance_km": 8173.3,
       "is_domestic": 0,
+      "layover": false,
       "notes": ""
     },
     {
@@ -65,6 +66,7 @@
       "carrier_code": "UA",
       "distance_km": 7763.0,
       "is_domestic": 0,
+      "layover": false,
       "notes": ""
     },
     {
@@ -89,6 +91,7 @@
       "carrier_code": "UA",
       "distance_km": 1199.3,
       "is_domestic": 1,
+      "layover": false,
       "notes": ""
     },
     {
@@ -113,6 +116,7 @@
       "carrier_code": "UA",
       "distance_km": 1199.3,
       "is_domestic": 1,
+      "layover": false,
       "notes": ""
     },
     {
@@ -137,6 +141,7 @@
       "carrier_code": "UA",
       "distance_km": 2093.2,
       "is_domestic": 1,
+      "layover": false,
       "notes": ""
     },
     {
@@ -161,6 +166,7 @@
       "carrier_code": "UA",
       "distance_km": 8812.4,
       "is_domestic": 0,
+      "layover": false,
       "notes": ""
     },
     {
@@ -185,6 +191,7 @@
       "carrier_code": "UA",
       "distance_km": 11128.2,
       "is_domestic": 0,
+      "layover": false,
       "notes": ""
     },
     {
@@ -209,6 +216,7 @@
       "carrier_code": "UA",
       "distance_km": 1913.4,
       "is_domestic": 1,
+      "layover": false,
       "notes": "United is the only carrier on IAH-IAD in the route data -- both ends are its hubs"
     },
     {
@@ -233,6 +241,7 @@
       "carrier_code": "Y4",
       "distance_km": 538.4,
       "is_domestic": 1,
+      "layover": false,
       "notes": "Volaris flight 1396"
     },
     {
@@ -257,6 +266,7 @@
       "carrier_code": "Y4",
       "distance_km": 670.0,
       "is_domestic": 1,
+      "layover": false,
       "notes": "Volaris flight 1082"
     },
     {
@@ -281,6 +291,7 @@
       "carrier_code": "Y4",
       "distance_km": 670.0,
       "is_domestic": 1,
+      "layover": false,
       "notes": "Volaris flight 1083"
     },
     {
@@ -305,7 +316,83 @@
       "carrier_code": "U2",
       "distance_km": 1468.1,
       "is_domestic": 0,
+      "layover": false,
       "notes": "easyJet flight EJU6731"
+    },
+    {
+      "leg": 13,
+      "trip_id": "EG-2024-06-07",
+      "traveler_name": "Eduardo Gomez",
+      "start_date": "2024-06-07",
+      "depart_local": "09:15",
+      "end_date": "2024-06-07",
+      "arrive_local": "12:19",
+      "block_minutes": 124,
+      "duration_days": 0,
+      "origin_airport": "IAH",
+      "origin_city": "Houston",
+      "origin_country": "United States",
+      "destination_airport": "ATL",
+      "destination_airport_name": "Hartsfield Jackson Atlanta International Airport",
+      "destination_city": "Atlanta",
+      "destination_country": "United States",
+      "destination_lat": 33.6367,
+      "destination_lng": -84.428101,
+      "carrier_code": "DL",
+      "distance_km": 1107.6,
+      "is_domestic": 1,
+      "layover": true,
+      "notes": "Delta flight 1585 -- layover, final destination is Lisbon (see the CDG-LIS leg)"
+    },
+    {
+      "leg": 14,
+      "trip_id": "EG-2024-06-07",
+      "traveler_name": "Eduardo Gomez",
+      "start_date": "2024-06-07",
+      "depart_local": "15:25",
+      "end_date": "2024-06-08",
+      "arrive_local": "06:10",
+      "block_minutes": 525,
+      "duration_days": 1,
+      "origin_airport": "ATL",
+      "origin_city": "Atlanta",
+      "origin_country": "United States",
+      "destination_airport": "CDG",
+      "destination_airport_name": "Charles de Gaulle International Airport",
+      "destination_city": "Paris",
+      "destination_country": "France",
+      "destination_lat": 49.012798,
+      "destination_lng": 2.55,
+      "carrier_code": "DL",
+      "distance_km": 7055.7,
+      "is_domestic": 0,
+      "layover": true,
+      "notes": "Delta flight 82 -- layover, final destination is Lisbon (see the CDG-LIS leg)"
+    },
+    {
+      "leg": 15,
+      "trip_id": "EG-2024-06-08",
+      "traveler_name": "Eduardo Gomez",
+      "start_date": "2024-06-08",
+      "depart_local": "09:35",
+      "end_date": "2024-06-08",
+      "arrive_local": "11:15",
+      "block_minutes": 160,
+      "duration_days": 0,
+      "origin_airport": "CDG",
+      "origin_city": "Paris",
+      "origin_country": "France",
+      "destination_airport": "LIS",
+      "destination_airport_name": "Humberto Delgado Airport (Lisbon Portela Airport)",
+      "destination_city": "Lisbon",
+      "destination_country": "Portugal",
+      "destination_lat": 38.7813,
+      "destination_lng": -9.13592,
+      "carrier_code": "DL",
+      "distance_km": 1470.0,
+      "is_domestic": 0,
+      "layover": false,
+      "notes": "Delta flight 8440, marked * on the itinerary (codeshare) -- no operating carrier given, logged as Delta as flown/ticketed"
     }
   ]
 }

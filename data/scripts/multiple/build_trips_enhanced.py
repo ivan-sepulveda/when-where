@@ -431,6 +431,11 @@ def build_trips() -> tuple[list[dict], dict]:
                 "carrier_name": None,
                 "origin_airport": None,
                 "destination_airport": None,
+                # This source records one destination per trip with no notion
+                # of a connecting leg, so it's never a layover -- see
+                # chef_traveler.py's build_trips() for where a real one can be
+                # True.
+                "layover": False,
             }
         )
 

@@ -102,6 +102,7 @@ FLIGHTS = [
         "destination": "EZE",
         "carrier": "UA",
         "note": "",
+        "layover": False,
     },
     {
         "date": "2025-05-24",
@@ -113,6 +114,7 @@ FLIGHTS = [
         "destination": "LHR",
         "carrier": "UA",
         "note": "",
+        "layover": False,
     },
     {
         "date": "2025-07-31",
@@ -124,6 +126,7 @@ FLIGHTS = [
         "destination": "ATL",
         "carrier": "UA",
         "note": "",
+        "layover": False,
     },
     {
         "date": "2025-08-05",
@@ -135,6 +138,7 @@ FLIGHTS = [
         "destination": "EWR",
         "carrier": "UA",
         "note": "",
+        "layover": False,
     },
     {
         "date": "2025-11-07",
@@ -146,6 +150,7 @@ FLIGHTS = [
         "destination": "SAN",
         "carrier": "UA",
         "note": "",
+        "layover": False,
     },
     {
         "date": "2026-10-30",
@@ -157,6 +162,7 @@ FLIGHTS = [
         "destination": "HND",
         "carrier": "UA",
         "note": "",
+        "layover": False,
     },
     {
         "date": "2026-11-13",
@@ -168,6 +174,7 @@ FLIGHTS = [
         "destination": "SFO",
         "carrier": "UA",
         "note": "",
+        "layover": False,
     },
     {
         "date": "2026-09-26",
@@ -179,6 +186,7 @@ FLIGHTS = [
         "destination": "IAD",
         "carrier": "UA",
         "note": "United is the only carrier on IAH-IAD in the route data -- both ends are its hubs",
+        "layover": False,
     },
     {
         "date": "2026-05-22",
@@ -190,6 +198,7 @@ FLIGHTS = [
         "destination": "PBC",
         "carrier": "Y4",
         "note": "Volaris flight 1396",
+        "layover": False,
     },
     {
         "date": "2026-03-06",
@@ -201,6 +210,7 @@ FLIGHTS = [
         "destination": "MTY",
         "carrier": "Y4",
         "note": "Volaris flight 1082",
+        "layover": False,
     },
     {
         "date": "2026-03-08",
@@ -212,6 +222,7 @@ FLIGHTS = [
         "destination": "GDL",
         "carrier": "Y4",
         "note": "Volaris flight 1083",
+        "layover": False,
     },
     {
         "date": "2024-06-14",
@@ -223,6 +234,44 @@ FLIGHTS = [
         "destination": "NCE",
         "carrier": "U2",
         "note": "easyJet flight EJU6731",
+        "layover": False,
+    },
+    {
+        "date": "2024-06-07",
+        "depart": "09:15",
+        "arrive": "12:19",
+        "arrive_date": "2024-06-07",
+        "block_minutes": 124,
+        "origin": "IAH",
+        "destination": "ATL",
+        "carrier": "DL",
+        "note": "Delta flight 1585 -- layover, final destination is Lisbon (see the CDG-LIS leg)",
+        "layover": True,
+    },
+    {
+        "date": "2024-06-07",
+        "depart": "15:25",
+        "arrive": "06:10",
+        "arrive_date": "2024-06-08",
+        "block_minutes": 525,
+        "origin": "ATL",
+        "destination": "CDG",
+        "carrier": "DL",
+        "note": "Delta flight 82 -- layover, final destination is Lisbon (see the CDG-LIS leg)",
+        "layover": True,
+    },
+    {
+        "date": "2024-06-08",
+        "depart": "09:35",
+        "arrive": "11:15",
+        "arrive_date": "2024-06-08",
+        "block_minutes": 160,
+        "origin": "CDG",
+        "destination": "LIS",
+        "carrier": "DL",
+        "note": "Delta flight 8440, marked * on the itinerary (codeshare) -- no operating carrier "
+                "given, logged as Delta as flown/ticketed",
+        "layover": False,
     },
 ]
 
@@ -248,6 +297,7 @@ CSV_FIELDS = [
     "carrier_code",
     "distance_km",
     "is_domestic",
+    "layover",
     "notes",
 ]
 
@@ -320,6 +370,13 @@ def build_rows():
             "carrier_code": leg["carrier"],
             "distance_km": distance,
             "is_domestic": domestic,
+            # Real leg, still recorded in full -- just not the point of the
+            # journey. Downstream scripts (build_travelers.py's trip_count,
+            # compute_traveler_tags.py's airline share, compute_traveler_
+            # entropy.py's destination counts) exclude layover=true rows from
+            # "places visited" and "trips taken", by Ivan's call -- see
+            # gomez_flight_log.md. The raw log keeps every leg regardless.
+            "layover": bool(leg.get("layover", False)),
             "notes": leg.get("note", ""),
         })
 
@@ -357,10 +414,11 @@ def main():
     print(f"Wrote {len(rows)} leg(s) to {OUT_JSON_PATH}")
     for row in rows:
         overnight = " (lands next day)" if row["end_date"] != row["start_date"] else ""
+        layover = " (layover)" if row["layover"] else ""
         print(f"  {row['start_date']} {row['depart_local']} {row['origin_airport']}->"
               f"{row['destination_airport']} {row['arrive_local']}{overnight}  "
               f"{row['carrier_code']}  {row['block_minutes']}m  "
-              f"{row['destination_city']}, {row['destination_country']}")
+              f"{row['destination_city']}, {row['destination_country']}{layover}")
     for warning in warnings:
         print(f"WARNING -- {warning}")
 

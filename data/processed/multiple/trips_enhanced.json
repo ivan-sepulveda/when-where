@@ -6,7 +6,7 @@
  "rows_in_csv": 139,
  "skipped_rows": 2,
  "trips_from_csv": 137,
- "trips_synthetic": 2061,
+ "trips_synthetic": 2064,
  "declared_bases": {
   "Joaquín Sorolla": {
    "base_city": "New York City",
@@ -439,10 +439,10 @@
    "base_country_code": "US"
   }
  },
- "total_trips": 2198,
+ "total_trips": 2201,
  "destinations_with_country_inferred": 56,
  "trips_by_destination_kind": {
-  "city": 2170,
+  "city": 2173,
   "country": 11,
   "region": 17
  },
@@ -1313,7 +1313,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "AE-2016-03-12",
@@ -1901,7 +1902,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "116",
@@ -1929,7 +1931,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "AD-2018-12-20",
@@ -2181,7 +2184,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "28",
@@ -2209,7 +2213,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "78",
@@ -2237,7 +2242,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "38",
@@ -2265,7 +2271,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "11",
@@ -2293,7 +2300,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "65",
@@ -2321,7 +2329,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "AW-2020-03-14",
@@ -12445,7 +12454,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "BE-2016-04-09",
@@ -13341,7 +13351,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "29",
@@ -13369,7 +13380,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "BBN-2016-07-02",
@@ -14405,7 +14417,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "CD-2017-03-11",
@@ -15441,7 +15454,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "CP-2018-12-20",
@@ -18297,7 +18311,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "CIR-2019-01-07",
@@ -23349,7 +23364,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "133",
@@ -23377,7 +23393,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "26",
@@ -23405,7 +23422,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "51",
@@ -23433,7 +23451,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "87",
@@ -23461,7 +23480,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "120",
@@ -23489,7 +23509,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "97",
@@ -23517,7 +23538,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "64",
@@ -23545,7 +23567,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "3",
@@ -23573,7 +23596,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "79",
@@ -23601,7 +23625,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "DEM-2019-01-07",
@@ -27048,6 +27073,96 @@
    "destination_airport": "BOS"
   },
   {
+   "trip_id": "EG-2024-06-07",
+   "destination_raw": "Atlanta, United States",
+   "destination_city": "Atlanta",
+   "destination_country": "United States",
+   "destination_country_code": "US",
+   "destination_kind": "city",
+   "start_date": "2024-06-07",
+   "start_date_raw": "2024-06-07",
+   "end_date": "2024-06-07",
+   "end_date_raw": "2024-06-07",
+   "duration_days": 0,
+   "duration_raw": "0 days",
+   "accommodation_type": null,
+   "accommodation_cost": null,
+   "accommodation_cost_raw": null,
+   "transportation_type": "Flight",
+   "transportation_cost": null,
+   "transportation_cost_raw": null,
+   "traveler_name": "Eduardo Gomez",
+   "traveler_age": null,
+   "traveler_gender": null,
+   "traveler_nationality": null,
+   "synthetic": true,
+   "carrier_name": "Delta Air Lines Inc.",
+   "carrier_code": "DL",
+   "origin_airport": "IAH",
+   "destination_airport": "ATL",
+   "layover": true
+  },
+  {
+   "trip_id": "EG-2024-06-07-2",
+   "destination_raw": "Paris, France",
+   "destination_city": "Paris",
+   "destination_country": "France",
+   "destination_country_code": "FR",
+   "destination_kind": "city",
+   "start_date": "2024-06-07",
+   "start_date_raw": "2024-06-07",
+   "end_date": "2024-06-08",
+   "end_date_raw": "2024-06-08",
+   "duration_days": 1,
+   "duration_raw": "1 day",
+   "accommodation_type": null,
+   "accommodation_cost": null,
+   "accommodation_cost_raw": null,
+   "transportation_type": "Flight",
+   "transportation_cost": null,
+   "transportation_cost_raw": null,
+   "traveler_name": "Eduardo Gomez",
+   "traveler_age": null,
+   "traveler_gender": null,
+   "traveler_nationality": null,
+   "synthetic": true,
+   "carrier_name": "Delta Air Lines Inc.",
+   "carrier_code": "DL",
+   "origin_airport": "ATL",
+   "destination_airport": "CDG",
+   "layover": true
+  },
+  {
+   "trip_id": "EG-2024-06-08",
+   "destination_raw": "Lisbon, Portugal",
+   "destination_city": "Lisbon",
+   "destination_country": "Portugal",
+   "destination_country_code": "FR",
+   "destination_kind": "city",
+   "start_date": "2024-06-08",
+   "start_date_raw": "2024-06-08",
+   "end_date": "2024-06-08",
+   "end_date_raw": "2024-06-08",
+   "duration_days": 0,
+   "duration_raw": "0 days",
+   "accommodation_type": null,
+   "accommodation_cost": null,
+   "accommodation_cost_raw": null,
+   "transportation_type": "Flight",
+   "transportation_cost": null,
+   "transportation_cost_raw": null,
+   "traveler_name": "Eduardo Gomez",
+   "traveler_age": null,
+   "traveler_gender": null,
+   "traveler_nationality": null,
+   "synthetic": true,
+   "carrier_name": "Delta Air Lines Inc.",
+   "carrier_code": "DL",
+   "origin_airport": "CDG",
+   "destination_airport": "LIS",
+   "layover": false
+  },
+  {
    "trip_id": "EG-2024-06-14",
    "destination_raw": "Nice, France",
    "destination_city": "Nice",
@@ -27074,7 +27189,8 @@
    "carrier_name": "easyJet Airline Company Limited",
    "carrier_code": "U2",
    "origin_airport": "LIS",
-   "destination_airport": "NCE"
+   "destination_airport": "NCE",
+   "layover": false
   },
   {
    "trip_id": "EG-2024-09-07",
@@ -27103,7 +27219,8 @@
    "carrier_name": "United Air Lines Inc.",
    "carrier_code": "UA",
    "origin_airport": "IAH",
-   "destination_airport": "EZE"
+   "destination_airport": "EZE",
+   "layover": false
   },
   {
    "trip_id": "EG-2025-05-24",
@@ -27132,7 +27249,8 @@
    "carrier_name": "United Air Lines Inc.",
    "carrier_code": "UA",
    "origin_airport": "IAH",
-   "destination_airport": "LHR"
+   "destination_airport": "LHR",
+   "layover": false
   },
   {
    "trip_id": "EG-2025-07-31",
@@ -27161,7 +27279,8 @@
    "carrier_name": "United Air Lines Inc.",
    "carrier_code": "UA",
    "origin_airport": "EWR",
-   "destination_airport": "ATL"
+   "destination_airport": "ATL",
+   "layover": false
   },
   {
    "trip_id": "EG-2025-08-05",
@@ -27190,7 +27309,8 @@
    "carrier_name": "United Air Lines Inc.",
    "carrier_code": "UA",
    "origin_airport": "ATL",
-   "destination_airport": "EWR"
+   "destination_airport": "EWR",
+   "layover": false
   },
   {
    "trip_id": "EG-2025-11-07",
@@ -27219,7 +27339,8 @@
    "carrier_name": "United Air Lines Inc.",
    "carrier_code": "UA",
    "origin_airport": "IAH",
-   "destination_airport": "SAN"
+   "destination_airport": "SAN",
+   "layover": false
   },
   {
    "trip_id": "EG-2026-03-06",
@@ -27248,7 +27369,8 @@
    "carrier_name": "Concesionaria Vuela Compania De Aviacion SA de CV (Volaris)",
    "carrier_code": "Y4",
    "origin_airport": "GDL",
-   "destination_airport": "MTY"
+   "destination_airport": "MTY",
+   "layover": false
   },
   {
    "trip_id": "EG-2026-03-08",
@@ -27277,7 +27399,8 @@
    "carrier_name": "Concesionaria Vuela Compania De Aviacion SA de CV (Volaris)",
    "carrier_code": "Y4",
    "origin_airport": "MTY",
-   "destination_airport": "GDL"
+   "destination_airport": "GDL",
+   "layover": false
   },
   {
    "trip_id": "EG-2026-05-22",
@@ -27306,7 +27429,8 @@
    "carrier_name": "Concesionaria Vuela Compania De Aviacion SA de CV (Volaris)",
    "carrier_code": "Y4",
    "origin_airport": "GDL",
-   "destination_airport": "PBC"
+   "destination_airport": "PBC",
+   "layover": false
   },
   {
    "trip_id": "EG-2026-09-26",
@@ -27335,7 +27459,8 @@
    "carrier_name": "United Air Lines Inc.",
    "carrier_code": "UA",
    "origin_airport": "IAH",
-   "destination_airport": "IAD"
+   "destination_airport": "IAD",
+   "layover": false
   },
   {
    "trip_id": "EG-2026-10-30",
@@ -27364,7 +27489,8 @@
    "carrier_name": "United Air Lines Inc.",
    "carrier_code": "UA",
    "origin_airport": "LAX",
-   "destination_airport": "HND"
+   "destination_airport": "HND",
+   "layover": false
   },
   {
    "trip_id": "EG-2026-11-13",
@@ -27393,7 +27519,8 @@
    "carrier_name": "United Air Lines Inc.",
    "carrier_code": "UA",
    "origin_airport": "HKG",
-   "destination_airport": "SFO"
+   "destination_airport": "SFO",
+   "layover": false
   },
   {
    "trip_id": "EH-2016-10-08",
@@ -28373,7 +28500,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "134",
@@ -28401,7 +28529,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "7",
@@ -28429,7 +28558,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "96",
@@ -28457,7 +28587,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "121",
@@ -28485,7 +28616,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "21",
@@ -28513,7 +28645,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "63",
@@ -28541,7 +28674,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "111",
@@ -28569,7 +28703,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "31",
@@ -28597,7 +28732,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "45",
@@ -28625,7 +28761,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "113",
@@ -28653,7 +28790,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "82",
@@ -28681,7 +28819,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "136",
@@ -28709,7 +28848,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "90",
@@ -28737,7 +28877,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "15",
@@ -28765,7 +28906,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "54",
@@ -28793,7 +28935,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "122",
@@ -28821,7 +28964,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "GG-2018-05-28",
@@ -29521,7 +29665,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "GOK-2021-01-09",
@@ -29689,7 +29834,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "92",
@@ -29717,7 +29863,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "GR-2019-07-21",
@@ -31569,7 +31716,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "33",
@@ -31597,7 +31745,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "124",
@@ -31625,7 +31774,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "HRA-2019-01-07",
@@ -35069,7 +35219,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "126",
@@ -35097,7 +35248,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "JP-2025-01-06",
@@ -35461,7 +35613,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "68",
@@ -35489,7 +35642,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "83",
@@ -35517,7 +35671,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "16",
@@ -35545,7 +35700,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "89",
@@ -35573,7 +35729,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "22",
@@ -35601,7 +35758,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "2",
@@ -35629,7 +35787,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "130",
@@ -35657,7 +35816,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "50",
@@ -35685,7 +35845,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "100",
@@ -35713,7 +35874,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "53",
@@ -35741,7 +35903,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "JS-2016-08-13",
@@ -36749,7 +36912,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "84",
@@ -36777,7 +36941,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "106",
@@ -36805,7 +36970,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "95",
@@ -36833,7 +36999,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "1",
@@ -36861,7 +37028,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "76",
@@ -36889,7 +37057,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "42",
@@ -36917,7 +37086,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "135",
@@ -36945,7 +37115,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "127",
@@ -36973,7 +37144,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "101",
@@ -37001,7 +37173,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "62",
@@ -37029,7 +37202,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "20",
@@ -37057,7 +37231,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "48",
@@ -37085,7 +37260,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "94",
@@ -37113,7 +37289,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "5",
@@ -37141,7 +37318,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "MID-2018-04-07",
@@ -37841,7 +38019,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "9",
@@ -37869,7 +38048,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "49",
@@ -37897,7 +38077,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "91",
@@ -37925,7 +38106,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "69",
@@ -37953,7 +38135,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "25",
@@ -37981,7 +38164,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "13",
@@ -38009,7 +38193,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "109",
@@ -38037,7 +38222,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "LG-2019-02-09",
@@ -39409,7 +39595,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "70",
@@ -39437,7 +39624,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "86",
@@ -39465,7 +39653,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "27",
@@ -39493,7 +39682,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "102",
@@ -39521,7 +39711,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "75",
@@ -39549,7 +39740,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "43",
@@ -39577,7 +39769,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "MC-2018-04-14",
@@ -40053,7 +40246,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "112",
@@ -40081,7 +40275,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "MM-2018-01-13",
@@ -41677,7 +41872,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "36",
@@ -41705,7 +41901,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "6",
@@ -41733,7 +41930,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "18",
@@ -41761,7 +41959,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "59",
@@ -41789,7 +41988,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "46",
@@ -41817,7 +42017,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "131",
@@ -41845,7 +42046,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "108",
@@ -41873,7 +42075,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "99",
@@ -41901,7 +42104,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "MD-2020-03-14",
@@ -42601,7 +42805,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "80",
@@ -42629,7 +42834,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "NAR-2019-03-07",
@@ -44981,7 +45187,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "55",
@@ -45009,7 +45216,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "ODY-2018-03-07",
@@ -46941,7 +47149,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "104",
@@ -46969,7 +47178,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "32",
@@ -46997,7 +47207,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "19",
@@ -47025,7 +47236,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "ORP-2017-03-07",
@@ -48705,7 +48917,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "PSE-2020-02-07",
@@ -50077,7 +50290,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "PPK-2016-04-09",
@@ -52933,7 +53147,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "52",
@@ -52961,7 +53176,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "61",
@@ -52989,7 +53205,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "24",
@@ -53017,7 +53234,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "RF-2019-04-13",
@@ -53633,7 +53851,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "103",
@@ -53661,7 +53880,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "137",
@@ -53689,7 +53909,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "98",
@@ -53717,7 +53938,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "71",
@@ -53745,7 +53967,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "4",
@@ -53773,7 +53996,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "17",
@@ -53801,7 +54025,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "85",
@@ -53829,7 +54054,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "73",
@@ -53857,7 +54083,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "107",
@@ -53885,7 +54112,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "132",
@@ -53913,7 +54141,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "SV-2018-05-12",
@@ -54389,7 +54618,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "SIS-2018-02-07",
@@ -55313,7 +55543,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "60",
@@ -55341,7 +55572,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "23",
@@ -55369,7 +55601,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "115",
@@ -55397,7 +55630,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "34",
@@ -55425,7 +55659,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "SG-2020-02-08",
@@ -59765,7 +60000,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "66",
@@ -59793,7 +60029,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "TS-2017-03-11",
@@ -61781,7 +62018,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "37",
@@ -61809,7 +62047,8 @@
    "synthetic": false,
    "carrier_name": null,
    "origin_airport": null,
-   "destination_airport": null
+   "destination_airport": null,
+   "layover": false
   },
   {
    "trip_id": "ZEU-2016-04-07",

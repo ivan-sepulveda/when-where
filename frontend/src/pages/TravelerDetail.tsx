@@ -165,6 +165,13 @@ export default function TravelerDetail() {
   const carriers = carrierBreakdown(traveler);
   const domesticInternational = domesticInternationalBreakdown(traveler);
   const subregions = subregionBreakdown(traveler);
+  // A layover isn't a trip of its own -- Atlanta and Paris on a
+  // Houston-to-Lisbon trip, say (see data/scripts/multiple/chef_traveler.py)
+  // -- so it's excluded here the same way build_travelers.py's trip_count
+  // excludes it. The full itinerary (layovers included) still exists in
+  // traveler.trips for anything that wants it; this page just doesn't list
+  // a layover as if it were a destination.
+  const realTrips = traveler.trips.filter((trip) => !trip.layover);
   // Same "only render what's actually there" approach as TripCard's facts.
   const details = [
     traveler.nationality && { label: "Nationality", value: traveler.nationality },
@@ -271,13 +278,13 @@ export default function TravelerDetail() {
 
       <h2>Trips</h2>
       <ul className="destination-detail-stats">
-        {traveler.trips.length === 0 ? (
+        {realTrips.length === 0 ? (
           // Shouldn't happen -- build_travelers.py only creates a traveler
-          // from at least one trip -- but a card that links to an empty page
-          // should still say something.
+          // from at least one non-layover trip -- but a card that links to an
+          // empty page should still say something.
           <li className="destination-detail-stat-card">No trips recorded for {traveler.name}.</li>
         ) : (
-          traveler.trips.map((trip, index) => (
+          realTrips.map((trip, index) => (
             // trip_id is nullable in the source, so it can't be the key on
             // its own; the index keeps it unique either way and these lists
             // are never reordered in place.

@@ -321,6 +321,15 @@ class TravelerTrip(BaseModel):
     carrier_name: Optional[str] = None
     origin_airport: Optional[str] = None
     destination_airport: Optional[str] = None
+    # True for a leg that's part of a longer journey but wasn't its point --
+    # Atlanta and Paris on a Houston-to-Lisbon trip, say (see
+    # data/scripts/multiple/chef_traveler.py). Only a hand-kept log can know
+    # this, so it's always False elsewhere. Defaulted for the same reason
+    # `synthetic` is: an older travelers.json without the field still loads.
+    # The row is still served here in full -- this flags it for a consumer
+    # (the Trips list, the airline/region charts) to exclude from AGGREGATES,
+    # it does not remove it from the response.
+    layover: bool = False
     # UN M49 geography for destination_country_code, joined on at request
     # time (see data_loader.load_m49_regions). Null when m49_regions.json
     # hasn't been built here, or when the destination country isn't in it --
