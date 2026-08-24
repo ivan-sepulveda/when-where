@@ -62,6 +62,75 @@ export interface TravelerTrip {
   // and South America apart rather than merging them into "Latin America and
   // the Caribbean", which on this dataset would be most of the bar.
   destination_subregion?: string | null;
+  // This trip's DESTINATION CITY's scores, joined on by the API from
+  // data/scripts/multiple/match_trip_cities.py's output (see
+  // backend/app/main.py's _with_destination_scores).
+  //
+  // Null is a real, common state and is NOT zero. unesco_score /
+  // michelin_score are null when the destination has no city record at all
+  // -- Punta Cana, Montego Bay, Sarasota and other places below
+  // tourist_cities.json's population cutoff. weather_score is null for
+  // those too, AND for a matched city with no weather normals (only 1,770
+  // of 3,069 cities have them), AND for a trip with no usable start date.
+  //
+  // A 0.00 that IS present means something specific: no World Heritage
+  // site within the 50km scoring radius (true of 73 of the 138 cities in
+  // this dataset, Tokyo included), or a country the MICHELIN Guide doesn't
+  // publish in. Rendering a null as 0 would collapse those two apart
+  // meanings into one.
+  unesco_score?: number | null;
+  michelin_score?: number | null;
+  weather_score?: number | null;
+}
+
+// One destination score, ready to render. `title` carries the unrounded
+// value and what it measures, since the card shows a rounded number and
+// "UNESCO 0.0" invites exactly the wrong reading.
+export interface TripDestinationScore {
+  key: "unesco" | "michelin" | "weather";
+  label: string;
+  value: number;
+  title: string;
+}
+
+const SCORE_TITLES: Record<TripDestinationScore["key"], string> = {
+  unesco: "UNESCO World Heritage sites within 50km of the destination city, log-scaled to 0-10",
+  michelin: "MICHELIN Guide restaurants within 50km of the destination city, log-scaled to 0-10",
+  weather: "The destination city's weather normals scored 0-10, averaged over this trip's own dates",
+};
+
+// The scores to show on one trip card -- only the ones that are actually
+// present, in a fixed order. An absent score is omitted rather than shown
+// as a dash: about 1 trip in 7 has no city record at all, and a row of
+// three dashes on those cards is noise, not information. The card's shape
+// varying is the deliberate trade (Ivan's call), and it matches how this
+// page already hides the entropy block when it's null.
+export function tripDestinationScores(trip: TravelerTrip): TripDestinationScore[] {
+  const raw: [TripDestinationScore["key"], string, number | null | undefined][] = [
+    ["unesco", "UNESCO", trip.unesco_score],
+    ["michelin", "Michelin", trip.michelin_score],
+    ["weather", "Weather", trip.weather_score],
+  ];
+  return raw
+    .filter(([, , value]) => typeof value === "number")
+    .map(([key, label, value]) => ({
+      key,
+      label,
+      value: value as number,
+      title: `${SCORE_TITLES[key]}.`,
+    }));
+}
+
+// TWO decimals, which is exactly the precision these scores are stored at
+// -- so the card shows the stored number rather than a rounded stand-in.
+//
+// One decimal was tried first and rejected on sight: Tokyo's michelin_score
+// is 9.99, and toFixed(1) renders that as "10.0", which reads as a capped
+// or perfect score. Rounding that invents a value the data does not contain
+// is worse than one extra character, and 0-10 scores at the top of the
+// range are exactly where the rounding lands.
+export function formatDestinationScore(value: number): string {
+  return value.toFixed(2);
 }
 
 // Mirrors backend/app/main.py's TravelerTag. A computed label -- see

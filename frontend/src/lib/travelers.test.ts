@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { describeEntropy, entropyUnitLabel, type DestinationEntropy } from "./travelers";
+import {
+  describeEntropy,
+  entropyUnitLabel,
+  formatDestinationScore,
+  tripDestinationScores,
+  type DestinationEntropy,
+  type TravelerTrip,
+} from "./travelers";
 
 function entropy(overrides: Partial<DestinationEntropy> = {}): DestinationEntropy {
   return {
@@ -89,5 +96,83 @@ describe("entropyUnitLabel", () => {
 
   it("doesn't say 'by undefined'", () => {
     expect(entropyUnitLabel(null)).toBe("by destination");
+  });
+});
+
+
+// The per-trip destination scores shown on each card in TravelerDetail.
+// What matters here is the null/zero distinction and the rounding, both of
+// which are easy to "simplify" into a bug.
+
+function trip(overrides: Partial<TravelerTrip> = {}): TravelerTrip {
+  return {
+    trip_id: "T-1",
+    destination_raw: "Tokyo, Japan",
+    destination_city: "Tokyo",
+    destination_country: "Japan",
+    destination_country_code: "JP",
+    destination_kind: "city",
+    start_date: "2024-01-08",
+    start_date_raw: "2024-01-08",
+    end_date: "2024-01-13",
+    end_date_raw: "2024-01-13",
+    duration_days: 5,
+    duration_raw: "5",
+    accommodation_type: "Hotel",
+    accommodation_cost: null,
+    accommodation_cost_raw: null,
+    transportation_type: "Flight",
+    transportation_cost: null,
+    transportation_cost_raw: null,
+    ...overrides,
+  };
+}
+
+describe("tripDestinationScores", () => {
+  it("returns the three scores in a fixed order", () => {
+    const got = tripDestinationScores(
+      trip({ unesco_score: 6.67, michelin_score: 9.99, weather_score: 7.58 }),
+    );
+    expect(got.map((s) => s.key)).toEqual(["unesco", "michelin", "weather"]);
+    expect(got.map((s) => s.value)).toEqual([6.67, 9.99, 7.58]);
+  });
+
+  // A 0 is a real score -- "no World Heritage site within 50km", true of
+  // most cities in this dataset -- and must survive. Dropping it as falsy
+  // is the obvious way to break this function.
+  it("keeps a zero score", () => {
+    const got = tripDestinationScores(trip({ unesco_score: 0, michelin_score: 0 }));
+    expect(got.map((s) => [s.key, s.value])).toEqual([
+      ["unesco", 0],
+      ["michelin", 0],
+    ]);
+  });
+
+  it("omits a score that is null or absent, keeping the others", () => {
+    expect(
+      tripDestinationScores(
+        trip({ unesco_score: 3.33, michelin_score: 9.34, weather_score: null }),
+      ).map((s) => s.key),
+    ).toEqual(["unesco", "michelin"]);
+    expect(tripDestinationScores(trip()).length).toBe(0);
+  });
+
+  it("gives every score a tooltip naming what it measures", () => {
+    const [unesco] = tripDestinationScores(trip({ unesco_score: 0 }));
+    expect(unesco.title).toContain("50km");
+  });
+});
+
+describe("formatDestinationScore", () => {
+  // The bug this pins: at 1 decimal, Tokyo's stored 9.99 renders as "10.0"
+  // and reads as a capped score.
+  it("does not round a near-maximum score up to 10", () => {
+    expect(formatDestinationScore(9.99)).toBe("9.99");
+  });
+
+  it("shows the stored two-decimal precision", () => {
+    expect(formatDestinationScore(0)).toBe("0.00");
+    expect(formatDestinationScore(7.58)).toBe("7.58");
+    expect(formatDestinationScore(3.3)).toBe("3.30");
   });
 });

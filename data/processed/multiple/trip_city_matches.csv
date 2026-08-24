@@ -1,0 +1,175 @@
+destination_city,destination_country,trips,layover_trips,match_status,match_method,simplemaps_id,matched_city,matched_city_ascii,matched_country,unesco_score,michelin_score
+Cancun,Mexico,133,0,matched,exact,1484010310,Cancún,Cancun,Mexico,0.0,2.83
+Orlando,United States,124,0,matched,exact,1840015099,Orlando,Orlando,United States,0.0,6.53
+London,United Kingdom,82,0,matched,exact,1826645935,London,London,United Kingdom,6.71,9.54
+Denver,United States,79,0,matched,exact,1840018789,Denver,Denver,United States,0.0,5.91
+Tokyo,Japan,74,0,matched,exact,1392685764,Tokyo,Tokyo,Japan,2.89,9.99
+San Jose del Cabo,Mexico,69,0,matched,exact,1484157742,San José del Cabo,San Jose del Cabo,Mexico,2.89,4.48
+New York,United States,64,0,matched,exact,1840034016,New York,New York,United States,4.58,9.36
+Chicago,United States,48,0,matched,exact,1840000494,Chicago,Chicago,United States,2.89,7.33
+Guadalajara,Mexico,48,0,matched,exact,1484950208,Guadalajara,Guadalajara,Mexico,4.58,3.79
+Miami,United States,45,0,matched,exact,1840015149,Miami,Miami,United States,0.0,6.68
+San Diego,United States,44,0,matched,exact,1840021990,San Diego,San Diego,United States,0.0,6.12
+Los Angeles,United States,41,0,matched,exact,1840020491,Los Angeles,Los Angeles,United States,2.89,8.2
+Phoenix,United States,41,0,matched,exact,1840020568,Phoenix,Phoenix,United States,2.89,0.0
+Toronto,Canada,40,0,matched,exact,1124279679,Toronto,Toronto,Canada,0.0,7.17
+Boston,United States,38,0,matched,exact,1840000455,Boston,Boston,United States,0.0,5.21
+Sydney,Australia,38,0,matched,exact,1036074917,Sydney,Sydney,Australia,4.58,0.0
+Puerto Vallarta,Mexico,36,0,matched,exact,1484408906,Puerto Vallarta,Puerto Vallarta,Mexico,2.89,1.74
+Atlanta,United States,33,1,matched,exact,1840013660,Atlanta,Atlanta,United States,0.0,6.55
+Seattle,United States,33,0,matched,exact,1840021117,Seattle,Seattle,United States,0.0,0.0
+Tampa,United States,33,0,matched,exact,1840015982,Tampa,Tampa,United States,0.0,5.67
+Mexico City,Mexico,32,0,matched,exact,1484247881,Mexico City,Mexico City,Mexico,8.12,6.87
+San Francisco,United States,30,0,matched,exact,1840021543,San Francisco,San Francisco,United States,0.0,8.13
+Paris,France,29,1,matched,exact,1250015082,Paris,Paris,France,6.71,9.93
+Seoul,South Korea,29,0,matched,country_alias,1410836482,Seoul,Seoul,"Korea, South",8.12,8.2
+New Orleans,United States,28,0,matched,exact,1840001839,New Orleans,New Orleans,United States,0.0,5.48
+Las Vegas,United States,26,0,matched,exact,1840020364,Las Vegas,Las Vegas,United States,0.0,0.0
+Madrid,Spain,26,0,matched,exact,1724616994,Madrid,Madrid,Spain,6.71,8.22
+Portland,United States,26,0,matched,exact,1840019941,Portland,Portland,United States,0.0,0.0
+Amsterdam,Netherlands,25,0,matched,exact,1528355309,Amsterdam,Amsterdam,Netherlands,7.47,8.19
+New York City,United States,24,0,matched,city_alias,1840034016,New York,New York,United States,4.58,9.36
+Rome,Italy,23,0,matched,exact,1380382862,Rome,Rome,Italy,8.67,7.27
+San Antonio,United States,22,0,matched,exact,1840022220,San Antonio,San Antonio,United States,2.89,4.39
+Lisbon,Portugal,21,0,matched,exact,1620619017,Lisbon,Lisbon,Portugal,5.78,6.42
+Washington,United States,21,0,matched,exact,1840006060,Washington,Washington,United States,0.0,7.41
+Buenos Aires,Argentina,20,0,matched,exact,1032717330,Buenos Aires,Buenos Aires,Argentina,2.89,6.22
+Barcelona,Spain,17,0,matched,exact,1724594040,Barcelona,Barcelona,Spain,5.78,7.69
+Cleveland,United States,17,0,matched,exact,1840000596,Cleveland,Cleveland,United States,0.0,0.0
+Pittsburgh,United States,17,0,matched,exact,1840001254,Pittsburgh,Pittsburgh,United States,0.0,0.0
+Newark,United States,16,0,matched,exact,1840002791,Newark,Newark,United States,4.58,9.34
+Dallas,United States,15,0,matched,exact,1840019440,Dallas,Dallas,United States,0.0,5.27
+Dublin,Ireland,15,0,matched,exact,1372595407,Dublin,Dublin,Ireland,2.89,6.4
+Honolulu,United States,15,0,matched,exact,1840013305,Honolulu,Honolulu,United States,0.0,0.0
+Houston,United States,14,0,matched,exact,1840020925,Houston,Houston,United States,0.0,6.02
+Nashville,United States,14,0,matched,exact,1840036155,Nashville,Nashville,United States,0.0,4.96
+Nassau,Bahamas,14,0,matched,country_alias,1044318561,Nassau,Nassau,"Bahamas, The",0.0,0.0
+San Jose,Costa Rica,14,0,matched,exact,1188749877,San José,San Jose,Costa Rica,0.0,0.0
+Bali,Indonesia,12,0,matched,city_alias,1360848527,Denpasar,Denpasar,Indonesia,2.89,0.0
+Lima,Peru,12,0,matched,exact,1604728603,Lima,Lima,Peru,4.58,0.0
+Sao Paulo,Brazil,12,0,matched,exact,1076532519,São Paulo,Sao Paulo,Brazil,0.0,7.36
+Vancouver,Canada,12,0,matched,exact,1124825478,Vancouver,Vancouver,Canada,0.0,6.85
+Monterrey,Mexico,11,0,matched,exact,1484559591,Monterrey,Monterrey,Mexico,0.0,3.79
+Philadelphia,United States,11,0,matched,exact,1840000673,Philadelphia,Philadelphia,United States,2.89,5.58
+Anchorage,United States,10,0,matched,exact,1840023385,Anchorage,Anchorage,United States,0.0,0.0
+Charlotte,United States,10,0,matched,exact,1840014557,Charlotte,Charlotte,United States,0.0,4.18
+Minneapolis,United States,10,0,matched,exact,1840007830,Minneapolis,Minneapolis,United States,0.0,0.0
+Baltimore,United States,9,0,matched,exact,1840001592,Baltimore,Baltimore,United States,0.0,0.0
+Detroit,United States,9,0,matched,exact,1840003971,Detroit,Detroit,United States,0.0,0.0
+Salt Lake City,United States,9,0,matched,exact,1840021383,Salt Lake City,Salt Lake City,United States,0.0,0.0
+Spokane,United States,9,0,matched,exact,1840021093,Spokane,Spokane,United States,0.0,0.0
+St. Louis,United States,9,0,matched,exact,1840001651,St. Louis,St. Louis,United States,2.89,0.0
+Bangkok,Thailand,8,0,matched,exact,1764068610,Bangkok,Bangkok,Thailand,0.0,8.47
+Boise,United States,8,0,matched,exact,1840027142,Boise,Boise,United States,0.0,0.0
+Frankfurt,Germany,8,0,matched,exact,1276054552,Frankfurt,Frankfurt,Germany,6.71,6.53
+Nice,France,7,0,matched,exact,1250774553,Nice,Nice,France,4.58,7.7
+Rio de Janeiro,Brazil,7,0,matched,exact,1076887657,Rio de Janeiro,Rio de Janeiro,Brazil,5.78,6.02
+Shanghai,China,7,0,matched,exact,1156073548,Shanghai,Shanghai,China,0.0,7.99
+Athens,Greece,6,0,matched,exact,1300715560,Athens,Athens,Greece,4.58,5.62
+Auckland,New Zealand,6,0,matched,exact,1554435911,Auckland,Auckland,New Zealand,0.0,6.09
+Austin,United States,6,0,matched,exact,1840019590,Austin,Austin,United States,0.0,6.12
+Montreal,Canada,6,0,matched,exact,1124586170,Montréal,Montreal,Canada,0.0,6.58
+Berlin,Germany,5,0,matched,exact,1276451290,Berlin,Berlin,Germany,6.71,6.95
+Edinburgh,United Kingdom,5,0,matched,exact,1826492520,Edinburgh,Edinburgh,United Kingdom,5.78,6.22
+Munich,Germany,5,0,matched,exact,1276692352,Munich,Munich,Germany,2.89,7.24
+Queretaro,Mexico,5,0,matched,exact,1484604775,Querétaro,Queretaro,Mexico,4.58,0.0
+Taipei,Taiwan,5,0,matched,exact,1158881289,Taipei,Taipei,Taiwan,0.0,8.44
+Cape Town,South Africa,4,0,matched,exact,1710680650,Cape Town,Cape Town,South Africa,4.58,0.0
+Dubai,United Arab Emirates,4,0,matched,exact,1784736618,Dubai,Dubai,United Arab Emirates,0.0,7.48
+Hong Kong,Hong Kong,4,0,matched,exact,1344982653,Hong Kong,Hong Kong,Hong Kong,0.0,8.53
+Melbourne,Australia,4,0,matched,exact,1036533631,Melbourne,Melbourne,Australia,2.89,0.0
+Milan,Italy,4,0,matched,exact,1380724377,Milan,Milan,Italy,7.47,8.48
+Porto,Portugal,4,0,matched,exact,1620356810,Porto,Porto,Portugal,5.78,6.34
+Singapore,Singapore,4,0,matched,exact,1702341327,Singapore,Singapore,Singapore,2.89,9.04
+Brisbane,Australia,3,0,matched,exact,1036192929,Brisbane,Brisbane,Australia,0.0,0.0
+Copenhagen,Denmark,3,0,matched,exact,1208763942,Copenhagen,Copenhagen,Denmark,7.47,7.03
+Havana,Cuba,3,0,matched,exact,1192752771,Havana,Havana,Cuba,2.89,0.0
+Phuket,Thailand,3,0,matched,exact,1764327831,Phuket,Phuket,Thailand,0.0,6.63
+Venice,Italy,3,0,matched,exact,1380660414,Venice,Venice,Italy,7.47,6.95
+Accra,Ghana,2,0,matched,exact,1288299415,Accra,Accra,Ghana,2.89,0.0
+Bogota,Colombia,2,0,matched,exact,1170483426,Bogotá,Bogota,Colombia,0.0,0.0
+Casablanca,Morocco,2,0,matched,exact,1504175315,Casablanca,Casablanca,Morocco,0.0,0.0
+Charleston,United States,2,0,matched,exact,1840015163,Charleston,Charleston,United States,0.0,4.28
+Helsinki,Finland,2,0,matched,exact,1246177997,Helsinki,Helsinki,Finland,4.58,5.48
+Istanbul,Turkey,2,0,matched,exact,1792756324,Istanbul,Istanbul,Turkey,2.89,7.05
+Kansas City,United States,2,0,matched,exact,1840008535,Kansas City,Kansas City,United States,0.0,0.0
+Kingston,Jamaica,2,0,matched,exact,1388709177,Kingston,Kingston,Jamaica,4.58,0.0
+Merida,Mexico,2,0,matched,exact,1484396779,Mérida,Merida,Mexico,0.0,4.06
+Moscow,Russia,2,0,matched,exact,1643318494,Moscow,Moscow,Russia,5.78,0.0
+Naples,Italy,2,0,matched,exact,1380646673,Naples,Naples,Italy,7.47,7.68
+Osaka,Japan,2,0,matched,exact,1392419823,Ōsaka,Osaka,Japan,8.12,9.99
+Port-au-Prince,Haiti,2,0,matched,exact,1332401940,Port-au-Prince,Port-au-Prince,Haiti,0.0,0.0
+Prague,Czech Republic,2,0,matched,country_alias,1203744823,Prague,Prague,Czechia,2.89,6.09
+Reykjavik,Iceland,2,0,matched,exact,1352327190,Reykjavík,Reykjavik,Iceland,2.89,3.64
+San Juan,Puerto Rico,2,0,matched,exact,1630035577,San Juan,San Juan,Puerto Rico,2.89,0.0
+Stockholm,Sweden,2,0,matched,exact,1752425602,Stockholm,Stockholm,Sweden,5.78,5.99
+Vienna,Austria,2,0,matched,exact,1040261752,Vienna,Vienna,Austria,6.71,7.14
+Albuquerque,United States,1,0,matched,exact,1840019176,Albuquerque,Albuquerque,United States,0.0,0.0
+Brussels,Belgium,1,0,matched,exact,1056469830,Brussels,Brussels,Belgium,10.0,9.25
+Budapest,Hungary,1,0,matched,exact,1348611435,Budapest,Budapest,Hungary,2.89,5.91
+Buffalo,United States,1,0,matched,exact,1840000386,Buffalo,Buffalo,United States,0.0,1.74
+Cairo,Egypt,1,0,matched,exact,1818253931,Cairo,Cairo,Egypt,4.58,0.0
+Dakar,Senegal,1,0,matched,exact,1686604760,Dakar,Dakar,Senegal,2.89,0.0
+Delhi,India,1,0,matched,exact,1356872604,Delhi,Delhi,India,5.78,0.0
+Doha,Qatar,1,0,matched,exact,1634459660,Doha,Doha,Qatar,0.0,5.95
+Duesseldorf,Germany,1,0,matched,city_alias,1276615258,Düsseldorf,Dusseldorf,Germany,6.71,7.29
+Geneva,Switzerland,1,0,matched,exact,1756810813,Geneva,Geneva,Switzerland,4.58,7.66
+Glasgow,United Kingdom,1,0,matched,exact,1826836462,Glasgow,Glasgow,United Kingdom,2.89,4.39
+Guayaquil,Ecuador,1,0,matched,exact,1218802178,Guayaquil,Guayaquil,Ecuador,0.0,0.0
+Jerusalem,Israel,1,0,matched,exact,1376261644,Jerusalem,Jerusalem,Israel,8.67,0.0
+Johannesburg,South Africa,1,0,matched,exact,1710550792,Johannesburg,Johannesburg,South Africa,4.58,0.0
+Knoxville,United States,1,0,matched,exact,1840014486,Knoxville,Knoxville,United States,0.0,2.19
+Kyiv,Ukraine,1,0,matched,exact,1804382913,Kyiv,Kyiv,Ukraine,2.89,0.0
+Lagos,Nigeria,1,0,matched,exact,1566593751,Lagos,Lagos,Nigeria,0.0,0.0
+Marrakech,Morocco,1,0,matched,exact,1504172585,Marrakech,Marrakech,Morocco,2.89,0.0
+Memphis,United States,1,0,matched,exact,1840015457,Memphis,Memphis,United States,0.0,2.83
+Mumbai,India,1,0,matched,exact,1356226629,Mumbai,Mumbai,India,6.71,0.0
+Nairobi,Kenya,1,0,matched,exact,1404000661,Nairobi,Nairobi,Kenya,0.0,0.0
+Oaxaca,Mexico,1,0,matched,exact,1484301467,Oaxaca,Oaxaca,Mexico,4.58,5.03
+Oslo,Norway,1,0,matched,exact,1578324706,Oslo,Oslo,Norway,0.0,5.38
+Panama City,Panama,1,0,matched,exact,1591672475,Panama City,Panama City,Panama,2.89,0.0
+Phnom Penh,Cambodia,1,0,matched,exact,1116260534,Phnom Penh,Phnom Penh,Cambodia,2.89,0.0
+Puebla,Mexico,1,0,matched,exact,1484416394,Puebla,Puebla,Mexico,4.58,4.28
+Quebec City,Canada,1,0,matched,exact,1124823933,Quebec City,Quebec City,Canada,2.89,5.53
+Riyadh,Saudi Arabia,1,0,matched,exact,1682999334,Riyadh,Riyadh,Saudi Arabia,2.89,5.58
+San Luis Potosi,Mexico,1,0,matched,exact,1484583620,San Luis Potosí,San Luis Potosi,Mexico,2.89,0.0
+Santiago,Chile,1,0,matched,exact,1152554349,Santiago,Santiago,Chile,0.0,0.0
+Santo Domingo,Dominican Republic,1,0,matched,exact,1214636202,Santo Domingo,Santo Domingo,Dominican Republic,2.89,0.0
+Tel Aviv,Israel,1,0,matched,exact,1376401542,Tel Aviv,Tel Aviv,Israel,4.58,0.0
+Veracruz,Mexico,1,0,matched,exact,1484992153,Veracruz,Veracruz,Mexico,0.0,0.0
+"Washington, D.C.",United States,1,0,matched,city_alias,1840006060,Washington,Washington,United States,0.0,7.41
+Zurich,Switzerland,1,0,matched,exact,1756539143,Zürich,Zurich,Switzerland,2.89,8.07
+Sarasota,United States,24,0,city_not_in_list,,,,,,,
+Montego Bay,Jamaica,22,0,city_not_in_list,,,,,,,
+Kahului,United States,21,0,city_not_in_list,,,,,,,
+West Palm Beach,United States,20,0,city_not_in_list,,,,,,,
+Palm Springs,United States,19,0,city_not_in_list,,,,,,,
+Punta Cana,Dominican Republic,11,0,city_not_in_list,,,,,,,
+Belize City,Belize,8,0,city_not_in_list,,,,,,,
+Kailua-Kona,United States,8,0,city_not_in_list,,,,,,,
+Liberia,Costa Rica,8,0,city_not_in_list,,,,,,,
+Leon,Mexico,4,0,city_not_in_list,,,,,,,
+Cozumel,Mexico,2,0,city_not_in_list,,,,,,,
+Livingston,United States,2,0,city_not_in_list,,,,,,,
+,Japan,1,0,no_destination_city,,,,,,,
+,Thailand,1,0,no_destination_city,,,,,,,
+,Italy,1,0,no_destination_city,,,,,,,
+,Canada,1,0,no_destination_city,,,,,,,
+,France,1,0,no_destination_city,,,,,,,
+,Australia,1,0,no_destination_city,,,,,,,
+,Greece,1,0,no_destination_city,,,,,,,
+,Mexico,1,0,no_destination_city,,,,,,,
+,Brazil,1,0,no_destination_city,,,,,,,
+,Egypt,1,0,no_destination_city,,,,,,,
+,Spain,1,0,no_destination_city,,,,,,,
+George Town,Cayman Islands,1,0,city_not_in_list,,,,,,,
+Hawaii,United States,1,0,city_not_in_list,,,,,,,
+Leon/Guanajuato,Mexico,1,0,city_not_in_list,,,,,,,
+Napa,United States,1,0,city_not_in_list,,,,,,,
+Oranjestad,Aruba,1,0,city_not_in_list,,,,,,,
+Philipsburg,Netherlands Antilles,1,0,city_not_in_list,,,,,,,
+Port of Spain,Trinidad and Tobago,1,0,city_not_in_list,,,,,,,
+Providenciales,Turks and Caicos,1,0,city_not_in_list,,,,,,,
+Santorini,Greece,1,0,city_not_in_list,,,,,,,
+Shannon,Ireland,1,0,city_not_in_list,,,,,,,
+St. John's,Canada,1,0,city_not_in_list,,,,,,,

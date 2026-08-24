@@ -14,9 +14,11 @@ import {
   formatAge,
   formatBase,
   formatDestination,
+  formatDestinationScore,
   formatFlight,
   formatTripCount,
   formatTripDates,
+  tripDestinationScores,
   useTraveler,
   type DestinationEntropy,
   type TravelerTrip,
@@ -54,6 +56,12 @@ function TripCard({ trip }: { trip: TravelerTrip }) {
     formatFlight(trip),
   ].filter(Boolean) as string[];
 
+  // Kept OUT of `facts` deliberately: those are free-text lines, these are
+  // three labelled numbers that need to line up card to card. See
+  // tripDestinationScores() for why an absent score is omitted rather than
+  // dashed.
+  const scores = tripDestinationScores(trip);
+
   return (
     <li className="destination-detail-stat-card city-detail-nearby-card">
       {/* The cleaned "City, Country", not the source's raw string --
@@ -64,6 +72,16 @@ function TripCard({ trip }: { trip: TravelerTrip }) {
           {fact}
         </span>
       ))}
+      {scores.length > 0 && (
+        <span className="trip-card-scores">
+          {scores.map((score) => (
+            <span key={score.key} className="trip-card-score" title={score.title}>
+              <span className="trip-card-score-label">{score.label}</span>
+              <span className="trip-card-score-value">{formatDestinationScore(score.value)}</span>
+            </span>
+          ))}
+        </span>
+      )}
     </li>
   );
 }

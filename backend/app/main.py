@@ -49,6 +49,7 @@ from .data_loader import (
     load_m49_regions,
     load_traveler_tags,
     load_travelers,
+    load_trip_city_matches,
     load_visa_requirements,
     resolve_travelers_path,
 )
@@ -121,6 +122,14 @@ TRAVELER_ENTROPY_REGION = load_traveler_entropy(TRAVELER_ENTROPY_REGION_PATH)
 # from TRAVELERS for the same reason as the entropy above: it is DERIVED
 # from travelers_anon.json.
 TRAVELER_TAGS = load_traveler_tags()
+# None until match_trip_cities.py has been run. Resolves a trip's
+# destination to a city in tourist_cities_enhanced.json so the trip can
+# carry that city's UNESCO/Michelin scores -- the name matching itself is
+# pipeline work and deliberately does NOT happen here (see
+# backend/README.md). Weather is not in that file: it depends on each
+# trip's own dates, which is the one thing this API does resolve per
+# request.
+TRIP_CITY_MATCHES = load_trip_city_matches()
 # None until build_m49_regions.py has been run. Joined onto each trip at
 # request time rather than baked into the trip data, because it's a
 # property of the destination country, not of the trip -- and the M49
@@ -330,6 +339,26 @@ class TravelerTrip(BaseModel):
     # (the Trips list, the airline/region charts) to exclude from AGGREGATES,
     # it does not remove it from the response.
     layover: bool = False
+    # This trip's DESTINATION CITY's scores, joined on at request time from
+    # match_trip_cities.py's output plus the city data this API already
+    # loads. All three are Optional and null is a real, common state, not
+    # an error:
+    #   * unesco_score / michelin_score are null when the destination has
+    #     no city record at all (~23 destinations -- Punta Cana, Montego
+    #     Bay, Sarasota and other places below tourist_cities.json's
+    #     population cutoff), or when the trip records no city.
+    #   * weather_score is null for those AND for a matched city with no
+    #     weather normals (only 1,770 of 3,069 cities have them), and for a
+    #     trip with no parseable start date.
+    # A null must never be rendered as 0: a UNESCO score of 0.0 is a real
+    # value meaning "no World Heritage site within the 50km scoring radius"
+    # (true of 73 of the 138 cities these trips visit, Tokyo included).
+    unesco_score: Optional[float] = None
+    michelin_score: Optional[float] = None
+    # Date-dependent, so unlike the other two it is computed here rather
+    # than looked up: the city's per-month 0-10 weather scores, averaged
+    # against this trip's own dates (see scoring.month_weights).
+    weather_score: Optional[float] = None
     # UN M49 geography for destination_country_code, joined on at request
     # time (see data_loader.load_m49_regions). Null when m49_regions.json
     # hasn't been built here, or when the destination country isn't in it --
@@ -960,6 +989,56 @@ def _with_regions(trip: dict) -> dict:
     }
 
 
+def _with_destination_scores(trip: dict) -> dict:
+    """A trip dict plus its destination city's UNESCO/Michelin scores and a
+    weather score resolved against the trip's OWN dates.
+
+    Returns the trip unchanged when the match file isn't loaded or this
+    destination isn't in it, leaving all three null -- which the trip card
+    reads as "nothing to show" rather than as a zero. Each of the three is
+    filled in independently: a matched city with no weather normals still
+    carries UNESCO and Michelin.
+
+    THE 0-DAY RULE (Ivan's): a trip whose end date is missing, unparseable
+    or before its start date is treated as ONE day, i.e. the start date
+    alone. month_weights() rejects a reversed range outright, and a trip
+    that lands after midnight legitimately records a 1-day duration (see
+    the Gomez flight log), so this is the difference between a weather
+    score and a 500.
+    """
+    if TRIP_CITY_MATCHES is None:
+        return trip
+    city, country = trip.get("destination_city"), trip.get("destination_country")
+    if not isinstance(city, str) or not isinstance(country, str):
+        return trip
+    match = TRIP_CITY_MATCHES.get(city, {}).get(country)
+    if match is None:
+        return trip
+
+    scored = {
+        **trip,
+        "unesco_score": match.get("unesco_score"),
+        "michelin_score": match.get("michelin_score"),
+    }
+
+    monthly = CITY_WEATHER_SCORES.get(match["simplemaps_id"])
+    if monthly is None:
+        return scored
+    try:
+        start = date.fromisoformat(trip["start_date"])
+    except (KeyError, TypeError, ValueError):
+        return scored
+    try:
+        end = date.fromisoformat(trip["end_date"])
+    except (KeyError, TypeError, ValueError):
+        end = start
+    if end < start:
+        end = start
+
+    scored["weather_score"] = resolve_weather_score(monthly, month_weights(start, end))
+    return scored
+
+
 def _tags(traveler_id: str) -> list[TravelerTag]:
     """This traveler's tags, or an empty list when the tags file isn't there
     or predates them. Attached to the SUMMARY as well as the detail, so the
@@ -1023,7 +1102,7 @@ def traveler_detail(traveler_id: str):
 
     return TravelerDetail(
         **{k: v for k, v in traveler.items() if k != "trips"},
-        trips=[_with_regions(trip) for trip in traveler["trips"]],
+        trips=[_with_destination_scores(_with_regions(trip)) for trip in traveler["trips"]],
         tags=_tags(traveler_id),
         destination_entropy=_destination_entropy(traveler_id),
         region_entropy=_destination_entropy(traveler_id, TRAVELER_ENTROPY_REGION),

@@ -37,6 +37,10 @@ TRAVELER_ENTROPY_REGION_PATH = (
     DATA_DIR / "processed" / "multiple" / "traveler_entropy_region.json"
 )
 TRAVELER_TAGS_PATH = DATA_DIR / "processed" / "multiple" / "traveler_tags.json"
+# Destination -> city record, from match_trip_cities.py. Lets a traveler's
+# trip carry its destination city's UNESCO/Michelin scores without this API
+# doing any name matching of its own.
+TRIP_CITY_MATCHES_PATH = DATA_DIR / "processed" / "multiple" / "trip_city_matches.json"
 MONTHLY_SCORES_PATH = DATA_DIR / "processed" / "monthly_scores_2025_by_city.json"
 WEATHER_METRICS_PATH = DATA_DIR / "processed" / "multiple" / "weather_normals_2025_by_city.json"
 COUNTRY_ALIASES_PATH = DATA_DIR / "reference" / "country_aliases.json"
@@ -437,6 +441,48 @@ def load_traveler_entropy(path: Path = TRAVELER_ENTROPY_PATH) -> dict | None:
         "ln_global_distinct_destinations": payload.get("ln_global_distinct_destinations"),
         "by_traveler": {row["traveler_id"]: row for row in payload.get("travelers", [])},
     }
+
+
+def load_trip_city_matches() -> dict | None:
+    """(destination_city, destination_country) -> the tourist_cities record
+    it resolves to, from match_trip_cities.py's output -- or None if that
+    file doesn't exist yet.
+
+    Same None-instead-of-raising treatment as load_traveler_tags() below:
+    it's derived from travelers_anon.json, so a missing file is a normal
+    checkout state, and trips simply render without destination scores.
+
+    Returned shape:
+        {city_name: {country_name: {simplemaps_id, unesco_score,
+                                    michelin_score, matched_city, ...}}}
+
+    Re-nested from the file's flat "city|country" keys into two levels on
+    purpose: a city name can legitimately appear in more than one country
+    (George Town is in both Malaysia and the Cayman Islands, and only one
+    of them is in the city list), so the country is a required second step
+    rather than something a caller can forget. ONLY MATCHED destinations
+    are carried -- an unmatched one is absent, which the caller reads as
+    "no score", the same as an absent file.
+    """
+    if not TRIP_CITY_MATCHES_PATH.exists():
+        print(
+            f"[data_loader] {TRIP_CITY_MATCHES_PATH.name} not found -- trips will be served "
+            "without destination scores. Run data/scripts/multiple/match_trip_cities.py."
+        )
+        return None
+
+    with open(TRIP_CITY_MATCHES_PATH, encoding="utf-8") as f:
+        payload = json.load(f)
+
+    nested: dict[str, dict[str, dict]] = {}
+    for row in payload.get("destinations", []):
+        if row.get("match_status") != "matched":
+            continue
+        city, country = row.get("destination_city"), row.get("destination_country")
+        if not isinstance(city, str) or not isinstance(country, str):
+            continue
+        nested.setdefault(city, {})[country] = row
+    return nested
 
 
 def load_traveler_tags() -> dict | None:

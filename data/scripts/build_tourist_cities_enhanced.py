@@ -122,6 +122,7 @@ Usage:
 
 import csv
 import json
+import re
 import math
 import time
 from datetime import datetime, timezone
@@ -172,9 +173,58 @@ def load_cities() -> list[dict]:
         return json.load(f)["cities"]
 
 
+# One component of a multi-part World Heritage site, inside the API's
+# `components_list` string:
+#     {name: Cite Fruges, ref: 1321rev-003, latitude: 44.79, longitude: -0.64}, {...}
+# Not JSON (unquoted keys and values), so it's read with a regex rather
+# than json.loads. A component name can itself contain commas, hence the
+# non-greedy name group anchored on the following ", ref:".
+UNESCO_COMPONENT_RE = re.compile(
+    r"\{name:\s*(?P<name>.*?),\s*ref:\s*(?P<ref>[^,]*?),"
+    r"\s*latitude:\s*(?P<lat>-?[\d.]+),\s*longitude:\s*(?P<lng>-?[\d.]+)\s*\}"
+)
+
+
+def unesco_component_points(components_list) -> list[tuple[float, float]]:
+    """Every component's own (lat, lng) for one site, or [] if it has none.
+
+    A WORLD HERITAGE SITE IS NOT ONE POINT. 484 of the 1,273 sites are
+    made of several physically separate components, and the API's
+    site-level lat/lng is a single representative point that can be
+    thousands of km from most of them. "The Architectural Work of Le
+    Corbusier" spans 7 countries and 17 components; its site-level point
+    is in Switzerland, so scoring against that point alone made its Tokyo
+    component (the National Museum of Western Art, 4km from the city
+    centre) invisible, and Tokyo scored 0.0 for UNESCO. Same class of
+    error for Chandigarh, La Plata, Antwerp and every other city whose
+    only nearby site is one part of a scattered inscription.
+    """
+    if not isinstance(components_list, str):
+        return []
+    return [
+        (float(m.group("lat")), float(m.group("lng")))
+        for m in UNESCO_COMPONENT_RE.finditer(components_list)
+    ]
+
+
 def load_unesco_sites() -> tuple[list[dict], int]:
     """Returns (sites_with_coordinates, sites_missing_coordinates_count).
-    Each returned site is {name, category, lat, lng}."""
+    Each returned site is {name, category, points}, where `points` is
+    EVERY location that site occupies -- its components where it has
+    them, else its single site-level point.
+
+    Distances are later reduced to the NEAREST point per site (see
+    build_enhanced_cities), so a site is still counted once no matter how
+    many components it has: these counts are "how many World Heritage
+    sites are near this city", not how many pieces of them.
+
+    Reading components also rescues sites that have NO site-level
+    coordinates at all -- 28 of the 29 previously dropped as
+    "missing coordinates" do carry component coordinates, among them
+    Japan's Ancient Capitals of Asuka and Fujiwara, the D-Day Landing
+    Beaches and Finland's Aalto Works. `missing` now counts only sites
+    with neither.
+    """
     if not UNESCO_SITES_PATH.exists():
         raise FileNotFoundError(
             f"{UNESCO_SITES_PATH} not found -- run fetch_unesco_world_heritage_sites.py first."
@@ -184,10 +234,13 @@ def load_unesco_sites() -> tuple[list[dict], int]:
 
     sites, missing = [], 0
     for s in data["sites"]:
-        if s.get("lat") is None or s.get("lng") is None:
-            missing += 1
-            continue
-        sites.append({"name": s.get("name_en"), "category": s.get("category"), "lat": s["lat"], "lng": s["lng"]})
+        points = unesco_component_points(s.get("components_list"))
+        if not points:
+            if s.get("lat") is None or s.get("lng") is None:
+                missing += 1
+                continue
+            points = [(s["lat"], s["lng"])]
+        sites.append({"name": s.get("name_en"), "category": s.get("category"), "points": points})
     return sites, missing
 
 
@@ -427,8 +480,16 @@ def nearby_airports(distances_km: np.ndarray, airports: list[dict]) -> dict:
 def build_enhanced_cities(
     cities: list[dict], unesco_sites: list[dict], michelin_restaurants: list[dict], airports: list[dict]
 ) -> list[dict]:
-    unesco_lat = np.array([s["lat"] for s in unesco_sites])
-    unesco_lng = np.array([s["lng"] for s in unesco_sites])
+    # A site can occupy several points (see unesco_component_points), so the
+    # distance arrays are built over POINTS, and each site's group of points
+    # is reduced to its nearest one per city below. `unesco_group_starts` is
+    # the offset of each site's first point -- the points are laid out
+    # site-by-site, so the groups are contiguous and np.minimum.reduceat can
+    # do the reduction in one pass instead of a Python loop over 1,273 sites
+    # per city.
+    unesco_lat = np.array([lat for site in unesco_sites for lat, _ in site["points"]])
+    unesco_lng = np.array([lng for site in unesco_sites for _, lng in site["points"]])
+    unesco_group_starts = np.cumsum([0] + [len(site["points"]) for site in unesco_sites[:-1]])
     michelin_lat = np.array([r["lat"] for r in michelin_restaurants])
     michelin_lng = np.array([r["lng"] for r in michelin_restaurants])
     airport_lat = np.array([a["lat"] for a in airports])
@@ -438,7 +499,12 @@ def build_enhanced_cities(
     for city in cities:
         city_lat, city_lng = city["lat"], city["lng"]
 
-        unesco_dist = haversine_km(unesco_lat, unesco_lng, city_lat, city_lng)
+        # Distance to every component, then the nearest component per site --
+        # so `unesco_dist` is one distance per SITE, exactly the shape
+        # nearby_by_radius() already expects, and its counts stay "distinct
+        # sites within N km" rather than becoming "distinct components".
+        unesco_point_dist = haversine_km(unesco_lat, unesco_lng, city_lat, city_lng)
+        unesco_dist = np.minimum.reduceat(unesco_point_dist, unesco_group_starts)
         michelin_dist = haversine_km(michelin_lat, michelin_lng, city_lat, city_lng)
         airport_dist = haversine_km(airport_lat, airport_lng, city_lat, city_lng)
 
@@ -489,7 +555,10 @@ def main():
             "airports_excluded_no_iata_code / airports_excluded_no_scheduled_service below "
             "for how many that dropped. Distance is straight-line great-circle distance "
             "from the city's own lat/lng, same formula as "
-            "distance_calculator.calculate_distance. unesco_score/michelin_score are "
+            "distance_calculator.calculate_distance. A UNESCO site made of several "
+            "components is measured to its NEAREST component and still counted once, so "
+            "unesco counts are distinct sites, not pieces of them (see "
+            "unesco_component_points in this script). unesco_score/michelin_score are "
             "log(count+1)/log(max_count+1)*10 off each city's within_score_radius_km count, "
             "normalized against the highest count any city has at that same radius (see "
             "unesco_score_max_count_used/michelin_score_max_count_used below for this run's "

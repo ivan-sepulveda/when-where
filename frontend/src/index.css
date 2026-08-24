@@ -640,6 +640,41 @@ h1 {
   margin: -0.5rem 0 1rem;
 }
 
+/* The destination city's UNESCO / Michelin / weather scores on a trip card
+   (pages/TravelerDetail.tsx). A separate row below the free-text facts,
+   not another meta line: these are labelled numbers meant to be compared
+   down the column, so they get their own baseline and a rule above them. */
+.trip-card-scores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid #262c36;
+}
+
+.trip-card-score {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  /* Helps, but is not the only affordance -- the label is spelled out, so
+     the tooltip adds the exact value and the definition rather than being
+     the only way to know what the number is. */
+  cursor: help;
+}
+
+.trip-card-score-label {
+  opacity: 0.6;
+}
+
+/* Tabular figures so the numbers line up down a column of cards -- the
+   whole reason these sit on their own row. */
+.trip-card-score-value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
 /* The active filter's exact value on a card -- lets the low-entropy
    travelers this filter exists to find be read off the grid directly,
    without opening each one. */
