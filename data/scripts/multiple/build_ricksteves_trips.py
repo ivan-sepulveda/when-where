@@ -556,7 +556,7 @@ def main():
                                    "Los Angeles travelers use -- Rick Steves' declared base has one "
                                    "major airport",
             "home_airport": "Seattle-Tacoma (SEA) -- Rick Steves lives in Edmonds, WA and the show's "
-                            "company is headquartered there, per Ivan's instruction to use Seattle",
+                            "company is headquartered there",
         },
     }
     write_outputs(OUT_CSV_PATH, OUT_JSON_PATH, trips, excluded, EPISODES, meta,

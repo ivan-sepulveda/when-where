@@ -79,7 +79,7 @@ EPISODES_RAW = [
      "air_date": "2019-10-23", "city": "Vancouver", "country": "Canada",
      "airports": ["YVR"],
      "note": "guest: Seth Rogen -- framed as Rogen's own hometown, not David Chang's; "
-             "Chang is based out of New York per Ivan's instruction"},
+             "Chang is based out of New York for this dataset"},
     {"season": 1, "episode": 2, "title": "Marrakech with Chrissy Teigen",
      "air_date": "2019-10-23", "city": "Marrakech", "country": "Morocco",
      "airports": ["RAK", "CMN"],
@@ -123,8 +123,8 @@ def main():
                             "destination airport exists in airline_routes_enhanced.csv",
             "route_data_vintage": "airline_routes_enhanced.csv is a present-day route snapshot, "
                                   "not a 2019 schedule -- exclusions mean 'no nonstop today'",
-            "home_airports": "New York, per Ivan's instruction to use exactly Anthony Bourdain's "
-                             "airport and airline preferences",
+            "home_airports": "New York, matching Anthony Bourdain's airport and airline "
+                             "preferences (a deliberate substitution, not a canonical fact)",
         },
     }
     write_outputs(OUT_CSV_PATH, OUT_JSON_PATH, trips, excluded, EPISODES, meta,

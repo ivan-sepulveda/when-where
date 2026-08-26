@@ -1,0 +1,968 @@
+{
+ "source": "Japan National Tourism Organization (JNTO) official travel directory, 'Art Museum' content-type filter (https://www.japan.travel). Manually exported to PDF and transcribed by hand -- not an API pull, no automated re-fetch yet.",
+ "attribution": "Japan National Tourism Organization (JNTO)",
+ "generated": "2026-08-26",
+ "countries_covered": [
+  "JP"
+ ],
+ "total_places": 93,
+ "places_by_kind": {
+  "Art Museum": 77,
+  "Modern Architecture": 6,
+  "Bonsai": 1,
+  "Sculpture": 1,
+  "National Art Museum": 5,
+  "Attraction": 2,
+  "Art & Design": 1
+ },
+ "excluded_non_museum": [
+  {
+   "name": "Arita Porcelain Park",
+   "kind": "Park",
+   "reason": "a themed village/park, not a single museum or gallery"
+  },
+  {
+   "name": "Sapporo Art Park",
+   "kind": "Art Museum",
+   "reason": "a multi-facility park (sculpture garden, workshops, theatre), not itself one museum"
+  },
+  {
+   "name": "Kanazawa",
+   "kind": "Culture",
+   "reason": "a city profile card in the directory, not a venue at all"
+  }
+ ],
+ "note": "Data source: manual PDF export, transcribed by hand -- not exhaustive, only the 'Art Museum' filter's 96 results (93 kept, 3 excluded, see excluded_non_museum). lat/lng are null; this source has no coordinates.",
+ "places": [
+  {
+   "name": "Rantokaku Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "The buildings that make up the Rantokaku Museum are jus...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Oita Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Treasured works by regional artists",
+   "location_raw": "Oita-shi, Oita-ken",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Kushiro Art Museum Hokkaido",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Kushiro-shi, Hokkaido",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Mori Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "One of Roppongi's most iconic museums for contemporary ...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Rokuzan Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Azumino-shi, Nagano-…",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Tokugawa Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Top museum of samurai art and culture",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Shimane Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Matsue-shi, Shimane-k…",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Sagawa Art Museum",
+   "category": "art_museum",
+   "kind": "Modern Architecture",
+   "iso2": "JP",
+   "description": "The floating museum",
+   "location_raw": "Moriyama-shi, Shiga-ken",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Fukuoka Asian Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A Museum Featuring Modern and Contemporary Asian Art",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Nagasaki Prefectural Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "An art lovers dream",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Oita Prefectural Art Museum",
+   "category": "art_museum",
+   "kind": "Modern Architecture",
+   "iso2": "JP",
+   "description": "An open treasure trove of locally and globally signific...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Tokyo Photographic Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A stunning collection of still and moving images",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Hiroshima Prefectural Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "There are a number of art",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Itchiku Kubota Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Magnificent collection of one-of-a-kind kimono designed...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Nagoya City Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Nagoya-shi, Aichi-ken",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Mie Prefectural Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Take a pleasant outing for art away from Japan's big ci...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Tokyo Metropolitan Teien Art Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Decor to explore",
+   "location_raw": "Tokyo-to",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "The Omiya Bonsai Art Museum, Saitama",
+   "category": "art_museum",
+   "kind": "Bonsai",
+   "iso2": "JP",
+   "description": "The Best Bonsai in the ...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "The Museum Of Modern Art, Saitama",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A modern art museum for...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "21st Century Museum Of Contemporary...",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A contemporary art",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "The National Art Center, Tokyo",
+   "category": "art_museum",
+   "kind": "Modern Architecture",
+   "iso2": "JP",
+   "description": "Japan's only national art museum that focuses on collec...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Ichihara Lakeside Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Ichihara Lakeside Museum is modern art museum located n...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Museum Of Modern Art, Wakayama",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Cleanse your Cultural Palate",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Shoji Ueda Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "World-class photography in local settings",
+   "location_raw": "Saihaku-gun, Tottori-k…",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Adachi Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Famous for its gardens as well as its art",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Hirayama Ikuo Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "See the works of Hiroshima's most famous and controvers...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Idemitsu Museum Of Arts",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "The Kitakyushu Branch of the famous Tokyo Idemistu Muse...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Saga Prefectural Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A collection of Saga's history, culture, and art",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Yatsugatake Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Suwa-gun, Nagano-ken",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Kumamoto Prefectural Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Kumamoto-shi, Kuma…",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Fukushima Prefectural Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A Mixture of Japanese,",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Asakura Museum Of Sculpture",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A park that honors Japan's most influential sculptor",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Yokohama Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A treasure trove of Western and Japanese art",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Hishikawa Moronobu Memorial Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Awa-gun, Chiba-ken",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "House Of Light",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Spend the night in a meditative masterpiece",
+   "location_raw": "Tokamachi-shi, Niigata…",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Kitakyushu Municipal Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Kitakyushu-shi, Fukuo…",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Ohara Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Located in the heart of the Bikan Historical District i...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Matsumoto City Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Immerse yourself in the art of one of the world's leadi...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Ishikawa Museum Of Traditional Arts...",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Kanazawa-shi, Ishikaw…",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Sesshu Memorial Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Delightful and contemplative space devoted to one of t...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Izumo Museum Of Quilt Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "The only museum of quilt art in Japan",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Teiko Shiotani Memorial Photo Galle...",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A charming museum",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Enoura Observatory, Odawara Art Fou...",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "An art complex with",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Hokkaido Museum Of Modern Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Cultural Treasures from Home and Abroad",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Migishi Kotaro Museum Of Art Hokkai...",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Kotaro Migishi, a pioneer",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Hakodate Museum Of Art, Hokkaido",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Hakodate-shi, Hokkaido",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Aomori Museum Of Art",
+   "category": "art_museum",
+   "kind": "Modern Architecture",
+   "iso2": "JP",
+   "description": "World-class design and Aomori culture",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Towada Art Center",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Amazing new art center concept, and the beautiful Towad...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Akita Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A stunning structure showcasing the work of local artis...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Iwate Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Sculptures, paintings and pottery by Iwate's greatest a...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Ken Domon Museum Of Photography",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A Museum of an Un-",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Morohashi Museum Of Modern Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A world-class collection of modern western art in the m...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "21_21 DESIGN SIGHT",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "21_21 Design Site is the ultimate design lover's fantas...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Mitsuo Aida Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Calligraphy of the soul",
+   "location_raw": "Tokyo-to",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Idemitsu Museum Of Arts",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "70 years of collector's passion",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Suntory Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "The museum dedicated to the beauty of the 'everyday'",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Museum Of Contemporary Art Tokyo",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Japan's largest museum",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "The Sumida Hokusai Museum",
+   "category": "art_museum",
+   "kind": "Modern Architecture",
+   "iso2": "JP",
+   "description": "Sumida's tribute to its most famous artist",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Nezu Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Tea houses, traditional gardens, and an extensive colle...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "The Hakone Open-Air Museum",
+   "category": "art_museum",
+   "kind": "Sculpture",
+   "iso2": "JP",
+   "description": "Explore an open-air museum where art and nature merge",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Chiba Prefectural Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Chiba-shi, Chiba-ken",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Hoki Museum",
+   "category": "art_museum",
+   "kind": "Modern Architecture",
+   "iso2": "JP",
+   "description": "Japan's first dedicated space to realism art",
+   "location_raw": "Chiba-shi, Chiba-ken",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Hyogo Prefectural Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Kobe-shi, Hyogo-ken",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Museum Of Modern Art Gunma",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Takasaki-shi, Gunma-k…",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Ceramic Art Messe Mashiko",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "View a town through the lens of pottery",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Mashiko Sankokan Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Haga-gun, Tochigi-ken",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Tochigi Prefectural Museum Of Fine ...",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Utsunomiya-shi, Tochi…",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Art Tower Mito",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Mito-shi, Ibaraki-ken",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Niigata Prefectural Museum Of Moder...",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Nagaoka-shi, Niigata-k…",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Toyama Prefectural Museum Of Art An...",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "An impressive new",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Ishikawa Prefectural Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Explore the regional arts",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Japan Ukiyoe Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Pictures from the floating world",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Utsukushigahara Open-Air Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "City Meets Country, Bubble Era Style",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Hokusai Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A collection from the floating world of Hokusai",
+   "location_raw": "Kamitakai-gun, Nagan…",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Hirayama Ikuo Silk Road Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Hirayama Ikuo was a Japanese artists with an obsession ...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Kiyosato Museum Of Photographic Art...",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "The Kiyosato Musuem of",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Nakamura Keith Haring Collection",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "The Nakamura Keith Haring Collection is dedicated to ho...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Yamanashi Prefectural Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Works by some of the",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Shizuoka Prefectural Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A treasure house of",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Okayama Prefectural Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Okayama-shi, Okayam…",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "MOA Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Ten centuries of Japanese and Chinese art treasures in ...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Raku Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "A family tradition",
+   "location_raw": "Kyoto-shi, Kyoto-fu",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Koryo Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "See art and artifacts from Korea's ancient dynasties",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Shiga Museum Of Art",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": null,
+   "location_raw": "Otsu-shi, Shiga-ken",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Miho Museum",
+   "category": "art_museum",
+   "kind": "Art Museum",
+   "iso2": "JP",
+   "description": "Shangri-La for art and architecture lovers",
+   "location_raw": "Koka-shi, Shiga-ken",
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "The National Museum Of Western Art",
+   "category": "art_museum",
+   "kind": "National Art Museum",
+   "iso2": "JP",
+   "description": "World-class architecture",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "The National Film Archive Of Japan",
+   "category": "art_museum",
+   "kind": "National Art Museum",
+   "iso2": "JP",
+   "description": "The one and only national institution of films in Japan",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "The National Museum Of Modern Art, ...",
+   "category": "art_museum",
+   "kind": "National Art Museum",
+   "iso2": "JP",
+   "description": "Museum near the Imperial",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "The National Museum Of Modern Art, ...",
+   "category": "art_museum",
+   "kind": "National Art Museum",
+   "iso2": "JP",
+   "description": "Museum with a collection",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "The National Museum Of Art, Osaka",
+   "category": "art_museum",
+   "kind": "National Art Museum",
+   "iso2": "JP",
+   "description": "High culture from across",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Sand Museum",
+   "category": "art_museum",
+   "kind": "Attraction",
+   "iso2": "JP",
+   "description": "A world-class sand art installation overlooking Tottori...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "Nima Sand Museum",
+   "category": "art_museum",
+   "kind": "Attraction",
+   "iso2": "JP",
+   "description": "This unique museum inspired by \"singing sands\" is also ...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  },
+  {
+   "name": "National Crafts Museum",
+   "category": "art_museum",
+   "kind": "Art & Design",
+   "iso2": "JP",
+   "description": "The National Crafts Museum Houses Modern Japanese and O...",
+   "location_raw": null,
+   "lat": null,
+   "lng": null
+  }
+ ]
+}

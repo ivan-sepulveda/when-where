@@ -19,7 +19,7 @@
     "seattle_europe_gap": "SEA has a present-day nonstop to exactly six European airports (CDG, LHR, FRA, AMS, DUB, KEF), which is why most of this show's destinations are excluded -- see this script's docstring",
     "capital_rule_episodes": "episodes titled by COUNTRY only get that country's CAPITAL as the destination -- see the capital rule in chef_trips.py",
     "single_home_airport": "SEA only, unlike the three-airport preferences the New York and Los Angeles travelers use -- Rick Steves' declared base has one major airport",
-    "home_airport": "Seattle-Tacoma (SEA) -- Rick Steves lives in Edmonds, WA and the show's company is headquartered there, per Ivan's instruction to use Seattle"
+    "home_airport": "Seattle-Tacoma (SEA) -- Rick Steves lives in Edmonds, WA and the show's company is headquartered there"
   },
   "generated": "2026-08-26",
   "counts": {

@@ -1088,7 +1088,7 @@ FLIGHTS = [
         "origin": "MEX",
         "destination": "GDL",
         "carrier": "AM",
-        "note": "Aeromexico flight 218 -- from Ivan's Delta SkyMiles account activity (MQD "
+        "note": "Aeromexico flight 218 -- from a personal Delta SkyMiles account activity export (MQD "
                 "earned for the flown leg, ticket# 0062404774201, certificate # "
                 "0060900306685 redeemed 2026-02-14; the outbound leg isn't in this activity "
                 "export, so only this return leg is logged), no times given",

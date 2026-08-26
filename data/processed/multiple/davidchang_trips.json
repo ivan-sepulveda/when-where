@@ -18,7 +18,7 @@
     ],
     "flights_only": "an episode is kept only if a nonstop from JFK, LGA or EWR to the destination airport exists in airline_routes_enhanced.csv",
     "route_data_vintage": "airline_routes_enhanced.csv is a present-day route snapshot, not a 2019 schedule -- exclusions mean 'no nonstop today'",
-    "home_airports": "New York, per Ivan's instruction to use exactly Anthony Bourdain's airport and airline preferences"
+    "home_airports": "New York, matching Anthony Bourdain's airport and airline preferences (a deliberate substitution, not a canonical fact)"
   },
   "generated": "2026-08-26",
   "counts": {
@@ -63,7 +63,7 @@
       "nonstop_airline_count": 1,
       "distance_km": 3930.4,
       "is_domestic": 0,
-      "notes": "guest: Seth Rogen -- framed as Rogen's own hometown, not David Chang's; Chang is based out of New York per Ivan's instruction"
+      "notes": "guest: Seth Rogen -- framed as Rogen's own hometown, not David Chang's; Chang is based out of New York for this dataset"
     },
     {
       "trip_id": 2,

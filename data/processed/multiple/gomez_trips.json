@@ -2092,7 +2092,7 @@
       "distance_km": 459.1,
       "is_domestic": 1,
       "layover": false,
-      "notes": "Aeromexico flight 218 -- from Ivan's Delta SkyMiles account activity (MQD earned for the flown leg, ticket# 0062404774201, certificate # 0060900306685 redeemed 2026-02-14; the outbound leg isn't in this activity export, so only this return leg is logged), no times given"
+      "notes": "Aeromexico flight 218 -- from a personal Delta SkyMiles account activity export (MQD earned for the flown leg, ticket# 0062404774201, certificate # 0060900306685 redeemed 2026-02-14; the outbound leg isn't in this activity export, so only this return leg is logged), no times given"
     },
     {
       "leg": 84,
