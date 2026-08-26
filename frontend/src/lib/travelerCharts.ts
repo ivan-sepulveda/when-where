@@ -5,7 +5,7 @@
 // All pure functions -- no React, no fetching -- so the shape logic is
 // testable without rendering a chart (see travelerCharts.test.ts). The
 // component in components/StackedShareBar.tsx only draws what these return.
-import type { TravelerDetail, TravelerTrip } from "./travelers";
+import type { TravelerDetail, TravelerPreferences, TravelerTrip } from "./travelers";
 
 // Each breakdown renders as a single 100% STACKED HORIZONTAL BAR: one bar
 // per question, segments sized by share, always summing to the full width.
@@ -195,4 +195,51 @@ export function domesticInternationalBreakdown(traveler: TravelerDetail): ShareB
     hasAggregate: false,
     total,
   };
+}
+
+
+// This traveler's destination preference profile, reshaped for the radar
+// chart in components/PreferenceRadarChart.tsx. Unlike the share breakdowns
+// above, there's no aggregation to do here -- the backend already computed
+// the mean per dimension (see backend/app/main.py's _preferences) -- this
+// just picks the axes that actually have a value.
+//
+// A dimension with no scored trips is DROPPED, not plotted as 0: the same
+// "nothing invented" rule as tripDestinationScores. A radar chart has no
+// way to mark one axis "no data" the way a trip card can simply omit a
+// line, so the only honest option is to not draw that axis at all. In
+// practice most travelers have all three (a matched city's UNESCO and
+// Michelin scores come from the same lookup), and weather is the one most
+// likely to be missing alone (only 1,770 of 3,069 cities have weather
+// normals).
+export interface PreferenceAxis {
+  key: "unesco" | "michelin" | "weather";
+  label: string;
+  value: number; // 0-1
+  trips: number; // how many trips this mean was computed over
+}
+
+const PREFERENCE_AXIS_LABELS: Record<PreferenceAxis["key"], string> = {
+  unesco: "UNESCO",
+  michelin: "Michelin",
+  weather: "Weather",
+};
+
+export function preferenceAxes(
+  preferences: TravelerPreferences | null | undefined,
+): PreferenceAxis[] {
+  if (!preferences) return [];
+  const raw: [PreferenceAxis["key"], number | null, number][] = [
+    ["unesco", preferences.unesco, preferences.unesco_trips],
+    ["michelin", preferences.michelin, preferences.michelin_trips],
+    ["weather", preferences.weather, preferences.weather_trips],
+  ];
+  return raw
+    .filter((entry): entry is [PreferenceAxis["key"], number, number] => typeof entry[1] === "number")
+    .map(([key, value, trips]) => ({
+      key,
+      label: PREFERENCE_AXIS_LABELS[key],
+      value,
+      trips,
+    }));
 }

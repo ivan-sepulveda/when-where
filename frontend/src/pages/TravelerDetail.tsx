@@ -1,4 +1,5 @@
 import { Link, useParams, useSearchParams } from "react-router";
+import PreferenceRadarChart from "../components/PreferenceRadarChart";
 import StackedShareBar from "../components/StackedShareBar";
 import TravelerTags from "../components/TravelerTags";
 import { airlineColor, shortenCarrier } from "../lib/airlineColors";
@@ -6,6 +7,7 @@ import { formatDateRange } from "../lib/formatDate";
 import {
   carrierBreakdown,
   domesticInternationalBreakdown,
+  preferenceAxes,
   subregionBreakdown,
 } from "../lib/travelerCharts";
 import {
@@ -210,6 +212,10 @@ export default function TravelerDetail() {
   const carriers = carrierBreakdown(traveler);
   const domesticInternational = domesticInternationalBreakdown(traveler);
   const subregions = subregionBreakdown(traveler);
+  // The destination preference profile (UNESCO / Michelin / weather today --
+  // see preferenceAxes) is already computed server-side per traveler, unlike
+  // the three breakdowns above which this page builds from raw trips.
+  const preferences = preferenceAxes(traveler.preferences);
   // A layover isn't a trip of its own -- Atlanta and Paris on a
   // Houston-to-Lisbon trip, say (see data/scripts/multiple/chef_traveler.py)
   // -- so it's excluded here the same way build_travelers.py's trip_count
@@ -319,6 +325,28 @@ export default function TravelerDetail() {
               : `Share of the ${formatTripCount(subregions.total)} whose destination country is in the UN M49 list, of ${traveler.trip_count}.`
           }
           emptyMessage={`No destination on ${traveler.name}'s trips could be placed in a UN M49 subregion. If that's every traveler, data/reference/m49_regions.json probably hasn't been built yet.`}
+        />
+      </div>
+
+      <h2>Destination preferences</h2>
+      {/* A single radar/spider chart, in the same .traveler-charts grid as
+          the bars above so it reads as part of the same family. Three
+          dimensions today (UNESCO, Michelin, weather) -- the same
+          UNESCO/Michelin/weather scores each trip card already shows,
+          averaged across every non-layover trip that has one. The README
+          TODO this implements names more dimensions (food, architecture,
+          nightlife...) that need datasets this project doesn't have yet;
+          those are left for later rather than guessed at. */}
+      <div className="traveler-charts">
+        <PreferenceRadarChart
+          title="Preference profile"
+          axes={preferences}
+          // The component itself states which/how-many dimensions are
+          // shown (the full chart's axis labels for 3, the "Only N of 3"
+          // line for fewer) -- this caption only needs to say what the
+          // numbers ARE, not repeat that count a second time.
+          caption="UNESCO, Michelin and weather scores, averaged across this traveler's own trips and rescaled to 0-1."
+          emptyMessage={`None of ${traveler.name}'s trips matched a city with a UNESCO, Michelin or weather score, so there's nothing to plot.`}
         />
       </div>
 

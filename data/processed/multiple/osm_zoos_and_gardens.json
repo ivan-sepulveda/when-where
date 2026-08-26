@@ -1,7 +1,7 @@
 {
  "source": "OpenStreetMap via the Overpass API (tourism=zoo, tourism=aquarium, leisure=garden + garden:type=botanical/arboretum), one query per country, via fetch_osm_zoos_and_gardens.py -- see data/README.md",
  "attribution": "OpenStreetMap contributors, via the Overpass API -- https://wiki.openstreetmap.org/wiki/Overpass_API -- ODbL licensed, see data/README.md",
- "generated": "2026-08-23",
+ "generated": "2026-08-26",
  "countries_queried": 242,
  "countries_with_no_results": [
   "AD",

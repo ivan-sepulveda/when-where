@@ -1097,6 +1097,116 @@ class TestTravelers:
         if checked == 0:
             pytest.skip("traveler_entropy_region.json not generated in this checkout")
 
+    def test_preferences_is_always_present_and_shaped(self, client):
+        # preferences itself is never null -- it needs nothing precomputed
+        # to exist (see TravelerPreferences docstring) -- but each dimension
+        # inside it is null exactly when no non-layover trip carried that
+        # score, and present values live on the 0-1 scale the radar chart
+        # expects, not the trip cards' 0-10 scale.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        checked = 0
+        for summary in body["travelers"][:40]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            prefs = detail["preferences"]
+            assert prefs is not None, summary["traveler_id"]
+            for dim in ("unesco", "michelin", "weather"):
+                value = prefs[dim]
+                trips = prefs[f"{dim}_trips"]
+                assert trips >= 0, summary["traveler_id"]
+                if value is None:
+                    assert trips == 0, summary["traveler_id"]
+                else:
+                    assert trips > 0, summary["traveler_id"]
+                    assert 0.0 <= value <= 1.0, summary["traveler_id"]
+                    checked += 1
+
+        if checked == 0:
+            pytest.skip("no traveler in this checkout has any scored trip")
+
+    def test_preferences_is_consistent_with_the_traveler_own_trips(self, client):
+        # Recomputes the mean straight from this same response's trips
+        # (skipping layovers, same as _preferences itself) and checks it
+        # against the served preferences block -- the same "don't trust the
+        # rollup, recompute it" shape as
+        # test_destination_entropy_is_consistent_with_the_traveler_it_describes.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        checked = 0
+        for summary in body["travelers"][:40]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            prefs = detail["preferences"]
+            for dim, key in (("unesco", "unesco_score"), ("michelin", "michelin_score"), ("weather", "weather_score")):
+                scores = [
+                    trip[key]
+                    for trip in detail["trips"]
+                    if not trip.get("layover") and trip.get(key) is not None
+                ]
+                assert prefs[f"{dim}_trips"] == len(scores), (summary["traveler_id"], dim)
+                if scores:
+                    expected = sum(scores) / len(scores) / 10
+                    assert prefs[dim] == pytest.approx(expected, abs=1e-3), (summary["traveler_id"], dim)
+                    checked += 1
+                else:
+                    assert prefs[dim] is None, (summary["traveler_id"], dim)
+
+        if checked == 0:
+            pytest.skip("no traveler in this checkout has any scored trip")
+
+    def test_preferences_excludes_layover_legs(self, client):
+        # A layover city's scores shouldn't move the profile any more than a
+        # layover moves trip_count or the entropy aggregates -- construct a
+        # traveler with at least one layover trip and confirm its score
+        # (if any) isn't counted.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        checked = 0
+        for summary in body["travelers"][:60]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            layover_trips = [t for t in detail["trips"] if t.get("layover")]
+            if not layover_trips:
+                continue
+            prefs = detail["preferences"]
+            for dim, key in (("unesco", "unesco_score"), ("michelin", "michelin_score"), ("weather", "weather_score")):
+                non_layover_scores = [
+                    t[key] for t in detail["trips"] if not t.get("layover") and t.get(key) is not None
+                ]
+                assert prefs[f"{dim}_trips"] == len(non_layover_scores), (summary["traveler_id"], dim)
+            checked += 1
+
+        if checked == 0:
+            pytest.skip("no traveler in this checkout has a layover trip")
+
+    def test_a_single_trip_kaggle_traveler_can_get_an_all_null_profile(self, client):
+        # The README's explicit requirement: a traveler whose one trip
+        # matched no city record should read as "no data" (null/0), never
+        # as an invented preference.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        found = False
+        for summary in body["travelers"]:
+            if summary["trip_count"] != 1:
+                continue
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            prefs = detail["preferences"]
+            if prefs["unesco"] is None and prefs["michelin"] is None and prefs["weather"] is None:
+                assert prefs["unesco_trips"] == 0
+                assert prefs["michelin_trips"] == 0
+                assert prefs["weather_trips"] == 0
+                found = True
+                break
+
+        if not found:
+            pytest.skip("no single-trip traveler with an all-null profile in this checkout")
+
     def test_traveler_ids_are_unique_and_url_safe(self, client):
         body = client.get("/api/travelers").json()
         if not body["dataset_available"]:

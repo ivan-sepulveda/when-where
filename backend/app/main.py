@@ -553,8 +553,43 @@ class DestinationEntropy(BaseModel):
     destination_unit: Optional[str] = None
 
 
+class TravelerPreferences(BaseModel):
+    """A per-traveler DESTINATION PREFERENCE PROFILE -- a traveler-level
+    rollup of the same per-trip UNESCO/Michelin/weather scores the trip
+    cards already show (see _with_destination_scores), not a new score.
+    Three dimensions today; the README TODO this implements names more
+    (food, architecture, nightlife...) that need datasets this project
+    doesn't have yet, so they're left for later rather than guessed at.
+
+    Each dimension is the MEAN of that trip-level 0-10 score across every
+    non-layover trip that HAS one, rescaled to 0-1 (Ivan's example shape:
+    "food 0.92"). Simple mean, not weighted by recency or trip count --
+    the README TODO left that an open question and a plain mean is the
+    version that needs no further judgement call to defend.
+
+    null, not 0, when no trip has a score for that dimension -- a
+    Kaggle-sourced traveler whose one trip didn't match a city record gets
+    an all-null profile rather than an invented one, same "nothing
+    invented" rule as everywhere else in this project. The *_trips count
+    alongside each dimension is how many trips it was averaged over, so a
+    profile drawn from one trip is inspectable rather than reading the same
+    as one drawn from fifty."""
+
+    unesco: Optional[float] = None
+    michelin: Optional[float] = None
+    weather: Optional[float] = None
+    unesco_trips: int = 0
+    michelin_trips: int = 0
+    weather_trips: int = 0
+
+
 class TravelerDetail(TravelerSummary):
     trips: list[TravelerTrip]
+    # This traveler's destination preference profile (see
+    # TravelerPreferences), computed from the trips above -- always present
+    # as an object, never null itself, since it needs nothing precomputed
+    # to exist; individual dimensions are null when no trip has that score.
+    preferences: Optional[TravelerPreferences] = None
     # Null when compute_traveler_entropy.py hasn't been run in this checkout,
     # which is distinct from "ran, but this traveler has no destination data"
     # (that's a DestinationEntropy with entropy=None).
@@ -1067,6 +1102,41 @@ def _with_destination_scores(trip: dict) -> dict:
     return scored
 
 
+def _preferences(scored_trips: list[dict]) -> TravelerPreferences:
+    """This traveler's destination preference profile (see
+    TravelerPreferences), from trips that already carry unesco_score /
+    michelin_score / weather_score -- i.e. the SAME list passed to
+    TravelerDetail.trips, after _with_destination_scores. Computing it here
+    rather than in an offline script (unlike tags/entropy) is deliberate:
+    unlike those, nothing here needs cross-traveler context (a global K, a
+    T-100 volume table) -- it's a plain mean over trips this function
+    already has in hand, so precomputing it would only add a file to keep
+    in sync with match_trip_cities.py's output.
+
+    Layover legs are excluded, same convention as entropy/tags: Atlanta on
+    a Houston-to-Lisbon trip isn't a destination whose scores should count
+    toward the profile any more than it counts toward trip_count."""
+    sums = {"unesco": 0.0, "michelin": 0.0, "weather": 0.0}
+    counts = {"unesco": 0, "michelin": 0, "weather": 0}
+    for trip in scored_trips:
+        if trip.get("layover"):
+            continue
+        for dim, key in (("unesco", "unesco_score"), ("michelin", "michelin_score"), ("weather", "weather_score")):
+            value = trip.get(key)
+            if isinstance(value, (int, float)):
+                sums[dim] += value
+                counts[dim] += 1
+
+    return TravelerPreferences(
+        unesco=round(sums["unesco"] / counts["unesco"] / 10, 4) if counts["unesco"] else None,
+        michelin=round(sums["michelin"] / counts["michelin"] / 10, 4) if counts["michelin"] else None,
+        weather=round(sums["weather"] / counts["weather"] / 10, 4) if counts["weather"] else None,
+        unesco_trips=counts["unesco"],
+        michelin_trips=counts["michelin"],
+        weather_trips=counts["weather"],
+    )
+
+
 def _tags(traveler_id: str) -> list[TravelerTag]:
     """This traveler's tags, or an empty list when the tags file isn't there
     or predates them. Attached to the SUMMARY as well as the detail, so the
@@ -1128,9 +1198,12 @@ def traveler_detail(traveler_id: str):
     if traveler is None:
         raise HTTPException(status_code=404, detail=f"No traveler with id {traveler_id!r}")
 
+    scored_trips = [_with_destination_scores(_with_regions(trip)) for trip in traveler["trips"]]
+
     return TravelerDetail(
         **{k: v for k, v in traveler.items() if k != "trips"},
-        trips=[_with_destination_scores(_with_regions(trip)) for trip in traveler["trips"]],
+        trips=scored_trips,
+        preferences=_preferences(scored_trips),
         tags=_tags(traveler_id),
         destination_entropy=_destination_entropy(traveler_id),
         region_entropy=_destination_entropy(traveler_id, TRAVELER_ENTROPY_REGION),

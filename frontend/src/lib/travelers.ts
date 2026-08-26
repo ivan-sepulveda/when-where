@@ -425,8 +425,38 @@ export interface DestinationEntropy {
   destination_unit: string | null;
 }
 
+// Mirrors backend/app/main.py's TravelerPreferences: this traveler's
+// DESTINATION PREFERENCE PROFILE, a rollup of the same per-trip UNESCO /
+// Michelin / weather scores TravelerTrip already carries (see
+// tripDestinationScores above), not a new score computed here. Three
+// dimensions today -- the README TODO this implements names more (food,
+// architecture, nightlife...) that need datasets this project doesn't have
+// yet, so they're left for later.
+//
+// Each present dimension is the MEAN of that trip-level 0-10 score across
+// every non-layover trip that has one, rescaled to 0-1. null, not 0, when no
+// trip has a score for that dimension -- same "nothing invented" rule as
+// unesco_score/michelin_score/weather_score on TravelerTrip. The *_trips
+// count alongside each dimension is how many trips it was averaged over, so
+// a profile drawn from one trip is inspectable rather than reading the same
+// as one drawn from fifty.
+export interface TravelerPreferences {
+  unesco: number | null;
+  michelin: number | null;
+  weather: number | null;
+  unesco_trips: number;
+  michelin_trips: number;
+  weather_trips: number;
+}
+
 export interface TravelerDetail extends TravelerSummary {
   trips: TravelerTrip[];
+  // This traveler's destination preference profile (see
+  // TravelerPreferences), computed server-side from the trips above.
+  // Always an object, never null itself -- individual dimensions inside it
+  // are null when no trip has that score. Optional only so an older cached
+  // response still typechecks.
+  preferences?: TravelerPreferences | null;
   // Null when compute_traveler_entropy.py hasn't been run in the backend's
   // checkout -- distinct from "computed, but unknown for this traveler".
   //

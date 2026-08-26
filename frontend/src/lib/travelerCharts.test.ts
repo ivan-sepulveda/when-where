@@ -5,10 +5,11 @@ import {
   domesticInternationalBreakdown,
   isDomesticTrip,
   MAX_NAMED_SEGMENTS,
+  preferenceAxes,
   subregionBreakdown,
   toPercentages,
 } from "./travelerCharts";
-import type { TravelerDetail, TravelerTrip } from "./travelers";
+import type { TravelerDetail, TravelerPreferences, TravelerTrip } from "./travelers";
 
 // The fixtures below are the real shapes in this dataset, not invented
 // ones: Chet Baker really is 53 identical Delta ATL-JFK legs, Hades really
@@ -358,5 +359,58 @@ describe("subregionBreakdown", () => {
     expect(data.segments).toHaveLength(MAX_NAMED_SEGMENTS + 1);
     expect(data.segments.at(-1)?.label).toBe("3 others");
     expect(data.total).toBe(10);
+  });
+});
+
+describe("preferenceAxes", () => {
+  function prefs(overrides: Partial<TravelerPreferences> = {}): TravelerPreferences {
+    return {
+      unesco: null,
+      michelin: null,
+      weather: null,
+      unesco_trips: 0,
+      michelin_trips: 0,
+      weather_trips: 0,
+      ...overrides,
+    };
+  }
+
+  it("returns one axis per present dimension, in a fixed unesco/michelin/weather order", () => {
+    const axes = preferenceAxes(
+      prefs({ unesco: 0.8, unesco_trips: 5, michelin: 0.3, michelin_trips: 2, weather: 0.6, weather_trips: 5 }),
+    );
+    expect(axes.map((a) => a.key)).toEqual(["unesco", "michelin", "weather"]);
+    expect(axes.map((a) => a.label)).toEqual(["UNESCO", "Michelin", "Weather"]);
+    expect(axes[0]).toEqual({ key: "unesco", label: "UNESCO", value: 0.8, trips: 5 });
+  });
+
+  it("drops a dimension with no scored trips rather than plotting it as 0", () => {
+    // The whole point: a null mean is "no data", not "a low preference".
+    // Plotting it at the origin would be exactly the invented-zero the rest
+    // of this project's scoring code goes out of its way to avoid.
+    const axes = preferenceAxes(prefs({ unesco: 0.8, unesco_trips: 3 }));
+    expect(axes).toEqual([{ key: "unesco", label: "UNESCO", value: 0.8, trips: 3 }]);
+  });
+
+  it("returns no axes for an all-null profile", () => {
+    // The single-trip Kaggle traveler whose one trip matched no city record
+    // -- the component renders its empty message for this, not an empty
+    // triangle.
+    expect(preferenceAxes(prefs())).toEqual([]);
+  });
+
+  it("returns no axes when preferences itself is absent", () => {
+    // An older cached traveler response, or a traveler fetched before the
+    // API grew this field.
+    expect(preferenceAxes(null)).toEqual([]);
+    expect(preferenceAxes(undefined)).toEqual([]);
+  });
+
+  it("treats a real 0 the same as any other present value", () => {
+    // 0.0 is a legitimate mean (every scored trip landed on a destination
+    // with no UNESCO site in range, say) and must still plot -- it's only
+    // a MISSING mean that gets dropped, not a low one.
+    const axes = preferenceAxes(prefs({ unesco: 0, unesco_trips: 4 }));
+    expect(axes).toEqual([{ key: "unesco", label: "UNESCO", value: 0, trips: 4 }]);
   });
 });
