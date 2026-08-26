@@ -116,10 +116,10 @@
       }
     }
   },
-  "travelers_total": 210,
-  "travelers_with_carrier_data": 86,
-  "travelers_with_declared_base": 86,
-  "travelers_tagged": 73,
+  "travelers_total": 211,
+  "travelers_with_carrier_data": 87,
+  "travelers_with_declared_base": 87,
+  "travelers_tagged": 74,
   "tag_counts": {
     "Multi Hub": 23,
     "American Hub": 18,
@@ -129,7 +129,7 @@
     "American Loyalist": 10,
     "Southwest Loyalist": 10,
     "United Loyalist": 9,
-    "Alaska Hub": 5,
+    "Alaska Hub": 6,
     "Delta Hub": 4
   },
   "near_misses_below_min_trips": 0,
@@ -2407,6 +2407,42 @@
           "hub_city": "Houston",
           "hub_airports": [
             "IAH"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "rick-steves",
+      "name": "Rick Steves",
+      "trip_count": 47,
+      "trips_with_carrier": 47,
+      "distinct_carriers": 4,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 0.7021,
+      "below_min_trips": false,
+      "base_city": "Seattle",
+      "base_inference": "declared",
+      "home_airport": "SEA",
+      "hub_city": "Seattle",
+      "hub_airlines": [
+        "Alaska"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:alaska-airlines-inc",
+          "label": "Alaska Hub",
+          "carrier_name": "Alaska Airlines Inc.",
+          "carrier_names": [
+            "Alaska Airlines Inc."
+          ],
+          "airlines": [
+            "Alaska"
+          ],
+          "hub_city": "Seattle",
+          "hub_airports": [
+            "SEA"
           ]
         }
       ]

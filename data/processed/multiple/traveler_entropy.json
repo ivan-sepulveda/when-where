@@ -5,9 +5,9 @@
   "global_distinct_destinations_source": "observed in this dataset",
   "observed_distinct_destinations": 157,
   "ln_global_distinct_destinations": 5.0562,
-  "travelers_total": 210,
-  "travelers_with_destination_data": 86,
-  "travelers_with_informative_entropy": 86,
+  "travelers_total": 211,
+  "travelers_with_destination_data": 87,
+  "travelers_with_informative_entropy": 87,
   "travelers": [
     {
       "traveler_id": "anthony-bourdain",
@@ -596,6 +596,20 @@
       "norm_global": 0.3183,
       "norm_observed": 1.0,
       "norm_capacity": 1.0
+    },
+    {
+      "traveler_id": "rick-steves",
+      "name": "Rick Steves",
+      "trip_count": 47,
+      "trips_with_destination": 47,
+      "n_destinations": 6,
+      "top_destination": "LHR",
+      "top_destination_share": 0.3404,
+      "entropy": 1.5297,
+      "entropy_is_informative": true,
+      "norm_global": 0.3025,
+      "norm_observed": 0.8537,
+      "norm_capacity": 0.3973
     },
     {
       "traveler_id": "charles-darwin",

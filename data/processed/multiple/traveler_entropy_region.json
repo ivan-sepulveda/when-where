@@ -5,9 +5,9 @@
   "global_distinct_destinations_source": "UN M49: every detailed region that exists, whether or not this dataset visits it",
   "observed_distinct_destinations": 17,
   "ln_global_distinct_destinations": 3.091,
-  "travelers_total": 210,
-  "travelers_with_destination_data": 210,
-  "travelers_with_informative_entropy": 97,
+  "travelers_total": 211,
+  "travelers_with_destination_data": 211,
+  "travelers_with_informative_entropy": 98,
   "travelers": [
     {
       "traveler_id": "anthony-bourdain",
@@ -610,6 +610,20 @@
       "norm_global": 0.2239,
       "norm_observed": 0.9984,
       "norm_capacity": 0.2273
+    },
+    {
+      "traveler_id": "rick-steves",
+      "name": "Rick Steves",
+      "trip_count": 47,
+      "trips_with_destination": 47,
+      "n_destinations": 2,
+      "top_destination": "Western Europe",
+      "top_destination_share": 0.5532,
+      "entropy": 0.6875,
+      "entropy_is_informative": true,
+      "norm_global": 0.2224,
+      "norm_observed": 0.9918,
+      "norm_capacity": 0.2224
     },
     {
       "traveler_id": "john-coltrane",

@@ -49,6 +49,7 @@ tony-stark,Tony Stark,18,18,1,Alaska Airlines Inc.,1.0,False,Los Angeles,declare
 victor-stone,Victor Stone,36,36,1,Southwest Airlines Co.,1.0,False,Orlando,declared,MCO,,,,Southwest Loyalist
 wes-montgomery,Wes Montgomery,16,16,1,Delta Air Lines Inc.,1.0,False,Seattle,declared,SEA,Seattle,Alaska,True,Delta Loyalist; Alaska Hub
 eduardo-gomez,Eduardo Gomez,88,88,7,United Air Lines Inc.,0.8295,False,Houston,declared,,Houston,United,,United Loyalist; United Hub
+rick-steves,Rick Steves,47,47,4,Delta Air Lines Inc.,0.7021,False,Seattle,declared,SEA,Seattle,Alaska,True,Alaska Hub
 edward-hopper,Edward Hopper,10,10,3,United Air Lines Inc.,0.7,False,San Francisco,declared,SFO,San Francisco,United,True,United Hub
 anthony-bourdain,Anthony Bourdain,146,146,17,Delta Air Lines Inc.,0.6644,False,New York City,declared,,New York City,United; Delta; American,,Multi Hub
 odysseus,Odysseus,32,32,7,American Airlines Inc.,0.625,False,Philadelphia,declared,PHL,Philadelphia,American,True,American Hub
