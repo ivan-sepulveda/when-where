@@ -64,26 +64,61 @@ flight to begin with:
     "Prime Cuts" season openers, and the two posthumous specials
     ("Tony's Impact", "Under the Tarp")
   * no_single_destination -- regional travelogues with no one gateway:
-    "U.S. Southwest", "U.S. Heartland", "Caribbean Island Hopping",
-    "Off the Charts"
-  * no_home_nonstop -- nowhere to fly nonstop from New York. Roughly half
-    the Parts Unknown catalogue falls here, which is the point of the
-    show: Myanmar, Libya, Congo, Madagascar, Tanzania, Iran, Bhutan,
-    Armenia, Oman, Borneo, Sichuan, Okinawa, the Punjab, Paraguay,
-    Asuncion, Tbilisi, Cologne, Antarctica (no scheduled service at all),
-    alongside the No Reservations list -- Tashkent, Christchurch, Jaipur,
-    Jakarta, Beirut, Windhoek, Papeete, Florence and the rest. A Cook's
-    Tour loses the most of any show proportionally: Saigon, Phnom Penh,
-    the Mekong, San Sebastian, Arcachon, Fes, St. Petersburg twice,
-    Oaxaca, Puebla, Salvador, Sydney, Melbourne, Chiang Mai, Hanoi and
-    Bangkok are all secondary-city or long-haul-Asia destinations that
-    New York does not reach without a connection.
+    "U.S. Southwest", "U.S. Heartland", "Off the Charts"
+  * no_home_nonstop -- nowhere to fly nonstop from New York, AND not one
+    of the documented-visit episodes listed under ASSUMED_FLIGHT below.
+    What's left: Sichuan, Okinawa, the Punjab, Cologne, Antarctica (no
+    scheduled service at all), alongside the No Reservations list --
+    Jaipur, Jakarta, Beirut, Papeete, Florence and the rest. A Cook's
+    Tour loses the most of any show proportionally: Saigon, the Mekong,
+    San Sebastian, Arcachon, Fes, St. Petersburg twice, Oaxaca, Puebla,
+    Salvador and Melbourne are secondary-city or long-haul-Asia
+    destinations that New York does not reach without a connection.
 
 Excluded episodes are not silently dropped: every one of them is kept in
 the EPISODES tables below with an `exclude` reason, echoed into the JSON
 output's "excluded_episodes" list, and printed in the run summary. The
 route data is a present-day snapshot, so an exclusion means "no nonstop
 in the data we have", not "unreachable in 2005".
+
+ASSUMED_FLIGHT -- 35 COUNTRIES BOURDAIN DEFINITELY VISITED, NONE OF THEM
+FLYABLE NONSTOP (Ivan's, 2026-08-26). The flights-only rule above is a
+route-data fact, not a research finding -- and for a big share of Parts
+Unknown especially, the two disagree: the show exists BECAUSE Bourdain
+went places New York doesn't fly nonstop to. Ivan gave the list --
+Libya, Ethiopia, Madagascar, Mozambique, Tanzania, the Democratic
+Republic of the Congo, Namibia, Liberia, Nigeria, Senegal, Saint Vincent
+and the Grenadines, Nicaragua, Paraguay, Uruguay, Bhutan, Iran, Armenia,
+Georgia, Iraq, Oman, Palestine, Croatia, Romania, Australia, New
+Zealand, Cambodia, Indonesia, Laos, Malaysia, Myanmar, the Philippines,
+Sri Lanka, Thailand, Uzbekistan and Vietnam -- and asked for these trips
+to be added anyway, carrier recorded as "Airline Unknown" rather than
+invented. Of the 35:
+
+  * Nigeria and Senegal already had a real nonstop and needed nothing.
+  * Palestine needed nothing either -- the West Bank and Gaza are already
+    covered inside the Jerusalem episode (PU S2.E2, filed under Israel
+    because Tel Aviv is the only flyable gateway; its note has said so
+    since that episode was researched), not a separate documented trip.
+  * The other 32 get `"assumed_flight": True` on their episode entries
+    (see chef_trips.py for the mechanics): the trip is built from the
+    episode's own first-choice airport regardless of nonstop status, the
+    distance is real (great-circle from airports.json's coordinates), and
+    the carrier is recorded as UNKNOWN_CARRIER rather than picked from a
+    route that doesn't exist. This is NOT a blanket policy change --
+    every other no_home_nonstop exclusion above still excludes. It only
+    applies to episodes Ivan named.
+  * Two of the 32 needed a correction, not just a flag, once actually
+    checked against a synopsis instead of assumed from the episode title:
+    "Congo" (PU S1.E8) is Kinshasa/DRC, not Brazzaville/Republic of the
+    Congo -- Wikipedia's own synopsis says "the Democratic Republic of
+    the Congo", and eatlikebourdain.com's episode-by-episode account
+    places it in Goma and Kisangani, both in eastern DRC. And "Caribbean
+    Island Hopping" (NR S6.E14), previously excluded as AMBIGUOUS with no
+    single destination, turns out to have one after all at the country
+    level: it opens at Petit Saint Vincent in the Grenadines and never
+    leaves Saint Vincent and the Grenadines, it just doesn't stay on one
+    island within it.
 
 Multi-city and region episodes resolve to the first candidate airport
 with a New York nonstop, and the destination columns then follow that
@@ -156,10 +191,10 @@ NO_RESERVATIONS = [
      "exclude_note": "Bourdain's home state, reached by car from New York"},
     {"season": 1, "episode": 4, "title": "Vietnam: The Island of Mr. Sang",
      "air_date": "2005-08-15", "city": "Hanoi", "country": "Vietnam",
-     "airports": ["HAN"]},
+     "airports": ["HAN"], "assumed_flight": True},
     {"season": 1, "episode": 5, "title": "Malaysia: Into the Jungle",
      "air_date": "2005-08-22", "city": "Kuala Lumpur", "country": "Malaysia",
-     "airports": ["KUL"]},
+     "airports": ["KUL"], "assumed_flight": True},
     {"season": 1, "episode": 6, "title": "Sicily",
      "air_date": "2005-10-10", "city": "Palermo", "country": "Italy",
      "airports": ["PMO", "CTA"],
@@ -169,10 +204,10 @@ NO_RESERVATIONS = [
      "airports": ["LAS"]},
     {"season": 1, "episode": 8, "title": "Uzbekistan",
      "air_date": "2005-10-24", "city": "Tashkent", "country": "Uzbekistan",
-     "airports": ["TAS"]},
+     "airports": ["TAS"], "assumed_flight": True},
     {"season": 1, "episode": 9, "title": "New Zealand: Down Under the Down Under",
      "air_date": "2005-11-07", "city": "Christchurch", "country": "New Zealand",
-     "airports": ["CHC"]},
+     "airports": ["CHC"], "assumed_flight": True},
     {"season": 1, "episode": 10, "title": "Iceland Special Edition",
      "air_date": "2006-06-20", "city": "Reykjavik", "country": "Iceland",
      "airports": [], "exclude": COMPILATION,
@@ -223,7 +258,7 @@ NO_RESERVATIONS = [
      "airports": ["ICN"]},
     {"season": 2, "episode": 12, "title": "Indonesia",
      "air_date": "2006-06-19", "city": "Jakarta", "country": "Indonesia",
-     "airports": ["CGK", "DPS"]},
+     "airports": ["CGK", "DPS"], "assumed_flight": True},
     {"season": 2, "episode": 13, "title": "Special: Decoding Ferran Adria",
      "air_date": "2006-07-03", "city": "Barcelona", "country": "Spain",
      "airports": ["BCN"],
@@ -249,7 +284,7 @@ NO_RESERVATIONS = [
      "note": "episode covers Washington and Oregon; Seattle is the primary gateway"},
     {"season": 3, "episode": 4, "title": "Namibia",
      "air_date": "2007-01-22", "city": "Windhoek", "country": "Namibia",
-     "airports": ["WDH"]},
+     "airports": ["WDH"], "assumed_flight": True},
     {"season": 3, "episode": 5, "title": "Russia",
      "air_date": "2007-01-29", "city": "Moscow", "country": "Russia",
      "airports": ["SVO", "DME"]},
@@ -319,7 +354,7 @@ NO_RESERVATIONS = [
      "airports": ["KIN", "MBJ"]},
     {"season": 4, "episode": 8, "title": "Romania",
      "air_date": "2008-02-25", "city": "Bucharest", "country": "Romania",
-     "airports": ["OTP"]},
+     "airports": ["OTP"], "assumed_flight": True},
     {"season": 4, "episode": 9, "title": "Hawaii",
      "air_date": "2008-03-03", "city": "Honolulu", "country": "United States",
      "airports": ["HNL"]},
@@ -329,7 +364,7 @@ NO_RESERVATIONS = [
      "exclude_note": "Tony back on the line at Brasserie Les Halles in New York"},
     {"season": 4, "episode": 11, "title": "Laos",
      "air_date": "2008-07-07", "city": "Luang Prabang", "country": "Laos",
-     "airports": ["LPQ", "VTE"]},
+     "airports": ["LPQ", "VTE"], "assumed_flight": True},
     {"season": 4, "episode": 12, "title": "Colombia",
      "air_date": "2008-07-14", "city": "Bogota", "country": "Colombia",
      "airports": ["BOG"]},
@@ -338,7 +373,7 @@ NO_RESERVATIONS = [
      "airports": ["RUH", "JED"]},
     {"season": 4, "episode": 14, "title": "Uruguay",
      "air_date": "2008-07-28", "city": "Montevideo", "country": "Uruguay",
-     "airports": ["MVD"]},
+     "airports": ["MVD"], "assumed_flight": True},
     {"season": 4, "episode": 15, "title": "U.S. Southwest",
      "air_date": "2008-08-04", "city": None, "country": "United States",
      "airports": [], "exclude": AMBIGUOUS,
@@ -384,25 +419,25 @@ NO_RESERVATIONS = [
      "exclude_note": "montage of food shots from earlier episodes"},
     {"season": 5, "episode": 7, "title": "Philippines",
      "air_date": "2009-02-16", "city": "Manila", "country": "Philippines",
-     "airports": ["MNL"]},
+     "airports": ["MNL"], "assumed_flight": True},
     {"season": 5, "episode": 8, "title": "Disappearing Manhattan",
      "air_date": "2009-02-23", "city": "New York City", "country": "United States",
      "airports": [], "exclude": GROUND,
      "exclude_note": "old-guard Manhattan restaurants, Bourdain's home city"},
     {"season": 5, "episode": 9, "title": "Sri Lanka",
      "air_date": "2009-03-02", "city": "Colombo", "country": "Sri Lanka",
-     "airports": ["CMB"]},
+     "airports": ["CMB"], "assumed_flight": True},
     {"season": 5, "episode": 10, "title": "Vietnam: There's No Place Like Home",
      "air_date": "2009-03-09", "city": "Hanoi", "country": "Vietnam",
      "airports": ["HAN", "SGN"],
-     "note": "the synopsis names no city, so the capital rule applies -- see chef_trips.py"},
+     "note": "the synopsis names no city, so the capital rule applies -- see chef_trips.py", "assumed_flight": True},
     {"season": 5, "episode": 11, "title": "Chile",
      "air_date": "2009-07-13", "city": "Santiago", "country": "Chile",
      "airports": ["SCL"]},
     {"season": 5, "episode": 12, "title": "Australia",
      "air_date": "2009-07-20", "city": "Melbourne", "country": "Australia",
      "airports": ["MEL"],
-     "note": "synopsis places the episode in Melbourne"},
+     "note": "synopsis places the episode in Melbourne", "assumed_flight": True},
     {"season": 5, "episode": 13, "title": "Buffalo/Baltimore/Detroit",
      "air_date": "2009-07-27", "city": "Buffalo", "country": "United States",
      "airports": ["BUF", "BWI", "DTW"],
@@ -416,7 +451,7 @@ NO_RESERVATIONS = [
      "airports": ["SFO"]},
     {"season": 5, "episode": 16, "title": "Thailand",
      "air_date": "2009-03-16", "city": "Bangkok", "country": "Thailand",
-     "airports": ["BKK"]},
+     "airports": ["BKK"], "assumed_flight": True},
     {"season": 5, "episode": 17, "title": "Montana",
      "air_date": "2009-08-24", "city": "Livingston", "country": "United States",
      "airports": ["BZN"],
@@ -465,7 +500,7 @@ NO_RESERVATIONS = [
      "airports": ["MRS", "NCE"]},
     {"season": 6, "episode": 10, "title": "Vietnam Central Highlands",
      "air_date": "2010-03-29", "city": "Da Lat", "country": "Vietnam",
-     "airports": ["DLI", "SGN"]},
+     "airports": ["DLI", "SGN"], "assumed_flight": True},
     {"season": 6, "episode": 11, "title": "Techniques Special",
      "air_date": "2010-04-05", "city": None, "country": None,
      "airports": [], "exclude": COMPILATION,
@@ -478,16 +513,21 @@ NO_RESERVATIONS = [
      "airports": [], "exclude": COMPILATION,
      "exclude_note": "second food-montage special"},
     {"season": 6, "episode": 14, "title": "Caribbean Island Hopping",
-     "air_date": "2010-07-05", "city": None, "country": None,
-     "airports": [], "exclude": AMBIGUOUS,
-     "exclude_note": "multiple islands by boat, no single destination airport"},
+     "air_date": "2010-07-05", "city": "Kingstown", "country": "Saint Vincent and the Grenadines",
+     "airports": ["SVD"], "assumed_flight": True,
+     "note": "the episode opens at Petit Saint Vincent, in the Grenadines, then boat-hops "
+             "through the rest of the archipelago -- genuinely no single destination the way "
+             "the title suggests, but the country IS single: all of it is Saint Vincent and the "
+             "Grenadines. Kingstown/SVD (the country's only international airport) stands in "
+             "for the specific islands actually visited, same capital-rule logic as everywhere "
+             "else a source names a place without a flyable airport of its own."},
     {"season": 6, "episode": 15, "title": "U.S. Heartland",
      "air_date": "2010-07-12", "city": None, "country": "United States",
      "airports": [], "exclude": AMBIGUOUS,
      "exclude_note": "several Midwestern states, no single destination"},
     {"season": 6, "episode": 16, "title": "Liberia",
      "air_date": "2010-07-19", "city": "Monrovia", "country": "Liberia",
-     "airports": ["ROB"]},
+     "airports": ["ROB"], "assumed_flight": True},
     {"season": 6, "episode": 17, "title": "Kerala, India",
      "air_date": "2010-07-26", "city": "Kochi", "country": "India",
      "airports": ["COK"]},
@@ -529,10 +569,10 @@ NO_RESERVATIONS = [
      "airports": ["PAP"]},
     {"season": 7, "episode": 2, "title": "Cambodia",
      "air_date": "2011-03-07", "city": "Phnom Penh", "country": "Cambodia",
-     "airports": ["PNH", "REP"]},
+     "airports": ["PNH", "REP"], "assumed_flight": True},
     {"season": 7, "episode": 3, "title": "Nicaragua",
      "air_date": "2011-03-14", "city": "Managua", "country": "Nicaragua",
-     "airports": ["MGA"]},
+     "airports": ["MGA"], "assumed_flight": True},
     {"season": 7, "episode": 4, "title": "Vienna",
      "air_date": "2011-03-21", "city": "Vienna", "country": "Austria",
      "airports": ["VIE"]},
@@ -571,7 +611,7 @@ NO_RESERVATIONS = [
      "airports": ["KBP"]},
     {"season": 7, "episode": 15, "title": "Kurdistan",
      "air_date": "2011-08-22", "city": "Erbil", "country": "Iraq",
-     "airports": ["EBL"]},
+     "airports": ["EBL"], "assumed_flight": True},
     {"season": 7, "episode": 16, "title": "Cajun Country",
      "air_date": "2011-08-29", "city": "Lafayette", "country": "United States",
      "airports": ["LFT", "MSY"]},
@@ -583,13 +623,13 @@ NO_RESERVATIONS = [
     # ---- Season 8 (2012) ----
     {"season": 8, "episode": 1, "title": "Mozambique",
      "air_date": "2012-04-09", "city": "Maputo", "country": "Mozambique",
-     "airports": ["MPM"]},
+     "airports": ["MPM"], "assumed_flight": True},
     {"season": 8, "episode": 2, "title": "Kansas City",
      "air_date": "2012-04-16", "city": "Kansas City", "country": "United States",
      "airports": ["MCI"]},
     {"season": 8, "episode": 3, "title": "Croatian Coast",
      "air_date": "2012-04-23", "city": "Split", "country": "Croatia",
-     "airports": ["SPU", "DBV", "ZAG"]},
+     "airports": ["SPU", "DBV", "ZAG"], "assumed_flight": True},
     {"season": 8, "episode": 4, "title": "Lisbon",
      "air_date": "2012-04-30", "city": "Lisbon", "country": "Portugal",
      "airports": ["LIS"]},
@@ -606,7 +646,7 @@ NO_RESERVATIONS = [
      "note": "Baja California; San Diego is the usual gateway across the border"},
     {"season": 8, "episode": 8, "title": "Penang",
      "air_date": "2012-06-04", "city": "Penang", "country": "Malaysia",
-     "airports": ["PEN"]},
+     "airports": ["PEN"], "assumed_flight": True},
 
     # ---- Season 9 (2012) ----
     {"season": 9, "episode": 1, "title": "Austin",
@@ -614,7 +654,7 @@ NO_RESERVATIONS = [
      "airports": ["AUS"]},
     {"season": 9, "episode": 2, "title": "Sydney",
      "air_date": "2012-09-10", "city": "Sydney", "country": "Australia",
-     "airports": ["SYD"]},
+     "airports": ["SYD"], "assumed_flight": True},
     {"season": 9, "episode": 3, "title": "Sex, Drugs and Rock & Roll",
      "air_date": "2012-09-17", "city": None, "country": None,
      "airports": [], "exclude": COMPILATION,
@@ -660,7 +700,7 @@ PARTS_UNKNOWN = [
     # ---- Season 1 (2013) ----
     {"season": 1, "episode": 1, "title": "Myanmar",
      "air_date": "2013-04-14", "city": "Yangon", "country": "Myanmar",
-     "airports": ["RGN"]},
+     "airports": ["RGN"], "assumed_flight": True},
     {"season": 1, "episode": 2, "title": "Koreatown, Los Angeles",
      "air_date": "2013-04-21", "city": "Los Angeles", "country": "United States",
      "airports": ["LAX"]},
@@ -675,13 +715,20 @@ PARTS_UNKNOWN = [
      "airports": ["TNG", "CMN"]},
     {"season": 1, "episode": 6, "title": "Libya",
      "air_date": "2013-05-19", "city": "Tripoli", "country": "Libya",
-     "airports": ["TIP", "BEN"]},
+     "airports": ["TIP", "BEN"], "assumed_flight": True},
     {"season": 1, "episode": 7, "title": "Peru",
      "air_date": "2013-06-02", "city": "Cusco", "country": "Peru",
      "airports": ["CUZ", "LIM"]},
     {"season": 1, "episode": 8, "title": "Congo",
-     "air_date": "2013-06-09", "city": "Brazzaville", "country": "Congo",
-     "airports": ["BZV", "FIH"]},
+     "air_date": "2013-06-09", "city": "Kinshasa", "country": "Congo (Kinshasa)",
+     "airports": ["FIH"], "assumed_flight": True,
+     "note": "the episode itself follows the Congo River through Goma and Kisangani, both in "
+             "eastern DRC -- neither has a New York nonstop either, and neither is a gateway a "
+             "traveler would fly into, so Kinshasa (the country's real international gateway) "
+             "stands in, same as every other assumed_flight episode. Not Brazzaville/Republic "
+             "of the Congo, which this entry named before Wikipedia's own synopsis was checked "
+             "(\"Tony visits the Democratic Republic of the Congo\") -- see the TODO this "
+             "corrects."},
 
     # ---- Season 2 (2013) ----
     {"season": 2, "episode": 1, "title": "Prime Cuts: Season One",
@@ -740,7 +787,7 @@ PARTS_UNKNOWN = [
      "note": "the Delta is driven from Memphis, its northern gateway"},
     {"season": 3, "episode": 8, "title": "Thailand",
      "air_date": "2014-06-01", "city": "Chiang Mai", "country": "Thailand",
-     "airports": ["CNX", "BKK"]},
+     "airports": ["CNX", "BKK"], "assumed_flight": True},
     {"season": 3, "episode": 9, "title": "Bahia, Brazil",
      "air_date": "2014-06-08", "city": "Salvador", "country": "Brazil",
      "airports": ["SSA", "GRU"]},
@@ -759,16 +806,16 @@ PARTS_UNKNOWN = [
      "exclude_note": "a borough of Bourdain's home city"},
     {"season": 4, "episode": 4, "title": "Paraguay",
      "air_date": "2014-10-12", "city": "Asuncion", "country": "Paraguay",
-     "airports": ["ASU"]},
+     "airports": ["ASU"], "assumed_flight": True},
     {"season": 4, "episode": 5, "title": "Vietnam",
      "air_date": "2014-10-19", "city": "Ho Chi Minh City", "country": "Vietnam",
-     "airports": ["SGN", "HAN"]},
+     "airports": ["SGN", "HAN"], "assumed_flight": True},
     {"season": 4, "episode": 6, "title": "Tanzania",
      "air_date": "2014-10-26", "city": "Dar es Salaam", "country": "Tanzania",
-     "airports": ["DAR", "JRO"]},
+     "airports": ["DAR", "JRO"], "assumed_flight": True},
     {"season": 4, "episode": 7, "title": "Iran",
      "air_date": "2014-11-02", "city": "Tehran", "country": "Iran",
-     "airports": ["IKA"]},
+     "airports": ["IKA"], "assumed_flight": True},
     {"season": 4, "episode": 8, "title": "Massachusetts",
      "air_date": "2014-11-09", "city": "Boston", "country": "United States",
      "airports": ["BOS"],
@@ -793,7 +840,7 @@ PARTS_UNKNOWN = [
      "airports": ["EDI", "GLA"]},
     {"season": 5, "episode": 5, "title": "Madagascar",
      "air_date": "2015-05-17", "city": "Antananarivo", "country": "Madagascar",
-     "airports": ["TNR"]},
+     "airports": ["TNR"], "assumed_flight": True},
     {"season": 5, "episode": 6, "title": "New Jersey",
      "air_date": "2015-05-31", "city": "New Jersey", "country": "United States",
      "airports": [], "exclude": GROUND,
@@ -827,10 +874,10 @@ PARTS_UNKNOWN = [
      "airports": ["SFO", "OAK"]},
     {"season": 6, "episode": 6, "title": "Ethiopia",
      "air_date": "2015-10-25", "city": "Addis Ababa", "country": "Ethiopia",
-     "airports": ["ADD"]},
+     "airports": ["ADD"], "assumed_flight": True},
     {"season": 6, "episode": 7, "title": "Borneo",
      "air_date": "2015-11-01", "city": "Kuching", "country": "Malaysia",
-     "airports": ["KCH", "BKI", "KUL"]},
+     "airports": ["KCH", "BKI", "KUL"], "assumed_flight": True},
     {"season": 6, "episode": 8, "title": "Istanbul",
      "air_date": "2015-11-08", "city": "Istanbul", "country": "Turkey",
      "airports": ["IST"]},
@@ -845,7 +892,7 @@ PARTS_UNKNOWN = [
      "exclude_note": "clip show of season six"},
     {"season": 7, "episode": 2, "title": "Manila, Philippines",
      "air_date": "2016-04-24", "city": "Manila", "country": "Philippines",
-     "airports": ["MNL"]},
+     "airports": ["MNL"], "assumed_flight": True},
     {"season": 7, "episode": 3, "title": "Chicago",
      "air_date": "2016-05-01", "city": "Chicago", "country": "United States",
      "airports": ["ORD", "MDW"]},
@@ -859,7 +906,7 @@ PARTS_UNKNOWN = [
      "note": "a return to Livingston, also the subject of No Reservations S5.E17"},
     {"season": 7, "episode": 6, "title": "Tbilisi, Georgia",
      "air_date": "2016-05-22", "city": "Tbilisi", "country": "Georgia",
-     "airports": ["TBS"]},
+     "airports": ["TBS"], "assumed_flight": True},
     {"season": 7, "episode": 7, "title": "Senegal",
      "air_date": "2016-05-29", "city": "Dakar", "country": "Senegal",
      "airports": ["DKR"]},
@@ -875,7 +922,7 @@ PARTS_UNKNOWN = [
     {"season": 8, "episode": 2, "title": "Hanoi",
      "air_date": "2016-09-25", "city": "Hanoi", "country": "Vietnam",
      "airports": ["HAN"],
-     "note": "the bun cha dinner with President Obama"},
+     "note": "the bun cha dinner with President Obama", "assumed_flight": True},
     {"season": 8, "episode": 3, "title": "Nashville",
      "air_date": "2016-10-02", "city": "Nashville", "country": "United States",
      "airports": ["BNA"]},
@@ -914,7 +961,7 @@ PARTS_UNKNOWN = [
      "airports": ["EAS", "BIO", "BIQ"]},
     {"season": 9, "episode": 4, "title": "Laos",
      "air_date": "2017-05-14", "city": "Luang Prabang", "country": "Laos",
-     "airports": ["LPQ", "VTE"]},
+     "airports": ["LPQ", "VTE"], "assumed_flight": True},
     {"season": 9, "episode": 5, "title": "Queens",
      "air_date": "2017-05-21", "city": "New York City", "country": "United States",
      "airports": [], "exclude": GROUND,
@@ -925,7 +972,7 @@ PARTS_UNKNOWN = [
      "exclude_note": "no scheduled passenger service exists; the crew flew in from Punta Arenas"},
     {"season": 9, "episode": 7, "title": "Oman",
      "air_date": "2017-06-11", "city": "Muscat", "country": "Oman",
-     "airports": ["MCT"]},
+     "airports": ["MCT"], "assumed_flight": True},
     {"season": 9, "episode": 8, "title": "Trinidad",
      "air_date": "2017-06-25", "city": "Port of Spain", "country": "Trinidad and Tobago",
      "airports": ["POS"]},
@@ -949,7 +996,7 @@ PARTS_UNKNOWN = [
      "airports": ["PIT"]},
     {"season": 10, "episode": 5, "title": "Sri Lanka",
      "air_date": "2017-10-29", "city": "Colombo", "country": "Sri Lanka",
-     "airports": ["CMB"]},
+     "airports": ["CMB"], "assumed_flight": True},
     {"season": 10, "episode": 6, "title": "Puerto Rico",
      "air_date": "2017-11-05", "city": "San Juan", "country": "Puerto Rico",
      "airports": ["SJU"]},
@@ -968,13 +1015,13 @@ PARTS_UNKNOWN = [
      "note": "Charleston, West Virginia -- not the South Carolina one"},
     {"season": 11, "episode": 2, "title": "Uruguay",
      "air_date": "2018-05-06", "city": "Montevideo", "country": "Uruguay",
-     "airports": ["MVD"]},
+     "airports": ["MVD"], "assumed_flight": True},
     {"season": 11, "episode": 3, "title": "Newfoundland",
      "air_date": "2018-05-13", "city": "St. John's", "country": "Canada",
      "airports": ["YYT"]},
     {"season": 11, "episode": 4, "title": "Armenia",
      "air_date": "2018-05-20", "city": "Yerevan", "country": "Armenia",
-     "airports": ["EVN"]},
+     "airports": ["EVN"], "assumed_flight": True},
     {"season": 11, "episode": 5, "title": "Hong Kong",
      "air_date": "2018-06-03", "city": "Hong Kong", "country": "Hong Kong",
      "airports": ["HKG"]},
@@ -986,7 +1033,7 @@ PARTS_UNKNOWN = [
      "airports": ["LFT", "MSY"]},
     {"season": 11, "episode": 8, "title": "Bhutan",
      "air_date": "2018-06-24", "city": "Paro", "country": "Bhutan",
-     "airports": ["PBH"]},
+     "airports": ["PBH"], "assumed_flight": True},
 
     # ---- Season 12 (2018) ----
     {"season": 12, "episode": 1, "title": "Kenya",
@@ -997,7 +1044,7 @@ PARTS_UNKNOWN = [
      "airports": ["OVD", "MAD"]},
     {"season": 12, "episode": 3, "title": "Indonesia",
      "air_date": "2018-10-07", "city": "Denpasar", "country": "Indonesia",
-     "airports": ["DPS", "CGK"]},
+     "airports": ["DPS", "CGK"], "assumed_flight": True},
     {"season": 12, "episode": 4, "title": "Tony's Impact",
      "air_date": "2018-10-14", "city": None, "country": None,
      "airports": [], "exclude": COMPILATION,
@@ -1047,15 +1094,15 @@ COOKS_TOUR = [
              "names -- so the row is the capital by the capital rule"},
     {"season": 1, "episode": 3, "title": "Cobra Heart - Food That Makes You Manly",
      "air_date": "2002-03-19", "city": "Ho Chi Minh City", "country": "Vietnam",
-     "airports": ["SGN"]},
+     "airports": ["SGN"], "assumed_flight": True},
     {"season": 1, "episode": 4, "title": "Eating on the Mekong",
      "air_date": "2002-01-15", "city": "Hanoi", "country": "Vietnam",
      "airports": ["HAN", "SGN"],
      "note": "the synopsis names the Mekong and no city, so the row is the capital by "
-             "the capital rule; Ho Chi Minh City checked second as the delta's own gateway"},
+             "the capital rule; Ho Chi Minh City checked second as the delta's own gateway", "assumed_flight": True},
     {"season": 1, "episode": 5, "title": "Wild Delicacies",
      "air_date": "2002-01-22", "city": "Phnom Penh", "country": "Cambodia",
-     "airports": ["PNH"]},
+     "airports": ["PNH"], "assumed_flight": True},
     {"season": 1, "episode": 6, "title": "Eating on the Edge of Nowhere",
      "air_date": "2002-03-26", "city": "Pailin", "country": "Cambodia",
      "airports": ["PNH", "NRT", "HND"],
@@ -1160,24 +1207,24 @@ COOKS_TOUR = [
     {"season": 2, "episode": 8, "title": "Mad Tony: The Food Warrior",
      "air_date": "2003-04-18", "city": "Sydney", "country": "Australia",
      "airports": ["SYD"],
-     "note": "a pilgrimage to Tetsuya Wakuda's dining room"},
+     "note": "a pilgrimage to Tetsuya Wakuda's dining room", "assumed_flight": True},
     {"season": 2, "episode": 9, "title": "Down Under: The Wild West of Cooking",
      "air_date": "2003-05-02", "city": "Melbourne", "country": "Australia",
-     "airports": ["MEL"]},
+     "airports": ["MEL"], "assumed_flight": True},
     {"season": 2, "episode": 10, "title": "Singapore: New York in Twenty Years",
      "air_date": "2003-05-16", "city": "Singapore", "country": "Singapore",
      "airports": ["SIN"]},
     {"season": 2, "episode": 11, "title": "Let's Get Lost",
      "air_date": "2003-06-13", "city": "Chiang Mai", "country": "Thailand",
-     "airports": ["CNX"]},
+     "airports": ["CNX"], "assumed_flight": True},
     {"season": 2, "episode": 12, "title": "My Friend Linh",
      "air_date": "2003-05-30", "city": "Hanoi", "country": "Vietnam",
      "airports": ["HAN"],
-     "note": "back to Hanoi for Tet with his friend Linh"},
+     "note": "back to Hanoi for Tet with his friend Linh", "assumed_flight": True},
     {"season": 2, "episode": 13, "title": "Thailand: One Night in Bangkok",
      "air_date": "2003-06-27", "city": "Bangkok", "country": "Thailand",
      "airports": ["BKK"],
-     "note": "a layover that became an episode"},
+     "note": "a layover that became an episode", "assumed_flight": True},
 ]
 
 # All three shows in one table, each row tagged with which show it came

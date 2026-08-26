@@ -1,5 +1,5 @@
 traveler_id,name,trip_count,trips_with_destination,n_destinations,top_destination,top_destination_share,entropy,entropy_is_informative,norm_global,norm_observed,norm_capacity
-anthony-bourdain,Anthony Bourdain,146,146,16,Northern America,0.3288,2.2647,True,0.7327,0.8168,0.7327
+anthony-bourdain,Anthony Bourdain,201,201,19,Northern America,0.2388,2.534,True,0.8198,0.8606,0.8198
 conan-o-brien,Conan O'Brien,17,17,9,Western Europe,0.1765,2.1193,True,0.6856,0.9645,0.748
 stan-getz,Stan Getz,30,30,5,Southern Europe,0.3,1.4756,True,0.4774,0.9168,0.4774
 gordon-ramsay,Gordon Ramsay,15,15,6,Northern America,0.5333,1.4142,True,0.4575,0.7893,0.5222

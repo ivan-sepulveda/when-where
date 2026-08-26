@@ -3,7 +3,7 @@
   "log_base": "natural (nats)",
   "global_distinct_destinations": 22,
   "global_distinct_destinations_source": "UN M49: every detailed region that exists, whether or not this dataset visits it",
-  "observed_distinct_destinations": 17,
+  "observed_distinct_destinations": 19,
   "ln_global_distinct_destinations": 3.091,
   "travelers_total": 212,
   "travelers_with_destination_data": 212,
@@ -12,16 +12,16 @@
     {
       "traveler_id": "anthony-bourdain",
       "name": "Anthony Bourdain",
-      "trip_count": 146,
-      "trips_with_destination": 146,
-      "n_destinations": 16,
+      "trip_count": 201,
+      "trips_with_destination": 201,
+      "n_destinations": 19,
       "top_destination": "Northern America",
-      "top_destination_share": 0.3288,
-      "entropy": 2.2647,
+      "top_destination_share": 0.2388,
+      "entropy": 2.534,
       "entropy_is_informative": true,
-      "norm_global": 0.7327,
-      "norm_observed": 0.8168,
-      "norm_capacity": 0.7327
+      "norm_global": 0.8198,
+      "norm_observed": 0.8606,
+      "norm_capacity": 0.8198
     },
     {
       "traveler_id": "conan-o-brien",

@@ -47,6 +47,8 @@ from collections import defaultdict
 from datetime import date
 from pathlib import Path
 
+from chef_trips import UNKNOWN_CARRIER  # noqa: E402
+
 DATA_DIR = Path(__file__).resolve().parent.parent.parent
 PROCESSED_DIR = DATA_DIR / "processed" / "multiple"
 BTS_DIR = DATA_DIR / "raw" / "bts_t100"
@@ -54,6 +56,7 @@ BTS_DIR = DATA_DIR / "raw" / "bts_t100"
 ROUTES_PATH = PROCESSED_DIR / "airline_routes_enhanced.csv"
 BTS_INTL_PATH = BTS_DIR / "T_T100I_MARKET_ALL_CARRIER.csv"
 BTS_DOMESTIC_PATH = BTS_DIR / "T_T100D_SEGMENT_ALL_CARRIER.csv"
+COUNTRY_ALIASES_PATH = DATA_DIR / "reference" / "country_aliases.json"
 
 # Airlines that fly these routes in airline_routes_enhanced.csv but never
 # appear in the T-100 extracts, so their code has no name to look up --
@@ -135,6 +138,49 @@ def age_on(day: date, birth_date: date) -> int:
     """Age at the start of the trip, from a real birthdate -- so the traveler
     ages across the run of the show instead of being one number for a decade."""
     return day.year - birth_date.year - ((day.month, day.day) < (birth_date.month, birth_date.day))
+
+
+_country_iso2_cache: dict[str, str] | None = None
+
+# country_aliases.json stores Namibia's iso2 as the float NaN instead of
+# the string "NA" -- a pandas read_csv quirk (NA parses as a null, not a
+# literal) tracked in the README TODO as a fix for build_country_aliases.py
+# and a full downstream rerun. That's real surgery on a file every other
+# script also reads, out of scope here -- this is a one-country patch
+# local to this fallback, so a documented visit doesn't fail API
+# validation (destination_country_code is a required field, not Optional)
+# over one bad row. Remove this once the TODO item lands.
+_ISO2_OVERRIDES = {"namibia": "NA"}
+
+
+def _country_name_to_iso2(name: str | None) -> str | None:
+    """Fallback for a trip whose (origin, destination) has no row in
+    airline_routes_enhanced.csv at all -- an assumed_flight trip (see
+    chef_trips.py), where there's no route data to pull country_pair from.
+    Looks the destination's country NAME up in country_aliases.json
+    instead. Only used when the route-based lookup below comes up empty,
+    so every trip still prefers the real route data when it exists."""
+    global _country_iso2_cache
+    if _country_iso2_cache is None:
+        with COUNTRY_ALIASES_PATH.open() as fh:
+            data = json.load(fh)
+        # Namibia's iso2 ("NA") reads back from country_aliases.json as the
+        # float NaN, not the string "NA" -- a pandas read_csv quirk tracked
+        # in the README TODO, not something to fix here. Guard rather than
+        # write a literal NaN into this file: skip any entry whose iso2
+        # isn't actually a string, so Namibia (the one real case today)
+        # falls back to None like any other unresolved country, instead of
+        # a value that looks resolved but isn't valid JSON's idea of one.
+        _country_iso2_cache = {
+            alias: entry["iso2"]
+            for entry in data["countries"].values()
+            for alias in entry["aliases"]
+            if isinstance(entry["iso2"], str)
+        }
+    if not name:
+        return None
+    key = name.strip().casefold()
+    return _country_iso2_cache.get(key) or _ISO2_OVERRIDES.get(key)
 
 
 def destination_country_code(country_pair, is_domestic, home_country_code="US"):
@@ -225,13 +271,16 @@ def build_trips(trips_path, traveler, preference, id_prefix, birth_date, rebuild
         report.append((trip.get("episode_code") or trip_id, f"{origin}-{dest}",
                        [names.get(c, c) for c in codes], carrier, how))
 
+        dest_country_code = destination_country_code(country_pairs.get((origin, dest)), is_domestic)
+        if dest_country_code is None and not is_domestic:
+            dest_country_code = _country_name_to_iso2(country)
+
         trips.append({
             "trip_id": trip_id,
             "destination_raw": f"{city}, {country}",
             "destination_city": city,
             "destination_country": country,
-            "destination_country_code": destination_country_code(
-                country_pairs.get((origin, dest)), is_domestic),
+            "destination_country_code": dest_country_code,
             "destination_kind": "city",
             "start_date": trip["start_date"],
             "start_date_raw": trip["start_date"],
@@ -307,7 +356,12 @@ def write_output(out_path, trips, traveler, declared_base, preference, source_no
 def print_summary(trips, report, traveler, preference, out_path, show_report=False):
     # A carrier code with no name reads as "DY" on a chart where every other
     # segment says "Delta Air Lines Inc." -- name it in EXTRA_CARRIER_NAMES.
-    unnamed = sorted({t["carrier_code"] for t in trips if t["carrier_name"] == t["carrier_code"]})
+    # UNKNOWN_CARRIER is excluded on purpose: it isn't a code that's missing
+    # a name, it's chef_trips.py's explicit "we don't know" placeholder for
+    # an assumed_flight trip, and adding it to EXTRA_CARRIER_NAMES would be
+    # inventing an airline.
+    unnamed = sorted({t["carrier_code"] for t in trips
+                      if t["carrier_name"] == t["carrier_code"] and t["carrier_code"] != UNKNOWN_CARRIER})
     if unnamed:
         print("WARNING -- carrier code with no name, add it to EXTRA_CARRIER_NAMES: "
               + ", ".join(unnamed))

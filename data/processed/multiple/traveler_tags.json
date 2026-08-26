@@ -2484,50 +2484,6 @@
       ]
     },
     {
-      "traveler_id": "anthony-bourdain",
-      "name": "Anthony Bourdain",
-      "trip_count": 146,
-      "trips_with_carrier": 146,
-      "distinct_carriers": 17,
-      "top_carrier": "Delta Air Lines Inc.",
-      "top_carrier_share": 0.6644,
-      "below_min_trips": false,
-      "base_city": "New York City",
-      "base_inference": "declared",
-      "home_airport": null,
-      "hub_city": "New York City",
-      "hub_airlines": [
-        "United",
-        "Delta",
-        "American"
-      ],
-      "home_airport_is_hub": null,
-      "tags": [
-        {
-          "kind": "multi_hub",
-          "tag_id": "multi-hub",
-          "label": "Multi Hub",
-          "carrier_name": null,
-          "carrier_names": [
-            "United Air Lines Inc.",
-            "Delta Air Lines Inc.",
-            "American Airlines Inc."
-          ],
-          "airlines": [
-            "United",
-            "Delta",
-            "American"
-          ],
-          "hub_city": "New York City",
-          "hub_airports": [
-            "EWR",
-            "JFK",
-            "LGA"
-          ]
-        }
-      ]
-    },
-    {
       "traveler_id": "odysseus",
       "name": "Odysseus",
       "trip_count": 32,
@@ -2714,6 +2670,50 @@
           "hub_city": "Charlotte",
           "hub_airports": [
             "CLT"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "anthony-bourdain",
+      "name": "Anthony Bourdain",
+      "trip_count": 201,
+      "trips_with_carrier": 201,
+      "distinct_carriers": 19,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 0.4826,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": null,
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": null,
+      "tags": [
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
           ]
         }
       ]

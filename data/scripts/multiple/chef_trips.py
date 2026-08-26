@@ -9,9 +9,27 @@ everything here is the part that doesn't change between chefs:
   * which airport a trip actually departs from, given an ordered list of
     home airports and the candidate airports for a destination
   * the flights-only rule -- a route has to exist in
-    airline_routes_enhanced.csv or the episode is excluded
+    airline_routes_enhanced.csv or the episode is excluded, unless the
+    episode opts out of it with `assumed_flight` (see below)
   * the date arithmetic (air date + a fixed number of days)
   * the CSV/JSON shape both shows write
+
+ASSUMED_FLIGHT (Ivan's, 2026-08-26). The flights-only rule exists because
+this is a real dataset built from real route data, not because every
+documented trip that fails it didn't happen. An episode can set
+`"assumed_flight": True` to be included anyway: it takes the FIRST airport
+in its `airports` list as the destination regardless of whether any home
+airport flies there nonstop, records the carrier as UNKNOWN_CARRIER
+("Airline Unknown") rather than picking one, and says so in `notes`. The
+distance is still real (great-circle, from airports.json's coordinates),
+same as every other trip -- only the airline is unrecorded. This is a
+deliberate, per-episode override, not a relaxation of the rule itself:
+most no-nonstop episodes still exclude, because a documented visit is a
+research finding and a route being flyable today is a route-data fact,
+and conflating the two would make every future host's exclusion list
+suspect. See build_bourdain_trips.py's Libya/Ethiopia/Madagascar/etc.
+episodes for the case that motivated it -- Bourdain visited all of them,
+the show says so, and there's no nonstop from New York to any of them.
 
 THE CAPITAL RULE (Ivan's). When a source names a country and no city --
 an episode simply titled "Norway" or "Vietnam" -- the row records that
@@ -46,9 +64,18 @@ Requires: data/reference/airports.json (IATA -> name/city/country/coords),
 
 import csv
 import json
+import sys
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 from pathlib import Path
+
+# distance_calculator.py lives one directory up (data/scripts/), not
+# alongside this script (data/scripts/multiple/) -- only a script's own
+# directory is added to sys.path automatically, so the parent has to be
+# added by hand. Used only for assumed_flight trips (see below); every
+# other trip's distance comes straight from airline_routes_enhanced.csv.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from distance_calculator import calculate_distance  # noqa: E402
 
 DATA_DIR = Path(__file__).resolve().parent.parent.parent
 REFERENCE_DIR = DATA_DIR / "reference"
@@ -64,6 +91,11 @@ GROUND = "ground_trip"          # home turf or driven, no flight involved
 COMPILATION = "compilation"     # clip show, not a new journey
 AMBIGUOUS = "no_single_destination"  # a region or several countries, no one gateway
 NO_NONSTOP = "no_home_nonstop"  # no nonstop from any home airport in the route data
+
+# Sentinel carrier name/code for a trip built via `assumed_flight` -- not a
+# real IATA code, so chef_traveler.py's "carrier code with no name" warning
+# knows to skip it rather than asking for an EXTRA_CARRIER_NAMES entry.
+UNKNOWN_CARRIER = "Airline Unknown"
 
 CSV_FIELDS = [
     "trip_id",
@@ -182,7 +214,32 @@ def build_rows(episodes, origins, traveler_name, trip_days):
             continue
 
         flight = resolve_flight(ep["airports"], routes, origins)
-        if flight is None:
+        assumed = False
+        if flight is None and ep.get("assumed_flight"):
+            # Documented visit, no nonstop in the route data. Take the
+            # episode's own first-choice airport (it's the best-researched
+            # candidate) and the traveler's primary home airport, and build
+            # the trip anyway -- see ASSUMED_FLIGHT in the module docstring.
+            assumed = True
+            dest_iata = ep["airports"][0]
+            dest_airport = airports.get(dest_iata, {})
+            origin_iata = origins[0]
+            origin_airport = airports.get(origin_iata, {})
+            distance_km = None
+            if dest_airport.get("lat") is not None and origin_airport.get("lat") is not None:
+                distance_km = round(calculate_distance(
+                    origin_airport["lat"], origin_airport["lng"],
+                    dest_airport["lat"], dest_airport["lng"],
+                ), 1)
+            flight = {
+                "destination_airport": dest_iata,
+                "origin_airport": origin_iata,
+                "origin_alternates": [],
+                "airlines": [],
+                "distance_km": distance_km,
+                "is_domestic": int(dest_airport.get("country") == origin_airport.get("country")),
+            }
+        elif flight is None:
             excluded.append({
                 **base,
                 "reason": NO_NONSTOP,
@@ -198,6 +255,13 @@ def build_rows(episodes, origins, traveler_name, trip_days):
         notes = []
         if ep.get("note"):
             notes.append(ep["note"])
+        if assumed:
+            notes.append(
+                f"no nonstop from {'/'.join(origins)} to any of "
+                + "/".join(ep["airports"])
+                + f" in airline_routes_enhanced.csv; included anyway -- documented visit, "
+                f"airline unrecorded ({UNKNOWN_CARRIER}), not invented"
+            )
 
         # When the episode's first-choice airport has no nonstop and a later
         # candidate wins, the trip is really to that second airport's city --
@@ -248,6 +312,7 @@ def build_rows(episodes, origins, traveler_name, trip_days):
             "distance_km": flight["distance_km"],
             "is_domestic": flight["is_domestic"],
             "notes": "; ".join(notes),
+            **({"carrier": UNKNOWN_CARRIER} if assumed else {}),
         })
 
     return trips, excluded
@@ -309,6 +374,11 @@ def write_outputs(csv_path, json_path, trips, excluded, episodes, meta, include_
 def print_summary(trips, excluded, episodes, csv_path, json_path):
     print(f"Wrote {len(trips)} trips to {csv_path}")
     print(f"Wrote {len(trips)} trips + {len(excluded)} excluded episodes to {json_path}")
+
+    assumed = [t for t in trips if t.get("carrier") == UNKNOWN_CARRIER]
+    if assumed:
+        print(f"{len(assumed)} of those {len(trips)} have no real nonstop -- included via "
+              f"assumed_flight, carrier recorded as {UNKNOWN_CARRIER!r}")
 
     by_origin = defaultdict(int)
     for trip in trips:
