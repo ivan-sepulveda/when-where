@@ -1,0 +1,115 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+Humboldt Forum	art_museum	Art Museum		Berlin	Berlin			29500	317500	2020	2020
+Bavarian National Museum	art_museum	Art Museum		Munich	Munich			13000	140000	1855	1855
+Hamburger Kunsthalle	art_museum	Art Museum		Hamburg	Hamburg			12000	130000	1869	1869
+Pinakothek der Moderne	art_museum	Art Museum		Munich	Munich			12000	130000	2002	2002
+Hamburger Bahnhof	art_museum	Art Museum		Berlin	Berlin			10000	110000	1996	1996
+Museum Kunstpalast	art_museum	Art Museum		Düsseldorf	Düsseldorf			10000	110000	1913	1913
+Gemäldegalerie	art_museum	Art Museum		Berlin	Berlin			8000	86000	1830	1830
+Museum Ludwig	art_museum	Art Museum		Cologne	Cologne			8000	86000	1976	1976
+Neues Museum	art_museum	Art Museum		Berlin	Berlin			8000	86000	1855	1855
+Kunstsammlungen und Museen Augsburg	art_museum	Art Museum		Augsburg	Augsburg						
+Alte Nationalgalerie	art_museum	Art Museum		Berlin	Berlin						
+Altes Museum	art_museum	Art Museum		Berlin	Berlin						
+Bauhaus Archive	art_museum	Art Museum		Berlin	Berlin						
+Berlinische Galerie	art_museum	Art Museum		Berlin	Berlin						
+Bodemuseum	art_museum	Art Museum		Berlin	Berlin						
+Bröhan Museum	art_museum	Art Museum		Berlin	Berlin						
+Brücke Museum	art_museum	Art Museum		Berlin	Berlin						
+Friedrichswerder Church	art_museum	Art Museum		Berlin	Berlin						
+Jewish Museum Berlin	art_museum	Art Museum		Berlin	Berlin						
+Kunstgewerbemuseum	art_museum	Art Museum		Berlin	Berlin						
+Museum Berggruen	art_museum	Art Museum		Berlin	Berlin						
+Museum of Asian Art	art_museum	Art Museum		Berlin	Berlin						
+Museum of Islamic Art	art_museum	Art Museum		Berlin	Berlin						
+Märkisches Museum	art_museum	Art Museum		Berlin	Berlin						
+Neue Nationalgalerie	art_museum	Art Museum		Berlin	Berlin						
+Pergamonmuseum	art_museum	Art Museum		Berlin	Berlin						
+Scharf-Gerstenberg Collection	art_museum	Art Museum		Berlin	Berlin						
+Kunsthalle Bielefeld	art_museum	Art Museum		Bielefeld	Bielefeld						
+Kunstmuseum Bonn	art_museum	Art Museum		Bonn	Bonn						
+Rheinisches Landesmuseum Bonn	art_museum	Art Museum		Bonn	Bonn						
+Herzog Anton Ulrich Museum	art_museum	Art Museum		Braunschweig	Braunschweig						
+Kunsthalle	art_museum	Art Museum		Bremen	Bremen						
+Paula Modersohn-Becker Museum	art_museum	Art Museum		Bremen	Bremen						
+Museum Gunzenhauser	art_museum	Art Museum		Chemnitz	Chemnitz						
+Käthe Kollwitz Museum	art_museum	Art Museum		Cologne	Cologne						
+Museum für Angewandte Kunst (Cologne)	art_museum	Art Museum		Cologne	Cologne						
+Romano-Germanic Museum	art_museum	Art Museum		Cologne	Cologne						
+Schnütgen Museum	art_museum	Art Museum		Cologne	Cologne						
+Wallraf-Richartz Museum	art_museum	Art Museum		Cologne	Cologne						
+Hessisches Landesmuseum Darmstadt	art_museum	Art Museum		Darmstadt	Darmstadt						
+Museum Art.Plus	art_museum	Art Museum		Donaueschingen	Donaueschingen						
+Galerie Neue Meister	art_museum	Art Museum		Dresden	Dresden						
+Gemäldegalerie Alte Meister	art_museum	Art Museum		Dresden	Dresden						
+Grünes Gewölbe	art_museum	Art Museum		Dresden	Dresden						
+Lehmbruck Museum	art_museum	Art Museum		Duisburg	Duisburg						
+Museum Küppersmühle	art_museum	Art Museum		Duisburg	Duisburg						
+Kunstsammlung Nordrhein-Westfalen	art_museum	Art Museum		Düsseldorf	Düsseldorf						
+museum Kunst Palast	art_museum	Art Museum		Düsseldorf	Düsseldorf						
+Angermuseum	art_museum	Art Museum		Erfurt	Erfurt						
+Museum Folkwang	art_museum	Art Museum		Essen	Essen						
+Liebieghaus	art_museum	Art Museum		Frankfurt	Frankfurt						
+Museum Giersch	art_museum	Art Museum		Frankfurt	Frankfurt						
+Museum für Moderne Kunst	art_museum	Art Museum		Frankfurt	Frankfurt						
+Museum für angewandte Kunst	art_museum	Art Museum		Frankfurt	Frankfurt						
+Städel	art_museum	Art Museum		Frankfurt	Frankfurt						
+Augustiner Museum	art_museum	Art Museum		Freiburg im Breisgau	Freiburg im Breisgau						
+Stiftung Moritzburg / Kunstmuseum des Landes Sachsen-Anhalt	art_museum	Art Museum		Halle, Saxony-Anhalt	Halle, Saxony-Anhalt						
+Bucerius Kunst Forum	art_museum	Art Museum		Hamburg	Hamburg						
+Deichtorhallen	art_museum	Art Museum		Hamburg	Hamburg						
+Kunsthalle	art_museum	Art Museum		Hamburg	Hamburg						
+Museum für Kunst und Gewerbe	art_museum	Art Museum		Hamburg	Hamburg						
+Kestner-Museum	art_museum	Art Museum		Hanover	Hanover						
+Lower Saxony State Museum	art_museum	Art Museum		Hanover	Hanover						
+Sprengel Museum	art_museum	Art Museum		Hanover	Hanover						
+Kurpfälzisches Museum	art_museum	Art Museum		Heidelberg	Heidelberg						
+Center for Art and Media Karlsruhe	art_museum	Art Museum		Karlsruhe	Karlsruhe						
+Staatliche Kunsthalle Karlsruhe	art_museum	Art Museum		Karlsruhe	Karlsruhe						
+Schloss Wilhelmshöhe	art_museum	Art Museum		Kassel	Kassel						
+Museum der bildenden Künste	art_museum	Art Museum		Leipzig	Leipzig						
+Museum für angewandte Kunst	art_museum	Art Museum		Leipzig	Leipzig						
+Landesmuseum Mainz	art_museum	Art Museum		Mainz	Mainz						
+Kunsthalle	art_museum	Art Museum		Mannheim	Mannheim						
+Alte Pinakothek	art_museum	Art Museum		Munich	Munich						
+Die Neue Sammlung	art_museum	Art Museum		Munich	Munich						
+Glyptothek	art_museum	Art Museum		Munich	Munich						
+Lenbachhaus	art_museum	Art Museum		Munich	Munich						
+Museum Brandhorst	art_museum	Art Museum		Munich	Munich						
+Neue Pinakothek	art_museum	Art Museum		Munich	Munich						
+Staatliche Antikensammlungen	art_museum	Art Museum		Munich	Munich						
+Villa Stuck	art_museum	Art Museum		Munich	Munich						
+Abteiberg Museum	art_museum	Art Museum		Mönchengladbach	Mönchengladbach						
+Kunstmuseum Pablo Picasso Münster	art_museum	Art Museum		Münster	Münster						
+Westphalian State Museum of Art and Cultural History	art_museum	Art Museum		Münster	Münster						
+Germanisches Nationalmuseum	art_museum	Art Museum		Nuremberg	Nuremberg						
+Neues Museum Nürnberg	art_museum	Art Museum		Nuremberg	Nuremberg						
+Felix Nussbaum Haus	art_museum	Art Museum		Osnabrück	Osnabrück						
+Sanssouci Picture Gallery	art_museum	Art Museum		Potsdam	Potsdam						
+Saarland Museum	art_museum	Art Museum		Saarbrücken	Saarbrücken						
+Staatliches Museum	art_museum	Art Museum		Schwerin	Schwerin						
+Kunstmuseum	art_museum	Art Museum		Stuttgart	Stuttgart						
+Neue Staatsgalerie	art_museum	Art Museum		Stuttgart	Stuttgart						
+Staatsgalerie	art_museum	Art Museum		Stuttgart	Stuttgart						
+Klassik Stiftung Weimar	art_museum	Art Museum		Weimar	Weimar						
+New Bauhaus Museum	art_museum	Art Museum		Weimar	Weimar						
+Von der Heydt Museum	art_museum	Art Museum		Wuppertal	Wuppertal						
+German Museum of Technology (Berlin)	science_museum	Science Museum									
+Sinsheim Auto & Technik Museum	science_museum	Science Museum									
+Technikmuseum Speyer	science_museum	Science Museum									
+Otto-Lilienthal-Museum	science_museum	Science Museum		Anklam	Anklam						
+Spectrum – German Museum of Technology (Berlin)	science_museum	Science Museum		Berlin	Berlin						
+Universum Science Center	science_museum	Science Museum		Bremen	Bremen						
+German Hygiene Museum	science_museum	Science Museum		Dresden	Dresden						
+Mathematisch-Physikalischer Salon	science_museum	Science Museum		Dresden	Dresden						
+Hermann Oberth Space Travel Museum	science_museum	Science Museum		Feucht, Bavaria	Feucht, Bavaria						
+Museum für Kommunikation	science_museum	Science Museum		Frankfurt	Frankfurt						
+Naturmuseum Senckenberg	science_museum	Science Museum		Frankfurt	Frankfurt						
+Mathematikum	science_museum	Science Museum		Gießen	Gießen						
+experimenta	science_museum	Science Museum		Heilbronn	Heilbronn						
+TECHNOSEUM	science_museum	Science Museum		Mannheim	Mannheim						
+German Space Travel Exhibition	science_museum	Science Museum		Morgenröthe-Rautenkranz	Morgenröthe-Rautenkranz						
+Deutsches Museum	science_museum	Science Museum		Munich	Munich						
+Rheinisches Industriemuseum	science_museum	Science Museum		Oberhausen, Ratingen, Solingen, Bergisch Gladbach, Engelskirchen, Euskirchen	Oberhausen, Ratingen, Solingen, Bergisch Gladbach, Engelskirchen, Euskirchen						
+Völklinger Hütte (Völklingen Ironworks)	science_museum	Science Museum		Völklingen	Völklingen						
+Phaeno Science Center	science_museum	Science Museum		Wolfsburg	Wolfsburg						

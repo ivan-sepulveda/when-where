@@ -1,0 +1,31 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+Museum Boijmans Van Beuningen	art_museum	Art Museum		Rotterdam	Rotterdam			12000	130000	1849	1849
+Rijksmuseum	art_museum	Art Museum		Amsterdam	Amsterdam			12000	130000	1800	1800
+Stedelijk Museum	art_museum	Art Museum		Amsterdam	Amsterdam			8000	86000	1874	1874
+Cobra Museum	art_museum	Art Museum		Amstelveen	Amstelveen						
+H'ART Museum	art_museum	Art Museum		Amsterdam	Amsterdam						
+Rijksmuseum Amsterdam	art_museum	Art Museum		Amsterdam	Amsterdam						
+Van Gogh Museum	art_museum	Art Museum		Amsterdam	Amsterdam						
+Van Abbemuseum	art_museum	Art Museum		Eindhoven	Eindhoven						
+Rijksmuseum Twenthe	art_museum	Art Museum		Enschede	Enschede						
+Groninger Museum	art_museum	Art Museum		Groningen	Groningen						
+Frans Hals Museum	art_museum	Art Museum		Haarlem	Haarlem						
+Singer Laren	art_museum	Art Museum		Laren, North Holland	Laren, North Holland						
+Hofje van Mevrouw Van Aerden	art_museum	Art Museum		Leerdam	Leerdam						
+Rijksmuseum van Oudheden	art_museum	Art Museum		Leiden	Leiden						
+Stedelijk Museum De Lakenhal	art_museum	Art Museum		Leiden	Leiden						
+Bonnefanten Museum	art_museum	Art Museum		Maastricht	Maastricht						
+Kröller-Müller Museum	art_museum	Art Museum		Otterlo	Otterlo						
+Kunsthal	art_museum	Art Museum		Rotterdam	Rotterdam						
+Gemeentemuseum	art_museum	Art Museum		The Hague	The Hague						
+Mauritshuis	art_museum	Art Museum		The Hague	The Hague						
+Museum Bredius	art_museum	Art Museum		The Hague	The Hague						
+Centraal Museum	art_museum	Art Museum		Utrecht	Utrecht						
+Museum Catharijneconvent	art_museum	Art Museum		Utrecht	Utrecht						
+Science Center NEMO	science_museum	Science Museum		Amsterdam	Amsterdam						
+Teyler's Museum	science_museum	Science Museum		Haarlem	Haarlem						
+Discovery Center Continium	science_museum	Science Museum		Kerkrade	Kerkrade						
+Museum Boerhaave	science_museum	Science Museum		Leiden	Leiden						
+Naturalis Biodiversity Center	science_museum	Science Museum		Leiden	Leiden						
+Ithaka Science Center	science_museum	Science Museum		Tegelen	Tegelen						
+Museon	science_museum	Science Museum		The Hague	The Hague						

@@ -1,0 +1,19 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+Art & History Museum	art_museum	Art Museum		Brussels	Brussels			22000	240000	1835	1835
+Museum Mayer van den Bergh	art_museum	Art Museum		Antwerp	Antwerp						
+Museum of Modern Art Antwerp (MuHKA)	art_museum	Art Museum		Antwerp	Antwerp						
+Royal Museum of Fine Arts	art_museum	Art Museum		Antwerp	Antwerp						
+Rubenshuis	art_museum	Art Museum		Antwerp	Antwerp						
+Groeningemuseum	art_museum	Art Museum		Bruges	Bruges						
+Old St. John's Hospital	art_museum	Art Museum		Bruges	Bruges						
+Cinquantenaire Museum	art_museum	Art Museum		Brussels	Brussels						
+Horta Museum	art_museum	Art Museum		Brussels	Brussels						
+Royal Museums of Fine Arts of Belgium	art_museum	Art Museum		Brussels	Brussels						
+Museum of Fine Arts	art_museum	Art Museum		Ghent	Ghent						
+SONS Museum	art_museum	Art Museum		Kruishoutem	Kruishoutem						
+Musée des Beaux-Arts Tournai	art_museum	Art Museum		Tournai	Tournai						
+Royal Belgian Institute of Natural Sciences	science_museum	Science Museum		Brussels	Brussels						
+Pass	science_museum	Science Museum		Frameries	Frameries						
+Hidrodoe	science_museum	Science Museum		Herentals	Herentals						
+Euro Space Center	science_museum	Science Museum		Libin	Libin						
+Technopolis	science_museum	Science Museum		Mechelen	Mechelen						

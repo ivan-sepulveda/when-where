@@ -30,10 +30,10 @@ map 1:1 onto sections on the city page):
   - zoo_aquarium      -- OSM zoos/aquariums/safari parks + IMLS ZAW
   - botanical_garden  -- OSM botanical gardens/arboretums + IMLS BOT
   - art_museum        -- IMLS ART only. This one is US-only by design: the
-    frontend already shows the world's largest art museums from
-    art_museums_by_country.json, which covers non-US cities well and US cities
-    badly (only ~112 museums worldwide), so this fills that specific gap rather
-    than replacing that list. Merging happens in the frontend, not here.
+    frontend already shows museums from worldwide_museums.json, which covers
+    US cities badly (a handful of the largest art museums per country), so
+    this fills that specific gap rather than replacing that list. Merging
+    happens in the frontend, not here.
 
 Note the two halves of a category aren't equivalent in scope. IMLS's BOT
 discipline is "Arboretums, Botanical Gardens, & Nature Centers" while the OSM
@@ -374,8 +374,8 @@ def main():
             "imls": bool(imls_places),
         },
         "note": (
-            "art_museum is US-only (IMLS); the frontend merges it with the worldwide "
-            "largest-art-museums list. zoo_aquarium and botanical_garden are worldwide via OSM, "
+            "art_museum is US-only (IMLS); the frontend merges it with "
+            "worldwide_museums.json. zoo_aquarium and botanical_garden are worldwide via OSM, "
             "enriched with IMLS in the US. Counts are post-deduplication. Cities with nothing in "
             "any category are omitted entirely."
         ),

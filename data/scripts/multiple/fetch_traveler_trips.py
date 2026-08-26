@@ -9,9 +9,9 @@ Pulls the traveler/trip table via `kagglehub` (needs Kaggle API credentials --
 see https://github.com/Kaggle/kagglehub#authenticate) and writes it through to
 data/processed/multiple/traveler_trips.csv essentially as-is -- a raw cache
 copy plus a printed column list, no reshaping. All the cleaning (currency
-strings, date formats, "7 days" durations) happens in build_travelers.py, the
-same fetch-then-clean split fetch_art_museums.py and
-build_art_museums_by_country.py already use.
+strings, date formats, "7 days" durations) happens in build_travelers.py --
+a deliberate fetch-then-clean split, so a re-fetch never silently reshapes
+data and the cleaning step stays reviewable on its own.
 
 What this is: 139 trips with, per trip, a destination, start/end dates,
 duration, and the traveler's name, age, gender and nationality, plus
@@ -41,8 +41,8 @@ listing's own license field on the first real run, since a mirror's license
 statement and the original uploader's aren't guaranteed to match.
 
 SCHEMA IS UNCONFIRMED FIRST-HAND: this sandbox can't reach Kaggle
-(api.kaggle.com is blocked), same situation fetch_art_museums.py and
-fetch_imls_museums.py were written in. The column list above comes from the
+(api.kaggle.com is blocked), same situation fetch_imls_museums.py was
+written in. The column list above comes from the
 dataset's public documentation, not from a real run. This script writes
 whatever it finds through unchanged and prints the real headers, so it can't
 be wrong about the schema -- build_travelers.py is the one that has to match
@@ -92,9 +92,9 @@ def download_via_kagglehub() -> Path:
 
 
 def find_target_csv(dataset_dir: Path, filename: str = TARGET_FILENAME) -> Path:
-    """Same "exact match, else the only CSV, else complain" resolution as
-    fetch_art_museums.py's function of the same name -- this dataset is also
-    a single-CSV listing, so a filename change shouldn't break the run."""
+    """Resolves the dataset's CSV: exact filename match, else the only CSV
+    present, else complain. This dataset is a single-CSV listing, so a
+    filename change on Kaggle's side shouldn't break the run."""
     if dataset_dir.is_file():
         return dataset_dir
 

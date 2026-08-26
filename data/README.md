@@ -2076,79 +2076,59 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   Pacific island nation should be low or blank) before trusting the
   output.
 
-### Art museums (`scripts/multiple/fetch_art_museums.py`)
+### Museums (`raw/museums/*.tsv`, `scripts/multiple/build_worldwide_museums.py`)
 
-- **Source:** ["Largest-art-museums" dataset on Kaggle](https://www.kaggle.com/datasets/drahulsingh/largest-art-museums)
-  (uploader: drahulsingh), pulled via `kagglehub` (needs Kaggle API
-  credentials — same auth requirement as `fetch_airline_routes.py`).
-- **What it is:** 112 of the world's largest art museums by gallery
-  space, name/city/country/gallery space (m²+ft²)/year established.
-  Confirmed via a real run — this is a close match for Wikipedia's
-  ["List of largest art museums"](https://en.wikipedia.org/wiki/List_of_largest_art_museums)
-  (same museum count, same shape), so very likely scraped from (or
-  derived from the same source as) that page.
-- **Real column names:** `Name`, `City`, `Country`, `Gallery space in m2
-  (sq ft)`, `Gallery space in sq ft`, `Year established`.
-- **Data quirks (handled by `build_art_museums_by_country.py`):**
-  - The two gallery-space columns aren't cleanly one-value-each — in
-    every row, at least one (often both) actually contains the
-    *combined* `"<m2>\n(<sq ft>)"` text, a leftover of scraping one
-    Wikipedia cell into two output columns. A few rows (e.g. the
-    Interdisciplinary Regional Museum of Messina, Kunsthaus Zürich) have
-    only a bare number with no parenthetical in either column — those
-    are left with `gallery_space_sqft: null` rather than guessing which
-    unit the lone number is in.
-  - `Year established` is a single year for most rows, but occasionally
-    a slash-separated pair (e.g. `"1806/1908"`) — kept as
-    `year_established_raw`, plus a parsed `year_established` (the first
-    4-digit year found, or `null`).
-  - Two country strings didn't resolve out of the box: `"Brasil"`
-    (Portuguese/Spanish spelling, one row) and `"UAE"`. Both added to
-    `EXTRA_ALIASES` in `build_country_aliases.py` rather than worked
-    around in this script.
-- **License:** unresolved. The Kaggle listing doesn't surface a clear
-  license. Confirm on the dataset page before this data goes beyond
-  personal/internal use — same unresolved-license posture already
-  carried for UNESCO and OSM hiking-trail data above.
-- **Coverage caveat:** 112 museums across 32 countries is a small,
-  curated "largest by gallery space" list, not an exhaustive per-country
-  museum count — most countries have zero rows here even though they
-  genuinely have art museums; this measures "does this country have one
-  of the world's biggest," not "how much art infrastructure does this
-  country have."
-- **Output:**
-  - `processed/multiple/art_museums.csv` — the source CSV written
-    through basically as-is (a `raw/kaggle_art_museums/` cache copy, no
-    reshaping).
-  - `processed/multiple/art_museums_by_country.json` — regrouped by
-    iso2 (via `country_lookup.normalize_country()`), each museum's
-    `gallery_space_m2`/`gallery_space_sqft`/`year_established` parsed
-    per the quirks above, sorted by gallery space descending within each
-    country. No `compute_*_score.py` step yet — same "raw count/data,
-    not yet a 0–10 score" state `HIKING_ROUTE_COUNT` is in.
+- **Source of truth:** the per-country TSVs in `raw/museums/`, one file
+  per country named `<ISO2>.tsv`. See `raw/museums/README.md` for the
+  column format, per-country provenance and attribution, and the
+  coverage caveats. Adding a country means adding a TSV; correcting a
+  museum means editing its row. There is no fetch step — these files are
+  edited directly and reviewed in diffs like any other source file.
+- **What it is:** 3,384 museums across 91 countries. Coverage is
+  deliberately uneven and **no country should be assumed exhaustive** —
+  most countries are covered from Wikipedia's "List of art museums" and
+  "List of science museums", Japan additionally from an art-museum-only
+  national tourism directory, Spain and France additionally from general
+  museum lists, and some countries also carry a handful of the world's
+  largest art museums by gallery space. A country with three rows has
+  three *recorded* museums, not three museums.
+- **Columns:** `name`, `category`, `kind`, `description`,
+  `location_raw`, `city`, `lat`, `lng`, `gallery_space_m2`,
+  `gallery_space_sqft`, `year_established`, `year_established_raw`. An
+  empty field means null — the source recorded nothing, and it is never
+  a guess. `lat`/`lng` are empty everywhere today; geocoding is a future
+  step.
+- **`category`/`kind`:** reflect what a source actually recorded. Where
+  a source was a general museum list with no reliable per-museum type,
+  both are null rather than inferred — which is why most Spanish and
+  French rows are uncategorized while Japanese rows carry a type.
+- **Not deduplicated by name, by design:** some names legitimately
+  collide between distinct museums (Japan has two Idemitsu Museum of
+  Arts branches and two National Museums of Modern Art, whose names are
+  truncated identically in the source). Collapsing them would delete
+  real places, so duplicate resolution belongs in the TSV where a human
+  can see both rows.
+- **Output:** `processed/multiple/worldwide_museums.json` — every row
+  from every TSV concatenated, with `iso2` taken from each filename,
+  plus per-country/category/kind counts. The build script has no
+  per-country logic and no knowledge of where any row came from. No
+  `compute_*_score.py` step yet — same "raw data, not yet a 0–10 score"
+  state `HIKING_ROUTE_COUNT` is in.
+- **Consumed by:** `frontend/src/lib/artMuseums.ts`, which filters to
+  `category === "art_museum"`. It is the only museums dataset the
+  frontend fetches. Note the file also carries `science_museum` rows,
+  which nothing consumes yet.
 - **Run:**
   ```
-  python scripts/multiple/fetch_art_museums.py
-  python scripts/multiple/fetch_art_museums.py --list-files   # inspect the dataset's files without processing
-  python scripts/multiple/build_art_museums_by_country.py
+  python scripts/multiple/build_worldwide_museums.py
   ```
-- **Note:** `fetch_art_museums.py` itself still hasn't been run inside
-  this sandbox (can't reach Kaggle), but `build_art_museums_by_country.py`
-  has — run for real against the actual `art_museums.csv` output (112
-  rows, 32 countries, 0 unmatched), with spot-checks confirming the
-  gallery-space parsing on the tricky rows: British Museum (m2-column had
-  no parenthetical, sq-ft-column did — correctly pulled 92,000 m²/990,000
-  sq ft), Louvre (both columns fully duplicated — 72,735 m²/782,910 sq
-  ft), and the lone-number cases with no parenthetical in either column
-  (Messina, Kunsthaus Zürich — correctly left `gallery_space_sqft: null`
-  instead of guessing).
 
 ### US museum directory — zoos, aquariums, botanical gardens (`scripts/multiple/fetch_imls_museums.py`)
 
 - **Source:** ["Museums, Aquariums, and Zoos" on Kaggle](https://www.kaggle.com/datasets/imls/museum-directory)
   — a mirror of the [IMLS Museum Data Files](https://www.imls.gov/research-evaluation/data-collection/museum-data-files),
   pulled via `kagglehub` (needs Kaggle API credentials — same auth
-  requirement as `fetch_art_museums.py`).
+  requirement as `fetch_traveler_trips.py`).
 - **What it is:** the US federal museum universe file — roughly 33,000
   institutions with name, discipline, city/state and geocoded
   latitude/longitude. Three of its disciplines are what this project is
@@ -2163,8 +2143,9 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   which is what `build_city_attractions.py` needs to answer "what's
   within 100km of this city" the same way UNESCO sites and Michelin
   restaurants already are. Its `ART` records also fill a real gap: the
-  `art_museums_by_country.json` list above is only the ~112 largest art
-  museums worldwide, so US cities show almost nothing from it.
+  `worldwide_museums.json` list above holds only a handful of art
+  museums per country outside Japan and Spain, so US cities show almost
+  nothing from it.
 - **Coverage caveat, and it's the big one:** IMLS is a US federal agency
   and this file covers the 50 states plus DC and nothing else. It is not
   a world museum directory — every non-US city gets zero rows from it,
@@ -2280,8 +2261,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   - `zoo_aquarium` — OSM zoos/aquariums/safari parks + IMLS `ZAW`
   - `botanical_garden` — OSM botanical gardens/arboretums + IMLS `BOT`
   - `art_museum` — IMLS `ART` only, US-only by design; the frontend
-    merges it with the worldwide largest-art-museums list rather than
-    replacing it
+    merges it with `worldwide_museums.json` rather than replacing it
 - **Why a separate file from `tourist_cities_enhanced.json`:** that file
   is already 27MB and is loaded whole at API startup, and these two
   sources refresh on a completely different cadence (OSM changes daily,
@@ -2328,8 +2308,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 
 - **Source:** ["Traveler Trip Data" on Kaggle](https://www.kaggle.com/datasets/rkiattisak/traveler-trip-data)
   (uploader: rkiattisak), pulled via `kagglehub` (needs Kaggle API
-  credentials — same auth requirement as `fetch_art_museums.py` and
-  `fetch_imls_museums.py`).
+  credentials — same auth requirement as `fetch_imls_museums.py`).
 - **What it is:** 139 trips (~13KB), one row per trip, with 13 columns:
   `Trip ID`, `Destination`, `Start date`, `End date`, `Duration (days)`,
   `Traveler name`, `Traveler age`, `Traveler gender`,

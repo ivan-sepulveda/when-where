@@ -1,0 +1,12 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+M+	art_museum	Art Museum		Kowloon	Kowloon			17000	183000	2021	2021
+Hong Kong Visual Arts Centre	art_museum	Art Museum		City of Victoria	City of Victoria						
+Tsui Museum of Art	art_museum	Art Museum		City of Victoria	City of Victoria						
+University Museum and Art Gallery	art_museum	Art Museum		City of Victoria	City of Victoria						
+Hong Kong Museum of Art	art_museum	Art Museum		Kowloon	Kowloon						
+Fanling Environmental Resource Centre	science_museum	Science Museum		Fanling	Fanling						
+Health Education Exhibition and Resource Centre	science_museum	Science Museum		Kowloon Park	Kowloon Park						
+Hong Kong Museum of Medical Sciences	science_museum	Science Museum		Mid-Levels	Mid-Levels						
+Jockey Club Museum of Climate Change	science_museum	Science Museum		New Territories	New Territories						
+Hong Kong Science Museum	science_museum	Science Museum		Tsim Sha Tsui	Tsim Sha Tsui						
+Hong Kong Space Museum	science_museum	Science Museum		Tsim Sha Tsui	Tsim Sha Tsui						

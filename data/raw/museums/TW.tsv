@@ -1,0 +1,36 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+National Taiwan Museum of Fine Arts	art_museum	Art Museum		Taichung	Taichung			13600	146000	1988	1988
+Taipei Fine Arts Museum	art_museum	Art Museum		Taipei	Taipei			11700	126000	1983	1983
+National Palace Museum	art_museum	Art Museum		Taipei	Taipei			9613	103470	1925	1925
+Changhua Arts Museum	art_museum	Art Museum		Changhua	Changhua						
+Changhua County Art Museum	art_museum	Art Museum		Changhua	Changhua						
+Lukang Folk Arts Museum	art_museum	Art Museum		Changhua	Changhua						
+Chiayi Art Museum	art_museum	Art Museum		Chiayi City	Chiayi City						
+Mei-Ling Fine Arts Museum	art_museum	Art Museum		Chiayi County	Chiayi County						
+Kaohsiung Museum of Fine Arts	art_museum	Art Museum		Kaohsiung	Kaohsiung						
+YM Oceanic Culture and Art Museum	art_museum	Art Museum		Keelung	Keelung						
+Yu-hsiu Museum of Art	art_museum	Art Museum		Nantou	Nantou						
+Pingtung Art Museum	art_museum	Art Museum		Pingtung	Pingtung						
+Asia Museum of Modern Art	art_museum	Art Museum		Taichung	Taichung						
+Fengyuan Museum of Lacquer Art	art_museum	Art Museum		Taichung	Taichung						
+Taichung English and Art Museum	art_museum	Art Museum		Taichung	Taichung						
+Fangyuan Museum of Arts	art_museum	Art Museum		Tainan	Tainan						
+Tainan Art Museum	art_museum	Art Museum		Tainan	Tainan						
+Aurora Art Museum	art_museum	Art Museum		Taipei	Taipei						
+Children's Art Museum in Taipei	art_museum	Art Museum		Taipei	Taipei						
+Jut Art Museum	art_museum	Art Museum		Taipei	Taipei						
+Kuandu Museum of Fine Arts	art_museum	Art Museum		Taipei	Taipei						
+Lingnan Fine Arts Museum	art_museum	Art Museum		Taipei	Taipei						
+Museum of Contemporary Art Taipei	art_museum	Art Museum		Taipei	Taipei						
+Museum of Jade Art	art_museum	Art Museum		Taipei	Taipei						
+Tittot Glass Art Museum	art_museum	Art Museum		Taipei	Taipei						
+Taitung Art Museum	art_museum	Art Museum		Taitung	Taitung						
+Daxi Wood Art Ecomuseum	art_museum	Art Museum		Taoyuan	Taoyuan						
+Yilan Museum of Art	art_museum	Art Museum		Yilan	Yilan						
+Taipower Exhibit Center in Southern Taiwan	science_museum	Science Museum		Hengchun	Hengchun						
+National Science and Technology Museum	science_museum	Science Museum		Kaohsiung	Kaohsiung						
+National Museum of Marine Science and Technology	science_museum	Science Museum		Keelung	Keelung						
+National Museum of Marine Biology and Aquarium	science_museum	Science Museum		Pingtung	Pingtung						
+National Museum of Natural Science	science_museum	Science Museum		Taichung	Taichung						
+Insect Science Museum	science_museum	Science Museum		Taipei	Taipei						
+National Taiwan Science Education Center	science_museum	Science Museum		Taipei	Taipei						

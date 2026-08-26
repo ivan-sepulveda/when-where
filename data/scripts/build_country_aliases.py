@@ -40,9 +40,10 @@ EXTRA_ALIASES = {
     # country field instead of a name -- map those straight through.
     "ARE": ["are", "uae"],
     "THA": ["tha"],
-    # The Kaggle "largest-art-museums" dataset (fetch_art_museums.py) uses
-    # the Portuguese/Spanish spelling for Brazil in one row (Pinacoteca do
-    # Estado de São Paulo -> "Brasil").
+    # A museum source used the Portuguese/Spanish spelling for Brazil in
+    # one row (Pinacoteca do Estado de São Paulo -> "Brasil"). That source
+    # has since been folded into raw/museums/*.tsv, but the alias is kept:
+    # it's correct regardless of who sends it.
     "BRA": ["brasil"],
     # OpenFlights' airports.dat (fetch_openflights_airports.py) predates
     # several country renames/dissolutions and still uses the old name --

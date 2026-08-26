@@ -1,0 +1,20 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+Kunsthistorisches Museum	art_museum	Art Museum		Vienna	Vienna			29000	312153	1891	1891
+Universalmuseum Joanneum	art_museum	Art Museum		Graz	Graz						
+Museum Moderner Kunst Kaernten	art_museum	Art Museum		Klagenfurt	Klagenfurt						
+Sammlung Essl	art_museum	Art Museum		Klosterneuburg	Klosterneuburg						
+Lentos Art Museum	art_museum	Art Museum		Linz	Linz						
+Museum Liaunig	art_museum	Art Museum		Neuhaus, Kärnten	Neuhaus, Kärnten						
+Museum der Moderne Salzburg	art_museum	Art Museum		Salzburg	Salzburg						
+Residenzgalerie	art_museum	Art Museum		Salzburg	Salzburg						
+Albertina	art_museum	Art Museum		Vienna	Vienna						
+Gemäldegalerie der Akademie der bildenden Künste	art_museum	Art Museum		Vienna	Vienna						
+Leopold Museum	art_museum	Art Museum		Vienna	Vienna						
+Liechtenstein Museum	art_museum	Art Museum		Vienna	Vienna						
+MUMOK	art_museum	Art Museum		Vienna	Vienna						
+Museum für angewandte Kunst	art_museum	Art Museum		Vienna	Vienna						
+Österreichische Galerie Belvedere	art_museum	Art Museum		Vienna	Vienna						
+Ars Electronica Center	science_museum	Science Museum		Linz	Linz						
+Haus der Musik	science_museum	Science Museum		Vienna	Vienna						
+Naturhistorisches Museum Wien	science_museum	Science Museum		Vienna	Vienna						
+Technisches Museum Wien	science_museum	Science Museum		Vienna	Vienna						

@@ -20,9 +20,9 @@ that matter downstream:
   - ZAW: Zoos, Aquariums, & Wildlife Conservation
   - BOT: Arboretums, Botanical Gardens, & Nature Centers
   - ART: Art Museums -- used to enrich the city page's existing Art Museums
-    section, which otherwise only knows the ~112 largest art museums worldwide
-    (see build_art_museums_by_country.py) and so shows almost nothing for a
-    US city.
+    section, which otherwise knows only what's in raw/museums/*.tsv (see
+    build_worldwide_museums.py) -- a handful of museums per country outside
+    Japan and Spain, so it shows almost nothing for a US city.
 Every other discipline (history, science, children's, natural history,
 historical societies, general) is kept in the output too -- it costs nothing
 to carry and saves re-running this if a section for one of them ever gets
@@ -46,8 +46,8 @@ is what's required here. Contrast with UNESCO's unresolved license and OSM's
 share-alike ODbL (see data/README.md).
 
 SCHEMA IS UNCONFIRMED FIRST-HAND. This sandbox can't reach Kaggle
-(api.kaggle.com is blocked), same situation fetch_art_museums.py was written
-in. Two header conventions are known to exist for this data -- the raw IMLS
+(api.kaggle.com is blocked), same situation fetch_traveler_trips.py was
+written in. Two header conventions are known to exist for this data -- the raw IMLS
 release uses short uppercase codes (COMMONNAME, DISCIPLINE, LATITUDE,
 LONGITUDE, PHCITY, PHSTATE), while the Kaggle mirror is generally described
 with human-readable headers ("Museum Name", "Museum Type", "Latitude",
@@ -160,7 +160,7 @@ def download_via_kagglehub() -> Path:
 
 
 def find_museum_csvs(dataset_dir: Path) -> list[Path]:
-    """Every CSV in the download, sorted. Unlike fetch_art_museums.py's
+    """Every CSV in the download, sorted. Unlike fetch_traveler_trips.py's
     find_target_csv(), this deliberately does NOT try to pick one file: the
     IMLS release is split into three files by discipline group (the
     ART/BOT/CMU/HST/NAT/SCI/ZAW file, the general-museums file, and the

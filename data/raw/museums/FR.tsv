@@ -1,0 +1,980 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+Louvre	art_museum	Art Museum		Paris	Paris			72735	782910	1792	1792
+Musée National d'Art Moderne	art_museum	Art Museum		Paris	Paris			17000	180000	1947	1947
+Musée d'Orsay	art_museum	Art Museum		Paris	Paris			16853	181400	1986	1986
+Palais de Tokyo	art_museum	Art Museum		Paris	Paris			13000	140000	2001	2001
+Palais des Beaux-Arts de Lille	art_museum	Art Museum		Lille	Lille			12000	130000	1809	1809
+Musée Fabre	art_museum	Art Museum		Montpellier	Montpellier			9300	100000	1828	1828
+Cité de l'Architecture et du Patrimoine	art_museum	Art Museum		Paris	Paris			9000	97000	1879	1879
+Musée du quai Branly	art_museum	Art Museum		Paris	Paris			8750	94200	2006	2006
+Petit Palais	art_museum	Art Museum		Paris	Paris			8000	86000	1902	1902
+Musée du cheminot				Ambérieu-en-Bugey							
+Musée de cire du Curé d'Ars				Ars-sur-Formans							
+Municipal Museum of Bourg-en-Bresse				Bourg-en-Bresse							
+Musée départemental des Pays de l'Ain				Bourg-en-Bresse							
+Musée de la Visitation				Moulins							
+Centre National du Costume de Scene				Moulins							
+Château de La Louvière				Montluçon							
+Musée des Musiques Populaires				Montluçon							
+Musée vivarois				Annonay							
+Musée d'art et d'archéologie				Aurillac							
+Musée du château des Adhémar				Montélimar							
+Musée européen de l'aviation de chasse				Montélimar							
+Palais des Bonbons et du Nougat				Montélimar							
+Musée des Beaux-Arts et d'Histoire Naturelle				Valence							
+Musée gallo-romain				Aoste							
+Musée Autrefois				Champ-sur-Drac							
+Musée de la Viscose				Échirolles							
+Musée Géo-Charles				Échirolles							
+Musée de l'Ancien Evéché				Grenoble							
+Grenoble Archaeological Museum				Grenoble							
+Musée dauphinois				Grenoble							
+Museum of Grenoble				Grenoble							
+Musée de la Résistance et de la Déportation à Grenoble				Grenoble							
+Muséum d'histoire naturelle de Grenoble				Grenoble							
+Le Magasin				Grenoble							
+Musée des Troupes de Montagne				Grenoble							
+Musée Stendhal				Grenoble							
+Musée de la Chimie				Jarrie							
+Musée Hector Berlioz				La Côte-Saint-André							
+Musée Hébert (La Tronche)				La Tronche							
+Musée des Beaux-Arts et d'Archéologie				Vienne							
+Musée de la Révolution française				Vizille							
+Champollion Museum				Vif							
+Musée Alice Taverne				Ambierle							
+Musée d'art moderne				Saint-Étienne							
+Musée d'art et d'industrie				Saint-Étienne							
+Musée du vieux Saint-Étienne				Saint-Étienne							
+Musée de la mine				Saint-Étienne							
+Musée des transports urbains de Saint-Étienne et sa région				Saint-Étienne							
+L'Astronef				Saint-Étienne							
+Saint-Etienne Mine Museum				Saint-Étienne							
+Musée d'Assier				Feurs							
+Le Musée Crozatier				Le Puy-en-Velay							
+Musée de la Dentelle				Brioude							
+Musée du Saumon				Brioude							
+musée de la résistance				Auvers							
+Château de Chavaniac				Chavaniac-Lafayette							
+Moulin Richard de Bas				Ambert							
+Musée de la fourme				Ambert							
+Musée de la dentelle à la main				Arlanc							
+Musée d'Art Roger-Quilliot				Clermont-Ferrand							
+Musée Bargoin				Clermont-Ferrand							
+Muséum Henri-Lecoq				Clermont-Ferrand							
+Musée départemental de la céramique de Lezoux				Lezoux							
+Musée Francisque Mandet				Riom							
+Musée Régional d'Auvergne				Riom							
+Musée paysan de la Vallorgue				Saint-Anthème							
+Musée Marcel Sahut				Volvic							
+Musée Crozatier				Volvic							
+Musée des traditions populaires Marius Audin				Beaujeu							
+African Museum of Lyon				Lyon							
+Centre d'histoire de la résistance et de la déportation				Lyon							
+Musée des Beaux-Arts				Lyon							
+Musée d'art contemporain				Lyon							
+Musée gallo-romain de Lyon-Fourvière				Lyon							
+Musée des Confluences				Lyon							
+Muséum				Lyon							
+Musée des Tissus et des Arts décoratifs				Lyon							
+Musée Gadagne				Lyon							
+Musée de l'Imprimerie				Lyon							
+Musée Testut Latarjet d'anatomie				Lyon							
+Musée des Hospices civils de Lyon				Lyon							
+Musée de la miniature				Lyon							
+Musée d'histoire de la médecine et de la pharmacie				Lyon							
+Musée des Sapeurs Pompiers				Lyon							
+Musée Ampère				Poleymieux-au-Mont-d'Or							
+Musée de l'Automobile Henri Malartre				Rochetaillée-sur-Saône							
+Musée Paul Dini				Villefranche-sur-Saône							
+Faure Museum (Aix-les-Bains)				Aix-les-Bains							
+Musée des beaux-arts de Chambéry				Chambéry							
+Musée des Charmettes				Chambéry							
+Musée savoisien				Chambéry							
+Muséum d'histoire naturelle				Chambéry							
+Musée d'ethnographie et d'histoire				Conflans							
+Musée-château				Annecy							
+Château d'Annecy				Annecy							
+Palais de l'Isle				Annecy							
+Château de Montrottier				Lovagny							
+Musée de la Musique mécanique				Les Gets							
+Musée du Chablais				Thonon-les-Bains							
+Musée du paysan				Viuz-en-Sallaz							
+Musée Alésia				Alise-Sainte-Reine							
+Musée Bonaparte				Auxonne							
+Collégiale Notre-Dame de Beaune				Beaune							
+Hôpital de la Sainte-Trinité dit hospice de la Charité de Beaune				Beaune							
+Musée des Beaux-Arts				Beaune							
+Musée Étienne-Jules Marey				Beaune							
+Musée de l’Hôtel-Dieu				Beaune							
+Musée du vin de Bourgogne				Beaune							
+Musée Archéologique				Châtillon-sur-Seine							
+Musée des Beaux-Arts				Dijon							
+Musée Archéologique				Dijon							
+Musée de la vie bourguignonne Perrin de Puycousin				Dijon							
+Musée Magnin				Dijon							
+Musée d'art sacré				Dijon							
+Muséum d’histoire naturelle				Dijon							
+Musée Rude				Dijon							
+Musée des Beaux-Arts				Montbard							
+Musée Buffon				Montbard							
+Musée municipal				Nuits-Saint-Georges							
+Maison des mariniers				Saint-Jean-de-Losne							
+Musée François Pompon				Saulieu							
+Musée Château de Savigny				Savigny-lès-Beaune							
+Musée municipal de Semur-en-Auxois				Semur-en-Auxois							
+Musée du Chateau				Belvoir							
+Hôpital Saint-Jacques				Besançon							
+Fonds régional d'art contemporain				Besançon							
+Musée Comtois				Besançon							
+Musée de la Résistance et de la Déportation				Besançon							
+Musée des Beaux-Arts et d'Archéologie				Besançon							
+Musée du Temps				Besançon							
+Musée lapidaire de l'Abbatiale Saint-Paul				Besançon							
+Museum d'Histoire Naturelle				Besançon							
+Musée Beurnier-Rossel				Montbéliard							
+Musée du Chateau				Montbéliard							
+Musée de Plein Air des Maison Comtoises				Nancray							
+Taillanderie de Nans-sous-Sainte-Anne				Nans-sous-Sainte-Anne							
+Musée Courbet				Ornans							
+Musée Municipal				Pontarlier							
+Musée Peugeot				Sochaux							
+La Maison de Louis Pasteur				Arbois							
+Musée de la vigne et du Vin				Arbois							
+Musée Sarret de Grozon				Arbois							
+Musée de la Boissellerie				Bois-d'Amont							
+Musée d'archéologie				Champagnole							
+Museum of Fine Arts, Dole				Dole							
+Musée d'Archéologie				Lons-le-Saunier							
+Musée des Beaux-Arts				Lons-le-Saunier							
+Musée du Jouet				Moirans-en-Montagne							
+Musée de la lunette				Morez							
+Musée des Beaux-Arts				Saint-Claude							
+Musée des Salines				Salins-les-Bains							
+Musées des Techniques et Cultures Comtoises				Salins-les-Bains							
+Musée du Costume				Château-Chinon							
+Musée du Septennat				Château-Chinon							
+Musée Romain Rolland				Clamecy							
+Musée de la marine de Loire				Cosne-sur-Loire							
+Musée municipal Frédéric Blandin				Nevers							
+Musée archéologique du Nivernais				Nevers							
+Musée Départemental Albert Demard				Champlitte							
+Écomusée du Pays de la Cerise				Fougerolles							
+Musée Baron Martin				Gray							
+Musée Départemental de la Montagne Albert Demard				Haut-du-Them-Château-Lambert							
+Musée de la Tour des Échevins				Luxeuil-les-Bains							
+Musée du Combattant de la haute Saône				Luxeuil-les-Bains							
+Musée de la Mine de Ronchamp				Ronchamp							
+Musée Georges Garret				Vesoul							
+Musée Rolin				Autun							
+Musée Lapidaire Saint-Nicolas				Autun							
+Musée Verger-Tarin				Autun							
+Cathédrale (salle capitulaire)				Autun							
+Musée Saint-Nazaire				Bourbon-Lancy							
+Musée Nicéphore Niépce				Chalon-sur-Saône							
+Musée Vivant Denon				Chalon-sur-Saône							
+Musée du Prieuré				Charolles							
+Musée René Davoine				Charolles							
+musée Ochier				Cluny							
+Galerie européenne de la forêt et du bois				Dompierre-les-Ormes							
+Ecomusée de la Communauté Le Creusot Montceau				Le Creusot							
+Musée de l'homme et de l'industrie				Le Creusot							
+Musée des Ursulines				Mâcon							
+Musée Lamartine				Mâcon							
+Musée de la Tour et du Moulin				Marcigny							
+Musée eucharistique du Hiéron				Paray-le-Monial							
+Ecomusée de la Bresse Bourguignonne				Pierre-de-Bresse							
+Musée Saint-Germain				Auxerre							
+Muséum d’histoire naturelle				Auxerre							
+Musée Leblanc-Duvernoy				Auxerre							
+Musée de l’Avallonnais				Avallon							
+Naïve art museum of Noyers				Noyers-sur-Serein							
+Archaeological museum of Saint-Père-sous-Vézelay				Saint-Père-sous-Vézelay							
+Musée de Sens				Sens							
+Zervos Museum				Vézelay							
+Musée Frédéric Japy				Beaucourt							
+Musée d'Art et d'Histoire				Belfort							
+Collection d'Art Moderne «Maurice Jardot»				Belfort							
+Forge-Musée d'Etueffont				Étueffont							
+Musée d'Art et d'Histoire				Saint-Brieuc							
+Musée du château				Dinan							
+Musée du Rail				Dinan							
+Musée Mathurin-Méheut				Lamballe							
+Musée de la Briqueterie				Langueux							
+Musée 39-45				Léhon							
+Musée de cire				Perros-Guirec							
+Cité des télécoms				Pleumeur-Bodou							
+Musée de la Poterie											
+Musée des Beaux-Arts de Brest				Brest							
+Musée National de la marine de Brest				Brest							
+Océanopolis				Brest							
+Tour Tanguy				Brest							
+Musée naval				Camaret-sur-Mer							
+Musée de la pêche				Concarneau							
+Le Port-Musée				Douarnenez							
+Musée de l'Océanographie				Ergué-Gabéric							
+Musée des Beaux-Arts de Pont-Aven				Pont-Aven							
+Musée Paul Gauguin				Pont-Aven							
+Musée départemental breton				Quimper							
+Musée de l'alambic				Quimper							
+Musée des Beaux-Arts de Quimper				Quimper							
+Musée de la Paysannerie				Baguer-Morvan							
+Musée des Transmissions				Cesson-Sévigné							
+Cathédraloscope				Dol-de-Bretagne							
+Manoir de l'automobile				Lohéac							
+Ecomusée du pays de Montfort				Montfort-sur-Meu							
+Musée des Beaux-Arts				Rennes							
+Musée de Bretagne				Rennes							
+Ecomusée de la Bintinais				Rennes							
+Musée Saint-Nicolas				Vitré							
+Château de Vitré				Vitré							
+Musée des Rochers-Sévigné				Vitré							
+Musée du Manoir de la Faucillonnaie				Montreuil-sous-Pérouse							
+Musée des Passions et des Ailes				Baden							
+Musée de la Préshitoire				Carnac							
+Musée des Thoniers				Étel							
+Musée de Poupées				Josselin							
+Musée du Faouet				Le Faouët							
+Végétarium Yves Rocher				La Gacilly							
+Musée de la Vilaine maritime				La Roche-Bernard							
+Musée de la compagnie des Indes				Lorient							
+Musée du vélo				Plouay							
+Musée de la Marine				Port-Louis							
+Musée de la Résistance bretonne				Saint-Marcel							
+Musée de la Cohue				Vannes							
+Musée Estève				Bourges							
+Palais Jacques Coeur				Bourges							
+Musée de Menetou-Salon				Menetou-Salon							
+Centre International du Vitrail				Chartres							
+Musée des Beaux Arts de Chartres				Chartres							
+Musée Marcel Proust				Illiers-Combray							
+Conservatoire de l'agriculture (Compa)				Mainvilliers							
+Château-musée				Azay-le-Ferron							
+Musée Bertrand				Châteauroux							
+Musée de l'Hospice Saint-Roch				Issoudun							
+Musée de l'automobile de Valençay				Valençay							
+cirque				Vatan							
+Musée de l'Hôtel de Ville				Amboise							
+Musée de La Poste				Amboise							
+Château d'Azay-le-Rideau				Azay-le-Rideau							
+Musée Maurice Dufresne				Azay-le-Rideau							
+Musée des Beaux-Arts de Tours				Tours							
+Musée du Compagnonnage				Tours							
+Château de Saché				Tours							
+Musée du poids lourd				Pontlevoy							
+Musée de la course automobile				Romorantin-Lanthenay							
+Château de Blois				Blois							
+La Maison de la Magie Robert-Houdin				Blois							
+Musée Daniel Vannier				Beaugency							
+Musée des deux marines				Briare							
+Emaux de Briare				Briare							
+Musée de la marine de Loire du Vieux-Châteauneuf et sa région				Châteauneuf-sur-Loire							
+Musée de l'Illusion et du Cirque				Dampierre-en-Burly							
+Musée International de la Chasse				Gien							
+Musée des transports				Pithiviers							
+Musée Fesch				Ajaccio							
+Musée des Milelli				Ajaccio							
+Musée napoléonien				Ajaccio							
+Musée national de la maison Bonaparte				Ajaccio							
+Musée d'archéologie et d'ethnographie				Levie							
+Musée départemental de préhistoire				Sartène							
+Musée archéologique				Aléria							
+Departmental Museum of archaeology Gilort (Jérôme) Carcopino				Aléria							
+Musée d'ethnographie corse				Bastia							
+Musée régional d'anthropologie				Corte							
+Musée Pascal-Paoli				Morosaglia							
+Paul Gauguin Cultural Center											
+Paul Gauguin Museum (Tahiti)											
+Musée de Tahiti et des Îles											
+Robert Wan Pearl Museum											
+Maison de la dernière cartouche				Bazeilles							
+Musée-Atelier Textile du Feutre				Mouzon							
+Musée Guerre et Paix en Ardennes				Novion-Porcien							
+Musée d'Art Moderne Donation Pierre et Denise Lévy				Troyes							
+Maison de l'Outil				Troyes							
+Centre historique de l'automobile				Reims							
+Palais du Tau				Reims							
+Musée Municipal d'Archéologie et de Peinture				Bourbonne-les-Bains							
+Maison du Livre et de l'affiche				Chaumont							
+Musée d'art et d'histoire				Chaumont							
+Musée de la Crèche				Chaumont							
+Musée d'art et d'histoire				Langres							
+Musée de la cristallerie				Baccarat							
+Musée de l'histoire du fer				Jarville-la-Malgrange							
+Musée du château				Lunéville							
+Muséum-Aquarium de Nancy				Nancy							
+Musée Lorrain				Nancy							
+Musée de l'École de Nancy				Nancy							
+Musée des Beaux-Arts				Nancy							
+Musée français de la brasserie				Saint-Nicolas-de-Port							
+Musée du cinéma et de la photographie				Saint-Nicolas-de-Port							
+Musée d'Art et d'Histoire				Toul							
+Musée de l'automobile de Lorraine				Velaine-en-Haye							
+Musée Barrois				Bar-le-Duc							
+Musée européen de la bière				Stenay							
+Centre mondial de la paix				Verdun							
+Musée de la Princerie				Verdun							
+Musée de la moto et du vélo				Amnéville-les-Thermes							
+Musée des mines de fer de Lorraine				Aumetz							
+Musée de la Citadelle de Bitche				Bitche							
+Musée départemental du sel				Marsal							
+Maison du verre et du cristal				Meisenthal							
+Museums of Metz				Metz							
+Centre Pompidou-Metz				Metz							
+Musée du Bassin Houiller Carreau Wendel				Petite-Rosselle							
+Musée de la Faïencerie				Sarreguemines							
+Musée de la Tour aux Puces				Thionville							
+Carreau Wendel Museum				Thionville							
+Musée Georges de La Tour				Vic-sur-Seille							
+Maison du Val de Villé				Albé							
+Musée de la Folie Marco				Barr							
+Musée de la poterie				Betschdorf							
+Musée rituel juif				Bischheim							
+Maison des Arts				Bischwiller							
+Musée de la Laub				Bischwiller							
+Musée du centenaire				Bischwiller							
+Musée du Pays de Hanau				Bouxwiller							
+Musée judéo-alsacien de Bouxwiller				Bouxwiller							
+Musée archéologique				Brumath							
+Musée Gustave-Stoskopf				Brumath							
+Musée de l'hôpital psychiatrique				Brumath							
+Musée d'apiculture				Colroy-la-Roche							
+Musée de la casemate Ligne Maginot				Dambach-Neunhoffen							
+Musée de Dehlingen, villa et jardin gallo-romains du Gurtelbach				Dehlingen							
+Musée des arts et traditions populaires de Dossenheim-sur-Zinzel				Dossenheim-sur-Zinsel							
+Refuge fortifié de Dossenheim-sur-Zinsel				Dossenheim-sur-Zinsel							
+Musée de la fortification Maginot				Drachenbronn-Birlenbach							
+Musée Würth				Erstein							
+Etappenstall Maison du patrimoine				Erstein							
+Musée des traditions des arts populaires et de l'archéologie				Eschau							
+Musée "Les secrets du chocolat"				Geispolsheim							
+Musée du pain d'épices et de l'Art Populaire Alsacien				Gertwiller							
+Musée viti-vinicole				Gertwiller							
+Musée de la mine de fer de Framont				Grandfontaine							
+Musée du Framont				Grandfontaine							
+Maison des Rochers de Graufthal				Graufthal							
+Musée alsacien (Haguenau)				Haguenau							
+Musée historique de Haguenau				Haguenau							
+Musée de la casemate Esch Ligne Maginot				Hatten							
+Musée de l'Abri Hatten Ligne Maginot				Hatten							
+Musée du pays de la Zorn				Hochfelden							
+Fort de Schoenenbourg				Hunspach							
+Maison de la manufacture d'armes blanches				Klingenthal							
+Maison rurale de l'Outre-Forêt				Kutzenhausen							
+Musée des Arts et Traditions populaires de La Petite-Pierre				La Petite-Pierre							
+Musée du sceau alsacien de La Petite-Pierre				La Petite-Pierre							
+P'tit Fleck				Lembach							
+Ouvrage du Four à chaux Ligne Maginot				Lembach							
+Abri du Heidenbuckel				Leutenheim							
+Château de Lichtenberg				Lichtenberg							
+Mémorial-Musée de la Ligne Maginot du Rhin				Marckolsheim							
+Centre européen de l'Orgue Flûtes du Monde				Marmoutier							
+Musée d'arts et traditions populaires				Marmoutier							
+Musée français du pétrole				Merkwiller-Pechelbronn							
+Musée de la Chartreuse et Fondation Bugatti				Molsheim							
+Fort de Mutzig				Mutzig							
+Musée municipal				Mutzig							
+Musée des arts et traditions populaires de Neuviller				Neuviller-la-Roche							
+Maison de l'archéologie des Vosges du Nord				Niederbronn-les-Bains							
+Maison des châteaux-forts d'Obersteinbach				Obersteinbach							
+Musée de la batellerie Péniche Cabro				Offendorf							
+Maison d'Offwiller				Offwiller							
+Château du Haut-Kœnigsbourg				Orschwiller							
+Musée de l'image populaire				Pfaffenhoffen							
+Musée de la scierie à Haut-Fer				Ranrupt							
+Musée du fer, musée historique et industriel				Reichshoffen							
+Parc de la maison alsacienne				Reichstett							
+Musée du Cristal				Saint-Louis-lès-Bitche							
+Musée régional de l'Alsace Bossue				Sarre-Union							
+Tour du télégraphe Chappe du Haut-Barr				Saverne							
+Musée du château des Rohan				Saverne							
+Mémorial de l'Alsace-Moselle				Schirmeck							
+Musée de la Côte du château de Schirmeck				Schirmeck							
+Bibliothèque humaniste				Sélestat							
+Maison du pain d'Alsace				Sélestat							
+Musée Krumacker d'archéologie				Seltz							
+Cabinet des estampes et des dessins				Strasbourg							
+Musée Tomi Ungerer				Strasbourg							
+Musée alsacien				Strasbourg							
+Musée archéologique				Strasbourg							
+Musée d'art moderne et contemporain				Strasbourg							
+Musée de l’Œuvre Notre-Dame				Strasbourg							
+Musée des Arts décoratifs				Strasbourg							
+Musée des Beaux-Arts de Strasbourg				Strasbourg							
+Musée historique de Strasbourg				Strasbourg							
+Musée zoologique				Strasbourg							
+Musée de minéralogie				Strasbourg							
+Musée de sismologie et de magnétisme terrestre				Strasbourg							
+Naviscope Alsace				Strasbourg							
+Planétarium de Strasbourg				Strasbourg							
+Maison du Kochersberg				Truchtersheim							
+Musée du pain				Uhlwiller							
+Musée Jean-Frédéric Oberlin				Waldersbach							
+Maison de l'histoire et des traditions de la Haute-Moder				Wimmenau							
+Musée Lalique				Wingen-sur-Moder							
+Musée Pierre Jost				Wissembourg							
+Musée Westercamp				Wissembourg							
+Musée de la Bataille du 6 août 1870				Wœrth							
+Musée sundgauvien				Altkirch							
+Musée de la Porte de Thann				Cernay							
+Musée d'Unterlinden				Colmar							
+Musée Bartholdi				Colmar							
+Musée d'histoire naturelle et d'ethnographie				Colmar							
+Musée du jouet				Colmar							
+Musée des usines municipales				Colmar							
+Musée du Florival				Guebwiller							
+Musée de la Schlitte et des métiers du bois				Muhlbach-sur-Munster							
+Cité de l'automobile - Collection Schlumpf				Mulhouse							
+Musée Français du Chemin de Fer				Mulhouse							
+Électropolis				Mulhouse							
+Musée des Beaux-Arts de Mulhouse				Mulhouse							
+Musée historique de Mulhouse				Mulhouse							
+Musée de l'impression sur étoffe				Mulhouse							
+Musée du papier peint				Rixheim							
+Musée du bailliage de Rouffach				Rouffach							
+Musée d'art contemporain Fernet Branca				Saint-Louis							
+Manufacture royale de Bains-les-Bains				Bains-les-Bains							
+Musée Henri Mathieu				Bruyères							
+Musée du Chapitre				Épinal							
+Musée de l'image				Épinal							
+Musée départemental d'Art ancien et contemporain				Épinal							
+Broderie de Fontenoy-le-Château											
+Musée de la lutherie				Mirecourt							
+Musée de la Lutherie et de l'Archèterie françaises				Mirecourt							
+Musée Pierre-Noël de Saint-Dié-des-Vosges				Saint-Dié-des-Vosges							
+Écomusée vosgien de la brasserie				Ville-sur-Illon							
+Musée militaire de Vincey				Vincey							
+Fort Napoléon des Saintes				Terre-de-Haut Island							
+Musée de la Coopération franco-américaine				Blérancourt							
+Musée de la Résistance et de la Déportation de Picardie (Fargniers)				Tergnier							
+Cité Internationale de la Langue Française				Villers-Cotterêts							
+Musée de la Société d'archéologie				Avesnes-sur-Helpe							
+Musée Benoît-de-Puydt				Bailleul							
+Musée municipal				Bergues							
+Musée des Évolutions				Bousies							
+Musée des Beaux-Arts de Cambrai				Cambrai							
+Musée Matisse				Le Cateau-Cambrésis							
+Musée de la Chartreuse				Douai							
+Lieu d'Art et d'Action Contemporaine				Dunkirk							
+Musée des Beaux-Arts				Dunkirk							
+Musée portuaire				Dunkirk							
+Musée du Dessin et de l'Estampe original				Gravelines							
+Centre d'art sacré contemporain				Lille							
+Muséum d'histoire naturelle				Lille							
+Maison de l'Architecture et de la Ville				Lille							
+Musée des canonniers				Lille							
+Hospice Comtesse				Lille							
+La Piscine, Musée d'art et d'industrie				Roubaix							
+Manufacture des Flandres / Musée du Jacquard				Roubaix							
+Musée des Beaux-Arts				Tourcoing							
+Verlaine Message Museum				Tourcoing							
+Musée des Beaux-Arts				Valenciennes							
+Musée d'Art Moderne Lille Métropole				Villeneuve-d'Ascq							
+Musée départemental de l'Oise				Beauvais							
+Musée de la tapisserie				Beauvais							
+Musée Condé				Chantilly							
+Musée Vivant du Cheval				Chantilly							
+Musée du château de Compiègne				Compiègne							
+Musée national de la voiture et du tourisme				Compiègne							
+Musée de la maquette				Compiègne							
+La Cité des bateliers				Longueil-Annel							
+Château de Pierrefonds				Pierrefonds							
+Musée des Beaux-Arts				Arras							
+Carrière Wellington				Arras							
+Musée d'Ethnologie Régionale de Béthune				Béthune							
+Musée des Beaux-Arts et de la Dentelle de Calais				Calais							
+Musée d'Archéologie Quentovic				Étaples							
+La Coupole				Helfaut							
+Musée de la mine				Oignies							
+Musée de l'hôtel Sandelin				Saint-Omer							
+Musée Boucher de Perthes				Abbeville							
+Musée Somme 1916				Albert							
+Musée de Picardie				Amiens							
+Collection Charles de l'Escalopier				Amiens							
+Musée de l'Hôtel de Berny				Amiens							
+Musée Municipal A. Danicourt				Péronne							
+Museum of the Great War				Péronne							
+Maison atelier Jean-François Millet				Barbizon							
+Musée départemental de l'École de Barbizon				Barbizon							
+Musée Alfred-Bonno				Chelles							
+Musée municipal des Capucins				Coulommiers							
+Musée Louis Braille				Coupvray							
+Jardin-musée Bourdelle d'Égreville				Égreville							
+Musée de Fontainebleau				Fontainebleau							
+Musée d'Art et d'Histoire Militaire				Fontainebleau							
+Musée Gatien-Bonnet				Lagny-sur-Marne							
+Musée Chapu				Le Mée-sur-Seine							
+Dépôt-musée de Longueville				Longueville							
+Musée Bossuet				Meaux							
+Musée de Melun				Melun							
+Musée de Préhistoire d'Île-de-France				Nemours							
+Château-musée de Nemours				Nemours							
+Musée départemental des Pays de Seine-et-Marne				Saint-Cyr-sur-Morin							
+Musée départemental Stéphane Mallarmée				Vulaines-sur-Seine							
+Musée de la batellerie				Conflans-Sainte-Honorine							
+Musée Claude-Debussy				Saint-Germain-en-Laye							
+Musée des Antiquités Nationales				Saint-Germain-en-Laye							
+Musée départemental Maurice Denis "The Priory"				Saint-Germain-en-Laye							
+Musée et domaine national des Châteaux de Versailles et de Trianon				Versailles							
+Public Establishment of the Palace, Museum and National Estate of Versailles				Versailles							
+International Museum of Naive Art				Vicq							
+Musée Delta Athis Paray Aviation				Athis-Mons							
+Musée de la Photographie				Bièvres							
+Musée Robert Dubois-Corneau				Brunoy							
+Musée Paul Delouvrier				Évry							
+Aérodrome de Cerny				La Ferté-Alais							
+Musée Josèphe Jacquiot				Montgeron							
+Musée du Hurepoix				Palaiseau							
+Musée des Années Trente				Boulogne-Billancourt							
+Musée des transports urbains, interurbains et ruraux				Colombes							
+Musée Français de la Carte à Jouer				Issy-les-Moulineaux							
+Musée national du château de Bois-Préau				Rueil-Malmaison							
+Musée national du château de Malmaison				Rueil-Malmaison							
+Musée de l'Île-de-France				Sceaux							
+Sèvres – Cité de la céramique				Sèvres							
+Musée de l'Air et de l'Espace				Le Bourget							
+ROSNY-RAIL : Musée Régional du Chemin de Fer de Rosny-sous-Bois				Rosny-sous-Bois							
+Musée de la Résistance Nationale				Champigny-sur-Marne							
+Musée Fragonard				Maisons-Alfort							
+Musée de Nogent-sur-Marne				Nogent-sur-Marne							
+Villa Médicis - Carré Médicis				Saint-Maur-des-Fossés							
+Musée historique du donjon de Vincennes				Vincennes							
+Musée d'Art Contemporain du Val-de-Marne				Vitry-sur-Seine							
+Musée d'Argenteuil				Argenteuil							
+Musée des tramways à vapeur et des chemins de fer secondaires français				Butry-sur-Oise							
+Musée national de la Renaissance				Écouen							
+Musée archéologique départemental du Val-d'Oise				Guiry-en-Vexin							
+Musée d'art et d'histoire Louis Senlecq				L'Isle-Adam							
+Archéa				Louvres							
+Musée Jean-Jacques Rousseau				Montmorency							
+Musée Tavet-Delacour				Pontoise							
+Musée Pissarro				Pontoise							
+Musée de la 2nde guerre mondiale				Avranches							
+Mémorial du Général de Gaulle				Bayeux							
+Musée Baron Gérard				Bayeux							
+Musée de la Tapisserie de Bayeux				Bayeux							
+Musée mémorial de la Bataille de Normandie				Bayeux							
+Musée Langlois				Beaumont-en-Auge							
+Musée des Beaux-Arts				Caen							
+Musée de Normandie				Caen							
+Mémorial pour la paix				Caen							
+Musée de la Poste et des Télécommunications				Caen							
+Juno Beach Centre				Courseulles-sur-Mer							
+Musée Eugène Boudin				Honfleur							
+Musée de la meunerie				Le Molay-Littry							
+Musée du fromage				Livarot							
+Musée du mur de l’Atlantique				Ouistreham							
+Musée de la belle époque de l'automobile				Pont-l'Évêque							
+Musée des techniques fromagères				Saint-Pierre-sur-Dives							
+Musée archéologique de Vieux-la-Romaine				Vieux							
+Musée Municipal				Bernay							
+Musée des Impressionnismes				Giverny							
+Musée Claude Monet				Giverny							
+Musée Baudy				Giverny							
+Musée Alphonse Georges Poulain				Vernon							
+Le Scriptorial				Avranches							
+Musée municipal				Avranches							
+Musée Thomas Henry				Cherbourg-Octeville							
+Muséum d'histoire naturelle d'archéologie et d'ethnographie				Cherbourg-Octeville							
+Musée de la Libération				Cherbourg-Octeville							
+Musée Quesnel Morinière				Coutances							
+Musée Régional de la Poterie				Ger							
+Musée d'Art Moderne Richard Anacréon				Granville							
+Christian Dior				Granville							
+Maison natale Jean-François Millet				Gréville-Hague							
+Maison Jacques Prévert				Omonville-la-Petite							
+Fours_à_chaux_du_Rey_-_Musée_Maritime_de_Regnéville				Regnéville-sur-Mer							
+Musée des Beaux-Arts et d'Histoire				Saint-Lô							
+Parc-Musée du Granit				Saint-Michel-de-Montjoie							
+Tatihou				Saint-Vaast-la-Hougue							
+Musée Airborne				Sainte-Mère-Église							
+Ferme-musée du Cotentin				Sainte-Mère-Église							
+Musée des Beaux-Arts et de la Dentelle				Alençon							
+Maison de l'Émigration française au Canada				Tourouvre							
+Musée du Bocage normand				Flers							
+Musée de la marine de Seine				Caudebec-en-Caux							
+Musée août 44				Duclair							
+Musée des Beaux-Arts André Malraux				Le Havre							
+Musée des Sapeurs-pompiers de France				Montville							
+Musée industriel de la corderie Vallois				Notre-Dame-de-Bondeville							
+Musée départemental des antiquités				Rouen							
+Musée des Beaux-Arts				Rouen							
+Musée de la céramique				Rouen							
+Musée Flaubert et d'histoire de la médecine				Rouen							
+Muséum d'Histoire Naturelle de Rouen				Rouen							
+Musée Jeanne-d'Arc				Rouen							
+Musée Le Secq des Tournelles				Rouen							
+Maritime, Fluvial and Harbour Museum of Rouen				Rouen							
+Musée national de l'Éducation				Rouen							
+Gros Horloge				Rouen							
+Tour Jeanne d'Arc				Rouen							
+Musée de Lillebonne				Lillebonne							
+Musée des Beaux-Arts d'Angoulême				Angoulême							
+Musée du papier				Angoulême							
+Musée de la Bande Dessinée				Angoulême							
+Musée de la société archéologique et historique de la Charente				Angoulême							
+Musée de la résistance et de la déportation d'Angoulême				Angoulême							
+Musée d'Art et d'Histoire				Cognac							
+Musée des Arts du Cognac				Cognac							
+Musée national Africain				Île-d'Aix							
+Musée Napoléon				Île-d'Aix							
+Musée naval				Rochefort							
+Ernest Cognacq Museum				Saint-Martin-de-Ré							
+Musée Labenche				Brive-la-Gaillarde							
+Musée du Cloître de Tulle				Tulle							
+Musée du Président Jacques Chirac				Sarran							
+Musée du pays d'Ussel				Ussel							
+Musée départemental de la tapisserie				Aubusson							
+Musée d'Art et d'Archéologie de Guéret				Guéret							
+Mémorial de la Résistance				Bergerac							
+Musée Donation Costi				Bergerac							
+Musée du tabac				Bergerac							
+Musée du Vin et de la Batellerie				Bergerac							
+Château de la Pommerie				Cendrieux							
+Insectorama				Groléjac							
+Musée national de Préhistoire				Les Eyzies-de-Tayac-Sireuil							
+Musée automobile				Sarlat							
+Sem				Terrasson-Lavilledieu							
+Musée des Beaux-Arts				Bordeaux							
+CAPC - Musée d'Art Contemporain				Bordeaux							
+Musée National des douanes				Bordeaux							
+Muséum d'histoire naturelle de Bordeaux				Bordeaux							
+Musée des arts décoratifs et du design				Bordeaux							
+Musée d'Aquitaine				Bordeaux							
+Musée de l'automobile de Cadillac				Cadillac							
+Musées de la Réole				La Réole							
+Musée de l'aviation légère de l'armée de Terre et de l'hélicoptère				Dax							
+Musée de Borda				Dax							
+Musée Despiau-Wlérick				Mont-de-Marsan							
+Musée municipal				Agen							
+Musée Raoul Dastrac				Aiguillon							
+Musée de Gajac				Villeneuve sur Lot							
+Musée basque				Bayonne							
+Musée Léon-Bonnat				Bayonne							
+Musée de la Mer				Biarritz							
+Musée Arnaga				Cambo-les-Bains							
+Musée national du château de Pau				Pau							
+Musée des parachutistes de Pau				Pau							
+Cité des Abeilles				Saint-Faust							
+Château d'Oiron				Oiron							
+Musée auto, moto, vélo				Châtellerault							
+Musée archéologique de Civaux				Civaux							
+Musée d'histoire et d'archéologie Réné Baubérot				Châteauponsac							
+Musée de l'Évêché				Limoges							
+Musée national de Porcelaine Adrien Dubouché				Limoges							
+Musée Départemental d'Art Contemporain				Rochechouart							
+Musée du château				Foix							
+Musée du textile et du peigne en corne				Lavelanet							
+Musée du talc				Luzenac							
+Musée de la préhistoire				Le Mas-d'Azil							
+Musée pyrénéen				Niaux							
+Parc Pyrénéen de l'art préhistorique				Tarascon-sur-Ariège							
+Musée Petiet				Limoux							
+Musée des Beaux-Arts de Carcassonne				Carcassonne							
+marionnette				Coupiac							
+Musée du Scaphandre				Espalion							
+Musée Joseph Vaylet				Espalion							
+Musée du Rouergue				Espalion							
+Micropolis (La Cité des Insectes)				Saint-Léons							
+Musée Denys-Puech				Rodez							
+Musée du colombier				Alès							
+Musée Albert-André				Bagnols-sur-Cèze							
+Musée Léon-Alègre				Bagnols-sur-Cèze							
+Carré d'Art (Musée d'art contemporain)				Nîmes							
+Musée archéologique				Nîmes							
+Musée d'histoire naturelle				Nîmes							
+Musée des Beaux-Arts				Nîmes							
+Musée du Vieux Nîmes				Nîmes							
+Musée d'Art sacré du Gard				Pont-Saint-Esprit							
+Musée Le Préhistorama				Rousson							
+Musée de l'agriculture et de la locomotion				Uzès							
+Musée du bonbon				Uzès							
+Musée de la Préhistoire				Aurignac							
+Musée du pays de Luchon				Bagnères-de-Luchon							
+Musée Clément Ader				Muret							
+Musée municipal d'Art et d'Histoire				Saint-Gaudens							
+Musée de Peinture de Saint-Frajou				Saint-Frajou							
+Musée Georges-Labit				Toulouse							
+Musée des Augustins				Toulouse							
+Museum d'Histoire Naturelle				Toulouse							
+Musée d'art moderne et contemporain Les Abattoirs				Toulouse							
+Le château d’eau, pôle photographique de Toulouse				Toulouse							
+Cité de l'espace				Toulouse							
+Hôtel d'Assézat (Fondation Bemberg)				Toulouse							
+Musée du Vieux Toulouse				Toulouse							
+Musée de l'Affiche				Toulouse							
+Musée Départemental de la Résistance et de la Déportation				Toulouse							
+Musée Saint-Raymond (Musée des Antiques de Toulouse)				Toulouse							
+Musée Paul-Dupuy				Toulouse							
+Musée des Jacobins				Auch							
+Musée d'Art Naïf				Béraut							
+Musée Européen d'Art Campanaire				L'Isle-Jourdain							
+Musée Eugène Camoreyt				Lectoure							
+Musée agathois Jules Baudou				Agde							
+Musée de l'éphèbe				Agde							
+Musée vivant du roman d'aventures				Aniane							
+Maison des arts				Bédarieux							
+Musée des Beaux-Arts				Béziers							
+Château de Raissac				Béziers							
+Musée du Biterrois				Béziers							
+Musée de l'Etang de Thau				Bouzigues							
+Musée du Sapeur Pompier				Bouzigues							
+Les Vignerons de Cabrières				Cabrières							
+Centre Régional d'Histoire de la Résistance et de la Déportation				Castelnau-le-Lez							
+Musée de l'Abbaye de Fontcaude				Cazedarnes							
+Salle du Patrimoine				Cazouls-lès-Béziers							
+Musée Français de la Spéléologie				Courniou							
+Musée de Cruzy				Cruzy							
+Ecomusée l'Oustal des Abeilles				Faugères							
+Pailher de Prat d'Alaric				Fraisse-sur-Agout							
+Musée de Frontignan				Frontignan							
+Musée de l'Hydraulique				Gignac							
+Musée de la Cloche et de la Sonnaille				Hérépian							
+Musée archéologique				Lattes							
+Musée Municipal Hofer-Bury				Lavérune							
+Maison du Patrimoine				Le Crès							
+Musée Municipal de Préhistoire				Les Matelles							
+Musée Fleury				Lodève							
+Chapelle Saint-Hippolyte				Loupian							
+Musée de la Halle aux Oiseaux				Marseillan							
+Musée Paul Pastre				Marsillargues							
+Espace Vins et Campanes				Magalas							
+Musée du Parc de la Plaine des Dinosaures				Mèze							
+Musée d'Archéologie et de Paléontologie du Minervois				Minerve							
+Musée Hurepel				Minerve							
+Agropolis				Montpellier							
+Musée Languedocien				Montpellier							
+Musée Empereur Antonin ou Musée des Moulages				Montpellier							
+Musée d'Anatomie				Montpellier							
+Musée de la Pharmacie				Montpellier							
+Musée Atger				Montpellier							
+Musée du vieux Montpellier				Montpellier							
+Musée Archéologique				Murviel-lès-Béziers							
+Musée de l'Oppidum				Nissan-lez-Enserune							
+Musée Paroissial				Nissan-lez-Enserune							
+Musée d'Histoire Locale				Olargues							
+Musée Archéologique du Minervois				Olonzac							
+Musée Albert Dubout				Palavas-les-Flots							
+Musée du Petit Train				Palavas-les-Flots							
+Musée de Vulliod Saint-Germain				Pézenas							
+Musée Archéologique				Quarante							
+Maison Cévenole des Arts et Traditions Populaires				Saint-Gervais-sur-Mare							
+Musée Lapidaire				Saint-Guilhem-le-Désert							
+Vitrines de Poteries				Saint-Jean-de-Fos							
+Musée de Préhistoire Régionale				Saint-Pons-de-Thomières							
+Musée de l'Attelage et du Cheval				Sérignan							
+Musée d'art contemporain				Sérignan							
+Musée Paul Valéry				Sète							
+Espace Georges Brassens				Sète							
+Village Préhistorique de Cambous				Viols-en-Laval							
+Exposition permanente de préhistoire du pic Saint-loup				Viols-le-Fort							
+Henri Martin				Cahors							
+Musée de la résistance, de la déportation et de la libération du Lot				Cahors							
+Musée du vin et de la table Lotoise				Cahors							
+Musée Champollion				Figeac							
+Géoscope de l'aire de la Lozère				Albaret-Sainte-Marie							
+Musée archéologique de Banassac				Banassac							
+Musée du Guesclin				Châteauneuf-de-Randon							
+Musée archéologique de Javols				Javols							
+Filature des Calquières				Langogne							
+Musée d'art sacré				Langogne							
+Écomusée du mont Lozère				Le Pont-de-Montvert							
+Musée de la métallurgie				Saint-Chély-d'Apcher							
+Musée des papillons				Saint-Chély-d'Apcher							
+Musée Salies				Bagnères-de-Bigorre							
+Musée d'Art Moderne de Céret				Céret							
+Musée d'Art Moderne Fonds Peské				Collioure							
+Musée Toulouse-Lautrec				Albi							
+Château-Musée du Cayla				Andillac							
+Musée Goya				Castres							
+Musée du Vieil Auvillar				Auvillar							
+Musée de la Batellerie				Auvillar							
+Beaulieu-en-Rouergue Abbey				Ginals							
+Musée Ingres				Montauban							
+Musée d'Histoire Naturelle Victor-Brun				Montauban							
+Musée Marcel Lenoir				Montauban							
+Musée aéronautique de la Côte d'Amour				La Baule							
+Musée de la chanson française				La Planche							
+Musée de la Vigne et du Vin de l'Abbaye de Sainte-Radegonde				Le Loroux-Bottereau							
+Château des ducs de Bretagne				Nantes							
+Musée des Beaux-Arts				Nantes							
+Musée Dobrée				Nantes							
+Musée naval Maillé-Brézé				Nantes							
+Musée Compagnonique				Nantes							
+Musée de l'imprimerie				Nantes							
+Jules Verne Museum				Nantes							
+Muséum d'histoire naturelle de Nantes				Nantes							
+Musée du vignoble Nantais				Le Pallet							
+Écomusée de Saint-Nazaire				Saint-Nazaire							
+Galerie David d'Angers				Angers							
+Musée des Beaux-Arts				Angers							
+Musée Jean Lurçat et de la tapisserie contemporaine				Angers							
+Musée Régional de l'Air d'Angers-Marcé				Angers							
+Muséum d'histoire naturelle d’Angers				Angers							
+Musée du Génie militaire				Angers							
+Musée Joseph Denais				Beaufort-en-Vallée							
+Musée d'Art et d'Histoire				Cholet							
+Château de Montsoreau-Museum of Contemporary Art				Montsoreau							
+Musée de la Vigne et du Vin d'Anjou				Saint-Lambert-du-Lattay							
+Musée des Blindés				Saumur							
+Musée du moteur				Saumur							
+Musée de l'Ardoise				Trélazé							
+Musée des tisserands				Ambrières-les-Vallées							
+Musée de la moisson				Beaulieu-sur-Oudon							
+Musée d'Art et d'Archéologie Hôtel Fouquet				Château-Gontier							
+Moulin de Thévalles				Chémeré-le-Roi							
+Robert Tatin				Cossé-le-Vivien							
+Musée de la vieille forge				Denazé							
+Moulin des gués				Fontaine-Couverte							
+Moulin de la Guénaudière				Grez-en-Bouère							
+Musée du moteur et de l'outil à la ferme				Juvigné							
+Musée des moteurs et de l'outillage				Lignières-Orgères							
+Écomusée de Madré				Madré							
+Musée du cidre				Melleray-la-Vallée							
+Musée de l'ardoise et de la géologie				Renazé							
+Musée de la chouannerie et de la Révolution				Saint-Ouën-des-Toits							
+Musée de l'auditoire				Sainte-Suzanne							
+Musée du pot au lait				Villaines-la-Juhel							
+Musée automobile de la Sarthe				Le Mans							
+Musée Municipal				La Roche-sur-Yon							
+Musée SIMCA Yonnais				La Roche-sur-Yon							
+Musée des Deux Victoires - Clemenceau - De Lattre				Mouilleron-en-Pareds							
+Musée de l'Abbaye Sainte-Croix				Les Sables-d'Olonne							
+Musée automobile de Vendée				Talmont-Saint-Hilaire							
+Musée de la Vallée				Barcelonnette							
+Musée Alexandra David-Néel				Digne-les-Bains							
+Musée du Vieux Queyras				Aiguilles							
+Musée d'archéologie				Antibes							
+Musée naval et napoléonien				Antibes							
+Musée Peynet et du dessin humoristique				Antibes							
+Musée Picasso				Antibes							
+Villa grecque Kérylos Fondation Théodore Reinach				Beaulieu-sur-Mer							
+Musée national Fernand Léger				Biot							
+Écomusée du haut-pays nicois				Breil-sur-Roya							
+Château musée Grimaldi				Cagnes-sur-Mer							
+Musée Renoir				Cagnes-sur-Mer							
+Musée de la Castre				Cannes							
+Musée de la Mer				Cannes							
+La Malmaison				Cannes							
+Musée d'Art et d'Histoire de Provence				Grasse							
+Musée international de la Parfumerie				Grasse							
+Musée de la Marine				Grasse							
+Villa Musée Jean-Honoré Fragonard				Grasse							
+Jean Cocteau Museum				Menton							
+Musée de préhistoire régionale				Menton							
+Musée de l'automobile				Mougins							
+Musée d'Art Classique de Mougins				Mougins							
+Musée d'art moderne et d'art contemporain				Nice							
+Musée des arts asiatiques				Nice							
+Musée des Beaux-Arts				Nice							
+Musée international d'Art naïf Anatole Jakovsky				Nice							
+Musée de la marine				Nice							
+Musée Matisse				Nice							
+Musée national Message Biblique Marc Chagall				Nice							
+Musée de paléontologie humaine de Terra-Amata				Nice							
+Muséum d'histoire naturelle				Nice							
+Fondation Maeght				Saint-Paul-de-Vence							
+Musée des Merveilles				Tende							
+Musée de la céramique				Vallauris							
+Musée national Picasso « La Guerre et la Paix »				Vallauris							
+Musée d'Art et d'Histoire				Villefranche-sur-Mer							
+Musée Volti				Villefranche-sur-Mer							
+Musée Escoffier de l'art culinaire				Villeneuve-Loubet							
+Musée Granet				Aix-en-Provence							
+Atelier de Cézanne				Aix-en-Provence							
+Musée Paul Arbaud				Aix-en-Provence							
+Musée des tapisseries				Aix-en-Provence							
+Musée de Pavillon de Vendôme-Dobler				Aix-en-Provence							
+Musée du Vieil-Aix				Aix-en-Provence							
+Museum d'Histoire Naturelle Aix-en-Provence				Aix-en-Provence							
+Musée du vieil Allauch				Allauch							
+Musée de la Légion étrangère				Aubagne							
+Musée de l'Arles et de la Provence antiques				Arles							
+Museon Arlaten				Arles							
+Musée Réattu				Arles							
+Musée de la Mine				Gréasque							
+Musée provencal des transports de La Barque				La Barque							
+Musée d'archéologie méditerranéenne				Marseille							
+Musée d’Arts Africains, Océaniens, Amérindiens				Marseille							
+Musée d'art contemporain de Marseille				Marseille							
+Musée des Beaux-Arts				Marseille							
+Mémorial des camps de la mort				Marseille							
+Musée des Civilisations de l'Europe et de la Méditerranée				Marseille							
+Musée Cantini				Marseille							
+Musée des docks romains				Marseille							
+Musée de la faience				Marseille							
+Mémorial national de la France d'outre-mer				Marseille							
+Musée Grobet-Labadié				Marseille							
+Marseille History Museum				Marseille							
+Muséum d'histoire naturelle de Marseille				Marseille							
+Musée de la Marine				Marseille							
+Musée de la Mode				Marseille							
+Musée de la moto				Marseille							
+Musée du Santon				Marseille							
+Galerie des Transports				Marseille							
+Musée du Vieux Marseille				Marseille							
+Musée Ziem				Martigues							
+Musée de l'uniforme légionnaire				Puyloubier							
+Universal Exposition of Wines and Spirits				Bendor							
+Paul Ricard Oceanographic Institute				Embiez							
+Musée gallo-romain de Tauroentum				Saint-Cyr-sur-Mer							
+Musée de l'Annonciade				Saint-Tropez							
+Musée d'Archéologie sous-marine				Saint-Tropez							
+Musée Frédéric Dumas				Sanary-sur-Mer							
+Musée d'Art				Toulon							
+Musée des arts asiatiques				Toulon							
+Musée national de la Marine				Toulon							
+Cathédrale Sainte-Anne				Apt							
+Musée d'histoire et d'archéologie				Apt							
+Fondation Calvet				Avignon							
+Musée lapidaire				Avignon							
+Musée Requien				Avignon							
+Palais des Papes				Avignon							
+Musée Comtadin-Duplessis				Carpentras							
+Musée Sobirats				Carpentras							
+Musée d'histoire 1939-1945 - L'Appel de la Liberté				Fontaine-de-Vaucluse							
+Musée de Villèle				Saint-Paul							
+Musée Angladon	art_museum	Art Museum		Avignon	Avignon						
+Musée du Petit Palais	art_museum	Art Museum		Avignon	Avignon						
+Musée des Beaux-Arts de Bordeaux	art_museum	Art Museum		Bordeaux	Bordeaux						
+Unterlinden Museum	art_museum	Art Museum		Colmar	Colmar						
+Musée des Beaux-Arts	art_museum	Art Museum		Dole	Dole						
+Musée départemental Henri Matisse	art_museum	Art Museum		Le Cateau-Cambrésis	Le Cateau-Cambrésis						
+Louvre-Lens	art_museum	Art Museum		Lens	Lens						
+Palais des Beaux-Arts	art_museum	Art Museum		Lille	Lille						
+Musée des Beaux-Arts	art_museum	Art Museum		Limoges	Limoges						
+The Golden Courtyard Museums	art_museum	Art Museum		Metz	Metz						
+Château de Montsoreau	art_museum	Art Museum		Montsoreau	Montsoreau						
+Musée des Beaux-Arts de Nice	art_museum	Art Museum		Nice	Nice						
+Centre Pompidou	art_museum	Art Museum		Paris	Paris						
+Guimet Museum	art_museum	Art Museum		Paris	Paris						
+Musée Carnavalet	art_museum	Art Museum		Paris	Paris						
+Musée Cognacq-Jay	art_museum	Art Museum		Paris	Paris						
+Musée Delacroix	art_museum	Art Museum		Paris	Paris						
+Musée Gustave Moreau	art_museum	Art Museum		Paris	Paris						
+Musée Jacquemart-André	art_museum	Art Museum		Paris	Paris						
+Musée Maillol	art_museum	Art Museum		Paris	Paris						
+Musée Marmottan Monet	art_museum	Art Museum		Paris	Paris						
+Musée Nissim de Camondo	art_museum	Art Museum		Paris	Paris						
+Musée Picasso	art_museum	Art Museum		Paris	Paris						
+Musée Rodin	art_museum	Art Museum		Paris	Paris						
+Musée d'Art Moderne de la Ville de Paris	art_museum	Art Museum		Paris	Paris						
+Musée d'Art et d'Histoire du Judaïsme	art_museum	Art Museum		Paris	Paris						
+Musée de Cluny	art_museum	Art Museum		Paris	Paris						
+Musée de l'Orangerie	art_museum	Art Museum		Paris	Paris						
+Musée des Arts Décoratifs	art_museum	Art Museum		Paris	Paris						
+Musée du Louvre	art_museum	Art Museum		Paris	Paris						
+Musée Sainte-Croix	art_museum	Art Museum		Poitiers	Poitiers						
+Musée des Beaux-Arts	art_museum	Art Museum		Reims	Reims						
+National Archaeological Museum	art_museum	Art Museum		Saint-Germain-en-Laye	Saint-Germain-en-Laye						
+Musée des Beaux-Arts	art_museum	Art Museum		Strasbourg	Strasbourg						
+Fondation Bemberg	art_museum	Art Museum		Toulouse	Toulouse						
+Musée des Beaux-Arts	art_museum	Art Museum		Tours	Tours						
+Musée d'art moderne	art_museum	Art Museum		Troyes	Troyes						
+Musée des Beaux-Arts	art_museum	Art Museum		Troyes	Troyes						
+Lille Métropole Museum of Modern, Contemporary and Outsider Art	art_museum	Art Museum		Villeneuve-d'Ascq	Villeneuve-d'Ascq						
+Ampère Museum	science_museum	Science Museum		Lyon	Lyon						
+Cité des Sciences et de l'Industrie	science_museum	Science Museum		Paris	Paris						
+Musée des Arts et Métiers	science_museum	Science Museum		Paris	Paris						
+Palais de la Découverte	science_museum	Science Museum		Paris	Paris						
+Vulcania	science_museum	Science Museum		Saint-Ours-les-Roches	Saint-Ours-les-Roches						
+Exploradôme	science_museum	Science Museum		Vitry-sur-Seine	Vitry-sur-Seine						

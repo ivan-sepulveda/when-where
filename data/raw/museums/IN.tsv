@@ -1,0 +1,57 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+Salar Jung Museum	art_museum	Art Museum		Hyderabad	Hyderabad			13000	140000	1855	1855
+National Gallery of Modern Art	art_museum	Art Museum		New Delhi	New Delhi			12000	130000	1954	1954
+Lalbhai Dalpatbhai Museum	art_museum	Art Museum		Ahmedabad	Ahmedabad						
+Sanskar Kendra	art_museum	Art Museum		Ahmedabad	Ahmedabad						
+Allahabad Museum	art_museum	Art Museum		Allahabad	Allahabad						
+Museum of Art & Photography (MAP)	art_museum	Art Museum		Bangalore	Bangalore						
+National Gallery of Modern Art, Bangalore	art_museum	Art Museum		Bangalore	Bangalore						
+Bharat Bhavan	art_museum	Art Museum		Bhopal	Bhopal						
+Odisha State Museum	art_museum	Art Museum		Bhubaneswar	Bhubaneswar						
+Government Museum and Art Gallery, Chandigarh	art_museum	Art Museum		Chandigarh	Chandigarh						
+Government Museum, Chennai	art_museum	Art Museum		Chennai	Chennai						
+The National Art Gallery (Chennai)	art_museum	Art Museum		Chennai	Chennai						
+Albert Hall Museum	art_museum	Art Museum		Jaipur	Jaipur						
+Jawahar Kala Kendra	art_museum	Art Museum		Jaipur	Jaipur						
+Asutosh Museum of Indian Art	art_museum	Art Museum		Kolkata	Kolkata						
+Indian Museum	art_museum	Art Museum		Kolkata	Kolkata						
+Victoria Memorial (India)	art_museum	Art Museum		Kolkata	Kolkata						
+Cowasji Jehangir Hall	art_museum	Art Museum		Mumbai	Mumbai						
+Jehangir Art Gallery	art_museum	Art Museum		Mumbai	Mumbai						
+National Gallery of Modern Art, Mumbai	art_museum	Art Museum		Mumbai	Mumbai						
+Prince of Wales Museum	art_museum	Art Museum		Mumbai	Mumbai						
+National Museum	art_museum	Art Museum		New Delhi	New Delhi						
+Sanskriti Museums	art_museum	Art Museum		New Delhi	New Delhi						
+Triveni Kala Sangam	art_museum	Art Museum		New Delhi	New Delhi						
+Goa State Museum	art_museum	Art Museum		Panjim	Panjim						
+Bhartiya Nritya Kala Mandir	art_museum	Art Museum		Patna	Patna						
+Jalan Museum	art_museum	Art Museum		Patna	Patna						
+Patna Museum	art_museum	Art Museum		Patna	Patna						
+Napier Museum	art_museum	Art Museum		Thiruvananthapuram	Thiruvananthapuram						
+Sree Chitra Art Gallery	art_museum	Art Museum		Thiruvananthapuram	Thiruvananthapuram						
+Baroda Museum & Picture Gallery	art_museum	Art Museum		Vadodara	Vadodara						
+Maharaja Fateh Singh Museum	art_museum	Art Museum		Vadodara	Vadodara						
+Birla Planetarium, Chennai	science_museum	Science Museum									
+Hakim Karam Hussain Museum on History of Medicine and Sciences	science_museum	Science Museum									
+National Council of Science Museums	science_museum	Science Museum									
+National Science Centre, Delhi	science_museum	Science Museum									
+Regional Science Centre, Bhopal	science_museum	Science Museum									
+Gujarat Science City	science_museum	Science Museum		Ahmedabad	Ahmedabad						
+Visvesvaraya Industrial and Technological Museum	science_museum	Science Museum		Bangalore	Bangalore						
+Birla Planetarium	science_museum	Science Museum		Chennai	Chennai						
+Goa Science Centre	science_museum	Science Museum		Goa	Goa						
+Birla Science Museum	science_museum	Science Museum		Hyderabad	Hyderabad						
+Science Park	science_museum	Science Museum		Jaipur	Jaipur						
+Ranchi Science Centre	science_museum	Science Museum		Jharkhand	Jharkhand						
+Pushpa Gujral Science City	science_museum	Science Museum		Kapurthala	Kapurthala						
+Nehru Museum of Science and Technology	science_museum	Science Museum		Kharagpur	Kharagpur						
+Birla Industrial & Technological Museum	science_museum	Science Museum		Kolkata	Kolkata						
+Science City Kolkata	science_museum	Science Museum		Kolkata	Kolkata						
+Nehru Science Centre	science_museum	Science Museum		Mumbai	Mumbai						
+Raman Science Centre	science_museum	Science Museum		Nagpur	Nagpur						
+Dr. A. P. J. Abdul Kalam Science City	science_museum	Science Museum		Patna	Patna						
+Srikrishna Science Centre	science_museum	Science Museum		Patna	Patna						
+Pimpri Chinchwad Science Park	science_museum	Science Museum		Pune	Pune						
+Salem Science Park	science_museum	Science Museum		Salem	Salem						
+Science Centre Surat	science_museum	Science Museum		Surat	Surat						
+Kerala Science and Technology Museum	science_museum	Science Museum		Thiruvananthapuram	Thiruvananthapuram						

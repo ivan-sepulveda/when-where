@@ -1,0 +1,18 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+Israel Museum	art_museum	Art Museum		Jerusalem	Jerusalem			18500	199000	1965	1965
+Tel Aviv Museum of Art	art_museum	Art Museum		Tel Aviv	Tel Aviv			10000	110000	1932	1932
+Haifa Museum of Art	art_museum	Art Museum		Haifa	Haifa						
+Hecht Museum	art_museum	Art Museum		Haifa	Haifa						
+Janco Dada Museum	art_museum	Art Museum		Haifa	Haifa						
+Mane-Katx Museum	art_museum	Art Museum		Haifa	Haifa						
+Tikotin Museum of Japanese Art	art_museum	Art Museum		Haifa	Haifa						
+Bible Lands Museum	art_museum	Art Museum		Jerusalem	Jerusalem						
+Jerusalem Artists House	art_museum	Art Museum		Jerusalem	Jerusalem						
+L. A. Mayer Institute for Islamic Art	art_museum	Art Museum		Jerusalem	Jerusalem						
+Rockefeller Museum	art_museum	Art Museum		Jerusalem	Jerusalem						
+Bauhaus Center	art_museum	Art Museum		Tel Aviv	Tel Aviv						
+Design Museum Holon	art_museum	Art Museum		Tel Aviv	Tel Aviv						
+Carasso Science Park	science_museum	Science Museum		Beer Sheva	Beer Sheva						
+Israel National Museum of Science, Technology, and Space	science_museum	Science Museum		Haifa	Haifa						
+Bloomfield Science Museum	science_museum	Science Museum		Jerusalem	Jerusalem						
+Clore Garden of Science	science_museum	Science Museum		Rehovot	Rehovot						

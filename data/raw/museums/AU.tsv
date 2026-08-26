@@ -1,0 +1,28 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+National Gallery of Victoria	art_museum	Art Museum		Melbourne	Melbourne			19600	211000	1861	1861
+Art Gallery of New South Wales	art_museum	Art Museum		Sydney	Sydney			11000	120000	1874	1874
+Art Gallery of South Australia	art_museum	Art Museum		Adelaide	Adelaide						
+Ballarat Fine Art Gallery	art_museum	Art Museum		Ballarat	Ballarat						
+Queensland Art Gallery	art_museum	Art Museum		Brisbane	Brisbane						
+Queensland Gallery of Modern Art	art_museum	Art Museum		Brisbane	Brisbane						
+National Gallery of Australia	art_museum	Art Museum		Canberra	Canberra						
+Canberra Museum and Gallery	art_museum	Art Museum		Canberra	Canberra						
+Museum and Art Gallery of the Northern Territory	art_museum	Art Museum		Darwin	Darwin						
+Geelong Art Gallery	art_museum	Art Museum		Geelong	Geelong						
+Museum of Old and New Art	art_museum	Art Museum		Hobart	Hobart						
+Tasmanian Museum and Art Gallery	art_museum	Art Museum		Hobart	Hobart						
+Ian Potter Centre	art_museum	Art Museum		Melbourne	Melbourne						
+Ian Potter Museum of Art (University of Melbourne)	art_museum	Art Museum		Melbourne	Melbourne						
+Art Gallery of Western Australia	art_museum	Art Museum		Perth	Perth						
+Rockhampton Museum of Art	art_museum	Art Museum		Rockhampton	Rockhampton						
+Museum of Contemporary Art	art_museum	Art Museum		Sydney	Sydney						
+South Australian Museum	science_museum	Science Museum		Adelaide	Adelaide						
+Queensland Museum	science_museum	Science Museum		Brisbane, Queensland	Brisbane, Queensland						
+Gravity Discovery Centre	science_museum	Science Museum		Gingin, Western Australia	Gingin, Western Australia						
+Scienceworks Museum	science_museum	Science Museum		Melbourne	Melbourne						
+Melbourne Museum	science_museum	Science Museum		Melbourne, Victoria	Melbourne, Victoria						
+Scitech	science_museum	Science Museum		Perth, Western Australia	Perth, Western Australia						
+Powerhouse Museum	science_museum	Science Museum		Sydney	Sydney						
+MOD.	science_museum	Science Museum		UniSA, Adelaide, South Australia	UniSA, Adelaide, South Australia						
+Macleay Museum	science_museum	Science Museum		– Sydney University Museums, Sydney, New South Wales	– Sydney University Museums, Sydney, New South Wales						
+Questacon	science_museum	Science Museum		– The National Science and Technology Centre, Canberra, ACT	– The National Science and Technology Centre, Canberra, ACT						

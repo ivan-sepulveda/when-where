@@ -1,0 +1,12 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+Gothenburg Museum of Art	art_museum	Art Museum		Gothenburg	Gothenburg						
+Mjellby konstmuseum	art_museum	Art Museum		Halmstad	Halmstad						
+National Portrait Gallery	art_museum	Art Museum		Mariefred	Mariefred						
+Moderna Museet	art_museum	Art Museum		Stockholm	Stockholm						
+Nationalmuseum	art_museum	Art Museum		Stockholm	Stockholm						
+Tensta Konsthall	art_museum	Art Museum		Stockholm	Stockholm						
+Universeum	science_museum	Science Museum		Gothenburg	Gothenburg						
+Teknikens Hus	science_museum	Science Museum		Luleå	Luleå						
+Museum of Ethnography	science_museum	Science Museum		Stockholm	Stockholm						
+Swedish National Museum of Science and Technology	science_museum	Science Museum		Stockholm	Stockholm						
+Tom Tits Experiment	science_museum	Science Museum		Södertälje	Södertälje						

@@ -1,0 +1,34 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+National Museum of China	art_museum	Art Museum		Beijing	Beijing			65000	700000	1959	1959
+Shandong Art Museum	art_museum	Art Museum		Jinan	Jinan			19700	212000	1977	1977
+Capital Museum	art_museum	Art Museum		Beijing	Beijing			13000	140000	1981	1981
+Shaanxi History Museum	art_museum	Art Museum		Xi'an	Xi'an			11000	120000	1991	1991
+Tibet Museum	art_museum	Art Museum		Lhasa	Lhasa			10500	113000	1999	1999
+Power Station of Art (Biennale)	art_museum	Art Museum		Shanghai	Shanghai			9000	97000	2012	2012
+Liaoning Provincial Museum	art_museum	Art Museum		Shenyang	Shenyang			8500	91000	1949	1949
+National Art Museum of China	art_museum	Art Museum		Beijing	Beijing			8300	89000	1958	1958
+Beijing Art Museum	art_museum	Art Museum		Beijing	Beijing						
+Beijing World Art Museum	art_museum	Art Museum		Beijing	Beijing						
+Guanfu Museum	art_museum	Art Museum		Beijing	Beijing						
+Palace Museum	art_museum	Art Museum		Beijing	Beijing						
+Pékin Fine Arts	art_museum	Art Museum		Beijing	Beijing						
+Today Art Museum	art_museum	Art Museum		Beijing	Beijing						
+Zhejiang Provincial Museum	art_museum	Art Museum		Hangzhou	Hangzhou						
+Jiangsu Provincial Art Museum	art_museum	Art Museum		Nanjing	Nanjing						
+Nanjing 4Cube Museum of Contemporary Art	art_museum	Art Museum		Nanjing	Nanjing						
+China Art Museum	art_museum	Art Museum		Shanghai	Shanghai						
+Long Museum	art_museum	Art Museum		Shanghai	Shanghai						
+Museum of Contemporary Art Shanghai	art_museum	Art Museum		Shanghai	Shanghai						
+Power Station of Art	art_museum	Art Museum		Shanghai	Shanghai						
+Rockbund Art Museum	art_museum	Art Museum		Shanghai	Shanghai						
+Shanghai Art Museum	art_museum	Art Museum		Shanghai	Shanghai						
+Shanghai Museum	art_museum	Art Museum		Shanghai	Shanghai						
+Suzhou Museum	art_museum	Art Museum		Suzhou	Suzhou						
+Henan Museum	art_museum	Art Museum		Zhengzhou	Zhengzhou						
+Beijing Museum of Natural History	science_museum	Science Museum									
+China Science and Technology Museum	science_museum	Science Museum		Beijing	Beijing						
+Hunan Science and Technology Museum	science_museum	Science Museum		Changsha	Changsha						
+Chongqing Science and Technology Museum	science_museum	Science Museum		Chongqing	Chongqing						
+Guangdong Science Center	science_museum	Science Museum		Guangzhou	Guangzhou						
+Shanghai Science and Technology Museum	science_museum	Science Museum		Pudong, Shanghai	Pudong, Shanghai						
+Sichuan Science and Technology Museum	science_museum	Science Museum		Sichuan	Sichuan						

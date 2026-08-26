@@ -1,0 +1,394 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+Metropolitan Museum of Art	art_museum	Art Museum		New York City	New York City			58820	633100	1870	1870
+Houston Museum of Fine Arts	art_museum	Art Museum		Houston	Houston			28000	300000	1900	1900
+Art Institute of Chicago	art_museum	Art Museum		Chicago	Chicago			26000	280000	1879	1879
+National Gallery of Art	art_museum	Art Museum		Washington, D.C.	Washington, D.C.			25200	271000	1937	1937
+MASS MoCA	art_museum	Art Museum		North Adams	North Adams			23225	249990	1999	1999
+Museum of Fine Arts	art_museum	Art Museum		Boston	Boston			20500	221000	1870	1870
+Minneapolis Institute of Art	art_museum	Art Museum		Minneapolis	Minneapolis			17500	188000	1883	1883
+Birmingham Museum of Art	art_museum	Art Museum		Birmingham	Birmingham			17000	180000	1951	1951
+San Francisco Museum of Modern Art	art_museum	Art Museum		San Francisco	San Francisco			15800	170000	1935	1935
+Museum of Modern Art	art_museum	Art Museum		New York City	New York City			15400	166000	1929	1929
+Denver Art Museum	art_museum	Art Museum		Denver	Denver			15000	160000	1918	1918
+Dia:Beacon	art_museum	Art Museum		Beacon, New York	Beacon, New York			14900	160000	2003	2003
+Dallas Museum of Art	art_museum	Art Museum		Dallas	Dallas			14800	159000	1903	1903
+Detroit Institute of Arts	art_museum	Art Museum		Detroit	Detroit			14000	150000	1885	1885
+Indianapolis Museum of Art	art_museum	Art Museum		Indianapolis	Indianapolis			13300	143000	1883	1883
+Milwaukee Art Museum	art_museum	Art Museum		Milwaukee	Milwaukee			13196.4	142045	1882	1882
+Virginia Museum of Fine Arts	art_museum	Art Museum		Richmond	Richmond			12500	135000	1934	1934
+Cleveland Museum of Art	art_museum	Art Museum		Cleveland	Cleveland			12400	133000	1913	1913
+Los Angeles County Museum of Art	art_museum	Art Museum		Los Angeles	Los Angeles			11000	120000	1910	1910
+Portland Art Museum	art_museum	Art Museum		Portland, Oregon	Portland, Oregon			10400	112000	1892	1892
+Carnegie Museum of Art	art_museum	Art Museum		Pittsburgh	Pittsburgh			10000	110000	1896	1896
+Saint Louis Art Museum	art_museum	Art Museum		St. Louis	St. Louis			10000	110000	1881	1881
+De Young Museum	art_museum	Art Museum		San Francisco	San Francisco			8919	96000	1895	1895
+Smithsonian American Art Museum	art_museum	Art Museum		Washington, D.C.	Washington, D.C.			8800	95000	1829	1829
+High Museum of Art	art_museum	Art Museum		Atlanta	Atlanta			8714	93800	1905	1905
+The Grace Museum	art_museum	Art Museum		Abilene, Texas	Abilene						
+Akron Art Museum	art_museum	Art Museum		Akron, Ohio	Akron						
+Albany Institute of History & Art	art_museum	Art Museum		Albany, New York	Albany						
+Old Jail Art Center	art_museum	Art Museum		Albany, Texas	Albany						
+Allentown Art Museum	art_museum	Art Museum		Allentown, Pennsylvania	Allentown						
+Amarillo Museum of Art	art_museum	Art Museum		Amarillo, Texas	Amarillo						
+Eric Carle Museum of Picture Book Art	art_museum	Art Museum		Amherst, Massachusetts	Amherst						
+Mead Art Museum	art_museum	Art Museum		Amherst, Massachusetts	Amherst						
+University Museum of Contemporary Art	art_museum	Art Museum		Amherst, Massachusetts	Amherst						
+Anchorage Museum of Art and History	art_museum	Art Museum		Anchorage, Alaska	Anchorage						
+Addison Gallery of American Art	art_museum	Art Museum		Andover, Massachusetts	Andover						
+University of Michigan Museum of Art	art_museum	Art Museum		Ann Arbor, Michigan	Ann Arbor						
+Trout Museum of Art	art_museum	Art Museum		Appleton, Wisconsin	Appleton						
+Arlington Museum of Art	art_museum	Art Museum		Arlington, Texas	Arlington						
+Asheville Art Museum	art_museum	Art Museum		Asheville, North Carolina	Asheville						
+Folk Art Center	art_museum	Art Museum		Asheville, North Carolina	Asheville						
+Aspen Art Museum	art_museum	Art Museum		Aspen, Colorado	Aspen						
+Georgia Museum of Art	art_museum	Art Museum		Athens, Georgia	Athens						
+Michael C. Carlos Museum	art_museum	Art Museum		Atlanta, Georgia	Atlanta						
+Austin Museum of Art	art_museum	Art Museum		Austin, Texas	Austin						
+Blanton Museum of Art	art_museum	Art Museum		Austin, Texas	Austin						
+Elisabet Ney Museum	art_museum	Art Museum		Austin, Texas	Austin						
+Harry Ransom Center	art_museum	Art Museum		Austin, Texas	Austin						
+Mexic-Arte Museum	art_museum	Art Museum		Austin, Texas	Austin						
+American Visionary Art Museum	art_museum	Art Museum		Baltimore, Maryland	Baltimore						
+Baltimore Museum of Art	art_museum	Art Museum		Baltimore, Maryland	Baltimore						
+Walters Art Museum	art_museum	Art Museum		Baltimore, Maryland	Baltimore						
+Shaw Center for the Arts	art_museum	Art Museum		Baton Rouge, Louisiana	Baton Rouge						
+Art Museum of Southeast Texas	art_museum	Art Museum		Beaumont, Texas	Beaumont						
+Dishman Art Museum	art_museum	Art Museum		Beaumont, Texas	Beaumont						
+Boyer Gallery	art_museum	Art Museum		Belleville, Kansas	Belleville						
+Crystal Bridges Museum of American Art	art_museum	Art Museum		Bentonville, Arkansas	Bentonville						
+Yellowstone Art Museum	art_museum	Art Museum		Billings, Montana	Billings						
+Ohr-O'Keefe Museum of Art	art_museum	Art Museum		Biloxi, Mississippi	Biloxi						
+Indiana University	art_museum	Art Museum		Bloomington, Indiana	Bloomington						
+Sidney and Lois Eskenazi Museum of Art	art_museum	Art Museum		Bloomington, Indiana	Bloomington						
+Boca Raton Museum of Art	art_museum	Art Museum		Boca Raton, Florida	Boca Raton						
+Boise Art Museum	art_museum	Art Museum		Boise, Idaho	Boise						
+Boston Museum of Fine Arts	art_museum	Art Museum		Boston, Massachusetts	Boston						
+Institute of Contemporary Art, Boston	art_museum	Art Museum		Boston, Massachusetts	Boston						
+Isabella Stewart Gardner Museum	art_museum	Art Museum		Boston, Massachusetts	Boston						
+McMullen Museum of Art	art_museum	Art Museum		Boston, Massachusetts	Boston						
+Museum of Bad Art	art_museum	Art Museum		Boston, Massachusetts	Boston						
+Village of the Arts	art_museum	Art Museum		Bradenton, Florida	Bradenton						
+Brigham City Museum of Art & History	art_museum	Art Museum		Brigham City, Utah	Brigham City						
+Fuller Craft Museum	art_museum	Art Museum		Brockton, Massachusetts	Brockton						
+Bowdoin College Museum of Art	art_museum	Art Museum		Brunswick, Maine	Brunswick						
+Albright-Knox Art Gallery	art_museum	Art Museum		Buffalo, New York	Buffalo						
+Robert Hull Fleming Museum	art_museum	Art Museum		Burlington, Vermont	Burlington						
+Harvard Art Museums	art_museum	Art Museum		Cambridge, Massachusetts	Cambridge						
+List Visual Arts Center	art_museum	Art Museum		Cambridge, Massachusetts	Cambridge						
+Peabody Museum of Archaeology and Ethnology	art_museum	Art Museum		Cambridge, Massachusetts	Cambridge						
+Arkell Museum	art_museum	Art Museum		Canajoharie, New York, New York	Canajoharie, New York						
+Brandywine River Museum	art_museum	Art Museum		Chadds Ford, Pennsylvania	Chadds Ford						
+Krannert Art Museum	art_museum	Art Museum		Champaign, Illinois	Champaign						
+Ackland Art Museum	art_museum	Art Museum		Chapel Hill, North Carolina	Chapel Hill						
+Gibbes Museum of Art	art_museum	Art Museum		Charleston, South Carolina	Charleston						
+Bechtler Museum of Modern Art	art_museum	Art Museum		Charlotte, North Carolina	Charlotte						
+Mint Museum of Art	art_museum	Art Museum		Charlotte, North Carolina	Charlotte						
+Fralin Museum of Art	art_museum	Art Museum		Charlottesville, Virginia	Charlottesville						
+Hunter Museum of American Art	art_museum	Art Museum		Chattanooga, Tennessee	Chattanooga						
+Museum of Contemporary Art	art_museum	Art Museum		Chicago, Illinois	Chicago						
+National Museum of Mexican Art	art_museum	Art Museum		Chicago, Illinois	Chicago						
+National Museum of Puerto Rican Arts and Culture	art_museum	Art Museum		Chicago, Illinois	Chicago						
+National Veterans Art Museum	art_museum	Art Museum		Chicago, Illinois	Chicago						
+Oriental Institute	art_museum	Art Museum		Chicago, Illinois	Chicago						
+Smart Museum of Art	art_museum	Art Museum		Chicago, Illinois	Chicago						
+Ukrainian Institute of Modern Art	art_museum	Art Museum		Chicago, Illinois	Chicago						
+Cincinnati Art Museum	art_museum	Art Museum		Cincinnati, Ohio	Cincinnati						
+Contemporary Arts Center	art_museum	Art Museum		Cincinnati, Ohio	Cincinnati						
+Taft Museum of Art	art_museum	Art Museum		Cincinnati, Ohio	Cincinnati						
+The Cleveland Museum of Art	art_museum	Art Museum		Cleveland, Ohio	Cleveland						
+Museum of Russian Icons	art_museum	Art Museum		Clinton, Massachusetts	Clinton						
+Columbia Museum of Art	art_museum	Art Museum		Columbia, South Carolina	Columbia						
+Columbus Museum of Art	art_museum	Art Museum		Columbus, Ohio	Columbus						
+Wexner Center	art_museum	Art Museum		Columbus, Ohio	Columbus						
+Fenimore Art Museum	art_museum	Art Museum		Cooperstown, New York	Cooperstown						
+Corning Museum of Glass	art_museum	Art Museum		Corning, New York	Corning						
+Rockwell Museum	art_museum	Art Museum		Corning, New York	Corning						
+The Pearce Collections at Navarro College	art_museum	Art Museum		Corsicana, Texas	Corsicana						
+Crow Collection of Asian Art	art_museum	Art Museum		Dallas, Texas	Dallas						
+Dallas Contemporary	art_museum	Art Museum		Dallas, Texas	Dallas						
+Meadows Museum	art_museum	Art Museum		Dallas, Texas	Dallas						
+Museum of Biblical Art	art_museum	Art Museum		Dallas, Texas	Dallas						
+Museum of Geometric and MADI Art	art_museum	Art Museum		Dallas, Texas	Dallas						
+Figge Art Museum	art_museum	Art Museum		Davenport, Iowa	Davenport						
+Cape Cod Museum of Art	art_museum	Art Museum		Dennis, Massachusetts	Dennis						
+Anschutz collection	art_museum	Art Museum		Denver, Colorado	Denver						
+Clyfford Still Museum	art_museum	Art Museum		Denver, Colorado	Denver						
+Denver Public Library	art_museum	Art Museum		Denver, Colorado	Denver						
+Des Moines Art Center	art_museum	Art Museum		Des Moines, Iowa	Des Moines						
+Dickinson Museum Center	art_museum	Art Museum		Dickinson, North Dakota	Dickinson						
+Biggs Museum of American Art	art_museum	Art Museum		Dover, Delaware	Dover						
+Nasher Museum of Art	art_museum	Art Museum		Durham, North Carolina	Durham						
+Art Complex Museum	art_museum	Art Museum		Duxbury, Massachusetts	Duxbury						
+El Paso Museum of Art	art_museum	Art Museum		El Paso, Texas	El Paso						
+Arnot Art Museum	art_museum	Art Museum		Elmira, New York	Elmira						
+Jordan Schnitzer Museum of Art	art_museum	Art Museum		Eugene, Oregon	Eugene						
+Mary and Leigh Block Museum of Art	art_museum	Art Museum		Evanston, Illinois	Evanston						
+Plains Art Museum	art_museum	Art Museum		Fargo, North Dakota	Fargo						
+Hill-Stead Museum	art_museum	Art Museum		Farmington, Connecticut	Farmington						
+Fitchburg Art Museum	art_museum	Art Museum		Fitchburg, Massachusetts	Fitchburg						
+Amon Carter Museum	art_museum	Art Museum		Fort Worth, Texas	Fort Worth						
+Kimbell Art Museum	art_museum	Art Museum		Fort Worth, Texas	Fort Worth						
+Modern Art Museum of Fort Worth	art_museum	Art Museum		Fort Worth, Texas	Fort Worth						
+Sid Richardson Museum	art_museum	Art Museum		Fort Worth, Texas	Fort Worth						
+Danforth Museum	art_museum	Art Museum		Framingham, Massachusetts	Framingham						
+Samuel P. Harn Museum of Art at the University of Florida	art_museum	Art Museum		Gainesville, Florida	Gainesville						
+Heritage Glass Museum	art_museum	Art Museum		Glassboro, New Jersey	Glassboro						
+Hyde Collection	art_museum	Art Museum		Glens Falls, New York	Glens Falls						
+Cape Ann Museum	art_museum	Art Museum		Gloucester, Massachusetts	Gloucester						
+North Dakota Museum of Art	art_museum	Art Museum		Grand Forks, North Dakota	Grand Forks						
+Grand Rapids Art Museum	art_museum	Art Museum		Grand Rapids, Michigan	Grand Rapids						
+Weatherspoon Art Museum	art_museum	Art Museum		Greensboro, North Carolina	Greensboro						
+Westmoreland Museum of American Art	art_museum	Art Museum		Greensburg, Pennsylvania	Greensburg						
+Henry Francis du Pont Winterthur Museum	art_museum	Art Museum		Greenville, Delaware	Greenville						
+Bob Jones University Museum and Gallery	art_museum	Art Museum		Greenville, South Carolina	Greenville						
+Greenville County Museum of Art	art_museum	Art Museum		Greenville, South Carolina	Greenville						
+Hood Museum of Art	art_museum	Art Museum		Hanover, New Hampshire	Hanover						
+Wadsworth Atheneum	art_museum	Art Museum		Hartford, Connecticut	Hartford						
+Fruitlands Museum	art_museum	Art Museum		Harvard, Massachusetts	Harvard						
+Holter Museum of Art	art_museum	Art Museum		Helena, Montana	Helena						
+Hawaii State Art Museum	art_museum	Art Museum		Honolulu, Hawaii	Honolulu						
+Honolulu Museum of Art	art_museum	Art Museum		Honolulu, Hawaii	Honolulu						
+John Young Museum of Art	art_museum	Art Museum		Honolulu, Hawaii	Honolulu						
+ArtCar Museum	art_museum	Art Museum		Houston, Texas	Houston						
+Bayou Bend Collection and Gardens	art_museum	Art Museum		Houston, Texas	Houston						
+Blaffer Art Museum	art_museum	Art Museum		Houston, Texas	Houston						
+Contemporary Arts Museum Houston	art_museum	Art Museum		Houston, Texas	Houston						
+Houston Center for Contemporary Craft	art_museum	Art Museum		Houston, Texas	Houston						
+Lawndale Art Center	art_museum	Art Museum		Houston, Texas	Houston						
+Menil Collection	art_museum	Art Museum		Houston, Texas	Houston						
+Museum of Fine Arts, Houston	art_museum	Art Museum		Houston, Texas	Houston						
+Project Row Houses	art_museum	Art Museum		Houston, Texas	Houston						
+Rothko Chapel	art_museum	Art Museum		Houston, Texas	Houston						
+Heckscher Museum of Art	art_museum	Art Museum		Huntington, New York	Huntington						
+Huntington Museum of Art	art_museum	Art Museum		Huntington, West Virginia	Huntington						
+Huntsville Museum of Art	art_museum	Art Museum		Huntsville, Alabama	Huntsville						
+Art Museum of Eastern Idaho	art_museum	Art Museum		Idaho Falls, Idaho	Idaho Falls						
+Eiteljorg Museum of American Indians and Western Art	art_museum	Art Museum		Indianapolis, Indiana	Indianapolis						
+The University of Iowa Museum of Art	art_museum	Art Museum		Iowa City, Iowa	Iowa City						
+Irving Arts Center	art_museum	Art Museum		Irving, Texas	Irving						
+Herbert F. Johnson Museum of Art	art_museum	Art Museum		Ithaca, New York	Ithaca						
+National Museum of Wildlife Art	art_museum	Art Museum		Jackson Hole, Wyoming	Jackson Hole						
+Mississippi Museum of Art	art_museum	Art Museum		Jackson, Mississippi	Jackson						
+Museum of Contemporary Art Jacksonville	art_museum	Art Museum		Jacksonville, Florida	Jacksonville						
+Mana Contemporary	art_museum	Art Museum		Jersey City, New Jersey	Jersey City						
+Museum of Russian Art	art_museum	Art Museum		Jersey City, New Jersey	Jersey City						
+Kemper Museum of Contemporary Art	art_museum	Art Museum		Kansas City, Missouri, Missouri	Kansas City, Missouri						
+Nelson-Atkins Museum of Art	art_museum	Art Museum		Kansas City, Missouri, Missouri	Kansas City, Missouri						
+Museum of Nebraska Art	art_museum	Art Museum		Kearney, Nebraska	Kearney						
+Museum of Western Art	art_museum	Art Museum		Kerrville, Texas	Kerrville						
+Knoxville Museum of Art	art_museum	Art Museum		Knoxville, Tennessee	Knoxville						
+Paul and Lulu Hilliard University Art Museum	art_museum	Art Museum		Lafayette, Louisiana	Lafayette						
+Polk Museum of Art	art_museum	Art Museum		Lakeland, Florida	Lakeland						
+Lauren Rogers Museum of Art	art_museum	Art Museum		Laurel, Mississippi	Laurel						
+Spencer Museum of Art	art_museum	Art Museum		Lawrence, Kansas	Lawrence						
+Frelinghuysen Morris House and Studio	art_museum	Art Museum		Lenox, Massachusetts	Lenox						
+DeCordova Museum and Sculpture Park	art_museum	Art Museum		Lincoln, Massachusetts	Lincoln						
+Sheldon Museum of Art	art_museum	Art Museum		Lincoln, Nebraska	Lincoln						
+Birger Sandzén Memorial Gallery	art_museum	Art Museum		Lindsborg, Kansas	Lindsborg						
+Arkansas Arts Center	art_museum	Art Museum		Little Rock, Arkansas	Little Rock						
+Hammer Museum	art_museum	Art Museum		Los Angeles, California	Los Angeles						
+J. Paul Getty Museum	art_museum	Art Museum		Los Angeles, California	Los Angeles						
+Museum of Contemporary Art, Los Angeles	art_museum	Art Museum		Los Angeles, California	Los Angeles						
+The Broad	art_museum	Art Museum		Los Angeles, California	Los Angeles						
+Speed Art Museum	art_museum	Art Museum		Louisville, Kentucky	Louisville						
+Chazen Museum of Art	art_museum	Art Museum		Madison, Wisconsin	Madison						
+Madison Museum of Contemporary Art	art_museum	Art Museum		Madison, Wisconsin	Madison						
+Currier Museum of Art	art_museum	Art Museum		Manchester, New Hampshire	Manchester						
+Marianna Kistler Beach Museum of Art	art_museum	Art Museum		Manhattan, Kansas	Manhattan						
+Rahr-West Art Museum	art_museum	Art Museum		Manitowoc, Wisconsin	Manitowoc						
+Chinati Foundation	art_museum	Art Museum		Marfa, Texas	Marfa						
+Maryhill Museum of Art	art_museum	Art Museum		Maryhill, Washington	Maryhill						
+International Museum of Art & Science	art_museum	Art Museum		McAllen, Texas	McAllen						
+Art Museum of the University of Memphis	art_museum	Art Museum		Memphis, Tennessee	Memphis						
+Belz Museum of Asian and Judaic Art	art_museum	Art Museum		Memphis, Tennessee	Memphis						
+Dixon Gallery and Gardens	art_museum	Art Museum		Memphis, Tennessee	Memphis						
+Memphis Brooks Museum of Art	art_museum	Art Museum		Memphis, Tennessee	Memphis						
+Bass Museum	art_museum	Art Museum		Miami, Florida	Miami						
+Frost Art Museum	art_museum	Art Museum		Miami, Florida	Miami						
+Lowe Art Museum	art_museum	Art Museum		Miami, Florida	Miami						
+Pérez Art Museum Miami	art_museum	Art Museum		Miami, Florida	Miami						
+Wolfsonian-FIU Museum	art_museum	Art Museum		Miami, Florida	Miami						
+Middlebury College Museum of Art	art_museum	Art Museum		Middlebury, Vermont	Middlebury						
+Charles Allis Art Museum	art_museum	Art Museum		Milwaukee, Wisconsin	Milwaukee						
+Grohmann Museum	art_museum	Art Museum		Milwaukee, Wisconsin	Milwaukee						
+Patrick and Beatrice Haggerty Museum of Art	art_museum	Art Museum		Milwaukee, Wisconsin	Milwaukee						
+Villa Terrace Decorative Arts Museum	art_museum	Art Museum		Milwaukee, Wisconsin	Milwaukee						
+The Museum of Russian Art	art_museum	Art Museum		Minneapolis, Minnesota	Minneapolis						
+Walker Art Center	art_museum	Art Museum		Minneapolis, Minnesota	Minneapolis						
+Taube Museum of Art	art_museum	Art Museum		Minot, North Dakota	Minot						
+Missoula Art Museum	art_museum	Art Museum		Missoula, Montana	Missoula						
+Mobile Museum of Art	art_museum	Art Museum		Mobile, Alabama	Mobile						
+Montclair Art Museum	art_museum	Art Museum		Montclair, New Jersey	Montclair						
+Montgomery Museum of Fine Arts	art_museum	Art Museum		Montgomery, Alabama	Montgomery						
+Storm King Art Center	art_museum	Art Museum		Mountainville, New York	Mountainville						
+David Owsley Museum of Art, Ball State University	art_museum	Art Museum		Muncie, Indiana	Muncie						
+Naples Museum of Art	art_museum	Art Museum		Naples, Florida	Naples						
+Cheekwood Museum of Art	art_museum	Art Museum		Nashville, Tennessee	Nashville						
+Fisk University Galleries	art_museum	Art Museum		Nashville, Tennessee	Nashville						
+Frist Center for the Visual Arts	art_museum	Art Museum		Nashville, Tennessee	Nashville						
+Bergstrom-Mahler Museum of Glass	art_museum	Art Museum		Neenah, Wisconsin	Neenah						
+New Britain Museum of American Art	art_museum	Art Museum		New Britain, Connecticut	New Britain						
+Zimmerli Art Museum	art_museum	Art Museum		New Brunswick, New Jersey	New Brunswick						
+Yale Center for British Art	art_museum	Art Museum		New Haven, Connecticut	New Haven						
+Yale University Art Gallery	art_museum	Art Museum		New Haven, Connecticut	New Haven						
+New Orleans Museum of Art	art_museum	Art Museum		New Orleans, Louisiana	New Orleans						
+Ogden Museum of Southern Art	art_museum	Art Museum		New Orleans, Louisiana	New Orleans						
+Asia Society	art_museum	Art Museum		New York City, New York	New York City						
+Brooklyn Museum	art_museum	Art Museum		New York City, New York	New York City						
+Cooper-Hewitt Museum	art_museum	Art Museum		New York City, New York	New York City						
+Dahesh Museum of Art	art_museum	Art Museum		New York City, New York	New York City						
+Dia Art Foundation	art_museum	Art Museum		New York City, New York	New York City						
+Frick Collection	art_museum	Art Museum		New York City, New York	New York City						
+Guggenheim	art_museum	Art Museum		New York City, New York	New York City						
+Hispanic Society of America	art_museum	Art Museum		New York City, New York	New York City						
+Jacques Marchais Museum of Tibetan Art	art_museum	Art Museum		New York City, New York	New York City						
+Museum of Modern Art (MoMA)	art_museum	Art Museum		New York City, New York	New York City						
+Museum of the City of New York	art_museum	Art Museum		New York City, New York	New York City						
+Neue Galerie New York	art_museum	Art Museum		New York City, New York	New York City						
+New Museum of Contemporary Art	art_museum	Art Museum		New York City, New York	New York City						
+P.S.1 Contemporary Art Center	art_museum	Art Museum		New York City, New York	New York City						
+Rubin Museum of Art	art_museum	Art Museum		New York City, New York	New York City						
+The Cloisters	art_museum	Art Museum		New York City, New York	New York City						
+The Morgan Library & Museum	art_museum	Art Museum		New York City, New York	New York City						
+Wallach Art Gallery	art_museum	Art Museum		New York City, New York	New York City						
+Whitney Museum of American Art	art_museum	Art Museum		New York City, New York	New York City						
+Newark Museum of Art	art_museum	Art Museum		Newark, New Jersey	Newark						
+National Museum of American Illustration	art_museum	Art Museum		Newport, Rhode Island	Newport						
+Newport Art Museum	art_museum	Art Museum		Newport, Rhode Island	Newport						
+Chrysler Museum of Art	art_museum	Art Museum		Norfolk, Virginia	Norfolk						
+Fred Jones Jr. Museum of Art	art_museum	Art Museum		Norman, Oklahoma	Norman						
+Massachusetts Museum of Contemporary Art	art_museum	Art Museum		North Adams, Massachusetts	North Adams						
+Smith College Museum of Art	art_museum	Art Museum		Northampton, Massachusetts	Northampton						
+Snite Museum of Art	art_museum	Art Museum		Notre Dame, Indiana	Notre Dame						
+Allen Memorial Art Museum	art_museum	Art Museum		Oberlin, Ohio	Oberlin						
+Appleton Museum of Art	art_museum	Art Museum		Ocala, Florida	Ocala						
+Ogunquit Museum of American Art	art_museum	Art Museum		Ogunquit, Maine	Ogunquit						
+National Cowboy & Western Heritage Museum	art_museum	Art Museum		Oklahoma City, Oklahoma	Oklahoma City						
+Oklahoma City Museum of Art	art_museum	Art Museum		Oklahoma City, Oklahoma	Oklahoma City						
+Florence Griswold Museum	art_museum	Art Museum		Old Lyme, Connecticut	Old Lyme						
+Joslyn Art Museum	art_museum	Art Museum		Omaha, Nebraska	Omaha						
+Stark Museum of Art	art_museum	Art Museum		Orange, Texas	Orange						
+Orlando Museum of Art	art_museum	Art Museum		Orlando, Florida	Orlando						
+Paine Art Center and Gardens	art_museum	Art Museum		Oshkosh, Wisconsin	Oshkosh						
+Nerman Museum of Contemporary Art	art_museum	Art Museum		Overland Park, Kansas	Overland Park						
+Owensboro Museum of Fine Art	art_museum	Art Museum		Owensboro, Kentucky	Owensboro						
+Palm Springs Art Museum	art_museum	Art Museum		Palm Springs, California	Palm Springs						
+Norton Simon Museum	art_museum	Art Museum		Pasadena, California	Pasadena						
+Pacific Asia Museum	art_museum	Art Museum		Pasadena, California	Pasadena						
+Peoria Riverfront Museum	art_museum	Art Museum		Peoria, Illinois	Peoria						
+Barnes Foundation	art_museum	Art Museum		Philadelphia, Pennsylvania	Philadelphia						
+Pennsylvania Academy of Fine Arts	art_museum	Art Museum		Philadelphia, Pennsylvania	Philadelphia						
+Philadelphia Museum of Art	art_museum	Art Museum		Philadelphia, Pennsylvania	Philadelphia						
+Rodin Museum	art_museum	Art Museum		Philadelphia, Pennsylvania	Philadelphia						
+University of Pennsylvania Museum of Archaeology and Anthropology	art_museum	Art Museum		Philadelphia, Pennsylvania	Philadelphia						
+Phoenix Art Museum	art_museum	Art Museum		Phoenix, Arizona	Phoenix						
+Frick Art & Historical Center	art_museum	Art Museum		Pittsburgh, Pennsylvania	Pittsburgh						
+Mattress Factory	art_museum	Art Museum		Pittsburgh, Pennsylvania	Pittsburgh						
+Randyland	art_museum	Art Museum		Pittsburgh, Pennsylvania	Pittsburgh						
+The Andy Warhol Museum	art_museum	Art Museum		Pittsburgh, Pennsylvania	Pittsburgh						
+Toonseum	art_museum	Art Museum		Pittsburgh, Pennsylvania	Pittsburgh						
+Trundle Manor	art_museum	Art Museum		Pittsburgh, Pennsylvania	Pittsburgh						
+Heartland Artists Gallery	art_museum	Art Museum		Plymouth, Indiana	Plymouth						
+Portland Museum of Art	art_museum	Art Museum		Portland, Maine	Portland						
+Frances Lehman Loeb Art Center	art_museum	Art Museum		Poughkeepsie, New York	Poughkeepsie						
+Princeton University Art Museum	art_museum	Art Museum		Princeton, New Jersey	Princeton						
+Rhode Island School of Design Museum	art_museum	Art Museum		Providence, Rhode Island	Providence						
+Provincetown Art Association and Museum	art_museum	Art Museum		Provincetown, Massachusetts	Provincetown						
+Racine Art Museum	art_museum	Art Museum		Racine, Wisconsin	Racine						
+Contemporary Art Museum of Raleigh	art_museum	Art Museum		Raleigh, North Carolina	Raleigh						
+North Carolina Museum of Art	art_museum	Art Museum		Raleigh, North Carolina	Raleigh						
+Taubman Museum of Art	art_museum	Art Museum		Roanoke, Virginia	Roanoke						
+Memorial Art Gallery	art_museum	Art Museum		Rochester, New York	Rochester						
+Center for Maine Contemporary Art	art_museum	Art Museum		Rockland, Maine	Rockland						
+Farnsworth Art Museum	art_museum	Art Museum		Rockland, Maine	Rockland						
+Crocker Art Museum	art_museum	Art Museum		Sacramento, California	Sacramento						
+Peabody Essex Museum	art_museum	Art Museum		Salem, Massachusetts	Salem						
+Hallie Ford Museum of Art	art_museum	Art Museum		Salem, Oregon	Salem						
+Utah Museum of Contemporary Art	art_museum	Art Museum		Salt Lake City, Utah	Salt Lake City						
+Artpace	art_museum	Art Museum		San Antonio, Texas	San Antonio						
+Blue Star Contemporary Art Center	art_museum	Art Museum		San Antonio, Texas	San Antonio						
+McNay Art Museum	art_museum	Art Museum		San Antonio, Texas	San Antonio						
+San Antonio Museum of Art	art_museum	Art Museum		San Antonio, Texas	San Antonio						
+Mingei International Museum	art_museum	Art Museum		San Diego, California	San Diego						
+Museum of Contemporary Art San Diego	art_museum	Art Museum		San Diego, California	San Diego						
+San Diego Museum of Art	art_museum	Art Museum		San Diego, California	San Diego						
+Timken Museum of Art	art_museum	Art Museum		San Diego, California	San Diego						
+Asian Art Museum of San Francisco	art_museum	Art Museum		San Francisco, California	San Francisco						
+California Palace of the Legion of Honor	art_museum	Art Museum		San Francisco, California	San Francisco						
+Exploratorium	art_museum	Art Museum		San Francisco, California	San Francisco						
+Femina Potens Art Gallery	art_museum	Art Museum		San Francisco, California	San Francisco						
+M. H. de Young Memorial Museum	art_museum	Art Museum		San Francisco, California	San Francisco						
+Huntington Library	art_museum	Art Museum		San Marino, California	San Marino						
+Santa Barbara Museum of Art	art_museum	Art Museum		Santa Barbara, California	Santa Barbara						
+Georgia O'Keeffe Museum	art_museum	Art Museum		Santa Fe, New Mexico	Santa Fe						
+Museum of Indian Arts and Culture	art_museum	Art Museum		Santa Fe, New Mexico	Santa Fe						
+Museum of International Folk Art	art_museum	Art Museum		Santa Fe, New Mexico	Santa Fe						
+Museum of Spanish Colonial Art	art_museum	Art Museum		Santa Fe, New Mexico	Santa Fe						
+New Mexico Museum of Art	art_museum	Art Museum		Santa Fe, New Mexico	Santa Fe						
+SITE Santa Fe	art_museum	Art Museum		Santa Fe, New Mexico	Santa Fe						
+IAIA Museum of Contemporary Native Arts	art_museum	Art Museum		Santa Fe, New Mexico	Santa Fe						
+Santa Monica Museum of Art	art_museum	Art Museum		Santa Monica, California	Santa Monica						
+Ringling Museum of Art	art_museum	Art Museum		Sarasota, Florida	Sarasota						
+Telfair Museum of Art	art_museum	Art Museum		Savannah, Georgia	Savannah						
+Frye Art Museum	art_museum	Art Museum		Seattle, Washington	Seattle						
+Seattle Art Museum	art_museum	Art Museum		Seattle, Washington	Seattle						
+Seattle Asian Art Museum	art_museum	Art Museum		Seattle, Washington	Seattle						
+gum wall	art_museum	Art Museum		Seattle, Washington	Seattle						
+Mabee-Gerrer Museum of Art	art_museum	Art Museum		Shawnee, Oklahoma	Shawnee						
+John Michael Kohler Arts Center	art_museum	Art Museum		Sheboygan, Wisconsin	Sheboygan						
+Shelburne Museum	art_museum	Art Museum		Shelburne, Vermont	Shelburne						
+The Brinton Museum	art_museum	Art Museum		Sheridan County, Wyoming, Wyoming	Sheridan County, Wyoming						
+Mount Holyoke College Art Museum	art_museum	Art Museum		South Hadley, Massachusetts	South Hadley						
+Parrish Art Museum	art_museum	Art Museum		Southampton, New York	Southampton						
+Illinois State Museum	art_museum	Art Museum		Springfield, Illinois	Springfield						
+George Walter Vincent Smith Art Museum	art_museum	Art Museum		Springfield, Massachusetts	Springfield						
+Michele & Donald D’Amour Museum of Fine Arts	art_museum	Art Museum		Springfield, Massachusetts	Springfield						
+Mildred Lane Kemper Art Museum	art_museum	Art Museum		St. Louis, Missouri	St. Louis						
+Salvador Dalí Museum	art_museum	Art Museum		St. Petersburg, Florida	St. Petersburg						
+Iris & B. Gerald Cantor Center for Visual Arts	art_museum	Art Museum		Stanford, California	Stanford						
+Chesterwood	art_museum	Art Museum		Stockbridge, Massachusetts	Stockbridge						
+Norman Rockwell Museum	art_museum	Art Museum		Stockbridge, Massachusetts	Stockbridge						
+Miller Art Museum	art_museum	Art Museum		Sturgeon Bay, Wisconsin	Sturgeon Bay						
+Everson Museum of Art	art_museum	Art Museum		Syracuse, New York	Syracuse						
+Harwood Museum of Art	art_museum	Art Museum		Taos, New Mexico, New Mexico	Taos, New Mexico						
+Millicent Rogers Museum	art_museum	Art Museum		Taos, New Mexico, New Mexico	Taos, New Mexico						
+Taos Art Museum	art_museum	Art Museum		Taos, New Mexico, New Mexico	Taos, New Mexico						
+ASU Art Museum	art_museum	Art Museum		Tempe, Arizona	Tempe						
+Sheldon Swope Art Museum	art_museum	Art Museum		Terre Haute, Indiana	Terre Haute						
+Toledo Museum of Art	art_museum	Art Museum		Toledo, Ohio	Toledo						
+Tucson Museum of Art	art_museum	Art Museum		Tucson, Arizona	Tucson						
+Gilcrease Museum	art_museum	Art Museum		Tulsa, Oklahoma	Tulsa						
+Philbrook Museum of Art	art_museum	Art Museum		Tulsa, Oklahoma	Tulsa						
+Sherwin Miller Museum of Jewish Art	art_museum	Art Museum		Tulsa, Oklahoma	Tulsa						
+Tyler Museum of Art	art_museum	Art Museum		Tyler, Texas	Tyler						
+Munson-Williams-Proctor Arts Institute	art_museum	Art Museum		Utica, New York	Utica						
+Rose Art Museum	art_museum	Art Museum		Waltham, Massachusetts	Waltham						
+Arthur M. Sackler Gallery	art_museum	Art Museum		Washington, D.C.	Washington, D.C.						
+Corcoran Gallery of Art	art_museum	Art Museum		Washington, D.C.	Washington, D.C.						
+Dumbarton Oaks	art_museum	Art Museum		Washington, D.C.	Washington, D.C.						
+Freer Gallery of Art	art_museum	Art Museum		Washington, D.C.	Washington, D.C.						
+Hirshhorn Museum and Sculpture Garden	art_museum	Art Museum		Washington, D.C.	Washington, D.C.						
+Kreeger Museum	art_museum	Art Museum		Washington, D.C.	Washington, D.C.						
+National Museum of Women in the Arts	art_museum	Art Museum		Washington, D.C.	Washington, D.C.						
+National Portrait Gallery	art_museum	Art Museum		Washington, D.C.	Washington, D.C.						
+Phillips Collection	art_museum	Art Museum		Washington, D.C.	Washington, D.C.						
+US Art Gallery	art_museum	Art Museum		Washington, D.C.	Washington, D.C.						
+Colby College Museum of Art	art_museum	Art Museum		Waterville, Maine	Waterville						
+Leigh Yawkey Woodson Art Museum	art_museum	Art Museum		Wausau, Wisconsin	Wausau						
+Davis Museum and Cultural Center	art_museum	Art Museum		Wellesley, Massachusetts	Wellesley						
+Museum of Wisconsin Art	art_museum	Art Museum		West Bend, Wisconsin	West Bend						
+Norton Museum of Art	art_museum	Art Museum		West Palm Beach, Florida	West Palm Beach						
+Turn Park Art Space	art_museum	Art Museum		West Stockbridge, Massachusetts	West Stockbridge						
+Wichita Art Museum	art_museum	Art Museum		Wichita, Kansas	Wichita						
+Abby Aldrich Rockefeller Folk Art Museum	art_museum	Art Museum		Williamsburg, Virginia	Williamsburg						
+Clark Art Institute	art_museum	Art Museum		Williamstown, Massachusetts	Williamstown						
+Williams College Museum of Art	art_museum	Art Museum		Williamstown, Massachusetts	Williamstown						
+Delaware Art Museum	art_museum	Art Museum		Wilmington, Delaware	Wilmington						
+Delaware Center for the Contemporary Arts	art_museum	Art Museum		Wilmington, Delaware	Wilmington						
+Reynolda House Museum of American Art	art_museum	Art Museum		Winston-Salem, North Carolina	Winston-Salem						
+Charles Hosmer Morse Museum of American Art	art_museum	Art Museum		Winter Park, Florida	Winter Park						
+Worcester Art Museum	art_museum	Art Museum		Worcester, Massachusetts	Worcester						
+The Butler Institute of American Art	art_museum	Art Museum		Youngstown, Ohio	Youngstown						
+Eyring Science Center	science_museum	Science Museum		Provo, Utah	Provo, Utah						
+Sitka Sound Science Center	science_museum	Science Museum		Sitka, Alaska	Sitka, Alaska						
+Jonsson-Rowland Science Center	science_museum	Science Museum		Troy, New York	Troy, New York						

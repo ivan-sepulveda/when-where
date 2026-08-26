@@ -1,0 +1,37 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+Kunsthaus	art_museum	Art Museum		Zürich	Zürich			11500		1910	1910
+Kunstmuseum Basel	art_museum	Art Museum		Basel	Basel			10000	110000	1936	1936
+Kunstmuseum	art_museum	Art Museum		Basel	Basel						
+Museum Tinguely	art_museum	Art Museum		Basel	Basel						
+Museum of Contemporary Art	art_museum	Art Museum		Basel	Basel						
+Kunstmuseum	art_museum	Art Museum		Bern	Bern						
+Museum of Fine Arts	art_museum	Art Museum		Bern	Bern						
+Zentrum Paul Klee	art_museum	Art Museum		Bern	Bern						
+Kirchner Museum	art_museum	Art Museum		Davos	Davos						
+Barbier-Mueller Museum	art_museum	Art Museum		Geneva	Geneva						
+Fondation Baur	art_museum	Art Museum		Geneva	Geneva						
+MAMCO	art_museum	Art Museum		Geneva	Geneva						
+Musée Ariana	art_museum	Art Museum		Geneva	Geneva						
+Musée Rath	art_museum	Art Museum		Geneva	Geneva						
+Musée d'Art et d'Histoire	art_museum	Art Museum		Geneva	Geneva						
+Musée des beaux-arts	art_museum	Art Museum		La Chaux-de-Fonds	La Chaux-de-Fonds						
+Cantonal Museum of Fine Arts	art_museum	Art Museum		Lausanne	Lausanne						
+Collection de l'art brut	art_museum	Art Museum		Lausanne	Lausanne						
+Museum of Contemporary Design and Applied Arts	art_museum	Art Museum		Lausanne	Lausanne						
+Musée de l'Élysée	art_museum	Art Museum		Lausanne	Lausanne						
+Beyeler Foundation	art_museum	Art Museum		Riehen	Riehen						
+Kunstmuseum Solothurn	art_museum	Art Museum		Solothurn	Solothurn						
+Segantini Museum	art_museum	Art Museum		St. Moritz	St. Moritz						
+Kunstmuseum Thun	art_museum	Art Museum		Thun	Thun						
+Musée Jenisch	art_museum	Art Museum		Vevey	Vevey						
+Collection Oskar Reinhart Am Römerholz	art_museum	Art Museum		Winterthur	Winterthur						
+Fotomuseum Winterthur	art_museum	Art Museum		Winterthur	Winterthur						
+Kunstmuseum Winterthur	art_museum	Art Museum		Winterthur	Winterthur						
+Museum Oskar Reinhart	art_museum	Art Museum		Winterthur	Winterthur						
+Centre Le Corbusier	art_museum	Art Museum		Zurich	Zurich						
+Foundation E.G. Bührle	art_museum	Art Museum		Zurich	Zurich						
+Rietberg Museum	art_museum	Art Museum		Zurich	Zurich						
+Swiss National Museum	art_museum	Art Museum		Zurich	Zurich						
+Microcosm	science_museum	Science Museum		CERN, Meyrin	CERN, Meyrin						
+Verkehrshaus der Schweiz (Swiss Museum of Transport)	science_museum	Science Museum		Lucerne	Lucerne						
+Technorama	science_museum	Science Museum		Winterthur	Winterthur						

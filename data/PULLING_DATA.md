@@ -192,7 +192,7 @@ Museum Data Files) and writes `data/processed/multiple/imls_museums.csv`
 which three disciplines matter downstream: `ZAW` (zoos, aquariums,
 wildlife conservation), `BOT` (arboretums, botanical gardens, nature
 centers) and `ART` (art museums). Needs Kaggle API credentials, same as
-`fetch_art_museums.py`. **US-only** — pair it with the OSM pull below for
+`fetch_traveler_trips.py`. **US-only** — pair it with the OSM pull below for
 anywhere else. Public domain, citation required. Run `--list-columns`
 first if the normal run errors on a missing column: the Kaggle mirror and
 the raw IMLS release use different header conventions and the script

@@ -85,7 +85,7 @@ export interface CityDetail {
   zoos_and_aquariums: NearbyPlaces | null;
   botanical_gardens: NearbyPlaces | null;
   // US-only (IMLS) -- merged into the Art Museums section alongside the
-  // worldwide largest-art-museums list, not shown as its own section.
+  // worldwide list from worldwide_museums.json, not shown as its own section.
   local_art_museums: NearbyPlaces | null;
 }
 
@@ -165,8 +165,8 @@ export function formatMichelinCountWithinRadius(count: number, radiusKm: number)
 // d'Orsay" -> "musee d orsay". Same normalization as
 // build_city_attractions.py's dedupe_key(), deliberately: that script merges
 // OSM and IMLS entries for the same zoo, and CityDetail merges the
-// largest-art-museums list with IMLS art museums, so both sides of the stack
-// should agree on what "the same name" means.
+// worldwide_museums.json list with IMLS art museums, so both sides of the
+// stack should agree on what "the same name" means.
 export function placeNameKey(name: string): string {
   return name
     .normalize("NFD")

@@ -12,7 +12,7 @@
   "openstreetmap": true,
   "imls": true
  },
- "note": "art_museum is US-only (IMLS); the frontend merges it with the worldwide largest-art-museums list. zoo_aquarium and botanical_garden are worldwide via OSM, enriched with IMLS in the US. Counts are post-deduplication. Cities with nothing in any category are omitted entirely.",
+ "note": "art_museum is US-only (IMLS); the frontend merges it with worldwide_museums.json. zoo_aquarium and botanical_garden are worldwide via OSM, enriched with IMLS in the US. Counts are post-deduplication. Cities with nothing in any category are omitted entirely.",
  "cities_with_attractions": 2475,
  "total_places_by_category": {
   "zoo_aquarium": 33246,

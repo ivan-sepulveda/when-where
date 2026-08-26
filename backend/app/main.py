@@ -298,8 +298,8 @@ class CityDetailResponse(BaseModel):
     zoos_and_aquariums: Optional[NearbyPlaces]
     botanical_gardens: Optional[NearbyPlaces]
     # US-only (IMLS). Deliberately NOT the whole art museum story: the
-    # frontend merges this with the worldwide largest-art-museums list it
-    # already fetches, which covers non-US cities well and US cities badly.
+    # frontend merges this with worldwide_museums.json, which it already
+    # fetches and which covers US cities badly.
     local_art_museums: Optional[NearbyPlaces]
 
 

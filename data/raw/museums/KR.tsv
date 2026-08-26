@@ -1,0 +1,33 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+National Museum of Korea	art_museum	Art Museum		Seoul	Seoul			27090	291600	1909	1909
+MMCA, Gwacheon	art_museum	Art Museum		Gwacheon	Gwacheon			14144	152240	1969	1969
+MMCA, Seoul	art_museum	Art Museum		Seoul	Seoul			10000	110000	2013	2013
+Daejeon Museum of Art	art_museum	Art Museum		Daejeon	Daejeon						
+Jebiwool Art Museum	art_museum	Art Museum		Gwacheon	Gwacheon						
+National Museum of Contemporary Art (South Korea)	art_museum	Art Museum		Gwacheon	Gwacheon						
+Artsonje Center	art_museum	Art Museum		Seoul	Seoul						
+Bukchon Art Museum	art_museum	Art Museum		Seoul	Seoul						
+Hanwon Museum of Art	art_museum	Art Museum		Seoul	Seoul						
+Horim Museum	art_museum	Art Museum		Seoul	Seoul						
+Hwajeong Museum	art_museum	Art Museum		Seoul	Seoul						
+Ilmin Museum of Art	art_museum	Art Museum		Seoul	Seoul						
+Kumho Museum of Art	art_museum	Art Museum		Seoul	Seoul						
+Leeum, Samsung Museum of Art	art_museum	Art Museum		Seoul	Seoul						
+Milal Museum of Art	art_museum	Art Museum		Seoul	Seoul						
+Museum of Korean Buddhist Art	art_museum	Art Museum		Seoul	Seoul						
+Posco Art Museum	art_museum	Art Museum		Seoul	Seoul						
+Rodin Gallery	art_museum	Art Museum		Seoul	Seoul						
+SOMA Museum of Art	art_museum	Art Museum		Seoul	Seoul						
+Savina Museum	art_museum	Art Museum		Seoul	Seoul						
+Seonbawi Museum of Art	art_museum	Art Museum		Seoul	Seoul						
+Seoul Museum of Art	art_museum	Art Museum		Seoul	Seoul						
+Seoul National University Museum of Art	art_museum	Art Museum		Seoul	Seoul						
+Sungkok Art Museum	art_museum	Art Museum		Seoul	Seoul						
+Total Museum of Contemporary Art	art_museum	Art Museum		Seoul	Seoul						
+Whanki Museum	art_museum	Art Museum		Seoul	Seoul						
+Ho-am Art Museum	art_museum	Art Museum		Yongin	Yongin						
+Nam June Paik Art Center	art_museum	Art Museum		Yongin	Yongin						
+National Science Museum, South Korea	science_museum	Science Museum		Daejeon	Daejeon						
+Gwangju National Museum	science_museum	Science Museum		Gwangju	Gwangju						
+Gwacheon National Science Museum	science_museum	Science Museum		Gyeonggi-do	Gyeonggi-do						
+Ulsan Science Museum	science_museum	Science Museum		Ulsan	Ulsan						

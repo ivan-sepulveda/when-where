@@ -1,0 +1,87 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+Royal Ontario Museum	art_museum	Art Museum		Toronto	Toronto			19900	214000	1912	1912
+Montreal Museum of Fine Arts	art_museum	Art Museum		Montreal	Montreal			13000	140000	1860	1860
+National Gallery of Canada	art_museum	Art Museum		Ottawa	Ottawa			12400	133000	1880	1880
+Art Gallery of Ontario	art_museum	Art Museum		Toronto	Toronto			12000	129000	1900	1900
+Musée d'art contemporain de Baie-Saint-Paul	art_museum	Art Museum		Baie-Saint-Paul, Quebec	Baie-Saint-Paul, Quebec						
+Walter Phillips Gallery	art_museum	Art Museum		Banff, Alberta	Banff, Alberta						
+MacLaren Art Centre	art_museum	Art Museum		Barrie, Ontario	Barrie, Ontario						
+Peel Art Gallery, Museum and Archives	art_museum	Art Museum		Brampton, Ontario	Brampton, Ontario						
+Art Gallery of Burlington	art_museum	Art Museum		Burlington, Ontario	Burlington, Ontario						
+Glenbow Museum	art_museum	Art Museum		Calgary, Alberta	Calgary, Alberta						
+Art Gallery of Alberta	art_museum	Art Museum		Edmonton, Alberta	Edmonton, Alberta						
+Beaverbrook Art Gallery	art_museum	Art Museum		Fredericton, New Brunswick	Fredericton, New Brunswick						
+Art Gallery of Guelph	art_museum	Art Museum		Guelph, Ontario	Guelph, Ontario						
+Art Gallery of Nova Scotia	art_museum	Art Museum		Halifax, Nova Scotia	Halifax, Nova Scotia						
+Arctic Experience McNaught Gallery	art_museum	Art Museum		Hamilton, Ontario	Hamilton, Ontario						
+Art Gallery of Hamilton	art_museum	Art Museum		Hamilton, Ontario	Hamilton, Ontario						
+McMaster Museum of Art	art_museum	Art Museum		Hamilton, Ontario	Hamilton, Ontario						
+Agnes Etherington Art Centre	art_museum	Art Museum		Kingston, Ontario	Kingston, Ontario						
+Southern Alberta Art Gallery	art_museum	Art Museum		Lethbridge, Alberta	Lethbridge, Alberta						
+Art Gallery of Mississauga	art_museum	Art Museum		Mississauga, Ontario	Mississauga, Ontario						
+The Blackwood	art_museum	Art Museum		Mississauga, Ontario	Mississauga, Ontario						
+Musée d'art contemporain de Montréal	art_museum	Art Museum		Montreal, Quebec	Montreal, Quebec						
+RiverBrink Art Museum	art_museum	Art Museum		Niagara-on-the-Lake, Ontario	Niagara-on-the-Lake, Ontario						
+Robert McLaughlin Gallery	art_museum	Art Museum		Oshawa, Ontario	Oshawa, Ontario						
+Ottawa Art Gallery	art_museum	Art Museum		Ottawa, Ontario	Ottawa, Ontario						
+Portrait Gallery of Canada	art_museum	Art Museum		Ottawa, Ontario	Ottawa, Ontario						
+Art Gallery of Peterborough	art_museum	Art Museum		Peterborough, Ontario	Peterborough, Ontario						
+Musée national des beaux-arts du Québec	art_museum	Art Museum		Quebec City, Quebec	Quebec City, Quebec						
+MacKenzie Art Gallery	art_museum	Art Museum		Regina, Saskatchewan	Regina, Saskatchewan						
+Owens Art Gallery	art_museum	Art Museum		Sackville, New Brunswick	Sackville, New Brunswick						
+New Brunswick Museum	art_museum	Art Museum		Saint John, New Brunswick	Saint John, New Brunswick						
+Remai Modern	art_museum	Art Museum		Saskatoon, Saskatchewan	Saskatoon, Saskatchewan						
+Art Gallery of Algoma	art_museum	Art Museum		Sault Ste. Marie, Ontario	Sault Ste. Marie, Ontario						
+Sherbrooke Museum of Fine Arts	art_museum	Art Museum		Sherbrooke, Quebec	Sherbrooke, Quebec						
+The Rooms	art_museum	Art Museum		St. John's, Newfoundland and Labrador	St. John's, Newfoundland and Labrador						
+Gallery Stratford	art_museum	Art Museum		Stratford, Ontario	Stratford, Ontario						
+Thunder Bay Art Gallery	art_museum	Art Museum		Thunder Bay, Ontario	Thunder Bay, Ontario						
+Art Museum at the University of Toronto	art_museum	Art Museum		Toronto, Ontario	Toronto, Ontario						
+Design Exchange	art_museum	Art Museum		Toronto, Ontario	Toronto, Ontario						
+Gallery Arcturus	art_museum	Art Museum		Toronto, Ontario	Toronto, Ontario						
+Gardiner Museum	art_museum	Art Museum		Toronto, Ontario	Toronto, Ontario						
+Museum of Contemporary Art Toronto Canada	art_museum	Art Museum		Toronto, Ontario	Toronto, Ontario						
+The Image Centre	art_museum	Art Museum		Toronto, Ontario	Toronto, Ontario						
+Emily Carr House	art_museum	Art Museum		Vancouver, British Columbia	Vancouver, British Columbia						
+Morris and Helen Belkin Art Gallery	art_museum	Art Museum		Vancouver, British Columbia	Vancouver, British Columbia						
+Vancouver Art Gallery	art_museum	Art Museum		Vancouver, British Columbia	Vancouver, British Columbia						
+McMichael Canadian Art Collection	art_museum	Art Museum		Vaughan, Ontario	Vaughan, Ontario						
+Art Gallery of Greater Victoria	art_museum	Art Museum		Victoria, British Columbia	Victoria, British Columbia						
+Maltwood Art Museum and Gallery	art_museum	Art Museum		Victoria, British Columbia	Victoria, British Columbia						
+Canadian Clay and Glass Gallery	art_museum	Art Museum		Waterloo, Ontario	Waterloo, Ontario						
+Yukon Arts Centre	art_museum	Art Museum		Whitehorse	Whitehorse						
+Art Gallery of Windsor	art_museum	Art Museum		Windsor, Ontario	Windsor, Ontario						
+Ace Art inc.	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+Blinkers	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+C2 Centre for Craft	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+Gallery 1C03	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+Gallery One One One	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+Leo Mol Gallery and Sculpture Garden	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+Manitoba Crafts Museum and Library	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+Martha Street Studio	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+Pavilion Gallery Museum	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+Platform Centre for Photographic + Digital Arts	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+Plug In Institute of Contemporary Art	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+Urban Shaman Contemporary Aboriginal Art	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+Winnipeg Art Gallery	art_museum	Art Museum		Winnipeg, Manitoba	Winnipeg, Manitoba						
+Telus World of Science, Edmonton	science_museum	Science Museum		Alberta							
+Personal Computer Museum	science_museum	Science Museum		Brantford, Ontario	Brantford						
+Telus Spark	science_museum	Science Museum		Calgary, Alberta	Calgary						
+Science East	science_museum	Science Museum		Fredericton, New Brunswick	Fredericton						
+Discovery Centre	science_museum	Science Museum		Halifax, Nova Scotia	Halifax						
+Mont Mégantic Observatory	science_museum	Science Museum		Notre-Dame-des-Bois, Quebec	Notre-Dame-des-Bois						
+Canada Science and Technology Museum	science_museum	Science Museum		Ottawa, Ontario	Ottawa						
+Canadian Museum of Nature	science_museum	Science Museum		Ottawa, Ontario	Ottawa						
+Cosmodome (Laval)	science_museum	Science Museum		Quebec	Quebec						
+Montreal Biodome	science_museum	Science Museum		Quebec							
+Montreal Biosphere	science_museum	Science Museum		Quebec							
+Montreal Science Centre	science_museum	Science Museum		Quebec							
+Saskatchewan Science Centre	science_museum	Science Museum		Regina, Saskatchewan	Regina						
+Ontario Science Centre	science_museum	Science Museum		Toronto, Ontario	Toronto						
+Beaty Biodiversity Museum	science_museum	Science Museum		Vancouver, British Columbia	Vancouver						
+H. R. MacMillan Space Centre	science_museum	Science Museum		Vancouver, British Columbia	Vancouver						
+Science World at Telus World of Science	science_museum	Science Museum		Vancouver, British Columbia	Vancouver						
+Royal British Columbia Museum	science_museum	Science Museum		Victoria, British Columbia	Victoria						
+Manitoba Museum	science_museum	Science Museum		Winnipeg, Manitoba	Winnipeg						
+Science North	science_museum	Science Museum		and Dynamic Earth in Sudbury, Ontario	and Dynamic Earth in Sudbury						
+Canada South Science City	science_museum	Science Museum		in Windsor, Ontario	in Windsor						

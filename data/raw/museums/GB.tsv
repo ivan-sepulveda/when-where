@@ -1,0 +1,108 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+British Museum	art_museum	Art Museum		London	London			92000	990000	1753	1753
+Victoria and Albert Museum	art_museum	Art Museum		London	London			30658	330000	1852	1852
+National Gallery	art_museum	Art Museum		London	London			13000	140000	1824	1824
+Tate Modern	art_museum	Art Museum		London	London			12427	133760	2000	2000
+Bowes Museum	art_museum	Art Museum		Barnard Castle	Barnard Castle						
+Holburne Museum of Art	art_museum	Art Museum		Bath	Bath						
+Barber Institute of Fine Arts	art_museum	Art Museum		Birmingham	Birmingham						
+Birmingham Museum & Art Gallery	art_museum	Art Museum		Birmingham	Birmingham						
+Bristol City Museum and Art Gallery	art_museum	Art Museum		Bristol (UK)	Bristol (UK)						
+Royal West of England Academy	art_museum	Art Museum		Bristol (UK)	Bristol (UK)						
+Fitzwilliam Museum	art_museum	Art Museum		Cambridge (UK)	Cambridge (UK)						
+Kettle's Yard	art_museum	Art Museum		Cambridge (UK)	Cambridge (UK)						
+National Museum	art_museum	Art Museum		Cardiff	Cardiff						
+Herbert Art Gallery and Museum	art_museum	Art Museum		Coventry	Coventry						
+Dean Gallery	art_museum	Art Museum		Edinburgh	Edinburgh						
+National Gallery of Scotland	art_museum	Art Museum		Edinburgh	Edinburgh						
+Scottish National Gallery of Modern Art	art_museum	Art Museum		Edinburgh	Edinburgh						
+Scottish National Portrait Gallery	art_museum	Art Museum		Edinburgh	Edinburgh						
+Burrell Collection	art_museum	Art Museum		Glasgow	Glasgow						
+Gallery of Modern Art	art_museum	Art Museum		Glasgow	Glasgow						
+Hunterian Art Gallery	art_museum	Art Museum		Glasgow	Glasgow						
+Kelvingrove Art Gallery and Museum	art_museum	Art Museum		Glasgow	Glasgow						
+Leeds Art Gallery	art_museum	Art Museum		Leeds	Leeds						
+Royal Armouries Museum	art_museum	Art Museum		Leeds	Leeds						
+Temple Newsam	art_museum	Art Museum		Leeds	Leeds						
+Sudley House	art_museum	Art Museum		Liverpool	Liverpool						
+Tate Liverpool	art_museum	Art Museum		Liverpool	Liverpool						
+Walker Art Gallery	art_museum	Art Museum		Liverpool	Liverpool						
+Apsley House	art_museum	Art Museum		London	London						
+Courtauld Gallery	art_museum	Art Museum		London	London						
+Dulwich Picture Gallery	art_museum	Art Museum		London	London						
+Foundling Museum	art_museum	Art Museum		London	London						
+Guildhall Art Gallery	art_museum	Art Museum		London	London						
+Hermitage Rooms	art_museum	Art Museum		London	London						
+Kenwood House	art_museum	Art Museum		London	London						
+Leighton House Museum	art_museum	Art Museum		London	London						
+National Portrait Gallery	art_museum	Art Museum		London	London						
+Ranger's House (Wernher Collection)	art_museum	Art Museum		London	London						
+Royal Collection	art_museum	Art Museum		London	London						
+Saatchi Gallery	art_museum	Art Museum		London	London						
+Sir John Soane's Museum	art_museum	Art Museum		London	London						
+Tate Britain	art_museum	Art Museum		London	London						
+The Hayward	art_museum	Art Museum		London	London						
+Two Temple Place	art_museum	Art Museum		London	London						
+Wallace Collection	art_museum	Art Museum		London	London						
+Manchester Art Gallery	art_museum	Art Museum		Manchester	Manchester						
+Turner Contemporary	art_museum	Art Museum		Margate	Margate						
+Ashmolean Museum	art_museum	Art Museum		Oxford	Oxford						
+Christ Church Picture Gallery	art_museum	Art Museum		Oxford	Oxford						
+Tate St Ives	art_museum	Art Museum		St Ives	St Ives						
+Hepworth Gallery	art_museum	Art Museum		Wakefield	Wakefield						
+Yorkshire Sculpture Park	art_museum	Art Museum		Wakefield	Wakefield						
+Aberdeen Science Centre	science_museum	Science Museum		Aberdeen, Scotland	Aberdeen						
+Satrosphere Science Centre	science_museum	Science Museum		Aberdeen, Scotland	Aberdeen						
+REME Museum of Technology	science_museum	Science Museum		Arborfield, Berkshire, England	Arborfield, Berkshire						
+Armagh Planetarium	science_museum	Science Museum		Armagh, Northern Ireland	Armagh						
+Herschel Museum of Astronomy	science_museum	Science Museum		Bath, England	Bath						
+Museum of Bath at Work	science_museum	Science Museum		Bath, England	Bath						
+Thinktank, Birmingham	science_museum	Science Museum		Birmingham, England	Birmingham						
+Bletchley Park	science_museum	Science Museum		Bletchley, England	Bletchley						
+At-Bristol	science_museum	Science Museum		Bristol, England	Bristol						
+Glenside Museum	science_museum	Science Museum		Bristol, England	Bristol						
+Cambridge Science Centre	science_museum	Science Museum		Cambridge, England	Cambridge						
+Techniquest	science_museum	Science Museum		Cardiff Bay, Wales	Cardiff Bay						
+Catalyst	science_museum	Science Museum		Cheshire, England	Cheshire						
+Snibston Discovery Park	science_museum	Science Museum		Coalville, Leicestershire, England	Coalville, Leicestershire						
+Dundee Science Centre	science_museum	Science Museum		Dundee, Scotland	Dundee						
+Mills Observatory	science_museum	Science Museum		Dundee, Scotland	Dundee						
+Dynamic Earth (Edinburgh)	science_museum	Science Museum		Edinburgh, Scotland	Edinburgh						
+Surgeons' Hall	science_museum	Science Museum		Edinburgh, Scotland	Edinburgh						
+Glasgow Science Centre	science_museum	Science Museum		Glasgow, Scotland	Glasgow						
+National Maritime Museum	science_museum	Science Museum		Greenwich, England	Greenwich						
+Thackray Museum	science_museum	Science Museum		Leeds, England	Leeds						
+National Space Centre	science_museum	Science Museum		Leicester, England	Leicester						
+National Conservation Centre	science_museum	Science Museum		Liverpool, England	Liverpool						
+Anaesthesia Heritage Centre	science_museum	Science Museum		London, England	London						
+Benjamin Franklin House	science_museum	Science Museum		London, England	London						
+British Dental Association Museum	science_museum	Science Museum		London, England	London						
+British Optical Association Museum	science_museum	Science Museum		London, England	London						
+British Red Cross Museum	science_museum	Science Museum		London, England	London						
+Fleming Museum	science_museum	Science Museum		London, England	London						
+Florence Nightingale Museum	science_museum	Science Museum		London, England	London						
+Hunterian Museum at Royal College of Surgeons	science_museum	Science Museum		London, England	London						
+Michael Faraday Museum	science_museum	Science Museum		London, England	London						
+Natural History Museum	science_museum	Science Museum		London, England	London						
+Old Operating Theatre	science_museum	Science Museum		London, England	London						
+Royal Institution: Faraday Museum	science_museum	Science Museum		London, England	London						
+Royal London Hospital Museum and Archives	science_museum	Science Museum		London, England	London						
+Royal Pharmaceutical Society Museum	science_museum	Science Museum		London, England	London						
+Science Museum	science_museum	Science Museum		London, England	London						
+Manchester Museum	science_museum	Science Museum		Manchester, England	Manchester						
+Museum of Science and Industry in Manchester	science_museum	Science Museum		Manchester, England	Manchester						
+Army Medical Services Museum	science_museum	Science Museum		Mytchett, Surrey, England	Mytchett, Surrey						
+Centre for Life	science_museum	Science Museum		Newcastle upon Tyne, England	Newcastle upon Tyne						
+Discovery Museum	science_museum	Science Museum		Newcastle upon Tyne, England	Newcastle upon Tyne						
+Science Oxford	science_museum	Science Museum		Oxford, England	Oxford						
+Porthcurno Telegraph Museum	science_museum	Science Museum		Porthcurno, Cornwall, England	Porthcurno, Cornwall						
+Foredown Tower Countryside Centre	science_museum	Science Museum		Portslade, Sussex, England	Portslade, Sussex						
+Shildon Locomotion Museum	science_museum	Science Museum		Shildon, Durham, England	Shildon, Durham						
+Enginuity	science_museum	Science Museum		Shropshire, England	Shropshire						
+Whipple Museum of the History of Science	science_museum	Science Museum		University of Cambridge, Cambridge, England	University of Cambridge, Cambridge						
+Museum of the History of Science	science_museum	Science Museum		University of Oxford, Oxford, England	University of Oxford, Oxford						
+INTECH	science_museum	Science Museum		Winchester, England	Winchester						
+Winchester Science Centre	science_museum	Science Museum		Winchester, England	Winchester						
+Woolsthorpe Manor	science_museum	Science Museum		Woolsthorpe-by-Colsterworth, Lincolnshire, England	Woolsthorpe-by-Colsterworth, Lincolnshire						
+Xplore!	science_museum	Science Museum		Wrexham, Wales	Wrexham						
+Our Dynamic Earth	science_museum	Science Museum		in Edinburgh, Scotland	in Edinburgh						

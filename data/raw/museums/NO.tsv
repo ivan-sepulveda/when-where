@@ -1,0 +1,9 @@
+name	category	kind	description	location_raw	city	lat	lng	gallery_space_m2	gallery_space_sqft	year_established	year_established_raw
+National Gallery	art_museum	Art Museum		Oslo	Oslo			9000	97000	1842	1842
+Henie-Onstad Art Centre	art_museum	Art Museum		Bærum	Bærum						
+Munch Museum	art_museum	Art Museum		Oslo	Oslo						
+National Museum of Art, Architecture and Design	art_museum	Art Museum		Oslo	Oslo						
+Vitemeir Science Centre	science_museum	Science Museum		Kaupanger	Kaupanger						
+Norwegian Museum of Science and Technology	science_museum	Science Museum		Oslo	Oslo						
+The Science Factory	science_museum	Science Museum		Sandnes	Sandnes						
+Trondheim Science Museum	science_museum	Science Museum		Trondheim	Trondheim						
