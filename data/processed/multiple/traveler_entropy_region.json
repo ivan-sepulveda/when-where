@@ -68,16 +68,16 @@
     {
       "traveler_id": "eduardo-gomez",
       "name": "Eduardo Gomez",
-      "trip_count": 88,
-      "trips_with_destination": 88,
+      "trip_count": 91,
+      "trips_with_destination": 91,
       "n_destinations": 8,
       "top_destination": "Northern America",
-      "top_destination_share": 0.6023,
-      "entropy": 1.2995,
+      "top_destination_share": 0.6044,
+      "entropy": 1.3129,
       "entropy_is_informative": true,
-      "norm_global": 0.4204,
-      "norm_observed": 0.6249,
-      "norm_capacity": 0.4204
+      "norm_global": 0.4247,
+      "norm_observed": 0.6314,
+      "norm_capacity": 0.4247
     },
     {
       "traveler_id": "dionysus",

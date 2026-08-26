@@ -80,6 +80,20 @@
       "norm_capacity": 0.7819
     },
     {
+      "traveler_id": "eduardo-gomez",
+      "name": "Eduardo Gomez",
+      "trip_count": 91,
+      "trips_with_destination": 91,
+      "n_destinations": 26,
+      "top_destination": "IAH",
+      "top_destination_share": 0.3516,
+      "entropy": 2.4354,
+      "entropy_is_informative": true,
+      "norm_global": 0.4817,
+      "norm_observed": 0.7475,
+      "norm_capacity": 0.5399
+    },
+    {
       "traveler_id": "andy-warhol",
       "name": "Andy Warhol",
       "trip_count": 15,
@@ -92,20 +106,6 @@
       "norm_global": 0.4808,
       "norm_observed": 0.9782,
       "norm_capacity": 0.8976
-    },
-    {
-      "traveler_id": "eduardo-gomez",
-      "name": "Eduardo Gomez",
-      "trip_count": 88,
-      "trips_with_destination": 88,
-      "n_destinations": 24,
-      "top_destination": "IAH",
-      "top_destination_share": 0.3636,
-      "entropy": 2.3567,
-      "entropy_is_informative": true,
-      "norm_global": 0.4661,
-      "norm_observed": 0.7416,
-      "norm_capacity": 0.5264
     },
     {
       "traveler_id": "john-coltrane",

@@ -1211,6 +1211,49 @@ FLIGHTS = [
         "note": "Iberia flight 2312.",
         "layover": False,
     },
+    {
+        "date": "2022-04-28",
+        "depart": "10:25",
+        "arrive": "12:15",
+        "arrive_date": "2022-04-28",
+        "block_minutes": 110,
+        "origin": "LGA",
+        "destination": "DTW",
+        "carrier": "DL",
+        "note": "Delta flight 1051. Detroit and New York are both Eastern time, so 110 min "
+                "is the plain wall-clock diff.",
+        "layover": False,
+    },
+    {
+        "date": "2022-05-01",
+        "depart": "16:25",
+        "arrive": "18:25",
+        "arrive_date": "2022-05-01",
+        "block_minutes": 120,
+        "origin": "DTW",
+        "destination": "ATL",
+        "carrier": "DL",
+        "note": "Delta flight 475, Main Cabin (L). Three days after the LGA-DTW leg above, "
+                "not a same-day connection, so Detroit is a genuine stop, not a layover. "
+                "Detroit and Atlanta are both Eastern time, so 120 min is the plain "
+                "wall-clock diff.",
+        "layover": False,
+    },
+    {
+        "date": "2025-06-06",
+        "depart": "13:05",
+        "arrive": "14:35",
+        "arrive_date": "2025-06-06",
+        "block_minutes": 90,
+        "origin": "LHR",
+        "destination": "DUB",
+        "carrier": "BA",
+        "note": "British Airways flight 836 (BA0836), Club Europe. London and Dublin are "
+                "both UTC+1 in June (BST/IST), so 90 min is the plain wall-clock diff. "
+                "Three days before the already-logged 2025-06-09 DUB-MAD Iberia leg -- "
+                "a corroborating multi-day Dublin stay, not a conflict.",
+        "layover": False,
+    },
 ]
 
 CSV_FIELDS = [

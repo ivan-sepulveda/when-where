@@ -16,7 +16,7 @@
     "base_country_code": "US"
   },
   "counts": {
-    "legs": 92
+    "legs": 95
   },
   "legs": [
     {
@@ -2318,6 +2318,81 @@
       "is_domestic": 1,
       "layover": false,
       "notes": "Iberia flight 2312."
+    },
+    {
+      "leg": 93,
+      "trip_id": "EG-2022-04-28",
+      "traveler_name": "Eduardo Gomez",
+      "start_date": "2022-04-28",
+      "depart_local": "10:25",
+      "end_date": "2022-04-28",
+      "arrive_local": "12:15",
+      "block_minutes": 110,
+      "duration_days": 0,
+      "origin_airport": "LGA",
+      "origin_city": "New York",
+      "origin_country": "United States",
+      "destination_airport": "DTW",
+      "destination_airport_name": "Detroit Metropolitan Wayne County Airport",
+      "destination_city": "Detroit",
+      "destination_country": "United States",
+      "destination_lat": 42.212398529052734,
+      "destination_lng": -83.35340118408203,
+      "carrier_code": "DL",
+      "distance_km": 805.1,
+      "is_domestic": 1,
+      "layover": false,
+      "notes": "Delta flight 1051. Detroit and New York are both Eastern time, so 110 min is the plain wall-clock diff."
+    },
+    {
+      "leg": 94,
+      "trip_id": "EG-2022-05-01",
+      "traveler_name": "Eduardo Gomez",
+      "start_date": "2022-05-01",
+      "depart_local": "16:25",
+      "end_date": "2022-05-01",
+      "arrive_local": "18:25",
+      "block_minutes": 120,
+      "duration_days": 0,
+      "origin_airport": "DTW",
+      "origin_city": "Detroit",
+      "origin_country": "United States",
+      "destination_airport": "ATL",
+      "destination_airport_name": "Hartsfield Jackson Atlanta International Airport",
+      "destination_city": "Atlanta",
+      "destination_country": "United States",
+      "destination_lat": 33.6367,
+      "destination_lng": -84.428101,
+      "carrier_code": "DL",
+      "distance_km": 958.2,
+      "is_domestic": 1,
+      "layover": false,
+      "notes": "Delta flight 475, Main Cabin (L). Three days after the LGA-DTW leg above, not a same-day connection, so Detroit is a genuine stop, not a layover. Detroit and Atlanta are both Eastern time, so 120 min is the plain wall-clock diff."
+    },
+    {
+      "leg": 95,
+      "trip_id": "EG-2025-06-06",
+      "traveler_name": "Eduardo Gomez",
+      "start_date": "2025-06-06",
+      "depart_local": "13:05",
+      "end_date": "2025-06-06",
+      "arrive_local": "14:35",
+      "block_minutes": 90,
+      "duration_days": 0,
+      "origin_airport": "LHR",
+      "origin_city": "London",
+      "origin_country": "United Kingdom",
+      "destination_airport": "DUB",
+      "destination_airport_name": "Dublin Airport",
+      "destination_city": "Dublin",
+      "destination_country": "Ireland",
+      "destination_lat": 53.421299,
+      "destination_lng": -6.27007,
+      "carrier_code": "BA",
+      "distance_km": 449.3,
+      "is_domestic": 0,
+      "layover": false,
+      "notes": "British Airways flight 836 (BA0836), Club Europe. London and Dublin are both UTC+1 in June (BST/IST), so 90 min is the plain wall-clock diff. Three days before the already-logged 2025-06-09 DUB-MAD Iberia leg -- a corroborating multi-day Dublin stay, not a conflict."
     }
   ]
 }

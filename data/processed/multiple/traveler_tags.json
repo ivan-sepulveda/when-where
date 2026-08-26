@@ -2366,11 +2366,11 @@
     {
       "traveler_id": "eduardo-gomez",
       "name": "Eduardo Gomez",
-      "trip_count": 88,
-      "trips_with_carrier": 88,
-      "distinct_carriers": 7,
+      "trip_count": 91,
+      "trips_with_carrier": 91,
+      "distinct_carriers": 8,
       "top_carrier": "United Air Lines Inc.",
-      "top_carrier_share": 0.8295,
+      "top_carrier_share": 0.8022,
       "below_min_trips": false,
       "base_city": "Houston",
       "base_inference": "declared",
@@ -2389,9 +2389,9 @@
           "carrier_names": [
             "United Air Lines Inc."
           ],
-          "share": 0.8295,
+          "share": 0.8022,
           "trips": 73,
-          "denominator": 88
+          "denominator": 91
         },
         {
           "kind": "airline_hub",
