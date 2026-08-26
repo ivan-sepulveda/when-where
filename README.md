@@ -68,6 +68,22 @@ weather score resolved against those specific dates. See
 - [ ] The repo spells Oceania as **`oceana`** in `data/processed/oceana/` and `data/scripts/oceana/`. Harmless as a folder name, and the M49 work did **not** leak it — region and subregion labels come verbatim from UNSD's CSV, so the charts say "Oceania" — but the folders are still worth renaming.
 - [ ] Add a **UTC time to every flight** (departure and/or arrival), computed from the local `depart`/`arrive` time plus the airport's timezone. Backend/dataset only for now — don't surface it on the frontend yet. Needs a timezone per airport, which `data/reference/airports.json` doesn't carry today (would need adding, e.g. via `timezonefinder` on each airport's lat/lon, or a timezone-by-IATA-code source). Legs that only have a date and no local time (most of the hand-logged Gomez trips and all the Kaggle-sourced ones — see [[gomez_flight_log]]) have nothing to convert, so their UTC field stays null too, same "nothing invented" rule as the rest of that dataset.
 - [x] Add **Rick Steves** as a fourth travel-show-host traveler, same pattern as Bourdain/Ramsay/Conan (`chef_trips.py`/`chef_traveler.py`) — done 2026-08-26. 47 trips survived from 148 real episodes (2000-2025); see [[ricksteves_traveler]] for why so few (Seattle's real nonstop network to Europe is just six airports) and [[chef_travelers]] for the shared machinery.
+- [ ] **Build a per-traveler "destination preference profile"** from historical trips: a fixed vector of taste dimensions, e.g.
+  ```
+  YOUR PREFERENCES
+
+  food             0.92
+  architecture     0.88
+  nightlife        0.72
+  history          0.70
+  music            0.68
+  walkability      0.85
+  beaches          0.40
+  nature           0.35
+  cold_weather     0.15
+  ```
+  Needs research before it's buildable, not just wiring it in: which existing/future dataset maps to each dimension (OSM POI density for food/nightlife/walkability — see [[city_attractions_datasets]]; UNESCO sites and museum counts for architecture/history — see [[trip_destination_scores]]; weather normals for cold_weather; something not yet in the project for beaches/nature/music), a per-destination score on each dimension, and how a traveler's trips aggregate into one 0-1 value per dimension (mean across trips? weighted by trip count or recency?). Kaggle-sourced travelers with a single trip and no destination-level data for most dimensions should get a null/low-confidence profile rather than an invented one, same "nothing invented" rule as the rest of this project.
+- [ ] **Once that profile exists, add a radar/spider chart to the traveler detail page** visualizing those preference dimensions — alongside the existing 100%-stacked bars, see [[traveler_charts]] for the charting conventions already in place there (Recharts, the segment cap, the tooltip bug to avoid repeating).
 
 ## Data attributions
 
