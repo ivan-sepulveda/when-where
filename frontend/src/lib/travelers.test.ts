@@ -3,6 +3,7 @@ import {
   describeEntropy,
   entropyUnitLabel,
   formatDestinationScore,
+  sortTripsByDate,
   tripDestinationScores,
   type DestinationEntropy,
   type TravelerTrip,
@@ -174,5 +175,72 @@ describe("formatDestinationScore", () => {
     expect(formatDestinationScore(0)).toBe("0.00");
     expect(formatDestinationScore(7.58)).toBe("7.58");
     expect(formatDestinationScore(3.3)).toBe("3.30");
+  });
+});
+
+describe("sortTripsByDate", () => {
+  // Three dated trips, deliberately built out of order, plus one undated
+  // one -- the case build_travelers.py itself calls out (a missing date
+  // must not read as "oldest" or "most recent" just because of where it
+  // lands in the array).
+  const mar = trip({ trip_id: "T-mar", start_date: "2024-03-01", destination_raw: "March trip" });
+  const jan = trip({ trip_id: "T-jan", start_date: "2024-01-08", destination_raw: "January trip" });
+  const jul = trip({ trip_id: "T-jul", start_date: "2024-07-15", destination_raw: "July trip" });
+  const undated = trip({ trip_id: "T-undated", start_date: null, start_date_raw: null });
+
+  it("puts the most recent trip first for 'recent'", () => {
+    expect(sortTripsByDate([mar, jan, jul], "recent").map((t) => t.trip_id)).toEqual([
+      "T-jul",
+      "T-mar",
+      "T-jan",
+    ]);
+  });
+
+  it("puts the oldest trip first for 'oldest'", () => {
+    expect(sortTripsByDate([mar, jan, jul], "oldest").map((t) => t.trip_id)).toEqual([
+      "T-jan",
+      "T-mar",
+      "T-jul",
+    ]);
+  });
+
+  it("keeps an undated trip last for BOTH orders, never reading it as oldest or most recent", () => {
+    expect(sortTripsByDate([undated, jan, jul], "recent").map((t) => t.trip_id)).toEqual([
+      "T-jul",
+      "T-jan",
+      "T-undated",
+    ]);
+    expect(sortTripsByDate([undated, jan, jul], "oldest").map((t) => t.trip_id)).toEqual([
+      "T-jan",
+      "T-jul",
+      "T-undated",
+    ]);
+  });
+
+  it("does not mutate the input array", () => {
+    const original = [mar, jan, jul];
+    const originalOrder = original.map((t) => t.trip_id);
+    sortTripsByDate(original, "recent");
+    expect(original.map((t) => t.trip_id)).toEqual(originalOrder);
+  });
+
+  it("tie-breaks same-date trips by destination name, both directions", () => {
+    // formatDestination() prefers destination_city/destination_country over
+    // destination_raw, so both have to be overridden -- destination_raw
+    // alone wouldn't move the tie-break.
+    const a = trip({
+      trip_id: "T-a",
+      start_date: "2024-01-08",
+      destination_city: "Alpha City",
+      destination_country: "Testland",
+    });
+    const b = trip({
+      trip_id: "T-b",
+      start_date: "2024-01-08",
+      destination_city: "Beta City",
+      destination_country: "Testland",
+    });
+    expect(sortTripsByDate([b, a], "recent").map((t) => t.trip_id)).toEqual(["T-a", "T-b"]);
+    expect(sortTripsByDate([b, a], "oldest").map((t) => t.trip_id)).toEqual(["T-a", "T-b"]);
   });
 });

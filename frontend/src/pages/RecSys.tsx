@@ -7,11 +7,14 @@ import {
   entropyMetricRange,
   entropyMetricValue,
   filterByEntropy,
+  filterByTravelerType,
   formatEntropyValue,
   formatTripCount,
+  TRAVELER_TYPE_OPTIONS,
   useTravelersWithEntropy,
   type EntropyComparator,
   type EntropyMetric,
+  type TravelerTypeFilter,
 } from "../lib/travelers";
 
 // Whether the grid is filtered to travelers with more than one trip. Kept in
@@ -22,6 +25,17 @@ import {
 // appears as ?show=all when the box is unchecked.
 const SHOW_ALL_PARAM = "show";
 const SHOW_ALL_VALUE = "all";
+
+// Which travelers count as "real" vs "synthetic" for the dropdown -- see
+// lib/travelers.ts's filterByTravelerType and TravelerSummary.real_person.
+// "all" is the default and, like SHOW_ALL_VALUE above, is never written to
+// the URL.
+const TRAVELER_TYPE_PARAM = "traveler-type";
+const TRAVELER_TYPE_VALUES: TravelerTypeFilter[] = ["real", "synthetic"];
+
+function parseTravelerType(raw: string | null): TravelerTypeFilter {
+  return raw !== null && (TRAVELER_TYPE_VALUES as string[]).includes(raw) ? (raw as TravelerTypeFilter) : "all";
+}
 
 // The entropy filter, in the URL for the same reason: a filtered grid should
 // survive a refresh and paste into a message. No metric selected is the off
@@ -96,6 +110,20 @@ export default function RecSys() {
     });
   }
 
+  const travelerType = parseTravelerType(searchParams.get(TRAVELER_TYPE_PARAM));
+
+  function setTravelerType(next: TravelerTypeFilter) {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+      if (next === "all") {
+        params.delete(TRAVELER_TYPE_PARAM);
+      } else {
+        params.set(TRAVELER_TYPE_PARAM, next);
+      }
+      return params;
+    });
+  }
+
   const entropyMetric = parseEntropyMetric(searchParams.get(ENTROPY_METRIC_PARAM));
   const entropyComparator = parseEntropyComparator(searchParams.get(ENTROPY_CMP_PARAM));
   const entropyValue = parseEntropyValue(searchParams.get(ENTROPY_VALUE_PARAM));
@@ -150,7 +178,8 @@ export default function RecSys() {
   const dataReady = travelers.status === "loaded" || travelers.status === "enriching";
   const all = dataReady ? travelers.travelers : [];
   const byTripCount = multiTripOnly ? all.filter((traveler) => traveler.trip_count > 1) : all;
-  const shown = filterByEntropy(byTripCount, entropyMetric, entropyComparator, entropyValue);
+  const byType = filterByTravelerType(byTripCount, travelerType);
+  const shown = filterByEntropy(byType, entropyMetric, entropyComparator, entropyValue);
 
   // The hint text next to the filter -- what this metric actually ranges
   // over in the currently-loaded data, not a fixed 0-1 assumption (raw
@@ -205,6 +234,25 @@ export default function RecSys() {
                 onChange={(e) => setMultiTripOnly(e.target.checked)}
               />
               Only show travelers with multiple trips
+            </label>
+
+            {/* Real, named people (Bourdain, Ramsay, Conan, Gomez) vs
+                everyone else -- see TravelerSummary.real_person and
+                filterByTravelerType. A dropdown rather than a checkbox like
+                the one above: it's a three-way choice (all / real /
+                synthetic), not an on/off toggle. */}
+            <label className="rec-sys-type-filter">
+              <span>Traveler type</span>
+              <select
+                value={travelerType}
+                onChange={(e) => setTravelerType(e.target.value as TravelerTypeFilter)}
+              >
+                {TRAVELER_TYPE_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
             </label>
 
             <div className="rec-sys-entropy-filter">
@@ -288,7 +336,9 @@ export default function RecSys() {
             <p>
               {entropyMetric !== null
                 ? `No traveler's ${entropyMetricLabel(entropyMetric)} is ${entropyComparatorLabel(entropyComparator)} ${formatEntropyValue(entropyValue)}. Adjust the filter above to see more.`
-                : "No traveler in this dataset has more than one trip. Uncheck the box above to see all of them."}
+                : travelerType !== "all"
+                  ? `No ${travelerType} traveler matches the other filters above. Try "Show all" in the traveler type dropdown.`
+                  : "No traveler in this dataset has more than one trip. Uncheck the box above to see all of them."}
             </p>
           )}
 

@@ -4,6 +4,7 @@ import {
   entropyMetricRange,
   entropyMetricValue,
   filterByEntropy,
+  filterByTravelerType,
   formatEntropyValue,
   type DestinationEntropy,
   type TravelerSummary,
@@ -231,5 +232,44 @@ describe("ENTROPY_STEP", () => {
   it("is fine enough to type every value the hint can print", () => {
     expect(ENTROPY_STEP).toBe(0.001);
     expect(formatEntropyValue(ENTROPY_STEP)).toBe("0.001");
+  });
+});
+
+
+// filterByTravelerType: the real/synthetic dropdown. "Real" is exactly
+// real_person === true; "synthetic" is everyone else, including a traveler
+// who has never been enriched with the field at all (an older cached
+// response, or a summary row from before this field existed) -- unset must
+// read as synthetic, not as a third state.
+function typedTraveler(id: string, realPerson?: boolean): TravelerSummary {
+  return {
+    traveler_id: id,
+    name: id,
+    nationality: "American",
+    gender: "Male",
+    age: 40,
+    age_range: [40, 40],
+    trip_count: 3,
+    destinations: [],
+    ...(realPerson === undefined ? {} : { real_person: realPerson }),
+  };
+}
+
+describe("filterByTravelerType", () => {
+  const people = [typedTraveler("real-one", true), typedTraveler("fake-one", false), typedTraveler("unset-one")];
+
+  it("passes everyone when the type is 'all'", () => {
+    expect(filterByTravelerType(people, "all")).toEqual(people);
+  });
+
+  it("keeps only real_person === true travelers for 'real'", () => {
+    expect(filterByTravelerType(people, "real").map((t) => t.traveler_id)).toEqual(["real-one"]);
+  });
+
+  it("keeps real_person === false AND unset travelers for 'synthetic'", () => {
+    expect(filterByTravelerType(people, "synthetic").map((t) => t.traveler_id)).toEqual([
+      "fake-one",
+      "unset-one",
+    ]);
   });
 });

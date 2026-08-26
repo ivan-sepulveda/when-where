@@ -468,6 +468,39 @@ class TestTravelers:
             assert all(len(t["origin_airport"]) == 3 for t in detail["trips"])
             assert all(len(t["destination_airport"]) == 3 for t in detail["trips"])
 
+    def test_real_person_flag_marks_exactly_the_named_real_travelers(self, client):
+        # real_person distinguishes the 4 real, named travelers (the
+        # travel-show hosts + Eduardo Gomez -- see chef_travelers.md and
+        # gomez_flight_log.md in project memory) from the 82 fictional
+        # hand-authored characters, which is a finer cut than `synthetic`:
+        # both groups are synthetic=True and persona_match="authored", so
+        # this is the only field that tells them apart. Pinned by id rather
+        # than by name matching, since a rename (done before, per project
+        # memory) must not silently drop someone off this list.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        real_ids = {"anthony-bourdain", "gordon-ramsay", "conan-o-brien", "eduardo-gomez"}
+        found = set()
+        for summary in body["travelers"]:
+            expected = summary["traveler_id"] in real_ids
+            assert summary["real_person"] == expected, summary["traveler_id"]
+            if expected:
+                found.add(summary["traveler_id"])
+                # A real traveler is also hand-authored -- real_person is a
+                # subset of synthetic, never travelers pulled straight from
+                # the Kaggle CSV.
+                assert summary["synthetic"] is True
+                assert summary["persona_match"] == "authored"
+                # Summary and detail must agree, same convention as
+                # region_entropy_normalized above.
+                detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+                assert detail["real_person"] is True
+
+        if found:
+            assert found == real_ids & {t["traveler_id"] for t in body["travelers"]}
+
     def test_destination_entropy_is_consistent_with_the_traveler_it_describes(self, client):
         # The entropy block is computed by a separate script from a separate
         # file (compute_traveler_entropy.py -> traveler_entropy.json), joined
@@ -490,8 +523,19 @@ class TestTravelers:
                 continue  # compute_traveler_entropy.py not run here
             checked += 1
 
+            # Excludes layovers, matching compute_traveler_entropy.py's own
+            # compute() -- see [[layover_legs]]: a layover leg (Atlanta and
+            # Paris on a Houston-to-Lisbon trip) still carries a
+            # destination_airport, but Ivan's call was to exclude it from
+            # entropy (and trip_count, and loyalty share) everywhere, not
+            # just from the Trips list the frontend renders. Eduardo Gomez
+            # is currently the only traveler with any layover leg, which is
+            # why this recount silently agreed with the real entropy for
+            # everyone else even before this filter was added.
             counts = Counter(
-                t["destination_airport"] for t in detail["trips"] if t.get("destination_airport")
+                t["destination_airport"]
+                for t in detail["trips"]
+                if t.get("destination_airport") and not t.get("layover")
             )
             assert entropy["trips_with_destination"] == sum(counts.values()), summary["traveler_id"]
             assert entropy["n_destinations"] == len(counts), summary["traveler_id"]
@@ -595,8 +639,18 @@ class TestTravelers:
             tag = loyalist[0]
 
             detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            # Excludes layovers, matching compute_traveler_tags.py's own
+            # denominator -- see [[layover_legs]]: a layover leg still
+            # carries a carrier_name, but Ivan's call was to exclude it from
+            # loyalty share (and trip_count, and entropy) everywhere. Eduardo
+            # Gomez is currently the only traveler with any layover leg,
+            # which is why this recount silently agreed with the real
+            # denominator until his log grew a strong enough United majority
+            # to earn a Loyalist tag.
             counts = Counter(
-                trip["carrier_name"] for trip in detail["trips"] if trip["carrier_name"]
+                trip["carrier_name"]
+                for trip in detail["trips"]
+                if trip["carrier_name"] and not trip.get("layover")
             )
             # THE DENOMINATOR IS TRIPS WITH A CARRIER, not trip_count -- the
             # rule's one non-obvious choice, and the one a future refactor is

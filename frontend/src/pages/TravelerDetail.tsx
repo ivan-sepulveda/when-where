@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { Link, useParams, useSearchParams } from "react-router";
 import StackedShareBar from "../components/StackedShareBar";
 import TravelerTags from "../components/TravelerTags";
 import { airlineColor, shortenCarrier } from "../lib/airlineColors";
@@ -18,10 +18,13 @@ import {
   formatFlight,
   formatTripCount,
   formatTripDates,
+  sortTripsByDate,
   tripDestinationScores,
+  TRIP_ORDER_OPTIONS,
   useTraveler,
   type DestinationEntropy,
   type TravelerTrip,
+  type TripOrder,
 } from "../lib/travelers";
 
 // One traveler from the /rec-sys grid: who they are, then every trip they've
@@ -143,9 +146,33 @@ function EntropyBlock({ entropy }: { entropy: DestinationEntropy | null | undefi
   );
 }
 
+// The Trips section's sort order, held in the URL like /rec-sys's own
+// filters (see lib/travelers.ts's TripOrder) -- so a traveler's page, viewed
+// oldest-first, survives a refresh and pastes into a message the same way.
+// "recent" is the default and is never written to the URL.
+const TRIP_ORDER_PARAM = "trip-order";
+
+function parseTripOrder(raw: string | null): TripOrder {
+  return raw === "oldest" ? "oldest" : "recent";
+}
+
 export default function TravelerDetail() {
   const { travelerId } = useParams<{ travelerId: string }>();
   const state = useTraveler(travelerId);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tripOrder = parseTripOrder(searchParams.get(TRIP_ORDER_PARAM));
+
+  function setTripOrder(next: TripOrder) {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+      if (next === "recent") {
+        params.delete(TRIP_ORDER_PARAM);
+      } else {
+        params.set(TRIP_ORDER_PARAM, next);
+      }
+      return params;
+    });
+  }
 
   if (state.status === "loading") {
     return (
@@ -190,6 +217,7 @@ export default function TravelerDetail() {
   // traveler.trips for anything that wants it; this page just doesn't list
   // a layover as if it were a destination.
   const realTrips = traveler.trips.filter((trip) => !trip.layover);
+  const orderedTrips = sortTripsByDate(realTrips, tripOrder);
   // Same "only render what's actually there" approach as TripCard's facts.
   const details = [
     traveler.nationality && { label: "Nationality", value: traveler.nationality },
@@ -295,17 +323,35 @@ export default function TravelerDetail() {
       </div>
 
       <h2>Trips</h2>
+      {/* Hidden when there's nothing to reorder, same reasoning as the
+          entropy comparator/value inputs on /rec-sys: a control that does
+          nothing on a one-trip page just invites fiddling with it. */}
+      {orderedTrips.length > 1 && (
+        <label className="trip-order-filter">
+          <span>Show by</span>
+          <select value={tripOrder} onChange={(e) => setTripOrder(e.target.value as TripOrder)}>
+            {TRIP_ORDER_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
       <ul className="destination-detail-stats">
-        {realTrips.length === 0 ? (
+        {orderedTrips.length === 0 ? (
           // Shouldn't happen -- build_travelers.py only creates a traveler
           // from at least one non-layover trip -- but a card that links to an
           // empty page should still say something.
           <li className="destination-detail-stat-card">No trips recorded for {traveler.name}.</li>
         ) : (
-          realTrips.map((trip, index) => (
+          orderedTrips.map((trip, index) => (
             // trip_id is nullable in the source, so it can't be the key on
-            // its own; the index keeps it unique either way and these lists
-            // are never reordered in place.
+            // its own; the index keeps it unique either way. Every trip in
+            // the current dataset has one, so in practice this key stays
+            // trip_id and is stable across a re-sort -- React moves each
+            // <TripCard> instead of remounting it -- with the index fallback
+            // only there for a source row that somehow arrives without one.
             <TripCard key={trip.trip_id ?? `${trip.destination_raw}-${index}`} trip={trip} />
           ))
         )}

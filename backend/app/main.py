@@ -122,6 +122,21 @@ TRAVELER_ENTROPY_REGION = load_traveler_entropy(TRAVELER_ENTROPY_REGION_PATH)
 # from TRAVELERS for the same reason as the entropy above: it is DERIVED
 # from travelers_anon.json.
 TRAVELER_TAGS = load_traveler_tags()
+# The travelers who are real, named people rather than a fictional persona
+# or an anonymized Kaggle row: Anthony Bourdain, Gordon Ramsay and Conan
+# O'Brien (their shows' real episodes resolved onto real routes -- see
+# chef_trips.py) and Eduardo Gomez (Ivan's own hand-kept flight log -- see
+# build_gomez_trips.py). Hardcoded rather than derived from `synthetic` or
+# `persona_match`: both are True/"authored" for the 82 fictional
+# hand-authored characters too, so nothing already in the data separates "a
+# real name" from "an authored persona" -- this set is the only place that
+# distinction is recorded. Adding a fifth real traveler is one more id here.
+REAL_PERSON_TRAVELER_IDS = frozenset({
+    "anthony-bourdain",
+    "gordon-ramsay",
+    "conan-o-brien",
+    "eduardo-gomez",
+})
 # None until match_trip_cities.py has been run. Resolves a trip's
 # destination to a city in tourist_cities_enhanced.json so the trip can
 # carry that city's UNESCO/Michelin scores -- the name matching itself is
@@ -457,6 +472,13 @@ class TravelerSummary(BaseModel):
     # TravelerTrip.synthetic. Their name is their own rather than an author
     # persona (persona_match: "authored").
     synthetic: bool = False
+    # True for the handful of travelers who are a real, named person --
+    # Anthony Bourdain, Gordon Ramsay, Conan O'Brien, Eduardo Gomez -- rather
+    # than a fictional persona (hand-authored or anonymized) or a raw Kaggle
+    # row. See REAL_PERSON_TRAVELER_IDS: NOT derivable from `synthetic` or
+    # `persona_match` above, since both are also true/"authored" for the 82
+    # fictional hand-authored characters.
+    real_person: bool = False
     trip_count: int
     destinations: list[str]
     # Only present when travelers_anon.json is what's being served (see
@@ -954,6 +976,7 @@ def travelers():
                 **{k: v for k, v in t.items() if k != "trips"},
                 tags=_tags(t["traveler_id"]),
                 region_entropy_normalized=_region_entropy_normalized(t["traveler_id"]),
+                real_person=t["traveler_id"] in REAL_PERSON_TRAVELER_IDS,
             )
             for t in TRAVELERS.values()
         ],
@@ -1106,6 +1129,7 @@ def traveler_detail(traveler_id: str):
         tags=_tags(traveler_id),
         destination_entropy=_destination_entropy(traveler_id),
         region_entropy=_destination_entropy(traveler_id, TRAVELER_ENTROPY_REGION),
+        real_person=traveler_id in REAL_PERSON_TRAVELER_IDS,
     )
 
 

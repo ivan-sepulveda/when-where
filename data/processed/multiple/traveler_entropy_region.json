@@ -12,16 +12,16 @@
     {
       "traveler_id": "anthony-bourdain",
       "name": "Anthony Bourdain",
-      "trip_count": 130,
-      "trips_with_destination": 130,
+      "trip_count": 146,
+      "trips_with_destination": 146,
       "n_destinations": 16,
       "top_destination": "Northern America",
-      "top_destination_share": 0.3308,
-      "entropy": 2.2683,
+      "top_destination_share": 0.3288,
+      "entropy": 2.2647,
       "entropy_is_informative": true,
-      "norm_global": 0.7338,
-      "norm_observed": 0.8181,
-      "norm_capacity": 0.7338
+      "norm_global": 0.7327,
+      "norm_observed": 0.8168,
+      "norm_capacity": 0.7327
     },
     {
       "traveler_id": "conan-o-brien",
@@ -68,16 +68,16 @@
     {
       "traveler_id": "eduardo-gomez",
       "name": "Eduardo Gomez",
-      "trip_count": 13,
-      "trips_with_destination": 13,
-      "n_destinations": 5,
+      "trip_count": 79,
+      "trips_with_destination": 79,
+      "n_destinations": 8,
       "top_destination": "Northern America",
-      "top_destination_share": 0.5385,
-      "entropy": 1.3039,
+      "top_destination_share": 0.5949,
+      "entropy": 1.2759,
       "entropy_is_informative": true,
-      "norm_global": 0.4218,
-      "norm_observed": 0.8101,
-      "norm_capacity": 0.5083
+      "norm_global": 0.4128,
+      "norm_observed": 0.6136,
+      "norm_capacity": 0.4128
     },
     {
       "traveler_id": "dionysus",

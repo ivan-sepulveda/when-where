@@ -589,6 +589,48 @@ h1 {
   cursor: pointer;
 }
 
+/* The real/synthetic traveler-type dropdown, sitting next to the multi-trip
+   checkbox in .destinations-controls -- same select styling as the entropy
+   metric picker below, so the two read as siblings. */
+.rec-sys-type-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.rec-sys-type-filter select {
+  background: #161b22;
+  color: inherit;
+  border: 1px solid #3a3f47;
+  border-radius: 6px;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.9rem;
+}
+
+/* The Trips section's "Show by" order dropdown on TravelerDetail.tsx --
+   same select styling as the /rec-sys filters above, sitting on its own
+   line just under the "Trips" heading rather than in a controls row, since
+   this page has no other filter beside it. */
+.trip-order-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: -0.5rem 0 1rem;
+}
+
+.trip-order-filter select {
+  background: #161b22;
+  color: inherit;
+  border: 1px solid #3a3f47;
+  border-radius: 6px;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.9rem;
+}
+
 /* The entropy filter -- metric + comparator + threshold -- next to the
    multi-trip checkbox in .destinations-controls. One row that wraps rather
    than three stacked controls, so it reads as one filter with three parts,

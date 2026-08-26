@@ -205,6 +205,16 @@ export interface TravelerSummary {
   // something the UI renders -- and absent entirely when the raw names are
   // being served.
   persona_match?: string | null;
+  // Mirrors backend/app/main.py's REAL_PERSON_TRAVELER_IDS: true only for
+  // the handful of travelers who are a real, named person (Anthony
+  // Bourdain, Gordon Ramsay, Conan O'Brien, Eduardo Gomez) rather than a
+  // fictional persona or an anonymized Kaggle row. Distinct from the
+  // backend's own `synthetic` field (not carried on this interface), which
+  // means something narrower -- "not from the Kaggle CSV" -- and is true for
+  // the 82 fictional hand-authored characters too. See
+  // filterByTravelerType(). Optional only so an older cached response still
+  // typechecks.
+  real_person?: boolean;
   // Always an array, never null -- the API sends [] both for "no rule
   // matched" and for a checkout where compute_traveler_tags.py hasn't run.
   // Optional here only so an older cached response still typechecks.
@@ -287,6 +297,34 @@ const ENTROPY_EXTRACTORS: Record<EntropyMetric, (t: TravelerSummary) => number |
 export function entropyMetricValue(traveler: TravelerSummary, metric: EntropyMetric): number | null {
   return ENTROPY_EXTRACTORS[metric](traveler);
 }
+
+// The /rec-sys traveler-type filter: real, named people (Bourdain, Ramsay,
+// Conan, Gomez -- see TravelerSummary.real_person) vs everyone else. "All"
+// is the default and is never written to the URL, same convention as the
+// multi-trip checkbox and the entropy filter above -- a plain /rec-sys link
+// means "no traveler-type filter".
+//
+// "Synthetic" here means "not a real named person" -- it's the 82 fictional
+// hand-authored characters AND the 124 Kaggle-derived rows alike, which is
+// coarser than (and NOT the same set as) the backend's own `synthetic`
+// field, which is true for the fictional characters too but false for the
+// Kaggle rows.
+export type TravelerTypeFilter = "all" | "real" | "synthetic";
+
+export const TRAVELER_TYPE_OPTIONS: { value: TravelerTypeFilter; label: string }[] = [
+  { value: "all", label: "Show all" },
+  { value: "synthetic", label: "Show only synthetic travelers" },
+  { value: "real", label: "Show only real travelers" },
+];
+
+export function filterByTravelerType(
+  travelers: TravelerSummary[],
+  type: TravelerTypeFilter,
+): TravelerSummary[] {
+  if (type === "all") return travelers;
+  return travelers.filter((t) => (type === "real" ? t.real_person === true : t.real_person !== true));
+}
+
 
 // `metric: null` is the off position -- explicit, rather than overloading a
 // threshold of zero the way the old region-only slider did, because zero is
@@ -664,4 +702,41 @@ export function formatTripDates(trip: TravelerTrip, formatRange: (start: string,
   if (trip.start_date && trip.end_date) return formatRange(trip.start_date, trip.end_date);
   const raw = [trip.start_date_raw, trip.end_date_raw].filter(Boolean);
   return raw.length ? raw.join(" - ") : null;
+}
+
+// TravelerDetail's "Show by" control for the Trips section: most-recent
+// trip first (the default) or oldest first. "oldest" happens to match the
+// order /api/travelers already returns trips in -- build_travelers.py sorts
+// each traveler's trips ascending by start_date, undated trips last -- so
+// "oldest" is effectively "as the API sent them" and "recent" is that same
+// order reversed among the DATED trips.
+export type TripOrder = "recent" | "oldest";
+
+export const TRIP_ORDER_OPTIONS: { value: TripOrder; label: string }[] = [
+  { value: "recent", label: "Most recent first" },
+  { value: "oldest", label: "Oldest first" },
+];
+
+// Undated trips (start_date null -- the source value didn't parse) always
+// sort to the END, in EITHER direction: a missing date must never read as
+// "oldest" just because it sorts first ascending, or as "most recent" just
+// because it sorts first descending -- same reasoning build_travelers.py
+// itself gives for keeping them last in the API's own order. Dated trips
+// with the same start_date, and the undated trips among themselves,
+// tie-break on destination name for a stable, readable order regardless of
+// which order they arrived in.
+export function sortTripsByDate(trips: TravelerTrip[], order: TripOrder): TravelerTrip[] {
+  return [...trips].sort((a, b) => {
+    if (a.start_date === null || b.start_date === null) {
+      if (a.start_date === null && b.start_date === null) {
+        return formatDestination(a).localeCompare(formatDestination(b));
+      }
+      return a.start_date === null ? 1 : -1;
+    }
+    if (a.start_date !== b.start_date) {
+      const ascending = a.start_date < b.start_date ? -1 : 1;
+      return order === "recent" ? -ascending : ascending;
+    }
+    return formatDestination(a).localeCompare(formatDestination(b));
+  });
 }
