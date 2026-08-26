@@ -164,7 +164,8 @@ const SHORT_NAME_OVERRIDES: Record<string, string> = {
   "Eva Airways Corporation": "EVA Air",
   "Japan Air Lines Co. Ltd.": "Japan Airlines",
   "Korean Air Lines Co. Ltd.": "Korean Air",
-  "Cathay Pacific Airways Ltd.": "Cathay Pacific",
+  "Cathay Pacific Airways Ltd.": "Cathay",
+  "easyJet Airline Company Limited": "easyJet",
 };
 
 export function shortenCarrier(carrierName: string): string {

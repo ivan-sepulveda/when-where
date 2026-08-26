@@ -111,11 +111,14 @@ export interface StackedShareBarProps {
   // Optional per-category color, keyed on the segment's label. Supplied for
   // airlines (brand colors); omitted elsewhere to use the categorical palette.
   colorOf?: (label: string) => string;
-  // Optional short form of a segment's label, drawn inside the segment when
-  // it fits. On the airlines bar this is doing real work: brand colors are
-  // not distinguishable enough to carry identity by themselves -- Delta and
-  // American are visually the same red -- so the text is what actually tells
-  // the segments apart. See lib/airlineColors.ts.
+  // Optional short form of a segment's label, used for the in-bar label,
+  // the legend and the table -- the full legal name (e.g. "United Air Lines
+  // Inc.") stays available as a title/tooltip on both, but nowhere is the
+  // reader's default read the long form. On the airlines bar the in-bar use
+  // is also doing real work: brand colors are not distinguishable enough to
+  // carry identity by themselves -- Delta and American are visually the same
+  // red -- so the text is what actually tells the segments apart. See
+  // lib/airlineColors.ts.
   shortLabelOf?: (label: string) => string;
   // Rendered under the bar: what the percentages are a share of. The two
   // charts on a traveler page have DIFFERENT denominators (only trips with
@@ -266,7 +269,9 @@ export default function StackedShareBar({
         {data.segments.map((slice, i) => (
           <li key={slice.label}>
             <span className="share-bar-swatch" style={{ background: colors[i] }} aria-hidden="true" />
-            <span className="share-bar-legend-label">{slice.label}</span>
+            <span className="share-bar-legend-label" title={slice.label}>
+              {shortLabelOf?.(slice.label) ?? slice.label}
+            </span>
             <span className="share-bar-legend-value">{formatPercent(slice.percent)}</span>
           </li>
         ))}
@@ -289,7 +294,7 @@ export default function StackedShareBar({
           <tbody>
             {data.segments.map((slice) => (
               <tr key={slice.label}>
-                <th scope="row">{slice.label}</th>
+                <th scope="row" title={slice.label}>{shortLabelOf?.(slice.label) ?? slice.label}</th>
                 <td>{slice.value}</td>
                 <td>{formatPercent(slice.percent)}</td>
               </tr>
