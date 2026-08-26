@@ -4,7 +4,7 @@ import TravelAdvisoryIcon from "../components/TravelAdvisoryIcon";
 import { formatDateRange } from "../lib/formatDate";
 import { getCountryByCode } from "../lib/countries";
 import { countryCodeToFlagEmoji } from "../lib/flagEmoji";
-import { getArtMuseumsInCity, useArtMuseums } from "../lib/artMuseums";
+import { byGallerySpaceDescending, getArtMuseumsInCity, useArtMuseums } from "../lib/artMuseums";
 import { getMichelinGuideUrl } from "../lib/michelin";
 import { useTravelAdvisory } from "../lib/travelAdvisories";
 import { getUnescoStatesPartyUrl } from "../lib/unesco";
@@ -26,7 +26,7 @@ type WeatherLoadState =
 
 // How many art museums the merged section below shows before cutting off --
 // the backend already caps its own list, this bounds the two lists combined.
-const MAX_ART_MUSEUMS = 10;
+const MAX_ART_MUSEUMS = 5;
 
 // The Aquariums & Zoos and Botanical Gardens sections: a headline count card
 // plus the nearest few, or an explicit "nothing found" card. Rendered only
@@ -172,17 +172,22 @@ export default function CityDetail() {
     artMuseums.status === "loaded" ? getArtMuseumsInCity(artMuseums.museums, cityNames) : [];
 
   // Two very differently-shaped sources feed one Art Museums section:
-  //   * the worldwide "largest art museums" list (~112 entries), matched by
-  //     city name -- good coverage outside the US, almost none inside it;
+  //   * worldwide_museums.json, matched by city name -- good coverage
+  //     outside the US, almost none inside it;
   //   * IMLS's US museum directory, matched by distance -- the mirror image.
   // Merged rather than shown separately, since "art museums here" is one
-  // question. World-list entries come first (they're the notable ones and
-  // carry no distance), IMLS fills in behind them, and anything already named
-  // by the world list is dropped from the IMLS half so the Met doesn't appear
-  // twice under two different labels.
+  // question. Anything already named by the worldwide list is dropped from
+  // the IMLS half so the Met doesn't appear twice under two different labels.
+  //
+  // The merged list is then ranked by gallery space, biggest first, and cut
+  // to MAX_ART_MUSEUMS. IMLS carries no gallery space, so those entries count
+  // as zero (see byGallerySpaceDescending) and sit behind any measured
+  // museum -- which is the intent: if this city has one of the world's
+  // largest art museums, that should lead.
   const worldArtMuseums = museumsInCity.map((museum) => ({
     name: museum.name,
     note: "One of the world's largest art museums",
+    gallerySpaceM2: museum.gallerySpaceM2 ?? 0,
   }));
   const worldArtMuseumKeys = new Set(worldArtMuseums.map((museum) => placeNameKey(museum.name)));
   const localArtMuseums = (city.local_art_museums?.places ?? [])
@@ -190,8 +195,11 @@ export default function CityDetail() {
     .map((place) => ({
       name: place.name,
       note: `${formatDistance(place.distance_km)} · ${place.source}`,
+      gallerySpaceM2: 0,
     }));
-  const artMuseumEntries = [...worldArtMuseums, ...localArtMuseums].slice(0, MAX_ART_MUSEUMS);
+  const artMuseumEntries = [...worldArtMuseums, ...localArtMuseums]
+    .sort(byGallerySpaceDescending)
+    .slice(0, MAX_ART_MUSEUMS);
 
   return (
     <main className="page">
@@ -317,11 +325,11 @@ export default function CityDetail() {
         )}
         {artMuseums.status !== "loading" && artMuseumEntries.length === 0 && (
           // Worth naming what the datasets actually are: the worldwide list
-          // is only the ~112 largest art museums, and the per-city half is
-          // US-only, so "none" here is common and doesn't mean the city has
-          // no museums.
+          // is a curated selection with uneven per-country coverage, and the
+          // per-city half is US-only, so "none" here is common and doesn't
+          // mean the city has no museums.
           <li className="destination-detail-stat-card">
-            No art museum near {city.city_ascii} is in this dataset (the world's largest art museums, plus
+            No art museum near {city.city_ascii} is in this dataset (a worldwide art museum list, plus
             the US museum directory).
           </li>
         )}

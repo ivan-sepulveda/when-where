@@ -70,18 +70,32 @@ async function loadArtMuseumsByCountry(): Promise<Map<string, ArtMuseum[]>> {
   }
 
   for (const list of byCountry.values()) {
-    list.sort((a, b) => (b.gallerySpaceM2 ?? -1) - (a.gallerySpaceM2 ?? -1));
+    list.sort(byGallerySpaceDescending);
   }
 
   return byCountry;
 }
 
-// Source data is sorted by gallery_space_m2 descending (see
-// loadArtMuseumsByCountry above), so this is just a slice -- kept as a
-// named helper (rather than inlining `.slice(0, 5)` at the call site) so
-// the "top N" behavior has one place to change.
+// Ranking rule for every art museum list the UI shows: biggest gallery space
+// first, and a museum whose source never recorded one counts as zero rather
+// than being dropped or floated to the top. Most of the dataset is in that
+// position -- only the rows from the "largest art museums by gallery space"
+// source carry a figure at all (see data/raw/museums/README.md) -- so this
+// ranks the measured ones first and leaves the rest in their existing order
+// behind them, which Array.prototype.sort keeps stable.
+export function byGallerySpaceDescending(
+  a: { gallerySpaceM2?: number | null },
+  b: { gallerySpaceM2?: number | null },
+): number {
+  return (b.gallerySpaceM2 ?? 0) - (a.gallerySpaceM2 ?? 0);
+}
+
+// The top N by gallery space. Sorts rather than assuming the caller's list
+// is already ordered: callers pass filtered subsets (a single city's
+// museums, say), and re-sorting a handful of entries is cheap enough that
+// it isn't worth making every call site guarantee order.
 export function getTopArtMuseums(museums: ArtMuseum[], count = 5): ArtMuseum[] {
-  return museums.slice(0, count);
+  return [...museums].sort(byGallerySpaceDescending).slice(0, count);
 }
 
 // Comparison key for joining a city name across two sources that don't
