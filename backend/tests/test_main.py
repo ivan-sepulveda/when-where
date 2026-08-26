@@ -469,7 +469,7 @@ class TestTravelers:
             assert all(len(t["destination_airport"]) == 3 for t in detail["trips"])
 
     def test_real_person_flag_marks_exactly_the_named_real_travelers(self, client):
-        # real_person distinguishes the 4 real, named travelers (the
+        # real_person distinguishes the 5 real, named travelers (the
         # travel-show hosts + Eduardo Gomez -- see chef_travelers.md and
         # gomez_flight_log.md in project memory) from the 82 fictional
         # hand-authored characters, which is a finer cut than `synthetic`:
@@ -481,7 +481,7 @@ class TestTravelers:
         if not body["dataset_available"]:
             pytest.skip("travelers.json not generated in this checkout")
 
-        real_ids = {"anthony-bourdain", "gordon-ramsay", "conan-o-brien", "eduardo-gomez"}
+        real_ids = {"anthony-bourdain", "gordon-ramsay", "conan-o-brien", "rick-steves", "eduardo-gomez"}
         found = set()
         for summary in body["travelers"]:
             expected = summary["traveler_id"] in real_ids

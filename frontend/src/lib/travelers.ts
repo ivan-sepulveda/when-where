@@ -207,8 +207,8 @@ export interface TravelerSummary {
   persona_match?: string | null;
   // Mirrors backend/app/main.py's REAL_PERSON_TRAVELER_IDS: true only for
   // the handful of travelers who are a real, named person (Anthony
-  // Bourdain, Gordon Ramsay, Conan O'Brien, Eduardo Gomez) rather than a
-  // fictional persona or an anonymized Kaggle row. Distinct from the
+  // Bourdain, Gordon Ramsay, Conan O'Brien, Rick Steves, Eduardo Gomez)
+  // rather than a fictional persona or an anonymized Kaggle row. Distinct from the
   // backend's own `synthetic` field (not carried on this interface), which
   // means something narrower -- "not from the Kaggle CSV" -- and is true for
   // the 82 fictional hand-authored characters too. See
@@ -299,7 +299,8 @@ export function entropyMetricValue(traveler: TravelerSummary, metric: EntropyMet
 }
 
 // The /rec-sys traveler-type filter: real, named people (Bourdain, Ramsay,
-// Conan, Gomez -- see TravelerSummary.real_person) vs everyone else. "All"
+// Conan, Rick Steves, Gomez -- see TravelerSummary.real_person) vs everyone
+// else. "All"
 // is the default and is never written to the URL, same convention as the
 // multi-trip checkbox and the entropy filter above -- a plain /rec-sys link
 // means "no traveler-type filter".

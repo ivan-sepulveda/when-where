@@ -123,18 +123,23 @@ TRAVELER_ENTROPY_REGION = load_traveler_entropy(TRAVELER_ENTROPY_REGION_PATH)
 # from travelers_anon.json.
 TRAVELER_TAGS = load_traveler_tags()
 # The travelers who are real, named people rather than a fictional persona
-# or an anonymized Kaggle row: Anthony Bourdain, Gordon Ramsay and Conan
-# O'Brien (their shows' real episodes resolved onto real routes -- see
-# chef_trips.py) and Eduardo Gomez (Ivan's own hand-kept flight log -- see
-# build_gomez_trips.py). Hardcoded rather than derived from `synthetic` or
-# `persona_match`: both are True/"authored" for the 82 fictional
-# hand-authored characters too, so nothing already in the data separates "a
-# real name" from "an authored persona" -- this set is the only place that
-# distinction is recorded. Adding a fifth real traveler is one more id here.
+# or an anonymized Kaggle row: Anthony Bourdain, Gordon Ramsay, Conan
+# O'Brien and Rick Steves (their shows' real episodes resolved onto real
+# routes -- see chef_trips.py) and Eduardo Gomez (Ivan's own hand-kept
+# flight log -- see build_gomez_trips.py). Hardcoded rather than derived
+# from `synthetic` or `persona_match`: both are True/"authored" for the 82
+# fictional hand-authored characters too, so nothing already in the data
+# separates "a real name" from "an authored persona" -- this set is the
+# only place that distinction is recorded. Adding another real traveler is
+# one more id here. IDs are travelers_anon.json's (the file this API
+# serves) -- Rick Steves is "rick-steves" there, not the "rick-steves-
+# american" id build_travelers.py gives travelers.json, since anonymization
+# drops the nationality suffix for an already-unique authored name.
 REAL_PERSON_TRAVELER_IDS = frozenset({
     "anthony-bourdain",
     "gordon-ramsay",
     "conan-o-brien",
+    "rick-steves",
     "eduardo-gomez",
 })
 # None until match_trip_cities.py has been run. Resolves a trip's
