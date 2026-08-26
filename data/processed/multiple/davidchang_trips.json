@@ -1,0 +1,150 @@
+{
+  "source": "Wikipedia episode list for Breakfast, Lunch & Dinner (Netflix, 2019) -- https://en.wikipedia.org/wiki/Breakfast,_Lunch_%26_Dinner",
+  "traveler": {
+    "traveler_id": "david-chang",
+    "traveler_name": "David Chang",
+    "home_city": "New York City",
+    "home_country": "United States",
+    "source_series": "Breakfast, Lunch & Dinner"
+  },
+  "assumptions": {
+    "start_date": "episode original release date -- all four episodes released the same day (2019-10-23), a Netflix same-day drop, not four journeys on one date",
+    "duration_days": 5,
+    "trip_shape": "round trip out of New York, nonstop each way",
+    "origin_preference": [
+      "JFK",
+      "LGA",
+      "EWR"
+    ],
+    "flights_only": "an episode is kept only if a nonstop from JFK, LGA or EWR to the destination airport exists in airline_routes_enhanced.csv",
+    "route_data_vintage": "airline_routes_enhanced.csv is a present-day route snapshot, not a 2019 schedule -- exclusions mean 'no nonstop today'",
+    "home_airports": "New York, per Ivan's instruction to use exactly Anthony Bourdain's airport and airline preferences"
+  },
+  "generated": "2026-08-26",
+  "counts": {
+    "episodes": 4,
+    "trips": 3,
+    "excluded": 1,
+    "by_show": {
+      "Breakfast, Lunch & Dinner": {
+        "episodes": 4,
+        "trips": 3,
+        "excluded": 1
+      }
+    }
+  },
+  "trips": [
+    {
+      "trip_id": 1,
+      "show": "Breakfast, Lunch & Dinner",
+      "season": 1,
+      "episode": 1,
+      "episode_code": "BLD S1.E1",
+      "episode_title": "Vancouver with Seth Rogen",
+      "air_date": "2019-10-23",
+      "destination_city": "Vancouver",
+      "destination_country": "Canada",
+      "episode_destination": "Vancouver, Canada",
+      "start_date": "2019-10-23",
+      "end_date": "2019-10-28",
+      "duration_days": 5,
+      "traveler_name": "David Chang",
+      "destination_airport": "YVR",
+      "destination_airport_name": "Vancouver International Airport",
+      "destination_lat": 49.193901062,
+      "destination_lng": -123.183998108,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "CX"
+      ],
+      "nonstop_airline_count": 1,
+      "distance_km": 3930.4,
+      "is_domestic": 0,
+      "notes": "guest: Seth Rogen -- framed as Rogen's own hometown, not David Chang's; Chang is based out of New York per Ivan's instruction"
+    },
+    {
+      "trip_id": 2,
+      "show": "Breakfast, Lunch & Dinner",
+      "season": 1,
+      "episode": 2,
+      "episode_code": "BLD S1.E2",
+      "episode_title": "Marrakech with Chrissy Teigen",
+      "air_date": "2019-10-23",
+      "destination_city": "Casablanca",
+      "destination_country": "Morocco",
+      "episode_destination": "Marrakech, Morocco",
+      "start_date": "2019-10-23",
+      "end_date": "2019-10-28",
+      "duration_days": 5,
+      "traveler_name": "David Chang",
+      "destination_airport": "CMN",
+      "destination_airport_name": "Mohammed V International Airport",
+      "destination_lat": 33.36750030517578,
+      "destination_lng": -7.589970111846924,
+      "origin_airport": "JFK",
+      "origin_alternates": [],
+      "nonstop_airlines": [
+        "AT"
+      ],
+      "nonstop_airline_count": 1,
+      "distance_km": 5795.0,
+      "is_domestic": 0,
+      "notes": "guest: Chrissy Teigen; RAK (Marrakech) has no nonstop from JFK/LGA/EWR; resolved to CMN"
+    },
+    {
+      "trip_id": 3,
+      "show": "Breakfast, Lunch & Dinner",
+      "season": 1,
+      "episode": 3,
+      "episode_code": "BLD S1.E3",
+      "episode_title": "Los Angeles with Lena Waithe",
+      "air_date": "2019-10-23",
+      "destination_city": "Los Angeles",
+      "destination_country": "United States",
+      "episode_destination": "Los Angeles, United States",
+      "start_date": "2019-10-23",
+      "end_date": "2019-10-28",
+      "duration_days": 5,
+      "traveler_name": "David Chang",
+      "destination_airport": "LAX",
+      "destination_airport_name": "Los Angeles International Airport",
+      "destination_lat": 33.94250107,
+      "destination_lng": -118.4079971,
+      "origin_airport": "JFK",
+      "origin_alternates": [
+        "EWR"
+      ],
+      "nonstop_airlines": [
+        "AA",
+        "AS",
+        "B6",
+        "DL",
+        "QF",
+        "UA",
+        "US",
+        "VX"
+      ],
+      "nonstop_airline_count": 8,
+      "distance_km": 3974.2,
+      "is_domestic": 1,
+      "notes": "guest: Lena Waithe"
+    }
+  ],
+  "excluded_episodes": [
+    {
+      "show": "Breakfast, Lunch & Dinner",
+      "season": 1,
+      "episode": 4,
+      "episode_code": "BLD S1.E4",
+      "episode_title": "Phnom Penh with Kate McKinnon",
+      "air_date": "2019-10-23",
+      "destination_city": "Phnom Penh",
+      "destination_country": "Cambodia",
+      "reason": "no_home_nonstop",
+      "reason_note": "no nonstop from JFK/LGA/EWR to PNH/REP in airline_routes_enhanced.csv"
+    }
+  ]
+}

@@ -67,6 +67,7 @@ hercules,Hercules,27,27,9,American Airlines Inc.,0.3704,False,Fort Worth,declare
 prometheus,Prometheus,27,27,8,American Airlines Inc.,0.3704,False,Phoenix,declared,PHX,Phoenix,American,True,American Hub
 circe,Circe,28,28,10,United Air Lines Inc.,0.3571,False,Houston,declared,IAH,Houston,United,True,United Hub
 demeter,Demeter,28,28,9,American Airlines Inc.,0.3571,False,Dallas,declared,DFW,Dallas,American,True,American Hub
+david-chang,David Chang,3,3,3,Cathay Pacific Airways Ltd.,0.3333,False,New York City,declared,JFK,New York City,United; Delta; American,True,Multi Hub
 zeus,Zeus,30,30,8,Delta Air Lines Inc.,0.3333,False,New York City,declared,JFK,New York City,United; Delta; American,True,Multi Hub
 hermes,Hermes,32,32,11,Delta Air Lines Inc.,0.3125,False,New York City,declared,LGA,New York City,United; Delta; American,True,Multi Hub
 persephone,Persephone,24,24,12,American Airlines Inc.,0.2917,False,Phoenix,declared,PHX,Phoenix,American,True,American Hub

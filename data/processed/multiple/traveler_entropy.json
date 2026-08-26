@@ -5,9 +5,9 @@
   "global_distinct_destinations_source": "observed in this dataset",
   "observed_distinct_destinations": 157,
   "ln_global_distinct_destinations": 5.0562,
-  "travelers_total": 211,
-  "travelers_with_destination_data": 87,
-  "travelers_with_informative_entropy": 87,
+  "travelers_total": 212,
+  "travelers_with_destination_data": 88,
+  "travelers_with_informative_entropy": 88,
   "travelers": [
     {
       "traveler_id": "anthony-bourdain",
@@ -792,6 +792,20 @@
       "norm_global": 0.2173,
       "norm_observed": 1.0,
       "norm_capacity": 0.3608
+    },
+    {
+      "traveler_id": "david-chang",
+      "name": "David Chang",
+      "trip_count": 3,
+      "trips_with_destination": 3,
+      "n_destinations": 3,
+      "top_destination": "CMN",
+      "top_destination_share": 0.3333,
+      "entropy": 1.0986,
+      "entropy_is_informative": true,
+      "norm_global": 0.2173,
+      "norm_observed": 1.0,
+      "norm_capacity": 1.0
     },
     {
       "traveler_id": "dick-grayson",

@@ -5,9 +5,9 @@
   "global_distinct_destinations_source": "UN M49: every detailed region that exists, whether or not this dataset visits it",
   "observed_distinct_destinations": 17,
   "ln_global_distinct_destinations": 3.091,
-  "travelers_total": 211,
-  "travelers_with_destination_data": 211,
-  "travelers_with_informative_entropy": 98,
+  "travelers_total": 212,
+  "travelers_with_destination_data": 212,
+  "travelers_with_informative_entropy": 99,
   "travelers": [
     {
       "traveler_id": "anthony-bourdain",
@@ -680,6 +680,20 @@
       "norm_global": 0.2059,
       "norm_observed": 0.9183,
       "norm_capacity": 0.2091
+    },
+    {
+      "traveler_id": "david-chang",
+      "name": "David Chang",
+      "trip_count": 3,
+      "trips_with_destination": 3,
+      "n_destinations": 2,
+      "top_destination": "Northern America",
+      "top_destination_share": 0.6667,
+      "entropy": 0.6365,
+      "entropy_is_informative": true,
+      "norm_global": 0.2059,
+      "norm_observed": 0.9183,
+      "norm_capacity": 0.5794
     },
     {
       "traveler_id": "dick-grayson",
