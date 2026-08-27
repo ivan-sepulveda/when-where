@@ -1,6 +1,6 @@
 {
   "source": "travelers_anon.json (built by build_travelers_anon.py)",
-  "generated": "2026-08-26",
+  "generated": "2026-08-27",
   "rules": {
     "airline_loyalist": {
       "threshold": 0.8,
@@ -116,23 +116,23 @@
       }
     }
   },
-  "travelers_total": 212,
-  "travelers_with_carrier_data": 88,
-  "travelers_with_declared_base": 88,
-  "travelers_tagged": 75,
+  "travelers_total": 217,
+  "travelers_with_carrier_data": 93,
+  "travelers_with_declared_base": 93,
+  "travelers_tagged": 80,
   "tag_counts": {
-    "Multi Hub": 24,
+    "Multi Hub": 26,
     "American Hub": 18,
-    "United Hub": 13,
+    "United Hub": 15,
     "Delta Loyalist": 11,
     "Alaska Loyalist": 10,
     "American Loyalist": 10,
     "Southwest Loyalist": 10,
     "United Loyalist": 9,
     "Alaska Hub": 6,
-    "Delta Hub": 4
+    "Delta Hub": 5
   },
-  "near_misses_below_min_trips": 0,
+  "near_misses_below_min_trips": 5,
   "hub_city_airport_mismatches": 3,
   "travelers": [
     {
@@ -564,6 +564,42 @@
           "hub_city": "Miami",
           "hub_airports": [
             "MIA"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "charlie-brown",
+      "name": "Charlie Brown",
+      "trip_count": 3,
+      "trips_with_carrier": 3,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": true,
+      "base_city": "Houston",
+      "base_inference": "declared",
+      "home_airport": "IAH",
+      "hub_city": "Houston",
+      "hub_airlines": [
+        "United"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:united-air-lines-inc",
+          "label": "United Hub",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "airlines": [
+            "United"
+          ],
+          "hub_city": "Houston",
+          "hub_airports": [
+            "IAH"
           ]
         }
       ]
@@ -1352,6 +1388,50 @@
       ]
     },
     {
+      "traveler_id": "linus-van-pelt",
+      "name": "Linus van Pelt",
+      "trip_count": 3,
+      "trips_with_carrier": 3,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": true,
+      "base_city": "Newark",
+      "base_inference": "declared",
+      "home_airport": "EWR",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "logan",
       "name": "Logan",
       "trip_count": 28,
@@ -1446,6 +1526,45 @@
           "hub_city": "Philadelphia",
           "hub_airports": [
             "PHL"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "lucy-van-pelt",
+      "name": "Lucy van Pelt",
+      "trip_count": 3,
+      "trips_with_carrier": 3,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": true,
+      "base_city": "Chicago",
+      "base_inference": "declared",
+      "home_airport": "ORD",
+      "hub_city": "Chicago",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Chicago",
+          "hub_airports": [
+            "ORD"
           ]
         }
       ]
@@ -1969,6 +2088,42 @@
       ]
     },
     {
+      "traveler_id": "snoopy",
+      "name": "Snoopy",
+      "trip_count": 3,
+      "trips_with_carrier": 3,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": true,
+      "base_city": "San Francisco",
+      "base_inference": "declared",
+      "home_airport": "SFO",
+      "hub_city": "San Francisco",
+      "hub_airlines": [
+        "United"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:united-air-lines-inc",
+          "label": "United Hub",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "airlines": [
+            "United"
+          ],
+          "hub_city": "San Francisco",
+          "hub_airports": [
+            "SFO"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "stan-getz",
       "name": "Stan Getz",
       "trip_count": 30,
@@ -2359,6 +2514,42 @@
           "hub_city": "Seattle",
           "hub_airports": [
             "SEA"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "woodstock",
+      "name": "Woodstock",
+      "trip_count": 3,
+      "trips_with_carrier": 3,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": true,
+      "base_city": "Atlanta",
+      "base_inference": "declared",
+      "home_airport": "ATL",
+      "hub_city": "Atlanta",
+      "hub_airlines": [
+        "Delta"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:delta-air-lines-inc",
+          "label": "Delta Hub",
+          "carrier_name": "Delta Air Lines Inc.",
+          "carrier_names": [
+            "Delta Air Lines Inc."
+          ],
+          "airlines": [
+            "Delta"
+          ],
+          "hub_city": "Atlanta",
+          "hub_airports": [
+            "ATL"
           ]
         }
       ]

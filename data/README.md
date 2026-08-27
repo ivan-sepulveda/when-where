@@ -2695,6 +2695,53 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   ```
   Run it **before** `build_trips_enhanced.py`.
 
+### Colorado skiers (`scripts/multiple/build_skiers_trips.py`)
+
+- **Source:** authored for this project — no external dataset. Five
+  travelers, one Colorado ski trip each per season, three seasons
+  (2023-24, 2024-25, 2025-26): 15 trips total.
+- **Why it exists:** `build_synthetic_trips.py`'s travelers are loyal to an
+  airline, a region, or a route. None is loyal to a **season** the way a
+  skier is — the same weeks every year, the same mountains, the same
+  airline. That's a distinct pattern shape for the recommender, and there
+  was nothing like it in the data.
+- **The travelers:** Charlie Brown (Houston/IAH), Linus van Pelt
+  (Newark/EWR), Lucy van Pelt (Chicago/ORD) and Snoopy (San
+  Francisco/SFO) all fly United; Woodstock (Atlanta/ATL) flies Delta, so
+  the set isn't single-airline. All five are American.
+- **What's fabricated and what isn't:** the people, dates, lodging and
+  costs are invented and every row carries `synthetic: true`. The **flying
+  is not** — every leg is a route present in
+  `airline_routes_enhanced.csv`, flown by a carrier that route data says
+  serves it. `check_routes()` raises rather than warning, so the build
+  fails instead of writing a trip on a route nobody flies.
+- **Destination is the airport's city, not the resort.** An EGE trip reads
+  as Vail because that's what `airports.json` calls EGE — not Beaver
+  Creek, which is nearer. Same rule as everywhere else here: the airport
+  reference decides the city.
+- **Why two skiers only ever fly to Denver:** from SFO the only Colorado
+  options in the route file are DEN and COS, and Delta's Atlanta–Colorado
+  service is DEN and COS too. Snoopy and Woodstock therefore fly to Denver
+  and drive; giving them a mountain airport would have meant inventing a
+  route. Houston, Newark and Chicago reach EGE/ASE/MTJ directly.
+- **They do not get a Loyalist tag, and that's the rule working.** All five
+  are on one carrier for 100% of their trips, but
+  `compute_traveler_tags.py` requires `LOYALIST_MIN_TRIPS` (5) recorded
+  trips and one-per-season for three seasons is 3. They're tagged by hub
+  instead (`United Hub`, `Delta Hub`, `Multi Hub`) and recorded with
+  `below_min_trips: true`, which is how "not enough evidence" stays
+  separable from "not loyal".
+- **Output:** `processed/multiple/skiers_traveler.json` (merged by
+  `build_trips_enhanced.py` via `SYNTHETIC_SOURCES`) and
+  `processed/multiple/skiers_trips.csv` (a flat per-trip review file that
+  also lists which airlines the route data has on each route).
+- **Run:**
+  ```
+  python scripts/multiple/build_skiers_trips.py
+  python scripts/multiple/build_skiers_trips.py --report
+  ```
+  Run it **before** `build_trips_enhanced.py`.
+
 ### Author personas for travelers (`scripts/multiple/build_travelers_anon.py`)
 
 - **Input:** `processed/multiple/travelers.json` (above).
