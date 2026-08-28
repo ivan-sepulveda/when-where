@@ -32,7 +32,6 @@ joaquin-sorolla,Joaquín Sorolla,20,20,1,United Air Lines Inc.,1.0,False,New Yor
 john-coltrane,John Coltrane,15,15,1,Delta Air Lines Inc.,1.0,False,Minneapolis,declared,MSP,Minneapolis,Delta,True,Delta Loyalist; Delta Hub
 linus-van-pelt,Linus van Pelt,3,3,1,United Air Lines Inc.,1.0,True,Newark,declared,EWR,New York City,United; Delta; American,True,Multi Hub
 logan,Logan,28,28,1,Alaska Airlines Inc.,1.0,False,Los Angeles,declared,LAX,Los Angeles,United; American,True,Alaska Loyalist; Multi Hub
-lord-rymel,Lord Rymel,12,12,1,United Air Lines Inc.,1.0,False,"Washington, D.C.",declared,,"Washington, D.C.",United; American,,United Loyalist; Multi Hub
 louis-pasteur,Louis Pasteur,20,20,1,American Airlines Inc.,1.0,False,Philadelphia,declared,PHL,Philadelphia,American,True,American Loyalist; American Hub
 lucy-van-pelt,Lucy van Pelt,3,3,1,United Air Lines Inc.,1.0,True,Chicago,declared,ORD,Chicago,United; American,True,Multi Hub
 marie-curie,Marie Curie,16,16,1,American Airlines Inc.,1.0,False,Miami,declared,MIA,Miami,American,True,American Loyalist; American Hub
@@ -61,6 +60,7 @@ woodstock,Woodstock,3,3,1,Delta Air Lines Inc.,1.0,True,Atlanta,declared,ATL,Atl
 eduardo-gomez,Eduardo Gomez,91,91,8,United Air Lines Inc.,0.8022,False,Houston,declared,,Houston,United,,United Loyalist; United Hub
 rick-steves,Rick Steves,47,47,4,Delta Air Lines Inc.,0.7021,False,Seattle,declared,SEA,Seattle,Alaska,True,Alaska Hub
 edward-hopper,Edward Hopper,10,10,3,United Air Lines Inc.,0.7,False,San Francisco,declared,SFO,San Francisco,United,True,United Hub
+lord-rymel,Lord Rymel,18,18,3,United Air Lines Inc.,0.6667,False,"Washington, D.C.",declared,,"Washington, D.C.",United; American,,Multi Hub
 odysseus,Odysseus,32,32,7,American Airlines Inc.,0.625,False,Philadelphia,declared,PHL,Philadelphia,American,True,American Hub
 conan-o-brien,Conan O'Brien,17,17,5,Delta Air Lines Inc.,0.5882,False,New York City,declared,JFK,New York City,United; Delta; American,True,Multi Hub
 king-midas,King Midas,24,24,9,American Airlines Inc.,0.5833,False,Charlotte,declared,CLT,Charlotte,American,True,American Hub

@@ -2763,8 +2763,22 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 ### Lord Rymel flight log (`scripts/multiple/build_rymel_trips.py`)
 
 - **Source:** a supplied flight log — date, flight number and airport pair
-  per leg, transcribed exactly as given. 12 legs, all United, all between
-  Houston (IAH) and Sacramento (SMF), Oct 2023 – May 2026.
+  per leg, transcribed exactly as given — plus two trips supplied by
+  description rather than by log line. 18 legs, Feb 2020 – Aug 2026:
+  - 12 United legs between Houston (IAH) and Sacramento (SMF), the log proper.
+  - A week on Oahu in Feb 2020, Sacramento–Honolulu nonstop both ways on
+    Hawaiian. February deliberately — it's the only part of 2020 where the
+    trip is unremarkable.
+  - A week in Iceland for the 12 Aug 2026 total eclipse, Washington–JFK–
+    Keflavik and back, all Delta. **The brief said Newark**, but DC–EWR is
+    United-only in the route data and EWR–KEF is Icelandair-only (Delta's
+    Iceland service runs from JFK), so keeping the airline meant moving the
+    connection.
+- **Flight numbers only where the log gave one.** The Hawaii and Iceland
+  legs were described by route and airline, so their flight numbers are
+  null rather than invented.
+- **Same-day connections get a leg suffix** (`LR-2026-08-08-1`,
+  `-2`). Single-leg days keep the plain `LR-DATE` id.
 - **One row per leg, not per trip**, same as the Gomez log and unlike the
   skiers: a round trip is two rows, so recording a return later never means
   editing a row that already describes a flight that already happened.
@@ -2781,10 +2795,11 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   three depart Houston. With the base declared as D.C., that flip is a
   change in one endpoint of these particular trips rather than evidence
   about where he lives.
-- **Tag consequence:** Washington, D.C. is a *multi-airline* hub city in
-  `AIRLINE_HUBS` (United at IAD, American at DCA), so he is tagged `United
-  Loyalist; Multi Hub` — the Loyalist chip comes from the flying (12 legs,
-  100% United), the hub chip from the declared base.
+- **He is not a Loyalist, and that's the rule working.** On the 12 IAH–SMF
+  legs alone he was 100% United. The four Delta legs and two Hawaiian ones
+  take him to 12 of 18 — 67%, under `LOYALIST_THRESHOLD` (0.80) — so the
+  chip drops. All that remains is `Multi Hub`, from the declared D.C. base
+  (United at IAD, American at DCA, so it's a multi-airline hub city).
 - **Every leg matches a real United route** in
   `airline_routes_enhanced.csv`; the script warns (rather than fails) if one
   doesn't, since a logged flight is a fact and a missing route is the route

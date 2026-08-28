@@ -128,7 +128,7 @@
     "American Loyalist": 12,
     "Alaska Loyalist": 10,
     "Southwest Loyalist": 10,
-    "United Loyalist": 10,
+    "United Loyalist": 9,
     "Delta Hub": 7,
     "Alaska Hub": 6
   },
@@ -1627,58 +1627,6 @@
       ]
     },
     {
-      "traveler_id": "lord-rymel",
-      "name": "Lord Rymel",
-      "trip_count": 12,
-      "trips_with_carrier": 12,
-      "distinct_carriers": 1,
-      "top_carrier": "United Air Lines Inc.",
-      "top_carrier_share": 1.0,
-      "below_min_trips": false,
-      "base_city": "Washington, D.C.",
-      "base_inference": "declared",
-      "home_airport": null,
-      "hub_city": "Washington, D.C.",
-      "hub_airlines": [
-        "United",
-        "American"
-      ],
-      "home_airport_is_hub": null,
-      "tags": [
-        {
-          "kind": "airline_loyalist",
-          "tag_id": "airline-loyalist:united-air-lines-inc",
-          "label": "United Loyalist",
-          "carrier_name": "United Air Lines Inc.",
-          "carrier_names": [
-            "United Air Lines Inc."
-          ],
-          "share": 1.0,
-          "trips": 12,
-          "denominator": 12
-        },
-        {
-          "kind": "multi_hub",
-          "tag_id": "multi-hub",
-          "label": "Multi Hub",
-          "carrier_name": null,
-          "carrier_names": [
-            "United Air Lines Inc.",
-            "American Airlines Inc."
-          ],
-          "airlines": [
-            "United",
-            "American"
-          ],
-          "hub_city": "Washington, D.C.",
-          "hub_airports": [
-            "IAD",
-            "DCA"
-          ]
-        }
-      ]
-    },
-    {
       "traveler_id": "louis-pasteur",
       "name": "Louis Pasteur",
       "trip_count": 20,
@@ -2914,6 +2862,46 @@
           "hub_city": "San Francisco",
           "hub_airports": [
             "SFO"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "lord-rymel",
+      "name": "Lord Rymel",
+      "trip_count": 18,
+      "trips_with_carrier": 18,
+      "distinct_carriers": 3,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 0.6667,
+      "below_min_trips": false,
+      "base_city": "Washington, D.C.",
+      "base_inference": "declared",
+      "home_airport": null,
+      "hub_city": "Washington, D.C.",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": null,
+      "tags": [
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Washington, D.C.",
+          "hub_airports": [
+            "IAD",
+            "DCA"
           ]
         }
       ]

@@ -612,6 +612,20 @@
       "norm_capacity": 0.3973
     },
     {
+      "traveler_id": "lord-rymel",
+      "name": "Lord Rymel",
+      "trip_count": 18,
+      "trips_with_destination": 18,
+      "n_destinations": 6,
+      "top_destination": "SMF",
+      "top_destination_share": 0.3889,
+      "entropy": 1.4594,
+      "entropy_is_informative": true,
+      "norm_global": 0.2757,
+      "norm_observed": 0.8145,
+      "norm_capacity": 0.5049
+    },
+    {
       "traveler_id": "charles-darwin",
       "name": "Charles Darwin",
       "trip_count": 36,
@@ -848,20 +862,6 @@
       "norm_global": 0.1309,
       "norm_observed": 1.0,
       "norm_capacity": 0.3869
-    },
-    {
-      "traveler_id": "lord-rymel",
-      "name": "Lord Rymel",
-      "trip_count": 12,
-      "trips_with_destination": 12,
-      "n_destinations": 2,
-      "top_destination": "IAH",
-      "top_destination_share": 0.5,
-      "entropy": 0.6931,
-      "entropy_is_informative": true,
-      "norm_global": 0.1309,
-      "norm_observed": 1.0,
-      "norm_capacity": 0.2789
     },
     {
       "traveler_id": "charlie-brown",

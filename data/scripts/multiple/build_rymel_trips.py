@@ -1,6 +1,8 @@
 """
 Derived from: a supplied flight log -- date, flight number and airport pair
-              per leg, transcribed exactly as given.
+              per leg, transcribed exactly as given -- plus two further
+              trips supplied by description rather than by log line (Hawaii
+              2020, Iceland 2026; see FLIGHTS).
 Requires: data/reference/airports.json
           data/processed/multiple/airline_routes_enhanced.csv
 
@@ -32,14 +34,20 @@ depart Houston:
 Read plainly, the flying moved from Sacramento to Houston somewhere between
 May 2024 and January 2025.
 
-THE DECLARED BASE IS NEITHER OF THEM. It is Washington, D.C., supplied
-separately -- and no leg in this log touches Washington. So the log is
-partial: it is the IAH-SMF part of his flying and not the whole of it, and
-the SMF->IAH flip above is a change in one endpoint of these particular
-trips rather than evidence about where he lives. That is recorded here
-instead of being quietly reconciled, because a base that contradicts every
-row in the file is exactly the kind of thing a reader should be told once,
-loudly, rather than discover later.
+THE DECLARED BASE IS Washington, D.C., supplied separately. Only the 2026
+Iceland trip starts and ends there; the IAH-SMF log and the 2020 Hawaii
+trip do not touch Washington at all. So this remains a PARTIAL record --
+enough of his flying to be useful, not all of it -- and the SMF->IAH flip
+above is a change in one endpoint of those particular trips rather than
+evidence about where he lives.
+
+HE IS NO LONGER A UNITED LOYALIST, and that is the rule working rather than
+a mistake. On the twelve IAH-SMF legs alone he was 100% United. Adding four
+Delta legs and two Hawaiian ones takes him to 12 of 18, or 67%, under
+compute_traveler_tags.py's LOYALIST_THRESHOLD of 0.80, so the tag drops and
+only "Multi Hub" (from the declared D.C. base) remains. Wider flying is
+supposed to cost a loyalty claim; suppressing that would make the tag mean
+nothing.
 
 Usage:
     python build_rymel_trips.py
@@ -47,6 +55,7 @@ Usage:
 
 import csv
 import json
+from collections import Counter
 from datetime import date
 from pathlib import Path
 
@@ -59,7 +68,16 @@ OUT_CSV = PROCESSED_DIR / "rymel_trips.csv"
 
 TRAVELER = "Lord Rymel"
 ID_PREFIX = "LR"          # unused by every other traveler in trips_enhanced.json
-UNITED = "United Air Lines Inc."
+
+CARRIERS = {
+    "UA": "United Air Lines Inc.",
+    "DL": "Delta Air Lines Inc.",
+    "HA": "Hawaiian Airlines Inc.",
+}
+
+# Only the countries this log actually reaches. A leg to anywhere else fails
+# the build rather than guessing a code.
+COUNTRY_CODES = {"United States": "US", "Iceland": "IS"}
 
 # Ivan's call, and it does NOT come from the log: every leg below is
 # IAH<->SMF and there is no Washington flight in the file at all. The log is
@@ -78,22 +96,43 @@ DECLARED_BASE = {
 # single frozen number over three years would be the odd one out.
 AGE_AT_LAST_LEG = 25
 
-# (date, flight number, origin, destination) -- exactly as supplied, oldest
-# first. Every leg is United; UA 2031 and UA 1148 each appear twice, on
-# different dates, which is ordinary.
+# (date, carrier code, flight number, origin, destination) -- oldest first.
+#
+# The IAH<->SMF legs are the supplied log, transcribed as given; UA 2031 and
+# UA 1148 each appear twice on different dates, which is ordinary. Flight
+# numbers are recorded only where the log gave one -- the Hawaii and Iceland
+# legs were described by route and airline, not by flight number, so theirs
+# are None rather than invented.
+#
+# HAWAII, 2020. A week on Oahu out of Sacramento, nonstop both ways on
+# Hawaiian, which flies SMF-HNL in the route data. February deliberately:
+# it is the only part of 2020 when this trip is unremarkable.
+#
+# ICELAND, AUGUST 2026, for the total eclipse of the 12th. Routed
+# Washington-JFK-Keflavik and back, all Delta. The brief said Newark, but
+# DC-EWR is United-only in the route data and EWR-KEF is Icelandair-only --
+# Delta's Iceland service runs from JFK -- so keeping the airline meant
+# moving the connection. Both JFK legs are same-day connections, which is
+# why trip ids get a leg suffix below.
 FLIGHTS = [
-    ("2023-10-11", "UA 2031", "SMF", "IAH"),
-    ("2023-10-18", "UA 2456", "IAH", "SMF"),
-    ("2023-12-01", "UA 2031", "SMF", "IAH"),
-    ("2023-12-11", "UA 1268", "IAH", "SMF"),
-    ("2024-05-06", "UA 1794", "SMF", "IAH"),
-    ("2024-05-15", "UA 1830", "IAH", "SMF"),
-    ("2025-01-17", "UA 2274", "IAH", "SMF"),
-    ("2025-01-22", "UA 1780", "SMF", "IAH"),
-    ("2025-12-20", "UA 1148", "IAH", "SMF"),
-    ("2025-12-28", "UA 1318", "SMF", "IAH"),
-    ("2026-05-06", "UA 1148", "IAH", "SMF"),
-    ("2026-05-12", "UA 1949", "SMF", "IAH"),
+    ("2020-02-08", "HA", None, "SMF", "HNL"),
+    ("2020-02-15", "HA", None, "HNL", "SMF"),
+    ("2023-10-11", "UA", "UA 2031", "SMF", "IAH"),
+    ("2023-10-18", "UA", "UA 2456", "IAH", "SMF"),
+    ("2023-12-01", "UA", "UA 2031", "SMF", "IAH"),
+    ("2023-12-11", "UA", "UA 1268", "IAH", "SMF"),
+    ("2024-05-06", "UA", "UA 1794", "SMF", "IAH"),
+    ("2024-05-15", "UA", "UA 1830", "IAH", "SMF"),
+    ("2025-01-17", "UA", "UA 2274", "IAH", "SMF"),
+    ("2025-01-22", "UA", "UA 1780", "SMF", "IAH"),
+    ("2025-12-20", "UA", "UA 1148", "IAH", "SMF"),
+    ("2025-12-28", "UA", "UA 1318", "SMF", "IAH"),
+    ("2026-05-06", "UA", "UA 1148", "IAH", "SMF"),
+    ("2026-05-12", "UA", "UA 1949", "SMF", "IAH"),
+    ("2026-08-08", "DL", None, "DCA", "JFK"),
+    ("2026-08-08", "DL", None, "JFK", "KEF"),
+    ("2026-08-15", "DL", None, "KEF", "JFK"),
+    ("2026-08-15", "DL", None, "JFK", "DCA"),
 ]
 
 CSV_COLUMNS = ["leg", "trip_id", "date", "flight_number", "origin_airport",
@@ -121,13 +160,16 @@ def load_routes():
 
 def build_rows(airports, routes):
     trips, report, warnings = [], [], []
-    seen_dates = set()
     last_year = max(date.fromisoformat(f[0]).year for f in FLIGHTS)
+    # A same-day connection puts two legs on one date, so ids get a "-2",
+    # "-3" suffix in those cases only. Single-leg days keep the plain
+    # PREFIX-DATE id every existing row already uses.
+    per_day = Counter(f[0] for f in FLIGHTS)
+    seen_on_day = Counter()
 
-    for index, (day, flight, origin, destination) in enumerate(FLIGHTS, start=1):
-        if day in seen_dates:
-            raise SystemExit(f"leg {index}: duplicate date {day} -- trip_id would collide")
-        seen_dates.add(day)
+    for index, (day, carrier_code, flight, origin, destination) in enumerate(FLIGHTS, start=1):
+        if carrier_code not in CARRIERS:
+            raise SystemExit(f"leg {index}: unknown carrier code {carrier_code!r}")
 
         for code in (origin, destination):
             if code not in airports:
@@ -138,22 +180,27 @@ def build_rows(airports, routes):
             # Not fatal: the log records a flight that was taken, and a route
             # file that has never seen it is the route file's gap.
             warnings.append(f"leg {index}: no {origin}-{destination} route in {ROUTES_PATH.name}")
-        elif "UA" not in carriers:
+        elif carrier_code not in carriers:
             warnings.append(
-                f"leg {index}: UA is not listed on {origin}-{destination} "
+                f"leg {index}: {carrier_code} is not listed on {origin}-{destination} "
                 f"(route data lists {', '.join(sorted(carriers))})"
             )
 
         arrival = airports[destination]
+        if arrival["country"] not in COUNTRY_CODES:
+            raise SystemExit(f"leg {index}: no country code for {arrival['country']!r}")
         start = date.fromisoformat(day)
+        seen_on_day[day] += 1
         trip_id = f"{ID_PREFIX}-{day}"
+        if per_day[day] > 1:
+            trip_id = f"{trip_id}-{seen_on_day[day]}"
 
         trips.append({
             "trip_id": trip_id,
             "destination_raw": f"{arrival['city']}, {arrival['country']}",
             "destination_city": arrival["city"],
             "destination_country": arrival["country"],
-            "destination_country_code": "US",
+            "destination_country_code": COUNTRY_CODES[arrival["country"]],
             "destination_kind": "city",
             "start_date": day,
             "start_date_raw": day,
@@ -172,15 +219,15 @@ def build_rows(airports, routes):
             "traveler_gender": None,
             "traveler_nationality": None,
             "synthetic": True,
-            "carrier_name": UNITED,
-            "carrier_code": "UA",
+            "carrier_name": CARRIERS[carrier_code],
+            "carrier_code": carrier_code,
             "origin_airport": origin,
             "destination_airport": destination,
         })
         report.append({
             "leg": index, "trip_id": trip_id, "date": day, "flight_number": flight,
             "origin_airport": origin, "destination_airport": destination,
-            "destination_city": arrival["city"], "carrier_name": UNITED,
+            "destination_city": arrival["city"], "carrier_name": CARRIERS[carrier_code],
             "distance_km": distance, "route_carriers": ", ".join(sorted(carriers)),
         })
     return trips, report, warnings
@@ -209,7 +256,7 @@ def main():
             "and nationality were not, and are absent rather than invented. Merged into "
             "trips_enhanced.json by build_trips_enhanced.py."
         ),
-        "carrier_preference": [UNITED],
+        "carrier_preference": sorted(CARRIERS.values()),
         "declared_bases": {TRAVELER: DECLARED_BASE},
         "total_travelers": 1,
         "total_trips": len(trips),
@@ -234,7 +281,7 @@ def main():
     for w in warnings:
         print(f"  WARNING: {w}")
     if not warnings:
-        print("  every leg matches a real United route in the route data")
+        print("  every leg matches a real route flown by its carrier in the route data")
 
 
 if __name__ == "__main__":
