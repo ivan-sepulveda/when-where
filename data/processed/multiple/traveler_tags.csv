@@ -8,6 +8,7 @@ bill-evans,Bill Evans,10,10,1,Delta Air Lines Inc.,1.0,False,Detroit,declared,DT
 billy-batson,Billy Batson,21,21,1,Southwest Airlines Co.,1.0,False,St. Louis,declared,STL,,,,Southwest Loyalist
 bruce-banner,Bruce Banner,20,20,1,Alaska Airlines Inc.,1.0,False,Seattle,declared,SEA,Seattle,Alaska,True,Alaska Loyalist; Alaska Hub
 bruce-wayne,Bruce Wayne,16,16,1,Southwest Airlines Co.,1.0,False,Baltimore,declared,BWI,,,,Southwest Loyalist
+calvin,Calvin,6,6,1,American Airlines Inc.,1.0,False,Dallas,declared,DFW,Dallas,American,True,American Loyalist; American Hub
 charles-darwin,Charles Darwin,36,36,1,American Airlines Inc.,1.0,False,Miami,declared,MIA,Miami,American,True,American Loyalist; American Hub
 charlie-brown,Charlie Brown,3,3,1,United Air Lines Inc.,1.0,True,Houston,declared,IAH,Houston,United,True,United Hub
 charlie-parker,Charlie Parker,8,8,1,Delta Air Lines Inc.,1.0,False,Nashville,declared,BNA,,,,Delta Loyalist
@@ -21,14 +22,17 @@ duke-ellington,Duke Ellington,16,16,1,Delta Air Lines Inc.,1.0,False,Salt Lake C
 edgar-degas,Edgar Degas,16,16,1,United Air Lines Inc.,1.0,False,Denver,declared,DEN,Denver,United,True,United Loyalist; United Hub
 ella-fitzgerald,Ella Fitzgerald,24,24,1,Delta Air Lines Inc.,1.0,False,Cincinnati,declared,CVG,,,,Delta Loyalist
 galileo-galilei,Galileo Galilei,24,24,1,American Airlines Inc.,1.0,False,Washington,declared,DCA,"Washington, D.C.",United; American,True,American Loyalist; Multi Hub
+garfield,Garfield,6,6,1,Delta Air Lines Inc.,1.0,False,Minneapolis,declared,MSP,Minneapolis,Delta,True,Delta Loyalist; Delta Hub
 georgia-o-keeffe,Georgia O'Keeffe,5,5,1,United Air Lines Inc.,1.0,False,Houston,declared,IAH,Houston,United,True,United Loyalist; United Hub
 hal-jordan,Hal Jordan,18,18,1,Southwest Airlines Co.,1.0,False,Denver,declared,DEN,Denver,United,True,Southwest Loyalist; United Hub
+hobbes,Hobbes,6,6,1,American Airlines Inc.,1.0,False,Charlotte,declared,CLT,Charlotte,American,True,American Loyalist; American Hub
 isaac-newton,Isaac Newton,20,20,1,American Airlines Inc.,1.0,False,Chicago,declared,ORD,Chicago,United; American,True,American Loyalist; Multi Hub
 jackson-pollock,Jackson Pollock,12,12,1,United Air Lines Inc.,1.0,False,Chicago,declared,ORD,Chicago,United; American,True,United Loyalist; Multi Hub
 joaquin-sorolla,Joaquín Sorolla,20,20,1,United Air Lines Inc.,1.0,False,New York City,declared,EWR,New York City,United; Delta; American,True,United Loyalist; Multi Hub
 john-coltrane,John Coltrane,15,15,1,Delta Air Lines Inc.,1.0,False,Minneapolis,declared,MSP,Minneapolis,Delta,True,Delta Loyalist; Delta Hub
 linus-van-pelt,Linus van Pelt,3,3,1,United Air Lines Inc.,1.0,True,Newark,declared,EWR,New York City,United; Delta; American,True,Multi Hub
 logan,Logan,28,28,1,Alaska Airlines Inc.,1.0,False,Los Angeles,declared,LAX,Los Angeles,United; American,True,Alaska Loyalist; Multi Hub
+lord-rymel,Lord Rymel,12,12,1,United Air Lines Inc.,1.0,False,"Washington, D.C.",declared,,"Washington, D.C.",United; American,,United Loyalist; Multi Hub
 louis-pasteur,Louis Pasteur,20,20,1,American Airlines Inc.,1.0,False,Philadelphia,declared,PHL,Philadelphia,American,True,American Loyalist; American Hub
 lucy-van-pelt,Lucy van Pelt,3,3,1,United Air Lines Inc.,1.0,True,Chicago,declared,ORD,Chicago,United; American,True,Multi Hub
 marie-curie,Marie Curie,16,16,1,American Airlines Inc.,1.0,False,Miami,declared,MIA,Miami,American,True,American Loyalist; American Hub
@@ -37,6 +41,7 @@ miles-davis,Miles Davis,24,24,1,Delta Air Lines Inc.,1.0,False,Boston,declared,B
 natasha-romanoff,Natasha Romanoff,16,16,1,Alaska Airlines Inc.,1.0,False,San Francisco,declared,SFO,San Francisco,United,True,Alaska Loyalist; United Hub
 niels-bohr,Niels Bohr,10,10,1,American Airlines Inc.,1.0,False,Philadelphia,declared,PHL,Philadelphia,American,True,American Loyalist; American Hub
 nikola-tesla,Nikola Tesla,36,36,1,American Airlines Inc.,1.0,False,Dallas,declared,DFW,Dallas,American,True,American Loyalist; American Hub
+odie,Odie,6,6,1,Delta Air Lines Inc.,1.0,False,Detroit,declared,DTW,Detroit,Delta,True,Delta Loyalist; Delta Hub
 oliver-queen,Oliver Queen,36,36,1,Southwest Airlines Co.,1.0,False,Denver,declared,DEN,Denver,United,True,Southwest Loyalist; United Hub
 peter-parker,Peter Parker,20,20,1,Alaska Airlines Inc.,1.0,False,Seattle,declared,SEA,Seattle,Alaska,True,Alaska Loyalist; Alaska Hub
 pierre-auguste-renoir,Pierre-Auguste Renoir,24,24,1,United Air Lines Inc.,1.0,False,San Francisco,declared,SFO,San Francisco,United,True,United Loyalist; United Hub

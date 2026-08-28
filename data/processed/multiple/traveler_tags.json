@@ -1,6 +1,6 @@
 {
   "source": "travelers_anon.json (built by build_travelers_anon.py)",
-  "generated": "2026-08-27",
+  "generated": "2026-08-28",
   "rules": {
     "airline_loyalist": {
       "threshold": 0.8,
@@ -116,21 +116,21 @@
       }
     }
   },
-  "travelers_total": 217,
-  "travelers_with_carrier_data": 93,
-  "travelers_with_declared_base": 93,
-  "travelers_tagged": 80,
+  "travelers_total": 222,
+  "travelers_with_carrier_data": 98,
+  "travelers_with_declared_base": 98,
+  "travelers_tagged": 85,
   "tag_counts": {
-    "Multi Hub": 26,
-    "American Hub": 18,
+    "Multi Hub": 27,
+    "American Hub": 20,
     "United Hub": 15,
-    "Delta Loyalist": 11,
+    "Delta Loyalist": 13,
+    "American Loyalist": 12,
     "Alaska Loyalist": 10,
-    "American Loyalist": 10,
     "Southwest Loyalist": 10,
-    "United Loyalist": 9,
-    "Alaska Hub": 6,
-    "Delta Hub": 5
+    "United Loyalist": 10,
+    "Delta Hub": 7,
+    "Alaska Hub": 6
   },
   "near_misses_below_min_trips": 5,
   "hub_city_airport_mismatches": 3,
@@ -517,6 +517,54 @@
           "share": 1.0,
           "trips": 16,
           "denominator": 16
+        }
+      ]
+    },
+    {
+      "traveler_id": "calvin",
+      "name": "Calvin",
+      "trip_count": 6,
+      "trips_with_carrier": 6,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Dallas",
+      "base_inference": "declared",
+      "home_airport": "DFW",
+      "hub_city": "Dallas",
+      "hub_airlines": [
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "carrier_names": [
+            "American Airlines Inc."
+          ],
+          "share": 1.0,
+          "trips": 6,
+          "denominator": 6
+        },
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:american-airlines-inc",
+          "label": "American Hub",
+          "carrier_name": "American Airlines Inc.",
+          "carrier_names": [
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "American"
+          ],
+          "hub_city": "Dallas",
+          "hub_airports": [
+            "DFW"
+          ]
         }
       ]
     },
@@ -1086,6 +1134,54 @@
       ]
     },
     {
+      "traveler_id": "garfield",
+      "name": "Garfield",
+      "trip_count": 6,
+      "trips_with_carrier": 6,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Minneapolis",
+      "base_inference": "declared",
+      "home_airport": "MSP",
+      "hub_city": "Minneapolis",
+      "hub_airlines": [
+        "Delta"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "carrier_names": [
+            "Delta Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 6,
+          "denominator": 6
+        },
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:delta-air-lines-inc",
+          "label": "Delta Hub",
+          "carrier_name": "Delta Air Lines Inc.",
+          "carrier_names": [
+            "Delta Air Lines Inc."
+          ],
+          "airlines": [
+            "Delta"
+          ],
+          "hub_city": "Minneapolis",
+          "hub_airports": [
+            "MSP"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "georgia-o-keeffe",
       "name": "Georgia O'Keeffe",
       "trip_count": 5,
@@ -1177,6 +1273,54 @@
           "hub_city": "Denver",
           "hub_airports": [
             "DEN"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "hobbes",
+      "name": "Hobbes",
+      "trip_count": 6,
+      "trips_with_carrier": 6,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Charlotte",
+      "base_inference": "declared",
+      "home_airport": "CLT",
+      "hub_city": "Charlotte",
+      "hub_airlines": [
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "carrier_names": [
+            "American Airlines Inc."
+          ],
+          "share": 1.0,
+          "trips": 6,
+          "denominator": 6
+        },
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:american-airlines-inc",
+          "label": "American Hub",
+          "carrier_name": "American Airlines Inc.",
+          "carrier_names": [
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "American"
+          ],
+          "hub_city": "Charlotte",
+          "hub_airports": [
+            "CLT"
           ]
         }
       ]
@@ -1478,6 +1622,58 @@
           "hub_city": "Los Angeles",
           "hub_airports": [
             "LAX"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "lord-rymel",
+      "name": "Lord Rymel",
+      "trip_count": 12,
+      "trips_with_carrier": 12,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Washington, D.C.",
+      "base_inference": "declared",
+      "home_airport": null,
+      "hub_city": "Washington, D.C.",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": null,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 12,
+          "denominator": 12
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Washington, D.C.",
+          "hub_airports": [
+            "IAD",
+            "DCA"
           ]
         }
       ]
@@ -1835,6 +2031,54 @@
           "hub_city": "Dallas",
           "hub_airports": [
             "DFW"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "odie",
+      "name": "Odie",
+      "trip_count": 6,
+      "trips_with_carrier": 6,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Detroit",
+      "base_inference": "declared",
+      "home_airport": "DTW",
+      "hub_city": "Detroit",
+      "hub_airlines": [
+        "Delta"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "carrier_names": [
+            "Delta Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 6,
+          "denominator": 6
+        },
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:delta-air-lines-inc",
+          "label": "Delta Hub",
+          "carrier_name": "Delta Air Lines Inc.",
+          "carrier_names": [
+            "Delta Air Lines Inc."
+          ],
+          "airlines": [
+            "Delta"
+          ],
+          "hub_city": "Detroit",
+          "hub_airports": [
+            "DTW"
           ]
         }
       ]

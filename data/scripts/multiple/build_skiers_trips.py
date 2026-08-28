@@ -16,10 +16,20 @@ the recommender to tell apart from Warhol's "whole network of one country"
 or Chet Baker's "one route, every other week", and there was nothing like
 it in the dataset.
 
-Five skiers, one Colorado ski trip each per season, three seasons
-(2023-24, 2024-25, 2025-26). Four are United loyalists out of four
-different United hubs; the fifth is a Delta loyalist out of Atlanta, so
-the set isn't single-airline.
+Nine skiers over three seasons (2023-24, 2024-25, 2025-26), in two groups:
+
+  * Five to COLORADO, one trip each per season. Four fly United out of four
+    different United hubs; the fifth flies Delta out of Atlanta.
+  * Four to JACKSON HOLE and UTAH, two trips each per season. Two fly
+    American out of Dallas and Charlotte, two fly Delta out of Minneapolis
+    and Detroit.
+
+The trip counts differ on purpose. compute_traveler_tags.py needs
+LOYALIST_MIN_TRIPS (5) carrier-recorded trips before it will call anyone an
+"{Airline} Loyalist", so the Colorado five (3 trips) are tagged by hub only
+while the Jackson Hole/Utah four (6 trips) carry the Loyalist chip. Having
+both sides is the point: it puts a traveler who IS loyal but under-observed
+next to one the rule can actually see.
 
 THESE TRIPS ARE FABRICATED. The people, the dates, the lodging and the
 costs are invented -- see the `synthetic: true` on every row and the note
@@ -32,7 +42,14 @@ THE DESTINATION IS THE AIRPORT'S CITY, NOT THE RESORT. A row that lands at
 EGE says Vail, because that is what airports.json calls EGE -- not Beaver
 Creek, which is nearer. Same rule as everywhere else in this project: the
 airport reference decides the city, so nobody has to adjudicate which
-resort a flight was "really" for.
+resort a flight was "really" for. A Utah trip therefore reads as Salt Lake
+City, not Park City or Alta.
+
+That rule is followed even where the reference is wrong: airports.json
+spells JAC's city "Jacksn Hole", a typo carried down from OpenFlights
+upstream. It is NOT special-cased here -- correcting one airport's name
+inside a trip builder would put the fix somewhere nobody would ever look
+for it. Fix it in the reference or not at all.
 
 WHY SOME SKIERS ONLY EVER FLY TO DENVER. Snoopy (SFO) and Woodstock (ATL)
 fly to DEN every season and then drive; the others reach a mountain
@@ -63,7 +80,8 @@ OUT_CSV = PROCESSED_DIR / "skiers_trips.csv"
 
 UNITED = "United Air Lines Inc."
 DELTA = "Delta Air Lines Inc."
-CARRIER_CODE = {UNITED: "UA", DELTA: "DL"}
+AMERICAN = "American Airlines Inc."
+CARRIER_CODE = {UNITED: "UA", DELTA: "DL", AMERICAN: "AA"}
 
 # Trip-id prefixes. All five start "SK" and none of them collides with a
 # prefix already in trips_enhanced.json -- the obvious initials don't work,
@@ -160,6 +178,100 @@ SKIERS = [
             {"start": "2026-01-24", "airport": "DEN", "nights": 7, "hotel": 2650.0, "flight": 425.0},
         ],
     },
+    # --- Jackson Hole and Utah: two American loyalists, two Delta ------------
+    # These four fly TWICE a season, not once. compute_traveler_tags.py needs
+    # LOYALIST_MIN_TRIPS (5) carrier-recorded trips before it will award an
+    # "{Airline} Loyalist" tag, and three seasons at one trip each is three --
+    # which is exactly why the five Colorado skiers above are tagged by hub
+    # only. Six trips clears it, so these four are the ones that actually
+    # carry the Loyalist chip.
+    #
+    # All four bases are single-airline hubs (Dallas and Charlotte are
+    # American's, Minneapolis and Detroit are Delta's, per AIRLINE_HUBS in
+    # compute_traveler_tags.py), so each also gets a clean "{Airline} Hub"
+    # rather than the "Multi Hub" that Chicago and Newark produce.
+    {
+        "name": "Calvin",
+        "id_prefix": "SKCA",
+        "gender": "Male",
+        "nationality": "American",
+        "age_in_first_season": 34,
+        "base": {"city": "Dallas", "country": "United States", "country_code": "US"},
+        "origin": "DFW",
+        "carrier": AMERICAN,
+        "loyalty": "American",
+        # January in Jackson Hole, March in Utah. American flies DFW to both.
+        "seasons": [
+            {"start": "2024-01-06", "airport": "JAC", "nights": 7, "hotel": 4100.0, "flight": 495.0},
+            {"start": "2024-03-09", "airport": "SLC", "nights": 7, "hotel": 2650.0, "flight": 355.0},
+            {"start": "2025-01-04", "airport": "JAC", "nights": 7, "hotel": 4350.0, "flight": 520.0},
+            {"start": "2025-03-08", "airport": "SLC", "nights": 7, "hotel": 2800.0, "flight": 370.0},
+            {"start": "2026-01-03", "airport": "JAC", "nights": 7, "hotel": 4600.0, "flight": 545.0},
+            {"start": "2026-03-07", "airport": "SLC", "nights": 7, "hotel": 2950.0, "flight": 385.0},
+        ],
+    },
+    {
+        "name": "Hobbes",
+        "id_prefix": "SKHO",
+        "gender": "Male",
+        "nationality": "American",
+        "age_in_first_season": 39,
+        "base": {"city": "Charlotte", "country": "United States", "country_code": "US"},
+        "origin": "CLT",
+        "carrier": AMERICAN,
+        "loyalty": "American",
+        # Utah twice a season. Charlotte has no Jackson Hole service on
+        # American in the route file, so this one is Utah-only.
+        "seasons": [
+            {"start": "2024-01-20", "airport": "SLC", "nights": 7, "hotel": 2500.0, "flight": 430.0},
+            {"start": "2024-03-16", "airport": "SLC", "nights": 7, "hotel": 2350.0, "flight": 400.0},
+            {"start": "2025-01-18", "airport": "SLC", "nights": 7, "hotel": 2650.0, "flight": 455.0},
+            {"start": "2025-03-15", "airport": "SLC", "nights": 7, "hotel": 2500.0, "flight": 420.0},
+            {"start": "2026-01-17", "airport": "SLC", "nights": 7, "hotel": 2800.0, "flight": 480.0},
+            {"start": "2026-03-14", "airport": "SLC", "nights": 7, "hotel": 2650.0, "flight": 445.0},
+        ],
+    },
+    {
+        "name": "Garfield",
+        "id_prefix": "SKGA",
+        "gender": "Male",
+        "nationality": "American",
+        "age_in_first_season": 47,
+        "base": {"city": "Minneapolis", "country": "United States", "country_code": "US"},
+        "origin": "MSP",
+        "carrier": DELTA,
+        "loyalty": "Delta",
+        # Jackson Hole twice a season -- the only traveler here loyal to one
+        # mountain rather than to a state.
+        "seasons": [
+            {"start": "2024-02-03", "airport": "JAC", "nights": 7, "hotel": 3950.0, "flight": 445.0},
+            {"start": "2024-03-23", "airport": "JAC", "nights": 7, "hotel": 3600.0, "flight": 415.0},
+            {"start": "2025-02-01", "airport": "JAC", "nights": 7, "hotel": 4200.0, "flight": 470.0},
+            {"start": "2025-03-22", "airport": "JAC", "nights": 7, "hotel": 3800.0, "flight": 435.0},
+            {"start": "2026-01-31", "airport": "JAC", "nights": 7, "hotel": 4450.0, "flight": 495.0},
+            {"start": "2026-03-21", "airport": "JAC", "nights": 7, "hotel": 4000.0, "flight": 455.0},
+        ],
+    },
+    {
+        "name": "Odie",
+        "id_prefix": "SKOD",
+        "gender": "Male",
+        "nationality": "American",
+        "age_in_first_season": 31,
+        "base": {"city": "Detroit", "country": "United States", "country_code": "US"},
+        "origin": "DTW",
+        "carrier": DELTA,
+        "loyalty": "Delta",
+        # Utah twice a season. Detroit reaches SLC on Delta but not JAC.
+        "seasons": [
+            {"start": "2024-02-24", "airport": "SLC", "nights": 7, "hotel": 2400.0, "flight": 375.0},
+            {"start": "2024-03-30", "airport": "SLC", "nights": 7, "hotel": 2200.0, "flight": 345.0},
+            {"start": "2025-02-22", "airport": "SLC", "nights": 7, "hotel": 2550.0, "flight": 395.0},
+            {"start": "2025-03-29", "airport": "SLC", "nights": 7, "hotel": 2350.0, "flight": 365.0},
+            {"start": "2026-02-21", "airport": "SLC", "nights": 7, "hotel": 2700.0, "flight": 415.0},
+            {"start": "2026-03-28", "airport": "SLC", "nights": 7, "hotel": 2500.0, "flight": 385.0},
+        ],
+    },
 ]
 
 CSV_COLUMNS = [
@@ -217,7 +329,11 @@ def check_routes(routes: dict) -> None:
 def build_rows(airports: dict, routes: dict) -> tuple[list[dict], list[dict]]:
     trips, report = [], []
     for skier in SKIERS:
-        for index, season in enumerate(skier["seasons"]):
+        # Age advances with the calendar, not with the position in the list --
+        # the travelers who fly twice a season would otherwise age two years
+        # per season.
+        first_year = min(date.fromisoformat(s["start"]).year for s in skier["seasons"])
+        for season in skier["seasons"]:
             start = date.fromisoformat(season["start"])
             if start.weekday() != 5:
                 raise SystemExit(
@@ -250,7 +366,7 @@ def build_rows(airports: dict, routes: dict) -> tuple[list[dict], list[dict]]:
                 "transportation_cost": season["flight"],
                 "transportation_cost_raw": f"${season['flight']:,.0f}",
                 "traveler_name": skier["name"],
-                "traveler_age": skier["age_in_first_season"] + index,
+                "traveler_age": skier["age_in_first_season"] + (start.year - first_year),
                 "traveler_gender": skier["gender"],
                 "traveler_nationality": skier["nationality"],
                 "synthetic": True,

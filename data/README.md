@@ -2695,20 +2695,34 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   ```
   Run it **before** `build_trips_enhanced.py`.
 
-### Colorado skiers (`scripts/multiple/build_skiers_trips.py`)
+### Skiers (`scripts/multiple/build_skiers_trips.py`)
 
-- **Source:** authored for this project — no external dataset. Five
-  travelers, one Colorado ski trip each per season, three seasons
-  (2023-24, 2024-25, 2025-26): 15 trips total.
+- **Source:** authored for this project — no external dataset. Nine
+  travelers over three seasons (2023-24, 2024-25, 2025-26), 39 trips:
+  five go to Colorado once a season, four go to Jackson Hole and Utah
+  twice a season.
 - **Why it exists:** `build_synthetic_trips.py`'s travelers are loyal to an
   airline, a region, or a route. None is loyal to a **season** the way a
   skier is — the same weeks every year, the same mountains, the same
   airline. That's a distinct pattern shape for the recommender, and there
   was nothing like it in the data.
-- **The travelers:** Charlie Brown (Houston/IAH), Linus van Pelt
-  (Newark/EWR), Lucy van Pelt (Chicago/ORD) and Snoopy (San
-  Francisco/SFO) all fly United; Woodstock (Atlanta/ATL) flies Delta, so
-  the set isn't single-airline. All five are American.
+- **The travelers:** to Colorado — Charlie Brown (Houston/IAH), Linus van
+  Pelt (Newark/EWR), Lucy van Pelt (Chicago/ORD) and Snoopy (San
+  Francisco/SFO) fly United, Woodstock (Atlanta/ATL) flies Delta. To
+  Jackson Hole and Utah — Calvin (Dallas/DFW) and Hobbes (Charlotte/CLT)
+  fly American, Garfield (Minneapolis/MSP) and Odie (Detroit/DTW) fly
+  Delta. All nine are American nationals.
+- **Trip counts differ on purpose.** `compute_traveler_tags.py` needs
+  `LOYALIST_MIN_TRIPS` (5) carrier-recorded trips before it will award an
+  "{Airline} Loyalist" tag. The Colorado five fly once a season (3 trips)
+  and so are tagged by hub only; the Jackson Hole/Utah four fly twice a
+  season (6 trips) and carry both `{Airline} Loyalist` and `{Airline}
+  Hub`. Having both sides puts a traveler who *is* loyal but
+  under-observed next to one the rule can actually see.
+- **All four new bases are single-airline hubs** (Dallas and Charlotte are
+  American's, Minneapolis and Detroit are Delta's, per `AIRLINE_HUBS`), so
+  they get a clean `{Airline} Hub` rather than the `Multi Hub` that
+  Chicago and Newark produce.
 - **What's fabricated and what isn't:** the people, dates, lodging and
   costs are invented and every row carries `synthetic: true`. The **flying
   is not** — every leg is a route present in
@@ -2717,8 +2731,12 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   fails instead of writing a trip on a route nobody flies.
 - **Destination is the airport's city, not the resort.** An EGE trip reads
   as Vail because that's what `airports.json` calls EGE — not Beaver
-  Creek, which is nearer. Same rule as everywhere else here: the airport
-  reference decides the city.
+  Creek, which is nearer; a Utah trip reads as Salt Lake City, not Park
+  City. Same rule as everywhere else here: the airport reference decides
+  the city. **Known wart:** `airports.json` spells JAC's city "Jacksn
+  Hole", a typo carried down from OpenFlights upstream, so Jackson Hole
+  trips read that way. It is deliberately *not* special-cased in the trip
+  builder — fix it in the reference or not at all.
 - **Why two skiers only ever fly to Denver:** from SFO the only Colorado
   options in the route file are DEN and COS, and Delta's Atlanta–Colorado
   service is DEN and COS too. Snoopy and Woodstock therefore fly to Denver
@@ -2739,6 +2757,44 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   ```
   python scripts/multiple/build_skiers_trips.py
   python scripts/multiple/build_skiers_trips.py --report
+  ```
+  Run it **before** `build_trips_enhanced.py`.
+
+### Lord Rymel flight log (`scripts/multiple/build_rymel_trips.py`)
+
+- **Source:** a supplied flight log — date, flight number and airport pair
+  per leg, transcribed exactly as given. 12 legs, all United, all between
+  Houston (IAH) and Sacramento (SMF), Oct 2023 – May 2026.
+- **One row per leg, not per trip**, same as the Gomez log and unlike the
+  skiers: a round trip is two rows, so recording a return later never means
+  editing a row that already describes a flight that already happened.
+- **No gender, nationality or costs.** The log says what was flown and
+  nothing about who flew it; none of that is invented. Age is the exception
+  — supplied separately as 25 on the last leg and counted back with the
+  calendar, so he is 22 when the log opens in 2023.
+- **The base is declared, not derived, and it contradicts every row.**
+  `DECLARED_BASE` is Washington, D.C., supplied separately — and **no leg in
+  this log touches Washington**. So this is a *partial* log: the IAH–SMF
+  part of his flying, not all of it.
+- **The flying's home airport still flips part-way through.** All 12 legs
+  pair into 6 clean round trips: the first three depart Sacramento, the last
+  three depart Houston. With the base declared as D.C., that flip is a
+  change in one endpoint of these particular trips rather than evidence
+  about where he lives.
+- **Tag consequence:** Washington, D.C. is a *multi-airline* hub city in
+  `AIRLINE_HUBS` (United at IAD, American at DCA), so he is tagged `United
+  Loyalist; Multi Hub` — the Loyalist chip comes from the flying (12 legs,
+  100% United), the hub chip from the declared base.
+- **Every leg matches a real United route** in
+  `airline_routes_enhanced.csv`; the script warns (rather than fails) if one
+  doesn't, since a logged flight is a fact and a missing route is the route
+  file's gap.
+- **Output:** `processed/multiple/rymel_traveler.json` (merged by
+  `build_trips_enhanced.py` via `SYNTHETIC_SOURCES`) and
+  `processed/multiple/rymel_trips.csv`, which keeps the flight numbers.
+- **Run:**
+  ```
+  python scripts/multiple/build_rymel_trips.py
   ```
   Run it **before** `build_trips_enhanced.py`.
 

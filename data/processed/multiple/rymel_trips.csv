@@ -1,0 +1,13 @@
+leg,trip_id,date,flight_number,origin_airport,destination_airport,destination_city,carrier_name,distance_km,route_carriers
+1,LR-2023-10-11,2023-10-11,UA 2031,SMF,IAH,Houston,United Air Lines Inc.,2585.9,UA
+2,LR-2023-10-18,2023-10-18,UA 2456,IAH,SMF,Sacramento,United Air Lines Inc.,2585.9,UA
+3,LR-2023-12-01,2023-12-01,UA 2031,SMF,IAH,Houston,United Air Lines Inc.,2585.9,UA
+4,LR-2023-12-11,2023-12-11,UA 1268,IAH,SMF,Sacramento,United Air Lines Inc.,2585.9,UA
+5,LR-2024-05-06,2024-05-06,UA 1794,SMF,IAH,Houston,United Air Lines Inc.,2585.9,UA
+6,LR-2024-05-15,2024-05-15,UA 1830,IAH,SMF,Sacramento,United Air Lines Inc.,2585.9,UA
+7,LR-2025-01-17,2025-01-17,UA 2274,IAH,SMF,Sacramento,United Air Lines Inc.,2585.9,UA
+8,LR-2025-01-22,2025-01-22,UA 1780,SMF,IAH,Houston,United Air Lines Inc.,2585.9,UA
+9,LR-2025-12-20,2025-12-20,UA 1148,IAH,SMF,Sacramento,United Air Lines Inc.,2585.9,UA
+10,LR-2025-12-28,2025-12-28,UA 1318,SMF,IAH,Houston,United Air Lines Inc.,2585.9,UA
+11,LR-2026-05-06,2026-05-06,UA 1148,IAH,SMF,Sacramento,United Air Lines Inc.,2585.9,UA
+12,LR-2026-05-12,2026-05-12,UA 1949,SMF,IAH,Houston,United Air Lines Inc.,2585.9,UA
