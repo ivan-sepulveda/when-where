@@ -2827,11 +2827,14 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   southern-hemisphere seasons don't wrap and work without a special case).
 - **`Beach Vacation`** — all three of: the arrival airport is within 100km of
   a point in `shorelines.csv`, within 100km of a GeoNames beach, and the
-  trip's mean temperature is ≥ 23°C.
-  - **Mean, not high.** The source gives `avg_high_c`/`avg_low_c` per month;
-    the midpoint is the honest reading of "average temperature" and a
-    stricter test than the high. Averaged per DAY, so a trip straddling a
-    month boundary is weighted by how much of it fell either side.
+  trip's average daily HIGH is ≥ 23°C.
+  - **The high, not the midpoint** (Ivan's call). It's the question a
+    traveller actually asks — "does it get warm enough for the beach"
+    happens in the afternoon, not at 5am — and the midpoint reads colder
+    than the day feels. Honolulu in February averages a 26.3°C high and an
+    18.5°C low: it fails a 23°C test on the midpoint (22.4) and passes
+    comfortably on the high. Averaged per DAY, so a trip straddling a month
+    boundary is weighted by how much of it fell either side.
   - **Temperature comes from the project's own city resolution** —
     `trip_city_matches.json` (match_trip_cities.py) → `simplemaps_id` →
     `weather_normals_2025_by_city.json`. No name matching happens in the
@@ -2860,21 +2863,24 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
     from "flew to Denver". Narrow the DEN window, or drop DEN from
     `SKI_SEASONS`, if precision matters more than catching Snoopy and
     Woodstock, who genuinely do ski via Denver.
-- **Current output:** `Beach Vacation` 396 trips, `Ski Trip` 88. Counts also
-  land in `trips_enhanced.json` as `trips_by_tag`.
-- **Weather coverage is now the binding constraint, not geography.** Of the
-  1,926 trips that fail, 328 are coastal AND beach-adjacent and fail only
-  because their destination has no weather normals — a false negative, not a
-  cold destination. They are concentrated in exactly the places you'd expect
-  to be beach vacations: Los Cabos (69 trips), Puerto Vallarta (36), Montego
-  Bay (22), Maui (21), Honolulu (15), Nassau (14), Punta Cana (11). Weather
-  normals exist for 1,770 cities and these resolve to none of them. The
+- **Current output:** `Beach Vacation` 736 trips, `Ski Trip` 88. Counts also
+  land in `trips_enhanced.json` as `trips_by_tag`. For scale: the midpoint
+  rule gave 396, and 482 once the weather fetch completed; switching to the
+  daily high took it to 736.
+- **Weather coverage is no longer the main gap, but it isn't closed.**
+  `fetch_weather_normals.py` walks `tourist_cities.json` in population order
+  and is resumable; at 1,770 of 3,069 cities it was stopping every mid-size
+  resort town, which is exactly the population band beach destinations live
+  in. Completing it cut the coastal-and-beach-adjacent trips blocked by
+  missing weather from 328 to 162 — the stragglers are Sarasota (24),
+  Montego Bay (22), Maui (21), West Palm Beach (20), Punta Cana (11). The
   `Weather Coverage` column separates "too cold" from "unknown".
-- **And some positives are literal rather than sensible.** New York (20
-  trips at 23.3°C), Boston (8 at 24.5°C), Orlando (64, beach 69km away) and
-  Houston (18, beach 88.8km) all satisfy the three conditions in summer. The
-  rule says nothing about intent — a July business trip to JFK is coastal
-  and warm.
+- **And some positives are literal rather than sensible.** New York (24
+  trips), Boston (14), Orlando (117, beach 69km away) and Houston (29, beach
+  88.8km) all satisfy the three conditions in summer. The rule says nothing
+  about intent — a July business trip to JFK is coastal and warm. The high
+  rule widens this: Orlando nearly doubled, and it is a theme-park
+  destination an hour from the coast.
 - **Chip dots** are keyed by the tag's `kind`, not by an airline — see
   `frontend/src/lib/tripTagColors.ts`. `Ski Trip` is white, `Beach Vacation`
   is `#2563eb`. That blue is measured, not literal: the chips sit on

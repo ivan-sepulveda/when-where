@@ -484,7 +484,13 @@
      "show": "A Cook's Tour",
      "episode_code": "CT S1.E7",
      "episode_title": "Cod Crazy",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2002-07-05",
@@ -766,7 +772,13 @@
      "show": "A Cook's Tour",
      "episode_code": "CT S2.E8",
      "episode_title": "Mad Tony: The Food Warrior",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2003-05-02",
@@ -1330,7 +1342,13 @@
      "show": "No Reservations",
      "episode_code": "NR S2.E7",
      "episode_title": "Japan",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2006-06-05",
@@ -1708,7 +1726,13 @@
      "show": "No Reservations",
      "episode_code": "NR S3.E9",
      "episode_title": "Brazil",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2007-08-27",
@@ -2116,7 +2140,13 @@
      "show": "No Reservations",
      "episode_code": "NR S4.E9",
      "episode_title": "Hawaii",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2008-07-07",
@@ -3694,7 +3724,13 @@
      "show": "No Reservations",
      "episode_code": "NR S8.E7",
      "episode_title": "Baja",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2012-06-04",
@@ -3814,7 +3850,13 @@
      "show": "No Reservations",
      "episode_code": "NR S9.E7",
      "episode_title": "Rio",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2012-10-29",
@@ -4000,7 +4042,13 @@
      "show": "Parts Unknown",
      "episode_code": "PU S1.E5",
      "episode_title": "Morocco (Tangier)",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2013-05-19",
@@ -4918,7 +4966,13 @@
      "show": "Parts Unknown",
      "episode_code": "PU S5.E8",
      "episode_title": "Hawaii",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2015-09-27",
@@ -5224,7 +5278,13 @@
      "show": "Parts Unknown",
      "episode_code": "PU S7.E4",
      "episode_title": "The Greek Islands",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2016-05-15",
@@ -5464,7 +5524,13 @@
      "show": "Parts Unknown",
      "episode_code": "PU S8.E6",
      "episode_title": "Houston",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2016-11-13",
@@ -5554,7 +5620,13 @@
      "show": "Parts Unknown",
      "episode_code": "PU S8.E9",
      "episode_title": "Minas Gerais, Brazil",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2016-12-04",
@@ -5614,7 +5686,13 @@
      "show": "Parts Unknown",
      "episode_code": "PU S9.E2",
      "episode_title": "Los Angeles",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2017-05-07",
@@ -5764,7 +5842,13 @@
      "show": "Parts Unknown",
      "episode_code": "PU S9.E9",
      "episode_title": "Porto, Portugal",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AB-2017-10-01",
@@ -6536,7 +6620,13 @@
      "origin_airport": "SNA",
      "destination_airport": "IAH",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2021-11-07",
@@ -6698,7 +6788,13 @@
      "origin_airport": "IAH",
      "destination_airport": "SAN",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2022-06-27",
@@ -7058,7 +7154,13 @@
      "origin_airport": "HAV",
      "destination_airport": "IAH",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2022-12-18",
@@ -7166,7 +7268,13 @@
      "origin_airport": "IAH",
      "destination_airport": "SAN",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2023-05-29",
@@ -7313,7 +7421,13 @@
      "origin_airport": "SFO",
      "destination_airport": "IAH",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2023-12-06",
@@ -7475,7 +7589,13 @@
      "origin_airport": "SFO",
      "destination_airport": "IAH",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2024-03-30",
@@ -7682,7 +7802,13 @@
      "origin_airport": "IAH",
      "destination_airport": "SAN",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2024-07-07",
@@ -7922,7 +8048,13 @@
      "origin_airport": "EZE",
      "destination_airport": "IAH",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2024-11-27",
@@ -7976,7 +8108,13 @@
      "origin_airport": "SFO",
      "destination_airport": "IAH",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2024-12-07",
@@ -8345,7 +8483,13 @@
      "origin_airport": "BIO",
      "destination_airport": "EWR",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2025-07-31",
@@ -8399,7 +8543,13 @@
      "origin_airport": "ATL",
      "destination_airport": "EWR",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2025-08-09",
@@ -8579,7 +8729,13 @@
      "origin_airport": "SAN",
      "destination_airport": "IAH",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2025-11-30",
@@ -9017,7 +9173,13 @@
      "origin_airport": "IAH",
      "destination_airport": "IAD",
      "layover": false,
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EG-2026-10-30",
@@ -9637,7 +9799,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "ATL",
      "destination_airport": "JFK",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CB-2024-09-23",
@@ -9662,7 +9830,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "ATL",
      "destination_airport": "JFK",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CB-2024-10-07",
@@ -10329,7 +10503,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "ATL",
      "destination_airport": "JFK",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CB-2025-09-22",
@@ -10354,7 +10534,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "ATL",
      "destination_airport": "JFK",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CB-2025-10-06",
@@ -12076,7 +12262,13 @@
      "carrier_name": "PSA Airlines Inc.",
      "origin_airport": "JAX",
      "destination_airport": "DCA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2016-12-11",
@@ -12176,7 +12368,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "JAX",
      "destination_airport": "PHL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2017-12-15",
@@ -12201,7 +12399,13 @@
      "carrier_name": "Envoy Air",
      "origin_airport": "JAX",
      "destination_airport": "MIA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2018-02-22",
@@ -12276,7 +12480,13 @@
      "carrier_name": "Republic Airline",
      "origin_airport": "JAX",
      "destination_airport": "BOS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2018-12-04",
@@ -12382,7 +12592,13 @@
      "carrier_name": "PSA Airlines Inc.",
      "origin_airport": "JAX",
      "destination_airport": "DCA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2019-12-11",
@@ -12482,7 +12698,13 @@
      "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "JAX",
      "destination_airport": "PHL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2020-12-15",
@@ -12507,7 +12729,13 @@
      "carrier_name": "Envoy Air",
      "origin_airport": "JAX",
      "destination_airport": "MIA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2021-02-22",
@@ -12582,7 +12810,13 @@
      "carrier_name": "Republic Airline",
      "origin_airport": "JAX",
      "destination_airport": "BOS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2021-12-04",
@@ -12688,7 +12922,13 @@
      "carrier_name": "PSA Airlines Inc.",
      "origin_airport": "JAX",
      "destination_airport": "DCA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2022-12-11",
@@ -12788,7 +13028,13 @@
      "carrier_name": "PSA Airlines Inc.",
      "origin_airport": "JAX",
      "destination_airport": "PHL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2023-12-15",
@@ -12813,7 +13059,13 @@
      "carrier_name": "Envoy Air",
      "origin_airport": "JAX",
      "destination_airport": "MIA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2024-02-22",
@@ -12888,7 +13140,13 @@
      "carrier_name": "Republic Airline",
      "origin_airport": "JAX",
      "destination_airport": "BOS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2024-12-04",
@@ -12994,7 +13252,13 @@
      "carrier_name": "PSA Airlines Inc.",
      "origin_airport": "JAX",
      "destination_airport": "DCA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CHI-2025-12-11",
@@ -14098,7 +14362,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SEA",
      "destination_airport": "ICN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CBA-2017-11-11",
@@ -14198,7 +14468,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SEA",
      "destination_airport": "ICN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CBA-2018-11-10",
@@ -14298,7 +14574,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SEA",
      "destination_airport": "ICN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CBA-2019-11-09",
@@ -14398,7 +14680,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SEA",
      "destination_airport": "ICN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CBA-2020-11-14",
@@ -14498,7 +14786,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SEA",
      "destination_airport": "ICN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CBA-2021-11-13",
@@ -14598,7 +14892,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SEA",
      "destination_airport": "ICN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CBA-2022-11-12",
@@ -14698,7 +14998,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SEA",
      "destination_airport": "ICN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CBA-2023-11-11",
@@ -14798,7 +15104,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SEA",
      "destination_airport": "ICN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CBA-2024-11-09",
@@ -14898,7 +15210,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SEA",
      "destination_airport": "ICN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CBA-2025-11-08",
@@ -15029,7 +15347,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "LHR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NT-2017-10-14",
@@ -15135,7 +15459,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "LHR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NT-2018-10-13",
@@ -15241,7 +15571,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "LHR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NT-2019-10-12",
@@ -15347,7 +15683,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "LHR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NT-2020-10-10",
@@ -15453,7 +15795,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "LHR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NT-2021-10-09",
@@ -15559,7 +15907,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "LHR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NT-2022-10-08",
@@ -15665,7 +16019,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "LHR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NT-2023-10-14",
@@ -15771,7 +16131,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "LHR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NT-2024-10-12",
@@ -15877,7 +16243,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "LHR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NT-2025-10-11",
@@ -15952,7 +16324,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2017-04-08",
@@ -16002,7 +16380,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SEA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2017-10-14",
@@ -16058,7 +16442,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2018-04-14",
@@ -16108,7 +16498,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SEA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2018-10-13",
@@ -16164,7 +16560,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2019-04-13",
@@ -16214,7 +16616,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SEA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2019-10-12",
@@ -16270,7 +16678,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2020-04-11",
@@ -16320,7 +16734,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SEA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2020-10-10",
@@ -16376,7 +16796,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2021-04-10",
@@ -16426,7 +16852,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SEA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2021-10-09",
@@ -16482,7 +16914,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2022-04-09",
@@ -16532,7 +16970,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SEA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2022-10-08",
@@ -16588,7 +17032,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2023-04-08",
@@ -16638,7 +17088,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SEA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2023-10-14",
@@ -16694,7 +17150,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2024-04-13",
@@ -16744,7 +17206,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SEA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2024-10-12",
@@ -16800,7 +17268,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2025-04-12",
@@ -16850,7 +17324,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SEA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "OQ-2025-10-11",
@@ -16931,7 +17411,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2017-05-13",
@@ -16981,7 +17467,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2017-11-11",
@@ -17031,7 +17523,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2018-05-12",
@@ -17081,7 +17579,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2018-11-10",
@@ -17131,7 +17635,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2019-05-11",
@@ -17181,7 +17691,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2019-11-09",
@@ -17231,7 +17747,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2020-05-09",
@@ -17281,7 +17803,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2020-11-14",
@@ -17331,7 +17859,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2021-05-08",
@@ -17381,7 +17915,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2021-11-13",
@@ -17431,7 +17971,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2022-05-14",
@@ -17481,7 +18027,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2022-11-12",
@@ -17531,7 +18083,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2023-05-13",
@@ -17581,7 +18139,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2023-11-11",
@@ -17631,7 +18195,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2024-05-11",
@@ -17681,7 +18251,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2024-11-09",
@@ -17731,7 +18307,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2025-05-10",
@@ -17781,7 +18363,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MCO",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "VS-2025-11-08",
@@ -17939,7 +18527,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "LGA",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HRM-2019-02-18",
@@ -18095,7 +18689,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "LGA",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HRM-2020-09-18",
@@ -18251,7 +18851,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "LGA",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HRM-2022-02-18",
@@ -18407,7 +19013,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "LGA",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HRM-2023-09-18",
@@ -18563,7 +19175,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "LGA",
      "destination_airport": "NAS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HRM-2025-02-18",
@@ -18719,7 +19337,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2018-04-14",
@@ -18769,7 +19393,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2018-11-10",
@@ -18794,7 +19424,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2019-01-12",
@@ -18819,7 +19455,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2019-04-13",
@@ -18869,7 +19511,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2019-11-09",
@@ -18894,7 +19542,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2020-01-11",
@@ -18919,7 +19573,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2020-04-11",
@@ -18969,7 +19629,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2020-11-14",
@@ -18994,7 +19660,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2021-01-09",
@@ -19019,7 +19691,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2021-04-10",
@@ -19069,7 +19747,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2021-11-13",
@@ -19094,7 +19778,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2022-01-08",
@@ -19119,7 +19809,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2022-04-09",
@@ -19169,7 +19865,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2022-11-12",
@@ -19194,7 +19896,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2023-01-14",
@@ -19219,7 +19927,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2023-04-08",
@@ -19269,7 +19983,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2023-11-11",
@@ -19294,7 +20014,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2024-01-13",
@@ -19319,7 +20045,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2024-04-13",
@@ -19369,7 +20101,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2024-11-09",
@@ -19394,7 +20132,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2025-01-11",
@@ -19419,7 +20163,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2025-04-12",
@@ -19469,7 +20219,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MM-2025-11-08",
@@ -19494,7 +20250,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -19602,7 +20364,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "BCN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ODY-2018-11-11",
@@ -19677,7 +20445,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "BOS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ODY-2019-09-07",
@@ -19702,7 +20476,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "FCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ODY-2019-11-15",
@@ -19914,7 +20694,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "BCN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ODY-2021-11-11",
@@ -19989,7 +20775,13 @@
      "carrier_name": "JetBlue Airways",
      "origin_airport": "PHL",
      "destination_airport": "BOS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ODY-2022-09-07",
@@ -20014,7 +20806,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "FCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ODY-2022-11-15",
@@ -20226,7 +21024,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "BCN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ODY-2024-11-11",
@@ -20301,7 +21105,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "BOS",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ODY-2025-09-07",
@@ -20326,7 +21136,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "FCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ODY-2025-11-15",
@@ -22143,7 +22959,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2018-04-14",
@@ -22193,7 +23015,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2018-10-13",
@@ -22218,7 +23046,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2019-01-12",
@@ -22243,7 +23077,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2019-04-13",
@@ -22293,7 +23133,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2019-10-12",
@@ -22318,7 +23164,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2020-01-11",
@@ -22343,7 +23195,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2020-04-11",
@@ -22393,7 +23251,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2020-10-10",
@@ -22418,7 +23282,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2021-01-09",
@@ -22443,7 +23313,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2021-04-10",
@@ -22493,7 +23369,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2021-10-09",
@@ -22518,7 +23400,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2022-01-08",
@@ -22543,7 +23431,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2022-04-09",
@@ -22593,7 +23487,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2022-10-08",
@@ -22618,7 +23518,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2023-01-14",
@@ -22643,7 +23549,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2023-04-08",
@@ -22693,7 +23605,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2023-10-14",
@@ -22718,7 +23636,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2024-01-13",
@@ -22743,7 +23667,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2024-04-13",
@@ -22793,7 +23723,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2024-10-12",
@@ -22818,7 +23754,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2025-01-11",
@@ -22843,7 +23785,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2025-04-12",
@@ -22893,7 +23841,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SS-2025-10-11",
@@ -22918,7 +23872,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -23920,7 +24880,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ATH-2018-04-07",
@@ -24088,7 +25054,13 @@
      "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ATH-2020-04-07",
@@ -24256,7 +25228,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHL",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ATH-2022-04-07",
@@ -24424,7 +25402,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ATH-2024-04-07",
@@ -24592,7 +25576,13 @@
      "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "PHL",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -24744,7 +25734,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CRO-2017-11-04",
@@ -24900,7 +25896,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CRO-2019-11-04",
@@ -25056,7 +26058,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CRO-2021-11-04",
@@ -25212,7 +26220,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CRO-2023-11-04",
@@ -25368,7 +26382,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "CRO-2025-11-04",
@@ -25557,7 +26577,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SJC",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DAE-2017-12-04",
@@ -25719,7 +26745,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SJC",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DAE-2019-12-04",
@@ -25881,7 +26913,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SJC",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DAE-2021-12-04",
@@ -26043,7 +27081,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SJC",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DAE-2023-12-04",
@@ -26205,7 +27249,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SJC",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DAE-2025-12-04",
@@ -27175,7 +28225,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "IAH",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "POS-2017-02-11",
@@ -27331,7 +28387,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "IAH",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "POS-2019-02-11",
@@ -27487,7 +28549,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "IAH",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "POS-2021-02-11",
@@ -27643,7 +28711,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "IAH",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "POS-2023-02-11",
@@ -27799,7 +28873,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "IAH",
      "destination_airport": "SJO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "POS-2025-02-11",
@@ -28163,7 +29243,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "JFK",
      "destination_airport": "BCN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SG-2021-11-13",
@@ -28238,7 +29324,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "JFK",
      "destination_airport": "ATH",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SG-2022-07-09",
@@ -28425,7 +29517,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "JFK",
      "destination_airport": "NCE",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SG-2023-11-11",
@@ -28814,7 +29912,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "JFK",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ZEU-2017-04-11",
@@ -28970,7 +30074,13 @@
      "carrier_name": "JetBlue Airways",
      "origin_airport": "JFK",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ZEU-2019-04-11",
@@ -29126,7 +30236,13 @@
      "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "JFK",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ZEU-2021-04-11",
@@ -29282,7 +30398,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "JFK",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ZEU-2023-04-11",
@@ -29438,7 +30560,13 @@
      "carrier_name": "JetBlue Airways",
      "origin_airport": "JFK",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ZEU-2025-04-11",
@@ -30359,7 +31487,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "LAX",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DEM-2019-09-22",
@@ -30677,7 +31811,13 @@
      "carrier_name": "Spirit Air Lines",
      "origin_airport": "DFW",
      "destination_airport": "LAX",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DEM-2022-09-22",
@@ -30995,7 +32135,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "LAX",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DEM-2025-09-22",
@@ -32641,7 +33787,13 @@
      "carrier_name": "Korean Air Lines Co. Ltd.",
      "origin_airport": "LAX",
      "destination_airport": "ICN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PAN-2019-12-11",
@@ -32953,7 +34105,13 @@
      "carrier_name": "Korean Air Lines Co. Ltd.",
      "origin_airport": "LAX",
      "destination_airport": "ICN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PAN-2022-12-11",
@@ -33265,7 +34423,13 @@
      "carrier_name": "Korean Air Lines Co. Ltd.",
      "origin_airport": "LAX",
      "destination_airport": "ICN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PAN-2025-12-11",
@@ -33342,7 +34506,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "APH-2017-07-15",
@@ -33442,7 +34612,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "APH-2018-11-04",
@@ -33492,7 +34668,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "APH-2019-07-15",
@@ -33592,7 +34774,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "APH-2020-11-04",
@@ -33642,7 +34830,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "APH-2021-07-15",
@@ -33742,7 +34936,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "APH-2022-11-04",
@@ -33792,7 +34992,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "APH-2023-07-15",
@@ -33892,7 +35098,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "APH-2024-11-04",
@@ -33942,7 +35154,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SAN",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "APH-2025-07-15",
@@ -34846,7 +36064,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HER-2018-10-04",
@@ -34996,7 +36220,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HER-2020-10-04",
@@ -35146,7 +36376,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HER-2022-10-04",
@@ -35296,7 +36532,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HER-2024-10-04",
@@ -36234,7 +37476,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PRO-2017-07-15",
@@ -36334,7 +37582,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHX",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PRO-2018-10-04",
@@ -36384,7 +37638,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PRO-2019-07-15",
@@ -36484,7 +37744,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PRO-2020-10-04",
@@ -36534,7 +37800,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PRO-2021-07-15",
@@ -36634,7 +37906,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHX",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PRO-2022-10-04",
@@ -36684,7 +37962,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PRO-2023-07-15",
@@ -36784,7 +38068,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PRO-2024-10-04",
@@ -36834,7 +38124,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PRO-2025-07-15",
@@ -37067,7 +38363,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MDW",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ART-2020-03-07",
@@ -37223,7 +38525,13 @@
      "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "MDW",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ART-2022-03-07",
@@ -37379,7 +38687,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MDW",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ART-2024-03-07",
@@ -37535,7 +38849,13 @@
      "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "MDW",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -38209,7 +39529,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SJC",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ATS-2018-06-15",
@@ -38309,7 +39635,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SJC",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ATS-2019-10-04",
@@ -38359,7 +39691,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SJC",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ATS-2020-06-15",
@@ -38459,7 +39797,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "SJC",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ATS-2021-10-04",
@@ -38509,7 +39853,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SJC",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ATS-2022-06-15",
@@ -38609,7 +39959,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SJC",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ATS-2023-10-04",
@@ -38659,7 +40015,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SJC",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ATS-2024-06-15",
@@ -38759,7 +40121,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "SJC",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ATS-2025-10-04",
@@ -39551,7 +40919,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2018-07-14",
@@ -39607,7 +40981,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2019-03-09",
@@ -39632,7 +41012,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2019-07-13",
@@ -39688,7 +41074,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2020-03-14",
@@ -39713,7 +41105,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2020-07-11",
@@ -39769,7 +41167,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2021-03-13",
@@ -39794,7 +41198,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2021-07-10",
@@ -39850,7 +41260,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2022-03-12",
@@ -39875,7 +41291,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2022-07-09",
@@ -39931,7 +41353,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2023-03-11",
@@ -39956,7 +41384,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2023-07-08",
@@ -40012,7 +41446,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2024-03-09",
@@ -40037,7 +41477,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2024-07-13",
@@ -40093,7 +41539,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2025-03-08",
@@ -40118,7 +41570,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EF-2025-07-12",
@@ -40174,7 +41632,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "CVG",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -40283,7 +41747,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DCA",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "GG-2019-05-27",
@@ -40370,7 +41840,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DCA",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "GG-2020-05-25",
@@ -40457,7 +41933,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DCA",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "GG-2021-05-31",
@@ -40544,7 +42026,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DCA",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "GG-2022-05-30",
@@ -40631,7 +42119,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DCA",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "GG-2023-05-29",
@@ -40718,7 +42212,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DCA",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "GG-2024-05-27",
@@ -40805,7 +42305,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DCA",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "GG-2025-05-26",
@@ -40892,7 +42398,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DCA",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -41700,7 +43212,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "SAT",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MED-2021-01-18",
@@ -42018,7 +43536,13 @@
      "carrier_name": "Spirit Air Lines",
      "origin_airport": "SAT",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "MED-2024-01-18",
@@ -42958,7 +44482,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "PHX",
      "destination_airport": "LAX",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PSE-2020-09-22",
@@ -43270,7 +44800,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "PHX",
      "destination_airport": "LAX",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "PSE-2023-09-22",
@@ -48417,7 +49953,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MDW",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "BA-2017-05-29",
@@ -48473,7 +50015,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MDW",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "BA-2018-05-28",
@@ -48529,7 +50077,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MDW",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "BA-2019-05-27",
@@ -48585,7 +50139,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MDW",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "BA-2020-05-25",
@@ -48641,7 +50201,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MDW",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "BA-2021-05-31",
@@ -48697,7 +50263,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MDW",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "BA-2022-05-30",
@@ -48753,7 +50325,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MDW",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "BA-2023-05-29",
@@ -48809,7 +50387,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MDW",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "BA-2024-05-27",
@@ -48865,7 +50449,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MDW",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "BA-2025-05-26",
@@ -48921,7 +50511,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "MDW",
      "destination_airport": "TPA",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -51158,7 +52754,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "EWR",
      "destination_airport": "VCE",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "JS-2023-12-21",
@@ -51208,7 +52810,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "EWR",
      "destination_airport": "OPO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "JS-2024-12-21",
@@ -52380,7 +53988,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2017-11-11",
@@ -52405,7 +54019,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2018-03-10",
@@ -52430,7 +54050,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2018-11-10",
@@ -52455,7 +54081,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2019-03-09",
@@ -52480,7 +54112,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2019-11-09",
@@ -52505,7 +54143,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2020-03-14",
@@ -52530,7 +54174,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2020-11-14",
@@ -52555,7 +54205,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2021-03-13",
@@ -52580,7 +54236,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2021-11-13",
@@ -52605,7 +54267,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2022-03-12",
@@ -52630,7 +54298,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2022-11-12",
@@ -52655,7 +54329,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2023-03-11",
@@ -52680,7 +54360,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2023-11-11",
@@ -52705,7 +54391,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2024-03-09",
@@ -52730,7 +54422,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2024-11-09",
@@ -52755,7 +54453,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2025-03-08",
@@ -52780,7 +54484,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DP-2025-11-08",
@@ -52805,7 +54515,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "PHX",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -52852,7 +54568,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SAN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HJ-2017-11-21",
@@ -52902,7 +54624,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SAN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HJ-2018-11-20",
@@ -52952,7 +54680,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SAN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HJ-2019-11-26",
@@ -53002,7 +54736,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SAN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HJ-2020-11-24",
@@ -53052,7 +54792,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SAN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HJ-2021-11-23",
@@ -53102,7 +54848,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SAN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HJ-2022-11-22",
@@ -53152,7 +54904,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SAN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HJ-2023-11-21",
@@ -53202,7 +54960,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SAN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HJ-2024-11-26",
@@ -53252,7 +55016,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "DEN",
      "destination_airport": "SAN",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "HJ-2025-11-25",
@@ -53330,7 +55100,13 @@
      "carrier_code": "HA",
      "origin_airport": "SMF",
      "destination_airport": "HNL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "LR-2020-02-15",
@@ -53991,7 +55767,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "IAH",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "THE-2022-04-07",
@@ -54147,7 +55929,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "DFW",
      "destination_airport": "IAH",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "THE-2024-04-07",
@@ -54303,7 +56091,13 @@
      "carrier_name": "Envoy Air",
      "origin_airport": "DFW",
      "destination_airport": "IAH",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -58032,7 +59826,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NR-2019-05-27",
@@ -58088,7 +59888,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NR-2020-05-25",
@@ -58144,7 +59950,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NR-2021-05-31",
@@ -58200,7 +60012,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NR-2022-05-30",
@@ -58256,7 +60074,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NR-2023-05-29",
@@ -58312,7 +60136,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NR-2024-05-27",
@@ -58368,7 +60198,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "NR-2025-05-26",
@@ -58424,7 +60260,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -59409,7 +61251,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "IAH",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AW-2021-06-12",
@@ -59484,7 +61332,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "IAH",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "AW-2022-09-10",
@@ -59727,7 +61581,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "IAH",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -59995,7 +61855,13 @@
      "show": "Uncharted",
      "episode_code": "GRU S3.E3",
      "episode_title": "The Maine Ingredient",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "GR-2021-07-04",
@@ -60331,7 +62197,13 @@
      "carrier_name": "Frontier Airlines Inc.",
      "origin_airport": "AUS",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ICA-2022-07-18",
@@ -60356,7 +62228,13 @@
      "carrier_name": "American Airlines Inc.",
      "origin_airport": "AUS",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ICA-2022-11-04",
@@ -60481,7 +62359,13 @@
      "carrier_name": "Southwest Airlines Co.",
      "origin_airport": "AUS",
      "destination_airport": "MCO",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ICA-2024-07-18",
@@ -60506,7 +62390,13 @@
      "carrier_name": "SkyWest Airlines Inc.",
      "origin_airport": "AUS",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "ICA-2024-11-04",
@@ -60719,7 +62609,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "MSP",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "JC-2022-01-08",
@@ -60744,7 +62640,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "MSP",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "JC-2022-02-12",
@@ -61000,7 +62902,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "MSP",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "JC-2025-03-08",
@@ -61025,7 +62933,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "MSP",
      "destination_airport": "PVR",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -61075,7 +62989,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "LAX",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "TM-2019-10-12",
@@ -61125,7 +63045,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "LAX",
      "destination_airport": "MEL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "TM-2020-10-10",
@@ -61181,7 +63107,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "LAX",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "TM-2021-10-09",
@@ -61231,7 +63163,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "LAX",
      "destination_airport": "MEL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "TM-2022-10-08",
@@ -61287,7 +63225,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "LAX",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "TM-2023-10-14",
@@ -61337,7 +63281,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "LAX",
      "destination_airport": "MEL",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "TM-2024-10-12",
@@ -61393,7 +63343,13 @@
      "carrier_name": "Delta Air Lines Inc.",
      "origin_airport": "LAX",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "TM-2025-10-11",
@@ -62227,7 +64183,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "SFO",
      "destination_airport": "KIX",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "EH-2023-10-14",
@@ -62681,7 +64643,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "HNL",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SR-2017-02-11",
@@ -62706,7 +64674,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "HNL",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SR-2018-02-10",
@@ -62731,7 +64705,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "HNL",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SR-2019-02-09",
@@ -62756,7 +64736,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "HNL",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SR-2020-02-08",
@@ -62781,7 +64767,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "HNL",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SR-2021-02-13",
@@ -62806,7 +64798,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "HNL",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SR-2022-02-12",
@@ -62831,7 +64829,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "HNL",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SR-2023-02-11",
@@ -62856,7 +64860,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "HNL",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SR-2024-02-10",
@@ -62881,7 +64891,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "HNL",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "SR-2025-02-08",
@@ -62906,7 +64922,13 @@
      "carrier_name": "Alaska Airlines Inc.",
      "origin_airport": "HNL",
      "destination_airport": "SYD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     }
    ]
   },
@@ -64290,7 +66312,13 @@
      "carrier_name": "United Air Lines Inc.",
      "origin_airport": "IAH",
      "destination_airport": "SJD",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "GOK-2024-01-13",
@@ -64653,7 +66681,13 @@
      "show": "Breakfast, Lunch & Dinner",
      "episode_code": "BLD S1.E2",
      "episode_title": "Marrakech with Chrissy Teigen",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DC-2019-10-23-3",
@@ -64683,7 +66717,13 @@
      "show": "Breakfast, Lunch & Dinner",
      "episode_code": "BLD S1.E3",
      "episode_title": "Los Angeles with Lena Waithe",
-     "tags": []
+     "tags": [
+      {
+       "kind": "beach_vacation",
+       "tag_id": "beach-vacation",
+       "label": "Beach Vacation"
+      }
+     ]
     },
     {
      "trip_id": "DC-2019-10-23",

@@ -42,7 +42,7 @@ SKI_SEASONS_DF = (
 
 # Arrival Date is the outbound flight's date, Departure Date the return's.
 # Destination City/Country are what the weather join keys on -- see
-# _trip_mean_temp_c(); they're the trip's own values, not derived here.
+# _trip_avg_high_c(); they're the trip's own values, not derived here.
 TEST_TRIPS = {
     "Charlie-Brown-Vail-2024": {
         "Destination Airport": "EGE", "Arrival Date": "2024-02-10", "Departure Date": "2024-02-17",
@@ -194,28 +194,32 @@ def _min_distance_km(lat, lon, points_lat, points_lon):
     return float((EARTH_RADIUS_KM * 2 * np.arcsin(np.sqrt(hav))).min())
 
 
-def _trip_mean_temp_c(city_months, arrival, departure):
-    """Mean temperature over the trip's days, in Celsius.
+def _trip_avg_high_c(city_months, arrival, departure):
+    """Average daily HIGH over the trip's days, in Celsius.
 
-    MEAN, not high. The source gives avg_high_c and avg_low_c per month, and
-    "average temperature" is the midpoint of those -- which is a stricter test
-    than avg_high and the honest reading of the brief. Averaging per DAY
-    rather than per month weights a trip that straddles a month boundary by
-    how much of it fell on each side.
+    THE HIGH, NOT THE MIDPOINT. Ivan's call, and it is the question a
+    traveller actually asks -- "does it get warm enough for the beach"
+    happens in the afternoon, not at 5am. The midpoint of high and low reads
+    colder than the day feels: Honolulu in February averages a 26.3C high and
+    an 18.5C low, so it fails a 23C test on the midpoint (22.4) and passes
+    comfortably on the high.
+
+    Averaged per DAY rather than per month, so a trip straddling a month
+    boundary is weighted by how much of it fell on each side.
     """
     days = pd.date_range(arrival, departure, freq="D")
     if len(days) == 0:
         return None
-    temps = []
+    highs = []
     for day in days:
         month = city_months.get(MONTHS[day.month - 1])
         if not month:
             continue
-        high, low = month.get("avg_high_c"), month.get("avg_low_c")
-        if high is None or low is None:
+        high = month.get("avg_high_c")
+        if high is None:
             continue
-        temps.append((high + low) / 2)
-    return sum(temps) / len(temps) if temps else None
+        highs.append(high)
+    return sum(highs) / len(highs) if highs else None
 
 
 def is_beach_vacation(df, shore_km=NEAR_SHORE_KM, beach_km=NEAR_BEACH_KM,
@@ -231,8 +235,9 @@ def is_beach_vacation(df, shore_km=NEAR_SHORE_KM, beach_km=NEAR_BEACH_KM,
     learns something -- a rocky coast shows a small shore distance and a large
     beach one.
 
-    TEMPERATURE IS THE BINDING CONSTRAINT, and it is missing more often than
-    the geography is. Weather normals exist for 1,770 cities; a destination
+    TEMPERATURE IS THE AVERAGE DAILY HIGH over the trip, not the midpoint of
+    high and low -- see _trip_avg_high_c(). It is still the binding
+    constraint, and it is missing more often than the geography is. Weather normals exist for 1,770 cities; a destination
     that doesn't resolve to one of them has no temperature and scores 0 here.
     That is a false negative, not a cold destination -- Honolulu is one. The
     "Weather Coverage" column separates the two so the zero can be read
@@ -265,7 +270,7 @@ def is_beach_vacation(df, shore_km=NEAR_SHORE_KM, beach_km=NEAR_BEACH_KM,
         city_id = city_by_destination.get(key)
         months = (weather_cities.get(city_id) or {}).get("months") if city_id else None
         if months:
-            temp = _trip_mean_temp_c(months, row["Arrival Date"], row["Departure Date"])
+            temp = _trip_avg_high_c(months, row["Arrival Date"], row["Departure Date"])
             temps.append(round(temp, 1) if temp is not None else np.nan)
             coverage.append("ok" if temp is not None else "no monthly normals")
         else:
@@ -275,12 +280,12 @@ def is_beach_vacation(df, shore_km=NEAR_SHORE_KM, beach_km=NEAR_BEACH_KM,
     out = df.copy()
     out["Distance To Shore KM"] = shore_d
     out["Distance To Beach KM"] = beach_d
-    out["Avg Trip Temp C"] = temps
+    out["Avg Trip High C"] = temps
     out["Weather Coverage"] = coverage
     out["BEACH_VACATION"] = (
         (out["Distance To Shore KM"] <= shore_km)
         & (out["Distance To Beach KM"] <= beach_km)
-        & (out["Avg Trip Temp C"] >= min_temp_c)
+        & (out["Avg Trip High C"] >= min_temp_c)
     ).fillna(False).astype(int)
     return out
 
@@ -341,6 +346,6 @@ if __name__ == "__main__":
     result = classify(TEST_TRIPS_DF)
     columns = ["Trip ID", "Destination Airport", "Arrival Date", "Departure Date",
                "Share In Season", "IS_SKI_TRIP",
-               "Distance To Shore KM", "Distance To Beach KM", "Avg Trip Temp C",
+               "Distance To Shore KM", "Distance To Beach KM", "Avg Trip High C",
                "BEACH_VACATION", "Weather Coverage"]
     print(result[columns].to_string(index=False))
