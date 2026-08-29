@@ -69,9 +69,13 @@ Usage:
 import argparse
 import csv
 import json
+import sys
 import unicodedata
 from collections import Counter
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from plog_categorize import psychocentric_for_city_id
 
 DATA_DIR = Path(__file__).resolve().parent.parent.parent
 PROCESSED_DIR = DATA_DIR / "processed" / "multiple"
@@ -184,6 +188,12 @@ def match_destination(city_name: str, country_name: str, exact: dict, ascii_: di
                 "matched_country": hit.get("country"),
                 "unesco_score": hit.get("unesco_score"),
                 "michelin_score": hit.get("michelin_score"),
+                # Plog's psychocentric end, 0-1 (plog_categorize.py). Joined
+                # here rather than in a file of its own because it is the same
+                # kind of thing as the two above -- a property of the matched
+                # CITY -- and this record is already the place the API reads
+                # those from.
+                "plog_score": psychocentric_for_city_id(hit["simplemaps_id"]),
             }
 
     return {"match_status": "city_not_in_list", "match_method": None, "simplemaps_id": None}
@@ -278,6 +288,7 @@ def main() -> None:
         "destination_city", "destination_country", "trips", "layover_trips",
         "match_status", "match_method", "simplemaps_id", "matched_city",
         "matched_city_ascii", "matched_country", "unesco_score", "michelin_score",
+        "plog_score",
     ]
     with open(OUT_CSV, "w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction="ignore")

@@ -63,9 +63,10 @@ function TripCard({ trip }: { trip: TravelerTrip }) {
   ].filter(Boolean) as string[];
 
   // Kept OUT of `facts` deliberately: those are free-text lines, these are
-  // three labelled numbers that need to line up card to card. See
+  // four labelled numbers that need to line up card to card. See
   // tripDestinationScores() for why an absent score is omitted rather than
-  // dashed.
+  // dashed -- and note the last of the four is on a 0-1 scale while the
+  // other three are 0-10, which is why each carries its range in its title.
   const scores = tripDestinationScores(trip);
 
   return (
@@ -367,11 +368,14 @@ export default function TravelerDetail() {
           title="Preference profile"
           axes={preferences}
           // The component itself states which/how-many dimensions are
-          // shown (the full chart's axis labels for 3, the "Only N of 3"
-          // line for fewer) -- this caption only needs to say what the
-          // numbers ARE, not repeat that count a second time.
-          caption="UNESCO, Michelin and weather scores, averaged across this traveler's own trips and rescaled to 0-1."
-          emptyMessage={`None of ${traveler.name}'s trips matched a city with a UNESCO, Michelin or weather score, so there's nothing to plot.`}
+          // shown (the full chart's axis labels, the "Only N of M" line for
+          // fewer) -- this caption only needs to say what the numbers ARE,
+          // not repeat that count a second time. It has to say it twice
+          // though, because the five axes are two different measurements:
+          // three averages of where they went, two proportions of what they
+          // did. Calling all five "scores" would misdescribe the last two.
+          caption="UNESCO, Michelin and weather are the destination's scores averaged across this traveler's trips, rescaled to 0-1. Holiday and Beachgoer are the share of their trips carrying that tag. Allocentric is Plog's scale, averaged the same way: high means they favour remote, thinly-connected places, low means well-trodden ones."
+          emptyMessage={`None of ${traveler.name}'s trips matched a city with a UNESCO, Michelin or weather score, and none carried a destination airport to classify, so there's nothing to plot.`}
         />
       </div>
 

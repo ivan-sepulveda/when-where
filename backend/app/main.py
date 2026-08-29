@@ -407,6 +407,13 @@ class TravelerTrip(BaseModel):
     # than looked up: the city's per-month 0-10 weather scores, averaged
     # against this trip's own dates (see scoring.month_weights).
     weather_score: Optional[float] = None
+    # Plog's PSYCHOCENTRIC end for this destination city, 0-1 (see
+    # data/scripts/multiple/plog_categorize.py), joined from the same
+    # trip_city_matches record as unesco_score/michelin_score. Null on the
+    # same ~23 destinations that have no city record. Stored as the
+    # psychocentric pole because that is what the scorer returns first; the
+    # allocentric pole is 1 - this, and the two are one number, not two.
+    plog_score: Optional[float] = None
     # UN M49 geography for destination_country_code, joined on at request
     # time (see data_loader.load_m49_regions). Null when m49_regions.json
     # hasn't been built here, or when the destination country isn't in it --
@@ -583,9 +590,10 @@ class DestinationEntropy(BaseModel):
 
 class TravelerPreferences(BaseModel):
     """A per-traveler DESTINATION PREFERENCE PROFILE -- a traveler-level
-    rollup of the same per-trip UNESCO/Michelin/weather scores the trip
-    cards already show (see _with_destination_scores), not a new score.
-    Three dimensions today; the README TODO this implements names more
+    rollup of the same per-trip UNESCO/Michelin/weather scores and
+    classify_trip.py tags the trip cards already show (see
+    _with_destination_scores and TravelerTrip.tags), not a new score.
+    Six dimensions today; the README TODO this implements names more
     (food, architecture, nightlife...) that need datasets this project
     doesn't have yet, so they're left for later rather than guessed at.
 
@@ -609,6 +617,45 @@ class TravelerPreferences(BaseModel):
     unesco_trips: int = 0
     michelin_trips: int = 0
     weather_trips: int = 0
+    # TWO DIMENSIONS OF A DIFFERENT KIND, added later. The three above are
+    # MEANS of a destination's 0-10 quality scores -- "how much UNESCO is
+    # where this person goes". These two are SHARES of the traveler's own
+    # trips -- "how much of this person's travel is a beach holiday". Both
+    # land on 0-1 and both are revealed preference read off the same trip
+    # history, which is why they sit on the same radar; but the number
+    # underneath is a proportion, not an average, so the UI names it that
+    # way (see PreferenceAxis.kind in travelerCharts.ts).
+    #
+    # The numerator is trips carrying classify_trip.py's beach_vacation /
+    # holiday_trip tag. The DENOMINATOR is not trip_count: it is the trips
+    # classify_trip could actually classify, which is the whole subtlety
+    # here. A trip with no destination airport or no parsed dates gets NO
+    # tags at all (see TravelerTrip.tags and classify_trip.tag_trips), so
+    # counting it in the denominator would read a missing airport as
+    # evidence of not liking beaches. 124 of this dataset's 263 travelers
+    # are Kaggle rows with no airport on any trip; dividing by trip_count
+    # would hand every one of them a confident 0.0. They get null instead,
+    # the same call the three dimensions above make.
+    holiday: Optional[float] = None
+    beach: Optional[float] = None
+    holiday_trips: int = 0
+    beach_trips: int = 0
+    # PLOG, AND ONLY ONE POLE OF IT. Plog's scale is a single continuum, so
+    # psychocentric and allocentric always sum to 1. Exposing both as
+    # separate fields would invite plotting both, and a radar chart's spokes
+    # are read as independent dimensions -- two spokes that always sum to 1
+    # draw the same fact twice and give every polygon a symmetry that is an
+    # artefact of the encoding, not of the traveler. So one number is served.
+    #
+    # The ALLOCENTRIC pole is the one kept, for two reasons: every other axis
+    # here reads "more is more of a trait", and allocentric is the trait that
+    # distinguishes (most travel goes to well-connected places, so a polygon
+    # that extends here is saying something unusual).
+    #
+    # It is the mean of (1 - plog_score) over non-layover trips that HAVE a
+    # score -- a mean like the first three, not a share like the two above.
+    allocentric: Optional[float] = None
+    allocentric_trips: int = 0
 
 
 class TravelerDetail(TravelerSummary):
@@ -712,6 +759,27 @@ class Beach(BaseModel):
     country_code: Optional[str] = None
 
 
+class MonthTripCount(BaseModel):
+    month: int          # 1-12
+    name: str           # "January"
+    short_name: str     # "Jan"
+    trips: int
+    # Excludes rows flagged `layover` -- see TravelerTrip.layover. Nearly the
+    # same as `trips` (only 4 rows are flagged) but it is the honest number for
+    # an aggregate.
+    trips_excluding_layovers: int
+
+
+class TripsByMonthResponse(BaseModel):
+    # False means travelers.json isn't built in this checkout -- distinct from
+    # "built and empty", which the page needs to say differently.
+    available: bool
+    total_trips: int
+    first_year: Optional[int] = None
+    last_year: Optional[int] = None
+    months: list[MonthTripCount]
+
+
 class BeachesResponse(BaseModel):
     # 0 with available=False means the source file hasn't been built in this
     # checkout; 0 with available=True would mean it built and found nothing.
@@ -750,6 +818,56 @@ def health():
         "travelers_source": resolve_travelers_path().name if resolve_travelers_path() else None,
         "city_clusters": len(set(CITY_CLUSTER_REPRESENTATIVES.values())),
         "countries_with_visa_requirements": len(VISA_REQUIREMENTS),
+    }
+
+
+@app.get("/api/trips/by-month", response_model=TripsByMonthResponse)
+def trips_by_month():
+    """Every trip bucketed by the calendar month it departed, across all years.
+
+    Aggregated here rather than in the client: /api/travelers ships every
+    traveler with every trip nested, and a page that only wants twelve numbers
+    should not download megabytes to count them.
+
+    Two counts per month. `trips` is everything; `trips_excluding_layovers`
+    drops rows flagged `layover` -- a leg that was part of a longer journey but
+    wasn't its point. Only 4 rows are flagged, so the two series are nearly
+    identical, but this project's convention is that AGGREGATES exclude them
+    (see TravelerTrip.layover), and a chart is an aggregate.
+    """
+    counts = {month: 0 for month in range(1, 13)}
+    counts_no_layover = {month: 0 for month in range(1, 13)}
+    years: set[int] = set()
+
+    for traveler in (TRAVELERS or {}).values():
+        for trip in traveler.get("trips", []):
+            start = trip.get("start_date")
+            if not start:
+                continue
+            try:
+                month = int(start[5:7])
+                years.add(int(start[:4]))
+            except (ValueError, IndexError):
+                continue
+            if month not in counts:
+                continue
+            counts[month] += 1
+            if not trip.get("layover"):
+                counts_no_layover[month] += 1
+
+    names = ["January", "February", "March", "April", "May", "June", "July",
+             "August", "September", "October", "November", "December"]
+    months = [
+        {"month": m, "name": names[m - 1], "short_name": names[m - 1][:3],
+         "trips": counts[m], "trips_excluding_layovers": counts_no_layover[m]}
+        for m in range(1, 13)
+    ]
+    return {
+        "available": TRAVELERS is not None,
+        "total_trips": sum(counts.values()),
+        "first_year": min(years) if years else None,
+        "last_year": max(years) if years else None,
+        "months": months,
     }
 
 
@@ -1140,6 +1258,7 @@ def _with_destination_scores(trip: dict) -> dict:
         **trip,
         "unesco_score": match.get("unesco_score"),
         "michelin_score": match.get("michelin_score"),
+        "plog_score": match.get("plog_score"),
     }
 
     monthly = CITY_WEATHER_SCORES.get(match["simplemaps_id"])
@@ -1173,9 +1292,16 @@ def _preferences(scored_trips: list[dict]) -> TravelerPreferences:
 
     Layover legs are excluded, same convention as entropy/tags: Atlanta on
     a Houston-to-Lisbon trip isn't a destination whose scores should count
-    toward the profile any more than it counts toward trip_count."""
-    sums = {"unesco": 0.0, "michelin": 0.0, "weather": 0.0}
-    counts = {"unesco": 0, "michelin": 0, "weather": 0}
+    toward the profile any more than it counts toward trip_count.
+
+    The holiday/beach dimensions are shares rather than means -- see
+    TravelerPreferences -- and share the layover exclusion but not the
+    denominator: theirs is _classifiable trips_, not trips with a score."""
+    sums = {"unesco": 0.0, "michelin": 0.0, "weather": 0.0, "allocentric": 0.0}
+    counts = {"unesco": 0, "michelin": 0, "weather": 0, "allocentric": 0}
+    tagged = {"holiday": 0, "beach": 0}
+    classifiable = 0
+
     for trip in scored_trips:
         if trip.get("layover"):
             continue
@@ -1185,6 +1311,27 @@ def _preferences(scored_trips: list[dict]) -> TravelerPreferences:
                 sums[dim] += value
                 counts[dim] += 1
 
+        # Flipped to the allocentric pole on the way in, so the mean below is
+        # a mean of allocentric values rather than 1 minus a mean of
+        # psychocentric ones. Those happen to be equal for a plain mean, but
+        # only for a plain mean -- doing it here keeps that from becoming a
+        # trap if this is ever weighted.
+        plog = trip.get("plog_score")
+        if isinstance(plog, (int, float)):
+            sums["allocentric"] += 1.0 - plog
+            counts["allocentric"] += 1
+
+        # Mirrors classify_trip.tag_trips()'s own guard exactly. A trip it
+        # skipped has no tags for a reason that is NOT "nothing matched",
+        # and must stay out of the denominator.
+        if not (trip.get("destination_airport") and trip.get("start_date") and trip.get("end_date")):
+            continue
+        classifiable += 1
+        kinds = {tag.get("kind") for tag in (trip.get("tags") or [])}
+        for dim, kind in (("holiday", "holiday_trip"), ("beach", "beach_vacation")):
+            if kind in kinds:
+                tagged[dim] += 1
+
     return TravelerPreferences(
         unesco=round(sums["unesco"] / counts["unesco"] / 10, 4) if counts["unesco"] else None,
         michelin=round(sums["michelin"] / counts["michelin"] / 10, 4) if counts["michelin"] else None,
@@ -1192,6 +1339,14 @@ def _preferences(scored_trips: list[dict]) -> TravelerPreferences:
         unesco_trips=counts["unesco"],
         michelin_trips=counts["michelin"],
         weather_trips=counts["weather"],
+        # Already 0-1, so no /10 -- unlike the three above, which rescale a
+        # 0-10 trip score.
+        allocentric=round(sums["allocentric"] / counts["allocentric"], 4) if counts["allocentric"] else None,
+        allocentric_trips=counts["allocentric"],
+        holiday=round(tagged["holiday"] / classifiable, 4) if classifiable else None,
+        beach=round(tagged["beach"] / classifiable, 4) if classifiable else None,
+        holiday_trips=classifiable,
+        beach_trips=classifiable,
     )
 
 

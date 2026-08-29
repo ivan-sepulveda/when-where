@@ -371,6 +371,12 @@ describe("preferenceAxes", () => {
       unesco_trips: 0,
       michelin_trips: 0,
       weather_trips: 0,
+      holiday: null,
+      beach: null,
+      holiday_trips: 0,
+      beach_trips: 0,
+      allocentric: null,
+      allocentric_trips: 0,
       ...overrides,
     };
   }
@@ -381,7 +387,48 @@ describe("preferenceAxes", () => {
     );
     expect(axes.map((a) => a.key)).toEqual(["unesco", "michelin", "weather"]);
     expect(axes.map((a) => a.label)).toEqual(["UNESCO", "Michelin", "Weather"]);
-    expect(axes[0]).toEqual({ key: "unesco", label: "UNESCO", value: 0.8, trips: 5 });
+    expect(axes[0]).toEqual({ key: "unesco", label: "UNESCO", value: 0.8, trips: 5, kind: "mean" });
+  });
+
+  it("adds holiday and beachgoer as SHARE axes, after the three means", () => {
+    const axes = preferenceAxes(
+      prefs({
+        unesco: 0.8, unesco_trips: 5, michelin: 0.3, michelin_trips: 5, weather: 0.6, weather_trips: 5,
+        holiday: 0.4, holiday_trips: 5, beach: 0.2, beach_trips: 5,
+      }),
+    );
+    expect(axes.map((a) => a.key)).toEqual(["unesco", "michelin", "weather", "holiday", "beach"]);
+    expect(axes.map((a) => a.kind)).toEqual(["mean", "mean", "mean", "share", "share"]);
+    expect(axes[4]).toEqual({ key: "beach", label: "Beachgoer", value: 0.2, trips: 5, kind: "share" });
+  });
+
+  it("adds allocentric as a MEAN axis, and never a psychocentric twin", () => {
+    // Plog is one continuum. If a psychocentric axis ever appears alongside
+    // this one, every polygon gains a symmetry that is an artefact of the
+    // encoding rather than a fact about the traveler -- so the axis list is
+    // asserted to hold exactly one Plog spoke.
+    const axes = preferenceAxes(prefs({ allocentric: 0.31, allocentric_trips: 9 }));
+    expect(axes).toEqual([
+      { key: "allocentric", label: "Allocentric", value: 0.31, trips: 9, kind: "mean" },
+    ]);
+    expect(axes.filter((a) => a.key.includes("centric"))).toHaveLength(1);
+  });
+
+  it("keeps a 0 share, because 0 of 5 trips is a measurement, not a gap", () => {
+    // The distinction the whole feature turns on. A traveler with five
+    // classifiable trips and no beach tag really does have beach = 0 -- that
+    // is data. It must survive the same filter that DROPS a null, which
+    // means the filter has to test for null and not for falsiness.
+    const axes = preferenceAxes(prefs({ beach: 0, beach_trips: 5 }));
+    expect(axes).toEqual([{ key: "beach", label: "Beachgoer", value: 0, trips: 5, kind: "share" }]);
+  });
+
+  it("drops holiday and beachgoer for a traveler with no classifiable trip", () => {
+    // The 124 Kaggle travelers whose trips carry no destination airport.
+    // classify_trip never saw those trips, so the honest answer is no axis
+    // at all -- not a confident zero on both.
+    const axes = preferenceAxes(prefs({ unesco: 0.5, unesco_trips: 1 }));
+    expect(axes.map((a) => a.key)).toEqual(["unesco"]);
   });
 
   it("drops a dimension with no scored trips rather than plotting it as 0", () => {
@@ -389,7 +436,7 @@ describe("preferenceAxes", () => {
     // Plotting it at the origin would be exactly the invented-zero the rest
     // of this project's scoring code goes out of its way to avoid.
     const axes = preferenceAxes(prefs({ unesco: 0.8, unesco_trips: 3 }));
-    expect(axes).toEqual([{ key: "unesco", label: "UNESCO", value: 0.8, trips: 3 }]);
+    expect(axes).toEqual([{ key: "unesco", label: "UNESCO", value: 0.8, trips: 3, kind: "mean" }]);
   });
 
   it("returns no axes for an all-null profile", () => {
@@ -411,6 +458,6 @@ describe("preferenceAxes", () => {
     // with no UNESCO site in range, say) and must still plot -- it's only
     // a MISSING mean that gets dropped, not a low one.
     const axes = preferenceAxes(prefs({ unesco: 0, unesco_trips: 4 }));
-    expect(axes).toEqual([{ key: "unesco", label: "UNESCO", value: 0, trips: 4 }]);
+    expect(axes).toEqual([{ key: "unesco", label: "UNESCO", value: 0, trips: 4, kind: "mean" }]);
   });
 });

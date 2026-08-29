@@ -1,17 +1,17 @@
 {
   "source": "travelers_anon.json + tourist_cities_enhanced.json",
   "note": "Keyed by destination, not by trip. simplemaps_id is null for any destination this project has no city record for -- treat that as unknown, never as a zero score.",
-  "total_destinations": 174,
-  "total_trips": 2217,
-  "matched_destinations": 140,
-  "matched_trips": 2046,
+  "total_destinations": 233,
+  "total_trips": 2879,
+  "matched_destinations": 181,
+  "matched_trips": 2616,
   "status_counts": {
-    "matched": 140,
-    "city_not_in_list": 23,
+    "matched": 181,
+    "city_not_in_list": 41,
     "no_destination_city": 11
   },
   "match_method_counts": {
-    "exact": 133,
+    "exact": 174,
     "country_alias": 3,
     "city_alias": 4
   },
@@ -28,7 +28,8 @@
       "matched_city_ascii": "Cancun",
       "matched_country": "Mexico",
       "unesco_score": 0.0,
-      "michelin_score": 2.83
+      "michelin_score": 2.83,
+      "plog_score": 0.6899
     },
     "Orlando|United States": {
       "destination_city": "Orlando",
@@ -42,12 +43,13 @@
       "matched_city_ascii": "Orlando",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 6.53
+      "michelin_score": 6.53,
+      "plog_score": 0.8513
     },
     "London|United Kingdom": {
       "destination_city": "London",
       "destination_country": "United Kingdom",
-      "trips": 82,
+      "trips": 105,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -56,12 +58,13 @@
       "matched_city_ascii": "London",
       "matched_country": "United Kingdom",
       "unesco_score": 6.71,
-      "michelin_score": 9.54
+      "michelin_score": 9.54,
+      "plog_score": 0.8673
     },
     "Denver|United States": {
       "destination_city": "Denver",
       "destination_country": "United States",
-      "trips": 79,
+      "trips": 101,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -70,12 +73,28 @@
       "matched_city_ascii": "Denver",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 5.91
+      "michelin_score": 5.91,
+      "plog_score": 0.8445
+    },
+    "Chicago|United States": {
+      "destination_city": "Chicago",
+      "destination_country": "United States",
+      "trips": 79,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840000494",
+      "matched_city": "Chicago",
+      "matched_city_ascii": "Chicago",
+      "matched_country": "United States",
+      "unesco_score": 2.89,
+      "michelin_score": 7.33,
+      "plog_score": 0.9501
     },
     "Tokyo|Japan": {
       "destination_city": "Tokyo",
       "destination_country": "Japan",
-      "trips": 74,
+      "trips": 75,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -84,7 +103,8 @@
       "matched_city_ascii": "Tokyo",
       "matched_country": "Japan",
       "unesco_score": 2.89,
-      "michelin_score": 9.99
+      "michelin_score": 9.99,
+      "plog_score": 0.7993
     },
     "San Jose del Cabo|Mexico": {
       "destination_city": "San Jose del Cabo",
@@ -98,12 +118,13 @@
       "matched_city_ascii": "San Jose del Cabo",
       "matched_country": "Mexico",
       "unesco_score": 2.89,
-      "michelin_score": 4.48
+      "michelin_score": 4.48,
+      "plog_score": 0.5778
     },
     "New York|United States": {
       "destination_city": "New York",
       "destination_country": "United States",
-      "trips": 64,
+      "trips": 66,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -112,40 +133,13 @@
       "matched_city_ascii": "New York",
       "matched_country": "United States",
       "unesco_score": 4.58,
-      "michelin_score": 9.36
-    },
-    "Chicago|United States": {
-      "destination_city": "Chicago",
-      "destination_country": "United States",
-      "trips": 48,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840000494",
-      "matched_city": "Chicago",
-      "matched_city_ascii": "Chicago",
-      "matched_country": "United States",
-      "unesco_score": 2.89,
-      "michelin_score": 7.33
-    },
-    "Guadalajara|Mexico": {
-      "destination_city": "Guadalajara",
-      "destination_country": "Mexico",
-      "trips": 48,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1484950208",
-      "matched_city": "Guadalajara",
-      "matched_city_ascii": "Guadalajara",
-      "matched_country": "Mexico",
-      "unesco_score": 4.58,
-      "michelin_score": 3.79
+      "michelin_score": 9.36,
+      "plog_score": 0.95
     },
     "Miami|United States": {
       "destination_city": "Miami",
       "destination_country": "United States",
-      "trips": 45,
+      "trips": 65,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -154,68 +148,13 @@
       "matched_city_ascii": "Miami",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 6.68
-    },
-    "San Diego|United States": {
-      "destination_city": "San Diego",
-      "destination_country": "United States",
-      "trips": 44,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840021990",
-      "matched_city": "San Diego",
-      "matched_city_ascii": "San Diego",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 6.12
-    },
-    "Los Angeles|United States": {
-      "destination_city": "Los Angeles",
-      "destination_country": "United States",
-      "trips": 41,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840020491",
-      "matched_city": "Los Angeles",
-      "matched_city_ascii": "Los Angeles",
-      "matched_country": "United States",
-      "unesco_score": 2.89,
-      "michelin_score": 8.2
-    },
-    "Phoenix|United States": {
-      "destination_city": "Phoenix",
-      "destination_country": "United States",
-      "trips": 41,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840020568",
-      "matched_city": "Phoenix",
-      "matched_city_ascii": "Phoenix",
-      "matched_country": "United States",
-      "unesco_score": 2.89,
-      "michelin_score": 0.0
-    },
-    "Toronto|Canada": {
-      "destination_city": "Toronto",
-      "destination_country": "Canada",
-      "trips": 40,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1124279679",
-      "matched_city": "Toronto",
-      "matched_city_ascii": "Toronto",
-      "matched_country": "Canada",
-      "unesco_score": 0.0,
-      "michelin_score": 7.17
+      "michelin_score": 6.68,
+      "plog_score": 0.9
     },
     "Boston|United States": {
       "destination_city": "Boston",
       "destination_country": "United States",
-      "trips": 38,
+      "trips": 63,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -224,12 +163,133 @@
       "matched_city_ascii": "Boston",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 5.21
+      "michelin_score": 5.21,
+      "plog_score": 0.8383
+    },
+    "Guadalajara|Mexico": {
+      "destination_city": "Guadalajara",
+      "destination_country": "Mexico",
+      "trips": 58,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1484950208",
+      "matched_city": "Guadalajara",
+      "matched_city_ascii": "Guadalajara",
+      "matched_country": "Mexico",
+      "unesco_score": 4.58,
+      "michelin_score": 3.79,
+      "plog_score": 0.6149
+    },
+    "Toronto|Canada": {
+      "destination_city": "Toronto",
+      "destination_country": "Canada",
+      "trips": 55,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1124279679",
+      "matched_city": "Toronto",
+      "matched_city_ascii": "Toronto",
+      "matched_country": "Canada",
+      "unesco_score": 0.0,
+      "michelin_score": 7.17,
+      "plog_score": 0.8369
+    },
+    "Houston|United States": {
+      "destination_city": "Houston",
+      "destination_country": "United States",
+      "trips": 53,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840020925",
+      "matched_city": "Houston",
+      "matched_city_ascii": "Houston",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 6.02,
+      "plog_score": 0.8677
+    },
+    "San Diego|United States": {
+      "destination_city": "San Diego",
+      "destination_country": "United States",
+      "trips": 53,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840021990",
+      "matched_city": "San Diego",
+      "matched_city_ascii": "San Diego",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 6.12,
+      "plog_score": 0.7991
+    },
+    "Paris|France": {
+      "destination_city": "Paris",
+      "destination_country": "France",
+      "trips": 48,
+      "layover_trips": 1,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1250015082",
+      "matched_city": "Paris",
+      "matched_city_ascii": "Paris",
+      "matched_country": "France",
+      "unesco_score": 6.71,
+      "michelin_score": 9.93,
+      "plog_score": 0.8396
+    },
+    "Phoenix|United States": {
+      "destination_city": "Phoenix",
+      "destination_country": "United States",
+      "trips": 46,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840020568",
+      "matched_city": "Phoenix",
+      "matched_city_ascii": "Phoenix",
+      "matched_country": "United States",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.8296
+    },
+    "Los Angeles|United States": {
+      "destination_city": "Los Angeles",
+      "destination_country": "United States",
+      "trips": 42,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840020491",
+      "matched_city": "Los Angeles",
+      "matched_city_ascii": "Los Angeles",
+      "matched_country": "United States",
+      "unesco_score": 2.89,
+      "michelin_score": 8.2,
+      "plog_score": 0.9115
+    },
+    "San Francisco|United States": {
+      "destination_city": "San Francisco",
+      "destination_country": "United States",
+      "trips": 40,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840021543",
+      "matched_city": "San Francisco",
+      "matched_city_ascii": "San Francisco",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 8.13,
+      "plog_score": 0.8552
     },
     "Sydney|Australia": {
       "destination_city": "Sydney",
       "destination_country": "Australia",
-      "trips": 38,
+      "trips": 40,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -238,7 +298,68 @@
       "matched_city_ascii": "Sydney",
       "matched_country": "Australia",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6762
+    },
+    "New Orleans|United States": {
+      "destination_city": "New Orleans",
+      "destination_country": "United States",
+      "trips": 38,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840001839",
+      "matched_city": "New Orleans",
+      "matched_city_ascii": "New Orleans",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 5.48,
+      "plog_score": 0.808
+    },
+    "Seattle|United States": {
+      "destination_city": "Seattle",
+      "destination_country": "United States",
+      "trips": 38,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840021117",
+      "matched_city": "Seattle",
+      "matched_city_ascii": "Seattle",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.839
+    },
+    "Atlanta|United States": {
+      "destination_city": "Atlanta",
+      "destination_country": "United States",
+      "trips": 37,
+      "layover_trips": 2,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840013660",
+      "matched_city": "Atlanta",
+      "matched_city_ascii": "Atlanta",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 6.55,
+      "plog_score": 0.9297
+    },
+    "Portland|United States": {
+      "destination_city": "Portland",
+      "destination_country": "United States",
+      "trips": 36,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840019941",
+      "matched_city": "Portland",
+      "matched_city_ascii": "Portland",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.7713
     },
     "Puerto Vallarta|Mexico": {
       "destination_city": "Puerto Vallarta",
@@ -252,35 +373,53 @@
       "matched_city_ascii": "Puerto Vallarta",
       "matched_country": "Mexico",
       "unesco_score": 2.89,
-      "michelin_score": 1.74
+      "michelin_score": 1.74,
+      "plog_score": 0.5511
     },
-    "Atlanta|United States": {
-      "destination_city": "Atlanta",
+    "Minneapolis|United States": {
+      "destination_city": "Minneapolis",
       "destination_country": "United States",
-      "trips": 33,
-      "layover_trips": 1,
+      "trips": 35,
+      "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840013660",
-      "matched_city": "Atlanta",
-      "matched_city_ascii": "Atlanta",
+      "simplemaps_id": "1840007830",
+      "matched_city": "Minneapolis",
+      "matched_city_ascii": "Minneapolis",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 6.55
+      "michelin_score": 0.0,
+      "plog_score": 0.8175
     },
-    "Seattle|United States": {
-      "destination_city": "Seattle",
+    "Mexico City|Mexico": {
+      "destination_city": "Mexico City",
+      "destination_country": "Mexico",
+      "trips": 33,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1484247881",
+      "matched_city": "Mexico City",
+      "matched_city_ascii": "Mexico City",
+      "matched_country": "Mexico",
+      "unesco_score": 8.12,
+      "michelin_score": 6.87,
+      "plog_score": 0.7046
+    },
+    "Pittsburgh|United States": {
+      "destination_city": "Pittsburgh",
       "destination_country": "United States",
       "trips": 33,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840021117",
-      "matched_city": "Seattle",
-      "matched_city_ascii": "Seattle",
+      "simplemaps_id": "1840001254",
+      "matched_city": "Pittsburgh",
+      "matched_city_ascii": "Pittsburgh",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.7364
     },
     "Tampa|United States": {
       "destination_city": "Tampa",
@@ -294,49 +433,83 @@
       "matched_city_ascii": "Tampa",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 5.67
+      "michelin_score": 5.67,
+      "plog_score": 0.8098
     },
-    "Mexico City|Mexico": {
-      "destination_city": "Mexico City",
-      "destination_country": "Mexico",
+    "Washington|United States": {
+      "destination_city": "Washington",
+      "destination_country": "United States",
       "trips": 32,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1484247881",
-      "matched_city": "Mexico City",
-      "matched_city_ascii": "Mexico City",
-      "matched_country": "Mexico",
-      "unesco_score": 8.12,
-      "michelin_score": 6.87
+      "simplemaps_id": "1840006060",
+      "matched_city": "Washington",
+      "matched_city_ascii": "Washington",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 7.41,
+      "plog_score": 0.8856
     },
-    "San Francisco|United States": {
-      "destination_city": "San Francisco",
+    "Las Vegas|United States": {
+      "destination_city": "Las Vegas",
       "destination_country": "United States",
+      "trips": 31,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840020364",
+      "matched_city": "Las Vegas",
+      "matched_city_ascii": "Las Vegas",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.8469
+    },
+    "Madrid|Spain": {
+      "destination_city": "Madrid",
+      "destination_country": "Spain",
+      "trips": 31,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1724616994",
+      "matched_city": "Madrid",
+      "matched_city_ascii": "Madrid",
+      "matched_country": "Spain",
+      "unesco_score": 6.71,
+      "michelin_score": 8.22,
+      "plog_score": 0.7462
+    },
+    "Amsterdam|Netherlands": {
+      "destination_city": "Amsterdam",
+      "destination_country": "Netherlands",
       "trips": 30,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840021543",
-      "matched_city": "San Francisco",
-      "matched_city_ascii": "San Francisco",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 8.13
+      "simplemaps_id": "1528355309",
+      "matched_city": "Amsterdam",
+      "matched_city_ascii": "Amsterdam",
+      "matched_country": "Netherlands",
+      "unesco_score": 7.47,
+      "michelin_score": 8.19,
+      "plog_score": 0.7822
     },
-    "Paris|France": {
-      "destination_city": "Paris",
-      "destination_country": "France",
+    "Rome|Italy": {
+      "destination_city": "Rome",
+      "destination_country": "Italy",
       "trips": 29,
-      "layover_trips": 1,
+      "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1250015082",
-      "matched_city": "Paris",
-      "matched_city_ascii": "Paris",
-      "matched_country": "France",
-      "unesco_score": 6.71,
-      "michelin_score": 9.93
+      "simplemaps_id": "1380382862",
+      "matched_city": "Rome",
+      "matched_city_ascii": "Rome",
+      "matched_country": "Italy",
+      "unesco_score": 8.67,
+      "michelin_score": 7.27,
+      "plog_score": 0.7587
     },
     "Seoul|South Korea": {
       "destination_city": "Seoul",
@@ -350,77 +523,53 @@
       "matched_city_ascii": "Seoul",
       "matched_country": "Korea, South",
       "unesco_score": 8.12,
-      "michelin_score": 8.2
+      "michelin_score": 8.2,
+      "plog_score": 0.7671
     },
-    "New Orleans|United States": {
-      "destination_city": "New Orleans",
-      "destination_country": "United States",
+    "Lisbon|Portugal": {
+      "destination_city": "Lisbon",
+      "destination_country": "Portugal",
       "trips": 28,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840001839",
-      "matched_city": "New Orleans",
-      "matched_city_ascii": "New Orleans",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 5.48
+      "simplemaps_id": "1620619017",
+      "matched_city": "Lisbon",
+      "matched_city_ascii": "Lisbon",
+      "matched_country": "Portugal",
+      "unesco_score": 5.78,
+      "michelin_score": 6.42,
+      "plog_score": 0.6677
     },
-    "Las Vegas|United States": {
-      "destination_city": "Las Vegas",
+    "Salt Lake City|United States": {
+      "destination_city": "Salt Lake City",
       "destination_country": "United States",
-      "trips": 26,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840020364",
-      "matched_city": "Las Vegas",
-      "matched_city_ascii": "Las Vegas",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
-    },
-    "Madrid|Spain": {
-      "destination_city": "Madrid",
-      "destination_country": "Spain",
-      "trips": 26,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1724616994",
-      "matched_city": "Madrid",
-      "matched_city_ascii": "Madrid",
-      "matched_country": "Spain",
-      "unesco_score": 6.71,
-      "michelin_score": 8.22
-    },
-    "Portland|United States": {
-      "destination_city": "Portland",
-      "destination_country": "United States",
-      "trips": 26,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840019941",
-      "matched_city": "Portland",
-      "matched_city_ascii": "Portland",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
-    },
-    "Amsterdam|Netherlands": {
-      "destination_city": "Amsterdam",
-      "destination_country": "Netherlands",
       "trips": 25,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1528355309",
-      "matched_city": "Amsterdam",
-      "matched_city_ascii": "Amsterdam",
-      "matched_country": "Netherlands",
-      "unesco_score": 7.47,
-      "michelin_score": 8.19
+      "simplemaps_id": "1840021383",
+      "matched_city": "Salt Lake City",
+      "matched_city_ascii": "Salt Lake City",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.7596
+    },
+    "Nashville|United States": {
+      "destination_city": "Nashville",
+      "destination_country": "United States",
+      "trips": 24,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840036155",
+      "matched_city": "Nashville",
+      "matched_city_ascii": "Nashville",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 4.96,
+      "plog_score": 0.7552
     },
     "New York City|United States": {
       "destination_city": "New York City",
@@ -434,21 +583,53 @@
       "matched_city_ascii": "New York",
       "matched_country": "United States",
       "unesco_score": 4.58,
-      "michelin_score": 9.36
+      "michelin_score": 9.36,
+      "plog_score": 0.95
     },
-    "Rome|Italy": {
-      "destination_city": "Rome",
-      "destination_country": "Italy",
+    "Barcelona|Spain": {
+      "destination_city": "Barcelona",
+      "destination_country": "Spain",
       "trips": 23,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1380382862",
-      "matched_city": "Rome",
-      "matched_city_ascii": "Rome",
-      "matched_country": "Italy",
-      "unesco_score": 8.67,
-      "michelin_score": 7.27
+      "simplemaps_id": "1724594040",
+      "matched_city": "Barcelona",
+      "matched_city_ascii": "Barcelona",
+      "matched_country": "Spain",
+      "unesco_score": 5.78,
+      "michelin_score": 7.69,
+      "plog_score": 0.7358
+    },
+    "Buenos Aires|Argentina": {
+      "destination_city": "Buenos Aires",
+      "destination_country": "Argentina",
+      "trips": 22,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1032717330",
+      "matched_city": "Buenos Aires",
+      "matched_city_ascii": "Buenos Aires",
+      "matched_country": "Argentina",
+      "unesco_score": 2.89,
+      "michelin_score": 6.22,
+      "plog_score": 0.6639
+    },
+    "Dublin|Ireland": {
+      "destination_city": "Dublin",
+      "destination_country": "Ireland",
+      "trips": 22,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1372595407",
+      "matched_city": "Dublin",
+      "matched_city_ascii": "Dublin",
+      "matched_country": "Ireland",
+      "unesco_score": 2.89,
+      "michelin_score": 6.4,
+      "plog_score": 0.7288
     },
     "San Antonio|United States": {
       "destination_city": "San Antonio",
@@ -462,63 +643,23 @@
       "matched_city_ascii": "San Antonio",
       "matched_country": "United States",
       "unesco_score": 2.89,
-      "michelin_score": 4.39
+      "michelin_score": 4.39,
+      "plog_score": 0.7068
     },
-    "Lisbon|Portugal": {
-      "destination_city": "Lisbon",
-      "destination_country": "Portugal",
-      "trips": 21,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1620619017",
-      "matched_city": "Lisbon",
-      "matched_city_ascii": "Lisbon",
-      "matched_country": "Portugal",
-      "unesco_score": 5.78,
-      "michelin_score": 6.42
-    },
-    "Washington|United States": {
-      "destination_city": "Washington",
+    "Spokane|United States": {
+      "destination_city": "Spokane",
       "destination_country": "United States",
-      "trips": 21,
+      "trips": 19,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840006060",
-      "matched_city": "Washington",
-      "matched_city_ascii": "Washington",
+      "simplemaps_id": "1840021093",
+      "matched_city": "Spokane",
+      "matched_city_ascii": "Spokane",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 7.41
-    },
-    "Buenos Aires|Argentina": {
-      "destination_city": "Buenos Aires",
-      "destination_country": "Argentina",
-      "trips": 20,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1032717330",
-      "matched_city": "Buenos Aires",
-      "matched_city_ascii": "Buenos Aires",
-      "matched_country": "Argentina",
-      "unesco_score": 2.89,
-      "michelin_score": 6.22
-    },
-    "Barcelona|Spain": {
-      "destination_city": "Barcelona",
-      "destination_country": "Spain",
-      "trips": 17,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1724594040",
-      "matched_city": "Barcelona",
-      "matched_city_ascii": "Barcelona",
-      "matched_country": "Spain",
-      "unesco_score": 5.78,
-      "michelin_score": 7.69
+      "michelin_score": 0.0,
+      "plog_score": 0.5918
     },
     "Cleveland|United States": {
       "destination_city": "Cleveland",
@@ -532,26 +673,28 @@
       "matched_city_ascii": "Cleveland",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.7443
     },
-    "Pittsburgh|United States": {
-      "destination_city": "Pittsburgh",
-      "destination_country": "United States",
+    "Frankfurt|Germany": {
+      "destination_city": "Frankfurt",
+      "destination_country": "Germany",
       "trips": 17,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840001254",
-      "matched_city": "Pittsburgh",
-      "matched_city_ascii": "Pittsburgh",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "simplemaps_id": "1276054552",
+      "matched_city": "Frankfurt",
+      "matched_city_ascii": "Frankfurt",
+      "matched_country": "Germany",
+      "unesco_score": 6.71,
+      "michelin_score": 6.53,
+      "plog_score": 0.8265
     },
     "Newark|United States": {
       "destination_city": "Newark",
       "destination_country": "United States",
-      "trips": 16,
+      "trips": 17,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -560,7 +703,53 @@
       "matched_city_ascii": "Newark",
       "matched_country": "United States",
       "unesco_score": 4.58,
-      "michelin_score": 9.34
+      "michelin_score": 9.34,
+      "plog_score": 0.9263
+    },
+    "Honolulu|United States": {
+      "destination_city": "Honolulu",
+      "destination_country": "United States",
+      "trips": 16,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840013305",
+      "matched_city": "Honolulu",
+      "matched_city_ascii": "Honolulu",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.7157
+    },
+    "Anchorage|United States": {
+      "destination_city": "Anchorage",
+      "destination_country": "United States",
+      "trips": 15,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840023385",
+      "matched_city": "Anchorage",
+      "matched_city_ascii": "Anchorage",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.73
+    },
+    "Charlotte|United States": {
+      "destination_city": "Charlotte",
+      "destination_country": "United States",
+      "trips": 15,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840014557",
+      "matched_city": "Charlotte",
+      "matched_city_ascii": "Charlotte",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 4.18,
+      "plog_score": 0.816
     },
     "Dallas|United States": {
       "destination_city": "Dallas",
@@ -574,63 +763,23 @@
       "matched_city_ascii": "Dallas",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 5.27
+      "michelin_score": 5.27,
+      "plog_score": 0.9038
     },
-    "Dublin|Ireland": {
-      "destination_city": "Dublin",
-      "destination_country": "Ireland",
-      "trips": 15,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1372595407",
-      "matched_city": "Dublin",
-      "matched_city_ascii": "Dublin",
-      "matched_country": "Ireland",
-      "unesco_score": 2.89,
-      "michelin_score": 6.4
-    },
-    "Honolulu|United States": {
-      "destination_city": "Honolulu",
+    "Detroit|United States": {
+      "destination_city": "Detroit",
       "destination_country": "United States",
       "trips": 15,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840013305",
-      "matched_city": "Honolulu",
-      "matched_city_ascii": "Honolulu",
+      "simplemaps_id": "1840003971",
+      "matched_city": "Detroit",
+      "matched_city_ascii": "Detroit",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
-    },
-    "Houston|United States": {
-      "destination_city": "Houston",
-      "destination_country": "United States",
-      "trips": 14,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840020925",
-      "matched_city": "Houston",
-      "matched_city_ascii": "Houston",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 6.02
-    },
-    "Nashville|United States": {
-      "destination_city": "Nashville",
-      "destination_country": "United States",
-      "trips": 14,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840036155",
-      "matched_city": "Nashville",
-      "matched_city_ascii": "Nashville",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 4.96
+      "michelin_score": 0.0,
+      "plog_score": 0.8154
     },
     "Nassau|Bahamas": {
       "destination_city": "Nassau",
@@ -644,7 +793,8 @@
       "matched_city_ascii": "Nassau",
       "matched_country": "Bahamas, The",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.657
     },
     "San Jose|Costa Rica": {
       "destination_city": "San Jose",
@@ -658,7 +808,53 @@
       "matched_city_ascii": "San Jose",
       "matched_country": "Costa Rica",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6926
+    },
+    "St. Louis|United States": {
+      "destination_city": "St. Louis",
+      "destination_country": "United States",
+      "trips": 14,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840001651",
+      "matched_city": "St. Louis",
+      "matched_city_ascii": "St. Louis",
+      "matched_country": "United States",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.7539
+    },
+    "Sao Paulo|Brazil": {
+      "destination_city": "Sao Paulo",
+      "destination_country": "Brazil",
+      "trips": 13,
+      "layover_trips": 1,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1076532519",
+      "matched_city": "São Paulo",
+      "matched_city_ascii": "Sao Paulo",
+      "matched_country": "Brazil",
+      "unesco_score": 0.0,
+      "michelin_score": 7.36,
+      "plog_score": 0.623
+    },
+    "Vancouver|Canada": {
+      "destination_city": "Vancouver",
+      "destination_country": "Canada",
+      "trips": 13,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1124825478",
+      "matched_city": "Vancouver",
+      "matched_city_ascii": "Vancouver",
+      "matched_country": "Canada",
+      "unesco_score": 0.0,
+      "michelin_score": 6.85,
+      "plog_score": 0.7561
     },
     "Bali|Indonesia": {
       "destination_city": "Bali",
@@ -672,7 +868,23 @@
       "matched_city_ascii": "Denpasar",
       "matched_country": "Indonesia",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.3416
+    },
+    "Charleston|United States": {
+      "destination_city": "Charleston",
+      "destination_country": "United States",
+      "trips": 12,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840015163",
+      "matched_city": "Charleston",
+      "matched_city_ascii": "Charleston",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 4.28,
+      "plog_score": 0.6719
     },
     "Lima|Peru": {
       "destination_city": "Lima",
@@ -686,35 +898,23 @@
       "matched_city_ascii": "Lima",
       "matched_country": "Peru",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5916
     },
-    "Sao Paulo|Brazil": {
-      "destination_city": "Sao Paulo",
-      "destination_country": "Brazil",
-      "trips": 12,
+    "Buffalo|United States": {
+      "destination_city": "Buffalo",
+      "destination_country": "United States",
+      "trips": 11,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1076532519",
-      "matched_city": "São Paulo",
-      "matched_city_ascii": "Sao Paulo",
-      "matched_country": "Brazil",
+      "simplemaps_id": "1840000386",
+      "matched_city": "Buffalo",
+      "matched_city_ascii": "Buffalo",
+      "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 7.36
-    },
-    "Vancouver|Canada": {
-      "destination_city": "Vancouver",
-      "destination_country": "Canada",
-      "trips": 12,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1124825478",
-      "matched_city": "Vancouver",
-      "matched_city_ascii": "Vancouver",
-      "matched_country": "Canada",
-      "unesco_score": 0.0,
-      "michelin_score": 6.85
+      "michelin_score": 1.74,
+      "plog_score": 0.7097
     },
     "Monterrey|Mexico": {
       "destination_city": "Monterrey",
@@ -728,7 +928,8 @@
       "matched_city_ascii": "Monterrey",
       "matched_country": "Mexico",
       "unesco_score": 0.0,
-      "michelin_score": 3.79
+      "michelin_score": 3.79,
+      "plog_score": 0.5562
     },
     "Philadelphia|United States": {
       "destination_city": "Philadelphia",
@@ -742,49 +943,68 @@
       "matched_city_ascii": "Philadelphia",
       "matched_country": "United States",
       "unesco_score": 2.89,
-      "michelin_score": 5.58
+      "michelin_score": 5.58,
+      "plog_score": 0.8287
     },
-    "Anchorage|United States": {
-      "destination_city": "Anchorage",
+    "Bangkok|Thailand": {
+      "destination_city": "Bangkok",
+      "destination_country": "Thailand",
+      "trips": 10,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1764068610",
+      "matched_city": "Bangkok",
+      "matched_city_ascii": "Bangkok",
+      "matched_country": "Thailand",
+      "unesco_score": 0.0,
+      "michelin_score": 8.47,
+      "plog_score": 0.4205
+    },
+    "El Paso|United States": {
+      "destination_city": "El Paso",
       "destination_country": "United States",
       "trips": 10,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840023385",
-      "matched_city": "Anchorage",
-      "matched_city_ascii": "Anchorage",
+      "simplemaps_id": "1840023252",
+      "matched_city": "El Paso",
+      "matched_city_ascii": "El Paso",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6472
     },
-    "Charlotte|United States": {
-      "destination_city": "Charlotte",
+    "Richmond|United States": {
+      "destination_city": "Richmond",
       "destination_country": "United States",
       "trips": 10,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840014557",
-      "matched_city": "Charlotte",
-      "matched_city_ascii": "Charlotte",
+      "simplemaps_id": "1840001698",
+      "matched_city": "Richmond",
+      "matched_city_ascii": "Richmond",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 4.18
+      "michelin_score": 0.0,
+      "plog_score": 0.6824
     },
-    "Minneapolis|United States": {
-      "destination_city": "Minneapolis",
+    "Savannah|United States": {
+      "destination_city": "Savannah",
       "destination_country": "United States",
       "trips": 10,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840007830",
-      "matched_city": "Minneapolis",
-      "matched_city_ascii": "Minneapolis",
+      "simplemaps_id": "1840015830",
+      "matched_city": "Savannah",
+      "matched_city_ascii": "Savannah",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6368
     },
     "Baltimore|United States": {
       "destination_city": "Baltimore",
@@ -798,77 +1018,23 @@
       "matched_city_ascii": "Baltimore",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.8833
     },
-    "Detroit|United States": {
-      "destination_city": "Detroit",
-      "destination_country": "United States",
+    "Nice|France": {
+      "destination_city": "Nice",
+      "destination_country": "France",
       "trips": 9,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840003971",
-      "matched_city": "Detroit",
-      "matched_city_ascii": "Detroit",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
-    },
-    "Salt Lake City|United States": {
-      "destination_city": "Salt Lake City",
-      "destination_country": "United States",
-      "trips": 9,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840021383",
-      "matched_city": "Salt Lake City",
-      "matched_city_ascii": "Salt Lake City",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
-    },
-    "Spokane|United States": {
-      "destination_city": "Spokane",
-      "destination_country": "United States",
-      "trips": 9,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840021093",
-      "matched_city": "Spokane",
-      "matched_city_ascii": "Spokane",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
-    },
-    "St. Louis|United States": {
-      "destination_city": "St. Louis",
-      "destination_country": "United States",
-      "trips": 9,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840001651",
-      "matched_city": "St. Louis",
-      "matched_city_ascii": "St. Louis",
-      "matched_country": "United States",
-      "unesco_score": 2.89,
-      "michelin_score": 0.0
-    },
-    "Bangkok|Thailand": {
-      "destination_city": "Bangkok",
-      "destination_country": "Thailand",
-      "trips": 8,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1764068610",
-      "matched_city": "Bangkok",
-      "matched_city_ascii": "Bangkok",
-      "matched_country": "Thailand",
-      "unesco_score": 0.0,
-      "michelin_score": 8.47
+      "simplemaps_id": "1250774553",
+      "matched_city": "Nice",
+      "matched_city_ascii": "Nice",
+      "matched_country": "France",
+      "unesco_score": 4.58,
+      "michelin_score": 7.7,
+      "plog_score": 0.5467
     },
     "Boise|United States": {
       "destination_city": "Boise",
@@ -882,35 +1048,38 @@
       "matched_city_ascii": "Boise",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5997
     },
-    "Frankfurt|Germany": {
-      "destination_city": "Frankfurt",
-      "destination_country": "Germany",
-      "trips": 8,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1276054552",
-      "matched_city": "Frankfurt",
-      "matched_city_ascii": "Frankfurt",
-      "matched_country": "Germany",
-      "unesco_score": 6.71,
-      "michelin_score": 6.53
-    },
-    "Nice|France": {
-      "destination_city": "Nice",
-      "destination_country": "France",
+    "Athens|Greece": {
+      "destination_city": "Athens",
+      "destination_country": "Greece",
       "trips": 7,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1250774553",
-      "matched_city": "Nice",
-      "matched_city_ascii": "Nice",
-      "matched_country": "France",
+      "simplemaps_id": "1300715560",
+      "matched_city": "Athens",
+      "matched_city_ascii": "Athens",
+      "matched_country": "Greece",
       "unesco_score": 4.58,
-      "michelin_score": 7.7
+      "michelin_score": 5.62,
+      "plog_score": 0.6151
+    },
+    "Edinburgh|United Kingdom": {
+      "destination_city": "Edinburgh",
+      "destination_country": "United Kingdom",
+      "trips": 7,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1826492520",
+      "matched_city": "Edinburgh",
+      "matched_city_ascii": "Edinburgh",
+      "matched_country": "United Kingdom",
+      "unesco_score": 5.78,
+      "michelin_score": 6.22,
+      "plog_score": 0.6479
     },
     "Rio de Janeiro|Brazil": {
       "destination_city": "Rio de Janeiro",
@@ -924,7 +1093,23 @@
       "matched_city_ascii": "Rio de Janeiro",
       "matched_country": "Brazil",
       "unesco_score": 5.78,
-      "michelin_score": 6.02
+      "michelin_score": 6.02,
+      "plog_score": 0.5458
+    },
+    "Sacramento|United States": {
+      "destination_city": "Sacramento",
+      "destination_country": "United States",
+      "trips": 7,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840021491",
+      "matched_city": "Sacramento",
+      "matched_city_ascii": "Sacramento",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 4.06,
+      "plog_score": 0.7118
     },
     "Shanghai|China": {
       "destination_city": "Shanghai",
@@ -938,21 +1123,8 @@
       "matched_city_ascii": "Shanghai",
       "matched_country": "China",
       "unesco_score": 0.0,
-      "michelin_score": 7.99
-    },
-    "Athens|Greece": {
-      "destination_city": "Athens",
-      "destination_country": "Greece",
-      "trips": 6,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1300715560",
-      "matched_city": "Athens",
-      "matched_city_ascii": "Athens",
-      "matched_country": "Greece",
-      "unesco_score": 4.58,
-      "michelin_score": 5.62
+      "michelin_score": 7.99,
+      "plog_score": 0.7618
     },
     "Auckland|New Zealand": {
       "destination_city": "Auckland",
@@ -966,7 +1138,8 @@
       "matched_city_ascii": "Auckland",
       "matched_country": "New Zealand",
       "unesco_score": 0.0,
-      "michelin_score": 6.09
+      "michelin_score": 6.09,
+      "plog_score": 0.6113
     },
     "Austin|United States": {
       "destination_city": "Austin",
@@ -980,7 +1153,38 @@
       "matched_city_ascii": "Austin",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 6.12
+      "michelin_score": 6.12,
+      "plog_score": 0.7542
+    },
+    "Berlin|Germany": {
+      "destination_city": "Berlin",
+      "destination_country": "Germany",
+      "trips": 6,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1276451290",
+      "matched_city": "Berlin",
+      "matched_city_ascii": "Berlin",
+      "matched_country": "Germany",
+      "unesco_score": 6.71,
+      "michelin_score": 6.95,
+      "plog_score": 0.6483
+    },
+    "Melbourne|Australia": {
+      "destination_city": "Melbourne",
+      "destination_country": "Australia",
+      "trips": 6,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1036533631",
+      "matched_city": "Melbourne",
+      "matched_city_ascii": "Melbourne",
+      "matched_country": "Australia",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.6307
     },
     "Montreal|Canada": {
       "destination_city": "Montreal",
@@ -994,35 +1198,83 @@
       "matched_city_ascii": "Montreal",
       "matched_country": "Canada",
       "unesco_score": 0.0,
-      "michelin_score": 6.58
+      "michelin_score": 6.58,
+      "plog_score": 0.7843
     },
-    "Berlin|Germany": {
-      "destination_city": "Berlin",
-      "destination_country": "Germany",
+    "Porto|Portugal": {
+      "destination_city": "Porto",
+      "destination_country": "Portugal",
+      "trips": 6,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1620356810",
+      "matched_city": "Porto",
+      "matched_city_ascii": "Porto",
+      "matched_country": "Portugal",
+      "unesco_score": 5.78,
+      "michelin_score": 6.34,
+      "plog_score": 0.5195
+    },
+    "Hanoi|Vietnam": {
+      "destination_city": "Hanoi",
+      "destination_country": "Vietnam",
       "trips": 5,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1276451290",
-      "matched_city": "Berlin",
-      "matched_city_ascii": "Berlin",
-      "matched_country": "Germany",
-      "unesco_score": 6.71,
-      "michelin_score": 6.95
+      "simplemaps_id": "1704413791",
+      "matched_city": "Hanoi",
+      "matched_city_ascii": "Hanoi",
+      "matched_country": "Vietnam",
+      "unesco_score": 4.58,
+      "michelin_score": 6.63,
+      "plog_score": 0.4484
     },
-    "Edinburgh|United Kingdom": {
-      "destination_city": "Edinburgh",
+    "Hong Kong|Hong Kong": {
+      "destination_city": "Hong Kong",
+      "destination_country": "Hong Kong",
+      "trips": 5,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1344982653",
+      "matched_city": "Hong Kong",
+      "matched_city_ascii": "Hong Kong",
+      "matched_country": "Hong Kong",
+      "unesco_score": 0.0,
+      "michelin_score": 8.53,
+      "plog_score": 0.7569
+    },
+    "Manchester|United Kingdom": {
+      "destination_city": "Manchester",
       "destination_country": "United Kingdom",
       "trips": 5,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1826492520",
-      "matched_city": "Edinburgh",
-      "matched_city_ascii": "Edinburgh",
+      "simplemaps_id": "1826246335",
+      "matched_city": "Manchester",
+      "matched_city_ascii": "Manchester",
       "matched_country": "United Kingdom",
-      "unesco_score": 5.78,
-      "michelin_score": 6.22
+      "unesco_score": 2.89,
+      "michelin_score": 6.37,
+      "plog_score": 0.7533
+    },
+    "Milwaukee|United States": {
+      "destination_city": "Milwaukee",
+      "destination_country": "United States",
+      "trips": 5,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840003046",
+      "matched_city": "Milwaukee",
+      "matched_city_ascii": "Milwaukee",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.6848
     },
     "Munich|Germany": {
       "destination_city": "Munich",
@@ -1036,7 +1288,8 @@
       "matched_city_ascii": "Munich",
       "matched_country": "Germany",
       "unesco_score": 2.89,
-      "michelin_score": 7.24
+      "michelin_score": 7.24,
+      "plog_score": 0.7318
     },
     "Queretaro|Mexico": {
       "destination_city": "Queretaro",
@@ -1050,7 +1303,8 @@
       "matched_city_ascii": "Queretaro",
       "matched_country": "Mexico",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.405
     },
     "Taipei|Taiwan": {
       "destination_city": "Taipei",
@@ -1064,7 +1318,38 @@
       "matched_city_ascii": "Taipei",
       "matched_country": "Taiwan",
       "unesco_score": 0.0,
-      "michelin_score": 8.44
+      "michelin_score": 8.44,
+      "plog_score": 0.698
+    },
+    "Venice|Italy": {
+      "destination_city": "Venice",
+      "destination_country": "Italy",
+      "trips": 5,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1380660414",
+      "matched_city": "Venice",
+      "matched_city_ascii": "Venice",
+      "matched_country": "Italy",
+      "unesco_score": 7.47,
+      "michelin_score": 6.95,
+      "plog_score": 0.6157
+    },
+    "Bilbao|Spain": {
+      "destination_city": "Bilbao",
+      "destination_country": "Spain",
+      "trips": 4,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1724331267",
+      "matched_city": "Bilbao",
+      "matched_city_ascii": "Bilbao",
+      "matched_country": "Spain",
+      "unesco_score": 5.78,
+      "michelin_score": 6.02,
+      "plog_score": 0.4828
     },
     "Cape Town|South Africa": {
       "destination_city": "Cape Town",
@@ -1078,7 +1363,8 @@
       "matched_city_ascii": "Cape Town",
       "matched_country": "South Africa",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4036
     },
     "Dubai|United Arab Emirates": {
       "destination_city": "Dubai",
@@ -1092,35 +1378,23 @@
       "matched_city_ascii": "Dubai",
       "matched_country": "United Arab Emirates",
       "unesco_score": 0.0,
-      "michelin_score": 7.48
+      "michelin_score": 7.48,
+      "plog_score": 0.7049
     },
-    "Hong Kong|Hong Kong": {
-      "destination_city": "Hong Kong",
-      "destination_country": "Hong Kong",
+    "Havana|Cuba": {
+      "destination_city": "Havana",
+      "destination_country": "Cuba",
       "trips": 4,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1344982653",
-      "matched_city": "Hong Kong",
-      "matched_city_ascii": "Hong Kong",
-      "matched_country": "Hong Kong",
-      "unesco_score": 0.0,
-      "michelin_score": 8.53
-    },
-    "Melbourne|Australia": {
-      "destination_city": "Melbourne",
-      "destination_country": "Australia",
-      "trips": 4,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1036533631",
-      "matched_city": "Melbourne",
-      "matched_city_ascii": "Melbourne",
-      "matched_country": "Australia",
+      "simplemaps_id": "1192752771",
+      "matched_city": "Havana",
+      "matched_city_ascii": "Havana",
+      "matched_country": "Cuba",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5394
     },
     "Milan|Italy": {
       "destination_city": "Milan",
@@ -1134,21 +1408,23 @@
       "matched_city_ascii": "Milan",
       "matched_country": "Italy",
       "unesco_score": 7.47,
-      "michelin_score": 8.48
+      "michelin_score": 8.48,
+      "plog_score": 0.7152
     },
-    "Porto|Portugal": {
-      "destination_city": "Porto",
-      "destination_country": "Portugal",
+    "Santa Ana|United States": {
+      "destination_city": "Santa Ana",
+      "destination_country": "United States",
       "trips": 4,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1620356810",
-      "matched_city": "Porto",
-      "matched_city_ascii": "Porto",
-      "matched_country": "Portugal",
-      "unesco_score": 5.78,
-      "michelin_score": 6.34
+      "simplemaps_id": "1840021964",
+      "matched_city": "Santa Ana",
+      "matched_city_ascii": "Santa Ana",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 7.1,
+      "plog_score": 0.8906
     },
     "Singapore|Singapore": {
       "destination_city": "Singapore",
@@ -1162,7 +1438,8 @@
       "matched_city_ascii": "Singapore",
       "matched_country": "Singapore",
       "unesco_score": 2.89,
-      "michelin_score": 9.04
+      "michelin_score": 9.04,
+      "plog_score": 0.6473
     },
     "Brisbane|Australia": {
       "destination_city": "Brisbane",
@@ -1176,7 +1453,23 @@
       "matched_city_ascii": "Brisbane",
       "matched_country": "Australia",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6312
+    },
+    "Casablanca|Morocco": {
+      "destination_city": "Casablanca",
+      "destination_country": "Morocco",
+      "trips": 3,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1504175315",
+      "matched_city": "Casablanca",
+      "matched_city_ascii": "Casablanca",
+      "matched_country": "Morocco",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.5514
     },
     "Copenhagen|Denmark": {
       "destination_city": "Copenhagen",
@@ -1190,21 +1483,23 @@
       "matched_city_ascii": "Copenhagen",
       "matched_country": "Denmark",
       "unesco_score": 7.47,
-      "michelin_score": 7.03
+      "michelin_score": 7.03,
+      "plog_score": 0.6366
     },
-    "Havana|Cuba": {
-      "destination_city": "Havana",
-      "destination_country": "Cuba",
+    "Phnom Penh|Cambodia": {
+      "destination_city": "Phnom Penh",
+      "destination_country": "Cambodia",
       "trips": 3,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1192752771",
-      "matched_city": "Havana",
-      "matched_city_ascii": "Havana",
-      "matched_country": "Cuba",
+      "simplemaps_id": "1116260534",
+      "matched_city": "Phnom Penh",
+      "matched_city_ascii": "Phnom Penh",
+      "matched_country": "Cambodia",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.3177
     },
     "Phuket|Thailand": {
       "destination_city": "Phuket",
@@ -1218,21 +1513,23 @@
       "matched_city_ascii": "Phuket",
       "matched_country": "Thailand",
       "unesco_score": 0.0,
-      "michelin_score": 6.63
+      "michelin_score": 6.63,
+      "plog_score": 0.3376
     },
-    "Venice|Italy": {
-      "destination_city": "Venice",
-      "destination_country": "Italy",
+    "Zurich|Switzerland": {
+      "destination_city": "Zurich",
+      "destination_country": "Switzerland",
       "trips": 3,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1380660414",
-      "matched_city": "Venice",
-      "matched_city_ascii": "Venice",
-      "matched_country": "Italy",
-      "unesco_score": 7.47,
-      "michelin_score": 6.95
+      "simplemaps_id": "1756539143",
+      "matched_city": "Zürich",
+      "matched_city_ascii": "Zurich",
+      "matched_country": "Switzerland",
+      "unesco_score": 2.89,
+      "michelin_score": 8.07,
+      "plog_score": 0.7171
     },
     "Accra|Ghana": {
       "destination_city": "Accra",
@@ -1246,7 +1543,8 @@
       "matched_city_ascii": "Accra",
       "matched_country": "Ghana",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4291
     },
     "Bogota|Colombia": {
       "destination_city": "Bogota",
@@ -1260,35 +1558,83 @@
       "matched_city_ascii": "Bogota",
       "matched_country": "Colombia",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5965
     },
-    "Casablanca|Morocco": {
-      "destination_city": "Casablanca",
-      "destination_country": "Morocco",
+    "Brussels|Belgium": {
+      "destination_city": "Brussels",
+      "destination_country": "Belgium",
       "trips": 2,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1504175315",
-      "matched_city": "Casablanca",
-      "matched_city_ascii": "Casablanca",
-      "matched_country": "Morocco",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "simplemaps_id": "1056469830",
+      "matched_city": "Brussels",
+      "matched_city_ascii": "Brussels",
+      "matched_country": "Belgium",
+      "unesco_score": 10.0,
+      "michelin_score": 9.25,
+      "plog_score": 0.7617
     },
-    "Charleston|United States": {
-      "destination_city": "Charleston",
-      "destination_country": "United States",
+    "Chiang Mai|Thailand": {
+      "destination_city": "Chiang Mai",
+      "destination_country": "Thailand",
       "trips": 2,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840015163",
-      "matched_city": "Charleston",
-      "matched_city_ascii": "Charleston",
-      "matched_country": "United States",
+      "simplemaps_id": "1764662886",
+      "matched_city": "Chiang Mai",
+      "matched_city_ascii": "Chiang Mai",
+      "matched_country": "Thailand",
       "unesco_score": 0.0,
-      "michelin_score": 4.28
+      "michelin_score": 6.25,
+      "plog_score": 0.3219
+    },
+    "Colombo|Sri Lanka": {
+      "destination_city": "Colombo",
+      "destination_country": "Sri Lanka",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1144251314",
+      "matched_city": "Colombo",
+      "matched_city_ascii": "Colombo",
+      "matched_country": "Sri Lanka",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.4324
+    },
+    "Geneva|Switzerland": {
+      "destination_city": "Geneva",
+      "destination_country": "Switzerland",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1756810813",
+      "matched_city": "Geneva",
+      "matched_city_ascii": "Geneva",
+      "matched_country": "Switzerland",
+      "unesco_score": 4.58,
+      "michelin_score": 7.66,
+      "plog_score": 0.5954
+    },
+    "Glasgow|United Kingdom": {
+      "destination_city": "Glasgow",
+      "destination_country": "United Kingdom",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1826836462",
+      "matched_city": "Glasgow",
+      "matched_city_ascii": "Glasgow",
+      "matched_country": "United Kingdom",
+      "unesco_score": 2.89,
+      "michelin_score": 4.39,
+      "plog_score": 0.6583
     },
     "Helsinki|Finland": {
       "destination_city": "Helsinki",
@@ -1302,7 +1648,23 @@
       "matched_city_ascii": "Helsinki",
       "matched_country": "Finland",
       "unesco_score": 4.58,
-      "michelin_score": 5.48
+      "michelin_score": 5.48,
+      "plog_score": 0.6209
+    },
+    "Ho Chi Minh City|Vietnam": {
+      "destination_city": "Ho Chi Minh City",
+      "destination_country": "Vietnam",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1704774326",
+      "matched_city": "Ho Chi Minh City",
+      "matched_city_ascii": "Ho Chi Minh City",
+      "matched_country": "Vietnam",
+      "unesco_score": 0.0,
+      "michelin_score": 6.97,
+      "plog_score": 0.4598
     },
     "Istanbul|Turkey": {
       "destination_city": "Istanbul",
@@ -1316,7 +1678,8 @@
       "matched_city_ascii": "Istanbul",
       "matched_country": "Turkey",
       "unesco_score": 2.89,
-      "michelin_score": 7.05
+      "michelin_score": 7.05,
+      "plog_score": 0.5782
     },
     "Kansas City|United States": {
       "destination_city": "Kansas City",
@@ -1330,7 +1693,8 @@
       "matched_city_ascii": "Kansas City",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.7312
     },
     "Kingston|Jamaica": {
       "destination_city": "Kingston",
@@ -1344,7 +1708,23 @@
       "matched_city_ascii": "Kingston",
       "matched_country": "Jamaica",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5713
+    },
+    "Manila|Philippines": {
+      "destination_city": "Manila",
+      "destination_country": "Philippines",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1608618140",
+      "matched_city": "Manila",
+      "matched_city_ascii": "Manila",
+      "matched_country": "Philippines",
+      "unesco_score": 2.89,
+      "michelin_score": 7.1,
+      "plog_score": 0.468
     },
     "Merida|Mexico": {
       "destination_city": "Merida",
@@ -1358,7 +1738,23 @@
       "matched_city_ascii": "Merida",
       "matched_country": "Mexico",
       "unesco_score": 0.0,
-      "michelin_score": 4.06
+      "michelin_score": 4.06,
+      "plog_score": 0.3871
+    },
+    "Montevideo|Uruguay": {
+      "destination_city": "Montevideo",
+      "destination_country": "Uruguay",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1858107000",
+      "matched_city": "Montevideo",
+      "matched_city_ascii": "Montevideo",
+      "matched_country": "Uruguay",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.4744
     },
     "Moscow|Russia": {
       "destination_city": "Moscow",
@@ -1372,7 +1768,8 @@
       "matched_city_ascii": "Moscow",
       "matched_country": "Russia",
       "unesco_score": 5.78,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6033
     },
     "Naples|Italy": {
       "destination_city": "Naples",
@@ -1386,7 +1783,8 @@
       "matched_city_ascii": "Naples",
       "matched_country": "Italy",
       "unesco_score": 7.47,
-      "michelin_score": 7.68
+      "michelin_score": 7.68,
+      "plog_score": 0.4325
     },
     "Osaka|Japan": {
       "destination_city": "Osaka",
@@ -1400,7 +1798,8 @@
       "matched_city_ascii": "Osaka",
       "matched_country": "Japan",
       "unesco_score": 8.12,
-      "michelin_score": 9.99
+      "michelin_score": 9.99,
+      "plog_score": 0.7022
     },
     "Port-au-Prince|Haiti": {
       "destination_city": "Port-au-Prince",
@@ -1414,7 +1813,8 @@
       "matched_city_ascii": "Port-au-Prince",
       "matched_country": "Haiti",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4759
     },
     "Prague|Czech Republic": {
       "destination_city": "Prague",
@@ -1428,7 +1828,8 @@
       "matched_city_ascii": "Prague",
       "matched_country": "Czechia",
       "unesco_score": 2.89,
-      "michelin_score": 6.09
+      "michelin_score": 6.09,
+      "plog_score": 0.538
     },
     "Reykjavik|Iceland": {
       "destination_city": "Reykjavik",
@@ -1442,7 +1843,8 @@
       "matched_city_ascii": "Reykjavik",
       "matched_country": "Iceland",
       "unesco_score": 2.89,
-      "michelin_score": 3.64
+      "michelin_score": 3.64,
+      "plog_score": 0.5342
     },
     "San Juan|Puerto Rico": {
       "destination_city": "San Juan",
@@ -1456,7 +1858,8 @@
       "matched_city_ascii": "San Juan",
       "matched_country": "Puerto Rico",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.7288
     },
     "Stockholm|Sweden": {
       "destination_city": "Stockholm",
@@ -1470,7 +1873,8 @@
       "matched_city_ascii": "Stockholm",
       "matched_country": "Sweden",
       "unesco_score": 5.78,
-      "michelin_score": 5.99
+      "michelin_score": 5.99,
+      "plog_score": 0.6352
     },
     "Vienna|Austria": {
       "destination_city": "Vienna",
@@ -1484,7 +1888,23 @@
       "matched_city_ascii": "Vienna",
       "matched_country": "Austria",
       "unesco_score": 6.71,
-      "michelin_score": 7.14
+      "michelin_score": 7.14,
+      "plog_score": 0.644
+    },
+    "Addis Ababa|Ethiopia": {
+      "destination_city": "Addis Ababa",
+      "destination_country": "Ethiopia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1231824991",
+      "matched_city": "Addis Ababa",
+      "matched_city_ascii": "Addis Ababa",
+      "matched_country": "Ethiopia",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.4179
     },
     "Albuquerque|United States": {
       "destination_city": "Albuquerque",
@@ -1498,21 +1918,83 @@
       "matched_city_ascii": "Albuquerque",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6878
     },
-    "Brussels|Belgium": {
-      "destination_city": "Brussels",
-      "destination_country": "Belgium",
+    "Antananarivo|Madagascar": {
+      "destination_city": "Antananarivo",
+      "destination_country": "Madagascar",
       "trips": 1,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1056469830",
-      "matched_city": "Brussels",
-      "matched_city_ascii": "Brussels",
-      "matched_country": "Belgium",
-      "unesco_score": 10.0,
-      "michelin_score": 9.25
+      "simplemaps_id": "1450978461",
+      "matched_city": "Antananarivo",
+      "matched_city_ascii": "Antananarivo",
+      "matched_country": "Madagascar",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.3661
+    },
+    "Asuncion|Paraguay": {
+      "destination_city": "Asuncion",
+      "destination_country": "Paraguay",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1600057911",
+      "matched_city": "Asunción",
+      "matched_city_ascii": "Asuncion",
+      "matched_country": "Paraguay",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.4553
+    },
+    "Belfast|United Kingdom": {
+      "destination_city": "Belfast",
+      "destination_country": "United Kingdom",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1826325087",
+      "matched_city": "Belfast",
+      "matched_city_ascii": "Belfast",
+      "matched_country": "United Kingdom",
+      "unesco_score": 2.89,
+      "michelin_score": 4.28,
+      "plog_score": 0.4774
+    },
+    "Birmingham|United Kingdom": {
+      "destination_city": "Birmingham",
+      "destination_country": "United Kingdom",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1826423213",
+      "matched_city": "Birmingham",
+      "matched_city_ascii": "Birmingham",
+      "matched_country": "United Kingdom",
+      "unesco_score": 2.89,
+      "michelin_score": 5.8,
+      "plog_score": 0.5846
+    },
+    "Bucharest|Romania": {
+      "destination_city": "Bucharest",
+      "destination_country": "Romania",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1642414442",
+      "matched_city": "Bucharest",
+      "matched_city_ascii": "Bucharest",
+      "matched_country": "Romania",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.4437
     },
     "Budapest|Hungary": {
       "destination_city": "Budapest",
@@ -1526,21 +2008,8 @@
       "matched_city_ascii": "Budapest",
       "matched_country": "Hungary",
       "unesco_score": 2.89,
-      "michelin_score": 5.91
-    },
-    "Buffalo|United States": {
-      "destination_city": "Buffalo",
-      "destination_country": "United States",
-      "trips": 1,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840000386",
-      "matched_city": "Buffalo",
-      "matched_city_ascii": "Buffalo",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 1.74
+      "michelin_score": 5.91,
+      "plog_score": 0.5181
     },
     "Cairo|Egypt": {
       "destination_city": "Cairo",
@@ -1554,7 +2023,23 @@
       "matched_city_ascii": "Cairo",
       "matched_country": "Egypt",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4797
+    },
+    "Christchurch|New Zealand": {
+      "destination_city": "Christchurch",
+      "destination_country": "New Zealand",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1554377228",
+      "matched_city": "Christchurch",
+      "matched_city_ascii": "Christchurch",
+      "matched_country": "New Zealand",
+      "unesco_score": 0.0,
+      "michelin_score": 4.48,
+      "plog_score": 0.3658
     },
     "Dakar|Senegal": {
       "destination_city": "Dakar",
@@ -1568,7 +2053,23 @@
       "matched_city_ascii": "Dakar",
       "matched_country": "Senegal",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5685
+    },
+    "Dar es Salaam|Tanzania": {
+      "destination_city": "Dar es Salaam",
+      "destination_country": "Tanzania",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1834843853",
+      "matched_city": "Dar es Salaam",
+      "matched_city_ascii": "Dar es Salaam",
+      "matched_country": "Tanzania",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.3207
     },
     "Delhi|India": {
       "destination_city": "Delhi",
@@ -1582,7 +2083,23 @@
       "matched_city_ascii": "Delhi",
       "matched_country": "India",
       "unesco_score": 5.78,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5502
+    },
+    "Denpasar|Indonesia": {
+      "destination_city": "Denpasar",
+      "destination_country": "Indonesia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1360848527",
+      "matched_city": "Denpasar",
+      "matched_city_ascii": "Denpasar",
+      "matched_country": "Indonesia",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.3416
     },
     "Doha|Qatar": {
       "destination_city": "Doha",
@@ -1596,7 +2113,8 @@
       "matched_city_ascii": "Doha",
       "matched_country": "Qatar",
       "unesco_score": 0.0,
-      "michelin_score": 5.95
+      "michelin_score": 5.95,
+      "plog_score": 0.6467
     },
     "Duesseldorf|Germany": {
       "destination_city": "Duesseldorf",
@@ -1610,35 +2128,23 @@
       "matched_city_ascii": "Dusseldorf",
       "matched_country": "Germany",
       "unesco_score": 6.71,
-      "michelin_score": 7.29
+      "michelin_score": 7.29,
+      "plog_score": 0.7405
     },
-    "Geneva|Switzerland": {
-      "destination_city": "Geneva",
-      "destination_country": "Switzerland",
+    "Erbil|Iraq": {
+      "destination_city": "Erbil",
+      "destination_country": "Iraq",
       "trips": 1,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1756810813",
-      "matched_city": "Geneva",
-      "matched_city_ascii": "Geneva",
-      "matched_country": "Switzerland",
-      "unesco_score": 4.58,
-      "michelin_score": 7.66
-    },
-    "Glasgow|United Kingdom": {
-      "destination_city": "Glasgow",
-      "destination_country": "United Kingdom",
-      "trips": 1,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1826836462",
-      "matched_city": "Glasgow",
-      "matched_city_ascii": "Glasgow",
-      "matched_country": "United Kingdom",
+      "simplemaps_id": "1368578192",
+      "matched_city": "Erbil",
+      "matched_city_ascii": "Erbil",
+      "matched_country": "Iraq",
       "unesco_score": 2.89,
-      "michelin_score": 4.39
+      "michelin_score": 0.0,
+      "plog_score": 0.2975
     },
     "Guayaquil|Ecuador": {
       "destination_city": "Guayaquil",
@@ -1652,7 +2158,38 @@
       "matched_city_ascii": "Guayaquil",
       "matched_country": "Ecuador",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4718
+    },
+    "Hamburg|Germany": {
+      "destination_city": "Hamburg",
+      "destination_country": "Germany",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1276041799",
+      "matched_city": "Hamburg",
+      "matched_city_ascii": "Hamburg",
+      "matched_country": "Germany",
+      "unesco_score": 2.89,
+      "michelin_score": 6.53,
+      "plog_score": 0.5623
+    },
+    "Jakarta|Indonesia": {
+      "destination_city": "Jakarta",
+      "destination_country": "Indonesia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1360771077",
+      "matched_city": "Jakarta",
+      "matched_city_ascii": "Jakarta",
+      "matched_country": "Indonesia",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.3775
     },
     "Jerusalem|Israel": {
       "destination_city": "Jerusalem",
@@ -1666,7 +2203,8 @@
       "matched_city_ascii": "Jerusalem",
       "matched_country": "Israel",
       "unesco_score": 8.67,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5948
     },
     "Johannesburg|South Africa": {
       "destination_city": "Johannesburg",
@@ -1680,7 +2218,23 @@
       "matched_city_ascii": "Johannesburg",
       "matched_country": "South Africa",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6185
+    },
+    "Kinshasa|Congo (Kinshasa)": {
+      "destination_city": "Kinshasa",
+      "destination_country": "Congo (Kinshasa)",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1180000363",
+      "matched_city": "Kinshasa",
+      "matched_city_ascii": "Kinshasa",
+      "matched_country": "Congo (Kinshasa)",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.3118
     },
     "Knoxville|United States": {
       "destination_city": "Knoxville",
@@ -1694,7 +2248,38 @@
       "matched_city_ascii": "Knoxville",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 2.19
+      "michelin_score": 2.19,
+      "plog_score": 0.635
+    },
+    "Kuala Lumpur|Malaysia": {
+      "destination_city": "Kuala Lumpur",
+      "destination_country": "Malaysia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1458988644",
+      "matched_city": "Kuala Lumpur",
+      "matched_city_ascii": "Kuala Lumpur",
+      "matched_country": "Malaysia",
+      "unesco_score": 2.89,
+      "michelin_score": 6.85,
+      "plog_score": 0.3883
+    },
+    "Kuching|Malaysia": {
+      "destination_city": "Kuching",
+      "destination_country": "Malaysia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1458462262",
+      "matched_city": "Kuching",
+      "matched_city_ascii": "Kuching",
+      "matched_country": "Malaysia",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.2437
     },
     "Kyiv|Ukraine": {
       "destination_city": "Kyiv",
@@ -1708,7 +2293,8 @@
       "matched_city_ascii": "Kyiv",
       "matched_country": "Ukraine",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4227
     },
     "Lagos|Nigeria": {
       "destination_city": "Lagos",
@@ -1722,7 +2308,38 @@
       "matched_city_ascii": "Lagos",
       "matched_country": "Nigeria",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4766
+    },
+    "Managua|Nicaragua": {
+      "destination_city": "Managua",
+      "destination_country": "Nicaragua",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1558296252",
+      "matched_city": "Managua",
+      "matched_city_ascii": "Managua",
+      "matched_country": "Nicaragua",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.5492
+    },
+    "Maputo|Mozambique": {
+      "destination_city": "Maputo",
+      "destination_country": "Mozambique",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1508074843",
+      "matched_city": "Maputo",
+      "matched_city_ascii": "Maputo",
+      "matched_country": "Mozambique",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.2526
     },
     "Marrakech|Morocco": {
       "destination_city": "Marrakech",
@@ -1736,7 +2353,8 @@
       "matched_city_ascii": "Marrakech",
       "matched_country": "Morocco",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4187
     },
     "Memphis|United States": {
       "destination_city": "Memphis",
@@ -1750,7 +2368,23 @@
       "matched_city_ascii": "Memphis",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 2.83
+      "michelin_score": 2.83,
+      "plog_score": 0.7148
+    },
+    "Monrovia|Liberia": {
+      "destination_city": "Monrovia",
+      "destination_country": "Liberia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1430477826",
+      "matched_city": "Monrovia",
+      "matched_city_ascii": "Monrovia",
+      "matched_country": "Liberia",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.3659
     },
     "Mumbai|India": {
       "destination_city": "Mumbai",
@@ -1764,7 +2398,23 @@
       "matched_city_ascii": "Mumbai",
       "matched_country": "India",
       "unesco_score": 6.71,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5138
+    },
+    "Muscat|Oman": {
+      "destination_city": "Muscat",
+      "destination_country": "Oman",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1512035506",
+      "matched_city": "Muscat",
+      "matched_city_ascii": "Muscat",
+      "matched_country": "Oman",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.4355
     },
     "Nairobi|Kenya": {
       "destination_city": "Nairobi",
@@ -1778,7 +2428,8 @@
       "matched_city_ascii": "Nairobi",
       "matched_country": "Kenya",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4258
     },
     "Oaxaca|Mexico": {
       "destination_city": "Oaxaca",
@@ -1792,7 +2443,8 @@
       "matched_city_ascii": "Oaxaca",
       "matched_country": "Mexico",
       "unesco_score": 4.58,
-      "michelin_score": 5.03
+      "michelin_score": 5.03,
+      "plog_score": 0.3597
     },
     "Oslo|Norway": {
       "destination_city": "Oslo",
@@ -1806,7 +2458,8 @@
       "matched_city_ascii": "Oslo",
       "matched_country": "Norway",
       "unesco_score": 0.0,
-      "michelin_score": 5.38
+      "michelin_score": 5.38,
+      "plog_score": 0.6048
     },
     "Panama City|Panama": {
       "destination_city": "Panama City",
@@ -1820,21 +2473,8 @@
       "matched_city_ascii": "Panama City",
       "matched_country": "Panama",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
-    },
-    "Phnom Penh|Cambodia": {
-      "destination_city": "Phnom Penh",
-      "destination_country": "Cambodia",
-      "trips": 1,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1116260534",
-      "matched_city": "Phnom Penh",
-      "matched_city_ascii": "Phnom Penh",
-      "matched_country": "Cambodia",
-      "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6946
     },
     "Puebla|Mexico": {
       "destination_city": "Puebla",
@@ -1848,7 +2488,8 @@
       "matched_city_ascii": "Puebla",
       "matched_country": "Mexico",
       "unesco_score": 4.58,
-      "michelin_score": 4.28
+      "michelin_score": 4.28,
+      "plog_score": 0.3582
     },
     "Quebec City|Canada": {
       "destination_city": "Quebec City",
@@ -1862,7 +2503,23 @@
       "matched_city_ascii": "Quebec City",
       "matched_country": "Canada",
       "unesco_score": 2.89,
-      "michelin_score": 5.53
+      "michelin_score": 5.53,
+      "plog_score": 0.5355
+    },
+    "Reykjavík|Iceland": {
+      "destination_city": "Reykjavík",
+      "destination_country": "Iceland",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1352327190",
+      "matched_city": "Reykjavík",
+      "matched_city_ascii": "Reykjavik",
+      "matched_country": "Iceland",
+      "unesco_score": 2.89,
+      "michelin_score": 3.64,
+      "plog_score": 0.5342
     },
     "Riyadh|Saudi Arabia": {
       "destination_city": "Riyadh",
@@ -1876,7 +2533,8 @@
       "matched_city_ascii": "Riyadh",
       "matched_country": "Saudi Arabia",
       "unesco_score": 2.89,
-      "michelin_score": 5.58
+      "michelin_score": 5.58,
+      "plog_score": 0.4431
     },
     "San Luis Potosi|Mexico": {
       "destination_city": "San Luis Potosi",
@@ -1890,7 +2548,8 @@
       "matched_city_ascii": "San Luis Potosi",
       "matched_country": "Mexico",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.3895
     },
     "Santiago|Chile": {
       "destination_city": "Santiago",
@@ -1904,7 +2563,8 @@
       "matched_city_ascii": "Santiago",
       "matched_country": "Chile",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6363
     },
     "Santo Domingo|Dominican Republic": {
       "destination_city": "Santo Domingo",
@@ -1918,7 +2578,68 @@
       "matched_city_ascii": "Santo Domingo",
       "matched_country": "Dominican Republic",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6431
+    },
+    "Split|Croatia": {
+      "destination_city": "Split",
+      "destination_country": "Croatia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1191440208",
+      "matched_city": "Split",
+      "matched_city_ascii": "Split",
+      "matched_country": "Croatia",
+      "unesco_score": 6.71,
+      "michelin_score": 4.82,
+      "plog_score": 0.3897
+    },
+    "Tashkent|Uzbekistan": {
+      "destination_city": "Tashkent",
+      "destination_country": "Uzbekistan",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1860331871",
+      "matched_city": "Tashkent",
+      "matched_city_ascii": "Tashkent",
+      "matched_country": "Uzbekistan",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.4103
+    },
+    "Tbilisi|Georgia": {
+      "destination_city": "Tbilisi",
+      "destination_country": "Georgia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1268203191",
+      "matched_city": "Tbilisi",
+      "matched_city_ascii": "Tbilisi",
+      "matched_country": "Georgia",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.3141
+    },
+    "Tehran|Iran": {
+      "destination_city": "Tehran",
+      "destination_country": "Iran",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1364305026",
+      "matched_city": "Tehran",
+      "matched_city_ascii": "Tehran",
+      "matched_country": "Iran",
+      "unesco_score": 5.78,
+      "michelin_score": 0.0,
+      "plog_score": 0.3492
     },
     "Tel Aviv|Israel": {
       "destination_city": "Tel Aviv",
@@ -1932,7 +2653,23 @@
       "matched_city_ascii": "Tel Aviv",
       "matched_country": "Israel",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5531
+    },
+    "Tripoli|Libya": {
+      "destination_city": "Tripoli",
+      "destination_country": "Libya",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1434201852",
+      "matched_city": "Tripoli",
+      "matched_city_ascii": "Tripoli",
+      "matched_country": "Libya",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.2822
     },
     "Veracruz|Mexico": {
       "destination_city": "Veracruz",
@@ -1946,7 +2683,8 @@
       "matched_city_ascii": "Veracruz",
       "matched_country": "Mexico",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.3051
     },
     "Washington, D.C.|United States": {
       "destination_city": "Washington, D.C.",
@@ -1960,21 +2698,38 @@
       "matched_city_ascii": "Washington",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 7.41
+      "michelin_score": 7.41,
+      "plog_score": 0.8856
     },
-    "Zurich|Switzerland": {
-      "destination_city": "Zurich",
-      "destination_country": "Switzerland",
+    "Windhoek|Namibia": {
+      "destination_city": "Windhoek",
+      "destination_country": "Namibia",
       "trips": 1,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1756539143",
-      "matched_city": "Zürich",
-      "matched_city_ascii": "Zurich",
-      "matched_country": "Switzerland",
-      "unesco_score": 2.89,
-      "michelin_score": 8.07
+      "simplemaps_id": "1516802003",
+      "matched_city": "Windhoek",
+      "matched_city_ascii": "Windhoek",
+      "matched_country": "Namibia",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.3518
+    },
+    "Yerevan|Armenia": {
+      "destination_city": "Yerevan",
+      "destination_country": "Armenia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1051074169",
+      "matched_city": "Yerevan",
+      "matched_city_ascii": "Yerevan",
+      "matched_country": "Armenia",
+      "unesco_score": 4.58,
+      "michelin_score": 0.0,
+      "plog_score": 0.3193
     }
   },
   "destinations": [
@@ -1990,7 +2745,8 @@
       "matched_city_ascii": "Cancun",
       "matched_country": "Mexico",
       "unesco_score": 0.0,
-      "michelin_score": 2.83
+      "michelin_score": 2.83,
+      "plog_score": 0.6899
     },
     {
       "destination_city": "Orlando",
@@ -2004,12 +2760,13 @@
       "matched_city_ascii": "Orlando",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 6.53
+      "michelin_score": 6.53,
+      "plog_score": 0.8513
     },
     {
       "destination_city": "London",
       "destination_country": "United Kingdom",
-      "trips": 82,
+      "trips": 105,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -2018,12 +2775,13 @@
       "matched_city_ascii": "London",
       "matched_country": "United Kingdom",
       "unesco_score": 6.71,
-      "michelin_score": 9.54
+      "michelin_score": 9.54,
+      "plog_score": 0.8673
     },
     {
       "destination_city": "Denver",
       "destination_country": "United States",
-      "trips": 79,
+      "trips": 101,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -2032,12 +2790,28 @@
       "matched_city_ascii": "Denver",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 5.91
+      "michelin_score": 5.91,
+      "plog_score": 0.8445
+    },
+    {
+      "destination_city": "Chicago",
+      "destination_country": "United States",
+      "trips": 79,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840000494",
+      "matched_city": "Chicago",
+      "matched_city_ascii": "Chicago",
+      "matched_country": "United States",
+      "unesco_score": 2.89,
+      "michelin_score": 7.33,
+      "plog_score": 0.9501
     },
     {
       "destination_city": "Tokyo",
       "destination_country": "Japan",
-      "trips": 74,
+      "trips": 75,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -2046,7 +2820,8 @@
       "matched_city_ascii": "Tokyo",
       "matched_country": "Japan",
       "unesco_score": 2.89,
-      "michelin_score": 9.99
+      "michelin_score": 9.99,
+      "plog_score": 0.7993
     },
     {
       "destination_city": "San Jose del Cabo",
@@ -2060,12 +2835,13 @@
       "matched_city_ascii": "San Jose del Cabo",
       "matched_country": "Mexico",
       "unesco_score": 2.89,
-      "michelin_score": 4.48
+      "michelin_score": 4.48,
+      "plog_score": 0.5778
     },
     {
       "destination_city": "New York",
       "destination_country": "United States",
-      "trips": 64,
+      "trips": 66,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -2074,40 +2850,13 @@
       "matched_city_ascii": "New York",
       "matched_country": "United States",
       "unesco_score": 4.58,
-      "michelin_score": 9.36
-    },
-    {
-      "destination_city": "Chicago",
-      "destination_country": "United States",
-      "trips": 48,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840000494",
-      "matched_city": "Chicago",
-      "matched_city_ascii": "Chicago",
-      "matched_country": "United States",
-      "unesco_score": 2.89,
-      "michelin_score": 7.33
-    },
-    {
-      "destination_city": "Guadalajara",
-      "destination_country": "Mexico",
-      "trips": 48,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1484950208",
-      "matched_city": "Guadalajara",
-      "matched_city_ascii": "Guadalajara",
-      "matched_country": "Mexico",
-      "unesco_score": 4.58,
-      "michelin_score": 3.79
+      "michelin_score": 9.36,
+      "plog_score": 0.95
     },
     {
       "destination_city": "Miami",
       "destination_country": "United States",
-      "trips": 45,
+      "trips": 65,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -2116,68 +2865,13 @@
       "matched_city_ascii": "Miami",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 6.68
-    },
-    {
-      "destination_city": "San Diego",
-      "destination_country": "United States",
-      "trips": 44,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840021990",
-      "matched_city": "San Diego",
-      "matched_city_ascii": "San Diego",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 6.12
-    },
-    {
-      "destination_city": "Los Angeles",
-      "destination_country": "United States",
-      "trips": 41,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840020491",
-      "matched_city": "Los Angeles",
-      "matched_city_ascii": "Los Angeles",
-      "matched_country": "United States",
-      "unesco_score": 2.89,
-      "michelin_score": 8.2
-    },
-    {
-      "destination_city": "Phoenix",
-      "destination_country": "United States",
-      "trips": 41,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840020568",
-      "matched_city": "Phoenix",
-      "matched_city_ascii": "Phoenix",
-      "matched_country": "United States",
-      "unesco_score": 2.89,
-      "michelin_score": 0.0
-    },
-    {
-      "destination_city": "Toronto",
-      "destination_country": "Canada",
-      "trips": 40,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1124279679",
-      "matched_city": "Toronto",
-      "matched_city_ascii": "Toronto",
-      "matched_country": "Canada",
-      "unesco_score": 0.0,
-      "michelin_score": 7.17
+      "michelin_score": 6.68,
+      "plog_score": 0.9
     },
     {
       "destination_city": "Boston",
       "destination_country": "United States",
-      "trips": 38,
+      "trips": 63,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -2186,12 +2880,133 @@
       "matched_city_ascii": "Boston",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 5.21
+      "michelin_score": 5.21,
+      "plog_score": 0.8383
+    },
+    {
+      "destination_city": "Guadalajara",
+      "destination_country": "Mexico",
+      "trips": 58,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1484950208",
+      "matched_city": "Guadalajara",
+      "matched_city_ascii": "Guadalajara",
+      "matched_country": "Mexico",
+      "unesco_score": 4.58,
+      "michelin_score": 3.79,
+      "plog_score": 0.6149
+    },
+    {
+      "destination_city": "Toronto",
+      "destination_country": "Canada",
+      "trips": 55,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1124279679",
+      "matched_city": "Toronto",
+      "matched_city_ascii": "Toronto",
+      "matched_country": "Canada",
+      "unesco_score": 0.0,
+      "michelin_score": 7.17,
+      "plog_score": 0.8369
+    },
+    {
+      "destination_city": "Houston",
+      "destination_country": "United States",
+      "trips": 53,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840020925",
+      "matched_city": "Houston",
+      "matched_city_ascii": "Houston",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 6.02,
+      "plog_score": 0.8677
+    },
+    {
+      "destination_city": "San Diego",
+      "destination_country": "United States",
+      "trips": 53,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840021990",
+      "matched_city": "San Diego",
+      "matched_city_ascii": "San Diego",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 6.12,
+      "plog_score": 0.7991
+    },
+    {
+      "destination_city": "Paris",
+      "destination_country": "France",
+      "trips": 48,
+      "layover_trips": 1,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1250015082",
+      "matched_city": "Paris",
+      "matched_city_ascii": "Paris",
+      "matched_country": "France",
+      "unesco_score": 6.71,
+      "michelin_score": 9.93,
+      "plog_score": 0.8396
+    },
+    {
+      "destination_city": "Phoenix",
+      "destination_country": "United States",
+      "trips": 46,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840020568",
+      "matched_city": "Phoenix",
+      "matched_city_ascii": "Phoenix",
+      "matched_country": "United States",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.8296
+    },
+    {
+      "destination_city": "Los Angeles",
+      "destination_country": "United States",
+      "trips": 42,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840020491",
+      "matched_city": "Los Angeles",
+      "matched_city_ascii": "Los Angeles",
+      "matched_country": "United States",
+      "unesco_score": 2.89,
+      "michelin_score": 8.2,
+      "plog_score": 0.9115
+    },
+    {
+      "destination_city": "San Francisco",
+      "destination_country": "United States",
+      "trips": 40,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840021543",
+      "matched_city": "San Francisco",
+      "matched_city_ascii": "San Francisco",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 8.13,
+      "plog_score": 0.8552
     },
     {
       "destination_city": "Sydney",
       "destination_country": "Australia",
-      "trips": 38,
+      "trips": 40,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -2200,7 +3015,68 @@
       "matched_city_ascii": "Sydney",
       "matched_country": "Australia",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6762
+    },
+    {
+      "destination_city": "New Orleans",
+      "destination_country": "United States",
+      "trips": 38,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840001839",
+      "matched_city": "New Orleans",
+      "matched_city_ascii": "New Orleans",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 5.48,
+      "plog_score": 0.808
+    },
+    {
+      "destination_city": "Seattle",
+      "destination_country": "United States",
+      "trips": 38,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840021117",
+      "matched_city": "Seattle",
+      "matched_city_ascii": "Seattle",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.839
+    },
+    {
+      "destination_city": "Atlanta",
+      "destination_country": "United States",
+      "trips": 37,
+      "layover_trips": 2,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840013660",
+      "matched_city": "Atlanta",
+      "matched_city_ascii": "Atlanta",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 6.55,
+      "plog_score": 0.9297
+    },
+    {
+      "destination_city": "Portland",
+      "destination_country": "United States",
+      "trips": 36,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840019941",
+      "matched_city": "Portland",
+      "matched_city_ascii": "Portland",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.7713
     },
     {
       "destination_city": "Puerto Vallarta",
@@ -2214,35 +3090,53 @@
       "matched_city_ascii": "Puerto Vallarta",
       "matched_country": "Mexico",
       "unesco_score": 2.89,
-      "michelin_score": 1.74
+      "michelin_score": 1.74,
+      "plog_score": 0.5511
     },
     {
-      "destination_city": "Atlanta",
+      "destination_city": "Minneapolis",
       "destination_country": "United States",
-      "trips": 33,
-      "layover_trips": 1,
+      "trips": 35,
+      "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840013660",
-      "matched_city": "Atlanta",
-      "matched_city_ascii": "Atlanta",
+      "simplemaps_id": "1840007830",
+      "matched_city": "Minneapolis",
+      "matched_city_ascii": "Minneapolis",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 6.55
+      "michelin_score": 0.0,
+      "plog_score": 0.8175
     },
     {
-      "destination_city": "Seattle",
+      "destination_city": "Mexico City",
+      "destination_country": "Mexico",
+      "trips": 33,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1484247881",
+      "matched_city": "Mexico City",
+      "matched_city_ascii": "Mexico City",
+      "matched_country": "Mexico",
+      "unesco_score": 8.12,
+      "michelin_score": 6.87,
+      "plog_score": 0.7046
+    },
+    {
+      "destination_city": "Pittsburgh",
       "destination_country": "United States",
       "trips": 33,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840021117",
-      "matched_city": "Seattle",
-      "matched_city_ascii": "Seattle",
+      "simplemaps_id": "1840001254",
+      "matched_city": "Pittsburgh",
+      "matched_city_ascii": "Pittsburgh",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.7364
     },
     {
       "destination_city": "Tampa",
@@ -2256,49 +3150,83 @@
       "matched_city_ascii": "Tampa",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 5.67
+      "michelin_score": 5.67,
+      "plog_score": 0.8098
     },
     {
-      "destination_city": "Mexico City",
-      "destination_country": "Mexico",
+      "destination_city": "Washington",
+      "destination_country": "United States",
       "trips": 32,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1484247881",
-      "matched_city": "Mexico City",
-      "matched_city_ascii": "Mexico City",
-      "matched_country": "Mexico",
-      "unesco_score": 8.12,
-      "michelin_score": 6.87
+      "simplemaps_id": "1840006060",
+      "matched_city": "Washington",
+      "matched_city_ascii": "Washington",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 7.41,
+      "plog_score": 0.8856
     },
     {
-      "destination_city": "San Francisco",
+      "destination_city": "Las Vegas",
       "destination_country": "United States",
+      "trips": 31,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840020364",
+      "matched_city": "Las Vegas",
+      "matched_city_ascii": "Las Vegas",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.8469
+    },
+    {
+      "destination_city": "Madrid",
+      "destination_country": "Spain",
+      "trips": 31,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1724616994",
+      "matched_city": "Madrid",
+      "matched_city_ascii": "Madrid",
+      "matched_country": "Spain",
+      "unesco_score": 6.71,
+      "michelin_score": 8.22,
+      "plog_score": 0.7462
+    },
+    {
+      "destination_city": "Amsterdam",
+      "destination_country": "Netherlands",
       "trips": 30,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840021543",
-      "matched_city": "San Francisco",
-      "matched_city_ascii": "San Francisco",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 8.13
+      "simplemaps_id": "1528355309",
+      "matched_city": "Amsterdam",
+      "matched_city_ascii": "Amsterdam",
+      "matched_country": "Netherlands",
+      "unesco_score": 7.47,
+      "michelin_score": 8.19,
+      "plog_score": 0.7822
     },
     {
-      "destination_city": "Paris",
-      "destination_country": "France",
+      "destination_city": "Rome",
+      "destination_country": "Italy",
       "trips": 29,
-      "layover_trips": 1,
+      "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1250015082",
-      "matched_city": "Paris",
-      "matched_city_ascii": "Paris",
-      "matched_country": "France",
-      "unesco_score": 6.71,
-      "michelin_score": 9.93
+      "simplemaps_id": "1380382862",
+      "matched_city": "Rome",
+      "matched_city_ascii": "Rome",
+      "matched_country": "Italy",
+      "unesco_score": 8.67,
+      "michelin_score": 7.27,
+      "plog_score": 0.7587
     },
     {
       "destination_city": "Seoul",
@@ -2312,77 +3240,53 @@
       "matched_city_ascii": "Seoul",
       "matched_country": "Korea, South",
       "unesco_score": 8.12,
-      "michelin_score": 8.2
+      "michelin_score": 8.2,
+      "plog_score": 0.7671
     },
     {
-      "destination_city": "New Orleans",
-      "destination_country": "United States",
+      "destination_city": "Lisbon",
+      "destination_country": "Portugal",
       "trips": 28,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840001839",
-      "matched_city": "New Orleans",
-      "matched_city_ascii": "New Orleans",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 5.48
+      "simplemaps_id": "1620619017",
+      "matched_city": "Lisbon",
+      "matched_city_ascii": "Lisbon",
+      "matched_country": "Portugal",
+      "unesco_score": 5.78,
+      "michelin_score": 6.42,
+      "plog_score": 0.6677
     },
     {
-      "destination_city": "Las Vegas",
+      "destination_city": "Salt Lake City",
       "destination_country": "United States",
-      "trips": 26,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840020364",
-      "matched_city": "Las Vegas",
-      "matched_city_ascii": "Las Vegas",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
-    },
-    {
-      "destination_city": "Madrid",
-      "destination_country": "Spain",
-      "trips": 26,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1724616994",
-      "matched_city": "Madrid",
-      "matched_city_ascii": "Madrid",
-      "matched_country": "Spain",
-      "unesco_score": 6.71,
-      "michelin_score": 8.22
-    },
-    {
-      "destination_city": "Portland",
-      "destination_country": "United States",
-      "trips": 26,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840019941",
-      "matched_city": "Portland",
-      "matched_city_ascii": "Portland",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
-    },
-    {
-      "destination_city": "Amsterdam",
-      "destination_country": "Netherlands",
       "trips": 25,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1528355309",
-      "matched_city": "Amsterdam",
-      "matched_city_ascii": "Amsterdam",
-      "matched_country": "Netherlands",
-      "unesco_score": 7.47,
-      "michelin_score": 8.19
+      "simplemaps_id": "1840021383",
+      "matched_city": "Salt Lake City",
+      "matched_city_ascii": "Salt Lake City",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.7596
+    },
+    {
+      "destination_city": "Nashville",
+      "destination_country": "United States",
+      "trips": 24,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840036155",
+      "matched_city": "Nashville",
+      "matched_city_ascii": "Nashville",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 4.96,
+      "plog_score": 0.7552
     },
     {
       "destination_city": "New York City",
@@ -2396,21 +3300,53 @@
       "matched_city_ascii": "New York",
       "matched_country": "United States",
       "unesco_score": 4.58,
-      "michelin_score": 9.36
+      "michelin_score": 9.36,
+      "plog_score": 0.95
     },
     {
-      "destination_city": "Rome",
-      "destination_country": "Italy",
+      "destination_city": "Barcelona",
+      "destination_country": "Spain",
       "trips": 23,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1380382862",
-      "matched_city": "Rome",
-      "matched_city_ascii": "Rome",
-      "matched_country": "Italy",
-      "unesco_score": 8.67,
-      "michelin_score": 7.27
+      "simplemaps_id": "1724594040",
+      "matched_city": "Barcelona",
+      "matched_city_ascii": "Barcelona",
+      "matched_country": "Spain",
+      "unesco_score": 5.78,
+      "michelin_score": 7.69,
+      "plog_score": 0.7358
+    },
+    {
+      "destination_city": "Buenos Aires",
+      "destination_country": "Argentina",
+      "trips": 22,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1032717330",
+      "matched_city": "Buenos Aires",
+      "matched_city_ascii": "Buenos Aires",
+      "matched_country": "Argentina",
+      "unesco_score": 2.89,
+      "michelin_score": 6.22,
+      "plog_score": 0.6639
+    },
+    {
+      "destination_city": "Dublin",
+      "destination_country": "Ireland",
+      "trips": 22,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1372595407",
+      "matched_city": "Dublin",
+      "matched_city_ascii": "Dublin",
+      "matched_country": "Ireland",
+      "unesco_score": 2.89,
+      "michelin_score": 6.4,
+      "plog_score": 0.7288
     },
     {
       "destination_city": "San Antonio",
@@ -2424,63 +3360,23 @@
       "matched_city_ascii": "San Antonio",
       "matched_country": "United States",
       "unesco_score": 2.89,
-      "michelin_score": 4.39
+      "michelin_score": 4.39,
+      "plog_score": 0.7068
     },
     {
-      "destination_city": "Lisbon",
-      "destination_country": "Portugal",
-      "trips": 21,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1620619017",
-      "matched_city": "Lisbon",
-      "matched_city_ascii": "Lisbon",
-      "matched_country": "Portugal",
-      "unesco_score": 5.78,
-      "michelin_score": 6.42
-    },
-    {
-      "destination_city": "Washington",
+      "destination_city": "Spokane",
       "destination_country": "United States",
-      "trips": 21,
+      "trips": 19,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840006060",
-      "matched_city": "Washington",
-      "matched_city_ascii": "Washington",
+      "simplemaps_id": "1840021093",
+      "matched_city": "Spokane",
+      "matched_city_ascii": "Spokane",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 7.41
-    },
-    {
-      "destination_city": "Buenos Aires",
-      "destination_country": "Argentina",
-      "trips": 20,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1032717330",
-      "matched_city": "Buenos Aires",
-      "matched_city_ascii": "Buenos Aires",
-      "matched_country": "Argentina",
-      "unesco_score": 2.89,
-      "michelin_score": 6.22
-    },
-    {
-      "destination_city": "Barcelona",
-      "destination_country": "Spain",
-      "trips": 17,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1724594040",
-      "matched_city": "Barcelona",
-      "matched_city_ascii": "Barcelona",
-      "matched_country": "Spain",
-      "unesco_score": 5.78,
-      "michelin_score": 7.69
+      "michelin_score": 0.0,
+      "plog_score": 0.5918
     },
     {
       "destination_city": "Cleveland",
@@ -2494,26 +3390,28 @@
       "matched_city_ascii": "Cleveland",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.7443
     },
     {
-      "destination_city": "Pittsburgh",
-      "destination_country": "United States",
+      "destination_city": "Frankfurt",
+      "destination_country": "Germany",
       "trips": 17,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840001254",
-      "matched_city": "Pittsburgh",
-      "matched_city_ascii": "Pittsburgh",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "simplemaps_id": "1276054552",
+      "matched_city": "Frankfurt",
+      "matched_city_ascii": "Frankfurt",
+      "matched_country": "Germany",
+      "unesco_score": 6.71,
+      "michelin_score": 6.53,
+      "plog_score": 0.8265
     },
     {
       "destination_city": "Newark",
       "destination_country": "United States",
-      "trips": 16,
+      "trips": 17,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
@@ -2522,7 +3420,53 @@
       "matched_city_ascii": "Newark",
       "matched_country": "United States",
       "unesco_score": 4.58,
-      "michelin_score": 9.34
+      "michelin_score": 9.34,
+      "plog_score": 0.9263
+    },
+    {
+      "destination_city": "Honolulu",
+      "destination_country": "United States",
+      "trips": 16,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840013305",
+      "matched_city": "Honolulu",
+      "matched_city_ascii": "Honolulu",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.7157
+    },
+    {
+      "destination_city": "Anchorage",
+      "destination_country": "United States",
+      "trips": 15,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840023385",
+      "matched_city": "Anchorage",
+      "matched_city_ascii": "Anchorage",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.73
+    },
+    {
+      "destination_city": "Charlotte",
+      "destination_country": "United States",
+      "trips": 15,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840014557",
+      "matched_city": "Charlotte",
+      "matched_city_ascii": "Charlotte",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 4.18,
+      "plog_score": 0.816
     },
     {
       "destination_city": "Dallas",
@@ -2536,63 +3480,23 @@
       "matched_city_ascii": "Dallas",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 5.27
+      "michelin_score": 5.27,
+      "plog_score": 0.9038
     },
     {
-      "destination_city": "Dublin",
-      "destination_country": "Ireland",
-      "trips": 15,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1372595407",
-      "matched_city": "Dublin",
-      "matched_city_ascii": "Dublin",
-      "matched_country": "Ireland",
-      "unesco_score": 2.89,
-      "michelin_score": 6.4
-    },
-    {
-      "destination_city": "Honolulu",
+      "destination_city": "Detroit",
       "destination_country": "United States",
       "trips": 15,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840013305",
-      "matched_city": "Honolulu",
-      "matched_city_ascii": "Honolulu",
+      "simplemaps_id": "1840003971",
+      "matched_city": "Detroit",
+      "matched_city_ascii": "Detroit",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
-    },
-    {
-      "destination_city": "Houston",
-      "destination_country": "United States",
-      "trips": 14,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840020925",
-      "matched_city": "Houston",
-      "matched_city_ascii": "Houston",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 6.02
-    },
-    {
-      "destination_city": "Nashville",
-      "destination_country": "United States",
-      "trips": 14,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840036155",
-      "matched_city": "Nashville",
-      "matched_city_ascii": "Nashville",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 4.96
+      "michelin_score": 0.0,
+      "plog_score": 0.8154
     },
     {
       "destination_city": "Nassau",
@@ -2606,7 +3510,8 @@
       "matched_city_ascii": "Nassau",
       "matched_country": "Bahamas, The",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.657
     },
     {
       "destination_city": "San Jose",
@@ -2620,7 +3525,53 @@
       "matched_city_ascii": "San Jose",
       "matched_country": "Costa Rica",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6926
+    },
+    {
+      "destination_city": "St. Louis",
+      "destination_country": "United States",
+      "trips": 14,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840001651",
+      "matched_city": "St. Louis",
+      "matched_city_ascii": "St. Louis",
+      "matched_country": "United States",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.7539
+    },
+    {
+      "destination_city": "Sao Paulo",
+      "destination_country": "Brazil",
+      "trips": 13,
+      "layover_trips": 1,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1076532519",
+      "matched_city": "São Paulo",
+      "matched_city_ascii": "Sao Paulo",
+      "matched_country": "Brazil",
+      "unesco_score": 0.0,
+      "michelin_score": 7.36,
+      "plog_score": 0.623
+    },
+    {
+      "destination_city": "Vancouver",
+      "destination_country": "Canada",
+      "trips": 13,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1124825478",
+      "matched_city": "Vancouver",
+      "matched_city_ascii": "Vancouver",
+      "matched_country": "Canada",
+      "unesco_score": 0.0,
+      "michelin_score": 6.85,
+      "plog_score": 0.7561
     },
     {
       "destination_city": "Bali",
@@ -2634,7 +3585,23 @@
       "matched_city_ascii": "Denpasar",
       "matched_country": "Indonesia",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.3416
+    },
+    {
+      "destination_city": "Charleston",
+      "destination_country": "United States",
+      "trips": 12,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840015163",
+      "matched_city": "Charleston",
+      "matched_city_ascii": "Charleston",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 4.28,
+      "plog_score": 0.6719
     },
     {
       "destination_city": "Lima",
@@ -2648,35 +3615,23 @@
       "matched_city_ascii": "Lima",
       "matched_country": "Peru",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5916
     },
     {
-      "destination_city": "Sao Paulo",
-      "destination_country": "Brazil",
-      "trips": 12,
+      "destination_city": "Buffalo",
+      "destination_country": "United States",
+      "trips": 11,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1076532519",
-      "matched_city": "São Paulo",
-      "matched_city_ascii": "Sao Paulo",
-      "matched_country": "Brazil",
+      "simplemaps_id": "1840000386",
+      "matched_city": "Buffalo",
+      "matched_city_ascii": "Buffalo",
+      "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 7.36
-    },
-    {
-      "destination_city": "Vancouver",
-      "destination_country": "Canada",
-      "trips": 12,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1124825478",
-      "matched_city": "Vancouver",
-      "matched_city_ascii": "Vancouver",
-      "matched_country": "Canada",
-      "unesco_score": 0.0,
-      "michelin_score": 6.85
+      "michelin_score": 1.74,
+      "plog_score": 0.7097
     },
     {
       "destination_city": "Monterrey",
@@ -2690,7 +3645,8 @@
       "matched_city_ascii": "Monterrey",
       "matched_country": "Mexico",
       "unesco_score": 0.0,
-      "michelin_score": 3.79
+      "michelin_score": 3.79,
+      "plog_score": 0.5562
     },
     {
       "destination_city": "Philadelphia",
@@ -2704,49 +3660,68 @@
       "matched_city_ascii": "Philadelphia",
       "matched_country": "United States",
       "unesco_score": 2.89,
-      "michelin_score": 5.58
+      "michelin_score": 5.58,
+      "plog_score": 0.8287
     },
     {
-      "destination_city": "Anchorage",
+      "destination_city": "Bangkok",
+      "destination_country": "Thailand",
+      "trips": 10,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1764068610",
+      "matched_city": "Bangkok",
+      "matched_city_ascii": "Bangkok",
+      "matched_country": "Thailand",
+      "unesco_score": 0.0,
+      "michelin_score": 8.47,
+      "plog_score": 0.4205
+    },
+    {
+      "destination_city": "El Paso",
       "destination_country": "United States",
       "trips": 10,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840023385",
-      "matched_city": "Anchorage",
-      "matched_city_ascii": "Anchorage",
+      "simplemaps_id": "1840023252",
+      "matched_city": "El Paso",
+      "matched_city_ascii": "El Paso",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6472
     },
     {
-      "destination_city": "Charlotte",
+      "destination_city": "Richmond",
       "destination_country": "United States",
       "trips": 10,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840014557",
-      "matched_city": "Charlotte",
-      "matched_city_ascii": "Charlotte",
+      "simplemaps_id": "1840001698",
+      "matched_city": "Richmond",
+      "matched_city_ascii": "Richmond",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 4.18
+      "michelin_score": 0.0,
+      "plog_score": 0.6824
     },
     {
-      "destination_city": "Minneapolis",
+      "destination_city": "Savannah",
       "destination_country": "United States",
       "trips": 10,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840007830",
-      "matched_city": "Minneapolis",
-      "matched_city_ascii": "Minneapolis",
+      "simplemaps_id": "1840015830",
+      "matched_city": "Savannah",
+      "matched_city_ascii": "Savannah",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6368
     },
     {
       "destination_city": "Baltimore",
@@ -2760,77 +3735,23 @@
       "matched_city_ascii": "Baltimore",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.8833
     },
     {
-      "destination_city": "Detroit",
-      "destination_country": "United States",
+      "destination_city": "Nice",
+      "destination_country": "France",
       "trips": 9,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840003971",
-      "matched_city": "Detroit",
-      "matched_city_ascii": "Detroit",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
-    },
-    {
-      "destination_city": "Salt Lake City",
-      "destination_country": "United States",
-      "trips": 9,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840021383",
-      "matched_city": "Salt Lake City",
-      "matched_city_ascii": "Salt Lake City",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
-    },
-    {
-      "destination_city": "Spokane",
-      "destination_country": "United States",
-      "trips": 9,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840021093",
-      "matched_city": "Spokane",
-      "matched_city_ascii": "Spokane",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
-    },
-    {
-      "destination_city": "St. Louis",
-      "destination_country": "United States",
-      "trips": 9,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840001651",
-      "matched_city": "St. Louis",
-      "matched_city_ascii": "St. Louis",
-      "matched_country": "United States",
-      "unesco_score": 2.89,
-      "michelin_score": 0.0
-    },
-    {
-      "destination_city": "Bangkok",
-      "destination_country": "Thailand",
-      "trips": 8,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1764068610",
-      "matched_city": "Bangkok",
-      "matched_city_ascii": "Bangkok",
-      "matched_country": "Thailand",
-      "unesco_score": 0.0,
-      "michelin_score": 8.47
+      "simplemaps_id": "1250774553",
+      "matched_city": "Nice",
+      "matched_city_ascii": "Nice",
+      "matched_country": "France",
+      "unesco_score": 4.58,
+      "michelin_score": 7.7,
+      "plog_score": 0.5467
     },
     {
       "destination_city": "Boise",
@@ -2844,35 +3765,38 @@
       "matched_city_ascii": "Boise",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5997
     },
     {
-      "destination_city": "Frankfurt",
-      "destination_country": "Germany",
-      "trips": 8,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1276054552",
-      "matched_city": "Frankfurt",
-      "matched_city_ascii": "Frankfurt",
-      "matched_country": "Germany",
-      "unesco_score": 6.71,
-      "michelin_score": 6.53
-    },
-    {
-      "destination_city": "Nice",
-      "destination_country": "France",
+      "destination_city": "Athens",
+      "destination_country": "Greece",
       "trips": 7,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1250774553",
-      "matched_city": "Nice",
-      "matched_city_ascii": "Nice",
-      "matched_country": "France",
+      "simplemaps_id": "1300715560",
+      "matched_city": "Athens",
+      "matched_city_ascii": "Athens",
+      "matched_country": "Greece",
       "unesco_score": 4.58,
-      "michelin_score": 7.7
+      "michelin_score": 5.62,
+      "plog_score": 0.6151
+    },
+    {
+      "destination_city": "Edinburgh",
+      "destination_country": "United Kingdom",
+      "trips": 7,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1826492520",
+      "matched_city": "Edinburgh",
+      "matched_city_ascii": "Edinburgh",
+      "matched_country": "United Kingdom",
+      "unesco_score": 5.78,
+      "michelin_score": 6.22,
+      "plog_score": 0.6479
     },
     {
       "destination_city": "Rio de Janeiro",
@@ -2886,7 +3810,23 @@
       "matched_city_ascii": "Rio de Janeiro",
       "matched_country": "Brazil",
       "unesco_score": 5.78,
-      "michelin_score": 6.02
+      "michelin_score": 6.02,
+      "plog_score": 0.5458
+    },
+    {
+      "destination_city": "Sacramento",
+      "destination_country": "United States",
+      "trips": 7,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840021491",
+      "matched_city": "Sacramento",
+      "matched_city_ascii": "Sacramento",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 4.06,
+      "plog_score": 0.7118
     },
     {
       "destination_city": "Shanghai",
@@ -2900,21 +3840,8 @@
       "matched_city_ascii": "Shanghai",
       "matched_country": "China",
       "unesco_score": 0.0,
-      "michelin_score": 7.99
-    },
-    {
-      "destination_city": "Athens",
-      "destination_country": "Greece",
-      "trips": 6,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1300715560",
-      "matched_city": "Athens",
-      "matched_city_ascii": "Athens",
-      "matched_country": "Greece",
-      "unesco_score": 4.58,
-      "michelin_score": 5.62
+      "michelin_score": 7.99,
+      "plog_score": 0.7618
     },
     {
       "destination_city": "Auckland",
@@ -2928,7 +3855,8 @@
       "matched_city_ascii": "Auckland",
       "matched_country": "New Zealand",
       "unesco_score": 0.0,
-      "michelin_score": 6.09
+      "michelin_score": 6.09,
+      "plog_score": 0.6113
     },
     {
       "destination_city": "Austin",
@@ -2942,7 +3870,38 @@
       "matched_city_ascii": "Austin",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 6.12
+      "michelin_score": 6.12,
+      "plog_score": 0.7542
+    },
+    {
+      "destination_city": "Berlin",
+      "destination_country": "Germany",
+      "trips": 6,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1276451290",
+      "matched_city": "Berlin",
+      "matched_city_ascii": "Berlin",
+      "matched_country": "Germany",
+      "unesco_score": 6.71,
+      "michelin_score": 6.95,
+      "plog_score": 0.6483
+    },
+    {
+      "destination_city": "Melbourne",
+      "destination_country": "Australia",
+      "trips": 6,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1036533631",
+      "matched_city": "Melbourne",
+      "matched_city_ascii": "Melbourne",
+      "matched_country": "Australia",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.6307
     },
     {
       "destination_city": "Montreal",
@@ -2956,35 +3915,83 @@
       "matched_city_ascii": "Montreal",
       "matched_country": "Canada",
       "unesco_score": 0.0,
-      "michelin_score": 6.58
+      "michelin_score": 6.58,
+      "plog_score": 0.7843
     },
     {
-      "destination_city": "Berlin",
-      "destination_country": "Germany",
+      "destination_city": "Porto",
+      "destination_country": "Portugal",
+      "trips": 6,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1620356810",
+      "matched_city": "Porto",
+      "matched_city_ascii": "Porto",
+      "matched_country": "Portugal",
+      "unesco_score": 5.78,
+      "michelin_score": 6.34,
+      "plog_score": 0.5195
+    },
+    {
+      "destination_city": "Hanoi",
+      "destination_country": "Vietnam",
       "trips": 5,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1276451290",
-      "matched_city": "Berlin",
-      "matched_city_ascii": "Berlin",
-      "matched_country": "Germany",
-      "unesco_score": 6.71,
-      "michelin_score": 6.95
+      "simplemaps_id": "1704413791",
+      "matched_city": "Hanoi",
+      "matched_city_ascii": "Hanoi",
+      "matched_country": "Vietnam",
+      "unesco_score": 4.58,
+      "michelin_score": 6.63,
+      "plog_score": 0.4484
     },
     {
-      "destination_city": "Edinburgh",
+      "destination_city": "Hong Kong",
+      "destination_country": "Hong Kong",
+      "trips": 5,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1344982653",
+      "matched_city": "Hong Kong",
+      "matched_city_ascii": "Hong Kong",
+      "matched_country": "Hong Kong",
+      "unesco_score": 0.0,
+      "michelin_score": 8.53,
+      "plog_score": 0.7569
+    },
+    {
+      "destination_city": "Manchester",
       "destination_country": "United Kingdom",
       "trips": 5,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1826492520",
-      "matched_city": "Edinburgh",
-      "matched_city_ascii": "Edinburgh",
+      "simplemaps_id": "1826246335",
+      "matched_city": "Manchester",
+      "matched_city_ascii": "Manchester",
       "matched_country": "United Kingdom",
-      "unesco_score": 5.78,
-      "michelin_score": 6.22
+      "unesco_score": 2.89,
+      "michelin_score": 6.37,
+      "plog_score": 0.7533
+    },
+    {
+      "destination_city": "Milwaukee",
+      "destination_country": "United States",
+      "trips": 5,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1840003046",
+      "matched_city": "Milwaukee",
+      "matched_city_ascii": "Milwaukee",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.6848
     },
     {
       "destination_city": "Munich",
@@ -2998,7 +4005,8 @@
       "matched_city_ascii": "Munich",
       "matched_country": "Germany",
       "unesco_score": 2.89,
-      "michelin_score": 7.24
+      "michelin_score": 7.24,
+      "plog_score": 0.7318
     },
     {
       "destination_city": "Queretaro",
@@ -3012,7 +4020,8 @@
       "matched_city_ascii": "Queretaro",
       "matched_country": "Mexico",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.405
     },
     {
       "destination_city": "Taipei",
@@ -3026,7 +4035,38 @@
       "matched_city_ascii": "Taipei",
       "matched_country": "Taiwan",
       "unesco_score": 0.0,
-      "michelin_score": 8.44
+      "michelin_score": 8.44,
+      "plog_score": 0.698
+    },
+    {
+      "destination_city": "Venice",
+      "destination_country": "Italy",
+      "trips": 5,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1380660414",
+      "matched_city": "Venice",
+      "matched_city_ascii": "Venice",
+      "matched_country": "Italy",
+      "unesco_score": 7.47,
+      "michelin_score": 6.95,
+      "plog_score": 0.6157
+    },
+    {
+      "destination_city": "Bilbao",
+      "destination_country": "Spain",
+      "trips": 4,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1724331267",
+      "matched_city": "Bilbao",
+      "matched_city_ascii": "Bilbao",
+      "matched_country": "Spain",
+      "unesco_score": 5.78,
+      "michelin_score": 6.02,
+      "plog_score": 0.4828
     },
     {
       "destination_city": "Cape Town",
@@ -3040,7 +4080,8 @@
       "matched_city_ascii": "Cape Town",
       "matched_country": "South Africa",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4036
     },
     {
       "destination_city": "Dubai",
@@ -3054,35 +4095,23 @@
       "matched_city_ascii": "Dubai",
       "matched_country": "United Arab Emirates",
       "unesco_score": 0.0,
-      "michelin_score": 7.48
+      "michelin_score": 7.48,
+      "plog_score": 0.7049
     },
     {
-      "destination_city": "Hong Kong",
-      "destination_country": "Hong Kong",
+      "destination_city": "Havana",
+      "destination_country": "Cuba",
       "trips": 4,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1344982653",
-      "matched_city": "Hong Kong",
-      "matched_city_ascii": "Hong Kong",
-      "matched_country": "Hong Kong",
-      "unesco_score": 0.0,
-      "michelin_score": 8.53
-    },
-    {
-      "destination_city": "Melbourne",
-      "destination_country": "Australia",
-      "trips": 4,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1036533631",
-      "matched_city": "Melbourne",
-      "matched_city_ascii": "Melbourne",
-      "matched_country": "Australia",
+      "simplemaps_id": "1192752771",
+      "matched_city": "Havana",
+      "matched_city_ascii": "Havana",
+      "matched_country": "Cuba",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5394
     },
     {
       "destination_city": "Milan",
@@ -3096,21 +4125,23 @@
       "matched_city_ascii": "Milan",
       "matched_country": "Italy",
       "unesco_score": 7.47,
-      "michelin_score": 8.48
+      "michelin_score": 8.48,
+      "plog_score": 0.7152
     },
     {
-      "destination_city": "Porto",
-      "destination_country": "Portugal",
+      "destination_city": "Santa Ana",
+      "destination_country": "United States",
       "trips": 4,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1620356810",
-      "matched_city": "Porto",
-      "matched_city_ascii": "Porto",
-      "matched_country": "Portugal",
-      "unesco_score": 5.78,
-      "michelin_score": 6.34
+      "simplemaps_id": "1840021964",
+      "matched_city": "Santa Ana",
+      "matched_city_ascii": "Santa Ana",
+      "matched_country": "United States",
+      "unesco_score": 0.0,
+      "michelin_score": 7.1,
+      "plog_score": 0.8906
     },
     {
       "destination_city": "Singapore",
@@ -3124,7 +4155,8 @@
       "matched_city_ascii": "Singapore",
       "matched_country": "Singapore",
       "unesco_score": 2.89,
-      "michelin_score": 9.04
+      "michelin_score": 9.04,
+      "plog_score": 0.6473
     },
     {
       "destination_city": "Brisbane",
@@ -3138,7 +4170,23 @@
       "matched_city_ascii": "Brisbane",
       "matched_country": "Australia",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6312
+    },
+    {
+      "destination_city": "Casablanca",
+      "destination_country": "Morocco",
+      "trips": 3,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1504175315",
+      "matched_city": "Casablanca",
+      "matched_city_ascii": "Casablanca",
+      "matched_country": "Morocco",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.5514
     },
     {
       "destination_city": "Copenhagen",
@@ -3152,21 +4200,23 @@
       "matched_city_ascii": "Copenhagen",
       "matched_country": "Denmark",
       "unesco_score": 7.47,
-      "michelin_score": 7.03
+      "michelin_score": 7.03,
+      "plog_score": 0.6366
     },
     {
-      "destination_city": "Havana",
-      "destination_country": "Cuba",
+      "destination_city": "Phnom Penh",
+      "destination_country": "Cambodia",
       "trips": 3,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1192752771",
-      "matched_city": "Havana",
-      "matched_city_ascii": "Havana",
-      "matched_country": "Cuba",
+      "simplemaps_id": "1116260534",
+      "matched_city": "Phnom Penh",
+      "matched_city_ascii": "Phnom Penh",
+      "matched_country": "Cambodia",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.3177
     },
     {
       "destination_city": "Phuket",
@@ -3180,21 +4230,23 @@
       "matched_city_ascii": "Phuket",
       "matched_country": "Thailand",
       "unesco_score": 0.0,
-      "michelin_score": 6.63
+      "michelin_score": 6.63,
+      "plog_score": 0.3376
     },
     {
-      "destination_city": "Venice",
-      "destination_country": "Italy",
+      "destination_city": "Zurich",
+      "destination_country": "Switzerland",
       "trips": 3,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1380660414",
-      "matched_city": "Venice",
-      "matched_city_ascii": "Venice",
-      "matched_country": "Italy",
-      "unesco_score": 7.47,
-      "michelin_score": 6.95
+      "simplemaps_id": "1756539143",
+      "matched_city": "Zürich",
+      "matched_city_ascii": "Zurich",
+      "matched_country": "Switzerland",
+      "unesco_score": 2.89,
+      "michelin_score": 8.07,
+      "plog_score": 0.7171
     },
     {
       "destination_city": "Accra",
@@ -3208,7 +4260,8 @@
       "matched_city_ascii": "Accra",
       "matched_country": "Ghana",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4291
     },
     {
       "destination_city": "Bogota",
@@ -3222,35 +4275,83 @@
       "matched_city_ascii": "Bogota",
       "matched_country": "Colombia",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5965
     },
     {
-      "destination_city": "Casablanca",
-      "destination_country": "Morocco",
+      "destination_city": "Brussels",
+      "destination_country": "Belgium",
       "trips": 2,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1504175315",
-      "matched_city": "Casablanca",
-      "matched_city_ascii": "Casablanca",
-      "matched_country": "Morocco",
-      "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "simplemaps_id": "1056469830",
+      "matched_city": "Brussels",
+      "matched_city_ascii": "Brussels",
+      "matched_country": "Belgium",
+      "unesco_score": 10.0,
+      "michelin_score": 9.25,
+      "plog_score": 0.7617
     },
     {
-      "destination_city": "Charleston",
-      "destination_country": "United States",
+      "destination_city": "Chiang Mai",
+      "destination_country": "Thailand",
       "trips": 2,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1840015163",
-      "matched_city": "Charleston",
-      "matched_city_ascii": "Charleston",
-      "matched_country": "United States",
+      "simplemaps_id": "1764662886",
+      "matched_city": "Chiang Mai",
+      "matched_city_ascii": "Chiang Mai",
+      "matched_country": "Thailand",
       "unesco_score": 0.0,
-      "michelin_score": 4.28
+      "michelin_score": 6.25,
+      "plog_score": 0.3219
+    },
+    {
+      "destination_city": "Colombo",
+      "destination_country": "Sri Lanka",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1144251314",
+      "matched_city": "Colombo",
+      "matched_city_ascii": "Colombo",
+      "matched_country": "Sri Lanka",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.4324
+    },
+    {
+      "destination_city": "Geneva",
+      "destination_country": "Switzerland",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1756810813",
+      "matched_city": "Geneva",
+      "matched_city_ascii": "Geneva",
+      "matched_country": "Switzerland",
+      "unesco_score": 4.58,
+      "michelin_score": 7.66,
+      "plog_score": 0.5954
+    },
+    {
+      "destination_city": "Glasgow",
+      "destination_country": "United Kingdom",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1826836462",
+      "matched_city": "Glasgow",
+      "matched_city_ascii": "Glasgow",
+      "matched_country": "United Kingdom",
+      "unesco_score": 2.89,
+      "michelin_score": 4.39,
+      "plog_score": 0.6583
     },
     {
       "destination_city": "Helsinki",
@@ -3264,7 +4365,23 @@
       "matched_city_ascii": "Helsinki",
       "matched_country": "Finland",
       "unesco_score": 4.58,
-      "michelin_score": 5.48
+      "michelin_score": 5.48,
+      "plog_score": 0.6209
+    },
+    {
+      "destination_city": "Ho Chi Minh City",
+      "destination_country": "Vietnam",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1704774326",
+      "matched_city": "Ho Chi Minh City",
+      "matched_city_ascii": "Ho Chi Minh City",
+      "matched_country": "Vietnam",
+      "unesco_score": 0.0,
+      "michelin_score": 6.97,
+      "plog_score": 0.4598
     },
     {
       "destination_city": "Istanbul",
@@ -3278,7 +4395,8 @@
       "matched_city_ascii": "Istanbul",
       "matched_country": "Turkey",
       "unesco_score": 2.89,
-      "michelin_score": 7.05
+      "michelin_score": 7.05,
+      "plog_score": 0.5782
     },
     {
       "destination_city": "Kansas City",
@@ -3292,7 +4410,8 @@
       "matched_city_ascii": "Kansas City",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.7312
     },
     {
       "destination_city": "Kingston",
@@ -3306,7 +4425,23 @@
       "matched_city_ascii": "Kingston",
       "matched_country": "Jamaica",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5713
+    },
+    {
+      "destination_city": "Manila",
+      "destination_country": "Philippines",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1608618140",
+      "matched_city": "Manila",
+      "matched_city_ascii": "Manila",
+      "matched_country": "Philippines",
+      "unesco_score": 2.89,
+      "michelin_score": 7.1,
+      "plog_score": 0.468
     },
     {
       "destination_city": "Merida",
@@ -3320,7 +4455,23 @@
       "matched_city_ascii": "Merida",
       "matched_country": "Mexico",
       "unesco_score": 0.0,
-      "michelin_score": 4.06
+      "michelin_score": 4.06,
+      "plog_score": 0.3871
+    },
+    {
+      "destination_city": "Montevideo",
+      "destination_country": "Uruguay",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1858107000",
+      "matched_city": "Montevideo",
+      "matched_city_ascii": "Montevideo",
+      "matched_country": "Uruguay",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.4744
     },
     {
       "destination_city": "Moscow",
@@ -3334,7 +4485,8 @@
       "matched_city_ascii": "Moscow",
       "matched_country": "Russia",
       "unesco_score": 5.78,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6033
     },
     {
       "destination_city": "Naples",
@@ -3348,7 +4500,8 @@
       "matched_city_ascii": "Naples",
       "matched_country": "Italy",
       "unesco_score": 7.47,
-      "michelin_score": 7.68
+      "michelin_score": 7.68,
+      "plog_score": 0.4325
     },
     {
       "destination_city": "Osaka",
@@ -3362,7 +4515,8 @@
       "matched_city_ascii": "Osaka",
       "matched_country": "Japan",
       "unesco_score": 8.12,
-      "michelin_score": 9.99
+      "michelin_score": 9.99,
+      "plog_score": 0.7022
     },
     {
       "destination_city": "Port-au-Prince",
@@ -3376,7 +4530,8 @@
       "matched_city_ascii": "Port-au-Prince",
       "matched_country": "Haiti",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4759
     },
     {
       "destination_city": "Prague",
@@ -3390,7 +4545,8 @@
       "matched_city_ascii": "Prague",
       "matched_country": "Czechia",
       "unesco_score": 2.89,
-      "michelin_score": 6.09
+      "michelin_score": 6.09,
+      "plog_score": 0.538
     },
     {
       "destination_city": "Reykjavik",
@@ -3404,7 +4560,8 @@
       "matched_city_ascii": "Reykjavik",
       "matched_country": "Iceland",
       "unesco_score": 2.89,
-      "michelin_score": 3.64
+      "michelin_score": 3.64,
+      "plog_score": 0.5342
     },
     {
       "destination_city": "San Juan",
@@ -3418,7 +4575,8 @@
       "matched_city_ascii": "San Juan",
       "matched_country": "Puerto Rico",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.7288
     },
     {
       "destination_city": "Stockholm",
@@ -3432,7 +4590,8 @@
       "matched_city_ascii": "Stockholm",
       "matched_country": "Sweden",
       "unesco_score": 5.78,
-      "michelin_score": 5.99
+      "michelin_score": 5.99,
+      "plog_score": 0.6352
     },
     {
       "destination_city": "Vienna",
@@ -3446,7 +4605,23 @@
       "matched_city_ascii": "Vienna",
       "matched_country": "Austria",
       "unesco_score": 6.71,
-      "michelin_score": 7.14
+      "michelin_score": 7.14,
+      "plog_score": 0.644
+    },
+    {
+      "destination_city": "Addis Ababa",
+      "destination_country": "Ethiopia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1231824991",
+      "matched_city": "Addis Ababa",
+      "matched_city_ascii": "Addis Ababa",
+      "matched_country": "Ethiopia",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.4179
     },
     {
       "destination_city": "Albuquerque",
@@ -3460,21 +4635,83 @@
       "matched_city_ascii": "Albuquerque",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6878
     },
     {
-      "destination_city": "Brussels",
-      "destination_country": "Belgium",
+      "destination_city": "Antananarivo",
+      "destination_country": "Madagascar",
       "trips": 1,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1056469830",
-      "matched_city": "Brussels",
-      "matched_city_ascii": "Brussels",
-      "matched_country": "Belgium",
-      "unesco_score": 10.0,
-      "michelin_score": 9.25
+      "simplemaps_id": "1450978461",
+      "matched_city": "Antananarivo",
+      "matched_city_ascii": "Antananarivo",
+      "matched_country": "Madagascar",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.3661
+    },
+    {
+      "destination_city": "Asuncion",
+      "destination_country": "Paraguay",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1600057911",
+      "matched_city": "Asunción",
+      "matched_city_ascii": "Asuncion",
+      "matched_country": "Paraguay",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.4553
+    },
+    {
+      "destination_city": "Belfast",
+      "destination_country": "United Kingdom",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1826325087",
+      "matched_city": "Belfast",
+      "matched_city_ascii": "Belfast",
+      "matched_country": "United Kingdom",
+      "unesco_score": 2.89,
+      "michelin_score": 4.28,
+      "plog_score": 0.4774
+    },
+    {
+      "destination_city": "Birmingham",
+      "destination_country": "United Kingdom",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1826423213",
+      "matched_city": "Birmingham",
+      "matched_city_ascii": "Birmingham",
+      "matched_country": "United Kingdom",
+      "unesco_score": 2.89,
+      "michelin_score": 5.8,
+      "plog_score": 0.5846
+    },
+    {
+      "destination_city": "Bucharest",
+      "destination_country": "Romania",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1642414442",
+      "matched_city": "Bucharest",
+      "matched_city_ascii": "Bucharest",
+      "matched_country": "Romania",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.4437
     },
     {
       "destination_city": "Budapest",
@@ -3488,21 +4725,8 @@
       "matched_city_ascii": "Budapest",
       "matched_country": "Hungary",
       "unesco_score": 2.89,
-      "michelin_score": 5.91
-    },
-    {
-      "destination_city": "Buffalo",
-      "destination_country": "United States",
-      "trips": 1,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1840000386",
-      "matched_city": "Buffalo",
-      "matched_city_ascii": "Buffalo",
-      "matched_country": "United States",
-      "unesco_score": 0.0,
-      "michelin_score": 1.74
+      "michelin_score": 5.91,
+      "plog_score": 0.5181
     },
     {
       "destination_city": "Cairo",
@@ -3516,7 +4740,23 @@
       "matched_city_ascii": "Cairo",
       "matched_country": "Egypt",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4797
+    },
+    {
+      "destination_city": "Christchurch",
+      "destination_country": "New Zealand",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1554377228",
+      "matched_city": "Christchurch",
+      "matched_city_ascii": "Christchurch",
+      "matched_country": "New Zealand",
+      "unesco_score": 0.0,
+      "michelin_score": 4.48,
+      "plog_score": 0.3658
     },
     {
       "destination_city": "Dakar",
@@ -3530,7 +4770,23 @@
       "matched_city_ascii": "Dakar",
       "matched_country": "Senegal",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5685
+    },
+    {
+      "destination_city": "Dar es Salaam",
+      "destination_country": "Tanzania",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1834843853",
+      "matched_city": "Dar es Salaam",
+      "matched_city_ascii": "Dar es Salaam",
+      "matched_country": "Tanzania",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.3207
     },
     {
       "destination_city": "Delhi",
@@ -3544,7 +4800,23 @@
       "matched_city_ascii": "Delhi",
       "matched_country": "India",
       "unesco_score": 5.78,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5502
+    },
+    {
+      "destination_city": "Denpasar",
+      "destination_country": "Indonesia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1360848527",
+      "matched_city": "Denpasar",
+      "matched_city_ascii": "Denpasar",
+      "matched_country": "Indonesia",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.3416
     },
     {
       "destination_city": "Doha",
@@ -3558,7 +4830,8 @@
       "matched_city_ascii": "Doha",
       "matched_country": "Qatar",
       "unesco_score": 0.0,
-      "michelin_score": 5.95
+      "michelin_score": 5.95,
+      "plog_score": 0.6467
     },
     {
       "destination_city": "Duesseldorf",
@@ -3572,35 +4845,23 @@
       "matched_city_ascii": "Dusseldorf",
       "matched_country": "Germany",
       "unesco_score": 6.71,
-      "michelin_score": 7.29
+      "michelin_score": 7.29,
+      "plog_score": 0.7405
     },
     {
-      "destination_city": "Geneva",
-      "destination_country": "Switzerland",
+      "destination_city": "Erbil",
+      "destination_country": "Iraq",
       "trips": 1,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1756810813",
-      "matched_city": "Geneva",
-      "matched_city_ascii": "Geneva",
-      "matched_country": "Switzerland",
-      "unesco_score": 4.58,
-      "michelin_score": 7.66
-    },
-    {
-      "destination_city": "Glasgow",
-      "destination_country": "United Kingdom",
-      "trips": 1,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1826836462",
-      "matched_city": "Glasgow",
-      "matched_city_ascii": "Glasgow",
-      "matched_country": "United Kingdom",
+      "simplemaps_id": "1368578192",
+      "matched_city": "Erbil",
+      "matched_city_ascii": "Erbil",
+      "matched_country": "Iraq",
       "unesco_score": 2.89,
-      "michelin_score": 4.39
+      "michelin_score": 0.0,
+      "plog_score": 0.2975
     },
     {
       "destination_city": "Guayaquil",
@@ -3614,7 +4875,38 @@
       "matched_city_ascii": "Guayaquil",
       "matched_country": "Ecuador",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4718
+    },
+    {
+      "destination_city": "Hamburg",
+      "destination_country": "Germany",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1276041799",
+      "matched_city": "Hamburg",
+      "matched_city_ascii": "Hamburg",
+      "matched_country": "Germany",
+      "unesco_score": 2.89,
+      "michelin_score": 6.53,
+      "plog_score": 0.5623
+    },
+    {
+      "destination_city": "Jakarta",
+      "destination_country": "Indonesia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1360771077",
+      "matched_city": "Jakarta",
+      "matched_city_ascii": "Jakarta",
+      "matched_country": "Indonesia",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.3775
     },
     {
       "destination_city": "Jerusalem",
@@ -3628,7 +4920,8 @@
       "matched_city_ascii": "Jerusalem",
       "matched_country": "Israel",
       "unesco_score": 8.67,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5948
     },
     {
       "destination_city": "Johannesburg",
@@ -3642,7 +4935,23 @@
       "matched_city_ascii": "Johannesburg",
       "matched_country": "South Africa",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6185
+    },
+    {
+      "destination_city": "Kinshasa",
+      "destination_country": "Congo (Kinshasa)",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1180000363",
+      "matched_city": "Kinshasa",
+      "matched_city_ascii": "Kinshasa",
+      "matched_country": "Congo (Kinshasa)",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.3118
     },
     {
       "destination_city": "Knoxville",
@@ -3656,7 +4965,38 @@
       "matched_city_ascii": "Knoxville",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 2.19
+      "michelin_score": 2.19,
+      "plog_score": 0.635
+    },
+    {
+      "destination_city": "Kuala Lumpur",
+      "destination_country": "Malaysia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1458988644",
+      "matched_city": "Kuala Lumpur",
+      "matched_city_ascii": "Kuala Lumpur",
+      "matched_country": "Malaysia",
+      "unesco_score": 2.89,
+      "michelin_score": 6.85,
+      "plog_score": 0.3883
+    },
+    {
+      "destination_city": "Kuching",
+      "destination_country": "Malaysia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1458462262",
+      "matched_city": "Kuching",
+      "matched_city_ascii": "Kuching",
+      "matched_country": "Malaysia",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.2437
     },
     {
       "destination_city": "Kyiv",
@@ -3670,7 +5010,8 @@
       "matched_city_ascii": "Kyiv",
       "matched_country": "Ukraine",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4227
     },
     {
       "destination_city": "Lagos",
@@ -3684,7 +5025,38 @@
       "matched_city_ascii": "Lagos",
       "matched_country": "Nigeria",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4766
+    },
+    {
+      "destination_city": "Managua",
+      "destination_country": "Nicaragua",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1558296252",
+      "matched_city": "Managua",
+      "matched_city_ascii": "Managua",
+      "matched_country": "Nicaragua",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.5492
+    },
+    {
+      "destination_city": "Maputo",
+      "destination_country": "Mozambique",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1508074843",
+      "matched_city": "Maputo",
+      "matched_city_ascii": "Maputo",
+      "matched_country": "Mozambique",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.2526
     },
     {
       "destination_city": "Marrakech",
@@ -3698,7 +5070,8 @@
       "matched_city_ascii": "Marrakech",
       "matched_country": "Morocco",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4187
     },
     {
       "destination_city": "Memphis",
@@ -3712,7 +5085,23 @@
       "matched_city_ascii": "Memphis",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 2.83
+      "michelin_score": 2.83,
+      "plog_score": 0.7148
+    },
+    {
+      "destination_city": "Monrovia",
+      "destination_country": "Liberia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1430477826",
+      "matched_city": "Monrovia",
+      "matched_city_ascii": "Monrovia",
+      "matched_country": "Liberia",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.3659
     },
     {
       "destination_city": "Mumbai",
@@ -3726,7 +5115,23 @@
       "matched_city_ascii": "Mumbai",
       "matched_country": "India",
       "unesco_score": 6.71,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5138
+    },
+    {
+      "destination_city": "Muscat",
+      "destination_country": "Oman",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1512035506",
+      "matched_city": "Muscat",
+      "matched_city_ascii": "Muscat",
+      "matched_country": "Oman",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.4355
     },
     {
       "destination_city": "Nairobi",
@@ -3740,7 +5145,8 @@
       "matched_city_ascii": "Nairobi",
       "matched_country": "Kenya",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.4258
     },
     {
       "destination_city": "Oaxaca",
@@ -3754,7 +5160,8 @@
       "matched_city_ascii": "Oaxaca",
       "matched_country": "Mexico",
       "unesco_score": 4.58,
-      "michelin_score": 5.03
+      "michelin_score": 5.03,
+      "plog_score": 0.3597
     },
     {
       "destination_city": "Oslo",
@@ -3768,7 +5175,8 @@
       "matched_city_ascii": "Oslo",
       "matched_country": "Norway",
       "unesco_score": 0.0,
-      "michelin_score": 5.38
+      "michelin_score": 5.38,
+      "plog_score": 0.6048
     },
     {
       "destination_city": "Panama City",
@@ -3782,21 +5190,8 @@
       "matched_city_ascii": "Panama City",
       "matched_country": "Panama",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
-    },
-    {
-      "destination_city": "Phnom Penh",
-      "destination_country": "Cambodia",
-      "trips": 1,
-      "layover_trips": 0,
-      "match_status": "matched",
-      "match_method": "exact",
-      "simplemaps_id": "1116260534",
-      "matched_city": "Phnom Penh",
-      "matched_city_ascii": "Phnom Penh",
-      "matched_country": "Cambodia",
-      "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6946
     },
     {
       "destination_city": "Puebla",
@@ -3810,7 +5205,8 @@
       "matched_city_ascii": "Puebla",
       "matched_country": "Mexico",
       "unesco_score": 4.58,
-      "michelin_score": 4.28
+      "michelin_score": 4.28,
+      "plog_score": 0.3582
     },
     {
       "destination_city": "Quebec City",
@@ -3824,7 +5220,23 @@
       "matched_city_ascii": "Quebec City",
       "matched_country": "Canada",
       "unesco_score": 2.89,
-      "michelin_score": 5.53
+      "michelin_score": 5.53,
+      "plog_score": 0.5355
+    },
+    {
+      "destination_city": "Reykjavík",
+      "destination_country": "Iceland",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1352327190",
+      "matched_city": "Reykjavík",
+      "matched_city_ascii": "Reykjavik",
+      "matched_country": "Iceland",
+      "unesco_score": 2.89,
+      "michelin_score": 3.64,
+      "plog_score": 0.5342
     },
     {
       "destination_city": "Riyadh",
@@ -3838,7 +5250,8 @@
       "matched_city_ascii": "Riyadh",
       "matched_country": "Saudi Arabia",
       "unesco_score": 2.89,
-      "michelin_score": 5.58
+      "michelin_score": 5.58,
+      "plog_score": 0.4431
     },
     {
       "destination_city": "San Luis Potosi",
@@ -3852,7 +5265,8 @@
       "matched_city_ascii": "San Luis Potosi",
       "matched_country": "Mexico",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.3895
     },
     {
       "destination_city": "Santiago",
@@ -3866,7 +5280,8 @@
       "matched_city_ascii": "Santiago",
       "matched_country": "Chile",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6363
     },
     {
       "destination_city": "Santo Domingo",
@@ -3880,7 +5295,68 @@
       "matched_city_ascii": "Santo Domingo",
       "matched_country": "Dominican Republic",
       "unesco_score": 2.89,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.6431
+    },
+    {
+      "destination_city": "Split",
+      "destination_country": "Croatia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1191440208",
+      "matched_city": "Split",
+      "matched_city_ascii": "Split",
+      "matched_country": "Croatia",
+      "unesco_score": 6.71,
+      "michelin_score": 4.82,
+      "plog_score": 0.3897
+    },
+    {
+      "destination_city": "Tashkent",
+      "destination_country": "Uzbekistan",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1860331871",
+      "matched_city": "Tashkent",
+      "matched_city_ascii": "Tashkent",
+      "matched_country": "Uzbekistan",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.4103
+    },
+    {
+      "destination_city": "Tbilisi",
+      "destination_country": "Georgia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1268203191",
+      "matched_city": "Tbilisi",
+      "matched_city_ascii": "Tbilisi",
+      "matched_country": "Georgia",
+      "unesco_score": 2.89,
+      "michelin_score": 0.0,
+      "plog_score": 0.3141
+    },
+    {
+      "destination_city": "Tehran",
+      "destination_country": "Iran",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1364305026",
+      "matched_city": "Tehran",
+      "matched_city_ascii": "Tehran",
+      "matched_country": "Iran",
+      "unesco_score": 5.78,
+      "michelin_score": 0.0,
+      "plog_score": 0.3492
     },
     {
       "destination_city": "Tel Aviv",
@@ -3894,7 +5370,23 @@
       "matched_city_ascii": "Tel Aviv",
       "matched_country": "Israel",
       "unesco_score": 4.58,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.5531
+    },
+    {
+      "destination_city": "Tripoli",
+      "destination_country": "Libya",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1434201852",
+      "matched_city": "Tripoli",
+      "matched_city_ascii": "Tripoli",
+      "matched_country": "Libya",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.2822
     },
     {
       "destination_city": "Veracruz",
@@ -3908,7 +5400,8 @@
       "matched_city_ascii": "Veracruz",
       "matched_country": "Mexico",
       "unesco_score": 0.0,
-      "michelin_score": 0.0
+      "michelin_score": 0.0,
+      "plog_score": 0.3051
     },
     {
       "destination_city": "Washington, D.C.",
@@ -3922,21 +5415,47 @@
       "matched_city_ascii": "Washington",
       "matched_country": "United States",
       "unesco_score": 0.0,
-      "michelin_score": 7.41
+      "michelin_score": 7.41,
+      "plog_score": 0.8856
     },
     {
-      "destination_city": "Zurich",
-      "destination_country": "Switzerland",
+      "destination_city": "Windhoek",
+      "destination_country": "Namibia",
       "trips": 1,
       "layover_trips": 0,
       "match_status": "matched",
       "match_method": "exact",
-      "simplemaps_id": "1756539143",
-      "matched_city": "Zürich",
-      "matched_city_ascii": "Zurich",
-      "matched_country": "Switzerland",
-      "unesco_score": 2.89,
-      "michelin_score": 8.07
+      "simplemaps_id": "1516802003",
+      "matched_city": "Windhoek",
+      "matched_city_ascii": "Windhoek",
+      "matched_country": "Namibia",
+      "unesco_score": 0.0,
+      "michelin_score": 0.0,
+      "plog_score": 0.3518
+    },
+    {
+      "destination_city": "Yerevan",
+      "destination_country": "Armenia",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "matched",
+      "match_method": "exact",
+      "simplemaps_id": "1051074169",
+      "matched_city": "Yerevan",
+      "matched_city_ascii": "Yerevan",
+      "matched_country": "Armenia",
+      "unesco_score": 4.58,
+      "michelin_score": 0.0,
+      "plog_score": 0.3193
+    },
+    {
+      "destination_city": "Traverse City",
+      "destination_country": "United States",
+      "trips": 35,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
     },
     {
       "destination_city": "Sarasota",
@@ -3993,6 +5512,33 @@
       "simplemaps_id": null
     },
     {
+      "destination_city": "Bozeman",
+      "destination_country": "United States",
+      "trips": 10,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
+      "destination_city": "Raleigh-durham",
+      "destination_country": "United States",
+      "trips": 10,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
+      "destination_city": "Jacksn Hole",
+      "destination_country": "United States",
+      "trips": 9,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
       "destination_city": "Belize City",
       "destination_country": "Belize",
       "trips": 8,
@@ -4020,9 +5566,45 @@
       "simplemaps_id": null
     },
     {
+      "destination_city": "Dallas-Fort Worth",
+      "destination_country": "United States",
+      "trips": 5,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
+      "destination_city": "Milano",
+      "destination_country": "Italy",
+      "trips": 5,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
       "destination_city": "Leon",
       "destination_country": "Mexico",
       "trips": 4,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
+      "destination_city": "Vail",
+      "destination_country": "United States",
+      "trips": 4,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
+      "destination_city": "Aspen",
+      "destination_country": "United States",
+      "trips": 3,
       "layover_trips": 0,
       "match_status": "city_not_in_list",
       "match_method": null,
@@ -4040,6 +5622,15 @@
     {
       "destination_city": "Livingston",
       "destination_country": "United States",
+      "trips": 2,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
+      "destination_city": "Luang Prabang",
+      "destination_country": "Laos",
       "trips": 2,
       "layover_trips": 0,
       "match_status": "city_not_in_list",
@@ -4146,6 +5737,15 @@
       "simplemaps_id": null
     },
     {
+      "destination_city": "Da Lat",
+      "destination_country": "Vietnam",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
       "destination_city": "George Town",
       "destination_country": "Cayman Islands",
       "trips": 1,
@@ -4164,8 +5764,44 @@
       "simplemaps_id": null
     },
     {
+      "destination_city": "Iceland's Ring Road",
+      "destination_country": "Iceland",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
+      "destination_city": "Keflavik",
+      "destination_country": "Iceland",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
+      "destination_city": "Kingstown",
+      "destination_country": "Saint Vincent and the Grenadines",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
       "destination_city": "Leon/Guanajuato",
       "destination_country": "Mexico",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
+      "destination_city": "Montrose CO",
+      "destination_country": "United States",
       "trips": 1,
       "layover_trips": 0,
       "match_status": "city_not_in_list",
@@ -4184,6 +5820,24 @@
     {
       "destination_city": "Oranjestad",
       "destination_country": "Aruba",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
+      "destination_city": "Paro",
+      "destination_country": "Bhutan",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
+      "destination_city": "Penang",
+      "destination_country": "Malaysia",
       "trips": 1,
       "layover_trips": 0,
       "match_status": "city_not_in_list",
@@ -4218,6 +5872,15 @@
       "simplemaps_id": null
     },
     {
+      "destination_city": "Rhine and Rothenburg",
+      "destination_country": "Germany",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
       "destination_city": "Santorini",
       "destination_country": "Greece",
       "trips": 1,
@@ -4238,6 +5901,15 @@
     {
       "destination_city": "St. John's",
       "destination_country": "Canada",
+      "trips": 1,
+      "layover_trips": 0,
+      "match_status": "city_not_in_list",
+      "match_method": null,
+      "simplemaps_id": null
+    },
+    {
+      "destination_city": "Yangon",
+      "destination_country": "Burma",
       "trips": 1,
       "layover_trips": 0,
       "match_status": "city_not_in_list",

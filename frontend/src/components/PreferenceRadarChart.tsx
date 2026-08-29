@@ -8,11 +8,18 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import type { PreferenceAxis } from "../lib/travelerCharts";
+import { PREFERENCE_DIMENSION_COUNT, type PreferenceAxis } from "../lib/travelerCharts";
 
 // A traveler's DESTINATION PREFERENCE PROFILE as a radar/spider chart: one
-// axis per scored dimension (UNESCO, Michelin, weather today -- see
-// preferenceAxes), each 0-1, plotted as a single filled polygon.
+// axis per scored dimension (UNESCO, Michelin, weather, holiday, beachgoer
+// -- see preferenceAxes), each 0-1, plotted as a single filled polygon.
+//
+// TWO KINDS OF NUMBER SHARE THE CHART. The first three axes are means of a
+// destination's quality score; the last two are shares of this traveler's
+// own trips. Both are 0-1 revealed preference, so one polygon is the right
+// picture -- but the tooltip must not describe a proportion as an average,
+// so it reads each axis's `kind` (see PreferenceAxis) rather than printing
+// one sentence for all five.
 //
 // Reuses the .share-bar* classes from StackedShareBar.tsx rather than a
 // parallel set of near-identical rules -- this card sits in the same
@@ -26,9 +33,12 @@ import type { PreferenceAxis } from "../lib/travelerCharts";
 // payload, not every axis at once.
 //
 // MIN_RADAR_AXES = 3 -- found by looking at the picture, not guessed at.
-// weather_score is null far more often than unesco_score/michelin_score
-// (only 1,770 of 3,069 cities have weather normals), so a common real case
-// is exactly 2 present axes. Two points 180 degrees apart don't draw a
+// It is hit less often now that there are five dimensions: the holiday and
+// beachgoer shares are present together or not at all (they share a
+// denominator), so the common shortfall is a Kaggle traveler with NO
+// classifiable trip and no matched city, which drops to zero axes and takes
+// the empty-message path instead. The two-axis case survives for a traveler
+// with a matched city but no airport. Two points 180 degrees apart don't draw a
 // polygon at all -- Recharts renders a single vertical LINE through the
 // center, which reads as a broken chart, not a small one. Below three axes
 // this falls back to plain stat rows instead, the same call EntropyBlock
@@ -52,6 +62,17 @@ function formatTrips(value: number): string {
   return `${value} ${value === 1 ? "trip" : "trips"}`;
 }
 
+// "avg over 5 trips" for a mean; "3 of 5 trips" for a share. The share's
+// numerator is reconstructed as value * trips -- both come from the same
+// integer division server-side, so this rounds back to that integer
+// exactly rather than approximating it.
+function describeAxis(axis: PreferenceAxis): string {
+  if (axis.kind === "share") {
+    return `${Math.round(axis.value * axis.trips)} of ${formatTrips(axis.trips)}`;
+  }
+  return `avg over ${formatTrips(axis.trips)}`;
+}
+
 function TooltipContent({ active, payload }: { active?: boolean; payload?: { payload?: PreferenceAxis }[] }) {
   const axis = active && payload && payload.length ? payload[0].payload : undefined;
   if (!axis) return null;
@@ -59,7 +80,7 @@ function TooltipContent({ active, payload }: { active?: boolean; payload?: { pay
     <div className="share-bar-tooltip">
       <strong>{axis.label}</strong>
       <span>
-        {formatPercent01(axis.value)} · avg over {formatTrips(axis.trips)}
+        {formatPercent01(axis.value)} · {describeAxis(axis)}
       </span>
     </div>
   );
@@ -107,7 +128,8 @@ export default function PreferenceRadarChart({ title, axes, caption, emptyMessag
           ))}
         </ul>
         <p className="share-bar-caption">
-          Only {axes.length} of 3 dimensions have a scored trip to average, too few to draw a shape. {caption}
+          Only {axes.length} of {PREFERENCE_DIMENSION_COUNT} dimensions have anything to
+          measure, too few to draw a shape. {caption}
         </p>
       </section>
     );

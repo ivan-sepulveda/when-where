@@ -213,33 +213,68 @@ export function domesticInternationalBreakdown(traveler: TravelerDetail): ShareB
 // likely to be missing alone (only 1,770 of 3,069 cities have weather
 // normals).
 export interface PreferenceAxis {
-  key: "unesco" | "michelin" | "weather";
+  key: "unesco" | "michelin" | "weather" | "holiday" | "beach" | "allocentric";
   label: string;
   value: number; // 0-1
-  trips: number; // how many trips this mean was computed over
+  trips: number; // the denominator this was computed over
+  // The two kinds of number on this chart. "mean" is the average of a
+  // destination's 0-10 quality score across the trips that HAVE one --
+  // "how much UNESCO is where this person goes". "share" is the fraction
+  // of this person's classifiable trips carrying a classify_trip tag --
+  // "how much of this person's travel is a beach holiday".
+  //
+  // They coexist on one radar because both are 0-1 revealed preference
+  // read off the same trip history. They are kept distinguishable because
+  // the tooltip must not call a proportion an average: "60% avg over 5
+  // trips" is a different claim from "60% -- 3 of 5 trips", and only the
+  // second one is true of a share.
+  kind: "mean" | "share";
 }
 
 const PREFERENCE_AXIS_LABELS: Record<PreferenceAxis["key"], string> = {
   unesco: "UNESCO",
   michelin: "Michelin",
   weather: "Weather",
+  holiday: "Holiday",
+  beach: "Beachgoer",
+  allocentric: "Allocentric",
 };
+
+// How many dimensions a complete profile has. Exported so the chart can say
+// "only N of M" without hardcoding a number that goes stale the next time a
+// dimension is added -- which is exactly what happened to the "of 3" copy.
+export const PREFERENCE_DIMENSION_COUNT = 6;
 
 export function preferenceAxes(
   preferences: TravelerPreferences | null | undefined,
 ): PreferenceAxis[] {
   if (!preferences) return [];
-  const raw: [PreferenceAxis["key"], number | null, number][] = [
-    ["unesco", preferences.unesco, preferences.unesco_trips],
-    ["michelin", preferences.michelin, preferences.michelin_trips],
-    ["weather", preferences.weather, preferences.weather_trips],
+  const raw: [PreferenceAxis["key"], number | null, number, PreferenceAxis["kind"]][] = [
+    ["unesco", preferences.unesco, preferences.unesco_trips, "mean"],
+    ["michelin", preferences.michelin, preferences.michelin_trips, "mean"],
+    ["weather", preferences.weather, preferences.weather_trips, "mean"],
+    ["holiday", preferences.holiday, preferences.holiday_trips, "share"],
+    ["beach", preferences.beach, preferences.beach_trips, "share"],
+    // ONE AXIS, NOT TWO. Plog's psychocentric and allocentric poles always
+    // sum to 1, and a radar's spokes read as independent dimensions --
+    // plotting both would draw one fact twice and hand every traveler a
+    // symmetry that comes from the encoding rather than from their trips.
+    // The allocentric pole is the one plotted because the other axes all
+    // read "more is more of a trait", and because most travel goes to
+    // well-connected places, so a polygon that reaches out here is saying
+    // something unusual.
+    ["allocentric", preferences.allocentric, preferences.allocentric_trips, "mean"],
   ];
   return raw
-    .filter((entry): entry is [PreferenceAxis["key"], number, number] => typeof entry[1] === "number")
-    .map(([key, value, trips]) => ({
+    .filter(
+      (entry): entry is [PreferenceAxis["key"], number, number, PreferenceAxis["kind"]] =>
+        typeof entry[1] === "number",
+    )
+    .map(([key, value, trips, kind]) => ({
       key,
       label: PREFERENCE_AXIS_LABELS[key],
       value,
       trips,
+      kind,
     }));
 }

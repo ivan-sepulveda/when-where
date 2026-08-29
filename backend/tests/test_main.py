@@ -1112,7 +1112,7 @@ class TestTravelers:
             detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
             prefs = detail["preferences"]
             assert prefs is not None, summary["traveler_id"]
-            for dim in ("unesco", "michelin", "weather"):
+            for dim in ("unesco", "michelin", "weather", "holiday", "beach", "allocentric"):
                 value = prefs[dim]
                 trips = prefs[f"{dim}_trips"]
                 assert trips >= 0, summary["traveler_id"]
@@ -1173,7 +1173,8 @@ class TestTravelers:
             if not layover_trips:
                 continue
             prefs = detail["preferences"]
-            for dim, key in (("unesco", "unesco_score"), ("michelin", "michelin_score"), ("weather", "weather_score")):
+            for dim, key in (("unesco", "unesco_score"), ("michelin", "michelin_score"),
+                             ("weather", "weather_score"), ("allocentric", "plog_score")):
                 non_layover_scores = [
                     t[key] for t in detail["trips"] if not t.get("layover") and t.get(key) is not None
                 ]
@@ -1206,6 +1207,155 @@ class TestTravelers:
 
         if not found:
             pytest.skip("no single-trip traveler with an all-null profile in this checkout")
+
+    def test_allocentric_is_the_flipped_mean_of_the_trips_plog_scores(self, client):
+        # plog_score is served on the trip as the PSYCHOCENTRIC pole; the
+        # profile axis is the ALLOCENTRIC one. Recompute the flip from this
+        # same response to catch the axis ever being served un-flipped --
+        # which would be a plausible-looking number pointing the wrong way,
+        # the hardest kind of error to notice by eye.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        checked = 0
+        for summary in body["travelers"][:40]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            prefs = detail["preferences"]
+            scores = [
+                t["plog_score"] for t in detail["trips"]
+                if not t.get("layover") and t.get("plog_score") is not None
+            ]
+            assert prefs["allocentric_trips"] == len(scores), summary["traveler_id"]
+            if not scores:
+                assert prefs["allocentric"] is None, summary["traveler_id"]
+                continue
+            expected = sum(1.0 - s for s in scores) / len(scores)
+            assert prefs["allocentric"] == pytest.approx(expected, abs=1e-3), summary["traveler_id"]
+            assert 0.0 <= prefs["allocentric"] <= 1.0, summary["traveler_id"]
+            checked += 1
+
+        if checked == 0:
+            pytest.skip("no traveler in this checkout has a scored destination")
+
+    def test_only_one_plog_pole_is_served(self, client):
+        # Plog is a single continuum: psychocentric == 1 - allocentric. If a
+        # second field ever appears, the radar will grow a spoke that draws
+        # the same fact twice and gives every traveler a symmetry that comes
+        # from the encoding rather than their trips.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        summary = body["travelers"][0]
+        prefs = client.get(f"/api/travelers/{summary['traveler_id']}").json()["preferences"]
+        assert "allocentric" in prefs
+        assert "psychocentric" not in prefs, (
+            "serving both poles invites plotting both -- they always sum to 1"
+        )
+
+    def test_holiday_and_beach_shares_match_the_traveler_own_tagged_trips(self, client):
+        # Recompute both shares from this same response's trips and check
+        # them against the served block -- same "don't trust the rollup"
+        # shape as the UNESCO/Michelin/weather test above. The denominator
+        # here is CLASSIFIABLE trips (destination airport + both dates),
+        # which is what classify_trip.tag_trips itself requires, not
+        # trip_count.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        checked = 0
+        for summary in body["travelers"][:40]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            prefs = detail["preferences"]
+            classifiable = [
+                t for t in detail["trips"]
+                if not t.get("layover")
+                and t.get("destination_airport") and t.get("start_date") and t.get("end_date")
+            ]
+            for dim, kind in (("holiday", "holiday_trip"), ("beach", "beach_vacation")):
+                assert prefs[f"{dim}_trips"] == len(classifiable), (summary["traveler_id"], dim)
+                if not classifiable:
+                    assert prefs[dim] is None, (summary["traveler_id"], dim)
+                    continue
+                tagged = sum(
+                    1 for t in classifiable
+                    if any(tag["kind"] == kind for tag in (t.get("tags") or []))
+                )
+                expected = tagged / len(classifiable)
+                assert prefs[dim] == pytest.approx(expected, abs=1e-3), (summary["traveler_id"], dim)
+                checked += 1
+
+        if checked == 0:
+            pytest.skip("no traveler in this checkout has a classifiable trip")
+
+    def test_a_traveler_with_no_classifiable_trip_gets_null_shares_not_zero(self, client):
+        # THE POINT OF THE NULL. 124 of this dataset's travelers are Kaggle
+        # rows whose trips carry no destination airport, so classify_trip
+        # never saw them. Dividing tagged-trips by trip_count would hand
+        # every one of them a confident beach = 0.0 -- reading a missing
+        # airport as evidence about their taste. They must read as "no
+        # data" instead, exactly like an unmatched city does for UNESCO.
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        found = False
+        for summary in body["travelers"]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            trips = detail["trips"]
+            if not trips:
+                continue
+            if any(
+                t.get("destination_airport") and t.get("start_date") and t.get("end_date")
+                for t in trips if not t.get("layover")
+            ):
+                continue
+            prefs = detail["preferences"]
+            assert prefs["holiday"] is None, summary["traveler_id"]
+            assert prefs["beach"] is None, summary["traveler_id"]
+            assert prefs["holiday_trips"] == 0, summary["traveler_id"]
+            assert prefs["beach_trips"] == 0, summary["traveler_id"]
+            found = True
+            break
+
+        if not found:
+            pytest.skip("every traveler in this checkout has a classifiable trip")
+
+    def test_a_zero_share_is_kept_when_the_trips_were_classifiable(self, client):
+        # The mirror image of the test above, and the reason the two can't
+        # be collapsed: a traveler with classifiable trips and no beach tag
+        # has beach == 0.0, which is a real measurement and must NOT be
+        # nulled. Getting this wrong in the other direction would erase the
+        # difference between "never goes" and "we can't tell".
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"]:
+            pytest.skip("travelers.json not generated in this checkout")
+
+        found = False
+        for summary in body["travelers"]:
+            detail = client.get(f"/api/travelers/{summary['traveler_id']}").json()
+            classifiable = [
+                t for t in detail["trips"]
+                if not t.get("layover")
+                and t.get("destination_airport") and t.get("start_date") and t.get("end_date")
+            ]
+            if not classifiable:
+                continue
+            if any(
+                any(tag["kind"] == "beach_vacation" for tag in (t.get("tags") or []))
+                for t in classifiable
+            ):
+                continue
+            prefs = detail["preferences"]
+            assert prefs["beach"] == 0.0, summary["traveler_id"]
+            assert prefs["beach_trips"] == len(classifiable), summary["traveler_id"]
+            found = True
+            break
+
+        if not found:
+            pytest.skip("every traveler with classifiable trips has a beach trip")
 
     def test_traveler_ids_are_unique_and_url_safe(self, client):
         body = client.get("/api/travelers").json()

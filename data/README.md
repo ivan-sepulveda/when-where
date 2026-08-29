@@ -2760,6 +2760,207 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   ```
   Run it **before** `build_trips_enhanced.py`.
 
+### Canadian Thanksgiving travelers (`scripts/multiple/build_raccoons_trips.py`)
+
+- **Source:** authored for this project — no external dataset. Three
+  Canadians living in US cities who fly home to Toronto for Canadian
+  Thanksgiving every year: Bert Raccoon (New York/JFK), Ralph Raccoon (Los
+  Angeles/LAX), Melissa Raccoon (Miami/MIA). 5 years each (2021–2025), 15
+  trips, all on Air Canada.
+- **Why they exist:** `classify_trip.py` tests a trip against the
+  *destination country's own* Thanksgiving, and nothing in the dataset
+  exercised the Canadian half. Of 62 existing Canada trips, exactly two touch
+  October and **both miss** the holiday (23–28 Oct 2019; 6–11 Oct 2025, which
+  misses by two days). The rule was correct and completely untested.
+- **The dates are derived, not typed.** The trip window is computed from
+  `classify_trip._canadian_thanksgiving_dates()` — the same function the
+  classifier tests against — so these trips cannot drift from the rule they
+  exist to exercise. `build_rows()` asserts the holiday really falls inside
+  each trip, and that it resolved to a Monday.
+- **Nationality is Canadian, bases are American**, which is the point: the
+  pattern only makes sense as expatriates going home, and it's what
+  distinguishes the Canadian date from the American one.
+- **Routes are real:** Air Canada serves JFK/LAX/MIA→YYZ in
+  `airline_routes_enhanced.csv`; the build raises rather than warns if it
+  ever doesn't.
+- **Run:**
+  ```
+  python scripts/multiple/build_raccoons_trips.py
+  ```
+  Run it **before** `build_trips_enhanced.py`.
+
+### European summer travelers (`scripts/multiple/build_dickens_trips.py`)
+
+- **Source:** authored for this project — no external dataset. Fourteen
+  Dickens characters, all American, all based in New York City, each taking
+  one long European summer holiday a year, 2021–2025. **70 trips**, 10–15
+  nights each, all in June/July/August.
+- **Why they exist:** transatlantic leisure travel was thin in the dataset,
+  and what there was clustered on London and Paris. This cohort reaches 25
+  European cities across 11 countries.
+- **Direct flights only, and that is the binding constraint.** Every trip is
+  a nonstop from JFK or EWR on the named carrier, verified against
+  `airline_routes_enhanced.csv`; `check_routes()` raises rather than warns.
+  All 70 legs passed on the first attempt. **LGA has no transatlantic
+  service in the route data at all**, so nobody departs from it.
+- **Palermo and Malaga were requested and are deliberately absent.** Neither
+  has a nonstop from JFK or EWR anywhere in the route data. Inventing the
+  route, or quietly connecting through a hub, would have broken the rule the
+  rest of the file keeps. Everything else asked for is here: Barcelona,
+  Nice, Lisbon, Porto, Paris, Madrid, Milan, Rome.
+- **One carrier per traveler, cities rotating.** Each person keeps one
+  airline across all five summers but goes somewhere different each year —
+  loyalty to a carrier, not to a city. Five trips at 100% is exactly
+  `LOYALIST_MIN_TRIPS`, so all fourteen are tagged loyalists, including the
+  project's first **British Airways** and **TAP** loyalists. Every rotation
+  was picked from what that carrier actually flies from that airport, so the
+  itineraries differ in shape: the JFK carriers reach Athens and Nice, the
+  EWR ones reach Bilbao, Porto and the smaller UK and German cities. TAP
+  flies EWR to exactly two places, so Abel Magwitch alternates Lisbon and
+  Porto.
+- **Country codes come from an explicit table**, not from inference. The
+  inference used elsewhere in this project is known to mis-assign some rows
+  (it takes a journey's foreign country rather than the leg's arrival
+  country), and a silently wrong code is worse than a build that refuses to
+  run. `check_routes()` raises if a destination country has no entry.
+- **Summer is asserted, not assumed.** A 15-night trip departing in late
+  August can walk out of summer unnoticed, so `build_rows()` raises unless
+  both the start and end month are in `SUMMER_MONTHS`, and unless the length
+  is inside the requested 10–15 nights.
+- **Rose and Harry Maylie marry at the end of the novel and travel
+  together** — same airport, carrier, cities and dates, two rows. As with
+  the Pollys in `build_wells_trips.py`, that is a couple's flight history,
+  not a duplication bug.
+- **34 trips are tagged `Beach Vacation`, and 8 of those are wrong.**
+  London (5) and Brussels (1) and London City (2) clear all three rules —
+  LHR is 65 km from shore, 75 km from the nearest beach, and averages
+  24.5 °C daily highs in June — so `NEAR_BEACH_KM = 100` lets a
+  fundamentally inland city qualify. The other 26 (Barcelona, Nice, Lisbon,
+  Porto, Rome, Venice, Athens) are correct. See the `classify_trip.py`
+  section on the beach rule; this cohort makes the threshold problem much
+  more visible than the earlier Orlando case did.
+- **Output:** `processed/multiple/dickens_traveler.json` (merged by
+  `build_trips_enhanced.py` via `SYNTHETIC_SOURCES`) plus
+  `processed/multiple/dickens_trips.csv`.
+- **Run:**
+  ```
+  python scripts/multiple/build_dickens_trips.py
+  ```
+  Run it **before** `build_trips_enhanced.py`.
+
+### United hub Christmas travelers (`scripts/multiple/build_wells_trips.py`)
+
+- **Source:** authored for this project — no external dataset. Ten H.G. Wells
+  characters, all American, each based at a United hub and flying home for
+  Christmas in each of 2021–2025. **50 trips**, all on United.
+- **Why they exist:** a clean single-carrier, single-hub signal. One holiday,
+  one route, one carrier, five years per person — 5 trips each is exactly
+  `LOYALIST_MIN_TRIPS`, at 100% United, so all ten come back **United
+  Loyalist**. All seven mainland United hubs are represented.
+- **The hub claim is checked, not asserted.** `check_hubs()` reads
+  `compute_traveler_tags.AIRLINE_HUBS['United']` and raises unless each
+  `base_city` is spelled the way that table spells it *and* the origin is
+  that city's United hub airport. The table is keyed by city **string**, so
+  `"Newark"` reads as a different place from `"New York City"` and silently
+  earns no hub chip — which is exactly what happens to Robert Cohn in
+  `build_hemingway_trips.py`. This cohort cannot fall into that hole.
+- **Seven of the ten are tagged `Multi Hub`, not `United Hub`, and that is
+  the rule working correctly.** Only San Francisco, Houston and Denver are
+  United-exclusive hub cities; Chicago, Washington and Los Angeles are also
+  American hubs, and New York City is a hub for United, Delta *and*
+  American. Rule 2 in `compute_traveler_tags.py` tags a city that serves two
+  or more airlines `Multi Hub` regardless of who the traveler actually flies.
+  Changing that — say, breaking the tie toward the traveler's own loyalty
+  carrier — would be a change to the rule, not to this cohort.
+- **The Christmas window (Dec 22–27) is checked against the classifier.**
+  `build_rows()` raises if the span covers no day in
+  `classify_trip.CHRISTMAS_DAYS`, and if the destination country is not in
+  `CHRISTMAS_COUNTRIES`. All 50 trips are tagged `Holiday Trip`.
+- **Alfred and Miriam Polly deliberately share an itinerary** — married,
+  same hub, same route, same dates, two rows. That is what a couple's flight
+  history looks like, not a duplication bug.
+- **Routes are real:** every origin→destination is served by United in
+  `airline_routes_enhanced.csv`; `check_routes()` raises rather than warns.
+  All ten passed on the first attempt.
+- **Output:** `processed/multiple/wells_traveler.json` (merged by
+  `build_trips_enhanced.py` via `SYNTHETIC_SOURCES`) plus
+  `processed/multiple/wells_trips.csv`.
+- **Run:**
+  ```
+  python scripts/multiple/build_wells_trips.py
+  ```
+  Run it **before** `build_trips_enhanced.py`.
+
+### US holiday travelers (`scripts/multiple/build_hemingway_trips.py`)
+
+- **Source:** authored for this project — no external dataset. Fourteen
+  Hemingway characters, all American per the brief (including several the
+  novels make British, Scottish, Italian or Spanish), each travelling for
+  two or three US holidays every year, plus Thanksgiving and Christmas,
+  2021–2025. **285 trips.**
+- **Why they exist:** the dataset's holiday travel was almost entirely
+  Thanksgiving and Christmas. The seven other American holidays people
+  actually fly for — Memorial Day, Mother's Day, Juneteenth, Father's Day,
+  Independence Day, Labor Day, Columbus Day — had no signal at all. Every
+  one of the seven is now covered by at least three travelers.
+- **Thanksgiving and Christmas work differently from the other seven, on
+  purpose.** The seven are a *signature*: two or three per person, so no two
+  travelers keep the same calendar. Thanksgiving and Christmas are a
+  *constant*: every traveler flies to the same single "home" airport for
+  both, every year — which is the shape those two holidays actually have.
+  That is why `home` is its own field rather than two more rows in `trips`;
+  folding it in would have hidden the pattern. 70 + 70 trips.
+- **`itinerary()` is the only place a traveler's year is expanded.** Both
+  `check_routes()` and `build_rows()` go through it, so a route can never be
+  validated and then not built, or built without being validated.
+- **Holiday dates come from three different places, deliberately:**
+  - **Memorial, Labor and Columbus Day** from pandas'
+    `USFederalHolidayCalendar`. They are nth-weekday rules and never shift,
+    so the calendar's date is the real one.
+  - **Independence Day and Juneteenth** as literal Jul 4 / Jun 19, *not*
+    from that calendar. The calendar reports the **observed** federal
+    holiday, which slides to the Friday or Monday when the date falls on a
+    weekend — that is when offices shut, not when the barbecue happens.
+  - **Mother's and Father's Day** computed here (2nd Sunday of May, 3rd
+    Sunday of June). They are not federal holidays and are not in the
+    calendar at all.
+  - **Thanksgiving** from `classify_trip._us_thanksgiving_dates()` — derived,
+    not typed, the same discipline as `build_raccoons_trips.py`, so these
+    trips cannot drift from the rule they exist to exercise. **Christmas** is
+    literal Dec 25; the window is Dec 22–27.
+- **The Christmas window is asserted against the classifier, not eyeballed.**
+  Containing Dec 25 is not sufficient — `classify_trip.CHRISTMAS_DAYS` counts
+  Dec 24 *or* 25, and a window straddling neither would build cleanly and then
+  silently fail to tag. `build_rows()` raises if the span covers no day in
+  `CHRISTMAS_DAYS`.
+- **No traveler can be in two places at once.** `build_rows()` sorts each
+  traveler's trips and raises if any two windows overlap. This is not
+  theoretical: Krebs originally held Father's Day *and* Juneteenth, and the
+  third Sunday of June is always within days of Jun 19, so his two windows
+  collided in every year. His Father's Day leg is now Memorial Day.
+- **Routes are real:** every (origin, destination, carrier) appears in
+  `airline_routes_enhanced.csv`; `check_routes()` raises rather than warns.
+  Five first-choice routes did not exist (EWR→MVY, BOS→PWM, LGA→TVC,
+  SAT→ABQ, OKC→MCI) and were replaced with verified alternatives.
+- **The Thanksgiving and Christmas trips ARE tagged `Holiday Trip`; the
+  other seven holidays are NOT.** `classify_trip.py` only knows Thanksgiving
+  and Christmas — it has no rule for Memorial Day, Mother's Day, Juneteenth,
+  Father's Day, Independence Day, Labor Day or Columbus Day, so those 145
+  trips carry no holiday tag. All 140 Thanksgiving/Christmas trips do.
+  Extending the classifier to the other seven is the obvious follow-on.
+- **Ten trips carry two tags**, all Pedro Romero's: Miami over Thanksgiving
+  and Christmas clears the 23 °C daily-high floor, so those are
+  `Beach Vacation` *and* `Holiday Trip`. That is intended — a trip can be
+  more than one thing.
+- **Output:** `processed/multiple/hemingway_traveler.json` (merged by
+  `build_trips_enhanced.py` via `SYNTHETIC_SOURCES`) plus a readable
+  `processed/multiple/hemingway_trips.csv` keyed by holiday.
+- **Run:**
+  ```
+  python scripts/multiple/build_hemingway_trips.py
+  ```
+  Run it **before** `build_trips_enhanced.py`.
+
 ### Lord Rymel flight log (`scripts/multiple/build_rymel_trips.py`)
 
 - **Source:** a supplied flight log — date, flight number and airport pair
@@ -2813,6 +3014,153 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   ```
   Run it **before** `build_trips_enhanced.py`.
 
+### Plog psychocentric-allocentric scale (`scripts/multiple/plog_categorize.py`)
+
+- **What it does:** `plog_categorize("Paris")` → `(0.9874, 0.0126)`. Takes a
+  city, a country or an IATA code and returns
+  `(psychocentric, allocentric)`, both 0–1.
+- **One axis, two numbers.** Plog's scale is a single continuum, so the pair
+  always sums to 1.0 — allocentric is `1 - psychocentric`. It is returned as
+  a tuple because that is the requested shape, not because the two poles are
+  measured independently.
+- **The scores are PERCENTILE RANKS WITHIN KIND**, not absolute quantities. A
+  city is ranked against the other 3,068 cities, a country against other
+  countries, an airport against the 3,704 airports that have at least one
+  scheduled route. `0.99` means "more psychocentric than 99% of cities",
+  which the data supports; "99% psychocentric" is not a claim it can make.
+  **Comparing a city's number with a country's is meaningless** — Algeria the
+  country scores 0.46 while Algiers airport scores 0.61, because the
+  reference populations differ.
+- **What is measured**, since nothing here observes traveler personality —
+  Plog's construct is a property of people, and destinations only acquire a
+  position second-hand:
+
+  | signal | weight | source |
+  | --- | --- | --- |
+  | us_access | 0.45 | distinct **US** airports with a nonstop, and carriers flying them |
+  | connectivity | 0.35 | distinct carriers and nonstop routes worldwide, log-scaled |
+  | scale | 0.10 | city / country population |
+  | friction | 0.10 | FCDO advisory (`travel_advisories.json`) |
+
+- **`us_access` is the largest weight because familiarity is relative to the
+  market you leave from**, and every traveler in this dataset is American. It
+  is directional: what counts is whether an American can reach the place
+  without connecting. Global connectivity is kept at 0.35 to carry the
+  ordering among the two thirds of destinations with **no** US nonstop at
+  all, where `us_access` is flat zero and Bali and the Seychelles would
+  otherwise be indistinguishable.
+- **THIS SCALE IS AMERICAN, and that is a choice.** Bali reads as far more
+  allocentric here than it would to an Australian. The file should not be
+  reused for a non-US population without revisiting that weight.
+- **Carriers are weighted above raw routes** (0.6/0.4) in both connectivity
+  terms: forty routes on one flag carrier is a thinner kind of access than
+  forty on twenty airlines. Counts are `log1p`-scaled — untransformed, JFK's
+  25× lead over the Seychelles would swamp every other difference.
+- **Friction is deliberately small.** 73 countries carry an FCDO notice and
+  they are not all remote: Mexico does, and Cancun is psychocentric by every
+  other measure.
+
+#### The Honolulu / Buenos Aires correction (v2)
+
+The first version scored **Honolulu 0.54 allocentric** and **Buenos Aires
+0.14** — both backwards, caught by Ivan on the trip cards. Two causes:
+
+- **Michelin was worth 0.25 and pointed the wrong way.** The Guide does not
+  publish in Hawaii, so Honolulu scored 0 restaurants and forfeited a quarter
+  of the scale outright; it launched in Argentina in 2023, so Buenos Aires
+  scored 50 and collected nearly all of it. The signal measures where
+  Michelin publishes, which is not where Americans go. **Dropped from the
+  scoring entirely** — `explain()` still reports the count for diagnosis, but
+  it carries no weight. This was flagged as a risk when the file was written
+  and then fired exactly as described.
+- **Population was worth 0.20 and measures the wrong thing.** Buenos Aires
+  has 14M people and Honolulu 345k, which says nothing about how many
+  Americans have been to either. Cut to 0.10.
+
+`us_access` gets it right for the same reason the old signals got it wrong:
+Honolulu has nonstops from **29 US airports on 13 carriers**, Buenos Aires
+from **7 on 6**. Hawaii is a domestic flight; Argentina is a long-haul almost
+nobody in this dataset takes. Result: Honolulu 0.28, Buenos Aires 0.34.
+
+**Normalisation changed too, and had to.** Scores were percentile ranks;
+two thirds of cities have no US nonstop, so the rank of *any* non-zero
+`us_access` started at 0.65 and the whole meaningful range was squeezed into
+the top third — Honolulu's 29 origins ranked 0.94 and Buenos Aires' 7 ranked
+0.82, a gap of 0.12 standing in for a four-fold difference. It is now
+**min-max on the log value** (0.67 vs 0.46), which keeps the gap. The cost is
+that one extreme destination sets the top of the scale; `log1p` upstream is
+what keeps that from mattering.
+- **`PEAK_TOURISM_INDICATOR_BY_COUNTRY.csv` is deliberately unused**, though
+  real passenger volume would be the ideal signal. It covers 49 countries and
+  Algeria, Sudan and the Seychelles are not among them; its coverage tracks
+  the aviation statistics source, not tourism, so reading an absence as
+  evidence of remoteness would be inventing data.
+- **Unknown places raise `LookupError`**, they do not return a neutral
+  `(0.5, 0.5)` — that would be an invented answer.
+- **Alias resolution runs before the airport branch**, because some aliases
+  collide with real IATA codes: `USA` is Concord Regional in North Carolina,
+  and someone typing "USA" means the country every time.
+- **KNOWN LIMITATION — a low score means "few visitors", which is not the
+  same as "adventurous".** Plog's allocentric pole means adventurous
+  travellers go there; this scale cannot tell that apart from nobody going
+  at all. Bhutan (0.15) is genuinely allocentric; Divinópolis, Brazil (0.011)
+  is just a city that is not a destination. Both read as allocentric.
+- **KNOWN LIMITATION — population still penalises purpose-built resorts**,
+  which are the archetypal psychocentric case, though far less at 0.10 than
+  at the old 0.20.
+- **The worked examples are an executable self-check**, not a comment:
+  `ALLOCENTRIC_EXAMPLES` (Algeria, Sudan, Seychelles) must all score below
+  `PSYCHOCENTRIC_EXAMPLES` (Milan, Paris, New York City, Cancun), and
+  `ORDERING_EXAMPLES` pins pairwise judgements the absolute lists cannot
+  express — **Honolulu must outrank Buenos Aires**, which is the v1 mistake
+  kept executable so it cannot come back quietly. `python
+  plog_categorize.py` exits non-zero if any of it stops holding.
+- **Seven examples were not enough.** v1 passed its self-check on all seven
+  and was still wrong about Honolulu and Buenos Aires, because every example
+  was an extreme — the failure was in the middle of the range, where nothing
+  was pinned. The ordering pairs exist to cover that.
+- **Wired into the traveler profile as the `Allocentric` axis.**
+  `match_trip_cities.py` imports `psychocentric_for_city_id()` and writes a
+  `plog_score` onto every matched destination, alongside `unesco_score` and
+  `michelin_score`; the API serves it per trip as `plog_score` and averages
+  it into `preferences.allocentric`. The lookup goes by `simplemaps_id`
+  rather than city name — both files are built on that key, so it cannot
+  drift over accents ("Cancun" vs "Cancún"). 181 of 181 matched destinations
+  score.
+- **ONLY ONE POLE IS SERVED, and that is deliberate.** Psychocentric and
+  allocentric always sum to 1. A radar chart's spokes are read as
+  independent dimensions, so plotting both would draw one fact twice and
+  hand every traveler a symmetry that is an artefact of the encoding rather
+  than anything about their trips. The API exposes `allocentric` only, and a
+  test asserts no `psychocentric` field appears beside it. The allocentric
+  pole is the one kept because every other axis reads "more is more of a
+  trait", and because most travel goes to well-connected places — a polygon
+  that reaches out here is saying something unusual.
+- **It shows on the trip cards too**, as a fourth labelled number beside
+  UNESCO / Michelin / Weather — `Denpasar, Indonesia … Allocentric 0.50`.
+  Two things make that row worth care: the card shows the **allocentric**
+  pole while the API serves the **psychocentric** one, so `1 - plog_score`
+  happens in exactly one place (`tripDestinationScores`) and is pinned by a
+  test — served un-flipped, Paris would read as the most adventurous
+  destination in the dataset, which is a completely plausible-looking number
+  pointing backwards. And the row now mixes scales: three scores are 0–10
+  and this one is 0–1, so `TripDestinationScore` carries a `scale` field and
+  each score's tooltip names its range. `Allocentric 0.23` beside `UNESCO
+  2.89` otherwise reads as a very low score out of ten.
+- **The axis is compressed low, and that is a true fact about this data.**
+  Everyone flies scheduled airlines to cities big enough to be in
+  `tourist_cities.json`, which is close to the definition of psychocentric
+  travel. Across 244 scored travelers the median is **0.238**, min 0.050,
+  max 0.682 — so the axis sits in the lower half for nearly every traveler
+  and will look short on most radars. (v1 read 0.153 / 0.010 / 0.566; the v2
+  correction lifted the whole distribution, since dropping Michelin stopped
+  penalising every destination the Guide does not cover.)
+- **Run:**
+  ```
+  python scripts/multiple/plog_categorize.py            # self-check
+  python scripts/multiple/plog_categorize.py Paris ALG  # score places, with components
+  ```
+
 ### Trip tags (`scripts/multiple/classify_trip.py`)
 
 - **What it is:** per-TRIP classifiers, run over every trip by
@@ -2825,6 +3173,49 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 - **`Ski Trip`** — ≥80% of the trip's calendar days fall inside the arrival
   airport's ski season (`SKI_SEASONS`, MM-DD windows that wrap the new year;
   southern-hemisphere seasons don't wrap and work without a special case).
+- **`Holiday Trip`** — either of:
+  - **Thanksgiving** falls inside the trip's dates, measured against the
+    **destination country's own date**. The US observes it on the fourth
+    Thursday of November (from pandas' `USFederalHolidayCalendar`); Canada on
+    the **second Monday of October**, six weeks earlier. Each country is
+    tested against its own: Toronto over Canadian Thanksgiving qualifies, New
+    York over the American one qualifies, and neither counts on the other's
+    date. The Canadian date is computed (a fixed nth-weekday rule, so exact)
+    rather than looked up — pandas' calendar is the US federal one and has no
+    Canadian holidays in it.
+  - **December 24 or 25** falls inside the trip's dates and the destination
+    is in `CHRISTMAS_COUNTRIES`. Both days, because Christmas Eve is the main
+    celebration across much of that list — Germany, the Nordics, Poland, most
+    of Latin America — and because a trip arriving on the 24th and leaving on
+    the 25th would otherwise fall through the gap between them. On the
+    current data this changes nothing: 144 trips touch both days, none touches
+    only the 24th. It matters for the cases that haven't appeared yet.
+  - The Christmas dates are literal, *not* from the federal calendar.
+    Thanksgiving never shifts (it's defined as a Thursday) so the calendar's
+    date is the real one; Christmas does — in 2027 Dec 25 is a Saturday and
+    the calendar reports Friday the 24th, which is when offices shut, not
+    when anyone sits down to dinner. The 24th is covered here on its own
+    merits, not as a side effect of an observance rule that also shifts
+    Christmas to the 26th in other years.
+  - `CHRISTMAS_COUNTRIES` is **hand-maintained and worth reviewing** — a
+    judgement per country, not a fetched dataset. It covers the 95
+    destination countries currently in the data; anything absent fails safe
+    (untagged). Excluded because Dec 25 isn't a public holiday: Japan, China
+    (mainland — Hong Kong is included), Thailand, Vietnam, Turkey, Israel,
+    Saudi Arabia, UAE, Qatar, Oman, Iran, Libya, Morocco, Cambodia, Laos,
+    Bhutan, Taiwan, Uzbekistan. Excluded because Christmas is observed on
+    **another date**: Russia, Georgia (Jan 7), Armenia (Jan 6), Egypt and
+    Ethiopia (Jan 7). Those five are the likeliest to be wrong for your
+    purposes — the country plainly celebrates, just not in a Dec 25 window.
+    Included but recently changed: Iraq (national holiday since 2018) and
+    Ukraine (moved from Jan 7 to Dec 25 in 2023, so pre-2023 trips are tagged
+    on a date that wasn't yet the holiday).
+  - **The Canadian half is exercised by the Raccoon travelers** (see above),
+    15 trips built from the same date function the classifier uses. Before
+    they existed no Canada trip qualified — of 62, only two touched October
+    and both missed (23–28 Oct 2019; 6–11 Oct 2025, by two days) — so the
+    rule was correct and untested.
+
 - **`Beach Vacation`** — all three of: the arrival airport is within 100km of
   a point in `shorelines.csv`, within 100km of a GeoNames beach, and the
   trip's average daily HIGH is ≥ 23°C.
@@ -2863,7 +3254,8 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
     from "flew to Denver". Narrow the DEN window, or drop DEN from
     `SKI_SEASONS`, if precision matters more than catching Snoopy and
     Woodstock, who genuinely do ski via Denver.
-- **Current output:** `Beach Vacation` 736 trips, `Ski Trip` 88. Counts also
+- **Current output:** `Beach Vacation` 736 trips, `Holiday Trip` 194, `Ski
+  Trip` 88; 59 trips carry more than one. Counts also
   land in `trips_enhanced.json` as `trips_by_tag`. For scale: the midpoint
   rule gave 396, and 482 once the weather fetch completed; switching to the
   daily high took it to 736.
@@ -2883,7 +3275,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   destination an hour from the coast.
 - **Chip dots** are keyed by the tag's `kind`, not by an airline — see
   `frontend/src/lib/tripTagColors.ts`. `Ski Trip` is white, `Beach Vacation`
-  is `#2563eb`. That blue is measured, not literal: the chips sit on
+  `#2563eb`, `Holiday Trip` `#ef4444`. That blue is measured, not literal: the chips sit on
   `#0d1117`/`#161b22` and `airlineColors.ts` sets a 3:1 contrast floor, which
   a true navy misses badly (`#001f3f` scores 1.14:1 — invisible). `#2563eb`
   at 3.66:1 is the darkest blue that still reads as a dot rather than a hole.
@@ -2891,6 +3283,46 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 - **Run:** automatic — `build_trips_enhanced.py` imports and applies it.
   `python scripts/multiple/classify_trip.py` alone prints the season table
   and a labelled test set that deliberately includes the failing cases.
+
+#### The tags roll up into the traveler preference profile
+
+- **`Holiday` and `Beachgoer` are two of the six axes** on a traveler's
+  preference radar (`/travelers/<id>`), alongside UNESCO, Michelin, weather
+  and Plog's `Allocentric`. Computed in the API's `_preferences()`, not in an offline script
+  — same reasoning as the other three: nothing here needs cross-traveler
+  context, so precomputing would only add a file to keep in sync.
+- **They are SHARES, and the other three are MEANS.** UNESCO/Michelin/
+  weather answer "how good are the places this person goes", averaged from
+  each destination's 0–10 score. Holiday/Beachgoer answer "how much of this
+  person's travel is that kind", as a fraction of their own trips. Both land
+  on 0–1 and both are revealed preference off the same trip history, which
+  is why one radar is the right picture — but the tooltip names them
+  differently (`avg over 5 trips` vs `3 of 5 trips`), because calling a
+  proportion an average is a different and false claim. See
+  `PreferenceAxis.kind` in `frontend/src/lib/travelerCharts.ts`.
+- **The denominator is CLASSIFIABLE trips, not `trip_count`, and this is the
+  whole subtlety.** `classify_trip.tag_trips()` skips any trip with no
+  destination airport or no parsed dates — those get no tags for a reason
+  that is *not* "nothing matched". Counting them would read a missing
+  airport as evidence about someone's taste. **124 of this dataset's 263
+  travelers are Kaggle rows with no airport on any trip**; dividing by
+  `trip_count` would hand every one of them a confident `beach = 0.0`. They
+  get `null` instead, the same call the other three dimensions make for an
+  unmatched city.
+- **A `0.0` share is kept, though.** 53 travelers have classifiable trips
+  and no beach tag: that is a measurement ("never goes"), not a gap ("can't
+  tell"), and it plots at the origin like any other real value. The two
+  cases are covered by a matched pair of API tests
+  (`test_a_traveler_with_no_classifiable_trip_gets_null_shares_not_zero`,
+  `test_a_zero_share_is_kept_when_the_trips_were_classifiable`) precisely
+  because collapsing them is the easy mistake here.
+- **Current spread:** 124 null / 53 real zero / 86 non-zero on `Beachgoer`.
+  Note that `Beachgoer` inherits the beach rule's false positives described
+  above — a traveler whose trips are mostly London and Orlando will read as
+  a beachgoer.
+- **`Ski Trip` is deliberately NOT an axis.** It fires on 93 trips, over
+  half of them Denver in the shoulder season (see the ski rule's known
+  issue), so an axis built on it would mostly measure that bug.
 
 ### Shoreline points (`scripts/multiple/extract_shoreline_data.py`)
 

@@ -20,3 +20,4 @@ data/raw/unesco/whc001.json
 _to_delete/
 
 data/globalshorelines/*
+temp/

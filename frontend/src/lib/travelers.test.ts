@@ -130,12 +130,46 @@ function trip(overrides: Partial<TravelerTrip> = {}): TravelerTrip {
 }
 
 describe("tripDestinationScores", () => {
-  it("returns the three scores in a fixed order", () => {
+  it("returns the four scores in a fixed order", () => {
     const got = tripDestinationScores(
-      trip({ unesco_score: 6.67, michelin_score: 9.99, weather_score: 7.58 }),
+      trip({ unesco_score: 6.67, michelin_score: 9.99, weather_score: 7.58, plog_score: 0.9 }),
     );
-    expect(got.map((s) => s.key)).toEqual(["unesco", "michelin", "weather"]);
-    expect(got.map((s) => s.value)).toEqual([6.67, 9.99, 7.58]);
+    expect(got.map((s) => s.key)).toEqual(["unesco", "michelin", "weather", "allocentric"]);
+    expect(got.slice(0, 3).map((s) => s.value)).toEqual([6.67, 9.99, 7.58]);
+    // 1 - 0.9 is 0.09999999999999998 in float. Left unrounded on purpose:
+    // the value is not re-rounded in the data layer, and the card's
+    // formatDestinationScore() renders it "0.10" anyway.
+    expect(got[3].value).toBeCloseTo(0.1, 10);
+    expect(formatDestinationScore(got[3].value)).toBe("0.10");
+  });
+
+  // THE FLIP. plog_score arrives as the PSYCHOCENTRIC pole; the card shows
+  // the allocentric one. Served un-flipped, Paris (psychocentric 0.99) would
+  // render as the most adventurous destination in the dataset -- a number
+  // that looks entirely reasonable and is exactly backwards.
+  it("shows the allocentric pole, not the psychocentric one it is given", () => {
+    const [paris] = tripDestinationScores(trip({ plog_score: 0.9874 }));
+    expect(paris.value).toBeCloseTo(0.0126, 4);
+    const [seychelles] = tripDestinationScores(trip({ plog_score: 0.2273 }));
+    expect(seychelles.value).toBeCloseTo(0.7727, 4);
+    expect(seychelles.value).toBeGreaterThan(paris.value);
+  });
+
+  // The three 0-10 scores and the one 0-1 score sit in the same row, so each
+  // has to say which range it is on -- otherwise "Allocentric 0.23" beside
+  // "UNESCO 2.89" reads as a very low score out of ten.
+  it("marks the allocentric score as 0-1 and the rest as 0-10", () => {
+    const got = tripDestinationScores(
+      trip({ unesco_score: 1, michelin_score: 1, weather_score: 1, plog_score: 0.5 }),
+    );
+    expect(got.map((s) => s.scale)).toEqual([10, 10, 10, 1]);
+    expect(got[3].title).toContain("0-1");
+  });
+
+  it("keeps a psychocentric score of 1, which flips to a real allocentric 0", () => {
+    // 1 - 1 === 0, and a 0 must not be dropped as falsy by the filter.
+    const got = tripDestinationScores(trip({ plog_score: 1 }));
+    expect(got.map((s) => [s.key, s.value])).toEqual([["allocentric", 0]]);
   });
 
   // A 0 is a real score -- "no World Heritage site within 50km", true of
@@ -155,6 +189,7 @@ describe("tripDestinationScores", () => {
         trip({ unesco_score: 3.33, michelin_score: 9.34, weather_score: null }),
       ).map((s) => s.key),
     ).toEqual(["unesco", "michelin"]);
+    expect(tripDestinationScores(trip({ plog_score: null })).map((s) => s.key)).toEqual([]);
     expect(tripDestinationScores(trip()).length).toBe(0);
   });
 

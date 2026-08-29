@@ -5,6 +5,7 @@ import About from "./pages/About";
 import CityDetail from "./pages/CityDetail";
 import CountrySpecificSources from "./pages/CountrySpecificSources";
 import Beaches from "./pages/Beaches";
+import FlightsByMonth from "./pages/FlightsByMonth";
 import Destinations from "./pages/Destinations";
 import DestinationDetail from "./pages/DestinationDetail";
 import RecSys from "./pages/RecSys";
@@ -100,6 +101,7 @@ function App() {
             is one person. */}
         <Route path="/rec-sys/travelers/:travelerId" element={<TravelerDetail />} />
         <Route path="/beaches" element={<Beaches />} />
+        <Route path="/flights-by-month" element={<FlightsByMonth />} />
         <Route path="/destinations" element={<Destinations />} />
         {/* :cityId is a simplemaps_id (e.g. "1392419823"), the stable
             unique key for a city in this project's data -- city names

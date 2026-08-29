@@ -2,10 +2,12 @@
 
 import csv
 import json
+from datetime import date, timedelta
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from pandas.tseries.holiday import USFederalHolidayCalendar
 
 DATA_DIR = Path(__file__).resolve().parent.parent.parent
 SHORELINES_PATH = DATA_DIR / "processed" / "multiple" / "shorelines.csv"
@@ -292,7 +294,159 @@ def is_beach_vacation(df, shore_km=NEAR_SHORE_KM, beach_km=NEAR_BEACH_KM,
 
 def classify(df):
     """Every classifier, each adding its own independent flag column."""
-    return is_beach_vacation(is_ski_trip(df))
+    return is_holiday_trip(is_beach_vacation(is_ski_trip(df)))
+
+
+# --------------------------------------------------------------------------
+# Holiday trip
+# --------------------------------------------------------------------------
+
+# Thanksgiving is only a reason to travel where it is observed, and the two
+# countries that observe it do so on DIFFERENT DAYS: the US on the fourth
+# Thursday of November, Canada on the second Monday of October, six weeks
+# earlier. Each country is therefore tested against its own date -- a trip to
+# Toronto qualifies over Canadian Thanksgiving, a trip to New York over the
+# American one, and neither qualifies on the other's date.
+THANKSGIVING_COUNTRIES = frozenset({"United States", "Canada"})
+
+# Countries where DECEMBER 25 IS A PUBLIC HOLIDAY, keyed by the country names
+# build_trips_enhanced.py writes (which come from its own hand-written table,
+# so they are a controlled vocabulary rather than free text).
+#
+# HAND-MAINTAINED AND WORTH REVIEWING. This is a judgement per country, not a
+# fetched dataset. It covers exactly the 95 destination countries currently in
+# trips_enhanced.json; a country absent from this set is NOT tagged, so a new
+# destination fails safe rather than being assumed Christian-calendar.
+#
+# DELIBERATELY EXCLUDED, with the reason:
+#   Dec 25 not a public holiday: Bhutan, Cambodia, China (mainland; Hong Kong
+#     IS included), Iran, Israel, Japan, Laos, Libya, Morocco, Oman, Qatar,
+#     Saudi Arabia, Taiwan, Thailand, Turkey, United Arab Emirates,
+#     Uzbekistan, Vietnam.
+#   Orthodox/other calendar -- Christmas is observed, but NOT on Dec 25:
+#     Armenia (Jan 6), Egypt (Jan 7, Coptic), Ethiopia (Jan 7, Genna),
+#     Georgia (Jan 7), Russia (Jan 7). These are the ones most likely to be
+#     wrong for your purposes: the country plainly celebrates Christmas, just
+#     not inside a Dec 25 date window. If you want them counted, they need a
+#     second date rather than a move into this set.
+#   Recently changed, included but flag-worthy: Iraq (national holiday since
+#     2018) and Ukraine (moved from Jan 7 to Dec 25 in 2023 -- so trips before
+#     2023 are tagged on a date that was not yet the holiday).
+# Christmas Eve and Christmas Day. Both count: in much of CHRISTMAS_COUNTRIES
+# the 24th is the main celebration (Germany, the Nordics, Poland, most of
+# Latin America), and a trip arriving on the 24th and leaving on the 25th
+# should not fall through the gap between them.
+CHRISTMAS_DAYS = (24, 25)
+
+CHRISTMAS_COUNTRIES = frozenset({
+    "Argentina", "Aruba", "Australia", "Austria", "Bahamas", "Belgium", "Belize",
+    "Brazil", "Burma", "Canada", "Cayman Islands", "Chile", "Colombia",
+    "Congo (Kinshasa)", "Costa Rica", "Croatia", "Cuba", "Czech Republic",
+    "Denmark", "Dominican Republic", "Ecuador", "Finland", "France", "Germany",
+    "Ghana", "Greece", "Haiti", "Hong Kong", "Hungary", "Iceland", "India",
+    "Indonesia", "Iraq", "Ireland", "Italy", "Jamaica", "Kenya", "Liberia",
+    "Madagascar", "Malaysia", "Mexico", "Mozambique", "Namibia", "Netherlands",
+    "Netherlands Antilles", "New Zealand", "Nicaragua", "Nigeria", "Norway",
+    "Panama", "Paraguay", "Peru", "Philippines", "Portugal", "Puerto Rico",
+    "Romania", "Saint Vincent and the Grenadines", "Senegal", "Singapore",
+    "South Africa", "South Korea", "Spain", "Sri Lanka", "Sweden",
+    "Switzerland", "Tanzania", "Trinidad and Tobago", "Turks and Caicos",
+    "Ukraine", "United Kingdom", "United States", "Uruguay",
+})
+
+
+def _us_thanksgiving_dates(years):
+    """US Thanksgiving per year, from pandas' federal calendar.
+
+    Thanksgiving is the one federal holiday that never shifts -- it is defined
+    as a Thursday -- so the calendar's observed date IS the real date. That is
+    not true of Christmas, which is why Christmas is taken as a literal Dec 25
+    below rather than from this calendar: in 2027 Dec 25 is a Saturday and the
+    calendar reports the observed holiday on Friday the 24th, which is the
+    date the offices shut, not the date anyone sits down to dinner. (The
+    Christmas test covers the 24th anyway -- see CHRISTMAS_DAYS -- but for
+    the right reason, rather than as a side effect of a federal observance
+    rule that also moves Christmas to the 26th in other years.)
+    """
+    if not years:
+        return set()
+    calendar = USFederalHolidayCalendar()
+    holidays = calendar.holidays(start=f"{min(years)}-01-01", end=f"{max(years)}-12-31",
+                                 return_name=True)
+    return {d.date() for d, name in holidays.items() if name == "Thanksgiving Day"}
+
+
+def _canadian_thanksgiving_dates(years):
+    """Canadian Thanksgiving: the second Monday of October.
+
+    Computed rather than looked up -- pandas' calendar is the US FEDERAL one
+    and has no Canadian holidays in it. The rule is a fixed nth-weekday, so
+    deriving it is exact, not an approximation.
+    """
+    dates = set()
+    for year in years:
+        first = date(year, 10, 1)
+        first_monday = first + timedelta(days=(7 - first.weekday()) % 7)
+        dates.add(first_monday + timedelta(days=7))
+    return dates
+
+
+def thanksgiving_dates_by_country(years):
+    """country -> the dates ITS Thanksgiving falls on, over `years`."""
+    return {
+        "United States": _us_thanksgiving_dates(years),
+        "Canada": _canadian_thanksgiving_dates(years),
+    }
+
+
+def is_holiday_trip(df):
+    """Was the trip over a holiday, somewhere that observes it?
+
+    Two independent ways to qualify, and the matched one is recorded in
+    "Holiday Matched" so a 1 can always be explained:
+
+      Thanksgiving -- the DESTINATION COUNTRY'S OWN Thanksgiving falls inside
+                      the trip's dates. The US and Canada observe it six
+                      weeks apart, so each is tested against its own date;
+                      being in Toronto over the American one does not count,
+                      and vice versa.
+      Christmas    -- December 24 OR 25 falls inside the trip's dates AND the
+                      destination is in CHRISTMAS_COUNTRIES. Both days,
+                      because Christmas Eve is the main event in much of the
+                      list -- Germany, the Nordics, Poland, most of Latin
+                      America celebrate on the 24th -- and because a trip
+                      that lands for the 24th and leaves on the 25th would
+                      otherwise be missed entirely.
+
+    Both use the trip's full date range inclusive, the same span the ski and
+    beach rules use.
+    """
+    years = set()
+    for _, row in df.iterrows():
+        for key in ("Arrival Date", "Departure Date"):
+            value = row.get(key)
+            if value:
+                years.add(pd.Timestamp(value).year)
+    thanksgiving = thanksgiving_dates_by_country(years)
+
+    flags, matched = [], []
+    for _, row in df.iterrows():
+        country = row.get("Destination Country")
+        days = pd.date_range(row["Arrival Date"], row["Departure Date"], freq="D")
+        hits = []
+        country_thanksgiving = thanksgiving.get(country, set())
+        if any(d.date() in country_thanksgiving for d in days):
+            hits.append("Thanksgiving")
+        if country in CHRISTMAS_COUNTRIES and any(d.month == 12 and d.day in CHRISTMAS_DAYS for d in days):
+            hits.append("Christmas")
+        flags.append(1 if hits else 0)
+        matched.append(" + ".join(hits) if hits else "")
+
+    out = df.copy()
+    out["Holiday Matched"] = matched
+    out["HOLIDAY_TRIP"] = flags
+    return out
+
 
 
 # --------------------------------------------------------------------------
@@ -304,6 +458,7 @@ def classify(df):
 TRIP_TAGS = {
     "IS_SKI_TRIP": {"kind": "ski_trip", "tag_id": "ski-trip", "label": "Ski Trip"},
     "BEACH_VACATION": {"kind": "beach_vacation", "tag_id": "beach-vacation", "label": "Beach Vacation"},
+    "HOLIDAY_TRIP": {"kind": "holiday_trip", "tag_id": "holiday-trip", "label": "Holiday Trip"},
 }
 
 
@@ -347,5 +502,5 @@ if __name__ == "__main__":
     columns = ["Trip ID", "Destination Airport", "Arrival Date", "Departure Date",
                "Share In Season", "IS_SKI_TRIP",
                "Distance To Shore KM", "Distance To Beach KM", "Avg Trip High C",
-               "BEACH_VACATION", "Weather Coverage"]
+               "BEACH_VACATION", "Holiday Matched", "HOLIDAY_TRIP"]
     print(result[columns].to_string(index=False))

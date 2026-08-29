@@ -17,12 +17,16 @@
 //   #2563eb  3.66:1   <- darkest blue that clears the floor
 //   #ffffff 18.92:1
 //
+// Holiday Trip is #ef4444 (5.03:1) -- festive red, clear of the floor, and
+// distinct from both the white and the blue at a glance.
+//
 // So "dark blue" resolves to #2563eb: the darkest it can be and still be a
 // dot rather than a hole. Going darker means the chip reads as having no dot
 // at all, which is exactly the state that's supposed to mean "no tag".
 const TRIP_TAG_COLORS: Record<string, string> = {
   ski_trip: "#ffffff",
   beach_vacation: "#2563eb",
+  holiday_trip: "#ef4444",
 };
 
 // Null rather than a grey default: a future classifier with no color should

@@ -92,22 +92,35 @@ export interface TravelerTrip {
   unesco_score?: number | null;
   michelin_score?: number | null;
   weather_score?: number | null;
+  // Plog's PSYCHOCENTRIC pole for the destination city, 0-1 -- null on the
+  // same destinations that have no city record. Served as psychocentric;
+  // tripDestinationScores() and the radar both show 1 - this.
+  plog_score?: number | null;
 }
 
 // One destination score, ready to render. `title` carries the unrounded
 // value and what it measures, since the card shows a rounded number and
 // "UNESCO 0.0" invites exactly the wrong reading.
 export interface TripDestinationScore {
-  key: "unesco" | "michelin" | "weather";
+  key: "unesco" | "michelin" | "weather" | "allocentric";
   label: string;
   value: number;
   title: string;
+  // The top of this score's range. THREE OF THESE ARE 0-10 AND ONE IS 0-1,
+  // which is a genuine reading hazard on a card that lines them up in a row:
+  // "Allocentric 0.23" sitting beside "UNESCO 2.89" invites reading 0.23 as
+  // a very low score out of ten rather than a middling one out of one. The
+  // scale is carried here so the title can always say which it is.
+  scale: 1 | 10;
 }
 
 const SCORE_TITLES: Record<TripDestinationScore["key"], string> = {
   unesco: "UNESCO World Heritage sites within 50km of the destination city, log-scaled to 0-10",
   michelin: "MICHELIN Guide restaurants within 50km of the destination city, log-scaled to 0-10",
   weather: "The destination city's weather normals scored 0-10, averaged over this trip's own dates",
+  allocentric:
+    "Plog's allocentric pole for this destination, 0-1: how far it sits from the well-connected, " +
+    "heavily-served places most travel goes to. 1 is remote and thinly served, 0 is a major hub city",
 };
 
 // The scores to show on one trip card -- only the ones that are actually
@@ -117,18 +130,29 @@ const SCORE_TITLES: Record<TripDestinationScore["key"], string> = {
 // varying is the deliberate trade (Ivan's call), and it matches how this
 // page already hides the entropy block when it's null.
 export function tripDestinationScores(trip: TravelerTrip): TripDestinationScore[] {
-  const raw: [TripDestinationScore["key"], string, number | null | undefined][] = [
-    ["unesco", "UNESCO", trip.unesco_score],
-    ["michelin", "Michelin", trip.michelin_score],
-    ["weather", "Weather", trip.weather_score],
+  // NOTE THE FLIP. `plog_score` is served as the PSYCHOCENTRIC pole, because
+  // that is what plog_categorize() returns first; the card shows the
+  // ALLOCENTRIC one, matching the radar axis. Getting this backwards would
+  // produce a perfectly plausible number pointing the wrong way -- Paris
+  // would read as the most adventurous destination in the dataset -- so it
+  // is done in exactly this one place and asserted in travelers.test.ts.
+  const allocentric =
+    typeof trip.plog_score === "number" ? 1 - trip.plog_score : trip.plog_score;
+
+  const raw: [TripDestinationScore["key"], string, number | null | undefined, 1 | 10][] = [
+    ["unesco", "UNESCO", trip.unesco_score, 10],
+    ["michelin", "Michelin", trip.michelin_score, 10],
+    ["weather", "Weather", trip.weather_score, 10],
+    ["allocentric", "Allocentric", allocentric, 1],
   ];
   return raw
     .filter(([, , value]) => typeof value === "number")
-    .map(([key, label, value]) => ({
+    .map(([key, label, value, scale]) => ({
       key,
       label,
       value: value as number,
       title: `${SCORE_TITLES[key]}.`,
+      scale,
     }));
 }
 
@@ -468,6 +492,18 @@ export interface TravelerPreferences {
   unesco_trips: number;
   michelin_trips: number;
   weather_trips: number;
+  // Shares, not means -- see PreferenceAxis.kind in travelerCharts.ts and
+  // TravelerPreferences in the API. holiday_trips/beach_trips are the
+  // DENOMINATOR (trips classify_trip could classify), not a count of
+  // tagged trips, so `holiday * holiday_trips` is the tagged count.
+  holiday: number | null;
+  beach: number | null;
+  holiday_trips: number;
+  beach_trips: number;
+  // Plog, allocentric pole only -- the scale is one continuum, so the
+  // psychocentric value is 1 - this. A mean, not a share.
+  allocentric: number | null;
+  allocentric_trips: number;
 }
 
 export interface TravelerDetail extends TravelerSummary {

@@ -116,25 +116,84 @@
       }
     }
   },
-  "travelers_total": 222,
-  "travelers_with_carrier_data": 98,
-  "travelers_with_declared_base": 98,
-  "travelers_tagged": 85,
+  "travelers_total": 263,
+  "travelers_with_carrier_data": 139,
+  "travelers_with_declared_base": 139,
+  "travelers_tagged": 123,
   "tag_counts": {
-    "Multi Hub": 27,
-    "American Hub": 20,
-    "United Hub": 15,
-    "Delta Loyalist": 13,
-    "American Loyalist": 12,
-    "Alaska Loyalist": 10,
+    "Multi Hub": 57,
+    "United Loyalist": 29,
+    "American Hub": 22,
+    "Delta Loyalist": 19,
+    "United Hub": 18,
+    "American Loyalist": 17,
+    "Alaska Loyalist": 11,
     "Southwest Loyalist": 10,
-    "United Loyalist": 9,
-    "Delta Hub": 7,
-    "Alaska Hub": 6
+    "Delta Hub": 8,
+    "Alaska Hub": 7,
+    "Air Canada Loyalist": 3,
+    "British Loyalist": 2,
+    "TAP Loyalist": 1
   },
   "near_misses_below_min_trips": 5,
   "hub_city_airport_mismatches": 3,
   "travelers": [
+    {
+      "traveler_id": "abel-magwitch",
+      "name": "Abel Magwitch",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "TAP-TAP Air Portugal",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "EWR",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:tap-tap-air-portugal",
+          "label": "TAP Loyalist",
+          "carrier_name": "TAP-TAP Air Portugal",
+          "carrier_names": [
+            "TAP-TAP Air Portugal"
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
     {
       "traveler_id": "albert-einstein",
       "name": "Albert Einstein",
@@ -179,6 +238,57 @@
           "hub_city": "Dallas",
           "hub_airports": [
             "DFW"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "alfred-polly",
+      "name": "Alfred Polly",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Chicago",
+      "base_inference": "declared",
+      "home_airport": "ORD",
+      "hub_city": "Chicago",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Chicago",
+          "hub_airports": [
+            "ORD"
           ]
         }
       ]
@@ -284,6 +394,62 @@
       ]
     },
     {
+      "traveler_id": "arthur-bedford",
+      "name": "Arthur Bedford",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "EWR",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "arthur-curry",
       "name": "Arthur Curry",
       "trip_count": 24,
@@ -310,6 +476,62 @@
           "share": 1.0,
           "trips": 24,
           "denominator": 24
+        }
+      ]
+    },
+    {
+      "traveler_id": "arthur-kipps",
+      "name": "Arthur Kipps",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "EWR",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
         }
       ]
     },
@@ -365,6 +587,62 @@
       ]
     },
     {
+      "traveler_id": "bert-raccoon",
+      "name": "Bert Raccoon",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "Air Canada",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "JFK",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:air-canada",
+          "label": "Air Canada Loyalist",
+          "carrier_name": "Air Canada",
+          "carrier_names": [
+            "Air Canada"
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "bill-evans",
       "name": "Bill Evans",
       "trip_count": 10,
@@ -413,6 +691,118 @@
       ]
     },
     {
+      "traveler_id": "bill-gorton",
+      "name": "Bill Gorton",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "LGA",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "carrier_names": [
+            "Delta Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "bill-sikes",
+      "name": "Bill Sikes",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "EWR",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "billy-batson",
       "name": "Billy Batson",
       "trip_count": 21,
@@ -439,6 +829,62 @@
           "share": 1.0,
           "trips": 21,
           "denominator": 21
+        }
+      ]
+    },
+    {
+      "traveler_id": "brett-ashley",
+      "name": "Brett Ashley",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "JFK",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "carrier_names": [
+            "Delta Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
         }
       ]
     },
@@ -569,6 +1015,54 @@
       ]
     },
     {
+      "traveler_id": "catherine-barkley",
+      "name": "Catherine Barkley",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Seattle",
+      "base_inference": "declared",
+      "home_airport": "SEA",
+      "hub_city": "Seattle",
+      "hub_airlines": [
+        "Alaska"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:alaska-airlines-inc",
+          "label": "Alaska Loyalist",
+          "carrier_name": "Alaska Airlines Inc.",
+          "carrier_names": [
+            "Alaska Airlines Inc."
+          ],
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        },
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:alaska-airlines-inc",
+          "label": "Alaska Hub",
+          "carrier_name": "Alaska Airlines Inc.",
+          "carrier_names": [
+            "Alaska Airlines Inc."
+          ],
+          "airlines": [
+            "Alaska"
+          ],
+          "hub_city": "Seattle",
+          "hub_airports": [
+            "SEA"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "charles-darwin",
       "name": "Charles Darwin",
       "trip_count": 36,
@@ -612,6 +1106,62 @@
           "hub_city": "Miami",
           "hub_airports": [
             "MIA"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "charley-bates",
+      "name": "Charley Bates",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "JFK",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "carrier_names": [
+            "American Airlines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
           ]
         }
       ]
@@ -1052,6 +1602,110 @@
       ]
     },
     {
+      "traveler_id": "edward-prendick",
+      "name": "Edward Prendick",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "San Francisco",
+      "base_inference": "declared",
+      "home_airport": "SFO",
+      "hub_city": "San Francisco",
+      "hub_airlines": [
+        "United"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:united-air-lines-inc",
+          "label": "United Hub",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "airlines": [
+            "United"
+          ],
+          "hub_city": "San Francisco",
+          "hub_airports": [
+            "SFO"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "edwin-leeford",
+      "name": "Edwin Leeford",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "EWR",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "ella-fitzgerald",
       "name": "Ella Fitzgerald",
       "trip_count": 24,
@@ -1078,6 +1732,113 @@
           "share": 1.0,
           "trips": 24,
           "denominator": 24
+        }
+      ]
+    },
+    {
+      "traveler_id": "estella-havisham",
+      "name": "Estella Havisham",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "EWR",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "frederic-henry",
+      "name": "Frederic Henry",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Chicago",
+      "base_inference": "declared",
+      "home_airport": "ORD",
+      "hub_city": "Chicago",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Chicago",
+          "hub_airports": [
+            "ORD"
+          ]
         }
       ]
     },
@@ -1278,6 +2039,213 @@
       ]
     },
     {
+      "traveler_id": "harry-maylie",
+      "name": "Harry Maylie",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "British Airways Plc",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "JFK",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:british-airways-plc",
+          "label": "British Loyalist",
+          "carrier_name": "British Airways Plc",
+          "carrier_names": [
+            "British Airways Plc"
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "helen-ferguson",
+      "name": "Helen Ferguson",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Detroit",
+      "base_inference": "declared",
+      "home_airport": "DTW",
+      "hub_city": "Detroit",
+      "hub_airlines": [
+        "Delta"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "carrier_names": [
+            "Delta Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        },
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:delta-air-lines-inc",
+          "label": "Delta Hub",
+          "carrier_name": "Delta Air Lines Inc.",
+          "carrier_names": [
+            "Delta Air Lines Inc."
+          ],
+          "airlines": [
+            "Delta"
+          ],
+          "hub_city": "Detroit",
+          "hub_airports": [
+            "DTW"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "helen-walshingham",
+      "name": "Helen Walshingham",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Washington, D.C.",
+      "base_inference": "declared",
+      "home_airport": "IAD",
+      "hub_city": "Washington, D.C.",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Washington, D.C.",
+          "hub_airports": [
+            "IAD",
+            "DCA"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "herbert-george-wells",
+      "name": "Herbert George Wells",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Los Angeles",
+      "base_inference": "declared",
+      "home_airport": "LAX",
+      "hub_city": "Los Angeles",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Los Angeles",
+          "hub_airports": [
+            "LAX"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "hobbes",
       "name": "Hobbes",
       "trip_count": 6,
@@ -1372,6 +2340,62 @@
           "hub_city": "Chicago",
           "hub_airports": [
             "ORD"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "jack-dawkins",
+      "name": "Jack Dawkins",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "JFK",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "carrier_names": [
+            "Delta Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
           ]
         }
       ]
@@ -1484,6 +2508,62 @@
       ]
     },
     {
+      "traveler_id": "joe-gargery",
+      "name": "Joe Gargery",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "EWR",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "john-coltrane",
       "name": "John Coltrane",
       "trip_count": 15,
@@ -1527,6 +2607,54 @@
           "hub_city": "Minneapolis",
           "hub_airports": [
             "MSP"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "joseph-cavor",
+      "name": "Joseph Cavor",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Denver",
+      "base_inference": "declared",
+      "home_airport": "DEN",
+      "hub_city": "Denver",
+      "hub_airlines": [
+        "United"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:united-air-lines-inc",
+          "label": "United Hub",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "airlines": [
+            "United"
+          ],
+          "hub_city": "Denver",
+          "hub_airports": [
+            "DEN"
           ]
         }
       ]
@@ -1714,6 +2842,57 @@
       ]
     },
     {
+      "traveler_id": "manuel-garcia",
+      "name": "Manuel Garcia",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Los Angeles",
+      "base_inference": "declared",
+      "home_airport": "LAX",
+      "hub_city": "Los Angeles",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "carrier_names": [
+            "American Airlines Inc."
+          ],
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Los Angeles",
+          "hub_airports": [
+            "LAX"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "marie-curie",
       "name": "Marie Curie",
       "trip_count": 16,
@@ -1810,6 +2989,84 @@
       ]
     },
     {
+      "traveler_id": "melissa-raccoon",
+      "name": "Melissa Raccoon",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "Air Canada",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Miami",
+      "base_inference": "declared",
+      "home_airport": "MIA",
+      "hub_city": "Miami",
+      "hub_airlines": [
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:air-canada",
+          "label": "Air Canada Loyalist",
+          "carrier_name": "Air Canada",
+          "carrier_names": [
+            "Air Canada"
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:american-airlines-inc",
+          "label": "American Hub",
+          "carrier_name": "American Airlines Inc.",
+          "carrier_names": [
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "American"
+          ],
+          "hub_city": "Miami",
+          "hub_airports": [
+            "MIA"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "mike-campbell",
+      "name": "Mike Campbell",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Boston",
+      "base_inference": "declared",
+      "home_airport": "BOS",
+      "hub_city": null,
+      "hub_airlines": [],
+      "home_airport_is_hub": null,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "carrier_names": [
+            "American Airlines Inc."
+          ],
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        }
+      ]
+    },
+    {
       "traveler_id": "miles-davis",
       "name": "Miles Davis",
       "trip_count": 24,
@@ -1836,6 +3093,273 @@
           "share": 1.0,
           "trips": 24,
           "denominator": 24
+        }
+      ]
+    },
+    {
+      "traveler_id": "miriam-polly",
+      "name": "Miriam Polly",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Chicago",
+      "base_inference": "declared",
+      "home_airport": "ORD",
+      "hub_city": "Chicago",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Chicago",
+          "hub_airports": [
+            "ORD"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "miss-havisham",
+      "name": "Miss Havisham",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "EWR",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "montgomery",
+      "name": "Montgomery",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Houston",
+      "base_inference": "declared",
+      "home_airport": "IAH",
+      "hub_city": "Houston",
+      "hub_airlines": [
+        "United"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:united-air-lines-inc",
+          "label": "United Hub",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "airlines": [
+            "United"
+          ],
+          "hub_city": "Houston",
+          "hub_airports": [
+            "IAH"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "mr-brownlow",
+      "name": "Mr. Brownlow",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "JFK",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "carrier_names": [
+            "American Airlines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "nancy-sikes",
+      "name": "Nancy Sikes",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "JFK",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "carrier_names": [
+            "Delta Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
         }
       ]
     },
@@ -1883,6 +3407,57 @@
           "hub_city": "San Francisco",
           "hub_airports": [
             "SFO"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "nick-adams",
+      "name": "Nick Adams",
+      "trip_count": 25,
+      "trips_with_carrier": 25,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Chicago",
+      "base_inference": "declared",
+      "home_airport": "ORD",
+      "hub_city": "Chicago",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 25,
+          "denominator": 25
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Chicago",
+          "hub_airports": [
+            "ORD"
           ]
         }
       ]
@@ -2032,6 +3607,57 @@
       ]
     },
     {
+      "traveler_id": "ole-andreson",
+      "name": "Ole Andreson",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Chicago",
+      "base_inference": "declared",
+      "home_airport": "ORD",
+      "hub_city": "Chicago",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Chicago",
+          "hub_airports": [
+            "ORD"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "oliver-queen",
       "name": "Oliver Queen",
       "trip_count": 36,
@@ -2075,6 +3701,62 @@
           "hub_city": "Denver",
           "hub_airports": [
             "DEN"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "oliver-twist",
+      "name": "Oliver Twist",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "Delta Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "JFK",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:delta-air-lines-inc",
+          "label": "Delta Loyalist",
+          "carrier_name": "Delta Air Lines Inc.",
+          "carrier_names": [
+            "Delta Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
           ]
         }
       ]
@@ -2176,6 +3858,57 @@
       ]
     },
     {
+      "traveler_id": "ralph-raccoon",
+      "name": "Ralph Raccoon",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "Air Canada",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Los Angeles",
+      "base_inference": "declared",
+      "home_airport": "LAX",
+      "hub_city": "Los Angeles",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:air-canada",
+          "label": "Air Canada Loyalist",
+          "carrier_name": "Air Canada",
+          "carrier_names": [
+            "Air Canada"
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Los Angeles",
+          "hub_airports": [
+            "LAX"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "richard-feynman",
       "name": "Richard Feynman",
       "trip_count": 21,
@@ -2219,6 +3952,166 @@
           "hub_city": "Charlotte",
           "hub_airports": [
             "CLT"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "rinaldi",
+      "name": "Rinaldi",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Philadelphia",
+      "base_inference": "declared",
+      "home_airport": "PHL",
+      "hub_city": "Philadelphia",
+      "hub_airlines": [
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:american-airlines-inc",
+          "label": "American Loyalist",
+          "carrier_name": "American Airlines Inc.",
+          "carrier_names": [
+            "American Airlines Inc."
+          ],
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        },
+        {
+          "kind": "airline_hub",
+          "tag_id": "airline-hub:american-airlines-inc",
+          "label": "American Hub",
+          "carrier_name": "American Airlines Inc.",
+          "carrier_names": [
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "American"
+          ],
+          "hub_city": "Philadelphia",
+          "hub_airports": [
+            "PHL"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "robert-cohn",
+      "name": "Robert Cohn",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Newark",
+      "base_inference": "declared",
+      "home_airport": "EWR",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 20,
+          "denominator": 20
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "rose-maylie",
+      "name": "Rose Maylie",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "British Airways Plc",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "JFK",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:british-airways-plc",
+          "label": "British Loyalist",
+          "carrier_name": "British Airways Plc",
+          "carrier_names": [
+            "British Airways Plc"
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
           ]
         }
       ]
@@ -2582,6 +4475,62 @@
       ]
     },
     {
+      "traveler_id": "toby-crackit",
+      "name": "Toby Crackit",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "New York City",
+      "base_inference": "declared",
+      "home_airport": "EWR",
+      "hub_city": "New York City",
+      "hub_airlines": [
+        "United",
+        "Delta",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "Delta Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "Delta",
+            "American"
+          ],
+          "hub_city": "New York City",
+          "hub_airports": [
+            "EWR",
+            "JFK",
+            "LGA"
+          ]
+        }
+      ]
+    },
+    {
       "traveler_id": "tony-stark",
       "name": "Tony Stark",
       "trip_count": 18,
@@ -2706,6 +4655,58 @@
           "hub_city": "Seattle",
           "hub_airports": [
             "SEA"
+          ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "william-moreau",
+      "name": "William Moreau",
+      "trip_count": 5,
+      "trips_with_carrier": 5,
+      "distinct_carriers": 1,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 1.0,
+      "below_min_trips": false,
+      "base_city": "Washington, D.C.",
+      "base_inference": "declared",
+      "home_airport": "IAD",
+      "hub_city": "Washington, D.C.",
+      "hub_airlines": [
+        "United",
+        "American"
+      ],
+      "home_airport_is_hub": true,
+      "tags": [
+        {
+          "kind": "airline_loyalist",
+          "tag_id": "airline-loyalist:united-air-lines-inc",
+          "label": "United Loyalist",
+          "carrier_name": "United Air Lines Inc.",
+          "carrier_names": [
+            "United Air Lines Inc."
+          ],
+          "share": 1.0,
+          "trips": 5,
+          "denominator": 5
+        },
+        {
+          "kind": "multi_hub",
+          "tag_id": "multi-hub",
+          "label": "Multi Hub",
+          "carrier_name": null,
+          "carrier_names": [
+            "United Air Lines Inc.",
+            "American Airlines Inc."
+          ],
+          "airlines": [
+            "United",
+            "American"
+          ],
+          "hub_city": "Washington, D.C.",
+          "hub_airports": [
+            "IAD",
+            "DCA"
           ]
         }
       ]
@@ -3798,6 +5799,40 @@
       ]
     },
     {
+      "traveler_id": "jake-barnes",
+      "name": "Jake Barnes",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 2,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 0.75,
+      "below_min_trips": false,
+      "base_city": "Kansas City",
+      "base_inference": "declared",
+      "home_airport": "MCI",
+      "hub_city": null,
+      "hub_airlines": [],
+      "home_airport_is_hub": null,
+      "tags": []
+    },
+    {
+      "traveler_id": "krebs",
+      "name": "Krebs",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 2,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.75,
+      "below_min_trips": false,
+      "base_city": "Oklahoma City",
+      "base_inference": "declared",
+      "home_airport": "OKC",
+      "hub_city": null,
+      "hub_airlines": [],
+      "home_airport_is_hub": null,
+      "tags": []
+    },
+    {
       "traveler_id": "pablo-picasso",
       "name": "Pablo Picasso",
       "trip_count": 4,
@@ -3809,6 +5844,23 @@
       "base_city": "Barcelona",
       "base_inference": "declared",
       "home_airport": "BCN",
+      "hub_city": null,
+      "hub_airlines": [],
+      "home_airport_is_hub": null,
+      "tags": []
+    },
+    {
+      "traveler_id": "pedro-romero",
+      "name": "Pedro Romero",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 2,
+      "top_carrier": "American Airlines Inc.",
+      "top_carrier_share": 0.75,
+      "below_min_trips": false,
+      "base_city": "San Antonio",
+      "base_inference": "declared",
+      "home_airport": "SAT",
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,

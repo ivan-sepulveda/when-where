@@ -15,7 +15,11 @@ It also MERGES data/processed/multiple/synthetic_trips.json plus the
 per-traveler files listed in SYNTHETIC_SOURCES -- the travel-show hosts
 (bourdain_traveler.json, ramsay_traveler.json, conan_traveler.json,
 ricksteves_traveler.json, davidchang_traveler.json), nine authored skiers
-(skiers_traveler.json) and two supplied flight logs
+(skiers_traveler.json), three authored Canadians who fly home for
+Thanksgiving (raccoons_traveler.json), fourteen authored Americans who travel for US
+holidays (hemingway_traveler.json), ten United-hub Americans who fly home for
+Christmas (wells_traveler.json), fourteen New Yorkers who summer in Europe
+(dickens_traveler.json) and two supplied flight logs
 (gomez_traveler.json, rymel_traveler.json) --
 whenever those files exist. They supply the deliberate travel patterns the
 Kaggle rows can't (113 of its 124 people have exactly one trip). Every
@@ -238,13 +242,19 @@ GOMEZ_PATH = PROCESSED_DIR / "gomez_traveler.json"
 DAVIDCHANG_PATH = PROCESSED_DIR / "davidchang_traveler.json"
 SKIERS_PATH = PROCESSED_DIR / "skiers_traveler.json"
 RYMEL_PATH = PROCESSED_DIR / "rymel_traveler.json"
+RACCOONS_PATH = PROCESSED_DIR / "raccoons_traveler.json"
+HEMINGWAY_PATH = PROCESSED_DIR / "hemingway_traveler.json"
+WELLS_PATH = PROCESSED_DIR / "wells_traveler.json"
+DICKENS_PATH = PROCESSED_DIR / "dickens_traveler.json"
 OUTPUT_PATH = PROCESSED_DIR / "trips_enhanced.json"
 
 # Every file that contributes fabricated trips in trips_enhanced.json's own
 # record shape. Each is optional and merged the same way; add a path here
 # when a new generator starts producing travelers.
 SYNTHETIC_SOURCES = (SYNTHETIC_PATH, BOURDAIN_PATH, RAMSAY_PATH, CONAN_PATH, RICKSTEVES_PATH,
-                     GOMEZ_PATH, DAVIDCHANG_PATH, SKIERS_PATH, RYMEL_PATH)
+                     GOMEZ_PATH, DAVIDCHANG_PATH, SKIERS_PATH, RYMEL_PATH,
+                     RACCOONS_PATH, HEMINGWAY_PATH, WELLS_PATH,
+                     DICKENS_PATH)
 
 
 def resolve_columns(columns) -> dict[str, str]:
