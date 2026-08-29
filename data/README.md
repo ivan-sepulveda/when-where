@@ -2813,6 +2813,108 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   ```
   Run it **before** `build_trips_enhanced.py`.
 
+### Trip tags (`scripts/multiple/classify_trip.py`)
+
+- **What it is:** per-TRIP classifiers, run over every trip by
+  `build_trips_enhanced.py` once the file is assembled — so a tag means the
+  same thing whether the trip came from the Kaggle CSV or a hand-authored
+  builder. Each trip gets a `tags` list, rendered as chips on the trip card.
+- **Tags are not mutually exclusive.** A trip can carry several and is meant
+  to; a July trip to Chile could be both a ski trip and summer travel. Each
+  classifier adds its own independent 0/1 column.
+- **`Ski Trip`** — ≥80% of the trip's calendar days fall inside the arrival
+  airport's ski season (`SKI_SEASONS`, MM-DD windows that wrap the new year;
+  southern-hemisphere seasons don't wrap and work without a special case).
+- **`Beach Vacation`** — all three of: the arrival airport is within 100km of
+  a point in `shorelines.csv`, within 100km of a GeoNames beach, and the
+  trip's mean temperature is ≥ 23°C.
+  - **Mean, not high.** The source gives `avg_high_c`/`avg_low_c` per month;
+    the midpoint is the honest reading of "average temperature" and a
+    stricter test than the high. Averaged per DAY, so a trip straddling a
+    month boundary is weighted by how much of it fell either side.
+  - **Temperature comes from the project's own city resolution** —
+    `trip_city_matches.json` (match_trip_cities.py) → `simplemaps_id` →
+    `weather_normals_2025_by_city.json`. No name matching happens in the
+    classifier.
+  - **The first condition is currently implied by the second**, because
+    `geonames_beaches.csv` is a strict subset of `shorelines.csv`, so
+    shore-distance ≤ beach-distance always. Both are kept: they answer
+    different questions ("is there coast here" vs "is there a beach here"),
+    they diverge the moment a non-beach shoreline source is added, and the
+    gap between the two columns is itself informative — a rocky coast shows
+    a small shore distance and a large beach one.
+- **Coverage, and where the tags lie:**
+  - The beach data means **ocean**, not any water. GeoNames' `BCH` covers
+    lake and river beaches, which unfiltered put Chicago 20.7km from a
+    "shore" (Lake Michigan), Salt Lake City 17.7km, Atlanta 56km and
+    Nashville 6.9km. `extract_geonames_beaches.py` therefore drops any beach
+    with no ocean within 5km, per a 1km land/ocean mask that treats the
+    Great Lakes, Great Salt Lake and Caspian as land — 1,194 beaches
+    dropped. Those airports now read 980km, 944km, 359km and 609km. Houston
+    stays at 52km, which is right: it really is that close to the Gulf.
+  - `Ski Trip` **over-fires on Denver.** DEN's window is 10-15 → 06-01 —
+    seven and a half months — because A-Basin and Loveland really are open
+    that long. So any Denver trip in that range is tagged, and 50 of the 88
+    ski tags are DEN, including Isaac Newton's Thanksgiving and Christmas
+    family visits. The airport alone can't separate "flew to Denver to ski"
+    from "flew to Denver". Narrow the DEN window, or drop DEN from
+    `SKI_SEASONS`, if precision matters more than catching Snoopy and
+    Woodstock, who genuinely do ski via Denver.
+- **Current output:** `Beach Vacation` 396 trips, `Ski Trip` 88. Counts also
+  land in `trips_enhanced.json` as `trips_by_tag`.
+- **Weather coverage is now the binding constraint, not geography.** Of the
+  1,926 trips that fail, 328 are coastal AND beach-adjacent and fail only
+  because their destination has no weather normals — a false negative, not a
+  cold destination. They are concentrated in exactly the places you'd expect
+  to be beach vacations: Los Cabos (69 trips), Puerto Vallarta (36), Montego
+  Bay (22), Maui (21), Honolulu (15), Nassau (14), Punta Cana (11). Weather
+  normals exist for 1,770 cities and these resolve to none of them. The
+  `Weather Coverage` column separates "too cold" from "unknown".
+- **And some positives are literal rather than sensible.** New York (20
+  trips at 23.3°C), Boston (8 at 24.5°C), Orlando (64, beach 69km away) and
+  Houston (18, beach 88.8km) all satisfy the three conditions in summer. The
+  rule says nothing about intent — a July business trip to JFK is coastal
+  and warm.
+- **Chip dots** are keyed by the tag's `kind`, not by an airline — see
+  `frontend/src/lib/tripTagColors.ts`. `Ski Trip` is white, `Beach Vacation`
+  is `#2563eb`. That blue is measured, not literal: the chips sit on
+  `#0d1117`/`#161b22` and `airlineColors.ts` sets a 3:1 contrast floor, which
+  a true navy misses badly (`#001f3f` scores 1.14:1 — invisible). `#2563eb`
+  at 3.66:1 is the darkest blue that still reads as a dot rather than a hole.
+  A tag with no color draws no dot at all.
+- **Run:** automatic — `build_trips_enhanced.py` imports and applies it.
+  `python scripts/multiple/classify_trip.py` alone prints the season table
+  and a labelled test set that deliberately includes the failing cases.
+
+### Shoreline points (`scripts/multiple/extract_shoreline_data.py`)
+
+- **Sources**, under `data/globalshorelines/`:
+  - `Shoreline_data_2D_2000_2013.nc` (HDF5/netCDF4, needs `h5py`) — a
+    coastal-change study's transect grid, not a coastline geometry. 8,857
+    points from a 100×100 grid; 1,143 cells are empty (NaN).
+  - `Shoreline_Public_Access.csv` — 209 Oahu public shoreline access points.
+    Every row is kept, including the one whose `shore_type` is "River": it
+    sits within a couple of km of the coast like the rest, and dropping rows
+    on a descriptive field would be a judgement this file doesn't need to
+    make.
+  - `geonames.csv` → `geonames_beaches.csv` — 11,790 ocean beaches, built by
+    `extract_geonames_beaches.py`. This is the source that reaches past 60°N
+    and onto islands the other two miss.
+- **Output:** `processed/multiple/shorelines.csv`, two columns (`lat`,
+  `lon`), **20,636 points** after dropping 220 duplicates. Provenance lives
+  in the script rather than in a source column, so the CSV stays trivially
+  joinable.
+- **The `lat`/`lon` variables are named correctly** — worth stating because
+  the bundled `sample_submission.csv` encodes its ids as `timestamp:lon:lat`,
+  the opposite order. Grid point [2,0] is (46.58, −124.02), the Washington
+  coast; transposed it would be an impossible latitude. The script asserts
+  both ranges and exits rather than writing a transposed file.
+- **Coverage is now global.** The GeoNames beaches close the gaps the other
+  two sources left: latitude reaches −54.8 to **82.5**, and every airport
+  that previously read as inland by mistake is fixed — Maui 134→2.4km, the
+  Big Island 241→2.6km, Kauai 122→1.9km, Keflavík 1,118→39.5km, Anchorage
+  142→21.8km, Helsinki 16.1km, Oslo 34.5km.
+
 ### Author personas for travelers (`scripts/multiple/build_travelers_anon.py`)
 
 - **Input:** `processed/multiple/travelers.json` (above).

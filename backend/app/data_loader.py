@@ -12,6 +12,7 @@ truth, so the API can never drift from what the data pipeline actually
 produced.
 """
 
+import csv
 import json
 from pathlib import Path
 
@@ -37,6 +38,7 @@ TRAVELER_ENTROPY_REGION_PATH = (
     DATA_DIR / "processed" / "multiple" / "traveler_entropy_region.json"
 )
 TRAVELER_TAGS_PATH = DATA_DIR / "processed" / "multiple" / "traveler_tags.json"
+BEACHES_PATH = DATA_DIR / "processed" / "multiple" / "geonames_beaches.csv"
 # Destination -> city record, from match_trip_cities.py. Lets a traveler's
 # trip carry its destination city's UNESCO/Michelin scores without this API
 # doing any name matching of its own.
@@ -932,3 +934,40 @@ def load_visa_requirements() -> dict[str, dict]:
         print(f"[data_loader] load_visa_requirements: skipped {len(skipped_destinations)} destination entr(ies) with no iso2 match: {skipped_destinations}")
 
     return requirements_by_iso2
+
+
+def load_beaches() -> list[dict] | None:
+    """Ocean beaches from extract_geonames_beaches.py -- or None if that file
+    doesn't exist yet.
+
+    Same None-instead-of-raising treatment as load_traveler_tags(): building
+    it needs the 1.5GB GeoNames dump in data/globalshorelines/, which is not
+    in a fresh checkout, so a missing file is normal and /beaches simply says
+    so rather than 500ing.
+
+    Only the four fields the map needs are kept. The file's feature_code
+    column (BCH/BCHS) is dropped here -- it distinguishes "beach" from
+    "beaches", which matters when filtering GeoNames and not at all when
+    drawing a dot.
+    """
+    if not BEACHES_PATH.exists():
+        print(
+            f"[data_loader] {BEACHES_PATH.name} not found -- /api/beaches will return "
+            "an empty list. Run data/scripts/multiple/extract_geonames_beaches.py."
+        )
+        return None
+
+    beaches = []
+    with open(BEACHES_PATH, encoding="utf-8", newline="") as f:
+        for row in csv.DictReader(f):
+            try:
+                lat, lon = float(row["lat"]), float(row["lon"])
+            except (TypeError, ValueError):
+                continue
+            beaches.append({
+                "name": row["name"],
+                "lat": lat,
+                "lon": lon,
+                "country_code": row["country_code"] or None,
+            })
+    return beaches

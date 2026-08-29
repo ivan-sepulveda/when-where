@@ -75,6 +75,8 @@ import csv
 import json
 import re
 from collections import Counter
+
+from classify_trip import tag_trips
 from datetime import date
 from pathlib import Path
 
@@ -533,6 +535,15 @@ def main():
         trips.extend(synthetic_trips)
         trips.sort(key=lambda t: (t.get("traveler_name") or "", t.get("start_date") or ""))
 
+    # Trip tags, from classify_trip.py -- run over EVERY trip once the file
+    # is assembled, so a tag means the same thing whether the trip came from
+    # the Kaggle CSV or a hand-authored builder. A trip with no destination
+    # airport or no parsed dates gets an empty list, not a guess.
+    trip_tags = tag_trips(trips)
+    for trip, tags in zip(trips, trip_tags):
+        trip["tags"] = tags
+    tag_counts = Counter(tag["label"] for tags in trip_tags for tag in tags)
+
     by_kind = Counter(t["destination_kind"] for t in trips)
     by_country = Counter(t["destination_country"] for t in trips)
     inferred_country = sum(1 for t in trips if "," not in t["destination_raw"] and t["destination_kind"] != "country")
@@ -561,6 +572,7 @@ def main():
         "total_trips": len(trips),
         "destinations_with_country_inferred": inferred_country,
         "trips_by_destination_kind": dict(by_kind),
+        "trips_by_tag": dict(tag_counts),
         "trips": trips,
     }
 

@@ -561,6 +561,18 @@ h1 {
   flex: none;
 }
 
+/* Trip chips sit inside an already-dense card, between the destination and
+   the fact lines, so they run a size down from the traveler chips and keep
+   the card's own gap rhythm. No dots: no trip tag is about an airline. */
+.trip-tags {
+  margin: 0.25rem 0 0.1rem;
+}
+
+.trip-tags .traveler-tag {
+  font-size: 0.7rem;
+  padding: 0.05rem 0.4rem;
+}
+
 /* On the detail page the chips sit under an <h1> rather than inside a card,
    so they get a little more room and a size that doesn't read as a caption. */
 .traveler-tags-detail {
@@ -1006,4 +1018,25 @@ h1 {
   margin-top: 0.75rem;
   margin-bottom: 0;
   font-size: 0.9rem;
+}
+
+/* The beaches map. 2:1 because the projection is equirectangular -- any
+   other aspect ratio would stretch the world. Height is set in JS from the
+   measured width, so this only needs to own the width and the frame. */
+.beaches-map {
+  display: block;
+  width: 100%;
+  max-width: 1100px;
+  border: 1px solid #3a3f47;
+  border-radius: 6px;
+  cursor: crosshair;
+}
+
+/* Reserved line, so the map doesn't shift as the pointer moves on and off a
+   dot. */
+.beaches-hover {
+  min-height: 1.4rem;
+  margin: 0.5rem 0 1rem;
+  font-size: 0.85rem;
+  color: #9aa4b1;
 }

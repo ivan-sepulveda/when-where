@@ -52,6 +52,7 @@ from .data_loader import (
     load_trip_city_matches,
     load_visa_requirements,
     resolve_travelers_path,
+    load_beaches,
 )
 from .scoring import (
     combine_domain_scores,
@@ -122,6 +123,9 @@ TRAVELER_ENTROPY_REGION = load_traveler_entropy(TRAVELER_ENTROPY_REGION_PATH)
 # from TRAVELERS for the same reason as the entropy above: it is DERIVED
 # from travelers_anon.json.
 TRAVELER_TAGS = load_traveler_tags()
+# Loaded once at startup like every other dataset here; None means the
+# GeoNames extract hasn't been run in this checkout (see load_beaches()).
+BEACHES = load_beaches()
 # The travelers who are real, named people rather than a fictional persona
 # or an anonymized Kaggle row: Anthony Bourdain, Gordon Ramsay, Conan
 # O'Brien and Rick Steves (their shows' real episodes resolved onto real
@@ -303,6 +307,25 @@ class CityDetailResponse(BaseModel):
     local_art_museums: Optional[NearbyPlaces]
 
 
+class TripTag(BaseModel):
+    """One computed label on a single TRIP -- see
+    data/scripts/multiple/classify_trip.py, run over every trip by
+    build_trips_enhanced.py.
+
+    Same shape as TravelerTag below, and for the same reason: a chip is a
+    chip wherever the UI meets it. The difference is scope -- a TravelerTag
+    describes a person's whole history ("United Loyalist"), a TripTag
+    describes one journey ("Ski Trip").
+
+    Tags are not mutually exclusive: a trip can carry several, and is meant
+    to. A July trip to Chile could be both a ski trip and summer travel.
+    """
+
+    kind: str
+    tag_id: str
+    label: str
+
+
 class TravelerTrip(BaseModel):
     """One trip from the traveler dataset. Every cost/date/duration is
     carried BOTH parsed and raw on purpose -- see build_travelers.py: the
@@ -359,6 +382,11 @@ class TravelerTrip(BaseModel):
     # (the Trips list, the airline/region charts) to exclude from AGGREGATES,
     # it does not remove it from the response.
     layover: bool = False
+    # Computed per-trip labels (classify_trip.py). Empty for a trip with no
+    # destination airport or no parsed dates -- the Kaggle rows have no
+    # airport, and a tag there would assert something the source never said.
+    # Defaulted so an older travelers.json without the field still loads.
+    tags: list[TripTag] = []
     # This trip's DESTINATION CITY's scores, joined on at request time from
     # match_trip_cities.py's output plus the city data this API already
     # loads. All three are Optional and null is a real, common state, not
@@ -673,6 +701,26 @@ class VisaRequirementsResponse(BaseModel):
     requirements: dict[str, str]
 
 
+class Beach(BaseModel):
+    """One ocean beach from GeoNames (see
+    data/scripts/multiple/extract_geonames_beaches.py). Lake and river
+    beaches are already filtered out upstream."""
+
+    name: str
+    lat: float
+    lon: float
+    country_code: Optional[str] = None
+
+
+class BeachesResponse(BaseModel):
+    # 0 with available=False means the source file hasn't been built in this
+    # checkout; 0 with available=True would mean it built and found nothing.
+    # The page needs to tell those apart to say anything useful.
+    available: bool
+    total: int
+    beaches: list[Beach]
+
+
 @app.get("/health")
 def health():
     """Render hits this (or `/`) for its health check; also handy for
@@ -703,6 +751,16 @@ def health():
         "city_clusters": len(set(CITY_CLUSTER_REPRESENTATIVES.values())),
         "countries_with_visa_requirements": len(VISA_REQUIREMENTS),
     }
+
+
+@app.get("/api/beaches", response_model=BeachesResponse)
+def beaches():
+    """Every ocean beach, for the /beaches map. Served whole rather than
+    paged or bbox-queried: it is ~11.8k rows, the map draws all of them at
+    once, and a filtered endpoint would need the client to say what it is
+    looking at before it can draw anything."""
+    rows = BEACHES if BEACHES is not None else []
+    return {"available": BEACHES is not None, "total": len(rows), "beaches": rows}
 
 
 @app.get("/api/destinations/top10", response_model=TopDestinationsResponse)

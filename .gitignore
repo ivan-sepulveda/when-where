@@ -18,3 +18,5 @@ __pycache__/
 data/raw/unesco/whc001.json
 
 _to_delete/
+
+data/globalshorelines/*

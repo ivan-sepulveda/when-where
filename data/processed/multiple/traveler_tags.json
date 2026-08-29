@@ -1,6 +1,6 @@
 {
   "source": "travelers_anon.json (built by build_travelers_anon.py)",
-  "generated": "2026-08-28",
+  "generated": "2026-08-29",
   "rules": {
     "airline_loyalist": {
       "threshold": 0.8,

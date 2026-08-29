@@ -4,6 +4,7 @@ import StackedShareBar from "../components/StackedShareBar";
 import TravelerTags from "../components/TravelerTags";
 import { airlineColor, shortenCarrier } from "../lib/airlineColors";
 import { formatDateRange } from "../lib/formatDate";
+import { tripTagColor } from "../lib/tripTagColors";
 import {
   carrierBreakdown,
   domesticInternationalBreakdown,
@@ -72,6 +73,30 @@ function TripCard({ trip }: { trip: TravelerTrip }) {
       {/* The cleaned "City, Country", not the source's raw string --
           see formatDestination(). */}
       <span className="city-detail-nearby-name">{formatDestination(trip)}</span>
+      {/* Chips for what this trip WAS, from classify_trip.py -- directly
+          under the destination and above the free-text facts, so they read
+          as a property of the trip rather than as another fact line. Same
+          markup as the traveler chips (TravelerTags), including the dot, but
+          the dot is keyed by the tag's `kind` rather than by an airline --
+          see lib/tripTagColors.ts. A trip with no tags renders no list at
+          all, and a tag with no color draws no dot. */}
+      {trip.tags && trip.tags.length > 0 && (
+        <ul className="traveler-tags trip-tags">
+          {trip.tags.map((tag) => {
+            const color = tripTagColor(tag.kind);
+            return (
+              <li key={tag.tag_id} className="traveler-tag">
+                {color && (
+                  <span className="traveler-tag-dots" aria-hidden="true">
+                    <span className="traveler-tag-dot" style={{ background: color }} />
+                  </span>
+                )}
+                {tag.label}
+              </li>
+            );
+          })}
+        </ul>
+      )}
       {facts.map((fact) => (
         <span key={fact} className="city-detail-nearby-meta">
           {fact}

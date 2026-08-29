@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar";
 import About from "./pages/About";
 import CityDetail from "./pages/CityDetail";
 import CountrySpecificSources from "./pages/CountrySpecificSources";
+import Beaches from "./pages/Beaches";
 import Destinations from "./pages/Destinations";
 import DestinationDetail from "./pages/DestinationDetail";
 import RecSys from "./pages/RecSys";
@@ -98,6 +99,7 @@ function App() {
             groups trips by -- so the URL shows what decided that this person
             is one person. */}
         <Route path="/rec-sys/travelers/:travelerId" element={<TravelerDetail />} />
+        <Route path="/beaches" element={<Beaches />} />
         <Route path="/destinations" element={<Destinations />} />
         {/* :cityId is a simplemaps_id (e.g. "1392419823"), the stable
             unique key for a city in this project's data -- city names

@@ -48,6 +48,17 @@ export interface TravelerTrip {
   // (the Trips list, the airline/region share charts) should filter it out;
   // it stays in this list because the underlying itinerary is real.
   layover?: boolean;
+  // Computed labels on THIS trip, from data/scripts/multiple/classify_trip.py
+  // (run over every trip by build_trips_enhanced.py). Same shape as
+  // TravelerTag, deliberately: a chip is a chip wherever you meet it. The
+  // difference is scope -- a TravelerTag describes a person's whole history
+  // ("United Loyalist"), a TripTag describes one journey ("Ski Trip").
+  //
+  // Absent or empty for a trip with no destination airport or no parsed
+  // dates -- the Kaggle rows have no airport, and tagging one would assert
+  // something the source never said. Tags are NOT mutually exclusive: a trip
+  // can carry several and is meant to.
+  tags?: TripTag[];
   // UN M49 geography for this trip's destination country, joined on by the
   // API (see backend/app/data_loader.py's load_m49_regions and
   // data/scripts/multiple/build_m49_regions.py).
@@ -141,6 +152,16 @@ export function formatDestinationScore(value: number): string {
 // it counts only trips that record a carrier, which is the same denominator
 // the "Airlines flown" chart uses, so a 100% bar and a Loyalist chip can't
 // contradict each other on the same page.
+export interface TripTag {
+  // "ski-trip", "beach-vacation" -- stable, and what React keys off.
+  tag_id: string;
+  // The classifier that produced it, e.g. "ski_trip". Branch on this rather
+  // than parsing `label`.
+  kind: string;
+  // What the chip says, e.g. "Ski Trip".
+  label: string;
+}
+
 export interface TravelerTag {
   // "airline-loyalist:delta-air-lines-inc" -- stable, built from the full
   // legal carrier name.
