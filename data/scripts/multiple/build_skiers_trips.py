@@ -51,7 +51,7 @@ upstream. It is NOT special-cased here -- correcting one airport's name
 inside a trip builder would put the fix somewhere nobody would ever look
 for it. Fix it in the reference or not at all.
 
-WHY SOME SKIERS ONLY EVER FLY TO DENVER. Snoopy (SFO) and Woodstock (ATL)
+WHY SOME SKIERS ONLY EVER FLY TO DENVER. Jim Gilmore (SFO) and Mrs. Smith (ATL)
 fly to DEN every season and then drive; the others reach a mountain
 airport directly. That asymmetry is the route data's, not a
 stylistic choice -- United serves EGE and ASE from Houston, Newark and
@@ -83,19 +83,18 @@ DELTA = "Delta Air Lines Inc."
 AMERICAN = "American Airlines Inc."
 CARRIER_CODE = {UNITED: "UA", DELTA: "DL", AMERICAN: "AA"}
 
-# Trip-id prefixes. All five start "SK" and none of them collides with a
-# prefix already in trips_enhanced.json -- the obvious initials don't work,
-# since CB is Chet Baker's and LP is taken too, and Linus and Lucy would
-# collide with each other besides. A duplicate prefix would silently merge
-# two people's trips, since trip_id is prefix + start date.
+# Trip-id prefixes. All nine start "SK" so they can't collide with a prefix
+# used anywhere else in trips_enhanced.json, whatever initials a traveler's
+# name happens to share with someone else's. A duplicate prefix would
+# silently merge two people's trips, since trip_id is prefix + start date.
 #
 # nights: every trip is a Saturday-to-Saturday ski week. build_rows()
 # asserts the departure really is a Saturday rather than trusting the
 # dates below to have been typed correctly.
 SKIERS = [
     {
-        "name": "Charlie Brown",
-        "id_prefix": "SKCB",
+        "name": "George Gardner",
+        "id_prefix": "SKGG",
         "gender": "Male",
         "nationality": "American",
         "age_in_first_season": 41,
@@ -111,8 +110,8 @@ SKIERS = [
         ],
     },
     {
-        "name": "Linus van Pelt",
-        "id_prefix": "SKLI",
+        "name": "Charley Wyman",
+        "id_prefix": "SKCW",
         "gender": "Male",
         "nationality": "American",
         "age_in_first_season": 37,
@@ -128,8 +127,8 @@ SKIERS = [
         ],
     },
     {
-        "name": "Lucy van Pelt",
-        "id_prefix": "SKLU",
+        "name": "Liz Coates",
+        "id_prefix": "SKLC",
         "gender": "Female",
         "nationality": "American",
         "age_in_first_season": 52,
@@ -145,8 +144,8 @@ SKIERS = [
         ],
     },
     {
-        "name": "Snoopy",
-        "id_prefix": "SKSN",
+        "name": "Jim Gilmore",
+        "id_prefix": "SKJG",
         "gender": "Male",
         "nationality": "American",
         "age_in_first_season": 45,
@@ -163,9 +162,9 @@ SKIERS = [
         ],
     },
     {
-        "name": "Woodstock",
-        "id_prefix": "SKWO",
-        "gender": "Male",
+        "name": "Mrs. Smith",
+        "id_prefix": "SKMS",
+        "gender": "Female",
         "nationality": "American",
         "age_in_first_season": 48,
         "base": {"city": "Atlanta", "country": "United States", "country_code": "US"},
@@ -191,8 +190,8 @@ SKIERS = [
     # compute_traveler_tags.py), so each also gets a clean "{Airline} Hub"
     # rather than the "Multi Hub" that Chicago and Newark produce.
     {
-        "name": "Calvin",
-        "id_prefix": "SKCA",
+        "name": "Ettore Moretti",
+        "id_prefix": "SKEM",
         "gender": "Male",
         "nationality": "American",
         "age_in_first_season": 34,
@@ -211,8 +210,8 @@ SKIERS = [
         ],
     },
     {
-        "name": "Hobbes",
-        "id_prefix": "SKHO",
+        "name": "Ralph Simmons",
+        "id_prefix": "SKRS",
         "gender": "Male",
         "nationality": "American",
         "age_in_first_season": 39,
@@ -232,9 +231,9 @@ SKIERS = [
         ],
     },
     {
-        "name": "Garfield",
-        "id_prefix": "SKGA",
-        "gender": "Male",
+        "name": "Frances Clyne",
+        "id_prefix": "SKFC",
+        "gender": "Female",
         "nationality": "American",
         "age_in_first_season": 47,
         "base": {"city": "Minneapolis", "country": "United States", "country_code": "US"},
@@ -253,8 +252,8 @@ SKIERS = [
         ],
     },
     {
-        "name": "Odie",
-        "id_prefix": "SKOD",
+        "name": "Harvey Stone",
+        "id_prefix": "SKHS",
         "gender": "Male",
         "nationality": "American",
         "age_in_first_season": 31,

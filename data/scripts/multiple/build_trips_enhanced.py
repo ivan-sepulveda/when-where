@@ -507,6 +507,29 @@ def load_synthetic_trips() -> tuple[list[dict], dict]:
     return trips, bases
 
 
+# Real, publicly-known travel-show hosts (see chef_travelers.md) -- Ivan's
+# rule (2026-08-30): every one of THEIR trips is labelled a First Class
+# flight; every other traveler -- the Kaggle rows, the 80+ hand-authored
+# characters, and the two real-but-private flight logs (Gomez, Rymel), who
+# are real people but not public figures -- is labelled Economy. This is a
+# narrative label for the recommendation dataset, not a claim about how any
+# of these trips were actually booked; there's no source for real cabin
+# class on any of these itineraries.
+CELEBRITY_TRAVELER_NAMES = {
+    "Anthony Bourdain",
+    "Gordon Ramsay",
+    "Conan O'Brien",
+    "Rick Steves",
+    "David Chang",
+}
+
+
+def assign_flight_class(trips: list[dict]) -> None:
+    """Set trip["flight_class"] on every trip, in place."""
+    for trip in trips:
+        trip["flight_class"] = "First" if trip.get("traveler_name") in CELEBRITY_TRAVELER_NAMES else "Economy"
+
+
 def print_report() -> None:
     """Every destination string in the CSV and what it resolves to, sorted by
     frequency -- the fastest way to eyeball whether the table above is saying
@@ -554,6 +577,12 @@ def main():
         trip["tags"] = tags
     tag_counts = Counter(tag["label"] for tags in trip_tags for tag in tags)
 
+    # Flight class -- see CELEBRITY_TRAVELER_NAMES above. Runs over every
+    # trip once the file is assembled, same as tagging, so it applies
+    # uniformly whether a trip came from the Kaggle CSV or a builder.
+    assign_flight_class(trips)
+    flight_class_counts = Counter(t["flight_class"] for t in trips)
+
     by_kind = Counter(t["destination_kind"] for t in trips)
     by_country = Counter(t["destination_country"] for t in trips)
     inferred_country = sum(1 for t in trips if "," not in t["destination_raw"] and t["destination_kind"] != "country")
@@ -583,6 +612,7 @@ def main():
         "destinations_with_country_inferred": inferred_country,
         "trips_by_destination_kind": dict(by_kind),
         "trips_by_tag": dict(tag_counts),
+        "trips_by_flight_class": dict(flight_class_counts),
         "trips": trips,
     }
 
@@ -595,6 +625,7 @@ def main():
     print(f"  by kind: {dict(by_kind)}")
     print(f"  {inferred_country} trip(s) had their country inferred from a city-only destination")
     print(f"  {len(by_country)} distinct countries: {', '.join(f'{c} ({n})' for c, n in by_country.most_common())}")
+    print(f"  flight class: {dict(flight_class_counts)}")
     print("\nNext: python scripts/multiple/build_travelers.py")
 
 

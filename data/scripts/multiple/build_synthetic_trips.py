@@ -105,23 +105,23 @@ adds travelers who have one, each a different shape of pattern:
   from the secondary airport in cities that have one. So this group is where
   short-haul international lives, and where Chicago means Midway and Houston
   means Hobby.
-    * International only -- Clark Kent (Hobby-Cancun), Bruce Wayne
-      (Baltimore-Montego Bay), Diana Prince (Phoenix-Los Cabos).
-    * Domestic only, holidays -- Barry Allen (Midway-Tampa), Hal Jordan
-      (Denver-San Diego), Arthur Curry (Nashville-Sarasota).
-    * Mixed -- Victor Stone, Oliver Queen, Billy Batson, Dick Grayson.
+    * International only -- Dr. Valentini (Hobby-Cancun), Count Greffi
+      (Baltimore-Montego Bay), Miss Van Campen (Phoenix-Los Cabos).
+    * Domestic only, holidays -- Dr. Varella (Midway-Tampa), Mr. Guttingen
+      (Denver-San Diego), Mr. Meyers (Nashville-Sarasota).
+    * Mixed -- Mrs. Walker, Mrs. Guttingen, Mrs. Meyers, Miss Gage.
 
   And ten Alaska loyalists, same split again. Alaska's network splits three
   ways -- transpacific from Seattle, Mexico from the California airports,
   the South Pacific from Honolulu -- and it supplies the two things nothing
-  else here does: the only non-mainland base (Steve Rogers in Honolulu) and
+  else here does: the only non-mainland base (Solly Freedman in Honolulu) and
   domestic flights that are longer than most of this file's international
   ones (Seattle-Maui, Los Angeles-Kona).
-    * International only -- Peter Parker (Seattle-Tokyo), Tony Stark
-      (Los Angeles-Guadalajara), Steve Rogers (Honolulu-Sydney).
-    * Domestic only, holidays -- Bruce Banner (Seattle-Maui), Thor Odinson
-      (Portland-Palm Springs), Natasha Romanoff (San Francisco-Orlando).
-    * Mixed -- Clint Barton, Matt Murdock, Logan, Stephen Strange.
+    * International only -- William Campbell (Seattle-Tokyo), Joe Garner
+      (Los Angeles-Guadalajara), Solly Freedman (Honolulu-Sydney).
+    * Domestic only, holidays -- Mr. Turner (Seattle-Maui), John Collins
+      (Portland-Palm Springs), Mrs. Garner (San Francisco-Orlando).
+    * Mixed -- Jack Brennan, Danny Hogan, Mrs. Hirsch, Mrs. Bell.
 
   And finally thirty-one travelers who are loyal to NOTHING, spread two per
   city (three in New York) across the fifteen most populous US cities. Every
@@ -150,8 +150,8 @@ data:
     United     painters and architects
     Delta      jazz musicians
     American   scientists
-    Southwest  DC comics characters
-    Alaska     Marvel comics characters
+    Southwest  Farewell to Arms characters (Hemingway, public domain)
+    Alaska     Men Without Women characters (Hemingway, public domain)
     (no one)   Greek myth
 The last three also make the fiction unmissable, which is the point of naming
 these people at all. The pairings are deliberately NOT biographical: Marie
@@ -162,11 +162,8 @@ it doesn't. Gender is lopsided but no longer nearly-uniform: the Greek group
 is 9 women to 22 men, which brings the whole file to 15 women against 67 men.
 Still worth knowing before anyone reads a pattern into it.
 
-Two id_prefix collisions are resolved by suffixing rather than renaming, and
-the odd-looking prefixes are deliberate: "PPK" (Peter Parker) because Pablo
-Picasso holds "PP", "BBN" (Bruce Banner) because Billy Batson holds "BB", and
-"CBA" (Clint Barton) because Chet Baker holds "CB". trip_id starts with this
-prefix, so a duplicate would silently merge two people's trips.
+trip_id starts with a traveler's id_prefix, so a duplicate would silently
+merge two people's trips -- every prefix in this file is checked for that.
 
 THE ROUTES ARE REAL, and this script proves it rather than asserting it.
 Every leg names a carrier, an origin and a destination that must appear
@@ -1381,10 +1378,10 @@ TRAVELERS = [
     # because "flies abroad twice a year" means something completely
     # different at four hours than at ten.
     {
-        "name": "Clark Kent",
+        "name": "Dr. Valentini",
         "nationality": "American",
         "gender": "Male",
-        "id_prefix": "CK",
+        "id_prefix": "DV",
         "first_year": 2016,
         "age_in_first_year": 34,
         "base": {
@@ -1404,10 +1401,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Bruce Wayne",
+        "name": "Count Greffi",
         "nationality": "American",
         "gender": "Male",
-        "id_prefix": "BW",
+        "id_prefix": "CG",
         "first_year": 2018,
         "age_in_first_year": 45,
         "base": {
@@ -1426,10 +1423,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Diana Prince",
+        "name": "Miss Van Campen",
         "nationality": "American",
         "gender": "Female",
-        "id_prefix": "DP",
+        "id_prefix": "MV",
         "first_year": 2017,
         "age_in_first_year": 37,
         "base": {
@@ -1451,10 +1448,10 @@ TRAVELERS = [
     },
     # --- Southwest, group 2: domestic only, holiday travel ----------------
     {
-        "name": "Barry Allen",
+        "name": "Dr. Varella",
         "nationality": "American",
         "gender": "Male",
-        "id_prefix": "BA",
+        "id_prefix": "DVA",
         "first_year": 2016,
         "age_in_first_year": 29,
         "base": {
@@ -1476,10 +1473,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Hal Jordan",
+        "name": "Mr. Guttingen",
         "nationality": "American",
         "gender": "Male",
-        "id_prefix": "HJ",
+        "id_prefix": "MG",
         "first_year": 2017,
         "age_in_first_year": 42,
         "base": {
@@ -1498,10 +1495,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Arthur Curry",
+        "name": "Mr. Meyers",
         "nationality": "American",
         "gender": "Male",
-        "id_prefix": "AC",
+        "id_prefix": "MM",
         "first_year": 2018,
         "age_in_first_year": 36,
         "base": {
@@ -1525,10 +1522,10 @@ TRAVELERS = [
     },
     # --- Southwest, group 3: mixed domestic and international -------------
     {
-        "name": "Victor Stone",
+        "name": "Mrs. Walker",
         "nationality": "American",
-        "gender": "Male",
-        "id_prefix": "VS",
+        "gender": "Female",
+        "id_prefix": "MW",
         "first_year": 2017,
         "age_in_first_year": 31,
         "base": {
@@ -1549,10 +1546,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Oliver Queen",
+        "name": "Mrs. Guttingen",
         "nationality": "American",
-        "gender": "Male",
-        "id_prefix": "OQ",
+        "gender": "Female",
+        "id_prefix": "MGU",
         "first_year": 2017,
         "age_in_first_year": 40,
         "base": {
@@ -1561,7 +1558,7 @@ TRAVELERS = [
             "country_code": "US",
             "airport": "DEN",
         },
-        # Second Denver traveler on the same airline as Hal Jordan, and the
+        # Second Denver traveler on the same airline as Mr. Guttingen, and the
         # pair a recommender should be able to separate: same hub, same
         # carrier, one never leaves the country and the other does twice a
         # year.
@@ -1577,10 +1574,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Billy Batson",
+        "name": "Mrs. Meyers",
         "nationality": "American",
-        "gender": "Male",
-        "id_prefix": "BB",
+        "gender": "Female",
+        "id_prefix": "MME",
         "first_year": 2019,
         "age_in_first_year": 26,
         "base": {
@@ -1603,10 +1600,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Dick Grayson",
+        "name": "Miss Gage",
         "nationality": "American",
-        "gender": "Male",
-        "id_prefix": "DG",
+        "gender": "Female",
+        "id_prefix": "MGA",
         "first_year": 2018,
         "age_in_first_year": 28,
         "base": {
@@ -1631,10 +1628,10 @@ TRAVELERS = [
     # California airports, and the South Pacific out of Honolulu. These
     # three take one branch each.
     {
-        "name": "Peter Parker",
+        "name": "William Campbell",
         "nationality": "American",
         "gender": "Male",
-        "id_prefix": "PPK",  # not "PP" -- Pablo Picasso already has that
+        "id_prefix": "WC",
         "first_year": 2016,
         "age_in_first_year": 25,
         "base": {
@@ -1656,10 +1653,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Tony Stark",
+        "name": "Joe Garner",
         "nationality": "American",
         "gender": "Male",
-        "id_prefix": "TS",
+        "id_prefix": "JG",
         "first_year": 2017,
         "age_in_first_year": 48,
         "base": {
@@ -1681,10 +1678,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Steve Rogers",
+        "name": "Solly Freedman",
         "nationality": "American",
         "gender": "Male",
-        "id_prefix": "SR",
+        "id_prefix": "SF",
         "first_year": 2016,
         "age_in_first_year": 52,
         "base": {
@@ -1704,10 +1701,10 @@ TRAVELERS = [
     },
     # --- Alaska, group 2: domestic only, holiday travel -------------------
     {
-        "name": "Bruce Banner",
+        "name": "Mr. Turner",
         "nationality": "American",
         "gender": "Male",
-        "id_prefix": "BBN",  # not "BB" -- Billy Batson already has that
+        "id_prefix": "MT",
         "first_year": 2016,
         "age_in_first_year": 44,
         "base": {
@@ -1730,10 +1727,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Thor Odinson",
+        "name": "John Collins",
         "nationality": "American",
         "gender": "Male",
-        "id_prefix": "TO",
+        "id_prefix": "JCO",
         "first_year": 2017,
         "age_in_first_year": 39,
         "base": {
@@ -1752,10 +1749,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Natasha Romanoff",
+        "name": "Mrs. Garner",
         "nationality": "American",
         "gender": "Female",
-        "id_prefix": "NR",
+        "id_prefix": "MGAR",
         "first_year": 2018,
         "age_in_first_year": 35,
         "base": {
@@ -1778,10 +1775,10 @@ TRAVELERS = [
     },
     # --- Alaska, group 3: mixed domestic and international ----------------
     {
-        "name": "Clint Barton",
+        "name": "Jack Brennan",
         "nationality": "American",
         "gender": "Male",
-        "id_prefix": "CBA",  # not "CB" -- Chet Baker already has that
+        "id_prefix": "JB",
         "first_year": 2017,
         "age_in_first_year": 43,
         "base": {
@@ -1805,10 +1802,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Matt Murdock",
+        "name": "Danny Hogan",
         "nationality": "American",
         "gender": "Male",
-        "id_prefix": "MM",
+        "id_prefix": "DH",
         "first_year": 2018,
         "age_in_first_year": 37,
         "base": {
@@ -1829,10 +1826,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Logan",
+        "name": "Mrs. Hirsch",
         "nationality": "American",
-        "gender": "Male",
-        "id_prefix": "LG",
+        "gender": "Female",
+        "id_prefix": "MH",
         "first_year": 2019,
         "age_in_first_year": 46,
         "base": {
@@ -1855,10 +1852,10 @@ TRAVELERS = [
         ),
     },
     {
-        "name": "Stephen Strange",
+        "name": "Mrs. Bell",
         "nationality": "American",
-        "gender": "Male",
-        "id_prefix": "SS",
+        "gender": "Female",
+        "id_prefix": "MB",
         "first_year": 2018,
         "age_in_first_year": 47,
         "base": {

@@ -65,8 +65,8 @@ NIGHTS = 4               # leaving the Tuesday after
 # thing is the destination and the date, not the route.
 RACCOONS = [
     {
-        "name": "Bert Raccoon",
-        "id_prefix": "BR",
+        "name": "Count Mippipopolous",
+        "id_prefix": "CMI",
         "gender": "Male",
         "age_in_first_year": 34,
         "base": {"city": "New York City", "country": "United States", "country_code": "US"},
@@ -75,8 +75,8 @@ RACCOONS = [
         "flight": 320.0,
     },
     {
-        "name": "Ralph Raccoon",
-        "id_prefix": "RR",
+        "name": "Manuel Orquito",
+        "id_prefix": "MO",
         "gender": "Male",
         "age_in_first_year": 41,
         "base": {"city": "Los Angeles", "country": "United States", "country_code": "US"},
@@ -85,8 +85,8 @@ RACCOONS = [
         "flight": 540.0,
     },
     {
-        "name": "Melissa Raccoon",
-        "id_prefix": "MR",
+        "name": "Mrs. Braddocks",
+        "id_prefix": "MBR",
         "gender": "Female",
         "age_in_first_year": 38,
         "base": {"city": "Miami", "country": "United States", "country_code": "US"},

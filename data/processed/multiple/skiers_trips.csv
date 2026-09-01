@@ -1,40 +1,40 @@
 trip_id,traveler_name,start_date,end_date,nights,origin_airport,destination_airport,destination_city,carrier_name,distance_km,accommodation_cost,transportation_cost
-SKCA-2024-01-06,Calvin,2024-01-06,2024-01-13,7,DFW,JAC,Jacksn Hole,American Airlines Inc.,1683.7,4100.0,495.0
-SKCA-2024-03-09,Calvin,2024-03-09,2024-03-16,7,DFW,SLC,Salt Lake City,American Airlines Inc.,1589.5,2650.0,355.0
-SKCA-2025-01-04,Calvin,2025-01-04,2025-01-11,7,DFW,JAC,Jacksn Hole,American Airlines Inc.,1683.7,4350.0,520.0
-SKCA-2025-03-08,Calvin,2025-03-08,2025-03-15,7,DFW,SLC,Salt Lake City,American Airlines Inc.,1589.5,2800.0,370.0
-SKCA-2026-01-03,Calvin,2026-01-03,2026-01-10,7,DFW,JAC,Jacksn Hole,American Airlines Inc.,1683.7,4600.0,545.0
-SKCA-2026-03-07,Calvin,2026-03-07,2026-03-14,7,DFW,SLC,Salt Lake City,American Airlines Inc.,1589.5,2950.0,385.0
-SKCB-2024-02-10,Charlie Brown,2024-02-10,2024-02-17,7,IAH,EGE,Vail,United Air Lines Inc.,1504.2,3100.0,415.0
-SKCB-2025-02-08,Charlie Brown,2025-02-08,2025-02-15,7,IAH,ASE,Aspen,United Air Lines Inc.,1470.2,3600.0,470.0
-SKCB-2026-02-07,Charlie Brown,2026-02-07,2026-02-14,7,IAH,EGE,Vail,United Air Lines Inc.,1504.2,3350.0,445.0
-SKGA-2024-02-03,Garfield,2024-02-03,2024-02-10,7,MSP,JAC,Jacksn Hole,Delta Air Lines Inc.,1399.7,3950.0,445.0
-SKGA-2024-03-23,Garfield,2024-03-23,2024-03-30,7,MSP,JAC,Jacksn Hole,Delta Air Lines Inc.,1399.7,3600.0,415.0
-SKGA-2025-02-01,Garfield,2025-02-01,2025-02-08,7,MSP,JAC,Jacksn Hole,Delta Air Lines Inc.,1399.7,4200.0,470.0
-SKGA-2025-03-22,Garfield,2025-03-22,2025-03-29,7,MSP,JAC,Jacksn Hole,Delta Air Lines Inc.,1399.7,3800.0,435.0
-SKGA-2026-01-31,Garfield,2026-01-31,2026-02-07,7,MSP,JAC,Jacksn Hole,Delta Air Lines Inc.,1399.7,4450.0,495.0
-SKGA-2026-03-21,Garfield,2026-03-21,2026-03-28,7,MSP,JAC,Jacksn Hole,Delta Air Lines Inc.,1399.7,4000.0,455.0
-SKHO-2024-01-20,Hobbes,2024-01-20,2024-01-27,7,CLT,SLC,Salt Lake City,American Airlines Inc.,2773.6,2500.0,430.0
-SKHO-2024-03-16,Hobbes,2024-03-16,2024-03-23,7,CLT,SLC,Salt Lake City,American Airlines Inc.,2773.6,2350.0,400.0
-SKHO-2025-01-18,Hobbes,2025-01-18,2025-01-25,7,CLT,SLC,Salt Lake City,American Airlines Inc.,2773.6,2650.0,455.0
-SKHO-2025-03-15,Hobbes,2025-03-15,2025-03-22,7,CLT,SLC,Salt Lake City,American Airlines Inc.,2773.6,2500.0,420.0
-SKHO-2026-01-17,Hobbes,2026-01-17,2026-01-24,7,CLT,SLC,Salt Lake City,American Airlines Inc.,2773.6,2800.0,480.0
-SKHO-2026-03-14,Hobbes,2026-03-14,2026-03-21,7,CLT,SLC,Salt Lake City,American Airlines Inc.,2773.6,2650.0,445.0
-SKLI-2024-02-17,Linus van Pelt,2024-02-17,2024-02-24,7,EWR,EGE,Vail,United Air Lines Inc.,2769.0,3250.0,520.0
-SKLI-2025-02-15,Linus van Pelt,2025-02-15,2025-02-22,7,EWR,DEN,Denver,United Air Lines Inc.,2576.4,2400.0,385.0
-SKLI-2026-02-14,Linus van Pelt,2026-02-14,2026-02-21,7,EWR,EGE,Vail,United Air Lines Inc.,2769.0,3500.0,560.0
-SKLU-2024-03-02,Lucy van Pelt,2024-03-02,2024-03-09,7,ORD,ASE,Aspen,United Air Lines Inc.,1626.6,3400.0,430.0
-SKLU-2025-03-01,Lucy van Pelt,2025-03-01,2025-03-08,7,ORD,MTJ,Montrose CO,United Air Lines Inc.,1735.6,2950.0,455.0
-SKLU-2026-02-28,Lucy van Pelt,2026-02-28,2026-03-07,7,ORD,ASE,Aspen,United Air Lines Inc.,1626.6,3700.0,480.0
-SKOD-2024-02-24,Odie,2024-02-24,2024-03-02,7,DTW,SLC,Salt Lake City,Delta Air Lines Inc.,2377.9,2400.0,375.0
-SKOD-2024-03-30,Odie,2024-03-30,2024-04-06,7,DTW,SLC,Salt Lake City,Delta Air Lines Inc.,2377.9,2200.0,345.0
-SKOD-2025-02-22,Odie,2025-02-22,2025-03-01,7,DTW,SLC,Salt Lake City,Delta Air Lines Inc.,2377.9,2550.0,395.0
-SKOD-2025-03-29,Odie,2025-03-29,2025-04-05,7,DTW,SLC,Salt Lake City,Delta Air Lines Inc.,2377.9,2350.0,365.0
-SKOD-2026-02-21,Odie,2026-02-21,2026-02-28,7,DTW,SLC,Salt Lake City,Delta Air Lines Inc.,2377.9,2700.0,415.0
-SKOD-2026-03-28,Odie,2026-03-28,2026-04-04,7,DTW,SLC,Salt Lake City,Delta Air Lines Inc.,2377.9,2500.0,385.0
-SKSN-2024-01-13,Snoopy,2024-01-13,2024-01-20,7,SFO,DEN,Denver,United Air Lines Inc.,1552.8,2250.0,340.0
-SKSN-2025-01-11,Snoopy,2025-01-11,2025-01-18,7,SFO,DEN,Denver,United Air Lines Inc.,1552.8,2400.0,365.0
-SKSN-2026-01-10,Snoopy,2026-01-10,2026-01-17,7,SFO,DEN,Denver,United Air Lines Inc.,1552.8,2550.0,390.0
-SKWO-2024-01-27,Woodstock,2024-01-27,2024-02-03,7,ATL,DEN,Denver,Delta Air Lines Inc.,1926.6,2300.0,375.0
-SKWO-2025-01-25,Woodstock,2025-01-25,2025-02-01,7,ATL,DEN,Denver,Delta Air Lines Inc.,1926.6,2500.0,400.0
-SKWO-2026-01-24,Woodstock,2026-01-24,2026-01-31,7,ATL,DEN,Denver,Delta Air Lines Inc.,1926.6,2650.0,425.0
+SKCW-2024-02-17,Charley Wyman,2024-02-17,2024-02-24,7,EWR,EGE,Vail,United Air Lines Inc.,2769.0,3250.0,520.0
+SKCW-2025-02-15,Charley Wyman,2025-02-15,2025-02-22,7,EWR,DEN,Denver,United Air Lines Inc.,2576.4,2400.0,385.0
+SKCW-2026-02-14,Charley Wyman,2026-02-14,2026-02-21,7,EWR,EGE,Vail,United Air Lines Inc.,2769.0,3500.0,560.0
+SKEM-2024-01-06,Ettore Moretti,2024-01-06,2024-01-13,7,DFW,JAC,Jacksn Hole,American Airlines Inc.,1683.7,4100.0,495.0
+SKEM-2024-03-09,Ettore Moretti,2024-03-09,2024-03-16,7,DFW,SLC,Salt Lake City,American Airlines Inc.,1589.5,2650.0,355.0
+SKEM-2025-01-04,Ettore Moretti,2025-01-04,2025-01-11,7,DFW,JAC,Jacksn Hole,American Airlines Inc.,1683.7,4350.0,520.0
+SKEM-2025-03-08,Ettore Moretti,2025-03-08,2025-03-15,7,DFW,SLC,Salt Lake City,American Airlines Inc.,1589.5,2800.0,370.0
+SKEM-2026-01-03,Ettore Moretti,2026-01-03,2026-01-10,7,DFW,JAC,Jacksn Hole,American Airlines Inc.,1683.7,4600.0,545.0
+SKEM-2026-03-07,Ettore Moretti,2026-03-07,2026-03-14,7,DFW,SLC,Salt Lake City,American Airlines Inc.,1589.5,2950.0,385.0
+SKFC-2024-02-03,Frances Clyne,2024-02-03,2024-02-10,7,MSP,JAC,Jacksn Hole,Delta Air Lines Inc.,1399.7,3950.0,445.0
+SKFC-2024-03-23,Frances Clyne,2024-03-23,2024-03-30,7,MSP,JAC,Jacksn Hole,Delta Air Lines Inc.,1399.7,3600.0,415.0
+SKFC-2025-02-01,Frances Clyne,2025-02-01,2025-02-08,7,MSP,JAC,Jacksn Hole,Delta Air Lines Inc.,1399.7,4200.0,470.0
+SKFC-2025-03-22,Frances Clyne,2025-03-22,2025-03-29,7,MSP,JAC,Jacksn Hole,Delta Air Lines Inc.,1399.7,3800.0,435.0
+SKFC-2026-01-31,Frances Clyne,2026-01-31,2026-02-07,7,MSP,JAC,Jacksn Hole,Delta Air Lines Inc.,1399.7,4450.0,495.0
+SKFC-2026-03-21,Frances Clyne,2026-03-21,2026-03-28,7,MSP,JAC,Jacksn Hole,Delta Air Lines Inc.,1399.7,4000.0,455.0
+SKGG-2024-02-10,George Gardner,2024-02-10,2024-02-17,7,IAH,EGE,Vail,United Air Lines Inc.,1504.2,3100.0,415.0
+SKGG-2025-02-08,George Gardner,2025-02-08,2025-02-15,7,IAH,ASE,Aspen,United Air Lines Inc.,1470.2,3600.0,470.0
+SKGG-2026-02-07,George Gardner,2026-02-07,2026-02-14,7,IAH,EGE,Vail,United Air Lines Inc.,1504.2,3350.0,445.0
+SKHS-2024-02-24,Harvey Stone,2024-02-24,2024-03-02,7,DTW,SLC,Salt Lake City,Delta Air Lines Inc.,2377.9,2400.0,375.0
+SKHS-2024-03-30,Harvey Stone,2024-03-30,2024-04-06,7,DTW,SLC,Salt Lake City,Delta Air Lines Inc.,2377.9,2200.0,345.0
+SKHS-2025-02-22,Harvey Stone,2025-02-22,2025-03-01,7,DTW,SLC,Salt Lake City,Delta Air Lines Inc.,2377.9,2550.0,395.0
+SKHS-2025-03-29,Harvey Stone,2025-03-29,2025-04-05,7,DTW,SLC,Salt Lake City,Delta Air Lines Inc.,2377.9,2350.0,365.0
+SKHS-2026-02-21,Harvey Stone,2026-02-21,2026-02-28,7,DTW,SLC,Salt Lake City,Delta Air Lines Inc.,2377.9,2700.0,415.0
+SKHS-2026-03-28,Harvey Stone,2026-03-28,2026-04-04,7,DTW,SLC,Salt Lake City,Delta Air Lines Inc.,2377.9,2500.0,385.0
+SKJG-2024-01-13,Jim Gilmore,2024-01-13,2024-01-20,7,SFO,DEN,Denver,United Air Lines Inc.,1552.8,2250.0,340.0
+SKJG-2025-01-11,Jim Gilmore,2025-01-11,2025-01-18,7,SFO,DEN,Denver,United Air Lines Inc.,1552.8,2400.0,365.0
+SKJG-2026-01-10,Jim Gilmore,2026-01-10,2026-01-17,7,SFO,DEN,Denver,United Air Lines Inc.,1552.8,2550.0,390.0
+SKLC-2024-03-02,Liz Coates,2024-03-02,2024-03-09,7,ORD,ASE,Aspen,United Air Lines Inc.,1626.6,3400.0,430.0
+SKLC-2025-03-01,Liz Coates,2025-03-01,2025-03-08,7,ORD,MTJ,Montrose CO,United Air Lines Inc.,1735.6,2950.0,455.0
+SKLC-2026-02-28,Liz Coates,2026-02-28,2026-03-07,7,ORD,ASE,Aspen,United Air Lines Inc.,1626.6,3700.0,480.0
+SKMS-2024-01-27,Mrs. Smith,2024-01-27,2024-02-03,7,ATL,DEN,Denver,Delta Air Lines Inc.,1926.6,2300.0,375.0
+SKMS-2025-01-25,Mrs. Smith,2025-01-25,2025-02-01,7,ATL,DEN,Denver,Delta Air Lines Inc.,1926.6,2500.0,400.0
+SKMS-2026-01-24,Mrs. Smith,2026-01-24,2026-01-31,7,ATL,DEN,Denver,Delta Air Lines Inc.,1926.6,2650.0,425.0
+SKRS-2024-01-20,Ralph Simmons,2024-01-20,2024-01-27,7,CLT,SLC,Salt Lake City,American Airlines Inc.,2773.6,2500.0,430.0
+SKRS-2024-03-16,Ralph Simmons,2024-03-16,2024-03-23,7,CLT,SLC,Salt Lake City,American Airlines Inc.,2773.6,2350.0,400.0
+SKRS-2025-01-18,Ralph Simmons,2025-01-18,2025-01-25,7,CLT,SLC,Salt Lake City,American Airlines Inc.,2773.6,2650.0,455.0
+SKRS-2025-03-15,Ralph Simmons,2025-03-15,2025-03-22,7,CLT,SLC,Salt Lake City,American Airlines Inc.,2773.6,2500.0,420.0
+SKRS-2026-01-17,Ralph Simmons,2026-01-17,2026-01-24,7,CLT,SLC,Salt Lake City,American Airlines Inc.,2773.6,2800.0,480.0
+SKRS-2026-03-14,Ralph Simmons,2026-03-14,2026-03-21,7,CLT,SLC,Salt Lake City,American Airlines Inc.,2773.6,2650.0,445.0

@@ -46,28 +46,28 @@ SKI_SEASONS_DF = (
 # Destination City/Country are what the weather join keys on -- see
 # _trip_avg_high_c(); they're the trip's own values, not derived here.
 TEST_TRIPS = {
-    "Charlie-Brown-Vail-2024": {
+    "Gardner-Vail-2024": {
         "Destination Airport": "EGE", "Arrival Date": "2024-02-10", "Departure Date": "2024-02-17",
         "Destination City": "Vail", "Destination Country": "United States"},
-    "Charlie-Brown-Aspen-2025": {
+    "Gardner-Aspen-2025": {
         "Destination Airport": "ASE", "Arrival Date": "2025-02-08", "Departure Date": "2025-02-15",
         "Destination City": "Aspen", "Destination Country": "United States"},
-    "Clark-Kent-Cancun-2023": {
+    "Valentini-Cancun-2023": {
         "Destination Airport": "CUN", "Arrival Date": "2023-02-11", "Departure Date": "2023-02-18",
         "Destination City": "Cancun", "Destination Country": "Mexico"},
-    "Clark-Kent-Cancun-2024": {
+    "Valentini-Cancun-2024": {
         "Destination Airport": "CUN", "Arrival Date": "2024-02-10", "Departure Date": "2024-02-17",
         "Destination City": "Cancun", "Destination Country": "Mexico"},
-    "Clark-Kent-Cancun-2025": {
+    "Valentini-Cancun-2025": {
         "Destination Airport": "CUN", "Arrival Date": "2025-02-08", "Departure Date": "2025-02-15",
         "Destination City": "Cancun", "Destination Country": "Mexico"},
-    "Calvin-JacksonHole-2024": {
+    "Moretti-JacksonHole-2024": {
         "Destination Airport": "JAC", "Arrival Date": "2024-01-06", "Departure Date": "2024-01-13",
         "Destination City": "Jacksn Hole", "Destination Country": "United States"},
-    "Calvin-SaltLakeCity-2024": {
+    "Moretti-SaltLakeCity-2024": {
         "Destination Airport": "SLC", "Arrival Date": "2024-03-09", "Departure Date": "2024-03-16",
         "Destination City": "Salt Lake City", "Destination Country": "United States"},
-    "Garfield-JacksonHole-2026": {
+    "Clyne-JacksonHole-2026": {
         "Destination Airport": "JAC", "Arrival Date": "2026-03-21", "Departure Date": "2026-03-28",
         "Destination City": "Jacksn Hole", "Destination Country": "United States"},
     "Rymel-Hawaii-2020": {

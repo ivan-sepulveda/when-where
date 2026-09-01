@@ -2526,8 +2526,8 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   | Airline | International only (one destination) | Domestic only (holidays) | Mixed |
   |---|---|---|---|
   | **American** (scientists) | Albert Einstein DFW→London ×2/yr, Marie Curie MIA→Buenos Aires ×2/yr, Niels Bohr PHL→Lisbon ×1/yr | Isaac Newton ORD→Denver (Thanksgiving + Christmas), Galileo Galilei DCA→Orlando ×3/yr, Louis Pasteur PHL→Palm Beach ×2/yr | Charles Darwin (MIA: São Paulo, Lima, Boston, LA), Nikola Tesla (DFW: Cancún, London, San Antonio, Nashville), Stephen Hawking (LAX: Sydney, Tokyo, JFK, Miami), Richard Feynman (CLT: Madrid, New Orleans, Pittsburgh) |
-  | **Southwest** (DC characters) | Clark Kent HOU→Cancún ×2/yr, Bruce Wayne BWI→Montego Bay ×2/yr, Diana Prince PHX→Los Cabos ×2/yr | Barry Allen MDW→Tampa ×2/yr, Hal Jordan DEN→San Diego ×2/yr, Arthur Curry BNA→Sarasota ×3/yr | Victor Stone (MCO: Nassau, San José CR, Baltimore, St. Louis), Oliver Queen (DEN: Los Cabos, Cancún, San Antonio, Seattle), Billy Batson (STL: Cancún, Orlando, Phoenix), Dick Grayson (MCI: Cancún, Las Vegas, Tampa) |
-  | **Alaska** (Marvel characters) | Peter Parker SEA→Tokyo ×2/yr, Tony Stark LAX→Guadalajara ×2/yr, Steve Rogers HNL→Sydney ×1/yr | Bruce Banner SEA→Maui ×2/yr, Thor Odinson PDX→Palm Springs ×2/yr, Natasha Romanoff SFO→Orlando ×2/yr | Clint Barton (SEA: Seoul, Toronto, Anchorage, Spokane), Matt Murdock (SFO: Los Cabos, Puerto Vallarta, JFK, Orlando), Logan (LAX: Liberia CR, Belize City, Kona, Newark), Stephen Strange (SAN: Los Cabos, Puerto Vallarta, Boise, Honolulu) |
+  | **Southwest** (*A Farewell to Arms* characters) | Dr. Valentini HOU→Cancún ×2/yr, Count Greffi BWI→Montego Bay ×2/yr, Miss Van Campen PHX→Los Cabos ×2/yr | Dr. Varella MDW→Tampa ×2/yr, Mr. Guttingen DEN→San Diego ×2/yr, Mr. Meyers BNA→Sarasota ×3/yr | Mrs. Walker (MCO: Nassau, San José CR, Baltimore, St. Louis), Mrs. Guttingen (DEN: Los Cabos, Cancún, San Antonio, Seattle), Mrs. Meyers (STL: Cancún, Orlando, Phoenix), Miss Gage (MCI: Cancún, Las Vegas, Tampa) |
+  | **Alaska** (*Men Without Women* characters) | William Campbell SEA→Tokyo ×2/yr, Joe Garner LAX→Guadalajara ×2/yr, Solly Freedman HNL→Sydney ×1/yr | Mr. Turner SEA→Maui ×2/yr, John Collins PDX→Palm Springs ×2/yr, Mrs. Garner SFO→Orlando ×2/yr | Jack Brennan (SEA: Seoul, Toronto, Anchorage, Spokane), Danny Hogan (SFO: Los Cabos, Puerto Vallarta, JFK, Orlando), Mrs. Hirsch (LAX: Liberia CR, Belize City, Kona, Newark), Mrs. Bell (SAN: Los Cabos, Puerto Vallarta, Boise, Honolulu) |
 
   Three things these thirty add that nothing above had:
   - **Holiday travel that isn't family travel.** Same low frequency and same
@@ -2541,11 +2541,11 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
     the Caribbean — so "flies abroad twice a year" now means something
     different at four hours than it does at ten. It also flies from the
     *secondary* airport where a city has one, which is why Chicago here means
-    Midway (Barry Allen) alongside O'Hare (Jackson Pollock, Claude Monet,
-    Isaac Newton), and Houston means Hobby (Clark Kent) alongside
+    Midway (Dr. Varella) alongside O'Hare (Jackson Pollock, Claude Monet,
+    Isaac Newton), and Houston means Hobby (Dr. Valentini) alongside
     Intercontinental (O'Keeffe, Warhol).
   - **Domestic flights longer than most international ones.** Alaska supplies
-    the only non-mainland base in the file (Steve Rogers, Honolulu — Sydney is
+    the only non-mainland base in the file (Solly Freedman, Honolulu — Sydney is
     a shorter flight from there than New York is) plus Seattle–Maui and
     LA–Kona, which are domestic by passport and six hours over open ocean by
     any other measure. Anything that treats "domestic" as a proxy for "short"
@@ -2608,8 +2608,8 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 - **The names are a convention, not a joke.** One category per airline, so
   which airline a traveler flies is legible from their name alone while
   reading the raw data: United → painters and architects, Delta → jazz
-  musicians, American → scientists, Southwest → DC characters, Alaska →
-  Marvel characters, **and no airline at all → Greek myth**. The last three
+  musicians, American → scientists, Southwest → *A Farewell to Arms* characters, Alaska →
+  *Men Without Women* characters, **and no airline at all → Greek myth**. The last three
   also make the fiction unmissable, which is the point of naming these people
   at all. The pairings are deliberately **not** biographical — Marie Curie
   flies to Buenos Aires, Galileo to Orlando, Thor to Palm Springs, and
@@ -2618,11 +2618,9 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   (or invents something about invented ones) that it doesn't. Gender is
   lopsided but no longer nearly-uniform: the Greek group is 9 women to 22
   men, bringing the file to **15 women against 67 men**.
-- **Two `id_prefix` collisions are resolved by suffixing, not renaming** —
-  `PPK` for Peter Parker (Pablo Picasso holds `PP`), `BBN` for Bruce Banner
-  (Billy Batson holds `BB`), `CBA` for Clint Barton (Chet Baker holds `CB`).
-  `trip_id` starts with this prefix, so a duplicate would silently merge two
-  people's trips.
+- **Every `id_prefix` in the file is checked for collisions.** `trip_id`
+  starts with a traveler's id_prefix, so a duplicate would silently merge
+  two people's trips.
 
 - **Carriers come from the data, not from plausibility.** Hopper flies Cathay
   Pacific to Hong Kong and EVA Air to Taipei because those are the busiest
@@ -2706,12 +2704,12 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   skier is — the same weeks every year, the same mountains, the same
   airline. That's a distinct pattern shape for the recommender, and there
   was nothing like it in the data.
-- **The travelers:** to Colorado — Charlie Brown (Houston/IAH), Linus van
-  Pelt (Newark/EWR), Lucy van Pelt (Chicago/ORD) and Snoopy (San
-  Francisco/SFO) fly United, Woodstock (Atlanta/ATL) flies Delta. To
-  Jackson Hole and Utah — Calvin (Dallas/DFW) and Hobbes (Charlotte/CLT)
-  fly American, Garfield (Minneapolis/MSP) and Odie (Detroit/DTW) fly
-  Delta. All nine are American nationals.
+- **The travelers:** to Colorado — George Gardner (Houston/IAH), Charley
+  Wyman (Newark/EWR), Liz Coates (Chicago/ORD) and Jim Gilmore (San
+  Francisco/SFO) fly United, Mrs. Smith (Atlanta/ATL) flies Delta. To
+  Jackson Hole and Utah — Ettore Moretti (Dallas/DFW) and Ralph Simmons
+  (Charlotte/CLT) fly American, Frances Clyne (Minneapolis/MSP) and Harvey
+  Stone (Detroit/DTW) fly Delta. All nine are American nationals.
 - **Trip counts differ on purpose.** `compute_traveler_tags.py` needs
   `LOYALIST_MIN_TRIPS` (5) carrier-recorded trips before it will award an
   "{Airline} Loyalist" tag. The Colorado five fly once a season (3 trips)
@@ -2739,7 +2737,7 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
   builder — fix it in the reference or not at all.
 - **Why two skiers only ever fly to Denver:** from SFO the only Colorado
   options in the route file are DEN and COS, and Delta's Atlanta–Colorado
-  service is DEN and COS too. Snoopy and Woodstock therefore fly to Denver
+  service is DEN and COS too. Jim Gilmore and Mrs. Smith therefore fly to Denver
   and drive; giving them a mountain airport would have meant inventing a
   route. Houston, Newark and Chicago reach EGE/ASE/MTJ directly.
 - **They do not get a Loyalist tag, and that's the rule working.** All five
@@ -2764,8 +2762,8 @@ boundary between force 9 (Strong Gale) and force 10 (Storm), i.e.
 
 - **Source:** authored for this project — no external dataset. Three
   Canadians living in US cities who fly home to Toronto for Canadian
-  Thanksgiving every year: Bert Raccoon (New York/JFK), Ralph Raccoon (Los
-  Angeles/LAX), Melissa Raccoon (Miami/MIA). 5 years each (2021–2025), 15
+  Thanksgiving every year: Count Mippipopolous (New York/JFK), Manuel Orquito
+  (Los Angeles/LAX), Mrs. Braddocks (Miami/MIA). 5 years each (2021–2025), 15
   trips, all on Air Canada.
 - **Why they exist:** `classify_trip.py` tests a trip against the
   *destination country's own* Thanksgiving, and nothing in the dataset
@@ -3252,8 +3250,8 @@ what keeps that from mattering.
     ski tags are DEN, including Isaac Newton's Thanksgiving and Christmas
     family visits. The airport alone can't separate "flew to Denver to ski"
     from "flew to Denver". Narrow the DEN window, or drop DEN from
-    `SKI_SEASONS`, if precision matters more than catching Snoopy and
-    Woodstock, who genuinely do ski via Denver.
+    `SKI_SEASONS`, if precision matters more than catching Jim Gilmore and
+    Mrs. Smith, who genuinely do ski via Denver.
 - **Current output:** `Beach Vacation` 736 trips, `Holiday Trip` 194, `Ski
   Trip` 88; 59 trips carry more than one. Counts also
   land in `trips_enhanced.json` as `trips_by_tag`. For scale: the midpoint
@@ -3575,8 +3573,8 @@ must not be built on a guess.
 depart from exactly one airport — that airport *is* their home airport, stated
 by the data rather than by the table — so every match is checked against it
 and `home_airport_is_hub` records the result. It never suppresses a tag.
-Three are False today and all three are real: **Barry Allen** and **Artemis**
-live in Chicago and fly Midway, **Clark Kent** lives in Houston and flies
+Three are False today and all three are real: **Dr. Varella** and **Artemis**
+live in Chicago and fly Midway, **Dr. Valentini** lives in Houston and flies
 Hobby. All three are Southwest travelers, and Southwest flies the secondary
 field in both metros — they live in the hub city and use the airport the hub
 airline isn't at. Anything *above* those three should be read as a table bug.
@@ -3587,8 +3585,8 @@ carry at least one tag of either kind.**
 
 **The two rules are independent, and the data proves it**: travelers exist who
 are loyal without living at a hub, live at a hub without being loyal, and
-both. Oliver Queen lives in Denver (United's hub) and is a Southwest loyalist;
-Barry Allen lives in Chicago and flies Southwest out of Midway. A hub chip
+both. Mrs. Guttingen lives in Denver (United's hub) and is a Southwest loyalist;
+Dr. Varella lives in Chicago and flies Southwest out of Midway. A hub chip
 makes no claim about who someone flies.
 
 #### Output

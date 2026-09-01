@@ -78,9 +78,9 @@ declared city is the fact the rule is about.
 
 A False is not automatically an error, and today all three are real:
 
-    Barry Allen  Chicago -> ORD, flies MDW (Midway)
+    Dr. Varella  Chicago -> ORD, flies MDW (Midway)
     Artemis      Chicago -> ORD, flies MDW (Midway)
-    Clark Kent   Houston -> IAH, flies HOU (Hobby)
+    Dr. Valentini Houston -> IAH, flies HOU (Hobby)
 
 All three are Southwest travelers, and Southwest flies the secondary field in
 both metros -- they live in the hub city and use the airport the hub airline
