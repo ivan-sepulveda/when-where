@@ -1418,3 +1418,101 @@ class TestTravelers:
         assert "travelers_loaded" in body
         count = body["travelers_loaded"]
         assert count is None or count >= 0
+
+
+class TestTravelerRecommendations:
+    """GET /api/travelers/{id}/recommendations.
+
+    WRITTEN TO PASS IN BOTH WORLDS, on purpose. Today
+    data/processed/multiple/rec_sys/recommendations.json does not exist --
+    rec_sys_hybrid.py's ranking logic is still pseudocode -- so the route
+    answers "not_generated" for everyone. These tests assert the invariants
+    that hold either way and skip the branch that does not currently apply,
+    so the same file goes on guarding the route the day that script starts
+    writing the file, instead of having to be rewritten then.
+
+    The invariant that matters most is the status code: the frontend tells
+    "not built yet" apart from "request failed" by reading the body, which
+    only works if a missing file is still a 200."""
+
+    def _a_traveler_id(self, client) -> str:
+        body = client.get("/api/travelers").json()
+        if not body["dataset_available"] or not body["travelers"]:
+            pytest.skip("travelers.json not generated in this checkout")
+        return body["travelers"][0]["traveler_id"]
+
+    def test_unknown_traveler_id_is_404(self, client):
+        res = client.get("/api/travelers/not-a-real-traveler/recommendations")
+        assert res.status_code == 404
+
+    def test_a_missing_recommendations_file_is_still_200(self, client):
+        # The whole reason this route does not use 501/503: an error code
+        # would land "the recommender has not been built" in the same
+        # fetch() branch as a network failure, and the panel has to say
+        # different things about those two.
+        traveler_id = self._a_traveler_id(client)
+        res = client.get(f"/api/travelers/{traveler_id}/recommendations")
+        assert res.status_code == 200
+
+    def test_status_is_one_of_the_three_documented_values(self, client):
+        traveler_id = self._a_traveler_id(client)
+        body = client.get(f"/api/travelers/{traveler_id}/recommendations").json()
+        assert body["status"] in {"ok", "not_generated", "unavailable"}
+        assert body["traveler_id"] == traveler_id
+
+    def test_a_state_with_no_rows_explains_itself(self, client):
+        # An empty panel with no sentence in it reads as broken. Whichever
+        # non-ok state this checkout is in, it has to come with words.
+        traveler_id = self._a_traveler_id(client)
+        body = client.get(f"/api/travelers/{traveler_id}/recommendations").json()
+        if body["status"] == "ok" and body["recommendations"]:
+            pytest.skip("recommendations have been generated in this checkout")
+        assert body["recommendations"] == []
+        assert body["detail"].strip()
+
+    def test_not_generated_names_the_script_to_run(self, client):
+        traveler_id = self._a_traveler_id(client)
+        body = client.get(f"/api/travelers/{traveler_id}/recommendations").json()
+        if body["status"] != "not_generated":
+            pytest.skip("recommendations.json exists in this checkout")
+        assert "rec_sys_hybrid.py" in body["detail"]
+        assert body["personalised"] is False
+
+    def test_limit_is_validated(self, client):
+        traveler_id = self._a_traveler_id(client)
+        assert client.get(f"/api/travelers/{traveler_id}/recommendations?limit=0").status_code == 422
+        assert client.get(f"/api/travelers/{traveler_id}/recommendations?limit=99").status_code == 422
+
+    def test_rows_carry_what_the_page_renders(self, client):
+        # Only runs once the recommender exists. Pins the two fields the
+        # model files treat as non-optional -- `why`, because an unexplained
+        # recommendation is one nobody acts on, and `source`, because a
+        # mixed list has to be readable as the mixture it is.
+        traveler_id = self._a_traveler_id(client)
+        body = client.get(f"/api/travelers/{traveler_id}/recommendations?limit=3").json()
+        if body["status"] != "ok" or not body["recommendations"]:
+            pytest.skip("recommendations have not been generated in this checkout")
+
+        assert len(body["recommendations"]) <= 3
+        for row in body["recommendations"]:
+            assert row["destination_city"] and row["destination_country"]
+            assert row["destination_key"] == f"{row['destination_city']}|{row['destination_country']}"
+            assert isinstance(row["why"], list)
+            # null is a real answer for best_month (no weather normals for
+            # that city) and must not be filled in with a plausible month.
+            assert row["best_month"] is None or isinstance(row["best_month"], str)
+
+    def test_recommendations_exclude_places_the_traveler_has_been(self, client):
+        traveler_id = self._a_traveler_id(client)
+        body = client.get(f"/api/travelers/{traveler_id}/recommendations").json()
+        if body["status"] != "ok" or not body["recommendations"]:
+            pytest.skip("recommendations have not been generated in this checkout")
+
+        detail = client.get(f"/api/travelers/{traveler_id}").json()
+        visited = {
+            f"{trip['destination_city']}|{trip['destination_country']}"
+            for trip in detail["trips"]
+            if not trip.get("layover") and trip.get("destination_city")
+        }
+        for row in body["recommendations"]:
+            assert row["destination_key"] not in visited

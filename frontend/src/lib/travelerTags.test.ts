@@ -157,3 +157,72 @@ describe("joinNames", () => {
     expect(joinNames(["United", "Delta", "American"])).toBe("United, Delta and American");
   });
 });
+
+describe("describeTag for a trip-pattern tag (Skier)", () => {
+  function skier(overrides: Partial<TravelerTag> = {}): TravelerTag {
+    return {
+      tag_id: "trip-pattern:ski-trip",
+      kind: "trip_pattern",
+      label: "Skier",
+      carrier_name: null,
+      carrier_names: [],
+      trip_kind: "ski_trip",
+      trips: 3,
+      denominator: 3,
+      share: 1,
+      ...overrides,
+    };
+  }
+
+  it("leads with the count, because the count is what earned the tag", () => {
+    // The rule is a floor (3+ ski trips), not a threshold on a share, so the
+    // sentence must not open with a percentage the way the loyalist one does.
+    expect(describeTag(skier())).toBe("3 ski trips, out of 3 trips with dates and a route.");
+  });
+
+  it("reads correctly for someone who skis rarely but often enough", () => {
+    // Sisyphus: 3 of 32. Same tag, same wording, no implication that 9% is
+    // marginal -- three ski trips is three ski trips.
+    expect(describeTag(skier({ trips: 3, denominator: 32, share: 0.0938 }))).toBe(
+      "3 ski trips, out of 32 trips with dates and a route.",
+    );
+  });
+
+  it("reads correctly at the other extreme", () => {
+    // Isaac Newton: 20 of 20.
+    expect(describeTag(skier({ trips: 20, denominator: 20 }))).toBe(
+      "20 ski trips, out of 20 trips with dates and a route.",
+    );
+  });
+
+  it("names the denominator's restriction rather than implying trip_count", () => {
+    // "with dates and a route" is classify_trip.py's actual requirement. A
+    // reader who takes 3-of-32 as a claim about ALL their travel has been
+    // misled, since a traveler can have trips that were never classifiable.
+    expect(describeTag(skier({ denominator: 32 }))).toContain("with dates and a route");
+  });
+
+  it("pluralises both halves", () => {
+    expect(describeTag(skier({ trips: 1, denominator: 1 }))).toBe(
+      "1 ski trip, out of 1 trip with dates and a route.",
+    );
+  });
+
+  it("still says something useful with no denominator", () => {
+    expect(describeTag(skier({ denominator: undefined }))).toBe("3 ski trips.");
+  });
+
+  it("gives no tooltip for a trip kind it doesn't have wording for", () => {
+    // A guessed noun built by mangling the enum would read fine for
+    // "beach_vacation" and badly for whatever gets added next; no tooltip is
+    // the smaller failure.
+    expect(describeTag(skier({ trip_kind: "aurora_chasing", label: "Aurora Chaser" }))).toBeUndefined();
+    expect(describeTag(skier({ trip_kind: null }))).toBeUndefined();
+  });
+
+  it("draws no airline dots", () => {
+    // A dot on a chip means "this color identifies that airline", and this
+    // tag is about no airline at all.
+    expect(tagCarriers(skier())).toEqual([]);
+  });
+});

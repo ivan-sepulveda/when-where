@@ -1,6 +1,7 @@
 import { Link, useParams, useSearchParams } from "react-router";
 import PreferenceRadarChart from "../components/PreferenceRadarChart";
 import StackedShareBar from "../components/StackedShareBar";
+import TravelerRecommendations from "../components/TravelerRecommendations";
 import TravelerTags from "../components/TravelerTags";
 import { airlineColor, shortenCarrier } from "../lib/airlineColors";
 import { formatDateRange } from "../lib/formatDate";
@@ -25,6 +26,7 @@ import {
   tripDestinationScores,
   TRIP_ORDER_OPTIONS,
   useTraveler,
+  useTravelerRecommendations,
   type DestinationEntropy,
   type TravelerTrip,
   type TripOrder,
@@ -180,6 +182,11 @@ function EntropyBlock({ entropy }: { entropy: DestinationEntropy | null | undefi
 // "recent" is the default and is never written to the URL.
 const TRIP_ORDER_PARAM = "trip-order";
 
+// The disclosure panel the Recommend button controls. A constant because the
+// button's aria-controls and the panel's own id have to agree, and two string
+// literals that must match are two string literals that eventually will not.
+const RECOMMENDATIONS_PANEL_ID = "traveler-recommendations";
+
 function parseTripOrder(raw: string | null): TripOrder {
   return raw === "oldest" ? "oldest" : "recent";
 }
@@ -187,6 +194,11 @@ function parseTripOrder(raw: string | null): TripOrder {
 export default function TravelerDetail() {
   const { travelerId } = useParams<{ travelerId: string }>();
   const state = useTraveler(travelerId);
+  // Collapsed, and un-fetched, until the button beside the name is pressed
+  // -- see useTravelerRecommendations. Called up here with the other hooks
+  // because the early returns below (loading / not-found / error) would
+  // otherwise make it conditional.
+  const recommendations = useTravelerRecommendations(travelerId);
   const [searchParams, setSearchParams] = useSearchParams();
   const tripOrder = parseTripOrder(searchParams.get(TRIP_ORDER_PARAM));
 
@@ -277,7 +289,36 @@ export default function TravelerDetail() {
 
   return (
     <main className="page">
-      <h1>{traveler.name}</h1>
+      {/* Name and the Recommend button on one row. The button sits beside the
+          name rather than down with the Trips controls because it acts on the
+          whole traveler, not on any one section -- and because what it opens
+          is a claim ABOUT this person, which belongs next to their name for
+          the same reason the tags do. */}
+      <div className="traveler-detail-heading">
+        <h1>{traveler.name}</h1>
+        <button
+          type="button"
+          className="traveler-recommend-button"
+          // aria-expanded/controls make this a real disclosure rather than a
+          // button that happens to reveal something: the panel is
+          // collapsed by default and nothing is fetched until it opens.
+          aria-expanded={recommendations.expanded}
+          aria-controls={RECOMMENDATIONS_PANEL_ID}
+          onClick={recommendations.toggle}
+        >
+          {/* THE LABEL DOES NOT CHANGE WHEN THE PANEL OPENS, only the caret.
+              "Recommend 3 places" and "Hide recommendations" are different
+              widths, so swapping them re-flows this row -- and since the row
+              wraps once the name plus the button exceed .page's 640px, a
+              long-named traveler's button would jump to its own line on
+              every click. aria-expanded is what actually communicates the
+              state, to everyone who needs it communicated -- and visually,
+              the panel appearing under the button is the feedback, with the
+              button itself taking the accent border while it is open (see
+              the [aria-expanded="true"] rule in index.css). */}
+          Recommend 3 places
+        </button>
+      </div>
       {/* Directly under the name, above the stats: the tags are the one thing
           on this page that's a conclusion rather than a field, and they're
           what the "Airlines flown" bar further down is the evidence for. */}
@@ -285,6 +326,18 @@ export default function TravelerDetail() {
       <p className="tagline">
         <Link to="/rec-sys">Back to travelers</Link>
       </p>
+
+      {/* Unmounted while collapsed, not hidden with CSS -- there is nothing
+          to keep alive, and an aria-live region that exists but is invisible
+          announces to a screen reader what nobody asked for. The fetched
+          result survives collapsing anyway; it lives in the hook, not here. */}
+      {recommendations.expanded && (
+        <TravelerRecommendations
+          id={RECOMMENDATIONS_PANEL_ID}
+          state={recommendations.state}
+          onRetry={recommendations.reload}
+        />
+      )}
 
       <ul className="destination-detail-stats">
         {details.map((detail) => (

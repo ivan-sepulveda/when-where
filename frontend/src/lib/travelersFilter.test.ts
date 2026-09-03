@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
   ENTROPY_STEP,
+  filterByTags,
+  resolveTagSelection,
+  tagLabels,
+  tagMatchCounts,
+  tagOptions,
   entropyMetricRange,
   entropyMetricValue,
   filterByEntropy,
@@ -271,5 +276,158 @@ describe("filterByTravelerType", () => {
       "fake-one",
       "unset-one",
     ]);
+  });
+});
+
+
+// ---------------------------------------------------------------------------
+// The tag filter on /rec-sys
+// ---------------------------------------------------------------------------
+
+function tagged(name: string, tags: [string, string][]): TravelerSummary {
+  return {
+    traveler_id: name.toLowerCase().replace(/ /g, "-"),
+    name,
+    nationality: "American",
+    gender: "Male",
+    age: 40,
+    age_range: [40, 40],
+    trip_count: 3,
+    destinations: [],
+    tags: tags.map(([tag_id, label]) => ({ tag_id, label, kind: "x" })),
+  };
+}
+
+const UNITED: [string, string] = ["airline-loyalist:united-air-lines-inc", "United Loyalist"];
+const DELTA: [string, string] = ["airline-loyalist:delta-air-lines-inc", "Delta Loyalist"];
+const SKIER: [string, string] = ["trip-pattern:ski-trip", "Skier"];
+const MULTI_HUB: [string, string] = ["multi-hub", "Multi Hub"];
+
+const TAGGED_PEOPLE: TravelerSummary[] = [
+  tagged("George Gardner", [UNITED, SKIER]),
+  tagged("Isaac Newton", [UNITED, SKIER]),
+  tagged("Andy Warhol", [UNITED, MULTI_HUB]),
+  tagged("Bill Evans", [DELTA]),
+  tagged("Sisyphus", [SKIER]),
+  tagged("Untagged Person", []),
+];
+
+describe("tagOptions", () => {
+  it("derives the chips from the data, most common first", () => {
+    // Never a hardcoded list: a fourth tag rule should appear in the filter
+    // the moment it appears on a traveler, with no frontend change.
+    // Count descending, then label ascending -- so "Skier" precedes "United
+    // Loyalist" at 3 apiece, and "Delta Loyalist" precedes "Multi Hub" at 1.
+    expect(tagOptions(TAGGED_PEOPLE).map((o) => [o.label, o.count])).toEqual([
+      ["Skier", 3],
+      ["United Loyalist", 3],
+      ["Delta Loyalist", 1],
+      ["Multi Hub", 1],
+    ]);
+  });
+
+  it("breaks count ties by label so the order is stable across renders", () => {
+    // The chips must not reshuffle between renders -- a row of small click
+    // targets that reorders is unusable.
+    const a = tagOptions(TAGGED_PEOPLE).map((o) => o.tag_id);
+    const b = tagOptions([...TAGGED_PEOPLE].reverse()).map((o) => o.tag_id);
+    expect(a).toEqual(b);
+  });
+
+  it("has no chips at all when nothing is tagged", () => {
+    // A checkout where compute_traveler_tags.py hasn't run gets no filter,
+    // rather than a row of chips that match nothing.
+    expect(tagOptions([tagged("Nobody", [])])).toEqual([]);
+  });
+});
+
+describe("filterByTags", () => {
+  it("is off when nothing is selected", () => {
+    expect(filterByTags(TAGGED_PEOPLE, [])).toHaveLength(TAGGED_PEOPLE.length);
+  });
+
+  it("matches a single tag", () => {
+    expect(filterByTags(TAGGED_PEOPLE, [SKIER[0]]).map((t) => t.name)).toEqual([
+      "George Gardner",
+      "Isaac Newton",
+      "Sisyphus",
+    ]);
+  });
+
+  // The headline behaviour: AND, not OR. "United Loyalist and Skier" is a
+  // person; the OR reading is two unrelated lists stapled together.
+  it("requires EVERY selected tag, not any of them", () => {
+    expect(filterByTags(TAGGED_PEOPLE, [UNITED[0], SKIER[0]]).map((t) => t.name)).toEqual([
+      "George Gardner",
+      "Isaac Newton",
+    ]);
+  });
+
+  it("returns nothing for a combination nobody has", () => {
+    // Nobody is two airline loyalists. This is the dead end the contextual
+    // counts exist to make visible BEFORE it is clicked.
+    expect(filterByTags(TAGGED_PEOPLE, [UNITED[0], DELTA[0]])).toEqual([]);
+  });
+
+  it("never matches a traveler with no tags", () => {
+    expect(filterByTags(TAGGED_PEOPLE, [SKIER[0]]).map((t) => t.name)).not.toContain("Untagged Person");
+  });
+});
+
+describe("tagMatchCounts", () => {
+  it("counts against the CURRENT results, not the whole dataset", () => {
+    const options = tagOptions(TAGGED_PEOPLE);
+    const shown = filterByTags(TAGGED_PEOPLE, [SKIER[0]]);
+    const counts = tagMatchCounts(shown, options);
+    // Of the three skiers, two are also United loyalists.
+    expect(counts.get(UNITED[0])).toBe(2);
+    expect(counts.get(SKIER[0])).toBe(3);
+  });
+
+  it("reports zero for a tag that would empty the grid", () => {
+    // Which is what disables the chip. Without this, picking a second
+    // loyalist is an inviting click that blanks the page unexplained.
+    const options = tagOptions(TAGGED_PEOPLE);
+    const counts = tagMatchCounts(filterByTags(TAGGED_PEOPLE, [UNITED[0]]), options);
+    expect(counts.get(DELTA[0])).toBe(0);
+  });
+
+  it("has an entry for every option, including ones nobody shown carries", () => {
+    const options = tagOptions(TAGGED_PEOPLE);
+    const counts = tagMatchCounts([], options);
+    expect([...counts.keys()].sort()).toEqual(options.map((o) => o.tag_id).sort());
+    expect([...counts.values()].every((v) => v === 0)).toBe(true);
+  });
+});
+
+describe("resolveTagSelection", () => {
+  it("drops an id this build has never heard of", () => {
+    // A shared link from before a rule was renamed shows a grid, not an
+    // unexplained empty page -- same treatment as an unknown entropy metric.
+    expect(resolveTagSelection([SKIER[0], "trip-pattern:aurora-chasing"], tagOptions(TAGGED_PEOPLE))).toEqual([
+      SKIER[0],
+    ]);
+  });
+
+  it("returns the selection in chip order, whatever order the URL had it", () => {
+    // So two people who pick the same two tags end up with the same URL.
+    const options = tagOptions(TAGGED_PEOPLE);
+    expect(resolveTagSelection([SKIER[0], UNITED[0]], options)).toEqual([SKIER[0], UNITED[0]]);
+    expect(resolveTagSelection([UNITED[0], SKIER[0]], options)).toEqual([SKIER[0], UNITED[0]]);
+  });
+});
+
+describe("tagLabels", () => {
+  it("turns ids into the words the empty state says", () => {
+    // Order follows the ids given, not chip order -- the caller has already
+    // put them in chip order via resolveTagSelection.
+    expect(tagLabels([UNITED[0], SKIER[0]], tagOptions(TAGGED_PEOPLE))).toEqual([
+      "United Loyalist",
+      "Skier",
+    ]);
+  });
+
+  it("falls back to the id rather than dropping an unknown tag silently", () => {
+    expect(tagLabels(["mystery"], tagOptions(TAGGED_PEOPLE))).toEqual(["mystery"]);
   });
 });

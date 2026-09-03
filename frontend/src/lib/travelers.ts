@@ -3,7 +3,7 @@
 // -- see data/scripts/multiple/build_travelers.py -- and is generated, not
 // committed, so "the dataset isn't here" is a normal state this module models
 // explicitly rather than treating as an error.
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { API_BASE_URL } from "./apiBaseUrl";
 
 // Mirrors backend/app/main.py's TravelerTrip. Every cost, date and duration
@@ -219,6 +219,11 @@ export interface TravelerTag {
   // context in the tooltip, not the thing the rule keyed on.
   hub_city?: string | null;
   hub_airports?: string[] | null;
+  // trip_pattern: which classify_trip.py tag kind earned this ("ski_trip").
+  // `trips` is a COUNT that cleared a floor, not a share that cleared a
+  // threshold, and `denominator` is trips that could be classified at all --
+  // so a 3-of-32 Skier and a 3-of-3 Skier are equally skiers.
+  trip_kind?: string | null;
 }
 
 export interface TravelerSummary {
@@ -369,6 +374,112 @@ export function filterByTravelerType(
 ): TravelerSummary[] {
   if (type === "all") return travelers;
   return travelers.filter((t) => (type === "real" ? t.real_person === true : t.real_person !== true));
+}
+
+
+// --------------------------------------------------------------------------
+// Tag filter
+// --------------------------------------------------------------------------
+
+export interface TagOption {
+  // The stable machine id from compute_traveler_tags.py, e.g.
+  // "airline-loyalist:delta-air-lines-inc" or "trip-pattern:ski-trip". What
+  // the URL carries and what the filter matches on -- NOT the label, which
+  // is display text and could be reworded without anyone thinking about the
+  // links people have already shared.
+  tag_id: string;
+  label: string;
+  // How many travelers in the whole dataset carry it. Used to ORDER the
+  // chips, deliberately not to size the number shown on them -- see
+  // tagMatchCounts.
+  count: number;
+}
+
+// Every tag present in the loaded dataset, most common first.
+//
+// DERIVED FROM THE DATA, never a hardcoded list. The rules live in
+// compute_traveler_tags.py and a fourth one ("Beach Lover", the queued
+// repeat-airport rule) should appear in this filter the moment it appears on
+// a traveler, with no frontend change at all. It also means a checkout where
+// that script hasn't run gets no filter rather than a row of chips matching
+// nothing.
+export function tagOptions(travelers: TravelerSummary[]): TagOption[] {
+  const counts = new Map<string, TagOption>();
+  for (const traveler of travelers) {
+    for (const tag of traveler.tags ?? []) {
+      const existing = counts.get(tag.tag_id);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        counts.set(tag.tag_id, { tag_id: tag.tag_id, label: tag.label, count: 1 });
+      }
+    }
+  }
+  // Count first so the chips a person is most likely to want are leftmost,
+  // then label so the order is total and stable across renders. Ordering by
+  // the CONTEXTUAL count instead would reshuffle the row on every click,
+  // which makes a row of small targets unusable.
+  return [...counts.values()].sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+}
+
+// A traveler must carry EVERY selected tag (AND, not OR).
+//
+// AND is the semantics the filter is for: "United Loyalist and Skier" is a
+// person, "United Loyalist or Skier" is two unrelated lists stapled
+// together. It does create one dead end -- nobody is two airline loyalists,
+// so picking two always yields nothing -- which is why the chips carry
+// contextual counts and a zero one is disabled rather than merely
+// disappointing. See tagMatchCounts.
+//
+// An empty selection is the off position and returns everything, matching
+// how every other filter here spells "off".
+export function filterByTags(travelers: TravelerSummary[], tagIds: string[]): TravelerSummary[] {
+  if (tagIds.length === 0) return travelers;
+  return travelers.filter((traveler) => {
+    const owned = new Set((traveler.tags ?? []).map((tag) => tag.tag_id));
+    return tagIds.every((id) => owned.has(id));
+  });
+}
+
+// For each tag, how many of `shown` also carry it -- i.e. what the grid would
+// drop to if that chip were added to the selection.
+//
+// `shown` is the result AFTER every other filter, including the tags already
+// picked, so these numbers answer the question actually being asked ("and
+// how many of THESE also ski?"). A zero means the combination is empty, and
+// the chip is disabled on the strength of it -- which is the whole reason
+// this exists rather than a static count: without it, "United Loyalist" plus
+// "Delta Loyalist" is an inviting click that empties the page with no
+// explanation.
+export function tagMatchCounts(shown: TravelerSummary[], options: TagOption[]): Map<string, number> {
+  const counts = new Map<string, number>(options.map((option) => [option.tag_id, 0]));
+  for (const traveler of shown) {
+    for (const tag of traveler.tags ?? []) {
+      const current = counts.get(tag.tag_id);
+      if (current !== undefined) counts.set(tag.tag_id, current + 1);
+    }
+  }
+  return counts;
+}
+
+// The selected ids that actually exist in this dataset, in the order the
+// chips are drawn.
+//
+// A URL can name a tag this build has never heard of -- a link shared before
+// a rule was renamed, or a typo. Same treatment as parseEntropyMetric's
+// unknown metric: it reads as "not selected" rather than as an error, so the
+// page shows a grid instead of an unexplained empty one. The URL is left
+// alone until the person changes a filter, at which point it rewrites to
+// what is actually applied.
+export function resolveTagSelection(selected: string[], options: TagOption[]): string[] {
+  const known = new Set(options.map((option) => option.tag_id));
+  return options.filter((o) => selected.includes(o.tag_id) && known.has(o.tag_id)).map((o) => o.tag_id);
+}
+
+// "Skier" / "United Loyalist and Skier" -- for the empty state's sentence.
+export function tagLabels(tagIds: string[], options: TagOption[]): string[] {
+  const byId = new Map(options.map((option) => [option.tag_id, option.label]));
+  return tagIds.map((id) => byId.get(id) ?? id);
 }
 
 
@@ -615,6 +726,182 @@ export async function fetchTraveler(travelerId: string): Promise<TravelerDetail>
   if (res.status === 404) throw new TravelerNotFoundError(`No traveler with id ${travelerId}`);
   if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
   return (await res.json()) as TravelerDetail;
+}
+
+export interface TravelerRecommendation {
+  destination_key: string;
+  destination_city: string;
+  destination_country: string;
+  region: string | null;
+  score: number | null;
+  // Which model produced this row: "content" | "collaborative" | "hybrid" |
+  // "popularity". Rendered, not hidden -- a mixed list should read as the
+  // mixture it is. See formatRecommendationSource().
+  source: string | null;
+  // The month this destination's weather peaks. Null for the ~quarter of
+  // destinations with no weather normals, which means UNKNOWN, not "any
+  // month" -- same null-is-not-zero rule as the trip destination scores.
+  best_month: string | null;
+  // Why this place, in checkable terms ("closest to your Lisbon trips").
+  // The backend treats this as required in spirit; an unexplained travel
+  // recommendation is one nobody acts on.
+  why: string[];
+}
+
+export interface TravelerRecommendationsResponse {
+  traveler_id: string;
+  // "ok" | "not_generated" | "unavailable" -- see the backend's
+  // TravelerRecommendationsResponse. All three arrive as HTTP 200, so
+  // "the recommender is not built yet" never lands in the same branch as
+  // "the request failed", which is the distinction this whole page needs
+  // while the Python side is still pseudocode.
+  status: string;
+  detail: string;
+  // False on a popularity fallback. Drives the label: "popular right now"
+  // rather than "for you". A missing flag reads as false.
+  personalised: boolean;
+  route: string | null;
+  strategy: string | null;
+  generated: string | null;
+  recommendations: TravelerRecommendation[];
+}
+
+export async function fetchTravelerRecommendations(
+  travelerId: string,
+  limit = 3,
+): Promise<TravelerRecommendationsResponse> {
+  const res = await fetch(
+    `${API_BASE_URL}/api/travelers/${encodeURIComponent(travelerId)}/recommendations?limit=${limit}`,
+  );
+  if (res.status === 404) throw new TravelerNotFoundError(`No traveler with id ${travelerId}`);
+  if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+  return (await res.json()) as TravelerRecommendationsResponse;
+}
+
+// "idle" is the state that makes this different from every other load state
+// in this file: nothing is fetched until the person asks for it. The panel is
+// collapsed by default and the request is the cost of opening it.
+export type RecommendationsLoadState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "error" }
+  | { status: "loaded"; response: TravelerRecommendationsResponse };
+
+export interface TravelerRecommendationsControl {
+  expanded: boolean;
+  toggle: () => void;
+  reload: () => void;
+  state: RecommendationsLoadState;
+}
+
+// The Recommend button's behaviour, kept out of the component so the fetch
+// policy is one readable thing.
+//
+// FETCHED FROM THE CLICK, NOT FROM AN EFFECT. Every other loader here runs in
+// a useEffect because its data is needed to render the page at all; this one
+// is a response to a user action, and an effect would have to re-derive
+// "did they ask for this yet?" from state that the click already knows. It
+// also sidesteps StrictMode's double-invoked effects (see main.tsx) without
+// a guard ref that would then have to be unwound on cleanup.
+//
+// FETCHED ONCE. Collapsing keeps the result, so re-opening is instant and
+// costs no request. reload() is for the error state's "Try again" -- the one
+// case where asking twice is the point.
+export function useTravelerRecommendations(
+  travelerId: string | undefined,
+  limit = 3,
+): TravelerRecommendationsControl {
+  const [expanded, setExpanded] = useState(false);
+  const [state, setState] = useState<RecommendationsLoadState>({ status: "idle" });
+  // Which traveler the in-flight request was for. Navigating between two
+  // traveler pages while a request is open would otherwise land the old
+  // traveler's recommendations on the new traveler's page.
+  const requestedFor = useRef<string | undefined>(undefined);
+
+  useEffect(() => {
+    setExpanded(false);
+    setState({ status: "idle" });
+    requestedFor.current = undefined;
+  }, [travelerId]);
+
+  function load() {
+    if (!travelerId) return;
+    requestedFor.current = travelerId;
+    setState({ status: "loading" });
+    fetchTravelerRecommendations(travelerId, limit)
+      .then((response) => {
+        if (requestedFor.current !== travelerId) return;
+        setState({ status: "loaded", response });
+      })
+      .catch(() => {
+        if (requestedFor.current !== travelerId) return;
+        setState({ status: "error" });
+      });
+  }
+
+  function toggle() {
+    if (expanded) {
+      setExpanded(false);
+      return;
+    }
+    setExpanded(true);
+    // An error is not a result, so opening after one retries rather than
+    // re-showing the failure.
+    if (state.status === "idle" || state.status === "error") load();
+  }
+
+  return { expanded, toggle, reload: load, state };
+}
+
+// The one line the panel shows INSTEAD of cards. Null means "there are cards
+// to render, say nothing" -- the empty and not-yet-built states are the ones
+// that need words, and the backend already wrote them (`detail`), so this
+// prefers the server's sentence over a hardcoded one.
+export function recommendationsMessage(state: RecommendationsLoadState): string | null {
+  switch (state.status) {
+    case "idle":
+      return null;
+    case "loading":
+      return "Looking for places...";
+    case "error":
+      return "Couldn't load recommendations. Try again in a moment.";
+    case "loaded":
+      if (state.response.status === "ok" && state.response.recommendations.length > 0) {
+        return null;
+      }
+      return state.response.detail || "No recommendations for this traveler yet.";
+  }
+}
+
+// Shown above the cards when the answer came from the popularity fallback.
+// The hybrid model returns those with status "ok" deliberately -- they are a
+// real answer -- but calling them personalised would be a lie, and the
+// difference between "for you" and "popular right now" is the difference
+// between a recommender someone trusts and one they stop reading.
+export function recommendationsCaveat(
+  response: TravelerRecommendationsResponse,
+): string | null {
+  if (response.status !== "ok" || response.recommendations.length === 0) return null;
+  if (response.personalised) return null;
+  return "Popular right now - not personalised to this traveler.";
+}
+
+// Which model produced a row, in words rather than in the API's vocabulary.
+// An unrecognised source draws no chip at all rather than printing a raw
+// enum value at someone.
+export function formatRecommendationSource(source: string | null | undefined): string | null {
+  switch (source) {
+    case "content":
+      return "Matches their taste";
+    case "collaborative":
+      return "Travelers like them went";
+    case "hybrid":
+      return "Taste + travelers like them";
+    case "popularity":
+      return "Popular";
+    default:
+      return null;
+  }
 }
 
 export type TravelersLoadState =

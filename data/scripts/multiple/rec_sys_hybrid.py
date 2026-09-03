@@ -60,7 +60,7 @@ Usage:
 import argparse
 from collections import Counter
 
-from rec_sys_data_prep import prepare, build_user_content_profiles
+from rec_sys_data_prep import OUT_DIR, prepare, build_user_content_profiles
 from rec_sys_content_based_filtering import candidate_pool, content_cold_items, profile_coverage
 from rec_sys_collaborative_filtering import (
     MIN_SHARED_DESTINATIONS,
@@ -70,6 +70,14 @@ from rec_sys_collaborative_filtering import (
 
 DEFAULT_TRAVELER = "stan-getz"
 TOP_N = 10
+
+# What the BACKEND READS. backend/app/data_loader.load_traveler_recommendations
+# looks for this exact file and reports "not_generated" while it is absent,
+# which is the state the site is in today -- the Recommend button on
+# /rec-sys/travelers/:id is wired end to end and waiting on this file. See
+# write_recommendations() below for the shape it has to have.
+RECOMMENDATIONS_PATH = OUT_DIR / "recommendations.json"
+RECOMMENDATIONS_TOP_N = 3
 
 # A taste vector with fewer observed coordinates than this is not a profile,
 # it is a rumour. Set against the content model's own MIN_SHARED_FEATURES:
@@ -338,6 +346,65 @@ def cold_start(data, traveler_id, top_n=TOP_N):
         What NOT to do: fabricate a taste vector from the population mean
         and present its output as personalised. It ranks well against the
         split and is a lie to the user.
+    """
+    raise NotImplementedError("pseudocode -- see docstring")
+
+
+def write_recommendations(data, top_n=RECOMMENDATIONS_TOP_N, path=RECOMMENDATIONS_PATH):
+    """PSEUDOCODE. Run recommend() for every traveler and write the file the
+    API serves.
+
+    THIS IS THE HANDOFF POINT between the offline recommender and the running
+    site, and it already has a consumer: the "Recommend 3 places" button on
+    the traveler detail page fetches
+    GET /api/travelers/{id}/recommendations, which reads nothing but this
+    file. Nothing in the backend computes a recommendation -- same
+    offline/online split this project already uses for tags and entropy, for
+    the same reason (ranking 222 candidates per request is pipeline work).
+    So finishing recommend() and calling this is the ONLY remaining step;
+    no server or frontend change is needed.
+
+        rows = []
+        for traveler in data.travelers:
+            if traveler["traveler_id"] not in data.user_item.by_user:
+                continue                    # the 8 with no countable trip
+            decision = route_for(data, traveler["traveler_id"], profiles)
+            picks = recommend(data, traveler["traveler_id"], top_n=top_n)
+            rows.append({
+                "traveler_id": traveler["traveler_id"],
+                "route": decision["route"],
+                # False on the popularity fallback. The UI labels those
+                # "popular right now" instead of "for you" -- see cold_start().
+                "personalised": decision["route"] != "neither",
+                "recommendations": [
+                    {"destination_key":     pick.key,
+                     "destination_city":    ...,
+                     "destination_country": ...,
+                     "region":              detailed_region or None,
+                     "score":               round(pick.score, 4),
+                     "source":              "content" | "collaborative"
+                                            | "hybrid" | "popularity",
+                     "best_month":          argmax of weather_by_month, or None
+                                            when the city has no curve,
+                     "why":                 [short, checkable strings]}
+                    for pick in picks
+                ],
+            })
+
+        json.dump({"generated": date.today().isoformat(),
+                   "strategy": "hybrid: switching + reciprocal rank fusion",
+                   "top_n": top_n,
+                   "travelers": rows}, ...)
+
+    TWO FIELDS THAT ARE NOT OPTIONAL, whatever the model ends up being:
+    `why`, because a recommendation nobody can check is one nobody books; and
+    `source`, because a mixed list should read as the mixture it is. The
+    frontend renders both and drops a row's chip entirely if `source` is a
+    value it does not recognise, so adding a fourth model later is safe.
+
+    `best_month` is null for the ~quarter of destinations with no weather
+    normals. Null means UNKNOWN, not "any month" -- the frontend omits the
+    line rather than printing a guess, matching the trip cards.
     """
     raise NotImplementedError("pseudocode -- see docstring")
 

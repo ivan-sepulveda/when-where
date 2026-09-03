@@ -7,15 +7,21 @@ import {
   entropyMetricRange,
   entropyMetricValue,
   filterByEntropy,
+  filterByTags,
   filterByTravelerType,
   formatEntropyValue,
   formatTripCount,
+  resolveTagSelection,
+  tagLabels,
+  tagMatchCounts,
+  tagOptions,
   TRAVELER_TYPE_OPTIONS,
   useTravelersWithEntropy,
   type EntropyComparator,
   type EntropyMetric,
   type TravelerTypeFilter,
 } from "../lib/travelers";
+import { joinNames } from "../lib/travelerTags";
 
 // Whether the grid is filtered to travelers with more than one trip. Kept in
 // the URL rather than component state, same as Destinations.tsx's "view" and
@@ -42,6 +48,21 @@ function parseTravelerType(raw: string | null): TravelerTypeFilter {
 // position and is never written, so a plain /rec-sys link means "no entropy
 // filter" -- see lib/travelers.ts's filterByEntropy for why "off" is a
 // missing metric rather than a threshold of zero.
+// The tag filter, comma-separated tag_ids: ?tags=trip-pattern:ski-trip,multi-hub.
+// IDS, NOT LABELS -- a label is display text that could be reworded ("Skier"
+// -> "Skis Often") without anyone remembering that links people have shared
+// depend on it. Empty is the off position and is never written, so a plain
+// /rec-sys link means "no tag filter", same as every other control here.
+const TAGS_PARAM = "tags";
+
+function parseTags(raw: string | null): string[] {
+  if (!raw) return [];
+  // Deduplicated on the way in: ?tags=multi-hub,multi-hub is the same query
+  // as one multi-hub, and a doubled id would otherwise draw a chip that
+  // looks selected twice and takes two clicks to clear.
+  return [...new Set(raw.split(",").map((part) => part.trim()).filter(Boolean))];
+}
+
 const ENTROPY_METRIC_PARAM = "entropy-metric";
 const ENTROPY_CMP_PARAM = "entropy-cmp";
 const ENTROPY_VALUE_PARAM = "entropy-value";
@@ -124,6 +145,20 @@ export default function RecSys() {
     });
   }
 
+  const selectedTags = parseTags(searchParams.get(TAGS_PARAM));
+
+  function setTags(next: string[]) {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+      if (next.length === 0) {
+        params.delete(TAGS_PARAM);
+      } else {
+        params.set(TAGS_PARAM, next.join(","));
+      }
+      return params;
+    });
+  }
+
   const entropyMetric = parseEntropyMetric(searchParams.get(ENTROPY_METRIC_PARAM));
   const entropyComparator = parseEntropyComparator(searchParams.get(ENTROPY_CMP_PARAM));
   const entropyValue = parseEntropyValue(searchParams.get(ENTROPY_VALUE_PARAM));
@@ -179,7 +214,31 @@ export default function RecSys() {
   const all = dataReady ? travelers.travelers : [];
   const byTripCount = multiTripOnly ? all.filter((traveler) => traveler.trip_count > 1) : all;
   const byType = filterByTravelerType(byTripCount, travelerType);
-  const shown = filterByEntropy(byType, entropyMetric, entropyComparator, entropyValue);
+  const byEntropy = filterByEntropy(byType, entropyMetric, entropyComparator, entropyValue);
+
+  // Tag chips come from the WHOLE dataset, not from what the other filters
+  // currently leave: a chip row that gains and loses chips as you tick a
+  // checkbox is a moving target, and a tag with no matches right now is
+  // better shown disabled with a 0 than silently removed.
+  const allTagOptions = tagOptions(all);
+  const activeTags = resolveTagSelection(selectedTags, allTagOptions);
+  const shown = filterByTags(byEntropy, activeTags);
+  // How many of the CURRENT results also carry each tag -- what the grid
+  // would drop to if that chip were added. Selected chips don't show a
+  // number (it would just restate the result count).
+  const addCounts = tagMatchCounts(shown, allTagOptions);
+
+  function toggleTag(tagId: string) {
+    setTags(
+      activeTags.includes(tagId)
+        ? activeTags.filter((id) => id !== tagId)
+        // Written back in chip order rather than click order, so two people
+        // who pick the same two tags end up with the same shareable URL.
+        : allTagOptions
+            .filter((o) => o.tag_id === tagId || activeTags.includes(o.tag_id))
+            .map((o) => o.tag_id),
+    );
+  }
 
   // The hint text next to the filter -- what this metric actually ranges
   // over in the currently-loaded data, not a fixed 0-1 assumption (raw
@@ -308,6 +367,58 @@ export default function RecSys() {
               )}
             </div>
 
+            {/* Tags as toggle chips rather than a multi-select: the tags
+                ARE chips everywhere else in this UI (see TravelerTags), a
+                <select multiple> is a famously bad control, and 14 short
+                labels wrap into two readable rows. Reuses .traveler-tag so a
+                chip here and a chip on a card are visibly the same object.
+
+                A traveler must carry EVERY selected tag -- "United Loyalist
+                and Skier" is a person; "or" would be two unrelated lists
+                stapled together. The number on an unselected chip is how
+                many of the CURRENT results also carry it, so the one dead
+                end AND creates (nobody is two airline loyalists) shows as a
+                disabled 0 instead of an inviting click that empties the
+                page. */}
+            {allTagOptions.length > 0 && (
+              <div className="rec-sys-tag-filter">
+                <span className="rec-sys-tag-filter-label" id="rec-sys-tag-filter-label">
+                  Tags
+                </span>
+                <ul className="rec-sys-tag-options" aria-labelledby="rec-sys-tag-filter-label">
+                  {allTagOptions.map((option) => {
+                    const selected = activeTags.includes(option.tag_id);
+                    const addCount = addCounts.get(option.tag_id) ?? 0;
+                    return (
+                      <li key={option.tag_id}>
+                        <button
+                          type="button"
+                          className="traveler-tag rec-sys-tag-option"
+                          // aria-pressed, not a checkbox: these are toggle
+                          // buttons that re-run a query, and a screen reader
+                          // should hear "pressed" rather than "checked" for
+                          // something that changes the page under it.
+                          aria-pressed={selected}
+                          disabled={!selected && addCount === 0}
+                          onClick={() => toggleTag(option.tag_id)}
+                        >
+                          {option.label}
+                          {!selected && (
+                            <span className="rec-sys-tag-option-count">{addCount}</span>
+                          )}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+                {activeTags.length > 0 && (
+                  <button type="button" className="rec-sys-tag-clear" onClick={() => setTags([])}>
+                    Clear tags
+                  </button>
+                )}
+              </div>
+            )}
+
             {/* Says what's hidden as well as what's shown -- with this
                 dataset the filters remove most of the grid, and a bare
                 count of 11 with no context reads like missing data. */}
@@ -334,11 +445,21 @@ export default function RecSys() {
 
           {all.length > 0 && shown.length === 0 && (
             <p>
-              {entropyMetric !== null
-                ? `No traveler's ${entropyMetricLabel(entropyMetric)} is ${entropyComparatorLabel(entropyComparator)} ${formatEntropyValue(entropyValue)}. Adjust the filter above to see more.`
-                : travelerType !== "all"
-                  ? `No ${travelerType} traveler matches the other filters above. Try "Show all" in the traveler type dropdown.`
-                  : "No traveler in this dataset has more than one trip. Uncheck the box above to see all of them."}
+              {/* Tags first: it's the most specific thing the person did,
+                  and naming the exact combination that matched nothing is
+                  more useful than blaming whichever filter is checked first
+                  in this chain. */}
+              {activeTags.length > 0
+                ? // "carries" rather than "is": the labels don't all take an
+                  // article ("is a Skier" reads fine, "is a Multi Hub" does
+                  // not), and "carries X and Y" already says both without
+                  // needing an "at once" bolted on the end.
+                  `No traveler carries ${joinNames(tagLabels(activeTags, allTagOptions))}. Remove a tag to see more.`
+                : entropyMetric !== null
+                  ? `No traveler's ${entropyMetricLabel(entropyMetric)} is ${entropyComparatorLabel(entropyComparator)} ${formatEntropyValue(entropyValue)}. Adjust the filter above to see more.`
+                  : travelerType !== "all"
+                    ? `No ${travelerType} traveler matches the other filters above. Try "Show all" in the traveler type dropdown.`
+                    : "No traveler in this dataset has more than one trip. Uncheck the box above to see all of them."}
             </p>
           )}
 

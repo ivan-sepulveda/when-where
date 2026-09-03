@@ -47,6 +47,42 @@ them on the carrier that does fly them. The tag describes the trips as
 recorded, not the author's intent, which is the whole point of computing it
 instead of declaring it. Both appear in the output with their real share.
 
+RULE 3 -- TRIP PATTERN ("Skier")
+-------------------------------
+A traveler with TRIP_PATTERN_MIN_TRIPS (3) or more trips carrying
+classify_trip.py's `ski_trip` tag is tagged "Skier".
+
+A COUNT, NOT A SHARE -- the one structural difference from Rule 1, and the
+reason this isn't written as another threshold rule. Loyalty is inherently
+proportional: "80% of their flying is on Delta" is the claim, and 40 Delta
+trips out of 200 says nothing about loyalty. Skiing isn't proportional.
+Somebody with three ski trips out of two hundred skis; scoring it as a share
+would strip the tag from every well-travelled person who also skis, which is
+most of the people the tag is for. Hades, Daedalus and Athena each have 5 ski
+trips out of ~30 classifiable ones (17%) and are exactly who this should
+catch.
+
+THE DENOMINATOR IS TRIPS classify_trip.py COULD TAG -- a destination airport
+plus both dates -- not trip_count, and the same shape of caveat as Rule 1's
+carrier denominator. A traveler whose trips carry no airport was never
+eligible for a ski tag at all, so 0 there means "we could not tell", not
+"they do not ski". `classifiable_trips` is on every row so those two stay
+separable. The share is still recorded on the tag (the chip's tooltip states
+it) but nothing keys on it.
+
+WHAT THE CURRENT DATA LOOKS LIKE (2026-09-01): 17 travelers qualify, out of
+19 with any ski trip at all. The two near-misses are real -- Demeter has 2 and
+Eduardo Gomez 1 -- and are flagged with `trip_pattern_near_miss` rather than
+being indistinguishable from the 244 travelers who have never skied. The
+range is wide on purpose: Isaac Newton has 20 ski trips out of 20 classifiable
+trips, George Gardner 3 of 3, Sisyphus 3 of 32. All three are skiers.
+
+ONLY SKI TODAY. `beach_vacation` and `holiday_trip` are tagged on trips by
+the same script and could feed the same rule -- TRIP_PATTERN_TAGS is a table
+so adding one is a line -- but "Beach Lover" at a threshold of 3 would tag
+most of the dataset (829 of 2,879 trips are beach vacations), and a tag
+almost everyone carries is not a tag.
+
 RULE 2 -- HOME HUB
 ------------------
 A traveler whose home city is a hub for exactly one of the airlines in
@@ -119,6 +155,20 @@ OUT_JSON = PROCESSED_DIR / "traveler_tags.json"
 
 LOYALIST_THRESHOLD = 0.80
 LOYALIST_MIN_TRIPS = 5
+
+# RULE 3 -- trip-pattern tags. A COUNT, not a share (see the module
+# docstring): three ski trips make someone a skier whether they took three
+# trips or three hundred.
+TRIP_PATTERN_MIN_TRIPS = 3
+
+# classify_trip.py tag kind -> chip label. One row today. A second --
+# "beach_vacation": "Beach Lover" -- is a one-line change, which is why this
+# is a table and not an if; but it is not added on spec, because "Beach
+# Lover" at a threshold of 3 would tag most of the dataset (829 of the 2,879
+# trips are beach vacations) and a tag almost everyone has is not a tag.
+TRIP_PATTERN_TAGS = {
+    "ski_trip": "Skier",
+}
 
 # --------------------------------------------------------------------------
 # Carrier name shortening.
@@ -463,10 +513,107 @@ def home_hub(traveler: dict) -> tuple[list[dict], dict]:
     }], diagnostics
 
 
+# --------------------------------------------------------------------------
+# Rule 3 -- trip patterns
+# --------------------------------------------------------------------------
+
+def classifiable_trip_count(traveler: dict) -> int:
+    """How many of this traveler's trips classify_trip.py could have tagged.
+
+    MIRRORS ITS GUARD EXACTLY -- a destination airport plus both dates, and
+    not a layover. A trip it skipped has no tags for a reason that is not
+    "nothing matched", so it must stay out of the denominator; the same
+    guard is written out in the API's _preferences() for the same reason.
+    If classify_trip.py's requirements change, this changes with it."""
+    return sum(
+        1 for trip in traveler["trips"]
+        if not trip.get("layover")
+        and trip.get("destination_airport")
+        and trip.get("start_date")
+        and trip.get("end_date")
+    )
+
+
+def trip_kind_counts(traveler: dict) -> Counter:
+    """Trips per classify_trip.py tag kind ("ski_trip", "beach_vacation",
+    "holiday_trip"). Layovers excluded, same as everywhere else. A trip can
+    carry more than one tag, so these counts overlap and must never be
+    summed against each other."""
+    counts = Counter()
+    for trip in traveler["trips"]:
+        if trip.get("layover"):
+            continue
+        for tag in trip.get("tags") or []:
+            if tag.get("kind"):
+                counts[tag["kind"]] += 1
+    return counts
+
+
+def trip_patterns(
+    traveler: dict,
+    min_trips: int = TRIP_PATTERN_MIN_TRIPS,
+) -> tuple[list[dict], dict]:
+    """Returns (tags, diagnostics). "Skier" for TRIP_PATTERN_MIN_TRIPS (3) or
+    more ski trips.
+
+    A COUNT, NOT A SHARE, AND THAT IS THE DIFFERENCE FROM RULE 1. Loyalty is
+    inherently proportional -- flying Delta 80% of the time is the claim, and
+    40 Delta trips out of 200 says nothing. Skiing is not: someone with three
+    ski trips out of two hundred skis. Reading this rule as a share would
+    strip the tag from every well-travelled person who also skis, which is
+    most of the people it should describe. The share is still recorded on the
+    tag so the chip's tooltip can state it, but nothing keys on it.
+
+    THE DENOMINATOR IS CLASSIFIABLE TRIPS, not trip_count -- same shape of
+    caveat as the loyalist rule's carrier denominator. A traveler whose trips
+    carry no airport was never eligible for a ski tag in the first place, so
+    a zero here means "we could not tell", not "they do not ski". Those
+    travelers are recorded with classifiable_trips: 0 rather than silently
+    counted as non-skiers."""
+    counts = trip_kind_counts(traveler)
+    denominator = classifiable_trip_count(traveler)
+
+    tags = []
+    for kind, label in TRIP_PATTERN_TAGS.items():
+        n = counts.get(kind, 0)
+        if n < min_trips:
+            continue
+        tags.append({
+            "kind": "trip_pattern",
+            # The kind is inside the id AND in its own field: the id is what
+            # React keys on and what anything downstream joins to, the field
+            # is what a tooltip branches on without parsing a string.
+            "tag_id": f"trip-pattern:{kind.replace('_', '-')}",
+            "label": label,
+            # This tag is about no airline. Null and empty, deliberately, so
+            # the chip draws no dot -- a dot on these chips means "this color
+            # identifies that airline" and nothing else (see TravelerTags.tsx).
+            "carrier_name": None,
+            "carrier_names": [],
+            "trip_kind": kind,
+            "trips": n,
+            "denominator": denominator,
+            # Recorded, not keyed on. See the docstring.
+            "share": round(n / denominator, 4) if denominator else None,
+        })
+
+    diagnostics = {
+        "classifiable_trips": denominator,
+        **{f"{kind}s": counts.get(kind, 0) for kind in TRIP_PATTERN_TAGS},
+        # Same purpose as below_min_trips on the loyalist rule: separates
+        # "does not do this" from "does it, but not enough times yet".
+        "trip_pattern_near_miss": any(
+            0 < counts.get(kind, 0) < min_trips for kind in TRIP_PATTERN_TAGS
+        ),
+    }
+    return tags, diagnostics
+
+
 def compute(
     travelers: list[dict],
     threshold: float = LOYALIST_THRESHOLD,
     min_trips: int = LOYALIST_MIN_TRIPS,
+    pattern_min_trips: int = TRIP_PATTERN_MIN_TRIPS,
 ) -> tuple[list[dict], dict]:
     """Pure function: travelers in, one row per traveler out. Every traveler
     gets a row -- an empty `tags` list is an answer."""
@@ -474,16 +621,19 @@ def compute(
     for traveler in travelers:
         loyalist_tags, loyalist_diagnostics = airline_loyalist(traveler, threshold, min_trips)
         hub_tags, hub_diagnostics = home_hub(traveler)
+        pattern_tags, pattern_diagnostics = trip_patterns(traveler, pattern_min_trips)
         rows.append({
             "traveler_id": traveler["traveler_id"],
             "name": traveler["name"],
             "trip_count": traveler["trip_count"],
             **loyalist_diagnostics,
             **hub_diagnostics,
+            **pattern_diagnostics,
             # Rule order, not importance order -- but it does decide chip
-            # order on the page, and loyalty (how they fly) reads better
-            # first than geography (where they live).
-            "tags": loyalist_tags + hub_tags,
+            # order on the page: loyalty (how they fly), then geography
+            # (where they live), then what they actually go and do. Widest
+            # to narrowest claim, which is also shortest chip row first.
+            "tags": loyalist_tags + hub_tags + pattern_tags,
         })
 
     tag_counts = Counter(tag["label"] for row in rows for tag in row["tags"])
@@ -506,10 +656,20 @@ def compute(
                 "airlines": {a: sorted(c) for a, c in AIRLINE_HUBS.items()},
                 "hub_cities": {c: list(a) for c, a in sorted(HUBS_BY_CITY.items())},
             },
+            "trip_pattern": {
+                "min_trips": pattern_min_trips,
+                # Spelled out because it is the thing a reader will otherwise
+                # assume is a share, like the loyalist rule above it.
+                "measure": "count of trips carrying the tag, not a share",
+                "denominator": "trips classify_trip.py could tag (airport + both dates)",
+                "kinds": dict(TRIP_PATTERN_TAGS),
+            },
         },
         "travelers_total": len(travelers),
         "travelers_with_carrier_data": sum(1 for r in rows if r["trips_with_carrier"] > 0),
         "travelers_with_declared_base": sum(1 for r in rows if r["base_inference"] == "declared"),
+        "travelers_with_classifiable_trips": sum(1 for r in rows if r["classifiable_trips"] > 0),
+        "trip_pattern_near_misses": sum(1 for r in rows if r["trip_pattern_near_miss"]),
         "travelers_tagged": sum(1 for r in rows if r["tags"]),
         "tag_counts": dict(sorted(tag_counts.items(), key=lambda kv: (-kv[1], kv[0]))),
         "near_misses_below_min_trips": sum(1 for r in rows if r["below_min_trips"]),
@@ -533,6 +693,10 @@ def main():
         "--min-trips", type=int, default=LOYALIST_MIN_TRIPS,
         help=f"Carrier-recorded trips needed to qualify. Default: {LOYALIST_MIN_TRIPS}.",
     )
+    parser.add_argument(
+        "--pattern-min-trips", type=int, default=TRIP_PATTERN_MIN_TRIPS,
+        help=f"Ski trips needed for the Skier tag. Default: {TRIP_PATTERN_MIN_TRIPS}.",
+    )
     args = parser.parse_args()
 
     if not TRAVELERS_PATH.exists():
@@ -540,7 +704,12 @@ def main():
     with open(TRAVELERS_PATH, encoding="utf-8") as f:
         travelers = json.load(f)["travelers"]
 
-    rows, meta = compute(travelers, threshold=args.threshold, min_trips=args.min_trips)
+    rows, meta = compute(
+        travelers,
+        threshold=args.threshold,
+        min_trips=args.min_trips,
+        pattern_min_trips=args.pattern_min_trips,
+    )
     # Tagged first, then by how concentrated their flying is; travelers with
     # no carrier data last rather than sorted as if their share were 0.
     rows.sort(key=lambda r: (
@@ -583,6 +752,22 @@ def main():
                 print(f"    {r['name']:16} {r['hub_city']} "
                       f"{'/'.join(HUB_AIRPORTS_BY_CITY[r['hub_city']])} -> flies "
                       f"{r['home_airport']}")
+    pattern = meta["rules"]["trip_pattern"]
+    print(f"Trip-pattern rule: >= {pattern['min_trips']} trips carrying a kind in "
+          f"{', '.join(TRIP_PATTERN_TAGS)} -- a {pattern['measure']}.")
+    print(f"  {meta['travelers_with_classifiable_trips']} of {meta['travelers_total']} travelers "
+          f"have trips classify_trip.py could tag.")
+    if meta["trip_pattern_near_misses"]:
+        # Printed every run for the same reason as the loyalist near-misses:
+        # "has never skied" and "skis, but not often enough yet" are
+        # different answers and the second one should be visible.
+        print(f"  {meta['trip_pattern_near_misses']} traveler(s) have some but fewer than "
+              f"{pattern['min_trips']}:")
+        for r in rows:
+            if r["trip_pattern_near_miss"]:
+                counts = ", ".join(f"{r[f'{kind}s']} {kind}" for kind in TRIP_PATTERN_TAGS
+                                   if r[f"{kind}s"])
+                print(f"    {r['name']:16} {counts}")
     print()
     print(f"{meta['travelers_tagged']} travelers tagged:")
     for label, count in meta["tag_counts"].items():

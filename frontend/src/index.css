@@ -573,6 +573,115 @@ h1 {
   padding: 0.05rem 0.4rem;
 }
 
+/* The traveler name and the Recommend button on one row. Baseline-aligned
+   rather than centred, so the button sits on the name's baseline instead of
+   floating at the vertical middle of a 2.5rem heading; wraps on narrow
+   screens rather than squeezing either one. */
+.traveler-detail-heading {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Deliberately quieter than .search-form button's solid blue: this is a
+   secondary action next to a page title, not the page's primary call to
+   action, and a filled blue button beside an <h1> reads as the thing you
+   are supposed to do first. Outlined, with the blue moved to the border and
+   text on hover. */
+.traveler-recommend-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  /* Sized to fit beside a typical traveler name inside .page's 640px:
+     "Anthony Bourdain" plus this button is ~575px, which clears it. A
+     longer name still wraps the button to its own line, which is the right
+     answer at that point -- shrinking the button further to chase the
+     longest name in the dataset would make it too small to read. */
+  padding: 0.3rem 0.7rem;
+  border: 1px solid #3a3f47;
+  border-radius: 999px;
+  background: #161b22;
+  color: inherit;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+
+.traveler-recommend-button:hover,
+/* Open state, carried by the attribute that already means it rather than by
+   a second class or by a caret glyph. A caret would be clearer still, but it
+   costs ~15px of width, which is exactly what decides whether this button
+   sits beside the name or wraps under it -- and the panel opening directly
+   below is not subtle feedback. */
+.traveler-recommend-button[aria-expanded="true"] {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+/* The disclosure panel itself. Indented behind a left rule so it reads as
+   something that opened out of the button above it rather than as another
+   top-level section of the page. */
+.traveler-recommendations {
+  margin: 0 0 1.5rem;
+  padding: 0.25rem 0 0.25rem 0.9rem;
+  border-left: 2px solid #3a3f47;
+}
+
+/* The single line shown INSTEAD of cards -- loading, an error, or the
+   backend's own sentence about why there is nothing (today: recommendations
+   have not been generated). Dimmed, because none of those are results. */
+.traveler-recommendations-message {
+  margin: 0;
+  color: #9aa4b2;
+  font-size: 0.95rem;
+}
+
+.traveler-recommendations-retry {
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid #3a3f47;
+  border-radius: 6px;
+  background: #161b22;
+  color: inherit;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.traveler-recommendations-retry:hover {
+  border-color: #3b82f6;
+}
+
+/* "Popular right now - not personalised". Sits ABOVE the cards, not under
+   them: it changes how every card below should be read, and a caveat placed
+   after the thing it qualifies has already been ignored. */
+.traveler-recommendations-caveat {
+  margin: 0 0 0.6rem;
+  color: #9aa4b2;
+  font-size: 0.85rem;
+}
+
+/* Why this destination was suggested. Bulleted under the card's meta line,
+   at the same size as the meta -- the reasons are the substance of a
+   recommendation, but they are still supporting text for the place name. */
+.traveler-recommendation-why {
+  /* Left as a normal block list rather than the flex column the other lists
+     in this file use: a flex container suppresses ::marker, and these bullets
+     are what separates two reasons from one run-on sentence. */
+  list-style: disc;
+  margin: 0.35rem 0 0;
+  padding-left: 1.1rem;
+  color: #9aa4b2;
+  font-size: 0.85rem;
+}
+
+.traveler-recommendation-why li + li {
+  margin-top: 0.15rem;
+}
+
 /* On the detail page the chips sit under an <h1> rather than inside a card,
    so they get a little more room and a size that doesn't read as a caption. */
 .traveler-tags-detail {
@@ -641,6 +750,92 @@ h1 {
   border-radius: 6px;
   padding: 0.25rem 0.4rem;
   font-size: 0.9rem;
+}
+
+/* The tag filter: one toggle chip per tag in the dataset. Its own row
+   inside .destinations-controls rather than another inline control, because
+   14 chips wrap and a wrapping control wedged between two dropdowns pushes
+   them around as the dataset changes. */
+.rec-sys-tag-filter {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.rec-sys-tag-filter-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.rec-sys-tag-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+/* Always combined with .traveler-tag, which already draws the pill -- this
+   only adds what a <button> needs to stop looking like a button and start
+   looking like the chips on the cards it filters. */
+.rec-sys-tag-option {
+  font: inherit;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: inherit;
+  cursor: pointer;
+}
+
+.rec-sys-tag-option:hover:not(:disabled) {
+  border-color: #3b82f6;
+}
+
+/* Selected reads as filled, against the outlined unselected state -- the
+   opposite of the rule for tags ON a card, and deliberately so: there, a
+   filled chip competes with the traveler's name for attention; here, being
+   able to see at a glance which of 14 chips are on IS the job. */
+.rec-sys-tag-option[aria-pressed="true"] {
+  border-color: #3b82f6;
+  background: #1d3557;
+  color: #dbeafe;
+}
+
+/* Nothing in the current results carries this tag, so adding it would empty
+   the grid. Dimmed and unclickable rather than hidden: a chip that vanishes
+   when you pick another one makes the row jump, and "United Loyalist" going
+   quiet the moment you pick "Delta Loyalist" is itself the explanation. */
+.rec-sys-tag-option:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* How many of the current results also carry this tag. Dimmer than the
+   label and separated by a rule rather than a bracket, so it reads as
+   metadata on the chip instead of part of the tag's name. */
+.rec-sys-tag-option-count {
+  margin-left: 0.4rem;
+  padding-left: 0.4rem;
+  border-left: 1px solid #3a3f47;
+  color: #9aa4b2;
+  font-variant-numeric: tabular-nums;
+}
+
+.rec-sys-tag-clear {
+  padding: 0;
+  border: none;
+  background: none;
+  color: #9aa4b2;
+  font: inherit;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.rec-sys-tag-clear:hover {
+  color: inherit;
 }
 
 /* The entropy filter -- metric + comparator + threshold -- next to the

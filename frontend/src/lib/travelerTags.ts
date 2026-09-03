@@ -7,6 +7,7 @@ import type { TravelerTag } from "./travelers";
 export const AIRLINE_LOYALIST = "airline_loyalist";
 export const AIRLINE_HUB = "airline_hub";
 export const MULTI_HUB = "multi_hub";
+export const TRIP_PATTERN = "trip_pattern";
 
 // The airlines a chip draws a dot for, as full legal names -- which is what
 // airlineColors.ts is keyed on. Falls back to the single `carrier_name` so a
@@ -35,6 +36,7 @@ export function joinNames(names: string[]): string {
 export function describeTag(tag: TravelerTag): string | undefined {
   if (tag.kind === AIRLINE_LOYALIST) return describeLoyalist(tag);
   if (tag.kind === AIRLINE_HUB || tag.kind === MULTI_HUB) return describeHub(tag);
+  if (tag.kind === TRIP_PATTERN) return describeTripPattern(tag);
   return undefined;
 }
 
@@ -72,4 +74,40 @@ function describeHub(tag: TravelerTag): string | undefined {
   if (airlines.length === 0) return `Lives in ${tag.hub_city}, an airline hub${airports}.`;
   if (airlines.length === 1) return `Lives in ${tag.hub_city}, a ${airlines[0]} hub${airports}.`;
   return `Lives in ${tag.hub_city}, a hub for ${joinNames(airlines)}${airports}.`;
+}
+
+// What each classify_trip.py tag kind is called in a sentence. A kind that
+// isn't in here gets NO tooltip rather than a guessed one built by
+// string-mangling the enum -- "beach_vacation" would come out fine that way
+// and some future kind would not, and a chip with no tooltip is a smaller
+// failure than a chip with a wrong one.
+const TRIP_KIND_NOUNS: Record<string, string> = {
+  ski_trip: "ski trip",
+  beach_vacation: "beach vacation",
+  holiday_trip: "holiday trip",
+};
+
+// "3 ski trips, out of 32 trips with dates and a route."
+//
+// LEADS WITH THE COUNT, because the count is what earned the chip -- this
+// rule is a floor (3+), not a threshold on a share, so opening with "9%"
+// the way the loyalist tooltip opens with "100%" would describe the tag as
+// something it isn't. Sisyphus skis 3 times in 32 trips and Isaac Newton 20
+// times in 20; both are Skiers, and the sentence has to read correctly for
+// both.
+//
+// "WITH DATES AND A ROUTE" is the honest name for the denominator, not
+// filler: classify_trip.py can only tag a trip that records a destination
+// airport and both dates, so this is smaller than the traveler's trip_count
+// and a reader who assumed otherwise would read "3 of 32" as a claim about
+// all their travel.
+function describeTripPattern(tag: TravelerTag): string | undefined {
+  const noun = tag.trip_kind ? TRIP_KIND_NOUNS[tag.trip_kind] : undefined;
+  if (!noun) return undefined;
+  if (tag.trips === null || tag.trips === undefined) return undefined;
+
+  const counted = `${tag.trips} ${noun}${tag.trips === 1 ? "" : "s"}`;
+  if (tag.denominator === null || tag.denominator === undefined) return `${counted}.`;
+  const total = `${tag.denominator} trip${tag.denominator === 1 ? "" : "s"} with dates and a route`;
+  return `${counted}, out of ${total}.`;
 }

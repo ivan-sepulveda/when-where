@@ -46,6 +46,7 @@ from .data_loader import (
     load_static_city_scores,
     load_static_country_scores,
     load_traveler_entropy,
+    load_traveler_recommendations,
     load_m49_regions,
     load_traveler_tags,
     load_travelers,
@@ -123,6 +124,13 @@ TRAVELER_ENTROPY_REGION = load_traveler_entropy(TRAVELER_ENTROPY_REGION_PATH)
 # from TRAVELERS for the same reason as the entropy above: it is DERIVED
 # from travelers_anon.json.
 TRAVELER_TAGS = load_traveler_tags()
+# None until rec_sys_hybrid.py writes recommendations.json, which it does
+# not do yet -- its ranking logic is still pseudocode. The recommendations
+# route reports that state explicitly instead of erroring; see
+# data_loader.load_traveler_recommendations for the file contract, and
+# note this is loaded here at import time like every other derived file,
+# so the server never computes a recommendation per request.
+TRAVELER_RECOMMENDATIONS = load_traveler_recommendations()
 # Loaded once at startup like every other dataset here; None means the
 # GeoNames extract hasn't been run in this checkout (see load_beaches()).
 BEACHES = load_beaches()
@@ -479,6 +487,16 @@ class TravelerTag(BaseModel):
     # the thing matched on.
     hub_city: Optional[str] = None
     hub_airports: Optional[list[str]] = None
+    # trip_pattern: which classify_trip.py tag kind earned this ("ski_trip").
+    # Its own field rather than something to parse out of tag_id, and the
+    # thing the chip's tooltip branches on. `trips` here is a COUNT that
+    # crossed a floor, not a share that crossed a threshold -- three ski
+    # trips make a skier whether the traveler took three trips or three
+    # hundred -- so `share` rides along for the tooltip and nothing keys on
+    # it. `denominator` is trips classify_trip.py could tag at all (a
+    # destination airport plus both dates), so zero there means "we could
+    # not tell", not "they never do this".
+    trip_kind: Optional[str] = None
 
 
 class TravelerSummary(BaseModel):
@@ -692,6 +710,62 @@ class TravelersResponse(BaseModel):
     # empty list, the data genuinely has no travelers in it.
     dataset_available: bool
     travelers: list[TravelerSummary]
+
+
+class TravelerRecommendation(BaseModel):
+    """One suggested destination for one traveler.
+
+    `why` is not decoration and is not optional in spirit: a travel
+    recommendation nobody can check is unactionable, and the model files
+    make naming the evidence a requirement rather than a nice-to-have.
+    `source` says WHICH model produced this row (content / collaborative /
+    hybrid / popularity), so a list can be read as the mixture it is."""
+
+    destination_key: str
+    destination_city: str
+    destination_country: str
+    region: Optional[str] = None
+    score: Optional[float] = None
+    source: Optional[str] = None
+    # The month this destination's weather curve peaks. Null where the city
+    # has no weather normals -- 163 of 222 destinations have one, so an
+    # absent month is common and means "unknown", never "any month".
+    best_month: Optional[str] = None
+    why: list[str] = []
+
+
+class TravelerRecommendationsResponse(BaseModel):
+    """Recommendations for one traveler, or an honest account of why there
+    are none.
+
+    THIS ROUTE RETURNS 200 IN ALL THREE STATES ON PURPOSE. The frontend has
+    to tell "the recommender hasn't been built yet" apart from "the server
+    is broken", and an HTTP error code puts both in the same branch of a
+    fetch(). A 404 is still a 404 -- but only for a traveler_id that does
+    not exist, same as the detail route above.
+
+        ok             recommendations were generated for this traveler
+        not_generated  recommendations.json does not exist -- rec_sys_hybrid.py
+                       has not been run (today: it cannot be, its ranking
+                       logic is pseudocode). This is the current state.
+        unavailable    the file exists but has nothing for this traveler,
+                       e.g. the "neither" route with no fallback written
+
+    `personalised` is separate from `status` for a reason the hybrid model
+    file argues at length: a popularity fallback is a legitimate answer with
+    status "ok", and the UI must be able to label it "popular right now"
+    rather than "for you"."""
+
+    traveler_id: str
+    status: str
+    detail: str
+    personalised: bool = False
+    # Which branch the hybrid took for this traveler: both / content /
+    # collaborative / neither. Null when nothing has been generated.
+    route: Optional[str] = None
+    strategy: Optional[str] = None
+    generated: Optional[str] = None
+    recommendations: list[TravelerRecommendation] = []
 
 
 class WeatherDetail(BaseModel):
@@ -1421,6 +1495,64 @@ def traveler_detail(traveler_id: str):
         destination_entropy=_destination_entropy(traveler_id),
         region_entropy=_destination_entropy(traveler_id, TRAVELER_ENTROPY_REGION),
         real_person=traveler_id in REAL_PERSON_TRAVELER_IDS,
+    )
+
+
+@app.get("/api/travelers/{traveler_id}/recommendations", response_model=TravelerRecommendationsResponse)
+def traveler_recommendations(traveler_id: str, limit: int = Query(3, ge=1, le=10)):
+    """Up to `limit` destinations this traveler has not been to.
+
+    READS A PRECOMPUTED FILE, computes nothing. Same offline/online split as
+    tags and entropy: ranking 222 candidates against a taste vector is
+    pipeline work, and doing it per request would put the one expensive
+    thing this API avoids back into the request path. rec_sys_hybrid.py
+    writes recommendations.json; this route serves it.
+
+    **It serves nothing today**, because that script's ranking logic is
+    still pseudocode -- so every call returns status "not_generated" with an
+    empty list. That is the designed behaviour, not a bug to work around:
+    the button, the fetch, the loading state and the empty state are all
+    exercised by it, and the day the model lands, the same response shape
+    starts carrying rows.
+
+    404 only for an unknown traveler_id, matching /api/travelers/{id}."""
+    if not TRAVELERS or traveler_id not in TRAVELERS:
+        raise HTTPException(status_code=404, detail=f"No traveler with id {traveler_id!r}")
+
+    if TRAVELER_RECOMMENDATIONS is None:
+        return TravelerRecommendationsResponse(
+            traveler_id=traveler_id,
+            status="not_generated",
+            detail=(
+                "Recommendations haven't been generated for this dataset yet. "
+                "Run data/scripts/multiple/rec_sys_hybrid.py."
+            ),
+        )
+
+    block = TRAVELER_RECOMMENDATIONS["by_traveler"].get(traveler_id)
+    rows = (block or {}).get("recommendations") or []
+    if not rows:
+        return TravelerRecommendationsResponse(
+            traveler_id=traveler_id,
+            status="unavailable",
+            detail="No recommendation could be made for this traveler.",
+            route=(block or {}).get("route"),
+            strategy=TRAVELER_RECOMMENDATIONS.get("strategy"),
+            generated=TRAVELER_RECOMMENDATIONS.get("generated"),
+        )
+
+    return TravelerRecommendationsResponse(
+        traveler_id=traveler_id,
+        status="ok",
+        detail="",
+        # Defaults to True only when the generator said so -- a missing flag
+        # is read as "not personalised", the safer of the two labels to be
+        # wrong about.
+        personalised=bool(block.get("personalised")),
+        route=block.get("route"),
+        strategy=TRAVELER_RECOMMENDATIONS.get("strategy"),
+        generated=TRAVELER_RECOMMENDATIONS.get("generated"),
+        recommendations=[TravelerRecommendation(**row) for row in rows[:limit]],
     )
 
 

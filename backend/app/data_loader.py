@@ -38,6 +38,16 @@ TRAVELER_ENTROPY_REGION_PATH = (
     DATA_DIR / "processed" / "multiple" / "traveler_entropy_region.json"
 )
 TRAVELER_TAGS_PATH = DATA_DIR / "processed" / "multiple" / "traveler_tags.json"
+# Precomputed destination recommendations, one block per traveler, from
+# data/scripts/multiple/rec_sys_hybrid.py. DOES NOT EXIST YET -- the
+# recommender's data prep is built but its ranking logic is still
+# pseudocode (see that file), so this loader returning None is the normal
+# state today rather than an error. Same tolerated-absence treatment as
+# tags and entropy, one step further along: those files exist and this one
+# is waiting on a script that hasn't been finished.
+TRAVELER_RECOMMENDATIONS_PATH = (
+    DATA_DIR / "processed" / "multiple" / "rec_sys" / "recommendations.json"
+)
 BEACHES_PATH = DATA_DIR / "processed" / "multiple" / "geonames_beaches.csv"
 # Destination -> city record, from match_trip_cities.py. Lets a traveler's
 # trip carry its destination city's UNESCO/Michelin scores without this API
@@ -517,6 +527,64 @@ def load_traveler_tags() -> dict | None:
 
     return {
         "rules": payload.get("rules", {}),
+        "by_traveler": {row["traveler_id"]: row for row in payload.get("travelers", [])},
+    }
+
+
+def load_traveler_recommendations() -> dict | None:
+    """Precomputed destination recommendations per traveler, from
+    rec_sys_hybrid.py -- or None when that file doesn't exist yet.
+
+    **None is the expected answer today.** The recommender's data
+    preparation is real and runs (rec_sys_data_prep.py), but the ranking
+    logic in the three rec_sys_*.py model files is still pseudocode, so
+    nothing writes this file. The route that reads it says
+    "not_generated" rather than failing, and the moment
+    rec_sys_hybrid.py starts writing recommendations.json, the API serves
+    it with no further change here. That is the whole point of loading it
+    from a file instead of importing the model: the offline/online split
+    this project already uses for tags and entropy (see backend/README.md)
+    means a recommender can be finished without touching the server.
+
+    Expected file shape (the contract rec_sys_hybrid.py has to satisfy):
+
+        {"generated": "2026-09-14",
+         "strategy": "hybrid: switching + reciprocal rank fusion",
+         "top_n": 3,
+         "travelers": [
+           {"traveler_id": "anthony-bourdain",
+            "route": "both",              # both|content|collaborative|neither
+            "personalised": true,         # false on the popularity fallback
+            "recommendations": [
+              {"destination_key": "Valencia|Spain",
+               "destination_city": "Valencia",
+               "destination_country": "Spain",
+               "region": "Southern Europe",
+               "score": 0.87,
+               "source": "hybrid",        # which model produced it
+               "best_month": "may",       # null when the city has no weather curve
+               "why": ["Closest to your Lisbon and Barcelona trips"]}
+            ]}
+         ]}
+
+    Re-keyed by traveler_id here, same as load_traveler_tags(), because the
+    file stores a list (readable in order) and the API looks up one
+    traveler at a time."""
+    if not TRAVELER_RECOMMENDATIONS_PATH.exists():
+        print(
+            f"[data_loader] {TRAVELER_RECOMMENDATIONS_PATH.name} not found -- the Recommend "
+            "button will report that recommendations haven't been generated. Run "
+            "data/scripts/multiple/rec_sys_hybrid.py once its ranking logic exists."
+        )
+        return None
+
+    with open(TRAVELER_RECOMMENDATIONS_PATH, encoding="utf-8") as f:
+        payload = json.load(f)
+
+    return {
+        "generated": payload.get("generated"),
+        "strategy": payload.get("strategy"),
+        "top_n": payload.get("top_n"),
         "by_traveler": {row["traveler_id"]: row for row in payload.get("travelers", [])},
     }
 

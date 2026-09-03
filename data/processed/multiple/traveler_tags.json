@@ -1,6 +1,6 @@
 {
   "source": "travelers_anon.json (built by build_travelers_anon.py)",
-  "generated": "2026-08-31",
+  "generated": "2026-09-03",
   "rules": {
     "airline_loyalist": {
       "threshold": 0.8,
@@ -114,12 +114,22 @@
           "American"
         ]
       }
+    },
+    "trip_pattern": {
+      "min_trips": 3,
+      "measure": "count of trips carrying the tag, not a share",
+      "denominator": "trips classify_trip.py could tag (airport + both dates)",
+      "kinds": {
+        "ski_trip": "Skier"
+      }
     }
   },
   "travelers_total": 263,
   "travelers_with_carrier_data": 139,
   "travelers_with_declared_base": 139,
-  "travelers_tagged": 123,
+  "travelers_with_classifiable_trips": 139,
+  "trip_pattern_near_misses": 2,
+  "travelers_tagged": 128,
   "tag_counts": {
     "Multi Hub": 57,
     "United Loyalist": 29,
@@ -127,6 +137,7 @@
     "Delta Loyalist": 19,
     "United Hub": 18,
     "American Loyalist": 17,
+    "Skier": 17,
     "Alaska Loyalist": 11,
     "Southwest Loyalist": 10,
     "Delta Hub": 8,
@@ -157,6 +168,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -211,6 +225,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -260,6 +277,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -311,6 +331,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 8,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -362,6 +385,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 15,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -412,6 +438,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -468,6 +497,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -522,6 +554,9 @@
         "Delta"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 10,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -572,6 +607,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -628,6 +666,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -684,6 +725,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -738,6 +782,9 @@
         "Alaska"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -786,6 +833,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 36,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -836,6 +886,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -892,6 +945,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 3,
+      "ski_trips": 3,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -914,6 +970,17 @@
             "JFK",
             "LGA"
           ]
+        },
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 3,
+          "denominator": 3,
+          "share": 1.0
         }
       ]
     },
@@ -932,6 +999,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 8,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -964,6 +1034,9 @@
         "Delta"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 53,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1013,6 +1086,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 16,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1061,6 +1137,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 16,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1095,6 +1174,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1149,6 +1231,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 32,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1197,6 +1282,9 @@
         "United"
       ],
       "home_airport_is_hub": false,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1246,6 +1334,9 @@
         "American"
       ],
       "home_airport_is_hub": false,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1296,6 +1387,9 @@
         "Delta"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 16,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1344,6 +1438,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 16,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1392,6 +1489,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1442,6 +1542,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1494,6 +1597,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 24,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1528,6 +1634,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1582,6 +1691,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 6,
+      "ski_trips": 6,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1610,6 +1722,17 @@
           "hub_airports": [
             "DFW"
           ]
+        },
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 6,
+          "denominator": 6,
+          "share": 1.0
         }
       ]
     },
@@ -1630,6 +1753,9 @@
         "Delta"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 6,
+      "ski_trips": 6,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1658,6 +1784,17 @@
           "hub_airports": [
             "MSP"
           ]
+        },
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 6,
+          "denominator": 6,
+          "share": 1.0
         }
       ]
     },
@@ -1679,6 +1816,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1730,6 +1870,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 24,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1781,6 +1924,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 3,
+      "ski_trips": 3,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -1797,6 +1943,17 @@
           "hub_airports": [
             "IAH"
           ]
+        },
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 3,
+          "denominator": 3,
+          "share": 1.0
         }
       ]
     },
@@ -1817,6 +1974,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1867,6 +2027,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1921,6 +2084,9 @@
         "Delta"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 6,
+      "ski_trips": 6,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -1949,6 +2115,17 @@
           "hub_airports": [
             "DTW"
           ]
+        },
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 6,
+          "denominator": 6,
+          "share": 1.0
         }
       ]
     },
@@ -1969,6 +2146,9 @@
         "Delta"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2018,6 +2198,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2070,6 +2253,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2121,6 +2307,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 20,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2151,6 +2340,17 @@
           "hub_airports": [
             "ORD"
           ]
+        },
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 20,
+          "denominator": 20,
+          "share": 1.0
         }
       ]
     },
@@ -2171,6 +2371,9 @@
         "Alaska"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 36,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2221,6 +2424,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2276,6 +2482,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 12,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2326,6 +2535,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 3,
+      "ski_trips": 3,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -2342,6 +2554,17 @@
           "hub_airports": [
             "SFO"
           ]
+        },
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 3,
+          "denominator": 3,
+          "share": 1.0
         }
       ]
     },
@@ -2364,6 +2587,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2420,6 +2646,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2475,6 +2704,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 18,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2525,6 +2757,9 @@
         "Alaska"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 18,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2573,6 +2808,9 @@
         "Delta"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 15,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2621,6 +2859,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2670,6 +2911,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 3,
+      "ski_trips": 3,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -2688,6 +2932,17 @@
           "hub_airports": [
             "ORD"
           ]
+        },
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 3,
+          "denominator": 3,
+          "share": 1.0
         }
       ]
     },
@@ -2708,6 +2963,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2757,6 +3015,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2808,6 +3069,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2858,6 +3122,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 16,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2904,6 +3171,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2934,6 +3204,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 24,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -2967,6 +3240,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3015,6 +3291,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 24,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3049,6 +3328,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3103,6 +3385,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 18,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3151,6 +3436,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3201,6 +3489,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3255,6 +3546,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 18,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3301,6 +3595,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 24,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3333,6 +3630,9 @@
         "Alaska"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3379,6 +3679,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 32,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3411,6 +3714,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3459,6 +3765,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 16,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3507,6 +3816,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 36,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3556,6 +3868,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 28,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3604,6 +3919,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 21,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3636,6 +3954,9 @@
         "Delta"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 3,
+      "ski_trips": 3,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -3652,6 +3973,17 @@
           "hub_airports": [
             "ATL"
           ]
+        },
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 3,
+          "denominator": 3,
+          "share": 1.0
         }
       ]
     },
@@ -3670,6 +4002,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 36,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3704,6 +4039,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3759,6 +4097,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 25,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3809,6 +4150,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 10,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3857,6 +4201,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 36,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3906,6 +4253,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -3958,6 +4308,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4012,6 +4365,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 24,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4060,6 +4416,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 6,
+      "ski_trips": 6,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4088,6 +4447,17 @@
           "hub_airports": [
             "CLT"
           ]
+        },
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 6,
+          "denominator": 6,
+          "share": 1.0
         }
       ]
     },
@@ -4108,6 +4478,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 21,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4156,6 +4529,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4206,6 +4582,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4262,6 +4641,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4318,6 +4700,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 16,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4370,6 +4755,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 10,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4404,6 +4792,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 30,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4459,6 +4850,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 32,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4510,6 +4904,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 14,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4562,6 +4959,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4616,6 +5016,9 @@
         "Alaska"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 16,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4664,6 +5067,9 @@
         "Alaska"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4713,6 +5119,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 5,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4764,6 +5173,9 @@
         "United"
       ],
       "home_airport_is_hub": null,
+      "classifiable_trips": 91,
+      "ski_trips": 1,
+      "trip_pattern_near_miss": true,
       "tags": [
         {
           "kind": "airline_loyalist",
@@ -4796,6 +5208,38 @@
       ]
     },
     {
+      "traveler_id": "jake-barnes",
+      "name": "Jake Barnes",
+      "trip_count": 20,
+      "trips_with_carrier": 20,
+      "distinct_carriers": 2,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 0.75,
+      "below_min_trips": false,
+      "base_city": "Kansas City",
+      "base_inference": "declared",
+      "home_airport": "MCI",
+      "hub_city": null,
+      "hub_airlines": [],
+      "home_airport_is_hub": null,
+      "classifiable_trips": 20,
+      "ski_trips": 5,
+      "trip_pattern_near_miss": false,
+      "tags": [
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 5,
+          "denominator": 20,
+          "share": 0.25
+        }
+      ]
+    },
+    {
       "traveler_id": "rick-steves",
       "name": "Rick Steves",
       "trip_count": 47,
@@ -4812,6 +5256,9 @@
         "Alaska"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 47,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -4848,6 +5295,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 10,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -4885,6 +5335,9 @@
         "American"
       ],
       "home_airport_is_hub": null,
+      "classifiable_trips": 18,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -4924,6 +5377,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 32,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -4962,6 +5418,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 17,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -5004,6 +5463,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 24,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -5041,6 +5503,9 @@
         "American"
       ],
       "home_airport_is_hub": false,
+      "classifiable_trips": 24,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -5079,6 +5544,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 30,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -5117,6 +5585,9 @@
         "American"
       ],
       "home_airport_is_hub": null,
+      "classifiable_trips": 201,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -5161,6 +5632,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 21,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -5203,6 +5677,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 30,
+      "ski_trips": 5,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -5219,6 +5696,17 @@
           "hub_airports": [
             "PHL"
           ]
+        },
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 5,
+          "denominator": 30,
+          "share": 0.1667
         }
       ]
     },
@@ -5239,6 +5727,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 30,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -5275,6 +5766,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 18,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -5312,6 +5806,9 @@
         "American"
       ],
       "home_airport_is_hub": null,
+      "classifiable_trips": 15,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -5350,6 +5847,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 30,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -5386,6 +5886,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 27,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -5422,6 +5925,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 27,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -5458,6 +5964,9 @@
         "United"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 28,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -5494,6 +6003,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 28,
+      "ski_trips": 2,
+      "trip_pattern_near_miss": true,
       "tags": [
         {
           "kind": "airline_hub",
@@ -5532,6 +6044,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 3,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -5558,6 +6073,38 @@
       ]
     },
     {
+      "traveler_id": "perseus",
+      "name": "Perseus",
+      "trip_count": 24,
+      "trips_with_carrier": 24,
+      "distinct_carriers": 9,
+      "top_carrier": "United Air Lines Inc.",
+      "top_carrier_share": 0.3333,
+      "below_min_trips": false,
+      "base_city": "Jacksonville",
+      "base_inference": "declared",
+      "home_airport": "JAX",
+      "hub_city": null,
+      "hub_airlines": [],
+      "home_airport_is_hub": null,
+      "classifiable_trips": 24,
+      "ski_trips": 4,
+      "trip_pattern_near_miss": false,
+      "tags": [
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 4,
+          "denominator": 24,
+          "share": 0.1667
+        }
+      ]
+    },
+    {
       "traveler_id": "zeus",
       "name": "Zeus",
       "trip_count": 30,
@@ -5576,6 +6123,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 30,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -5620,6 +6170,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 32,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -5646,6 +6199,38 @@
       ]
     },
     {
+      "traveler_id": "daedalus",
+      "name": "Daedalus",
+      "trip_count": 30,
+      "trips_with_carrier": 30,
+      "distinct_carriers": 8,
+      "top_carrier": "Alaska Airlines Inc.",
+      "top_carrier_share": 0.3,
+      "below_min_trips": false,
+      "base_city": "San Jose",
+      "base_inference": "declared",
+      "home_airport": "SJC",
+      "hub_city": null,
+      "hub_airlines": [],
+      "home_airport_is_hub": null,
+      "classifiable_trips": 30,
+      "ski_trips": 5,
+      "trip_pattern_near_miss": false,
+      "tags": [
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 5,
+          "denominator": 30,
+          "share": 0.1667
+        }
+      ]
+    },
+    {
       "traveler_id": "persephone",
       "name": "Persephone",
       "trip_count": 24,
@@ -5662,6 +6247,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 24,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "airline_hub",
@@ -5678,6 +6266,38 @@
           "hub_airports": [
             "PHX"
           ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "orpheus",
+      "name": "Orpheus",
+      "trip_count": 27,
+      "trips_with_carrier": 27,
+      "distinct_carriers": 8,
+      "top_carrier": "Southwest Airlines Co.",
+      "top_carrier_share": 0.2593,
+      "below_min_trips": false,
+      "base_city": "Columbus",
+      "base_inference": "declared",
+      "home_airport": "CMH",
+      "hub_city": null,
+      "hub_airlines": [],
+      "home_airport_is_hub": null,
+      "classifiable_trips": 27,
+      "ski_trips": 4,
+      "trip_pattern_near_miss": false,
+      "tags": [
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 4,
+          "denominator": 27,
+          "share": 0.1481
         }
       ]
     },
@@ -5699,6 +6319,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 30,
+      "ski_trips": 5,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -5717,6 +6340,17 @@
           "hub_airports": [
             "ORD"
           ]
+        },
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 5,
+          "denominator": 30,
+          "share": 0.1667
         }
       ]
     },
@@ -5738,6 +6372,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 28,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -5756,6 +6393,38 @@
           "hub_airports": [
             "LAX"
           ]
+        }
+      ]
+    },
+    {
+      "traveler_id": "sisyphus",
+      "name": "Sisyphus",
+      "trip_count": 32,
+      "trips_with_carrier": 32,
+      "distinct_carriers": 10,
+      "top_carrier": "Japan Air Lines Co. Ltd.",
+      "top_carrier_share": 0.1562,
+      "below_min_trips": false,
+      "base_city": "San Diego",
+      "base_inference": "declared",
+      "home_airport": "SAN",
+      "hub_city": null,
+      "hub_airlines": [],
+      "home_airport_is_hub": null,
+      "classifiable_trips": 32,
+      "ski_trips": 3,
+      "trip_pattern_near_miss": false,
+      "tags": [
+        {
+          "kind": "trip_pattern",
+          "tag_id": "trip-pattern:ski-trip",
+          "label": "Skier",
+          "carrier_name": null,
+          "carrier_names": [],
+          "trip_kind": "ski_trip",
+          "trips": 3,
+          "denominator": 32,
+          "share": 0.0938
         }
       ]
     },
@@ -5777,6 +6446,9 @@
         "American"
       ],
       "home_airport_is_hub": true,
+      "classifiable_trips": 27,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": [
         {
           "kind": "multi_hub",
@@ -5799,23 +6471,6 @@
       ]
     },
     {
-      "traveler_id": "jake-barnes",
-      "name": "Jake Barnes",
-      "trip_count": 20,
-      "trips_with_carrier": 20,
-      "distinct_carriers": 2,
-      "top_carrier": "United Air Lines Inc.",
-      "top_carrier_share": 0.75,
-      "below_min_trips": false,
-      "base_city": "Kansas City",
-      "base_inference": "declared",
-      "home_airport": "MCI",
-      "hub_city": null,
-      "hub_airlines": [],
-      "home_airport_is_hub": null,
-      "tags": []
-    },
-    {
       "traveler_id": "krebs",
       "name": "Krebs",
       "trip_count": 20,
@@ -5830,6 +6485,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -5847,6 +6505,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 4,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -5864,6 +6525,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 20,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -5881,6 +6545,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 40,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -5898,57 +6565,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
-      "tags": []
-    },
-    {
-      "traveler_id": "perseus",
-      "name": "Perseus",
-      "trip_count": 24,
-      "trips_with_carrier": 24,
-      "distinct_carriers": 9,
-      "top_carrier": "United Air Lines Inc.",
-      "top_carrier_share": 0.3333,
-      "below_min_trips": false,
-      "base_city": "Jacksonville",
-      "base_inference": "declared",
-      "home_airport": "JAX",
-      "hub_city": null,
-      "hub_airlines": [],
-      "home_airport_is_hub": null,
-      "tags": []
-    },
-    {
-      "traveler_id": "daedalus",
-      "name": "Daedalus",
-      "trip_count": 30,
-      "trips_with_carrier": 30,
-      "distinct_carriers": 8,
-      "top_carrier": "Alaska Airlines Inc.",
-      "top_carrier_share": 0.3,
-      "below_min_trips": false,
-      "base_city": "San Jose",
-      "base_inference": "declared",
-      "home_airport": "SJC",
-      "hub_city": null,
-      "hub_airlines": [],
-      "home_airport_is_hub": null,
-      "tags": []
-    },
-    {
-      "traveler_id": "orpheus",
-      "name": "Orpheus",
-      "trip_count": 27,
-      "trips_with_carrier": 27,
-      "distinct_carriers": 8,
-      "top_carrier": "Southwest Airlines Co.",
-      "top_carrier_share": 0.2593,
-      "below_min_trips": false,
-      "base_city": "Columbus",
-      "base_inference": "declared",
-      "home_airport": "CMH",
-      "hub_city": null,
-      "hub_airlines": [],
-      "home_airport_is_hub": null,
+      "classifiable_trips": 27,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -5966,6 +6585,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 24,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -5983,6 +6605,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 28,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6000,6 +6625,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 21,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6017,6 +6645,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 15,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6034,6 +6665,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 21,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6051,23 +6685,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
-      "tags": []
-    },
-    {
-      "traveler_id": "sisyphus",
-      "name": "Sisyphus",
-      "trip_count": 32,
-      "trips_with_carrier": 32,
-      "distinct_carriers": 10,
-      "top_carrier": "Japan Air Lines Co. Ltd.",
-      "top_carrier_share": 0.1562,
-      "below_min_trips": false,
-      "base_city": "San Diego",
-      "base_inference": "declared",
-      "home_airport": "SAN",
-      "hub_city": null,
-      "hub_airlines": [],
-      "home_airport_is_hub": null,
+      "classifiable_trips": 24,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6085,6 +6705,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6102,6 +6725,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6119,6 +6745,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6136,6 +6765,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6153,6 +6785,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6170,6 +6805,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6187,6 +6825,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6204,6 +6845,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6221,6 +6865,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6238,6 +6885,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6255,6 +6905,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6272,6 +6925,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6289,6 +6945,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6306,6 +6965,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6323,6 +6985,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6340,6 +7005,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6357,6 +7025,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6374,6 +7045,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6391,6 +7065,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6408,6 +7085,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6425,6 +7105,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6442,6 +7125,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6459,6 +7145,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6476,6 +7165,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6493,6 +7185,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6510,6 +7205,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6527,6 +7225,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6544,6 +7245,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6561,6 +7265,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6578,6 +7285,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6595,6 +7305,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6612,6 +7325,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6629,6 +7345,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6646,6 +7365,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6663,6 +7385,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6680,6 +7405,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6697,6 +7425,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6714,6 +7445,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6731,6 +7465,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6748,6 +7485,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6765,6 +7505,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6782,6 +7525,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6799,6 +7545,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6816,6 +7565,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6833,6 +7585,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6850,6 +7605,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6867,6 +7625,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6884,6 +7645,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6901,6 +7665,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6918,6 +7685,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6935,6 +7705,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6952,6 +7725,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6969,6 +7745,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -6986,6 +7765,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7003,6 +7785,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7020,6 +7805,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7037,6 +7825,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7054,6 +7845,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7071,6 +7865,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7088,6 +7885,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7105,6 +7905,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7122,6 +7925,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7139,6 +7945,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7156,6 +7965,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7173,6 +7985,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7190,6 +8005,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7207,6 +8025,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7224,6 +8045,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7241,6 +8065,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7258,6 +8085,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7275,6 +8105,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7292,6 +8125,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7309,6 +8145,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7326,6 +8165,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7343,6 +8185,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7360,6 +8205,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7377,6 +8225,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7394,6 +8245,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7411,6 +8265,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7428,6 +8285,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7445,6 +8305,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7462,6 +8325,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7479,6 +8345,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7496,6 +8365,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7513,6 +8385,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7530,6 +8405,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7547,6 +8425,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7564,6 +8445,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7581,6 +8465,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7598,6 +8485,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7615,6 +8505,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7632,6 +8525,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7649,6 +8545,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7666,6 +8565,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7683,6 +8585,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7700,6 +8605,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7717,6 +8625,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7734,6 +8645,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7751,6 +8665,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7768,6 +8685,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7785,6 +8705,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7802,6 +8725,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7819,6 +8745,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7836,6 +8765,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7853,6 +8785,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7870,6 +8805,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7887,6 +8825,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7904,6 +8845,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7921,6 +8865,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7938,6 +8885,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7955,6 +8905,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7972,6 +8925,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -7989,6 +8945,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -8006,6 +8965,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -8023,6 +8985,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -8040,6 +9005,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -8057,6 +9025,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -8074,6 +9045,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -8091,6 +9065,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -8108,6 +9085,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -8125,6 +9105,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -8142,6 +9125,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -8159,6 +9145,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     },
     {
@@ -8176,6 +9165,9 @@
       "hub_city": null,
       "hub_airlines": [],
       "home_airport_is_hub": null,
+      "classifiable_trips": 0,
+      "ski_trips": 0,
+      "trip_pattern_near_miss": false,
       "tags": []
     }
   ]
