@@ -90,10 +90,22 @@ MONTH_NAMES = [
     "july", "august", "september", "october", "november", "december",
 ]
 
-# classify_trip.py's tag kinds, promoted to their own 0/1 columns. A
-# pipe-joined string is unusable as a feature; three booleans are one
-# `.groupby()` away from anything you want.
-TAG_KINDS = ("beach_vacation", "ski_trip", "holiday_trip")
+def tag_kinds_present(travelers):
+    """Every classify_trip.py tag kind that actually appears, sorted.
+
+    DISCOVERED, NOT LISTED. This was a hardcoded tuple of three, and adding
+    "european_summer" upstream silently produced no `is_european_summer`
+    column -- the tag was in `tag_kinds` and missing from the one-hots, which
+    is the kind of gap you only notice when a model quietly ignores a feature.
+    Reading the kinds off the data means a new tag gets a column for free.
+
+    Not imported from classify_trip.TRIP_TAGS, which would be the other way to
+    do it: that module needs pandas, and this one is stdlib-only on purpose."""
+    return sorted({tag["kind"]
+                   for traveler in travelers
+                   for trip in (traveler.get("trips") or [])
+                   for tag in (trip.get("tags") or [])
+                   if tag.get("kind")})
 
 
 # ---------------------------------------------------------------------------
@@ -112,6 +124,7 @@ def trip_rows(inputs, catalog_by_key):
     regions = inputs["regions_by_iso2"]
     matches = inputs["matches"]
 
+    kinds = tag_kinds_present(inputs["travelers"])
     rows = []
     for traveler in inputs["travelers"]:
         for trip in traveler.get("trips") or []:
@@ -156,7 +169,7 @@ def trip_rows(inputs, catalog_by_key):
                 "flight_class": trip.get("flight_class"),
                 # --- what kind of trip ------------------------------------
                 "tag_kinds": "|".join(sorted(tag_kinds)) or None,
-                **{f"is_{kind}": int(kind in tag_kinds) for kind in TAG_KINDS},
+                **{f"is_{kind}": int(kind in tag_kinds) for kind in kinds},
                 # --- destination scores -----------------------------------
                 # Blank means UNKNOWN. See the module docstring, point 1.
                 "destination_matched": int(bool(match)),
@@ -322,7 +335,7 @@ traveler with colliding initials renumbers that group on the next rebuild.
 | `year`, `month`, `month_name` | parsed from `start_date` for grouping |
 | `destination_key` | `"City\\|Country"` -- the item id, joins to destinations.csv |
 | `region`, `detailed_region` | UN M49. `detailed_region` is the 22-value tier worth charting |
-| `is_beach_vacation`, `is_ski_trip`, `is_holiday_trip` | classify_trip.py tags as 0/1. Not mutually exclusive |
+| `is_*` | one column per classify_trip.py tag kind, as 0/1 — `is_beach_vacation`, `is_ski_trip`, `is_holiday_trip`, `is_european_summer`. Discovered from the data, so a new tag upstream gets a column automatically. Not mutually exclusive |
 | `unesco_score`, `michelin_score` | 0-10, of the destination CITY. Blank = no city record |
 | `plog_score` / `allocentric_score` | one continuum, two poles: allocentric = 1 - plog. Use one |
 | `weather_score` | 0-10, resolved against **this trip's own dates**, not the annual mean |

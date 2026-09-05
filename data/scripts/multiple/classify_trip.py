@@ -15,6 +15,7 @@ BEACHES_PATH = DATA_DIR / "processed" / "multiple" / "geonames_beaches.csv"
 AIRPORTS_PATH = DATA_DIR / "reference" / "airports.json"
 WEATHER_PATH = DATA_DIR / "processed" / "multiple" / "weather_normals_2025_by_city.json"
 CITY_MATCHES_PATH = DATA_DIR / "processed" / "multiple" / "trip_city_matches.json"
+M49_PATH = DATA_DIR / "reference" / "m49_regions.json"
 
 # MM-DD, so the window is year-agnostic and wraps the new year.
 # Approximate typical opening/closing, not published resort calendars.
@@ -84,6 +85,37 @@ TEST_TRIPS = {
     "Boundary-GJT-under-2026": {
         "Destination Airport": "GJT", "Arrival Date": "2026-03-25", "Departure Date": "2026-04-01",
         "Destination City": "Grand Junction", "Destination Country": "United States"},
+    # European Summer, both halves of the rule and both edges of the window.
+    # Only these rows carry a country code -- the region join needs one, and
+    # every case above predates it, so they all correctly score 0.
+    "EuroSummer-Paris-July": {          # in region, in window          -> 1
+        "Destination Airport": "CDG", "Arrival Date": "2025-07-10", "Departure Date": "2025-07-20",
+        "Destination City": "Paris", "Destination Country": "France",
+        "Destination Country Code": "FR"},
+    "EuroSummer-Paris-September": {     # in region, OUT of window      -> 0
+        "Destination Airport": "CDG", "Arrival Date": "2025-09-10", "Departure Date": "2025-09-20",
+        "Destination City": "Paris", "Destination Country": "France",
+        "Destination Country Code": "FR"},
+    "EuroSummer-Barcelona-July": {      # in window, SOUTHERN Europe    -> 0
+        "Destination Airport": "BCN", "Arrival Date": "2025-07-10", "Departure Date": "2025-07-20",
+        "Destination City": "Barcelona", "Destination Country": "Spain",
+        "Destination Country Code": "ES"},
+    "EuroSummer-London-July": {         # in window, NORTHERN Europe    -> 0
+        "Destination Airport": "LHR", "Arrival Date": "2025-07-10", "Departure Date": "2025-07-20",
+        "Destination City": "London", "Destination Country": "United Kingdom",
+        "Destination Country Code": "GB"},
+    "EuroSummer-Amsterdam-Aug31": {     # last day in                   -> 1
+        "Destination Airport": "AMS", "Arrival Date": "2025-08-31", "Departure Date": "2025-09-07",
+        "Destination City": "Amsterdam", "Destination Country": "Netherlands",
+        "Destination Country Code": "NL"},
+    "EuroSummer-Amsterdam-Sep1": {      # first day out                 -> 0
+        "Destination Airport": "AMS", "Arrival Date": "2025-09-01", "Departure Date": "2025-09-08",
+        "Destination City": "Amsterdam", "Destination Country": "Netherlands",
+        "Destination Country Code": "NL"},
+    "EuroSummer-Munich-Jun1": {         # first day in                  -> 1
+        "Destination Airport": "MUC", "Arrival Date": "2025-06-01", "Departure Date": "2025-06-08",
+        "Destination City": "Munich", "Destination Country": "Germany",
+        "Destination Country Code": "DE"},
 }
 
 TEST_TRIPS_DF = (
@@ -91,6 +123,25 @@ TEST_TRIPS_DF = (
     .rename_axis("Trip ID")
     .reset_index()
 )
+
+# European Summer: a fixed calendar window in one M49 detailed region.
+#
+# WESTERN EUROPE HERE MEANS M49's WESTERN EUROPE, which is narrower than the
+# phrase usually implies -- Austria, Belgium, France, Germany, Liechtenstein,
+# Luxembourg, Monaco, Netherlands, Switzerland. Spain, Italy, Portugal and
+# Greece are SOUTHERN Europe; the UK and Ireland are NORTHERN. That was a
+# deliberate call: the alternatives (Western + Southern, or all of Europe)
+# were measured at 137 and 179 trips against this rule's 59, and the strict
+# region was chosen. Widen by adding to EUROPEAN_SUMMER_REGIONS -- the region
+# names come from build_m49_regions.py, so they cannot drift from the values
+# every other part of this project charts.
+#
+# The DATES are fixed rather than per-destination, unlike SKI_SEASONS above.
+# A ski season is a property of a mountain; a European summer is a property of
+# the calendar, so there is nothing per-city to look up.
+EUROPEAN_SUMMER_REGIONS = frozenset({"Western Europe"})
+EUROPEAN_SUMMER_START = "06-01"
+EUROPEAN_SUMMER_END = "08-31"
 
 SKI_TRIP_THRESHOLD = 0.8
 NEAR_SHORE_KM = 100
@@ -292,9 +343,65 @@ def is_beach_vacation(df, shore_km=NEAR_SHORE_KM, beach_km=NEAR_BEACH_KM,
     return out
 
 
+def load_m49_regions(path=M49_PATH):
+    """iso2 -> M49 detailed region, or {} when the file has not been built.
+
+    Empty rather than raising: m49_regions.json comes from build_m49_regions.py
+    and a checkout may not have run it. A missing file then means no European
+    Summer tags, which is the same shape of degradation the other classifiers
+    already have when their reference data is absent."""
+    if not path.exists():
+        return {}
+    with open(path, encoding="utf-8") as f:
+        payload = json.load(f)
+    regions = {}
+    for entry in list((payload.get("countries") or {}).values()) + \
+            list((payload.get("additions") or {}).values()):
+        # iso2 is checked for None, not falsiness -- Namibia's code is the
+        # string "NA", which is truthy but has been a NaN upstream before.
+        if entry.get("iso2") is not None and entry.get("detailed_region"):
+            regions[entry["iso2"].upper()] = entry["detailed_region"]
+    return regions
+
+
+def is_european_summer(df, regions=None, wanted=EUROPEAN_SUMMER_REGIONS,
+                       start=EUROPEAN_SUMMER_START, end=EUROPEAN_SUMMER_END):
+    """Did the trip START inside the summer window, somewhere in the region set?
+
+    Both halves must hold. "Region Matched" records which one qualified, so a 1
+    can always be explained -- the same convention is_holiday_trip() uses for
+    "Holiday Matched".
+
+    KEYED ON THE ARRIVAL DATE, not on overlap. A trip that starts 28 August and
+    runs into September counts; one that starts 2 September does not, even if
+    it was booked as a summer holiday. That is the rule as specified, and it is
+    the one a reader can check against a single column."""
+    regions = load_m49_regions() if regions is None else regions
+    out = df.copy()
+
+    if "Destination Country Code" in out.columns:
+        matched = out["Destination Country Code"].map(
+            lambda code: regions.get(str(code).upper()) if code else None)
+    else:
+        matched = pd.Series([None] * len(out), index=out.index)
+
+    in_region = matched.isin(wanted)
+    # _to_mmdd() parses an "MM-DD" season boundary, not a full ISO date -- the
+    # arrival is a real timestamp, so its month/day are read directly, the same
+    # way _share_in_season() does it.
+    arrival = pd.to_datetime(out["Arrival Date"], errors="coerce")
+    in_window = arrival.apply(
+        lambda d: _in_window(d.month * 100 + d.day, _to_mmdd(start), _to_mmdd(end))
+        if pd.notna(d) else False)
+
+    out["Region Matched"] = matched.where(in_region & in_window)
+    out["EUROPEAN_SUMMER"] = (in_region & in_window).astype(int)
+    return out
+
+
 def classify(df):
     """Every classifier, each adding its own independent flag column."""
-    return is_holiday_trip(is_beach_vacation(is_ski_trip(df)))
+    return is_european_summer(is_holiday_trip(is_beach_vacation(is_ski_trip(df))))
 
 
 # --------------------------------------------------------------------------
@@ -459,6 +566,8 @@ TRIP_TAGS = {
     "IS_SKI_TRIP": {"kind": "ski_trip", "tag_id": "ski-trip", "label": "Ski Trip"},
     "BEACH_VACATION": {"kind": "beach_vacation", "tag_id": "beach-vacation", "label": "Beach Vacation"},
     "HOLIDAY_TRIP": {"kind": "holiday_trip", "tag_id": "holiday-trip", "label": "Holiday Trip"},
+    "EUROPEAN_SUMMER": {"kind": "european_summer", "tag_id": "european-summer",
+                        "label": "European Summer"},
 }
 
 
@@ -482,7 +591,9 @@ def tag_trips(trips):
                      "Arrival Date": start,
                      "Departure Date": end,
                      "Destination City": trip.get("destination_city"),
-                     "Destination Country": trip.get("destination_country")})
+                     "Destination Country": trip.get("destination_country"),
+                     # For the M49 region join -- see is_european_summer().
+                     "Destination Country Code": trip.get("destination_country_code")})
         positions.append(i)
 
     tags = [[] for _ in trips]
@@ -502,5 +613,6 @@ if __name__ == "__main__":
     columns = ["Trip ID", "Destination Airport", "Arrival Date", "Departure Date",
                "Share In Season", "IS_SKI_TRIP",
                "Distance To Shore KM", "Distance To Beach KM", "Avg Trip High C",
-               "BEACH_VACATION", "Holiday Matched", "HOLIDAY_TRIP"]
+               "BEACH_VACATION", "Holiday Matched", "HOLIDAY_TRIP",
+               "Region Matched", "EUROPEAN_SUMMER"]
     print(result[columns].to_string(index=False))

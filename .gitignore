@@ -22,3 +22,4 @@ _to_delete/
 data/globalshorelines/*
 temp/
 Claude outputs/
+notebooks/

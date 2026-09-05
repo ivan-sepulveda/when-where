@@ -46,7 +46,7 @@ traveler with colliding initials renumbers that group on the next rebuild.
 | `year`, `month`, `month_name` | parsed from `start_date` for grouping |
 | `destination_key` | `"City\|Country"` -- the item id, joins to destinations.csv |
 | `region`, `detailed_region` | UN M49. `detailed_region` is the 22-value tier worth charting |
-| `is_beach_vacation`, `is_ski_trip`, `is_holiday_trip` | classify_trip.py tags as 0/1. Not mutually exclusive |
+| `is_*` | one column per classify_trip.py tag kind, as 0/1 — `is_beach_vacation`, `is_ski_trip`, `is_holiday_trip`, `is_european_summer`. Discovered from the data, so a new tag upstream gets a column automatically. Not mutually exclusive |
 | `unesco_score`, `michelin_score` | 0-10, of the destination CITY. Blank = no city record |
 | `plog_score` / `allocentric_score` | one continuum, two poles: allocentric = 1 - plog. Use one |
 | `weather_score` | 0-10, resolved against **this trip's own dates**, not the annual mean |

@@ -1033,7 +1033,13 @@
      "episode_code": "NR S1.E1",
      "episode_title": "France: Why the French Don't Suck",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "First"
     },
     {
@@ -5805,7 +5811,13 @@
      "episode_code": "PU S7.E8",
      "episode_title": "Cologne, Germany",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "First"
     },
     {
@@ -6761,7 +6773,13 @@
      "episode_code": "PU S11.E6",
      "episode_title": "Berlin",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "First"
     },
     {
@@ -8302,7 +8320,13 @@
      "destination_airport": "CDG",
      "layover": true,
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -8336,6 +8360,11 @@
        "kind": "beach_vacation",
        "tag_id": "beach-vacation",
        "label": "Beach Vacation"
+      },
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
       }
      ],
      "flight_class": "Economy"
@@ -8371,6 +8400,11 @@
        "kind": "beach_vacation",
        "tag_id": "beach-vacation",
        "label": "Beach Vacation"
+      },
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
       }
      ],
      "flight_class": "Economy"
@@ -25787,7 +25821,13 @@
      "origin_airport": "CLT",
      "destination_airport": "MUC",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -25955,7 +25995,13 @@
      "origin_airport": "CLT",
      "destination_airport": "MUC",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -26123,7 +26169,13 @@
      "origin_airport": "CLT",
      "destination_airport": "MUC",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -26291,7 +26343,13 @@
      "origin_airport": "CLT",
      "destination_airport": "MUC",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -26459,7 +26517,13 @@
      "origin_airport": "CLT",
      "destination_airport": "MUC",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -30392,7 +30456,13 @@
      "origin_airport": "IAH",
      "destination_airport": "AMS",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -30566,7 +30636,13 @@
      "origin_airport": "IAH",
      "destination_airport": "AMS",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -30740,7 +30816,13 @@
      "origin_airport": "IAH",
      "destination_airport": "AMS",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -30914,7 +30996,13 @@
      "origin_airport": "IAH",
      "destination_airport": "AMS",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -31088,7 +31176,13 @@
      "origin_airport": "IAH",
      "destination_airport": "AMS",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -32112,7 +32206,13 @@
      "origin_airport": "JFK",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -32291,7 +32391,13 @@
      "origin_airport": "JFK",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -32470,7 +32576,13 @@
      "origin_airport": "JFK",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -32649,7 +32761,13 @@
      "origin_airport": "JFK",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -32828,7 +32946,13 @@
      "origin_airport": "JFK",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -33289,7 +33413,13 @@
      "origin_airport": "IAH",
      "destination_airport": "FRA",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -33625,7 +33755,13 @@
      "origin_airport": "IAH",
      "destination_airport": "FRA",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -55449,7 +55585,13 @@
      "origin_airport": "BOS",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -55779,7 +55921,13 @@
      "origin_airport": "BOS",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -60545,7 +60693,13 @@
      "origin_airport": "AUS",
      "destination_airport": "AMS",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -60713,7 +60867,13 @@
      "origin_airport": "AUS",
      "destination_airport": "AMS",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -60881,7 +61041,13 @@
      "origin_airport": "AUS",
      "destination_airport": "AMS",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -66556,7 +66722,13 @@
      "origin_airport": "EWR",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -66939,6 +67111,11 @@
        "kind": "beach_vacation",
        "tag_id": "beach-vacation",
        "label": "Beach Vacation"
+      },
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
       }
      ],
      "flight_class": "Economy"
@@ -72020,7 +72197,13 @@
      "origin_airport": "DFW",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -72194,7 +72377,13 @@
      "origin_airport": "DFW",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -72368,7 +72557,13 @@
      "origin_airport": "DFW",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -72984,7 +73179,13 @@
      "episode_code": "CMG S3.E2",
      "episode_title": "The Netherlands",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "First"
     }
    ]
@@ -89188,7 +89389,13 @@
      "origin_airport": "JFK",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     }
    ]
@@ -89428,7 +89635,13 @@
      "origin_airport": "EWR",
      "destination_airport": "AMS",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -89460,6 +89673,11 @@
        "kind": "beach_vacation",
        "tag_id": "beach-vacation",
        "label": "Beach Vacation"
+      },
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
       }
      ],
      "flight_class": "Economy"
@@ -89488,7 +89706,13 @@
      "origin_airport": "EWR",
      "destination_airport": "FRA",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -89515,7 +89739,13 @@
      "origin_airport": "EWR",
      "destination_airport": "TXL",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -89542,7 +89772,13 @@
      "origin_airport": "EWR",
      "destination_airport": "HAM",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     }
    ]
@@ -90045,7 +90281,13 @@
      "origin_airport": "JFK",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -90576,6 +90818,11 @@
        "kind": "beach_vacation",
        "tag_id": "beach-vacation",
        "label": "Beach Vacation"
+      },
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
       }
      ],
      "flight_class": "Economy"
@@ -91324,7 +91571,13 @@
      "origin_airport": "EWR",
      "destination_airport": "ZRH",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -91351,7 +91604,13 @@
      "origin_airport": "EWR",
      "destination_airport": "GVA",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     }
    ]
@@ -91678,7 +91937,13 @@
      "origin_airport": "JFK",
      "destination_airport": "ZRH",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -91705,7 +91970,13 @@
      "origin_airport": "JFK",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     }
    ]
@@ -91950,6 +92221,11 @@
        "kind": "beach_vacation",
        "tag_id": "beach-vacation",
        "label": "Beach Vacation"
+      },
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
       }
      ],
      "flight_class": "Economy"
@@ -92163,7 +92439,13 @@
      "origin_airport": "JFK",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {
@@ -92256,7 +92538,13 @@
      "origin_airport": "JFK",
      "destination_airport": "AMS",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     }
    ]
@@ -92401,7 +92689,13 @@
      "origin_airport": "JFK",
      "destination_airport": "CDG",
      "source_row": null,
-     "tags": [],
+     "tags": [
+      {
+       "kind": "european_summer",
+       "tag_id": "european-summer",
+       "label": "European Summer"
+      }
+     ],
      "flight_class": "Economy"
     },
     {

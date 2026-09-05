@@ -9,10 +9,10 @@
   "interactions": 916
  },
  "sources": {
-  "travelers_anon.json": "2026-09-05T20:01:31",
-  "trips_enhanced.json": "2026-09-05T20:01:26",
-  "traveler_tags.json": "2026-09-05T20:01:32",
-  "trip_city_matches.json": "2026-09-05T20:01:32",
+  "travelers_anon.json": "2026-09-05T23:44:28",
+  "trips_enhanced.json": "2026-09-05T23:43:05",
+  "traveler_tags.json": "2026-09-05T23:44:28",
+  "trip_city_matches.json": "2026-09-05T23:44:28",
   "monthly_scores_2025_by_city.json": "2026-07-20T04:15:11"
  },
  "notes": {
