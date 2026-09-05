@@ -106,7 +106,9 @@ export default function DestinationDetail() {
   return (
     <main className="page">
       <h1>
-        {countryCodeToFlagEmoji(country.code)} {country.name}
+        {/* Decorative: the country name follows it in text. */}
+        <span aria-hidden="true">{countryCodeToFlagEmoji(country.code)}</span>{" "}
+        {country.name}
         {travelAdvisory.status === "loaded" && travelAdvisory.advisory && (
           <TravelAdvisoryIcon advisory={travelAdvisory.advisory} />
         )}

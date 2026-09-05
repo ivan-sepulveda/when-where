@@ -204,7 +204,9 @@ export default function CityDetail() {
   return (
     <main className="page">
       <h1>
-        {countryCodeToFlagEmoji(city.country_code)} {city.city_ascii}
+        {/* Decorative: the city and country names follow it in text. */}
+        <span aria-hidden="true">{countryCodeToFlagEmoji(city.country_code)}</span>{" "}
+        {city.city_ascii}
         {travelAdvisory.status === "loaded" && travelAdvisory.advisory && (
           <TravelAdvisoryIcon advisory={travelAdvisory.advisory} />
         )}

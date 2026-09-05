@@ -196,9 +196,16 @@ export default function Beaches() {
             <code> extract_geonames_beaches.py</code>.
           </p>
 
+          {/* A <canvas> is an empty element to a screen reader -- no
+              children, no text, nothing to announce. role="img" plus a label
+              is the canvas equivalent of an <img alt="">. The label names
+              what the picture SHOWS and points at the country list below,
+              which is where the numbers actually live. */}
           <canvas
             ref={canvasRef}
             className="beaches-map"
+            role="img"
+            aria-label={`World map plotting ${beaches.length.toLocaleString()} ocean beaches as dots, one per beach. Country totals are listed below the map.`}
             onMouseMove={handleMove}
             onMouseLeave={() => setHovered(null)}
           />

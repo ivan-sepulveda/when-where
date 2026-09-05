@@ -62,8 +62,22 @@ function Chart({
   months: MonthTripCount[];
   valueKey: "trips" | "trips_excluding_layovers";
 }) {
+  // The chart is a picture of numbers that are also in the table below it,
+  // so the label gives the SHAPE -- which months are the peak and the low --
+  // rather than reading twelve values a screen reader user can already reach.
+  const peak = months.reduce((a, b) => (b[valueKey] > a[valueKey] ? b : a), months[0]);
+  const low = months.reduce((a, b) => (b[valueKey] < a[valueKey] ? b : a), months[0]);
+
   return (
-    <div className="flights-by-month-chart">
+    <div
+      className="flights-by-month-chart"
+      role="img"
+      aria-label={
+        months.length
+          ? `Line chart of trips by month, January to December. Busiest is ${peak.name} at ${peak[valueKey].toLocaleString()} trips; quietest is ${low.name} at ${low[valueKey].toLocaleString()}. Exact values for every month are in the table below.`
+          : "Line chart of trips by month. No data loaded."
+      }
+    >
       <ResponsiveContainer width="100%" height={380}>
         <LineChart data={months} margin={{ top: 16, right: 24, bottom: 8, left: 8 }}>
           {/* Recessive: hairline, solid, one step off the surface. Horizontal

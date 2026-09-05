@@ -60,7 +60,7 @@ export default function NavBar() {
             onClick={() => toggleMenu("browse")}
             aria-expanded={openMenu === "browse"}
           >
-            Browse ▾
+            Browse <span aria-hidden="true">▾</span>
           </button>
 
           {openMenu === "browse" && (
@@ -90,14 +90,24 @@ export default function NavBar() {
             onClick={() => toggleMenu("country")}
             aria-expanded={openMenu === "country"}
           >
-            Departing from: {countryCode} {countryCodeToFlagEmoji(countryCode)} ▾
+            Departing from: {countryCode}{" "}
+            {/* The flag repeats the code beside it, and a screen reader
+                announces it as "flag: Japan" -- so it is decoration here,
+                not content. Same for the caret, which aria-expanded on the
+                button already conveys. */}
+            <span aria-hidden="true">{countryCodeToFlagEmoji(countryCode)} ▾</span>
           </button>
 
           {openMenu === "country" && (
             <div className="navbar-dropdown navbar-dropdown-wide">
+              {/* A placeholder is not an accessible name: it disappears the
+                  moment someone types, and not every screen reader announces
+                  it. The visible placeholder stays for sighted users; the
+                  aria-label is what the control is actually called. */}
               <input
                 ref={countrySearchRef}
                 type="text"
+                aria-label="Search countries"
                 value={countrySearch}
                 onChange={(e) => setCountrySearch(e.target.value)}
                 placeholder="Search countries..."
@@ -120,7 +130,8 @@ export default function NavBar() {
                       setOpenMenu(null);
                     }}
                   >
-                    {countryCodeToFlagEmoji(country.code)} {country.name}
+                    <span aria-hidden="true">{countryCodeToFlagEmoji(country.code)}</span>{" "}
+                    {country.name}
                   </button>
                 ))}
               </div>
