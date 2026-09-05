@@ -128,13 +128,7 @@ def trip_rows(inputs, catalog_by_key):
             rows.append({
                 # --- identity ---------------------------------------------
                 "trip_id": trip.get("trip_id"),
-                # The Kaggle CSV's own row number, on the 137 rows that came
-                # from it and blank everywhere else -- so `source_row.notna()`
-                # is a second way to select them, and the link back to a line
-                # in the raw file survives the id normalisation.
-                "source_row": trip.get("source_row"),
                 "traveler_id": traveler["traveler_id"],
-                "traveler_name": traveler.get("name"),
                 # --- what kind of row this is -----------------------------
                 "countable": int(_is_countable(trip)),
                 "layover": int(bool(trip.get("layover"))),
@@ -159,12 +153,7 @@ def trip_rows(inputs, catalog_by_key):
                 "detailed_region": region.get("detailed_region"),
                 # --- how --------------------------------------------------
                 "carrier_name": trip.get("carrier_name"),
-                "carrier_code": trip.get("carrier_code"),
                 "flight_class": trip.get("flight_class"),
-                "transportation_type": trip.get("transportation_type"),
-                "accommodation_type": trip.get("accommodation_type"),
-                "transportation_cost": trip.get("transportation_cost"),
-                "accommodation_cost": trip.get("accommodation_cost"),
                 # --- what kind of trip ------------------------------------
                 "tag_kinds": "|".join(sorted(tag_kinds)) or None,
                 **{f"is_{kind}": int(kind in tag_kinds) for kind in TAG_KINDS},
@@ -297,12 +286,19 @@ trusting a column.
   Heritage site inside the 50km scoring radius. 41 destinations are the first
   case, 73 cities are the second. `destination_matched` separates them. Do not
   `fillna(0)`.
-- **Money has no currency.** The source dataset never recorded one. The numbers
-  are comparable within a traveler and meaningless summed across the dataset.
+- **Money has no currency.** The source dataset never recorded one, so
+  destinations.csv's `median_*_cost` columns are comparable between
+  destinations and meaningless as an absolute. Per-trip costs are not exported.
 - **`synthetic` means "not from the Kaggle CSV", not "made up".** The chef and
   flight-log itineraries are real trips on real routes.
 
 ## trips.csv -- one row per trip, nothing dropped
+
+Trip-level cost, lodging and transport-type columns are deliberately not here:
+the costs carry no currency and the types are near-constant. Per-destination
+medians are in destinations.csv if you want them. `traveler_name` is not here
+either -- join `traveler_id` to travelers.csv rather than carrying the name on
+3,084 rows.
 
 **`trip_id` is one shape everywhere: `PREFIX-YYYY-MM-DD`.** A traveler prefix
 plus the departure date, occasionally with a `-2` suffix where somebody flew
@@ -314,20 +310,12 @@ ordered by surname: `EW1` Emily Watson, `EW2` Emma Watson, `EW3` Emma Wilson,
 `EW4` Emily Wong. 60 of the 124 CSV-sourced travelers fall in a colliding group,
 so numbered prefixes are the common case.
 
-**`source_row` is the Kaggle CSV's own row number**, filled on the 137 rows that
-came from it and blank on everything else — those rows originally used it as
-their id, which is why they used to look nothing like the rest. It runs 1–139
-with gaps at 72 and 128, the two rows `build_trips_enhanced.py` skips for having
-no traveler name or no destination. `source_row.notna()` selects the CSV rows,
-same as `synthetic == 0`.
-
 **Do not persist a trip id.** The prefix numbering is positional, so adding a
 traveler with colliding initials renumbers that group on the next rebuild.
 
 | column | meaning |
 |---|---|
-| `trip_id`, `traveler_id` | keys. `traveler_id` joins to travelers.csv |
-| `source_row` | the Kaggle row number, or blank for an authored trip |
+| `trip_id`, `traveler_id` | keys. `traveler_id` joins to travelers.csv for the name and everything else about the person |
 | `countable` | 1 if rec_sys_data_prep.py would keep this row: not a layover, and has both a city and a country. **Start here.** |
 | `layover` | 1 for a leg that was part of a longer journey but not its point |
 | `destination_kind` | `city`, `country` or `region`. The last two have no `destination_key` |
