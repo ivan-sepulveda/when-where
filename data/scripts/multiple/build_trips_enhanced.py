@@ -84,7 +84,7 @@ import argparse
 import csv
 import json
 import re
-from collections import Counter
+from collections import Counter, defaultdict
 
 from classify_trip import tag_trips
 from datetime import date
@@ -557,6 +557,115 @@ def print_report() -> None:
         print(f"  {count:>3}x  {raw:<30} ->  {arrow}")
 
 
+# ---------------------------------------------------------------------------
+# trip ids
+# ---------------------------------------------------------------------------
+
+def _name_parts(name):
+    return [part for part in re.split(r"[^A-Za-z]+", name or "") if part]
+
+
+def traveler_initials(name):
+    """Initials for a trip-id prefix: first letter of the first and last name.
+
+    "John Smith" -> JS. A single-word name takes its first two letters, and a
+    middle name is skipped -- "Mary Jane Watson" is MW, the way a person's
+    initials are normally read."""
+    parts = _name_parts(name)
+    if not parts:
+        return "XX"
+    return (parts[0][0] + parts[-1][0]).upper() if len(parts) > 1 else parts[0][:2].upper()
+
+
+def assign_csv_trip_prefixes(people):
+    """(name, nationality) -> trip-id prefix, numbered where initials collide.
+
+    `people` is every CSV-sourced traveler. Unique initials keep the bare form
+    (`KN`); a collision numbers all of its members in order (`KA1`, `KA2`).
+
+    - **Ordered by surname, then full name, then nationality.** Kevin Abbot
+      before Kal Alonso, per the rule this was written to. Nationality is the
+      last tiebreak because a traveler here is name + nationality, and three
+      different John Smiths (American, British, USA) are three travelers.
+    - 60 of the 124 CSV travelers land in one of 23 colliding groups, so the
+      numbered form is the common case rather than the exception.
+    - **The numbering is positional, so adding a traveler renumbers the group.**
+      That is the cost of the bare-initials-when-unique rule: a new "Kyle Adams"
+      turns an existing `KA` into `KA1`. Trip ids are not stored anywhere
+      outside these generated files, so a renumber is a rebuild, not a
+      migration -- but it is why nothing should key on a trip id long-term.
+    """
+    groups = defaultdict(list)
+    for person in people:
+        groups[traveler_initials(person[0])].append(person)
+
+    def order(person):
+        name, nationality = person
+        parts = _name_parts(name)
+        return (parts[-1] if len(parts) > 1 else "", name, nationality or "")
+
+    prefixes = {}
+    for initials, members in groups.items():
+        members.sort(key=order)
+        if len(members) == 1:
+            prefixes[members[0]] = initials
+        else:
+            for n, person in enumerate(members, start=1):
+                prefixes[person] = f"{initials}{n}"
+    return prefixes
+
+
+def normalize_trip_ids(trips):
+    """Give the CSV-sourced trips the same PREFIX-YYYY-MM-DD id the rest use.
+
+    THE SOURCE'S OWN ID IS A BARE ROW NUMBER. The Kaggle file has a `Trip ID`
+    column holding 1..139, which is why 137 trips looked nothing like the 2,934
+    authored ones. It is preserved in `source_row` rather than discarded -- it
+    is the only direct link back to a line in the raw CSV, and the two gaps in
+    it (72 and 128) are the two rows this script skips for having no traveler
+    name or no destination.
+
+    Runs after the synthetic trips are merged, so the uniqueness assertion at
+    the end sees the whole dataset. That matters: 18 of the CSV initials
+    collide with an authored prefix already in use (EG, JS, MW and others), and
+    today no date coincides -- but nothing except this check would notice if a
+    new trip made one.
+
+    A trip with no parsed start date keeps its original id, since there is no
+    date to build one from. There are none today; the branch exists so a
+    future undated row degrades instead of becoming `JS-None`."""
+    people = {
+        (t.get("traveler_name"), t.get("traveler_nationality"))
+        for t in trips if not t.get("synthetic")
+    }
+    prefixes = assign_csv_trip_prefixes(people)
+
+    renamed = 0
+    for trip in trips:
+        if trip.get("synthetic"):
+            trip.setdefault("source_row", None)
+            continue
+        trip["source_row"] = trip.get("trip_id")
+        start = trip.get("start_date")
+        if not start:
+            continue
+        prefix = prefixes[(trip.get("traveler_name"), trip.get("traveler_nationality"))]
+        trip["trip_id"] = f"{prefix}-{start}"
+        renamed += 1
+
+    seen = Counter(str(t.get("trip_id")) for t in trips)
+    clashes = sorted(k for k, n in seen.items() if n > 1)
+    if clashes:
+        raise SystemExit(
+            "Trip id collision after normalisation: " + ", ".join(clashes[:10])
+            + f"{' ...' if len(clashes) > 10 else ''}\n"
+            "A CSV traveler's initials now match an authored prefix ON THE SAME "
+            "DATE. Give that traveler an explicit prefix rather than widening "
+            "the scheme -- see assign_csv_trip_prefixes()."
+        )
+    return renamed, len(prefixes)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument(
@@ -581,6 +690,9 @@ def main():
     # is assembled, so a tag means the same thing whether the trip came from
     # the Kaggle CSV or a hand-authored builder. A trip with no destination
     # airport or no parsed dates gets an empty list, not a guess.
+    # Before tagging, so every consumer downstream sees one id scheme.
+    renamed, distinct_prefixes = normalize_trip_ids(trips)
+
     trip_tags = tag_trips(trips)
     for trip, tags in zip(trips, trip_tags):
         trip["tags"] = tags
@@ -591,6 +703,8 @@ def main():
     # uniformly whether a trip came from the Kaggle CSV or a builder.
     assign_flight_class(trips)
     flight_class_counts = Counter(t["flight_class"] for t in trips)
+    print(f"  normalised {renamed} CSV trip id(s) onto PREFIX-YYYY-MM-DD across "
+          f"{distinct_prefixes} traveler prefixes; original row numbers kept in source_row")
 
     by_kind = Counter(t["destination_kind"] for t in trips)
     by_country = Counter(t["destination_country"] for t in trips)

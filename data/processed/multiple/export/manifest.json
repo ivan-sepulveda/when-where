@@ -1,0 +1,23 @@
+{
+ "generated": "2026-09-05",
+ "generated_by": "data/scripts/multiple/export_dataset.py",
+ "countable_only": false,
+ "counts": {
+  "trips": 3084,
+  "travelers": 279,
+  "destinations": 224,
+  "interactions": 916
+ },
+ "sources": {
+  "travelers_anon.json": "2026-09-05T20:01:31",
+  "trips_enhanced.json": "2026-09-05T20:01:26",
+  "traveler_tags.json": "2026-09-05T20:01:32",
+  "trip_city_matches.json": "2026-09-05T20:01:32",
+  "monthly_scores_2025_by_city.json": "2026-07-20T04:15:11"
+ },
+ "notes": {
+  "null_is_not_zero": "Blank scores mean unknown. See DATA_DICTIONARY.md.",
+  "countable": "1 where rec_sys_data_prep.py would keep the row.",
+  "confidence": "1 + 8.0 * ln(1 + visits)"
+ }
+}

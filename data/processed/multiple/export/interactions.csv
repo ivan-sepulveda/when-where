@@ -1,0 +1,917 @@
+traveler_id,destination_key,visits,confidence,first_year,last_year,first_visit,last_visit
+anthony-bourdain,Accra|Ghana,1,6.5452,2007,2007,2007-01-08,2007-01-08
+anthony-bourdain,Addis Ababa|Ethiopia,1,6.5452,2015,2015,2015-10-25,2015-10-25
+anthony-bourdain,Albuquerque|United States,1,6.5452,2013,2013,2013-09-29,2013-09-29
+anthony-bourdain,Antananarivo|Madagascar,1,6.5452,2015,2015,2015-05-17,2015-05-17
+anthony-bourdain,Asuncion|Paraguay,1,6.5452,2014,2014,2014-10-12,2014-10-12
+anthony-bourdain,Athens|Greece,2,9.7889,2008,2016,2008-01-28,2016-05-08
+anthony-bourdain,Austin|United States,1,6.5452,2012,2012,2012-09-03,2012-09-03
+anthony-bourdain,Bangkok|Thailand,2,9.7889,2003,2009,2003-06-27,2009-03-16
+anthony-bourdain,Barcelona|Spain,2,9.7889,2006,2011,2006-07-03,2011-08-01
+anthony-bourdain,Berlin|Germany,2,9.7889,2008,2018,2008-01-14,2018-06-10
+anthony-bourdain,Bilbao|Spain,2,9.7889,2002,2017,2002-07-05,2017-05-07
+anthony-bourdain,Bogota|Colombia,2,9.7889,2008,2013,2008-07-14,2013-04-28
+anthony-bourdain,Boston|United States,2,9.7889,2011,2014,2011-04-18,2014-11-09
+anthony-bourdain,Bucharest|Romania,1,6.5452,2008,2008,2008-02-25,2008-02-25
+anthony-bourdain,Budapest|Hungary,1,6.5452,2015,2015,2015-06-07,2015-06-07
+anthony-bourdain,Buenos Aires|Argentina,2,9.7889,2007,2016,2007-09-10,2016-11-20
+anthony-bourdain,Buffalo|United States,1,6.5452,2009,2009,2009-07-27,2009-07-27
+anthony-bourdain,Cairo|Egypt,1,6.5452,2008,2008,2008-08-25,2008-08-25
+anthony-bourdain,Casablanca|Morocco,2,9.7889,2002,2013,2002-03-05,2013-05-12
+anthony-bourdain,Charleston|United States,2,9.7889,2007,2015,2007-09-17,2015-11-15
+anthony-bourdain,Chiang Mai|Thailand,2,9.7889,2003,2014,2003-06-13,2014-06-01
+anthony-bourdain,Chicago|United States,2,9.7889,2009,2016,2009-02-02,2016-05-01
+anthony-bourdain,Christchurch|New Zealand,1,6.5452,2005,2005,2005-11-07,2005-11-07
+anthony-bourdain,Cleveland|United States,1,6.5452,2007,2007,2007-08-27,2007-08-27
+anthony-bourdain,Colombo|Sri Lanka,2,9.7889,2009,2017,2009-03-02,2017-10-29
+anthony-bourdain,Copenhagen|Denmark,1,6.5452,2013,2013,2013-10-06,2013-10-06
+anthony-bourdain,Da Lat|Vietnam,1,6.5452,2010,2010,2010-03-29,2010-03-29
+anthony-bourdain,Dakar|Senegal,1,6.5452,2016,2016,2016-05-29,2016-05-29
+anthony-bourdain,Dar es Salaam|Tanzania,1,6.5452,2014,2014,2014-10-26,2014-10-26
+anthony-bourdain,Delhi|India,1,6.5452,2014,2014,2014-04-13,2014-04-13
+anthony-bourdain,Denpasar|Indonesia,1,6.5452,2018,2018,2018-10-07,2018-10-07
+anthony-bourdain,Detroit|United States,1,6.5452,2013,2013,2013-11-10,2013-11-10
+anthony-bourdain,Dubai|United Arab Emirates,1,6.5452,2010,2010,2010-08-09,2010-08-09
+anthony-bourdain,Dublin|Ireland,1,6.5452,2007,2007,2007-01-01,2007-01-01
+anthony-bourdain,Duesseldorf|Germany,1,6.5452,2016,2016,2016-06-05,2016-06-05
+anthony-bourdain,Edinburgh|United Kingdom,1,6.5452,2015,2015,2015-05-10,2015-05-10
+anthony-bourdain,Erbil|Iraq,1,6.5452,2011,2011,2011-08-22,2011-08-22
+anthony-bourdain,Geneva|Switzerland,1,6.5452,2017,2017,2017-10-08,2017-10-08
+anthony-bourdain,Glasgow|United Kingdom,1,6.5452,2002,2002,2002-07-12,2002-07-12
+anthony-bourdain,Guayaquil|Ecuador,1,6.5452,2010,2010,2010-03-01,2010-03-01
+anthony-bourdain,Hanoi|Vietnam,5,15.3341,2002,2016,2002-01-15,2016-09-25
+anthony-bourdain,Havana|Cuba,2,9.7889,2011,2015,2011-07-11,2015-09-27
+anthony-bourdain,Helsinki|Finland,1,6.5452,2012,2012,2012-05-14,2012-05-14
+anthony-bourdain,Ho Chi Minh City|Vietnam,2,9.7889,2002,2014,2002-03-19,2014-10-19
+anthony-bourdain,Hong Kong|Hong Kong,2,9.7889,2007,2018,2007-09-03,2018-06-03
+anthony-bourdain,Honolulu|United States,2,9.7889,2008,2015,2008-03-03,2015-06-14
+anthony-bourdain,Houston|United States,1,6.5452,2016,2016,2016-10-30,2016-10-30
+anthony-bourdain,Istanbul|Turkey,2,9.7889,2010,2015,2010-01-18,2015-11-08
+anthony-bourdain,Jakarta|Indonesia,1,6.5452,2006,2006,2006-06-19,2006-06-19
+anthony-bourdain,Jerusalem|Israel,1,6.5452,2013,2013,2013-09-15,2013-09-15
+anthony-bourdain,Johannesburg|South Africa,1,6.5452,2013,2013,2013-10-20,2013-10-20
+anthony-bourdain,Kansas City|United States,2,9.7889,2003,2012,2003-04-04,2012-04-16
+anthony-bourdain,Kingston|Jamaica,2,9.7889,2008,2014,2008-02-18,2014-11-16
+anthony-bourdain,Kingstown|Saint Vincent and the Grenadines,1,6.5452,2010,2010,2010-07-05,2010-07-05
+anthony-bourdain,Kinshasa|Congo (Kinshasa),1,6.5452,2013,2013,2013-06-09,2013-06-09
+anthony-bourdain,Kuala Lumpur|Malaysia,1,6.5452,2005,2005,2005-08-22,2005-08-22
+anthony-bourdain,Kuching|Malaysia,1,6.5452,2015,2015,2015-11-01,2015-11-01
+anthony-bourdain,Kyiv|Ukraine,1,6.5452,2011,2011,2011-08-15,2011-08-15
+anthony-bourdain,Lagos|Nigeria,1,6.5452,2017,2017,2017-10-15,2017-10-15
+anthony-bourdain,Las Vegas|United States,2,9.7889,2005,2014,2005-10-17,2014-04-20
+anthony-bourdain,Lima|Peru,2,9.7889,2006,2013,2006-04-10,2013-06-02
+anthony-bourdain,Lisbon|Portugal,2,9.7889,2002,2012,2002-07-08,2012-04-30
+anthony-bourdain,Livingston|United States,2,9.7889,2009,2016,2009-08-24,2016-05-15
+anthony-bourdain,London|United Kingdom,3,12.0904,2002,2016,2002-04-20,2016-10-23
+anthony-bourdain,Los Angeles|United States,4,13.8755,2002,2017,2002-02-26,2017-04-30
+anthony-bourdain,Luang Prabang|Laos,2,9.7889,2008,2017,2008-07-07,2017-05-14
+anthony-bourdain,Madrid|Spain,4,13.8755,2008,2018,2008-08-18,2018-09-30
+anthony-bourdain,Managua|Nicaragua,1,6.5452,2011,2011,2011-03-14,2011-03-14
+anthony-bourdain,Manila|Philippines,2,9.7889,2009,2016,2009-02-16,2016-04-24
+anthony-bourdain,Maputo|Mozambique,1,6.5452,2012,2012,2012-04-09,2012-04-09
+anthony-bourdain,Melbourne|Australia,2,9.7889,2003,2009,2003-05-02,2009-07-20
+anthony-bourdain,Memphis|United States,1,6.5452,2014,2014,2014-05-18,2014-05-18
+anthony-bourdain,Mexico City|Mexico,2,9.7889,2009,2014,2009-01-05,2014-05-04
+anthony-bourdain,Miami|United States,2,9.7889,2006,2015,2006-04-03,2015-05-03
+anthony-bourdain,Minneapolis|United States,1,6.5452,2003,2003,2003-03-28,2003-03-28
+anthony-bourdain,Monrovia|Liberia,1,6.5452,2010,2010,2010-07-19,2010-07-19
+anthony-bourdain,Montevideo|Uruguay,2,9.7889,2008,2018,2008-07-28,2018-05-06
+anthony-bourdain,Montreal|Canada,1,6.5452,2006,2006,2006-04-17,2006-04-17
+anthony-bourdain,Moscow|Russia,2,9.7889,2007,2014,2007-01-29,2014-05-11
+anthony-bourdain,Mumbai|India,1,6.5452,2006,2006,2006-06-05,2006-06-05
+anthony-bourdain,Muscat|Oman,1,6.5452,2017,2017,2017-06-11,2017-06-11
+anthony-bourdain,Nairobi|Kenya,1,6.5452,2018,2018,2018-09-23,2018-09-23
+anthony-bourdain,Napa|United States,1,6.5452,2002,2002,2002-04-30,2002-04-30
+anthony-bourdain,Nashville|United States,1,6.5452,2016,2016,2016-10-02,2016-10-02
+anthony-bourdain,New Orleans|United States,4,13.8755,2003,2018,2003-02-28,2018-06-17
+anthony-bourdain,Nice|France,2,9.7889,2010,2015,2010-03-22,2015-10-04
+anthony-bourdain,Osaka|Japan,1,6.5452,2006,2006,2006-05-08,2006-05-08
+anthony-bourdain,Palm Springs|United States,1,6.5452,2011,2011,2011-08-08,2011-08-08
+anthony-bourdain,Panama City|Panama,1,6.5452,2010,2010,2010-01-11,2010-01-11
+anthony-bourdain,Paris|France,2,9.7889,2005,2010,2005-07-25,2010-09-06
+anthony-bourdain,Paro|Bhutan,1,6.5452,2018,2018,2018-06-24,2018-06-24
+anthony-bourdain,Penang|Malaysia,1,6.5452,2012,2012,2012-06-04,2012-06-04
+anthony-bourdain,Philipsburg|Netherlands Antilles,1,6.5452,2003,2003,2003-02-21,2003-02-21
+anthony-bourdain,Phnom Penh|Cambodia,2,9.7889,2002,2011,2002-01-22,2011-03-07
+anthony-bourdain,Pittsburgh|United States,2,9.7889,2017,2018,2017-10-22,2018-04-29
+anthony-bourdain,Port of Spain|Trinidad and Tobago,1,6.5452,2017,2017,2017-06-25,2017-06-25
+anthony-bourdain,Port-au-Prince|Haiti,1,6.5452,2011,2011,2011-02-28,2011-02-28
+anthony-bourdain,Portland|United States,1,6.5452,2010,2010,2010-04-12,2010-04-12
+anthony-bourdain,Porto|Portugal,2,9.7889,2002,2017,2002-06-17,2017-07-02
+anthony-bourdain,Prague|Czech Republic,1,6.5452,2010,2010,2010-02-01,2010-02-01
+anthony-bourdain,Quebec City|Canada,1,6.5452,2013,2013,2013-05-05,2013-05-05
+anthony-bourdain,Reykjavik|Iceland,1,6.5452,2005,2005,2005-08-01,2005-08-01
+anthony-bourdain,Rio de Janeiro|Brazil,2,9.7889,2003,2012,2003-03-14,2012-10-15
+anthony-bourdain,Riyadh|Saudi Arabia,1,6.5452,2008,2008,2008-07-21,2008-07-21
+anthony-bourdain,Rome|Italy,3,12.0904,2010,2017,2010-08-16,2017-11-26
+anthony-bourdain,San Diego|United States,1,6.5452,2012,2012,2012-05-28,2012-05-28
+anthony-bourdain,San Francisco|United States,2,9.7889,2009,2015,2009-08-10,2015-10-18
+anthony-bourdain,San Juan|Puerto Rico,2,9.7889,2006,2017,2006-05-01,2017-11-05
+anthony-bourdain,Santiago|Chile,1,6.5452,2009,2009,2009-07-13,2009-07-13
+anthony-bourdain,Santo Domingo|Dominican Republic,1,6.5452,2012,2012,2012-10-29,2012-10-29
+anthony-bourdain,Sao Paulo|Brazil,3,12.0904,2007,2016,2007-08-13,2016-11-27
+anthony-bourdain,Seattle|United States,2,9.7889,2007,2017,2007-01-15,2017-11-19
+anthony-bourdain,Seoul|South Korea,2,9.7889,2006,2015,2006-06-12,2015-04-26
+anthony-bourdain,Shanghai|China,2,9.7889,2007,2014,2007-07-30,2014-09-28
+anthony-bourdain,Singapore|Singapore,3,12.0904,2003,2017,2003-05-16,2017-10-01
+anthony-bourdain,Split|Croatia,1,6.5452,2012,2012,2012-04-23,2012-04-23
+anthony-bourdain,St. John's|Canada,1,6.5452,2018,2018,2018-05-13,2018-05-13
+anthony-bourdain,Stockholm|Sweden,1,6.5452,2006,2006,2006-04-24,2006-04-24
+anthony-bourdain,Sydney|Australia,2,9.7889,2003,2012,2003-04-18,2012-09-10
+anthony-bourdain,Tashkent|Uzbekistan,1,6.5452,2005,2005,2005-10-24,2005-10-24
+anthony-bourdain,Tbilisi|Georgia,1,6.5452,2016,2016,2016-05-22,2016-05-22
+anthony-bourdain,Tehran|Iran,1,6.5452,2014,2014,2014-11-02,2014-11-02
+anthony-bourdain,Tokyo|Japan,7,17.6355,2002,2016,2002-01-08,2016-11-13
+anthony-bourdain,Tripoli|Libya,1,6.5452,2013,2013,2013-05-19,2013-05-19
+anthony-bourdain,Vancouver|Canada,1,6.5452,2008,2008,2008-01-21,2008-01-21
+anthony-bourdain,Venice|Italy,1,6.5452,2009,2009,2009-01-12,2009-01-12
+anthony-bourdain,Vienna|Austria,1,6.5452,2011,2011,2011-03-21,2011-03-21
+anthony-bourdain,Washington|United States,1,6.5452,2009,2009,2009-01-19,2009-01-19
+anthony-bourdain,Windhoek|Namibia,1,6.5452,2007,2007,2007-01-22,2007-01-22
+anthony-bourdain,Yangon|Burma,1,6.5452,2013,2013,2013-04-14,2013-04-14
+anthony-bourdain,Yerevan|Armenia,1,6.5452,2018,2018,2018-05-20,2018-05-20
+eduardo-gomez,Atlanta|United States,4,13.8755,2022,2025,2022-05-01,2025-07-31
+eduardo-gomez,Bilbao|Spain,1,6.5452,2025,2025,2025-07-13,2025-07-13
+eduardo-gomez,Buenos Aires|Argentina,3,12.0904,2024,2024,2024-09-07,2024-12-07
+eduardo-gomez,Chicago|United States,1,6.5452,2023,2023,2023-09-16,2023-09-16
+eduardo-gomez,Detroit|United States,1,6.5452,2022,2022,2022-04-28,2022-04-28
+eduardo-gomez,Dublin|Ireland,1,6.5452,2025,2025,2025-06-06,2025-06-06
+eduardo-gomez,Guadalajara|Mexico,11,20.8793,2023,2026,2023-12-06,2026-08-24
+eduardo-gomez,Havana|Cuba,1,6.5452,2022,2022,2022-11-14,2022-11-14
+eduardo-gomez,Hong Kong|Hong Kong,1,6.5452,2026,2026,2026-11-08,2026-11-08
+eduardo-gomez,Houston|United States,33,29.2109,2021,2026,2021-09-18,2026-07-03
+eduardo-gomez,Lisbon|Portugal,1,6.5452,2024,2024,2024-06-08,2024-06-08
+eduardo-gomez,London|United Kingdom,1,6.5452,2025,2025,2025-05-24,2025-05-24
+eduardo-gomez,Madrid|Spain,1,6.5452,2025,2025,2025-06-09,2025-06-09
+eduardo-gomez,Mexico City|Mexico,1,6.5452,2026,2026,2026-08-21,2026-08-21
+eduardo-gomez,Monterrey|Mexico,1,6.5452,2026,2026,2026-03-06,2026-03-06
+eduardo-gomez,Newark|United States,2,9.7889,2025,2025,2025-07-27,2025-08-05
+eduardo-gomez,Nice|France,1,6.5452,2024,2024,2024-06-14,2024-06-14
+eduardo-gomez,Pittsburgh|United States,1,6.5452,2022,2022,2022-09-19,2022-09-19
+eduardo-gomez,Puebla|Mexico,1,6.5452,2026,2026,2026-05-22,2026-05-22
+eduardo-gomez,Salt Lake City|United States,1,6.5452,2025,2025,2025-02-17,2025-02-17
+eduardo-gomez,San Diego|United States,5,15.3341,2022,2025,2022-06-23,2025-11-07
+eduardo-gomez,San Francisco|United States,11,20.8793,2021,2026,2021-06-11,2026-11-13
+eduardo-gomez,Santa Ana|United States,4,13.8755,2021,2022,2021-06-13,2022-10-07
+eduardo-gomez,Tokyo|Japan,2,9.7889,2025,2026,2025-08-09,2026-10-30
+eduardo-gomez,Washington|United States,1,6.5452,2026,2026,2026-09-26,2026-09-26
+chet-baker,New York|United States,53,32.9119,2024,2025,2024-01-01,2025-12-29
+rick-steves,Amsterdam|Netherlands,3,12.0904,2002,2014,2002-10-12,2014-12-06
+rick-steves,Dublin|Ireland,3,12.0904,2002,2002,2002-10-26,2002-11-09
+rick-steves,Frankfurt|Germany,8,18.5778,2000,2020,2000-10-08,2020-11-05
+rick-steves,Iceland's Ring Road|Iceland,1,6.5452,2025,2025,2025-10-11,2025-10-11
+rick-steves,London|United Kingdom,16,23.6657,2000,2025,2000-09-17,2025-12-03
+rick-steves,Paris|France,14,22.6644,2000,2025,2000-09-10,2025-11-12
+rick-steves,Reykjavík|Iceland,1,6.5452,2025,2025,2025-10-04,2025-10-04
+rick-steves,Rhine and Rothenburg|Germany,1,6.5452,2002,2002,2002-11-23,2002-11-23
+chiron,Boston|United States,6,16.5673,2017,2024,2017-02-18,2024-09-18
+chiron,Charlotte|United States,7,17.6355,2016,2025,2016-12-11,2025-12-11
+chiron,Dallas|United States,6,16.5673,2017,2024,2017-05-04,2024-12-04
+chiron,Miami|United States,7,17.6355,2016,2025,2016-05-15,2025-05-15
+chiron,Philadelphia|United States,7,17.6355,2016,2025,2016-02-07,2025-02-07
+chiron,Washington|United States,7,17.6355,2016,2025,2016-09-22,2025-09-22
+charles-darwin,Boston|United States,9,19.4207,2017,2025,2017-05-13,2025-05-10
+charles-darwin,Lima|Peru,9,19.4207,2017,2025,2017-09-09,2025-09-13
+charles-darwin,Los Angeles|United States,9,19.4207,2017,2025,2017-11-11,2025-11-08
+charles-darwin,Sao Paulo|Brazil,9,19.4207,2017,2025,2017-03-11,2025-03-08
+jack-brennan,Anchorage|United States,9,19.4207,2017,2025,2017-06-10,2025-06-14
+jack-brennan,Seoul|South Korea,9,19.4207,2017,2025,2017-09-09,2025-09-13
+jack-brennan,Spokane|United States,9,19.4207,2017,2025,2017-03-11,2025-03-08
+jack-brennan,Toronto|Canada,9,19.4207,2017,2025,2017-11-11,2025-11-08
+mrs-guttingen,Cancun|Mexico,9,19.4207,2017,2025,2017-10-14,2025-10-11
+mrs-guttingen,San Antonio|United States,9,19.4207,2017,2025,2017-04-08,2025-04-12
+mrs-guttingen,San Jose del Cabo|Mexico,9,19.4207,2017,2025,2017-01-14,2025-01-11
+mrs-guttingen,Seattle|United States,9,19.4207,2017,2025,2017-08-12,2025-08-09
+mrs-walker,Baltimore|United States,9,19.4207,2017,2025,2017-05-13,2025-05-10
+mrs-walker,Nassau|Bahamas,9,19.4207,2017,2025,2017-02-11,2025-02-08
+mrs-walker,San Jose|Costa Rica,9,19.4207,2017,2025,2017-09-09,2025-09-13
+mrs-walker,St. Louis|United States,9,19.4207,2017,2025,2017-11-11,2025-11-08
+nikola-tesla,Cancun|Mexico,9,19.4207,2017,2025,2017-02-11,2025-02-08
+nikola-tesla,London|United Kingdom,9,19.4207,2017,2025,2017-07-08,2025-07-12
+nikola-tesla,Nashville|United States,9,19.4207,2017,2025,2017-10-14,2025-10-11
+nikola-tesla,San Antonio|United States,9,19.4207,2017,2025,2017-04-08,2025-04-12
+danny-hogan,New York City|United States,8,18.5778,2018,2025,2018-04-14,2025-04-12
+danny-hogan,Orlando|United States,8,18.5778,2018,2025,2018-11-10,2025-11-08
+danny-hogan,Puerto Vallarta|Mexico,8,18.5778,2018,2025,2018-08-11,2025-08-09
+danny-hogan,San Jose del Cabo|Mexico,8,18.5778,2018,2025,2018-01-13,2025-01-11
+hermes,Atlanta|United States,5,15.3341,2019,2025,2019-05-04,2025-05-04
+hermes,Chicago|United States,5,15.3341,2018,2024,2018-09-22,2024-09-22
+hermes,Dallas|United States,5,15.3341,2019,2025,2019-02-18,2025-02-18
+hermes,Miami|United States,6,16.5673,2018,2025,2018-05-15,2025-11-15
+hermes,Nassau|Bahamas,5,15.3341,2018,2024,2018-11-11,2024-11-11
+hermes,Toronto|Canada,6,16.5673,2018,2025,2018-02-07,2025-09-07
+mrs-bell,Boise|United States,8,18.5778,2018,2025,2018-04-14,2025-04-12
+mrs-bell,Honolulu|United States,8,18.5778,2018,2025,2018-07-14,2025-07-12
+mrs-bell,Puerto Vallarta|Mexico,8,18.5778,2018,2025,2018-10-13,2025-10-11
+mrs-bell,San Jose del Cabo|Mexico,8,18.5778,2018,2025,2018-01-13,2025-01-11
+odysseus,Barcelona|Spain,5,15.3341,2018,2024,2018-09-22,2024-09-22
+odysseus,Boston|United States,5,15.3341,2019,2025,2019-06-04,2025-06-04
+odysseus,Chicago|United States,5,15.3341,2018,2024,2018-11-11,2024-11-11
+odysseus,Miami|United States,6,16.5673,2018,2025,2018-06-15,2025-11-15
+odysseus,Punta Cana|Dominican Republic,5,15.3341,2019,2025,2019-03-18,2025-03-18
+odysseus,Rome|Italy,6,16.5673,2018,2025,2018-03-07,2025-09-07
+sisyphus,Chicago|United States,5,15.3341,2019,2025,2019-06-04,2025-06-04
+sisyphus,Phoenix|United States,6,16.5673,2018,2025,2018-06-15,2025-12-15
+sisyphus,Salt Lake City|United States,5,15.3341,2018,2024,2018-12-11,2024-12-11
+sisyphus,San Francisco|United States,6,16.5673,2018,2025,2018-02-07,2025-09-07
+sisyphus,Tokyo|Japan,5,15.3341,2018,2024,2018-09-22,2024-09-22
+sisyphus,Vancouver|Canada,5,15.3341,2019,2025,2019-02-18,2025-02-18
+stephen-hawking,Miami|United States,8,18.5778,2018,2025,2018-09-08,2025-09-13
+stephen-hawking,New York City|United States,8,18.5778,2018,2025,2018-03-10,2025-03-08
+stephen-hawking,Sydney|Australia,8,18.5778,2018,2025,2018-06-09,2025-06-14
+stephen-hawking,Tokyo|Japan,8,18.5778,2018,2025,2018-11-10,2025-11-08
+achilles,Chicago|United States,5,15.3341,2016,2024,2016-06-15,2024-06-15
+achilles,Denver|United States,5,15.3341,2017,2025,2017-09-04,2025-09-04
+achilles,London|United Kingdom,5,15.3341,2016,2024,2016-02-07,2024-02-07
+achilles,Miami|United States,5,15.3341,2017,2025,2017-02-11,2025-02-11
+achilles,Montego Bay|Jamaica,5,15.3341,2016,2024,2016-09-22,2024-09-22
+achilles,Munich|Germany,5,15.3341,2017,2025,2017-06-18,2025-06-18
+athena,Cancun|Mexico,5,15.3341,2017,2025,2017-08-18,2025-08-18
+athena,Denver|United States,5,15.3341,2017,2025,2017-04-11,2025-04-11
+athena,Dublin|Ireland,5,15.3341,2016,2024,2016-12-22,2024-12-22
+athena,London|United Kingdom,5,15.3341,2016,2024,2016-04-07,2024-04-07
+athena,Orlando|United States,5,15.3341,2016,2024,2016-08-15,2024-08-15
+athena,Tampa|United States,5,15.3341,2017,2025,2017-12-04,2025-12-04
+cronus,Chicago|United States,5,15.3341,2017,2025,2017-03-11,2025-03-11
+cronus,Denver|United States,5,15.3341,2016,2024,2016-08-15,2024-08-15
+cronus,London|United Kingdom,5,15.3341,2016,2024,2016-03-07,2024-03-07
+cronus,Mexico City|Mexico,5,15.3341,2016,2024,2016-11-22,2024-11-22
+cronus,Miami|United States,5,15.3341,2017,2025,2017-11-04,2025-11-04
+cronus,San Jose del Cabo|Mexico,5,15.3341,2017,2025,2017-08-18,2025-08-18
+daedalus,Denver|United States,5,15.3341,2017,2025,2017-12-04,2025-12-04
+daedalus,Guadalajara|Mexico,5,15.3341,2016,2024,2016-12-22,2024-12-22
+daedalus,Los Angeles|United States,5,15.3341,2016,2024,2016-08-15,2024-08-15
+daedalus,Puerto Vallarta|Mexico,5,15.3341,2017,2025,2017-08-18,2025-08-18
+daedalus,Seattle|United States,5,15.3341,2017,2025,2017-04-11,2025-04-11
+daedalus,Tokyo|Japan,5,15.3341,2016,2024,2016-04-07,2024-04-07
+hades,Cancun|Mexico,5,15.3341,2016,2024,2016-01-07,2024-01-07
+hades,Denver|United States,5,15.3341,2016,2024,2016-05-15,2024-05-15
+hades,London|United Kingdom,5,15.3341,2016,2024,2016-09-22,2024-09-22
+hades,Orlando|United States,5,15.3341,2017,2025,2017-01-11,2025-01-11
+hades,Seattle|United States,5,15.3341,2017,2025,2017-09-04,2025-09-04
+hades,Toronto|Canada,5,15.3341,2017,2025,2017-05-18,2025-05-18
+poseidon,Amsterdam|Netherlands,5,15.3341,2017,2025,2017-06-18,2025-06-18
+poseidon,Denver|United States,5,15.3341,2016,2024,2016-06-15,2024-06-15
+poseidon,Los Angeles|United States,5,15.3341,2017,2025,2017-02-11,2025-02-11
+poseidon,Mexico City|Mexico,5,15.3341,2016,2024,2016-02-07,2024-02-07
+poseidon,Miami|United States,5,15.3341,2017,2025,2017-10-04,2025-10-04
+poseidon,San Jose|Costa Rica,5,15.3341,2016,2024,2016-10-22,2024-10-22
+stan-getz,Amsterdam|Netherlands,1,6.5452,2020,2020,2020-09-12,2020-09-12
+stan-getz,Athens|Greece,1,6.5452,2022,2022,2022-05-14,2022-05-14
+stan-getz,Barcelona|Spain,1,6.5452,2021,2021,2021-09-11,2021-09-11
+stan-getz,Berlin|Germany,1,6.5452,2024,2024,2024-09-14,2024-09-14
+stan-getz,Brussels|Belgium,1,6.5452,2025,2025,2025-11-08,2025-11-08
+stan-getz,Cancun|Mexico,6,16.5673,2020,2025,2020-07-11,2025-07-12
+stan-getz,Copenhagen|Denmark,1,6.5452,2024,2024,2024-05-11,2024-05-11
+stan-getz,Dublin|Ireland,1,6.5452,2022,2022,2022-02-12,2022-02-12
+stan-getz,Edinburgh|United Kingdom,1,6.5452,2023,2023,2023-05-13,2023-05-13
+stan-getz,Frankfurt|Germany,1,6.5452,2023,2023,2023-02-11,2023-02-11
+stan-getz,Lisbon|Portugal,1,6.5452,2021,2021,2021-11-13,2021-11-13
+stan-getz,London|United Kingdom,1,6.5452,2020,2020,2020-05-09,2020-05-09
+stan-getz,Madrid|Spain,1,6.5452,2021,2021,2021-05-08,2021-05-08
+stan-getz,Milan|Italy,1,6.5452,2021,2021,2021-02-13,2021-02-13
+stan-getz,Naples|Italy,1,6.5452,2023,2023,2023-11-11,2023-11-11
+stan-getz,Nice|France,1,6.5452,2023,2023,2023-09-09,2023-09-09
+stan-getz,Paris|France,1,6.5452,2020,2020,2020-02-08,2020-02-08
+stan-getz,Porto|Portugal,1,6.5452,2025,2025,2025-05-10,2025-05-10
+stan-getz,Prague|Czech Republic,1,6.5452,2025,2025,2025-02-08,2025-02-08
+stan-getz,Reykjavik|Iceland,1,6.5452,2024,2024,2024-02-10,2024-02-10
+stan-getz,Rome|Italy,1,6.5452,2020,2020,2020-11-14,2020-11-14
+stan-getz,Shannon|Ireland,1,6.5452,2025,2025,2025-09-13,2025-09-13
+stan-getz,Stockholm|Sweden,1,6.5452,2024,2024,2024-11-09,2024-11-09
+stan-getz,Venice|Italy,1,6.5452,2022,2022,2022-11-12,2022-11-12
+stan-getz,Zurich|Switzerland,1,6.5452,2022,2022,2022-09-10,2022-09-10
+zeus,Cancun|Mexico,5,15.3341,2017,2025,2017-08-18,2025-08-18
+zeus,London|United Kingdom,5,15.3341,2016,2024,2016-04-07,2024-04-07
+zeus,Los Angeles|United States,5,15.3341,2017,2025,2017-04-11,2025-04-11
+zeus,Orlando|United States,5,15.3341,2016,2024,2016-11-22,2024-11-22
+zeus,Paris|France,5,15.3341,2016,2024,2016-08-15,2024-08-15
+zeus,San Francisco|United States,5,15.3341,2017,2025,2017-11-04,2025-11-04
+circe,Atlanta|United States,5,15.3341,2019,2025,2019-04-15,2025-04-15
+circe,Austin|United States,5,15.3341,2019,2025,2019-11-11,2025-11-11
+circe,Cancun|Mexico,5,15.3341,2019,2025,2019-01-07,2025-01-07
+circe,Frankfurt|Germany,4,13.8755,2020,2024,2020-01-18,2024-08-18
+circe,Guadalajara|Mexico,5,15.3341,2019,2025,2019-08-22,2025-08-22
+circe,Phoenix|United States,4,13.8755,2020,2024,2020-04-04,2024-11-04
+demeter,Cancun|Mexico,5,15.3341,2019,2025,2019-01-07,2025-01-07
+demeter,Guadalajara|Mexico,4,13.8755,2020,2024,2020-01-18,2024-09-18
+demeter,Los Angeles|United States,5,15.3341,2019,2025,2019-05-15,2025-05-15
+demeter,Madrid|Spain,5,15.3341,2019,2025,2019-09-22,2025-09-22
+demeter,Minneapolis|United States,5,15.3341,2019,2025,2019-12-11,2025-12-11
+demeter,Salt Lake City|United States,4,13.8755,2020,2024,2020-05-04,2024-12-04
+hera,Cancun|Mexico,5,15.3341,2019,2025,2019-01-07,2025-01-07
+hera,Chicago|United States,5,15.3341,2019,2025,2019-05-15,2025-05-15
+hera,Montreal|Canada,5,15.3341,2019,2025,2019-08-22,2025-08-22
+hera,Orlando|United States,4,13.8755,2020,2024,2020-01-18,2024-08-18
+hera,Phoenix|United States,5,15.3341,2019,2025,2019-12-11,2025-12-11
+hera,Washington|United States,4,13.8755,2020,2024,2020-05-04,2024-12-04
+mrs-hirsch,Belize City|Belize,7,17.6355,2019,2025,2019-09-14,2025-09-13
+mrs-hirsch,Kailua-Kona|United States,7,17.6355,2019,2025,2019-05-11,2025-05-10
+mrs-hirsch,Liberia|Costa Rica,7,17.6355,2019,2025,2019-02-09,2025-02-08
+mrs-hirsch,Newark|United States,7,17.6355,2019,2025,2019-11-09,2025-11-08
+pandora,Cancun|Mexico,4,13.8755,2020,2024,2020-02-18,2024-09-18
+pandora,Mexico City|Mexico,5,15.3341,2019,2025,2019-02-07,2025-02-07
+pandora,Phoenix|United States,5,15.3341,2019,2025,2019-12-11,2025-12-11
+pandora,Portland|United States,4,13.8755,2020,2024,2020-06-04,2024-12-04
+pandora,San Francisco|United States,5,15.3341,2019,2025,2019-06-15,2025-06-15
+pandora,Seoul|South Korea,5,15.3341,2019,2025,2019-09-22,2025-09-22
+aphrodite,Denver|United States,5,15.3341,2017,2025,2017-07-15,2025-07-15
+aphrodite,London|United Kingdom,5,15.3341,2017,2025,2017-11-22,2025-11-22
+aphrodite,New York City|United States,4,13.8755,2018,2024,2018-11-04,2024-11-04
+aphrodite,Puerto Vallarta|Mexico,4,13.8755,2018,2024,2018-07-18,2024-07-18
+aphrodite,San Jose del Cabo|Mexico,5,15.3341,2017,2025,2017-04-07,2025-04-07
+aphrodite,Seattle|United States,4,13.8755,2018,2024,2018-04-11,2024-04-11
+apollo,Denver|United States,4,13.8755,2018,2024,2018-10-04,2024-10-04
+apollo,Guadalajara|Mexico,5,15.3341,2017,2025,2017-10-22,2025-10-22
+apollo,Las Vegas|United States,5,15.3341,2017,2025,2017-06-15,2025-06-15
+apollo,Seattle|United States,4,13.8755,2018,2024,2018-03-11,2024-03-11
+apollo,Sydney|Australia,4,13.8755,2018,2024,2018-06-18,2024-06-18
+apollo,Tokyo|Japan,5,15.3341,2017,2025,2017-03-07,2025-03-07
+hercules,Atlanta|United States,5,15.3341,2017,2025,2017-06-15,2025-06-15
+hercules,Monterrey|Mexico,5,15.3341,2017,2025,2017-10-22,2025-10-22
+hercules,Newark|United States,4,13.8755,2018,2024,2018-10-04,2024-10-04
+hercules,Puerto Vallarta|Mexico,4,13.8755,2018,2024,2018-06-18,2024-06-18
+hercules,Seoul|South Korea,5,15.3341,2017,2025,2017-02-07,2025-02-07
+hercules,Washington|United States,4,13.8755,2018,2024,2018-02-11,2024-02-11
+orpheus,Atlanta|United States,4,13.8755,2018,2024,2018-07-18,2024-07-18
+orpheus,Cancun|Mexico,5,15.3341,2017,2025,2017-11-22,2025-11-22
+orpheus,Dallas|United States,4,13.8755,2018,2024,2018-11-04,2024-11-04
+orpheus,Denver|United States,4,13.8755,2018,2024,2018-03-11,2024-03-11
+orpheus,Orlando|United States,5,15.3341,2017,2025,2017-07-15,2025-07-15
+orpheus,Toronto|Canada,5,15.3341,2017,2025,2017-03-07,2025-03-07
+prometheus,Denver|United States,5,15.3341,2017,2025,2017-07-15,2025-07-15
+prometheus,London|United Kingdom,5,15.3341,2017,2025,2017-10-22,2025-10-22
+prometheus,Puerto Vallarta|Mexico,4,13.8755,2018,2024,2018-07-18,2024-07-18
+prometheus,San Francisco|United States,4,13.8755,2018,2024,2018-10-04,2024-10-04
+prometheus,San Jose del Cabo|Mexico,5,15.3341,2017,2025,2017-03-07,2025-03-07
+prometheus,Seattle|United States,4,13.8755,2018,2024,2018-03-11,2024-03-11
+aouda,Barcelona|Spain,5,15.3341,2021,2025,2021-03-03,2025-03-05
+aouda,Dublin|Ireland,5,15.3341,2021,2025,2021-04-28,2025-04-30
+aouda,Lisbon|Portugal,5,15.3341,2021,2025,2021-01-13,2025-01-08
+aouda,Orlando|United States,5,15.3341,2021,2025,2021-08-25,2025-08-27
+aouda,Rome|Italy,5,15.3341,2021,2025,2021-09-08,2025-09-10
+captain-nemo,Cancun|Mexico,5,15.3341,2021,2025,2021-07-14,2025-07-09
+captain-nemo,Charleston|United States,5,15.3341,2021,2025,2021-08-25,2025-08-27
+captain-nemo,Lisbon|Portugal,5,15.3341,2021,2025,2021-04-28,2025-04-30
+captain-nemo,Madrid|Spain,5,15.3341,2021,2025,2021-01-13,2025-01-08
+captain-nemo,San Juan|Puerto Rico,5,15.3341,2021,2025,2021-06-09,2025-06-11
+helena-glenarvan,Amsterdam|Netherlands,5,15.3341,2021,2025,2021-04-28,2025-04-30
+helena-glenarvan,Dublin|Ireland,5,15.3341,2021,2025,2021-03-03,2025-03-05
+helena-glenarvan,London|United Kingdom,5,15.3341,2021,2025,2021-09-08,2025-09-10
+helena-glenarvan,Orlando|United States,5,15.3341,2021,2025,2021-08-25,2025-08-27
+helena-glenarvan,Paris|France,5,15.3341,2021,2025,2021-01-13,2025-01-08
+impey-barbicane,Cancun|Mexico,5,15.3341,2021,2025,2021-07-14,2025-07-09
+impey-barbicane,London|United Kingdom,5,15.3341,2021,2025,2021-01-13,2025-01-08
+impey-barbicane,Mexico City|Mexico,5,15.3341,2021,2025,2021-06-09,2025-06-11
+impey-barbicane,Rome|Italy,5,15.3341,2021,2025,2021-04-28,2025-04-30
+impey-barbicane,San Juan|Puerto Rico,5,15.3341,2021,2025,2021-08-25,2025-08-27
+jean-passepartout,Amsterdam|Netherlands,5,15.3341,2021,2025,2021-04-28,2025-04-30
+jean-passepartout,Madrid|Spain,5,15.3341,2021,2025,2021-03-03,2025-03-05
+jean-passepartout,Paris|France,5,15.3341,2021,2025,2021-01-13,2025-01-08
+jean-passepartout,San Juan|Puerto Rico,5,15.3341,2021,2025,2021-08-25,2025-08-27
+jean-passepartout,Vienna|Austria,5,15.3341,2021,2025,2021-05-26,2025-05-28
+mary-grant,Barcelona|Spain,5,15.3341,2021,2025,2021-01-13,2025-01-08
+mary-grant,Cancun|Mexico,5,15.3341,2021,2025,2021-06-09,2025-06-11
+mary-grant,Lisbon|Portugal,5,15.3341,2021,2025,2021-03-03,2025-03-05
+mary-grant,Orlando|United States,5,15.3341,2021,2025,2021-08-25,2025-08-27
+mary-grant,San Juan|Puerto Rico,5,15.3341,2021,2025,2021-07-14,2025-07-09
+michel-ardan,Amsterdam|Netherlands,5,15.3341,2021,2025,2021-04-28,2025-04-30
+michel-ardan,Cancun|Mexico,5,15.3341,2021,2025,2021-08-25,2025-08-27
+michel-ardan,London|United Kingdom,5,15.3341,2021,2025,2021-09-08,2025-09-10
+michel-ardan,Madrid|Spain,5,15.3341,2021,2025,2021-03-03,2025-03-05
+michel-ardan,Paris|France,5,15.3341,2021,2025,2021-01-13,2025-01-08
+nadia-fedor,Cancun|Mexico,5,15.3341,2021,2025,2021-07-14,2025-07-09
+nadia-fedor,Keflavik|Iceland,5,15.3341,2021,2025,2021-04-28,2025-04-30
+nadia-fedor,London|United Kingdom,5,15.3341,2021,2025,2021-01-13,2025-01-08
+nadia-fedor,Mexico City|Mexico,5,15.3341,2021,2025,2021-06-09,2025-06-11
+nadia-fedor,Orlando|United States,5,15.3341,2021,2025,2021-08-25,2025-08-27
+ned-land,Barcelona|Spain,5,15.3341,2021,2025,2021-04-28,2025-04-30
+ned-land,Cancun|Mexico,5,15.3341,2021,2025,2021-08-25,2025-08-27
+ned-land,Lisbon|Portugal,5,15.3341,2021,2025,2021-05-26,2025-05-28
+ned-land,Paris|France,5,15.3341,2021,2025,2021-01-13,2025-01-08
+ned-land,Tokyo|Japan,5,15.3341,2021,2025,2021-03-03,2025-03-05
+otto-lidenbrock,Amsterdam|Netherlands,5,15.3341,2021,2025,2021-04-28,2025-04-30
+otto-lidenbrock,Cancun|Mexico,5,15.3341,2021,2025,2021-07-14,2025-07-09
+otto-lidenbrock,Copenhagen|Denmark,5,15.3341,2021,2025,2021-01-13,2025-01-08
+otto-lidenbrock,London|United Kingdom,5,15.3341,2021,2025,2021-03-03,2025-03-05
+otto-lidenbrock,Rome|Italy,5,15.3341,2021,2025,2021-09-08,2025-09-10
+phileas-fogg,Athens|Greece,5,15.3341,2021,2025,2021-09-08,2025-09-10
+phileas-fogg,London|United Kingdom,5,15.3341,2021,2025,2021-01-13,2025-01-08
+phileas-fogg,Orlando|United States,5,15.3341,2021,2025,2021-08-25,2025-08-27
+phileas-fogg,Paris|France,5,15.3341,2021,2025,2021-04-28,2025-04-30
+phileas-fogg,Rome|Italy,5,15.3341,2021,2025,2021-03-03,2025-03-05
+pierre-aronnax,Cancun|Mexico,5,15.3341,2021,2025,2021-07-14,2025-07-09
+pierre-aronnax,Copenhagen|Denmark,5,15.3341,2021,2025,2021-01-13,2025-01-08
+pierre-aronnax,Keflavik|Iceland,5,15.3341,2021,2025,2021-03-03,2025-03-05
+pierre-aronnax,Madrid|Spain,5,15.3341,2021,2025,2021-05-26,2025-05-28
+pierre-aronnax,Orlando|United States,5,15.3341,2021,2025,2021-08-25,2025-08-27
+artemis,Atlanta|United States,4,13.8755,2018,2024,2018-07-15,2024-07-15
+artemis,Cancun|Mexico,4,13.8755,2018,2024,2018-03-07,2024-03-07
+artemis,Guadalajara|Mexico,4,13.8755,2019,2025,2019-03-11,2025-03-11
+artemis,Las Vegas|United States,4,13.8755,2019,2025,2019-07-18,2025-07-18
+artemis,Orlando|United States,4,13.8755,2019,2025,2019-11-04,2025-11-04
+artemis,Phoenix|United States,4,13.8755,2018,2024,2018-11-22,2024-11-22
+atlas,Chicago|United States,4,13.8755,2019,2025,2019-02-11,2025-02-11
+atlas,Honolulu|United States,4,13.8755,2019,2025,2019-06-18,2025-06-18
+atlas,Las Vegas|United States,4,13.8755,2019,2025,2019-10-04,2025-10-04
+atlas,Leon|Mexico,4,13.8755,2018,2024,2018-10-22,2024-10-22
+atlas,Phoenix|United States,4,13.8755,2018,2024,2018-06-15,2024-06-15
+atlas,San Jose del Cabo|Mexico,4,13.8755,2018,2024,2018-02-07,2024-02-07
+ella-fitzgerald,Orlando|United States,24,26.751,2018,2025,2018-03-10,2025-12-20
+galileo-galilei,Orlando|United States,24,26.751,2018,2025,2018-05-28,2025-12-22
+king-midas,Cancun|Mexico,4,13.8755,2018,2024,2018-04-07,2024-04-07
+king-midas,Madrid|Spain,4,13.8755,2018,2024,2018-11-22,2024-11-22
+king-midas,Nashville|United States,4,13.8755,2019,2025,2019-11-04,2025-11-04
+king-midas,Newark|United States,4,13.8755,2019,2025,2019-04-11,2025-04-11
+king-midas,Philadelphia|United States,4,13.8755,2018,2024,2018-08-15,2024-08-15
+king-midas,Punta Cana|Dominican Republic,4,13.8755,2019,2025,2019-08-18,2025-08-18
+medusa,Atlanta|United States,4,13.8755,2021,2025,2021-05-04,2025-11-04
+medusa,Cancun|Mexico,4,13.8755,2020,2025,2020-08-22,2025-01-22
+medusa,Guadalajara|Mexico,4,13.8755,2020,2024,2020-01-07,2024-08-07
+medusa,Orlando|United States,4,13.8755,2020,2025,2020-11-11,2025-05-11
+medusa,Phoenix|United States,4,13.8755,2020,2024,2020-05-15,2024-11-15
+medusa,Queretaro|Mexico,4,13.8755,2021,2025,2021-01-18,2025-08-18
+miles-davis,Amsterdam|Netherlands,2,9.7889,2020,2023,2020-03-14,2023-03-11
+miles-davis,Athens|Greece,2,9.7889,2021,2024,2021-09-11,2024-09-14
+miles-davis,Barcelona|Spain,2,9.7889,2022,2025,2022-03-12,2025-03-08
+miles-davis,Dublin|Ireland,2,9.7889,2021,2024,2021-06-12,2024-06-08
+miles-davis,Edinburgh|United Kingdom,2,9.7889,2022,2025,2022-06-11,2025-06-14
+miles-davis,Lisbon|Portugal,2,9.7889,2020,2023,2020-11-14,2023-11-11
+miles-davis,London|United Kingdom,2,9.7889,2020,2023,2020-09-12,2023-09-09
+miles-davis,Madrid|Spain,2,9.7889,2021,2024,2021-11-13,2024-11-09
+miles-davis,Milan|Italy,2,9.7889,2022,2025,2022-09-10,2025-09-13
+miles-davis,Nice|France,2,9.7889,2022,2025,2022-11-12,2025-11-08
+miles-davis,Paris|France,2,9.7889,2020,2023,2020-06-13,2023-06-10
+miles-davis,Rome|Italy,2,9.7889,2021,2024,2021-03-13,2024-03-09
+miss-gage,Cancun|Mexico,8,18.5778,2018,2025,2018-02-10,2025-02-08
+miss-gage,Las Vegas|United States,8,18.5778,2018,2025,2018-05-12,2025-05-10
+miss-gage,Tampa|United States,8,18.5778,2018,2025,2018-09-08,2025-09-13
+mr-meyers,Sarasota|United States,24,26.751,2018,2025,2018-05-28,2025-12-22
+persephone,Cancun|Mexico,4,13.8755,2020,2024,2020-02-07,2024-09-07
+persephone,Los Angeles|United States,4,13.8755,2020,2024,2020-05-15,2024-12-15
+persephone,Mexico City|Mexico,4,13.8755,2021,2025,2021-02-18,2025-09-18
+persephone,Minneapolis|United States,4,13.8755,2020,2025,2020-12-11,2025-05-11
+persephone,Portland|United States,4,13.8755,2021,2025,2021-05-04,2025-12-04
+persephone,Vancouver|Canada,4,13.8755,2020,2025,2020-09-22,2025-02-22
+perseus,Atlanta|United States,4,13.8755,2018,2024,2018-03-07,2024-03-07
+perseus,Chicago|United States,4,13.8755,2018,2024,2018-07-15,2024-07-15
+perseus,Denver|United States,4,13.8755,2019,2025,2019-03-11,2025-03-11
+perseus,New York City|United States,4,13.8755,2019,2025,2019-07-18,2025-07-18
+perseus,Orlando|United States,4,13.8755,2018,2024,2018-10-22,2024-10-22
+perseus,Washington|United States,4,13.8755,2019,2025,2019-10-04,2025-10-04
+pierre-auguste-renoir,San Diego|United States,24,26.751,2018,2025,2018-04-14,2025-12-20
+ares,Cancun|Mexico,3,12.0904,2020,2024,2020-07-18,2024-07-18
+ares,Chicago|United States,3,12.0904,2020,2024,2020-10-04,2024-10-04
+ares,Denver|United States,4,13.8755,2019,2025,2019-07-15,2025-07-15
+ares,Las Vegas|United States,3,12.0904,2020,2024,2020-02-11,2024-02-11
+ares,Mexico City|Mexico,4,13.8755,2019,2025,2019-02-07,2025-02-07
+ares,Monterrey|Mexico,4,13.8755,2019,2025,2019-10-22,2025-10-22
+dionysus,Amsterdam|Netherlands,3,12.0904,2020,2024,2020-06-18,2024-06-18
+dionysus,Cancun|Mexico,4,13.8755,2019,2025,2019-09-22,2025-09-22
+dionysus,Chicago|United States,4,13.8755,2019,2025,2019-06-15,2025-06-15
+dionysus,Denver|United States,3,12.0904,2020,2024,2020-09-04,2024-09-04
+dionysus,London|United Kingdom,4,13.8755,2019,2025,2019-01-07,2025-01-07
+dionysus,Los Angeles|United States,3,12.0904,2020,2024,2020-01-11,2024-01-11
+luis-miguel,Anaheim|United States,1,6.5452,2023,2023,2023-09-20,2023-09-20
+luis-miguel,Austin|United States,1,6.5452,2023,2023,2023-11-05,2023-11-05
+luis-miguel,Boston|United States,1,6.5452,2023,2023,2023-10-18,2023-10-18
+luis-miguel,Chicago|United States,1,6.5452,2023,2023,2023-10-04,2023-10-04
+luis-miguel,Dallas|United States,1,6.5452,2023,2023,2023-10-29,2023-10-29
+luis-miguel,Houston|United States,1,6.5452,2023,2023,2023-11-02,2023-11-02
+luis-miguel,Indianapolis|United States,1,6.5452,2023,2023,2023-10-06,2023-10-06
+luis-miguel,Las Vegas|United States,1,6.5452,2023,2023,2023-09-15,2023-09-15
+luis-miguel,Los Angeles|United States,2,9.7889,2023,2023,2023-09-24,2023-09-27
+luis-miguel,McAllen|United States,1,6.5452,2023,2023,2023-10-28,2023-10-28
+luis-miguel,Miami|United States,1,6.5452,2023,2023,2023-10-11,2023-10-11
+luis-miguel,New York|United States,2,9.7889,2023,2023,2023-10-08,2023-10-22
+luis-miguel,Newark|United States,1,6.5452,2023,2023,2023-10-21,2023-10-21
+luis-miguel,Oklahoma City|United States,1,6.5452,2023,2023,2023-10-26,2023-10-26
+luis-miguel,Palm Springs|United States,1,6.5452,2023,2023,2023-09-30,2023-09-30
+luis-miguel,Phoenix|United States,1,6.5452,2023,2023,2023-09-23,2023-09-23
+luis-miguel,San Antonio|United States,1,6.5452,2023,2023,2023-11-04,2023-11-04
+luis-miguel,San Diego|United States,1,6.5452,2023,2023,2023-09-21,2023-09-21
+luis-miguel,"Washington, D.C.|United States",1,6.5452,2023,2023,2023-10-20,2023-10-20
+mrs-meyers,Cancun|Mexico,7,17.6355,2019,2025,2019-03-09,2025-03-08
+mrs-meyers,Orlando|United States,7,17.6355,2019,2025,2019-06-08,2025-06-14
+mrs-meyers,Phoenix|United States,7,17.6355,2019,2025,2019-10-12,2025-10-11
+narcissus,Cancun|Mexico,3,12.0904,2020,2024,2020-07-18,2024-07-18
+narcissus,Charlotte|United States,3,12.0904,2020,2024,2020-03-11,2024-03-11
+narcissus,Dublin|Ireland,4,13.8755,2019,2025,2019-10-22,2025-10-22
+narcissus,Lisbon|Portugal,4,13.8755,2019,2025,2019-03-07,2025-03-07
+narcissus,Orlando|United States,4,13.8755,2019,2025,2019-07-15,2025-07-15
+narcissus,San Francisco|United States,3,12.0904,2020,2024,2020-10-04,2024-10-04
+richard-feynman,Madrid|Spain,7,17.6355,2019,2025,2019-06-08,2025-06-14
+richard-feynman,New Orleans|United States,7,17.6355,2019,2025,2019-04-13,2025-04-12
+richard-feynman,Pittsburgh|United States,7,17.6355,2019,2025,2019-10-12,2025-10-11
+albert-einstein,London|United Kingdom,20,25.3562,2016,2025,2016-03-12,2025-09-13
+dr-valentini,Cancun|Mexico,20,25.3562,2016,2025,2016-02-13,2025-09-13
+dr-varella,Tampa|United States,20,25.3562,2016,2025,2016-05-30,2025-12-22
+isaac-newton,Denver|United States,20,25.3562,2016,2025,2016-11-22,2025-12-22
+joaquin-sorolla,Barcelona|Spain,1,6.5452,2018,2018,2018-08-11,2018-08-11
+joaquin-sorolla,Houston|United States,10,20.1832,2016,2025,2016-12-21,2025-12-21
+joaquin-sorolla,Lisbon|Portugal,1,6.5452,2019,2019,2019-08-10,2019-08-10
+joaquin-sorolla,Madrid|Spain,1,6.5452,2021,2021,2021-08-14,2021-08-14
+joaquin-sorolla,Milan|Italy,1,6.5452,2020,2020,2020-08-08,2020-08-08
+joaquin-sorolla,Naples|Italy,1,6.5452,2025,2025,2025-08-09,2025-08-09
+joaquin-sorolla,Nice|France,1,6.5452,2022,2022,2022-08-13,2022-08-13
+joaquin-sorolla,Paris|France,1,6.5452,2016,2016,2016-08-13,2016-08-13
+joaquin-sorolla,Porto|Portugal,1,6.5452,2024,2024,2024-08-10,2024-08-10
+joaquin-sorolla,Rome|Italy,1,6.5452,2017,2017,2017-08-12,2017-08-12
+joaquin-sorolla,Venice|Italy,1,6.5452,2023,2023,2023-08-12,2023-08-12
+louis-pasteur,West Palm Beach|United States,20,25.3562,2016,2025,2016-02-14,2025-12-23
+mr-turner,Kahului|United States,20,25.3562,2016,2025,2016-07-02,2025-12-22
+william-campbell,Tokyo|Japan,20,25.3562,2016,2025,2016-04-09,2025-10-11
+joe-garner,Guadalajara|Mexico,18,24.5555,2017,2025,2017-03-11,2025-09-13
+john-collins,Palm Springs|United States,18,24.5555,2017,2025,2017-02-14,2025-11-25
+lord-rymel,Honolulu|United States,1,6.5452,2020,2020,2020-02-08,2020-02-08
+lord-rymel,Houston|United States,6,16.5673,2023,2026,2023-10-11,2026-05-12
+lord-rymel,Keflavik|Iceland,1,6.5452,2026,2026,2026-08-08,2026-08-08
+lord-rymel,New York|United States,2,9.7889,2026,2026,2026-08-08,2026-08-15
+lord-rymel,Sacramento|United States,7,17.6355,2020,2026,2020-02-15,2026-05-06
+lord-rymel,Washington|United States,1,6.5452,2026,2026,2026-08-15,2026-08-15
+miss-van-campen,San Jose del Cabo|Mexico,18,24.5555,2017,2025,2017-03-11,2025-11-08
+mr-guttingen,San Diego|United States,18,24.5555,2017,2025,2017-07-02,2025-11-25
+theseus,Houston|United States,3,12.0904,2021,2025,2021-11-04,2025-11-04
+theseus,Orlando|United States,3,12.0904,2021,2025,2021-04-11,2025-04-11
+theseus,Paris|France,3,12.0904,2021,2025,2021-08-18,2025-08-18
+theseus,San Antonio|United States,3,12.0904,2020,2024,2020-08-15,2024-08-15
+theseus,Tokyo|Japan,3,12.0904,2020,2024,2020-04-07,2024-04-07
+theseus,Toronto|Canada,3,12.0904,2020,2024,2020-11-22,2024-11-22
+conan-o-brien,Accra|Ghana,1,6.5452,2019,2019,2019-11-07,2019-11-07
+conan-o-brien,Amsterdam|Netherlands,1,6.5452,2026,2026,2026-08-28,2026-08-28
+conan-o-brien,Berlin|Germany,1,6.5452,2016,2016,2016-12-07,2016-12-07
+conan-o-brien,Buenos Aires|Argentina,1,6.5452,2024,2024,2024-04-18,2024-04-18
+conan-o-brien,Copenhagen|Denmark,1,6.5452,2019,2019,2019-09-03,2019-09-03
+conan-o-brien,Doha|Qatar,1,6.5452,2016,2016,2016-01-25,2016-01-25
+conan-o-brien,Dublin|Ireland,1,6.5452,2024,2024,2024-04-18,2024-04-18
+conan-o-brien,Havana|Cuba,1,6.5452,2015,2015,2015-03-04,2015-03-04
+conan-o-brien,Madrid|Spain,1,6.5452,2025,2025,2025-05-08,2025-05-08
+conan-o-brien,Mexico City|Mexico,1,6.5452,2017,2017,2017-03-01,2017-03-01
+conan-o-brien,Oslo|Norway,1,6.5452,2024,2024,2024-04-18,2024-04-18
+conan-o-brien,Port-au-Prince|Haiti,1,6.5452,2018,2018,2018-01-27,2018-01-27
+conan-o-brien,Rome|Italy,1,6.5452,2018,2018,2018-04-11,2018-04-11
+conan-o-brien,Seoul|South Korea,1,6.5452,2016,2016,2016-04-09,2016-04-09
+conan-o-brien,Tel Aviv|Israel,1,6.5452,2017,2017,2017-09-19,2017-09-19
+conan-o-brien,Tokyo|Japan,1,6.5452,2018,2018,2018-11-28,2018-11-28
+conan-o-brien,Vienna|Austria,1,6.5452,2025,2025,2025-05-22,2025-05-22
+maria-zardoya,Atlanta|United States,1,6.5452,2024,2024,2024-07-30,2024-07-30
+maria-zardoya,Boston|United States,1,6.5452,2024,2024,2024-08-11,2024-08-11
+maria-zardoya,Chicago|United States,1,6.5452,2024,2024,2024-08-13,2024-08-13
+maria-zardoya,Dallas|United States,1,6.5452,2024,2024,2024-07-22,2024-07-22
+maria-zardoya,Denver|United States,1,6.5452,2024,2024,2024-08-15,2024-08-15
+maria-zardoya,Houston|United States,1,6.5452,2024,2024,2024-07-24,2024-07-24
+maria-zardoya,Las Vegas|United States,1,6.5452,2024,2024,2024-07-19,2024-07-19
+maria-zardoya,Miami|United States,1,6.5452,2024,2024,2024-07-27,2024-07-27
+maria-zardoya,New York|United States,1,6.5452,2024,2024,2024-08-08,2024-08-08
+maria-zardoya,Oakland|United States,1,6.5452,2024,2024,2024-07-16,2024-07-16
+maria-zardoya,Orlando|United States,1,6.5452,2024,2024,2024-07-26,2024-07-26
+maria-zardoya,Philadelphia|United States,1,6.5452,2024,2024,2024-08-03,2024-08-03
+maria-zardoya,Phoenix|United States,1,6.5452,2024,2024,2024-07-20,2024-07-20
+maria-zardoya,Salt Lake City|United States,1,6.5452,2024,2024,2024-08-16,2024-08-16
+maria-zardoya,San Diego|United States,1,6.5452,2024,2024,2024-08-18,2024-08-18
+maria-zardoya,Toronto|Canada,1,6.5452,2024,2024,2024-08-06,2024-08-06
+maria-zardoya,"Washington, D.C.|United States",1,6.5452,2024,2024,2024-08-02,2024-08-02
+claude-monet,Cleveland|United States,16,23.6657,2018,2025,2018-11-10,2025-12-20
+count-greffi,Montego Bay|Jamaica,16,23.6657,2018,2025,2018-01-13,2025-08-09
+duke-ellington,Portland|United States,16,23.6657,2018,2025,2018-06-09,2025-12-20
+edgar-degas,Boston|United States,16,23.6657,2018,2025,2018-07-14,2025-12-20
+marie-curie,Buenos Aires|Argentina,16,23.6657,2018,2025,2018-04-14,2025-10-11
+mrs-garner,Orlando|United States,16,23.6657,2018,2025,2018-05-28,2025-12-22
+sarah-vaughan,New Orleans|United States,16,23.6657,2018,2025,2018-05-12,2025-11-08
+wes-montgomery,Seoul|South Korea,4,13.8755,2016,2024,2016-10-08,2024-10-12
+wes-montgomery,Shanghai|China,4,13.8755,2017,2025,2017-10-14,2025-10-11
+wes-montgomery,Taipei|Taiwan,4,13.8755,2017,2025,2017-05-13,2025-05-10
+wes-montgomery,Tokyo|Japan,4,13.8755,2016,2024,2016-05-14,2024-05-11
+andy-warhol,Cancun|Mexico,2,9.7889,2020,2024,2020-03-14,2024-10-12
+andy-warhol,Cozumel|Mexico,1,6.5452,2023,2023,2023-02-11,2023-02-11
+andy-warhol,Guadalajara|Mexico,1,6.5452,2021,2021,2021-11-13,2021-11-13
+andy-warhol,Leon/Guanajuato|Mexico,1,6.5452,2024,2024,2024-03-09,2024-03-09
+andy-warhol,Merida|Mexico,1,6.5452,2022,2022,2022-09-10,2022-09-10
+andy-warhol,Mexico City|Mexico,2,9.7889,2020,2025,2020-10-10,2025-04-12
+andy-warhol,Monterrey|Mexico,1,6.5452,2023,2023,2023-11-11,2023-11-11
+andy-warhol,Puerto Vallarta|Mexico,1,6.5452,2022,2022,2022-04-09,2022-04-09
+andy-warhol,Queretaro|Mexico,1,6.5452,2021,2021,2021-06-12,2021-06-12
+andy-warhol,San Jose del Cabo|Mexico,2,9.7889,2021,2025,2021-02-13,2025-09-13
+andy-warhol,San Luis Potosi|Mexico,1,6.5452,2024,2024,2024-06-08,2024-06-08
+andy-warhol,Veracruz|Mexico,1,6.5452,2023,2023,2023-07-08,2023-07-08
+gordon-ramsay,Anchorage|United States,1,6.5452,2019,2019,2019-08-25,2019-08-25
+gordon-ramsay,Auckland|New Zealand,1,6.5452,2019,2019,2019-07-28,2019-07-28
+gordon-ramsay,Dublin|Ireland,1,6.5452,2024,2024,2024-05-27,2024-05-27
+gordon-ramsay,Helsinki|Finland,1,6.5452,2021,2021,2021-08-01,2021-08-01
+gordon-ramsay,Kahului|United States,1,6.5452,2019,2019,2019-08-11,2019-08-11
+gordon-ramsay,Kailua-Kona|United States,1,6.5452,2024,2024,2024-06-09,2024-06-09
+gordon-ramsay,Knoxville|United States,1,6.5452,2021,2021,2021-07-04,2021-07-04
+gordon-ramsay,Lima|Peru,1,6.5452,2019,2019,2019-07-21,2019-07-21
+gordon-ramsay,Madrid|Spain,1,6.5452,2024,2024,2024-06-02,2024-06-02
+gordon-ramsay,Melbourne|Australia,1,6.5452,2020,2020,2020-06-07,2020-06-07
+gordon-ramsay,Miami|United States,1,6.5452,2024,2024,2024-05-27,2024-05-27
+gordon-ramsay,New Orleans|United States,1,6.5452,2020,2020,2020-06-21,2020-06-21
+gordon-ramsay,Oaxaca|Mexico,1,6.5452,2021,2021,2021-07-18,2021-07-18
+gordon-ramsay,Portland|United States,1,6.5452,2021,2021,2021-06-13,2021-06-13
+gordon-ramsay,San Antonio|United States,1,6.5452,2021,2021,2021-05-31,2021-05-31
+icarus,Frankfurt|Germany,3,12.0904,2021,2025,2021-11-22,2025-11-22
+icarus,Mexico City|Mexico,3,12.0904,2021,2025,2021-03-07,2025-03-07
+icarus,Orlando|United States,2,9.7889,2022,2024,2022-03-11,2024-03-11
+icarus,Phoenix|United States,2,9.7889,2022,2024,2022-11-04,2024-11-04
+icarus,San Francisco|United States,3,12.0904,2021,2025,2021-07-15,2025-07-15
+icarus,San Jose del Cabo|Mexico,2,9.7889,2022,2024,2022-07-18,2024-07-18
+john-coltrane,Belize City|Belize,1,6.5452,2024,2024,2024-02-10,2024-02-10
+john-coltrane,Cancun|Mexico,2,9.7889,2021,2024,2021-01-09,2024-03-09
+john-coltrane,Cozumel|Mexico,1,6.5452,2023,2023,2023-01-14,2023-01-14
+john-coltrane,George Town|Cayman Islands,1,6.5452,2023,2023,2023-03-11,2023-03-11
+john-coltrane,Liberia|Costa Rica,1,6.5452,2022,2022,2022-02-12,2022-02-12
+john-coltrane,Montego Bay|Jamaica,1,6.5452,2022,2022,2022-03-12,2022-03-12
+john-coltrane,Oranjestad|Aruba,1,6.5452,2023,2023,2023-02-11,2023-02-11
+john-coltrane,Providenciales|Turks and Caicos,1,6.5452,2024,2024,2024-01-13,2024-01-13
+john-coltrane,Puerto Vallarta|Mexico,2,9.7889,2022,2025,2022-01-08,2025-03-08
+john-coltrane,Punta Cana|Dominican Republic,2,9.7889,2021,2025,2021-02-13,2025-01-11
+john-coltrane,San Jose del Cabo|Mexico,2,9.7889,2021,2025,2021-03-13,2025-02-08
+nick-adams,Traverse City|United States,15,23.1807,2021,2025,2021-06-18,2025-10-10
+thelonious-monk,Auckland|New Zealand,4,13.8755,2019,2025,2019-10-12,2025-10-11
+thelonious-monk,Brisbane|Australia,3,12.0904,2020,2024,2020-10-10,2024-10-12
+thelonious-monk,Melbourne|Australia,3,12.0904,2020,2024,2020-02-08,2024-02-10
+thelonious-monk,Sydney|Australia,4,13.8755,2019,2025,2019-02-09,2025-02-08
+jackson-pollock,Toronto|Canada,12,21.5196,2025,2025,2025-01-06,2025-12-01
+bill-evans,Amsterdam|Netherlands,10,20.1832,2016,2025,2016-04-09,2025-04-12
+bill-gorton,Buffalo|United States,5,15.3341,2021,2025,2021-10-08,2025-10-10
+bill-gorton,Detroit|United States,5,15.3341,2021,2025,2021-06-18,2025-06-13
+brett-ashley,Charleston|United States,5,15.3341,2021,2025,2021-05-28,2025-05-23
+brett-ashley,Miami|United States,5,15.3341,2021,2025,2021-05-07,2025-05-09
+catherine-barkley,Anchorage|United States,5,15.3341,2021,2025,2021-06-18,2025-06-18
+catherine-barkley,Portland|United States,5,15.3341,2021,2025,2021-05-07,2025-05-09
+edward-hopper,Hong Kong|Hong Kong,2,9.7889,2017,2023,2017-10-14,2023-10-14
+edward-hopper,Osaka|Japan,1,6.5452,2022,2022,2022-10-08,2022-10-08
+edward-hopper,Seoul|South Korea,1,6.5452,2018,2018,2018-10-13,2018-10-13
+edward-hopper,Shanghai|China,1,6.5452,2024,2024,2024-10-12,2024-10-12
+edward-hopper,Singapore|Singapore,1,6.5452,2021,2021,2021-10-09,2021-10-09
+edward-hopper,Taipei|Taiwan,1,6.5452,2019,2019,2019-10-12,2019-10-12
+edward-hopper,Tokyo|Japan,3,12.0904,2016,2025,2016-10-08,2025-10-11
+frederic-henry,Bozeman|United States,10,20.1832,2021,2025,2021-05-28,2025-08-29
+helen-ferguson,Traverse City|United States,10,20.1832,2021,2025,2021-05-07,2025-08-29
+jake-barnes,Denver|United States,5,15.3341,2021,2025,2021-05-28,2025-05-23
+jake-barnes,New Orleans|United States,5,15.3341,2021,2025,2021-07-02,2025-07-02
+krebs,Dallas-Fort Worth|United States,5,15.3341,2021,2025,2021-05-28,2025-05-23
+krebs,Denver|United States,5,15.3341,2021,2025,2021-06-18,2025-06-18
+manuel-garcia,Las Vegas|United States,5,15.3341,2021,2025,2021-05-28,2025-05-23
+manuel-garcia,San Diego|United States,5,15.3341,2021,2025,2021-07-02,2025-07-02
+mike-campbell,Charlotte|United States,5,15.3341,2021,2025,2021-09-03,2025-08-29
+mike-campbell,Miami|United States,5,15.3341,2021,2025,2021-10-08,2025-10-10
+niels-bohr,Lisbon|Portugal,10,20.1832,2016,2025,2016-06-11,2025-06-14
+ole-andreson,Milwaukee|United States,5,15.3341,2021,2025,2021-06-18,2025-06-18
+ole-andreson,St. Louis|United States,5,15.3341,2021,2025,2021-10-08,2025-10-10
+pedro-romero,Denver|United States,5,15.3341,2021,2025,2021-07-02,2025-07-02
+pedro-romero,Phoenix|United States,5,15.3341,2021,2025,2021-06-18,2025-06-18
+rinaldi,Pittsburgh|United States,5,15.3341,2021,2025,2021-06-18,2025-06-13
+rinaldi,Raleigh-durham|United States,5,15.3341,2021,2025,2021-10-08,2025-10-10
+robert-cohn,Boston|United States,5,15.3341,2021,2025,2021-07-02,2025-07-02
+robert-cohn,Portland|United States,5,15.3341,2021,2025,2021-09-03,2025-08-29
+solly-freedman,Sydney|Australia,10,20.1832,2016,2025,2016-02-13,2025-02-08
+alfred-d-orsay,Pittsburgh|United States,8,18.5778,2018,2025,2018-12-20,2025-12-20
+charlie-parker,Detroit|United States,8,18.5778,2018,2025,2018-12-20,2025-12-20
+ettore-moretti,Jacksn Hole|United States,3,12.0904,2024,2026,2024-01-06,2026-01-03
+ettore-moretti,Salt Lake City|United States,3,12.0904,2024,2026,2024-03-09,2026-03-07
+frances-clyne,Jacksn Hole|United States,6,16.5673,2024,2026,2024-02-03,2026-03-21
+george-babbitt,Atlanta|United States,1,6.5452,2023,2023,2023-04-10,2023-04-10
+george-babbitt,Boston|United States,1,6.5452,2023,2023,2023-06-12,2023-06-12
+george-babbitt,Chicago|United States,1,6.5452,2023,2023,2023-03-13,2023-03-13
+george-babbitt,Denver|United States,1,6.5452,2023,2023,2023-05-01,2023-05-01
+george-babbitt,Las Vegas|United States,1,6.5452,2023,2023,2023-07-10,2023-07-10
+george-babbitt,Orlando|United States,1,6.5452,2023,2023,2023-08-07,2023-08-07
+harvey-stone,Salt Lake City|United States,6,16.5673,2024,2026,2024-02-24,2026-03-28
+lucile-mckelvey,Atlanta|United States,1,6.5452,2023,2023,2023-04-10,2023-04-10
+lucile-mckelvey,Boston|United States,1,6.5452,2023,2023,2023-06-12,2023-06-12
+lucile-mckelvey,Chicago|United States,1,6.5452,2023,2023,2023-03-13,2023-03-13
+lucile-mckelvey,Denver|United States,1,6.5452,2023,2023,2023-05-01,2023-05-01
+lucile-mckelvey,Las Vegas|United States,1,6.5452,2023,2023,2023-07-10,2023-07-10
+lucile-mckelvey,Orlando|United States,1,6.5452,2023,2023,2023-08-07,2023-08-07
+ralph-simmons,Salt Lake City|United States,6,16.5673,2024,2026,2024-01-20,2026-03-14
+vergil-gunch,Atlanta|United States,1,6.5452,2023,2023,2023-04-10,2023-04-10
+vergil-gunch,Boston|United States,1,6.5452,2023,2023,2023-06-12,2023-06-12
+vergil-gunch,Chicago|United States,1,6.5452,2023,2023,2023-03-13,2023-03-13
+vergil-gunch,Denver|United States,1,6.5452,2023,2023,2023-05-01,2023-05-01
+vergil-gunch,Las Vegas|United States,1,6.5452,2023,2023,2023-07-10,2023-07-10
+vergil-gunch,Orlando|United States,1,6.5452,2023,2023,2023-08-07,2023-08-07
+abel-magwitch,Lisbon|Portugal,3,12.0904,2021,2025,2021-08-12,2025-08-13
+abel-magwitch,Porto|Portugal,2,9.7889,2022,2024,2022-08-14,2024-08-16
+alfred-polly,Pittsburgh|United States,5,15.3341,2021,2025,2021-12-22,2025-12-22
+arthur-kipps,Raleigh-durham|United States,5,15.3341,2021,2025,2021-12-22,2025-12-22
+bill-sikes,Belfast|United Kingdom,1,6.5452,2025,2025,2025-06-27,2025-06-27
+bill-sikes,Dublin|Ireland,1,6.5452,2021,2021,2021-06-26,2021-06-26
+bill-sikes,Edinburgh|United Kingdom,1,6.5452,2022,2022,2022-06-28,2022-06-28
+bill-sikes,Glasgow|United Kingdom,1,6.5452,2023,2023,2023-06-23,2023-06-23
+bill-sikes,Manchester|United Kingdom,1,6.5452,2024,2024,2024-06-30,2024-06-30
+charley-bates,Barcelona|Spain,1,6.5452,2022,2022,2022-07-20,2022-07-20
+charley-bates,Madrid|Spain,1,6.5452,2021,2021,2021-07-18,2021-07-18
+charley-bates,Milano|Italy,1,6.5452,2024,2024,2024-07-22,2024-07-22
+charley-bates,Paris|France,1,6.5452,2025,2025,2025-07-19,2025-07-19
+charley-bates,Rome|Italy,1,6.5452,2023,2023,2023-07-15,2023-07-15
+count-mippipopolous,Toronto|Canada,5,15.3341,2021,2025,2021-10-08,2025-10-10
+edwin-leeford,Amsterdam|Netherlands,1,6.5452,2021,2021,2021-07-25,2021-07-25
+edwin-leeford,Berlin|Germany,1,6.5452,2024,2024,2024-07-29,2024-07-29
+edwin-leeford,Brussels|Belgium,1,6.5452,2022,2022,2022-07-27,2022-07-27
+edwin-leeford,Frankfurt|Germany,1,6.5452,2023,2023,2023-07-22,2023-07-22
+edwin-leeford,Hamburg|Germany,1,6.5452,2025,2025,2025-07-26,2025-07-26
+estella-havisham,Barcelona|Spain,1,6.5452,2021,2021,2021-06-15,2021-06-15
+estella-havisham,Bilbao|Spain,1,6.5452,2023,2023,2023-06-12,2023-06-12
+estella-havisham,Lisbon|Portugal,1,6.5452,2024,2024,2024-06-19,2024-06-19
+estella-havisham,Madrid|Spain,1,6.5452,2022,2022,2022-06-17,2022-06-17
+estella-havisham,Milano|Italy,1,6.5452,2025,2025,2025-06-16,2025-06-16
+georgia-o-keeffe,Cancun|Mexico,1,6.5452,2022,2022,2022-01-08,2022-01-08
+georgia-o-keeffe,Guadalajara|Mexico,1,6.5452,2024,2024,2024-01-13,2024-01-13
+georgia-o-keeffe,Merida|Mexico,1,6.5452,2025,2025,2025-01-11,2025-01-11
+georgia-o-keeffe,Mexico City|Mexico,1,6.5452,2021,2021,2021-01-09,2021-01-09
+georgia-o-keeffe,San Jose del Cabo|Mexico,1,6.5452,2023,2023,2023-01-14,2023-01-14
+harry-maylie,London|United Kingdom,2,9.7889,2021,2022,2021-07-10,2022-07-12
+harry-maylie,Manchester|United Kingdom,1,6.5452,2023,2023,2023-07-07,2023-07-07
+harry-maylie,Paris|France,1,6.5452,2024,2024,2024-07-14,2024-07-14
+harry-maylie,Rome|Italy,1,6.5452,2025,2025,2025-07-11,2025-07-11
+helen-walshingham,Boston|United States,5,15.3341,2021,2025,2021-12-22,2025-12-22
+herbert-george-wells,Seattle|United States,5,15.3341,2021,2025,2021-12-22,2025-12-22
+jack-dawkins,Athens|Greece,1,6.5452,2025,2025,2025-07-04,2025-07-04
+jack-dawkins,Barcelona|Spain,1,6.5452,2021,2021,2021-07-03,2021-07-03
+jack-dawkins,Lisbon|Portugal,1,6.5452,2022,2022,2022-07-05,2022-07-05
+jack-dawkins,Milano|Italy,1,6.5452,2024,2024,2024-07-07,2024-07-07
+jack-dawkins,Nice|France,1,6.5452,2023,2023,2023-06-30,2023-06-30
+joe-gargery,Birmingham|United Kingdom,1,6.5452,2022,2022,2022-06-10,2022-06-10
+joe-gargery,Dublin|Ireland,1,6.5452,2024,2024,2024-06-12,2024-06-12
+joe-gargery,Edinburgh|United Kingdom,1,6.5452,2023,2023,2023-06-05,2023-06-05
+joe-gargery,London|United Kingdom,1,6.5452,2025,2025,2025-06-09,2025-06-09
+joe-gargery,Manchester|United Kingdom,1,6.5452,2021,2021,2021-06-08,2021-06-08
+manuel-orquito,Toronto|Canada,5,15.3341,2021,2025,2021-10-08,2025-10-10
+miriam-polly,Pittsburgh|United States,5,15.3341,2021,2025,2021-12-22,2025-12-22
+miss-havisham,Geneva|Switzerland,1,6.5452,2025,2025,2025-07-07,2025-07-07
+miss-havisham,Milano|Italy,1,6.5452,2022,2022,2022-07-08,2022-07-08
+miss-havisham,Rome|Italy,1,6.5452,2021,2021,2021-07-06,2021-07-06
+miss-havisham,Venice|Italy,1,6.5452,2023,2023,2023-07-03,2023-07-03
+miss-havisham,Zurich|Switzerland,1,6.5452,2024,2024,2024-07-10,2024-07-10
+montgomery,New Orleans|United States,5,15.3341,2021,2025,2021-12-22,2025-12-22
+mr-brownlow,Dublin|Ireland,1,6.5452,2022,2022,2022-06-22,2022-06-22
+mr-brownlow,London|United Kingdom,1,6.5452,2021,2021,2021-06-20,2021-06-20
+mr-brownlow,Manchester|United Kingdom,1,6.5452,2023,2023,2023-06-17,2023-06-17
+mr-brownlow,Paris|France,1,6.5452,2025,2025,2025-06-21,2025-06-21
+mr-brownlow,Zurich|Switzerland,1,6.5452,2024,2024,2024-06-24,2024-06-24
+mrs-braddocks,Toronto|Canada,5,15.3341,2021,2025,2021-10-08,2025-10-10
+nancy-sikes,Barcelona|Spain,1,6.5452,2022,2022,2022-08-10,2022-08-10
+nancy-sikes,Lisbon|Portugal,1,6.5452,2023,2023,2023-08-05,2023-08-05
+nancy-sikes,Madrid|Spain,1,6.5452,2025,2025,2025-08-09,2025-08-09
+nancy-sikes,Nice|France,1,6.5452,2021,2021,2021-08-08,2021-08-08
+nancy-sikes,Venice|Italy,1,6.5452,2024,2024,2024-08-12,2024-08-12
+oliver-twist,Amsterdam|Netherlands,1,6.5452,2025,2025,2025-06-13,2025-06-13
+oliver-twist,Barcelona|Spain,1,6.5452,2024,2024,2024-06-16,2024-06-16
+oliver-twist,London|United Kingdom,1,6.5452,2021,2021,2021-06-12,2021-06-12
+oliver-twist,Paris|France,1,6.5452,2022,2022,2022-06-14,2022-06-14
+oliver-twist,Rome|Italy,1,6.5452,2023,2023,2023-06-09,2023-06-09
+rose-maylie,London|United Kingdom,2,9.7889,2021,2022,2021-07-10,2022-07-12
+rose-maylie,Manchester|United Kingdom,1,6.5452,2023,2023,2023-07-07,2023-07-07
+rose-maylie,Paris|France,1,6.5452,2024,2024,2024-07-14,2024-07-14
+rose-maylie,Rome|Italy,1,6.5452,2025,2025,2025-07-11,2025-07-11
+toby-crackit,Barcelona|Spain,1,6.5452,2022,2022,2022-08-04,2022-08-04
+toby-crackit,Lisbon|Portugal,1,6.5452,2021,2021,2021-08-02,2021-08-02
+toby-crackit,Madrid|Spain,1,6.5452,2023,2023,2023-07-30,2023-07-30
+toby-crackit,Milano|Italy,1,6.5452,2025,2025,2025-08-03,2025-08-03
+toby-crackit,Rome|Italy,1,6.5452,2024,2024,2024-08-06,2024-08-06
+pablo-picasso,Chicago|United States,1,6.5452,2023,2023,2023-08-12,2023-08-12
+pablo-picasso,New York|United States,1,6.5452,2021,2021,2021-08-14,2021-08-14
+pablo-picasso,San Francisco|United States,1,6.5452,2024,2024,2024-08-10,2024-08-10
+pablo-picasso,"Washington, D.C.|United States",1,6.5452,2022,2022,2022-08-13,2022-08-13
+charley-wyman,Denver|United States,1,6.5452,2025,2025,2025-02-15,2025-02-15
+charley-wyman,Vail|United States,2,9.7889,2024,2026,2024-02-17,2026-02-14
+chum-frink,Atlanta|United States,1,6.5452,2023,2023,2023-04-10,2023-04-10
+chum-frink,Chicago|United States,1,6.5452,2023,2023,2023-03-13,2023-03-13
+chum-frink,Las Vegas|United States,1,6.5452,2023,2023,2023-07-10,2023-07-10
+david-chang,Casablanca|Morocco,1,6.5452,2019,2019,2019-10-23,2019-10-23
+david-chang,Los Angeles|United States,1,6.5452,2019,2019,2019-10-23,2019-10-23
+david-chang,Vancouver|Canada,1,6.5452,2019,2019,2019-10-23,2019-10-23
+patrick-white,Sydney|Australia,3,12.0904,2021,2024,2021-09-01,2024-02-05
+george-gardner,Aspen|United States,1,6.5452,2025,2025,2025-02-08,2025-02-08
+george-gardner,Vail|United States,2,9.7889,2024,2026,2024-02-10,2026-02-07
+jim-gilmore,Denver|United States,3,12.0904,2024,2026,2024-01-13,2026-01-10
+ernest-hemingway,Cancun|Mexico,1,6.5452,2023,2023,2023-07-01,2023-07-01
+ernest-hemingway,London|United Kingdom,1,6.5452,2023,2023,2023-05-01,2023-05-01
+ernest-hemingway,Paris|France,1,6.5452,2021,2021,2021-06-15,2021-06-15
+liz-coates,Aspen|United States,2,9.7889,2024,2026,2024-03-02,2026-02-28
+liz-coates,Montrose CO|United States,1,6.5452,2025,2025,2025-03-01,2025-03-01
+mrs-smith,Denver|United States,3,12.0904,2024,2026,2024-01-27,2026-01-24
+tanis-judique,Atlanta|United States,1,6.5452,2023,2023,2023-04-10,2023-04-10
+tanis-judique,Chicago|United States,1,6.5452,2023,2023,2023-03-13,2023-03-13
+tanis-judique,Las Vegas|United States,1,6.5452,2023,2023,2023-07-10,2023-07-10
+zilla-riesling,Atlanta|United States,1,6.5452,2023,2023,2023-04-10,2023-04-10
+zilla-riesling,Chicago|United States,1,6.5452,2023,2023,2023-03-13,2023-03-13
+zilla-riesling,Las Vegas|United States,1,6.5452,2023,2023,2023-07-10,2023-07-10
+toni-morrison,Tokyo|Japan,1,6.5452,2022,2022,2022-02-05,2022-02-05
+robertson-davies,Paris|France,1,6.5452,2022,2022,2022-03-15,2022-03-15
+yun-dong-ju,Hawaii|United States,1,6.5452,2023,2023,2023-08-01,2023-08-01
+yun-dong-ju,Rome|Italy,1,6.5452,2023,2023,2023-07-01,2023-07-01
+yi-sang,Bali|Indonesia,1,6.5452,2023,2023,2023-07-01,2023-07-01
+yi-sang,Rome|Italy,1,6.5452,2022,2022,2022-06-10,2022-06-10
+pearl-s-buck,New York|United States,2,9.7889,2021,2023,2021-10-15,2023-07-15
+william-faulkner,Paris|France,2,9.7889,2022,2022,2022-05-15,2022-06-15
+yasunari-kawabata,Tokyo|Japan,2,9.7889,2022,2023,2022-09-03,2023-10-05
+emilia-pardo-bazan,Bali|Indonesia,1,6.5452,2021,2021,2021-08-10,2021-08-10
+emilia-pardo-bazan,Barcelona|Spain,1,6.5452,2023,2023,2023-10-20,2023-10-20
+emily-dickinson,Paris|France,1,6.5452,2022,2022,2022-06-12,2022-06-12
+mordecai-richler,Sydney|Australia,1,6.5452,2023,2023,2023-01-02,2023-01-02
+john-steinbeck,Tokyo|Japan,1,6.5452,2023,2023,2023-01-01,2023-01-01
+nhok-them,Phnom Penh|Cambodia,1,6.5452,2022,2022,2022-09-10,2022-09-10
+sanmao,Bali|Indonesia,1,6.5452,2023,2023,2023-11-12,2023-11-12
+sor-juana-ines-de-la-cruz,Cancun|Mexico,1,6.5452,2024,2024,2024-04-01,2024-04-01
+rosalia-de-castro,Barcelona|Spain,1,6.5452,2023,2023,2023-08-18,2023-08-18
+william-shakespeare,London|United Kingdom,1,6.5452,2024,2024,2024-03-15,2024-03-15
+miguel-de-cervantes,Barcelona|Spain,1,6.5452,2024,2024,2024-05-15,2024-05-15
+eileen-chang,Sydney|Australia,1,6.5452,2022,2022,2022-05-01,2022-05-01
+leonard-cohen,Sydney|Australia,1,6.5452,2022,2022,2022-07-01,2022-07-01
+mark-twain,Tokyo|Japan,1,6.5452,2023,2023,2023-10-10,2023-10-10
+han-yong-un,Sydney|Australia,1,6.5452,2022,2022,2022-11-23,2022-11-23
+miles-franklin,Sydney|Australia,1,6.5452,2023,2023,2023-11-20,2023-11-20
+alice-munro,Tokyo|Japan,1,6.5452,2022,2022,2022-09-01,2022-09-01
+park-kyong-ni,Bali|Indonesia,1,6.5452,2022,2022,2022-07-20,2022-07-20
+harper-lee,New York|United States,1,6.5452,2023,2023,2023-11-20,2023-11-20
+jane-austen,Cape Town|South Africa,1,6.5452,2023,2023,2023-01-07,2023-01-07
+virginia-woolf,London|United Kingdom,1,6.5452,2022,2022,2022-06-10,2022-06-10
+ana-maria-matute,Barcelona|Spain,1,6.5452,2023,2023,2023-08-18,2023-08-18
+grazia-deledda,Rome|Italy,1,6.5452,2022,2022,2022-05-01,2022-05-01
+charlotte-bronte,Phuket|Thailand,1,6.5452,2025,2025,2025-01-01,2025-01-01
+l-m-montgomery,Vancouver|Canada,1,6.5452,2023,2023,2023-08-15,2023-08-15
+ousha-bint-khalifa-al-suwaidi,Dubai|United Arab Emirates,1,6.5452,2022,2022,2022-01-01,2022-01-01
+fatema-mernissi,Marrakech|Morocco,1,6.5452,2024,2024,2024-08-20,2024-08-20
+machado-de-assis,Rio de Janeiro|Brazil,1,6.5452,2024,2024,2024-01-15,2024-01-15
+f-scott-fitzgerald,Cancun|Mexico,1,6.5452,2022,2022,2022-08-08,2022-08-08
+nikos-kazantzakis,Santorini|Greece,1,6.5452,2022,2022,2022-07-15,2022-07-15
+park-wan-suh,Athens|Greece,1,6.5452,2022,2022,2022-09-20,2022-09-20
+elsa-morante,Rome|Italy,1,6.5452,2022,2022,2022-03-10,2022-03-10
+thomas-mann,Berlin|Germany,1,6.5452,2024,2024,2024-07-01,2024-07-01
+yi-kwang-su,Tokyo|Japan,1,6.5452,2022,2022,2022-10-05,2022-10-05
+bing-xin,Sydney|Australia,1,6.5452,2022,2022,2022-11-11,2022-11-11
+edgar-allan-poe,Paris|France,1,6.5452,2022,2022,2022-12-24,2022-12-24
+saul-bellow,New York|United States,1,6.5452,2024,2024,2024-07-20,2024-07-20
+sinclair-lewis,Rome|Italy,1,6.5452,2025,2025,2025-04-15,2025-04-15
+robert-louis-stevenson,Edinburgh|United Kingdom,1,6.5452,2024,2024,2024-09-05,2024-09-05
+george-orwell,London|United Kingdom,1,6.5452,2021,2021,2021-11-20,2021-11-20
+henry-lawson,Sydney|Australia,1,6.5452,2023,2023,2023-12-05,2023-12-05
+margaret-laurence,Phuket|Thailand,1,6.5452,2023,2023,2023-06-15,2023-06-15
+emily-bronte,Tokyo|Japan,1,6.5452,2023,2023,2023-05-15,2023-05-15
+mavis-gallant,Paris|France,1,6.5452,2023,2023,2023-08-15,2023-08-15
+lin-hai-yin,Rome|Italy,1,6.5452,2023,2023,2023-08-20,2023-08-20
+carol-shields,New York|United States,1,6.5452,2023,2023,2023-12-24,2023-12-24
+kurt-vonnegut,Paris|France,1,6.5452,2023,2023,2023-05-01,2023-05-01
+rudyard-kipling,Paris|France,1,6.5452,2023,2023,2023-06-07,2023-06-07
+jorge-amado,Rio de Janeiro|Brazil,1,6.5452,2023,2023,2023-08-01,2023-08-01
+gabrielle-roy,Bali|Indonesia,1,6.5452,2023,2023,2023-02-10,2023-02-10
+kenzaburo-oe,Bangkok|Thailand,1,6.5452,2023,2023,2023-11-12,2023-11-12
+kim-dong-ni,Vancouver|Canada,1,6.5452,2022,2022,2022-07-10,2022-07-10
+heo-nanseolheon,Seoul|South Korea,1,6.5452,2022,2022,2022-05-01,2022-05-01
+ho-xuan-huong,Tokyo|Japan,1,6.5452,2023,2023,2023-09-10,2023-09-10
+carmen-laforet,Barcelona|Spain,1,6.5452,2024,2024,2024-04-05,2024-04-05
+hella-haasse,Amsterdam|Netherlands,1,6.5452,2024,2024,2024-02-14,2024-02-14
+annie-m-g-schmidt,Amsterdam|Netherlands,1,6.5452,2023,2023,2023-06-20,2023-06-20
+nguyen-du,Bangkok|Thailand,1,6.5452,2022,2022,2022-02-14,2022-02-14
+mahasweta-devi,Bangkok|Thailand,1,6.5452,2024,2024,2024-09-08,2024-09-08
+xuan-quynh,Paris|France,1,6.5452,2023,2023,2023-12-22,2023-12-22
+ding-ling,Honolulu|United States,1,6.5452,2024,2024,2024-06-10,2024-06-10
+nieh-hualing,Bali|Indonesia,1,6.5452,2022,2022,2022-08-12,2022-08-12
+carlos-drummond-de-andrade,Rio de Janeiro|Brazil,1,6.5452,2024,2024,2024-01-05,2024-01-05
+dante-alighieri,Rome|Italy,1,6.5452,2025,2025,2025-02-14,2025-02-14
+carmen-martin-gaite,Cape Town|South Africa,1,6.5452,2024,2024,2024-01-06,2024-01-06
+rosario-castellanos,Cancun|Mexico,1,6.5452,2023,2023,2023-04-15,2023-04-15
+clarice-lispector,Rio de Janeiro|Brazil,1,6.5452,2022,2022,2022-11-20,2022-11-20
+alan-paton,Cape Town|South Africa,1,6.5452,2023,2023,2023-09-01,2023-09-01
+arthur-yap,Phuket|Thailand,1,6.5452,2022,2022,2022-09-05,2022-09-05
+james-baldwin,Paris|France,1,6.5452,2023,2023,2023-10-05,2023-10-05
+lu-xun,Bali|Indonesia,1,6.5452,2023,2023,2023-08-15,2023-08-15
+lao-she,Los Angeles|United States,1,6.5452,2024,2024,2024-06-20,2024-06-20
+walt-whitman,New York|United States,1,6.5452,2022,2022,2022-09-15,2022-09-15
+andre-brink,Cape Town|South Africa,1,6.5452,2023,2023,2023-06-01,2023-06-01
+jin-yong,New York|United States,1,6.5452,2022,2022,2022-06-20,2022-06-20
+ba-jin,New York|United States,1,6.5452,2023,2023,2023-05-08,2023-05-08
+sultan-bin-ali-al-owais,Dubai|United Arab Emirates,1,6.5452,2024,2024,2024-03-10,2024-03-10
+hwang-jini,Bangkok|Thailand,1,6.5452,2024,2024,2024-05-15,2024-05-15
+amrita-pritam,Bangkok|Thailand,1,6.5452,2023,2023,2023-05-01,2023-05-01
+kamala-das,Bangkok|Thailand,1,6.5452,2024,2024,2024-02-01,2024-02-01
+simone-de-beauvoir,Paris|France,1,6.5452,2024,2024,2024-05-06,2024-05-06
+na-hye-sok,Bali|Indonesia,1,6.5452,2024,2024,2024-07-22,2024-07-22
+george-eliot,London|United Kingdom,1,6.5452,2023,2023,2023-07-22,2023-07-22
+choi-in-hun,Seoul|South Korea,1,6.5452,2024,2024,2024-05-10,2024-05-10
+william-golding,London|United Kingdom,1,6.5452,2023,2023,2023-03-05,2023-03-05
+pramoedya-ananta-toer,Bali|Indonesia,1,6.5452,2022,2022,2022-04-15,2022-04-15
+kang-kyeong-ae,Sydney|Australia,1,6.5452,2023,2023,2023-11-05,2023-11-05
+maya-angelou,Paris|France,1,6.5452,2022,2022,2022-07-12,2022-07-12
+rabindranath-tagore,Bangkok|Thailand,1,6.5452,2023,2023,2023-09-15,2023-09-15
+johann-wolfgang-von-goethe,Amsterdam|Netherlands,1,6.5452,2024,2024,2024-10-10,2024-10-10
+joao-guimaraes-rosa,Rio de Janeiro|Brazil,1,6.5452,2024,2024,2024-04-03,2024-04-03
+shen-congwen,Bangkok|Thailand,1,6.5452,2023,2023,2023-09-01,2023-09-01
+mary-shelley,London|United Kingdom,1,6.5452,2023,2023,2023-02-14,2023-02-14
+agatha-christie,Bali|Indonesia,1,6.5452,2025,2025,2025-05-21,2025-05-21
+daphne-du-maurier,New York|United States,1,6.5452,2023,2023,2023-08-15,2023-08-15
+edith-wharton,Paris|France,1,6.5452,2023,2023,2023-09-01,2023-09-01
+shin-saimdang,Tokyo|Japan,1,6.5452,2021,2021,2021-07-01,2021-07-01
+kim-myeong-sun,Bali|Indonesia,1,6.5452,2022,2022,2022-08-05,2022-08-05
+no-cheon-myeong,Tokyo|Japan,1,6.5452,2022,2022,2022-09-01,2022-09-01
+elizabeth-jolley,Sydney|Australia,1,6.5452,2023,2023,2023-06-15,2023-06-15
+xiao-hong,Tokyo|Japan,1,6.5452,2022,2022,2022-12-10,2022-12-10
+maria-zambrano,Barcelona|Spain,1,6.5452,2023,2023,2023-09-15,2023-09-15
+natalia-ginzburg,Rome|Italy,1,6.5452,2024,2024,2024-07-15,2024-07-15
+oriana-fallaci,Rome|Italy,1,6.5452,2023,2023,2023-11-01,2023-11-01
+fadwa-tuqan,Dubai|United Arab Emirates,1,6.5452,2022,2022,2022-08-25,2022-08-25
+robert-frost,New York|United States,1,6.5452,2024,2024,2024-08-20,2024-08-20
+jack-london,Bali|Indonesia,1,6.5452,2024,2024,2024-02-01,2024-02-01
+frank-sargeson,Auckland|New Zealand,1,6.5452,2023,2023,2023-10-01,2023-10-01
