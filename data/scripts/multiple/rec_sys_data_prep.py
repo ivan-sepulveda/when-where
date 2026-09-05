@@ -1,98 +1,76 @@
-"""
-Derived from: data/processed/multiple/travelers_anon.json (build_travelers_anon.py)
-              data/processed/multiple/trips_enhanced.json  (build_trips_enhanced.py)
-              data/processed/multiple/traveler_tags.json   (compute_traveler_tags.py)
-              data/processed/multiple/traveler_entropy.json + _region.json
-              data/processed/multiple/trip_city_matches.json (match_trip_cities.py)
-              data/processed/monthly_scores_2025_by_city.json (fetch_weather_normals.py)
-              data/reference/m49_regions.json               (build_m49_regions.py)
+"""Shared data prep for the three recommender models. Real, runs, stdlib only.
 
-SHARED DATA PREP for the three recommender prototypes:
+Derived from: travelers_anon.json, trips_enhanced.json, traveler_tags.json,
+traveler_entropy.json + _region.json, trip_city_matches.json,
+monthly_scores_2025_by_city.json, m49_regions.json.
 
-    rec_sys_content_based_filtering.py   destination features x traveler taste
-    rec_sys_collaborative_filtering.py   who-else-went-where
-    rec_sys_hybrid.py                    both, plus the cold-start routing
+Consumed by rec_sys_content_based_filtering.py, rec_sys_collaborative_filtering.py
+and rec_sys_hybrid.py.
 
-**THIS FILE IS REAL AND RUNS. THE THREE FILES ABOVE ARE NOT** -- their
-recommendation logic is pseudocode on purpose, because the point of this
-first pass is to prove the *inputs* exist, are joined correctly, and carry
-their own missingness honestly. Everything here is deliberately stdlib-only
-(no numpy/pandas/scikit-learn) for the same reason every other script in
-this directory is: it has to run anywhere the repo is checked out, and 263
-travelers x 222 destinations is small enough that pure Python costs nothing.
-The models can pull in numpy later; the prep should not need it.
+Stdlib-only for the same reason as every script in this directory: it has to run
+wherever the repo is checked out, and 263 x 224 is small enough that pure Python
+costs nothing. The models may pull in numpy later; the prep should not need it.
 
-WHAT A "RECOMMENDATION" IS HERE. One destination -- a (city, country) pair
--- that a given traveler has not been to. Not an airport: two airports
-serving one city (New York EWR/JFK, Washington DCA/IAD, Tokyo HND/NRT) are
-the same recommendation, and nobody wants to be told to visit LGA. Not a
-country either: "go to Mexico" throws away the difference between Cancun and
-Mexico City, which is most of what this dataset knows. The item id is
-"City|Country", the same key match_trip_cities.py already writes, because a
-city name can exist in two countries (George Town is in Malaysia AND the
-Cayman Islands).
+WHAT A RECOMMENDATION IS HERE
+-----------------------------
+One destination -- a (city, country) pair -- the traveler has not been to.
 
-FOUR TABLES COME OUT OF THIS:
+- Not an airport: two airports serving one city (EWR/JFK, DCA/IAD, HND/NRT) are
+  one recommendation, and nobody wants to be told to visit LGA.
+- Not a country: "go to Mexico" throws away Cancun vs Mexico City, which is most
+  of what this dataset knows.
+- The item id is "City|Country", the key match_trip_cities.py already writes,
+  because a city name can exist in two countries (George Town is in Malaysia AND
+  the Cayman Islands).
 
-    destinations.json  items.  One row per (city, country) seen in any trip.
-                       Content features: UNESCO / Michelin / Plog, the 12
-                       monthly weather scores, M49 region, tag shares,
-                       typical duration and cost, popularity.
-    travelers.json     users.  One row per traveler. Taste profile (the same
-                       four means the API's /api/travelers/{id} computes),
-                       tags, both entropies, cadence, month-of-year mix.
-    interactions.csv   the (user, item) events -- visits, first/last year,
-                       and an implicit-feedback confidence.
+WHAT COMES OUT
+--------------
+    destinations.json  items. One row per (city, country) seen in any trip:
+                       UNESCO / Michelin / Plog, 12 monthly weather scores, M49
+                       region, tag shares, typical duration and cost, popularity.
+    travelers.json     users. Taste profile (the same four means the API's
+                       /api/travelers/{id} computes), tags, both entropies,
+                       cadence, month-of-year mix.
+    interactions.csv   (user, item) events: visits, first/last year, confidence.
     split.json         a deterministic leave-last-out evaluation split.
 
-THE MISSINGNESS RULES, WHICH ARE THE WHOLE REASON THIS IS A SEPARATE FILE:
+THE MISSINGNESS RULES -- the whole reason this is a separate file
+-----------------------------------------------------------------
+1. **null is not zero, ever.** 41 of 224 destinations have no city record in
+   trip_city_matches.json (Punta Cana, Kahului, Providenciales and other resort
+   towns below tourist_cities' population cutoff). Their UNESCO score is
+   UNKNOWN, and a model reading it as 0.0 learns "never send anyone to a beach
+   town". Every numeric feature ships with an OBSERVED MASK, and the matrix
+   builders impute only in the copy handed to a model, never in the catalog.
+2. **A real 0.0 is data.** 73 visited cities have UNESCO exactly 0.0 -- Tokyo
+   among them, its nearest World Heritage site is ~71km out. Observed, masked
+   True, and must stay distinguishable from rule 1.
+3. **Layover legs are excluded**, matching compute_traveler_tags.py,
+   compute_traveler_entropy.py and the API's _preferences(). Two hours in
+   Atlanta en route to Lisbon is not a visit, and feeding it in teaches the
+   model that hub airports are popular destinations.
+4. **A one-trip traveler is a cold-start user, not a low-signal one.** Flagged,
+   kept out of the split, routed to content by rec_sys_hybrid.py. Same for the
+   41 unmatched destinations, which are cold-start ITEMS: collaborative can
+   still rank them, content cannot.
+   This is the majority case: **160 of 255 travelers with a usable trip have
+   been to exactly one destination**, and only ~94 clear the holdout floor. Any
+   accuracy claim that does not say which population it was measured on is not
+   a claim about anything.
+5. **28 trips name a country or region but no city** ("Greece", "Bali"), which
+   a (city, country) id cannot hold. Dropped -- taking 8 travelers out entirely,
+   since that is all they have -- and counted in `meta` as `trips_without_city`
+   / `travelers_without_countable_trips`. The alternative is a second, coarser
+   item type, and that should be a decision rather than whichever join was
+   written first.
 
-1.  **null is not zero, ever.** 41 of the 222 destinations have no city
-    record in trip_city_matches.json (Punta Cana, Kahului, Providenciales
-    and other resort towns below tourist_cities' population cutoff -- see
-    data/README.md). Their UNESCO score is *unknown*, and a recommender that
-    reads it as 0.0 will quietly learn "never send anyone to a beach town".
-    Every numeric feature therefore ships with a parallel OBSERVED MASK, and
-    the matrix builders impute only in the copy they hand to the model,
-    never in the catalog itself.
-
-2.  A real 0.0 is data. 73 of the visited cities have UNESCO exactly 0.0 --
-    Tokyo among them, its nearest World Heritage site is ~71km out. Those
-    rows are observed, masked True, and must stay distinguishable from (1).
-
-3.  **Layover legs are excluded from interactions**, matching what
-    compute_traveler_tags.py, compute_traveler_entropy.py and the API's
-    _preferences() already do. Sitting in Atlanta for two hours on the way
-    to Lisbon is not a visit to Atlanta, and feeding it to a recommender
-    teaches it that hub airports are popular destinations.
-
-4.  **A traveler with one trip is a cold-start user, not a low-signal one.**
-    They are flagged, kept out of the evaluation split, and routed to the
-    content model by rec_sys_hybrid.py. Same for the 41 unmatched
-    destinations, which are cold-start ITEMS: collaborative filtering can
-    still rank them (people went there), content filtering cannot.
-
-    This is the majority case, not an edge: **160 of the 255 travelers with
-    any usable trip have been to exactly one destination**, and only 85
-    clear the holdout floor. Any claim about this recommender's accuracy
-    that does not say which of those two populations it was measured on is
-    not a claim about anything.
-
-5.  **28 trips name a country or a region but no city** (destination_kind
-    "country" / "region" -- "Greece", "Bali"), and a (city, country) item id
-    cannot hold them. They are dropped, which takes 8 travelers out of the
-    dataset entirely because that is ALL they have. Counted in `meta` as
-    `trips_without_city` / `travelers_without_countable_trips` rather than
-    quietly discarded: the alternative design is a second, coarser item
-    type, and that decision should be made deliberately rather than by
-    whichever join was written first.
-
-WHY THE SPLIT IS LEAVE-LAST-OUT AND NOT RANDOM. These are itineraries with
-dates. A random holdout lets the model see 2026 to predict 2019, which
-scores well and means nothing. Each traveler with at least MIN_TRIPS_FOR_
-HOLDOUT distinct destinations has their chronologically LAST new destination
-held out; everything before it is train. No RNG anywhere in this file, so
-two runs on the same inputs produce byte-identical outputs.
+WHY LEAVE-LAST-OUT AND NOT RANDOM
+---------------------------------
+These are itineraries with dates. A random holdout lets the model see 2026 to
+predict 2019, which scores well and means nothing. Each traveler with at least
+MIN_TRIPS_FOR_HOLDOUT distinct destinations has their chronologically last new
+destination held out. No RNG anywhere here, so two runs on the same inputs
+produce byte-identical outputs.
 
 Usage:
     python data/scripts/multiple/rec_sys_data_prep.py            # build + write
@@ -136,11 +114,44 @@ MONTHS = [
 # training row is empty, which is not a hard test case, it's no test case.
 MIN_TRIPS_FOR_HOLDOUT = 3
 
-# Implicit-feedback confidence, Hu/Koren style: c = 1 + ALPHA * ln(1 + visits).
-# Visiting Tokyo eleven times is stronger evidence than visiting it once, but
-# not eleven times stronger -- the log is what keeps Bourdain's 201 trips from
-# drowning out everyone else in a factorisation.
+# Implicit-feedback confidence, Hu/Koren: c = 1 + ALPHA * ln(1 + visits).
+# Eleven Tokyo trips are stronger evidence than one, but not eleven times
+# stronger -- the log keeps Bourdain's 201 trips from drowning out everyone else.
 CONFIDENCE_ALPHA = 8.0
+
+# THE SAME PLACE UNDER TWO NAMES. trips_enhanced.json carries both spellings of
+# five destinations, so the catalog holds each twice and a recommender will send
+# somebody to New York City on the strength of their New York trips. Found
+# 2026-09-05 by looking for city names in the same country where one is a
+# substring of the other.
+#
+# A WORKAROUND -- THE REAL FIX IS UPSTREAM in build_trips_enhanced.py's
+# DESTINATIONS table, where a city name becomes canonical. Merging there fixes
+# the catalog, the interaction matrix, trip counts, entropy and the tag rules at
+# once. Not done here because it changes every downstream count, and which
+# spelling wins is a judgement (Milan or Milano? is Dallas-Fort Worth the airport
+# or the metro?) that should be a decision, not a side effect.
+#
+# Until then the recommender treats each group as one place for "do not recommend
+# somewhere they have already been".
+DUPLICATE_DESTINATIONS = (
+    ("New York|United States", "New York City|United States"),
+    ("Dallas|United States", "Dallas-Fort Worth|United States"),
+    ("Washington|United States", "Washington, D.C.|United States"),
+    ("Leon|Mexico", "Leon/Guanajuato|Mexico"),
+    ("Milan|Italy", "Milano|Italy"),
+)
+
+
+def same_place_as(destination_key):
+    """Every catalog key that means the same place as this one, including it.
+
+    See DUPLICATE_DESTINATIONS for why this exists and where the real fix
+    belongs."""
+    for group in DUPLICATE_DESTINATIONS:
+        if destination_key in group:
+            return set(group)
+    return {destination_key}
 
 
 # ---------------------------------------------------------------------------
@@ -149,26 +160,26 @@ CONFIDENCE_ALPHA = 8.0
 
 @dataclass
 class FeatureMatrix:
-    """A dense numeric matrix plus the mask that says which cells were real.
+    """A dense numeric matrix plus the mask saying which cells were real.
 
-    `rows[i][j]` is always a number so a model can multiply it; `mask[i][j]`
-    is False where that number was IMPUTED (column mean) rather than
-    observed. Anything that averages, weights or scores must consult the
-    mask -- see the module docstring, rule 1. `scaling` records each
-    column's observed min/max so a value can be read back in its original
-    units for display."""
+    - `rows[i][j]` is always a number so a model can multiply it.
+    - `mask[i][j]` is False where that number was IMPUTED (column mean).
+      Anything that averages, weights or scores must consult it -- module
+      docstring, rule 1.
+    - `scaling` records each column's observed min/max, so a value can be read
+      back in its original units for display."""
 
     ids: list
     names: list
     rows: list
     mask: list
     scaling: dict = field(default_factory=dict)
-    # Which block each column belongs to -- "content", "season",
-    # "geography", "popularity". Not decoration: a one-hot region column is
-    # observed for every row by construction, so counting raw observed
-    # columns makes every traveler look well described. Anything gating on
-    # "does this profile have enough evidence" must count within the blocks
-    # that can actually be missing. See observed_in_groups().
+    # Which block each column belongs to: "content", "season", "geography",
+    # "popularity". Not decoration -- a one-hot region column is observed for
+    # every row by construction, so counting raw observed columns makes every
+    # traveler look well described. Anything gating on "is there enough
+    # evidence" must count within the blocks that can be missing. See
+    # observed_in_groups().
     groups: dict = field(default_factory=dict)
 
     def index_of(self, item_id):
@@ -288,15 +299,15 @@ def _read_json(path, required=True):
 def load_inputs():
     """Every input this module joins, loaded once.
 
-    travelers_anon.json is REQUIRED and is the spine: it is what the API
-    serves, it carries traveler_id, and each traveler already holds its own
-    trips, so no name-to-id join is needed (traveler names are not unique
-    keys -- a traveler is name + nationality, see data/README.md).
-
-    Everything else is optional and degrades to a documented null rather
-    than to a fabricated number: without trip_city_matches.json the content
-    model has no features and the hybrid falls through to collaborative,
-    which is exactly the behaviour a missing file should produce."""
+    - travelers_anon.json is REQUIRED and is the spine: it is what the API
+      serves, it carries traveler_id, and each traveler already holds its own
+      trips, so no name-to-id join is needed (names are not unique keys -- a
+      traveler is name + nationality, see data/README.md).
+    - Everything else is optional and degrades to a documented null rather than
+      a fabricated number. Without trip_city_matches.json the content model has
+      no features and the hybrid falls through to collaborative, which is
+      exactly what a missing file should produce.
+    """
     travelers = _read_json(TRAVELERS_PATH)["travelers"]
     trips_payload = _read_json(TRIPS_PATH)
 
@@ -324,11 +335,12 @@ def load_inputs():
 
 
 def weather_score_from_monthly_metrics(metrics):
-    """0-10, higher = more pleasant. MIRRORS backend/app/scoring.py exactly
-    -- copied rather than imported because nothing in data/scripts/ imports
-    from backend/, and adding the first such import to make a prototype
-    slightly shorter is a bad trade. If that formula changes, this changes
-    with it; data/SCORING.md is the shared spec both answer to."""
+    """0-10, higher = more pleasant. Mirrors backend/app/scoring.py exactly.
+
+    Copied rather than imported: nothing in data/scripts/ imports from backend/,
+    and adding the first such import to shorten a prototype is a bad trade. If
+    that formula changes, this changes with it -- data/SCORING.md is the shared
+    spec both answer to."""
     dryness = 1 - (metrics["monthly_rain_score"] + metrics["daily_rain_score"]) / 2
     daylight = metrics["daylight_hours_score"]
     temperature = (metrics["high_temperature_score"] + metrics["low_temperature_score"]) / 2
@@ -368,10 +380,11 @@ def _m49_index(m49):
 # ---------------------------------------------------------------------------
 
 def destination_key(city, country):
-    """The item id. Same "City|Country" shape trip_city_matches.json uses, so
-    the two files can be joined by string equality with no normalisation
-    step in between (normalisation already happened in match_trip_cities.py,
-    and doing it twice in two places is how the two drift apart)."""
+    """The item id, "City|Country".
+
+    Same shape trip_city_matches.json uses, so the two join by string equality
+    with no normalisation step between. Normalisation already happened in
+    match_trip_cities.py, and doing it twice in two places is how they drift."""
     return f"{city}|{country}"
 
 
@@ -424,18 +437,17 @@ def _share(numerator, denominator):
 # ---------------------------------------------------------------------------
 
 def build_destination_catalog(trips, matches, weather_by_city_id, regions_by_iso2):
-    """One row per (city, country) that appears in a countable trip.
+    """One row per (city, country) appearing in a countable trip.
 
-    BUILT FROM THE TRIPS, LEFT-JOINED ONTO THE MATCH FILE -- not the other
-    way round. trips_enhanced.json is canonical for "what destinations
-    exist"; trip_city_matches.json is canonical for "what we know about
-    them", and it does not cover all of them (181 of 222 as of this
-    writing). Driving from the match file would silently drop 41
-    destinations that people demonstrably travelled to, which is the exact
-    opposite of what a candidate list should do.
-
-    Popularity and tag shares come from the trips themselves and so exist
-    for all 222; the score columns are null for the unmatched ones."""
+    - **Built from the TRIPS, left-joined onto the match file**, not the other
+      way round. trips_enhanced.json is canonical for what destinations exist;
+      trip_city_matches.json is canonical for what we know about them, and it
+      covers 183 of 224. Driving from the match file would silently drop 41
+      destinations people demonstrably travelled to -- the exact opposite of
+      what a candidate list should do.
+    - Popularity and tag shares come from the trips, so they exist for all 224.
+      The score columns are null for the unmatched ones.
+    """
     grouped = defaultdict(list)
     for trip in trips:
         if not _is_countable(trip):
@@ -512,23 +524,21 @@ def build_destination_catalog(trips, matches, weather_by_city_id, regions_by_iso
 
 def build_traveler_profiles(travelers, catalog, tags_by_id, entropy_by_id,
                             region_entropy_by_id, regions_by_iso2):
-    """One row per traveler: who they are, how they travel, and what their
-    trips say they like.
+    """One row per traveler: who they are, how they travel, what they like.
 
-    THE FOUR TASTE MEANS ARE THE SAME FOUR THE API COMPUTES in main.py's
-    _preferences() -- UNESCO, Michelin, weather, allocentrism, each a mean
-    over the traveler's own non-layover trips, divided by 10 onto 0-1. They
-    are recomputed here rather than fetched because this script must run
-    without a server, but the definition is deliberately identical: if the
-    radar chart on the traveler detail page and the recommender disagree
-    about what someone likes, one of them is lying to the user.
-
-    Weather is the one that cannot be recomputed identically. The API scores
-    each trip against ITS OWN DATES (a July trip to Reykjavik is not a
-    January trip to Reykjavik) using scoring.month_weights(); that is done
-    here too, from `weather_by_month` on the destination row, so the numbers
-    match. Where a destination has no monthly curve the trip contributes
-    nothing to the mean instead of contributing a zero."""
+    - **The four taste means are the API's four**, from main.py's
+      _preferences(): UNESCO, Michelin, weather, allocentrism, each a mean over
+      non-layover trips divided by 10 onto 0-1. Recomputed here because this
+      script must run without a server, but deliberately identical -- if the
+      radar chart and the recommender disagree about what someone likes, one of
+      them is lying to the user.
+    - **Weather is the one that cannot be recomputed trivially.** The API scores
+      each trip against ITS OWN DATES (a July Reykjavik trip is not a January
+      one) via scoring.month_weights(); that is done here too, from
+      `weather_by_month` on the destination row, so the numbers match.
+    - A destination with no monthly curve contributes nothing to the mean,
+      rather than contributing a zero.
+    """
     by_key = {d["destination_key"]: d for d in catalog}
     profiles = []
 
@@ -604,11 +614,10 @@ def build_traveler_profiles(travelers, catalog, tags_by_id, entropy_by_id,
             "base_country": traveler.get("base_country"),
             "base_country_code": traveler.get("base_country_code"),
             "base_inference": traveler.get("base_inference"),
-            # The traveler's own M49 region, joined the same way a
-            # destination's is. It is what makes "somewhere they have not
-            # been" separable from "somewhere far from home" -- two very
-            # different recommendations that a model with no origin feature
-            # cannot tell apart.
+            # The traveler's own M49 region, joined the way a destination's is.
+            # It is what makes "somewhere they have not been" separable from
+            # "somewhere far from home" -- two very different recommendations
+            # that a model with no origin feature cannot tell apart.
             "base_region": (regions_by_iso2.get((traveler.get("base_country_code") or "").upper()) or {}).get("region"),
             "base_detailed_region": (regions_by_iso2.get((traveler.get("base_country_code") or "").upper()) or {}).get("detailed_region"),
             "home_airport": tag_row.get("home_airport"),
@@ -647,16 +656,16 @@ def build_traveler_profiles(travelers, catalog, tags_by_id, entropy_by_id,
 
 
 def _trip_weather_score(trip, monthly):
-    """The trip's weather score against its OWN dates, day-weighted across
-    the months it spans -- scoring.month_weights() reimplemented in nine
-    lines rather than imported, for the reason given in
-    weather_score_from_monthly_metrics().
+    """The trip's weather score against its OWN dates, day-weighted across months.
 
-    THE 0-DAY RULE (already load-bearing elsewhere in this repo): an end
-    date that is missing, unparseable or before the start date means a
-    ONE-DAY trip, i.e. the start date alone. Trips landing after midnight
-    really do record a 1-day duration in the Gomez log, so this is the
-    difference between a score and a crash."""
+    scoring.month_weights() reimplemented in nine lines rather than imported,
+    for the reason in weather_score_from_monthly_metrics().
+
+    **THE 0-DAY RULE** (load-bearing elsewhere in this repo): an end date that
+    is missing, unparseable, or before the start means a ONE-DAY trip -- the
+    start date alone. Trips landing after midnight really do record a 1-day
+    duration in the Gomez log, so this is the difference between a score and a
+    crash."""
     if not monthly:
         return None
     try:
@@ -684,12 +693,12 @@ def _trip_weather_score(trip, monthly):
 # ---------------------------------------------------------------------------
 
 def build_interactions(travelers):
-    """The (traveler, destination) events, one row per pair -- not per trip.
+    """The (traveler, destination) events -- one row per pair, not per trip.
 
-    Implicit feedback: there are no ratings in this dataset and there never
-    will be, so "went there" is the signal and "went there repeatedly" is
-    the strength. c = 1 + ALPHA * ln(1 + visits) is the Hu/Koren
-    formulation; the log matters because trip counts here span 1 to 201."""
+    Implicit feedback: there are no ratings here and never will be, so "went
+    there" is the signal and "went repeatedly" is the strength.
+    c = 1 + ALPHA * ln(1 + visits) is the Hu/Koren formulation; the log matters
+    because trip counts span 1 to 201."""
     rows = []
     for traveler in travelers:
         trips = [t for t in traveler.get("trips", []) if _is_countable(t)]
@@ -727,15 +736,14 @@ def build_user_item_matrix(interactions):
 def train_test_split(interactions):
     """Leave-last-out, deterministic, no RNG.
 
-    For each traveler with at least MIN_TRIPS_FOR_HOLDOUT distinct
-    destinations, the destination they visited LAST (by first_visit date --
-    the first time they went somewhere new, which is the moment a
-    recommender could have been useful) becomes the test item. Ties break on
-    the destination key so the split is stable across runs.
-
-    Travelers below the floor are `cold_start_users`: excluded from the
-    split entirely rather than tested on an empty profile. That set is not a
-    nuisance, it is the population rec_sys_hybrid.py exists to route."""
+    - Each traveler with at least MIN_TRIPS_FOR_HOLDOUT distinct destinations
+      has their LAST-visited one held out, by first_visit date -- the first time
+      they went somewhere new, which is the moment a recommender could have been
+      useful. Ties break on the destination key, so the split is stable.
+    - Travelers below the floor are `cold_start_users`: excluded entirely rather
+      than tested on an empty profile. That set is not a nuisance, it is the
+      population rec_sys_hybrid.py exists to route.
+    """
     by_user = defaultdict(list)
     for row in interactions:
         by_user[row["traveler_id"]].append(row)
@@ -769,13 +777,12 @@ def train_test_split(interactions):
 # ---------------------------------------------------------------------------
 
 def _scale_columns(ids, names, raw_rows):
-    """Min-max each column over its OBSERVED values; impute missing cells
-    with the observed column mean and record that in the mask.
+    """Min-max each column over its OBSERVED values; impute the rest with the mean.
 
     Imputing the mean is the least-opinionated choice available: it moves an
-    unknown city neither up nor down the ranking relative to the average
-    one. It is still a lie, which is why the mask exists and why every
-    consumer is expected to read it."""
+    unknown city neither up nor down relative to the average one. It is still a
+    lie, which is why the mask exists and why every consumer is expected to read
+    it."""
     n_cols = len(names)
     columns = [[] for _ in range(n_cols)]
     for row in raw_rows:
@@ -813,14 +820,16 @@ def _scale_columns(ids, names, raw_rows):
 def build_item_feature_matrix(catalog, detailed_regions):
     """Destination x feature, everything on 0-1.
 
-    Three families, in this order: CONTENT (what the place is like),
-    SEASON (the 12 monthly weather scores -- the "when" half of when-where,
-    and the only reason a recommender here can answer "go in April" rather
-    than just "go"), and GEOGRAPHY (one-hot over M49's 22 detailed regions).
+    Three families, in order:
+
+    - CONTENT -- what the place is like.
+    - SEASON -- the 12 monthly weather scores. The "when" half of when-where,
+      and the only reason this can answer "go in April" rather than just "go".
+    - GEOGRAPHY -- one-hot over M49's 22 detailed regions.
 
     Popularity is deliberately LAST and deliberately logged. A content model
-    that ranks on popularity is not a content model, but leaving it out
-    entirely denies the hybrid an obvious prior, so it goes in flagged."""
+    that ranks on popularity is not a content model, but omitting it denies the
+    hybrid an obvious prior -- so it goes in, flagged."""
     content = [
         "unesco_score", "michelin_score", "allocentric_score",
         "beach_share", "ski_share", "holiday_share",
@@ -853,15 +862,15 @@ def build_item_feature_matrix(catalog, detailed_regions):
 
 
 def build_user_feature_matrix(profiles, detailed_regions):
-    """Traveler x feature, everything on 0-1.
+    """Traveler x feature, everything on 0-1. SIDE INFORMATION -- who someone is.
 
-    This is the SIDE-INFORMATION matrix -- who someone is -- and is not the
-    same thing as their position in item-feature space. That second vector
-    (the taste profile a content model actually scores against) is built by
-    build_user_content_profiles() below, out of the items they visited, and
-    the two are kept apart on purpose: mixing "prefers long trips" with
-    "has been to Southern Europe a lot" into one vector makes it impossible
-    to say afterwards which half drove a recommendation."""
+    Not the same thing as their position in item-feature space. That second
+    vector -- the taste profile a content model scores against -- is built by
+    build_user_content_profiles() out of the items they visited.
+
+    The two are kept apart on purpose: mixing "prefers long trips" with "has
+    been to Southern Europe a lot" into one vector makes it impossible to say
+    afterwards which half drove a recommendation."""
     taste = ["pref_unesco", "pref_michelin", "pref_weather", "pref_allocentric",
              "pref_holiday", "pref_beach", "pref_ski"]
     behaviour = ["median_duration_days", "median_accommodation_cost",
@@ -889,23 +898,20 @@ def build_user_feature_matrix(profiles, detailed_regions):
 
 
 def build_user_content_profiles(user_item, item_features, split=None):
-    """Each traveler's centre of gravity in ITEM-FEATURE space: the
-    visit-weighted mean of the destinations they have been to.
+    """Each traveler's centre of gravity in ITEM-FEATURE space.
 
-    This is the vector a content-based model scores candidates against, and
-    building it here rather than inside rec_sys_content_based_filtering.py
-    is the line this repo draws between prep and model: assembling the
-    inputs is data work and runs today; deciding what to do with them is the
-    model, and is pseudocode until it is not.
+    The visit-weighted mean of the destinations they have been to -- the vector
+    a content-based model scores candidates against.
 
-    IMPUTED CELLS ARE SKIPPED, not averaged in. A traveler whose only
-    Michelin-scored trip was to an unmatched resort town gets `None` for the
-    Michelin coordinate rather than the global mean wearing their name --
-    the same null-is-not-zero rule as everywhere else, one level up.
-
-    Pass `split` to build the profile from TRAIN interactions only, which is
-    what any honest offline evaluation needs; omit it to profile against
-    everything, which is what a live recommendation would use."""
+    - Built here rather than in the model file: assembling inputs is data work,
+      deciding what to do with them is the model.
+    - **IMPUTED CELLS ARE SKIPPED, not averaged in.** A traveler whose only
+      Michelin-scored trip was to an unmatched resort town gets `None` for the
+      Michelin coordinate rather than the global mean wearing their name -- the
+      null-is-not-zero rule, one level up.
+    - Pass `split` to profile from TRAIN interactions only, which is what an
+      honest offline evaluation needs. Omit it for a live recommendation.
+    """
     allowed = None
     if split is not None:
         allowed = defaultdict(set)
@@ -940,12 +946,12 @@ def build_user_content_profiles(user_item, item_features, split=None):
 # ---------------------------------------------------------------------------
 
 def prepare(inputs=None):
-    """Build everything, in memory, from the files on disk.
+    """Build everything in memory, from the files on disk.
 
-    The three model files call THIS, not the written outputs -- the JSON/CSV
-    this script writes is for reading with human eyes and for anything
-    outside Python, and a model that reads a file it did not just build is a
-    model that can silently train on last week's dataset."""
+    The three model files call THIS, not the written outputs. The JSON/CSV this
+    script writes is for human eyes and for anything outside Python -- a model
+    that reads a file it did not just build can silently train on last week's
+    dataset."""
     inputs = inputs or load_inputs()
 
     catalog = build_destination_catalog(
@@ -1078,9 +1084,9 @@ def write_outputs(data, out_dir=OUT_DIR):
         json.dump({**data.meta, **data.split}, f, indent=2, ensure_ascii=False)
 
     # The two matrices, written flat so they can be eyeballed or loaded by
-    # something that is not this module. Masks travel WITH the values --
-    # a matrix file without its mask is a file that has forgotten which of
-    # its numbers were made up.
+    # something that is not this module. MASKS TRAVEL WITH THE VALUES -- a
+    # matrix file without its mask has forgotten which of its numbers were made
+    # up.
     for name, matrix in (("item_features", data.item_features), ("user_features", data.user_features)):
         with open(out_dir / f"{name}.json", "w", encoding="utf-8") as f:
             json.dump({

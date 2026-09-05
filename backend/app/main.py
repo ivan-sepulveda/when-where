@@ -1,24 +1,23 @@
-"""
-FastAPI app -- the first real "frontend talks to a backend" piece of this
-project (see backend/README.md for the full design writeup). Routes that
-matter: GET /api/destinations/top10 (country ranking),
-GET /api/destinations/cities/top10 (city ranking -- same idea, city
-granularity), GET /api/destinations/{country}/weather (raw weather
-metrics for one country's DestinationDetail page), and the city pair
-GET /api/destinations/cities/{city_id} (+ /weather), which back
-CityDetail.tsx the way those country routes back DestinationDetail.tsx.
+"""FastAPI app -- the first "frontend talks to a backend" piece of this project.
 
-Data is loaded once at import time (see data_loader.py) and kept in
-memory for the life of the process -- every request just does cheap
-arithmetic (month-weight resolution + a handful of weighted averages
-over ~240 countries or ~3,069 cities), no file I/O or heavy computation
-per request. This is deliberate: Render's free tier spins the process
-down after ~15 min idle, but *while running*, every request after the
-first should be fast. It's also why cities/top10 exists as a backend
-route at all rather than the frontend fetching tourist_cities_enhanced.json
-directly the way it fetches the small country-level static JSON --
-that file is 27MB, fine to hold in server memory once, not fine to ship
-to a browser per page load. See load_static_city_scores()'s docstring.
+See backend/README.md for the full design writeup. Routes that matter:
+
+- `GET /api/destinations/top10` -- country ranking
+- `GET /api/destinations/cities/top10` -- same idea at city granularity
+- `GET /api/destinations/{country}/weather` -- raw metrics for DestinationDetail
+- `GET /api/destinations/cities/{city_id}` (+ `/weather`) -- back CityDetail.tsx
+  the way the country routes back DestinationDetail.tsx
+
+**Data loads once at import time** (data_loader.py) and stays in memory for the
+life of the process. Every request is cheap arithmetic -- month weights plus a
+few weighted averages over ~240 countries or ~3,069 cities -- with no file I/O.
+Render's free tier spins the process down after ~15 min idle, but while it is up
+every request after the first should be fast.
+
+That is also why cities/top10 is a backend route at all, rather than the
+frontend fetching the file the way it does the small country JSON: the city file
+is 27MB, fine to hold in server memory once, not fine per page load. See
+load_static_city_scores().
 
 Usage (local dev):
     uvicorn app.main:app --reload --port 8000
@@ -111,61 +110,60 @@ TRAVELERS = load_travelers()
 # is DERIVED from that file -- folding it back in would make a build step
 # read its own output.
 TRAVELER_ENTROPY = load_traveler_entropy()
-# The same measure over a coarser unit: UN M49 detailed region instead of
-# destination airport. Loaded separately, never merged -- the two are on
-# different scales (K = 106 observed airports vs a fixed K = 22 regions),
-# so averaging or comparing them across units would be meaningless.
-#
-# It also covers far more travelers: only the hand-authored itineraries
-# record an airport, but every trip records a destination country, so this
-# one is defined for all 206 rather than 82.
+# The same measure over a coarser unit: M49 detailed region, not airport.
+# Loaded separately and never merged -- the scales differ (K = 106 observed
+# airports vs a fixed K = 22 regions), so comparing across units is meaningless.
+# It also covers far more travelers: only hand-authored itineraries record an
+# airport, but every trip records a country, so this is defined for all 206
+# rather than 82.
 TRAVELER_ENTROPY_REGION = load_traveler_entropy(TRAVELER_ENTROPY_REGION_PATH)
 # Also None until compute_traveler_tags.py has been run, and kept separate
 # from TRAVELERS for the same reason as the entropy above: it is DERIVED
 # from travelers_anon.json.
 TRAVELER_TAGS = load_traveler_tags()
-# None until rec_sys_hybrid.py writes recommendations.json, which it does
-# not do yet -- its ranking logic is still pseudocode. The recommendations
-# route reports that state explicitly instead of erroring; see
-# data_loader.load_traveler_recommendations for the file contract, and
-# note this is loaded here at import time like every other derived file,
-# so the server never computes a recommendation per request.
+# Written by rec_sys_hybrid.py --write. Loaded here at import time like every
+# other derived file, so the server never computes a recommendation per request.
+# None when the file is absent; the route reports that state explicitly instead
+# of erroring. See data_loader.load_traveler_recommendations for the contract.
 TRAVELER_RECOMMENDATIONS = load_traveler_recommendations()
 # Loaded once at startup like every other dataset here; None means the
 # GeoNames extract hasn't been run in this checkout (see load_beaches()).
 BEACHES = load_beaches()
-# The travelers who are real, named people rather than a fictional persona
-# or an anonymized Kaggle row: Anthony Bourdain, Gordon Ramsay, Conan
-# O'Brien and Rick Steves (their shows' real episodes resolved onto real
-# routes -- see chef_trips.py) and Eduardo Gomez (Ivan's own hand-kept
-# flight log -- see build_gomez_trips.py). Hardcoded rather than derived
-# from `synthetic` or `persona_match`: both are True/"authored" for the 82
-# fictional hand-authored characters too, so nothing already in the data
-# separates "a real name" from "an authored persona" -- this set is the
-# only place that distinction is recorded. Adding another real traveler is
-# one more id here. IDs are travelers_anon.json's (the file this API
-# serves) -- Rick Steves is "rick-steves" there, not the "rick-steves-
-# american" id build_travelers.py gives travelers.json, since anonymization
-# drops the nationality suffix for an already-unique authored name.
+# Travelers who are real named people rather than a fictional persona or an
+# anonymized Kaggle row: Anthony Bourdain, Gordon Ramsay, Conan O'Brien and Rick
+# Steves (real episodes resolved onto real routes -- chef_trips.py), Eduardo
+# Gomez (Ivan's own flight log -- build_gomez_trips.py), and the two touring
+# musicians (build_tour_trips.py).
+#
+# HARDCODED, not derived: `synthetic` and `persona_match` are True/"authored"
+# for the fictional hand-authored characters too, so nothing in the data
+# separates "a real name" from "an authored persona". This set is the only place
+# that distinction is recorded, and adding a real traveler is one more id here.
+# IDs are travelers_anon.json's -- Rick Steves is "rick-steves" here, not
+# build_travelers.py's "rick-steves-american", since anonymization drops the
+# nationality suffix for an already-unique authored name.
 REAL_PERSON_TRAVELER_IDS = frozenset({
     "anthony-bourdain",
     "gordon-ramsay",
     "conan-o-brien",
     "rick-steves",
     "eduardo-gomez",
+    # A real musician on a real, published tour -- the dates and venues come
+    # from the tour listing, same standing as the travel-show hosts' episode
+    # locations. See data/scripts/multiple/build_tour_trips.py.
+    "maria-zardoya",
+    "luis-miguel",
 })
-# None until match_trip_cities.py has been run. Resolves a trip's
-# destination to a city in tourist_cities_enhanced.json so the trip can
-# carry that city's UNESCO/Michelin scores -- the name matching itself is
-# pipeline work and deliberately does NOT happen here (see
-# backend/README.md). Weather is not in that file: it depends on each
-# trip's own dates, which is the one thing this API does resolve per
+# None until match_trip_cities.py has run. Resolves a trip's destination to a
+# city in tourist_cities_enhanced.json so the trip can carry that city's
+# UNESCO/Michelin scores. The name matching is pipeline work and deliberately
+# does NOT happen here (backend/README.md). Weather is not in that file: it
+# depends on the trip's own dates, which is the one thing this API resolves per
 # request.
 TRIP_CITY_MATCHES = load_trip_city_matches()
-# None until build_m49_regions.py has been run. Joined onto each trip at
-# request time rather than baked into the trip data, because it's a
-# property of the destination country, not of the trip -- and the M49
-# standard is refreshed on its own schedule.
+# None until build_m49_regions.py has run. Joined onto each trip at request time
+# rather than baked in, because a region is a property of the destination
+# country, not of the trip -- and M49 is refreshed on its own schedule.
 M49_REGIONS = load_m49_regions()
 CITY_WEATHER_SCORES = load_city_weather_scores()
 CITY_WEATHER_METRICS = load_city_weather_metrics()
@@ -193,18 +191,14 @@ class TopDestinationsResponse(BaseModel):
 
 
 class CityDestinationScore(BaseModel):
-    # simplemaps_id, as a string -- the stable unique key for a city in
-    # this dataset (city name alone isn't unique, e.g. two different
-    # real cities are both named "Kanpur"). This is what the frontend
-    # routes on -- /destinations/cities/:cityId, backed by
-    # /api/destinations/cities/{city_id} below.
+    # simplemaps_id as a string -- the stable unique key for a city here (name
+    # alone is not unique: two real cities are both "Kanpur"). This is what the
+    # frontend routes on: /destinations/cities/:cityId.
     city_id: str
-    # Properly-accented name (e.g. "Ōsaka") and its ASCII-stripped
-    # counterpart (e.g. "Osaka") -- per project decision, the frontend
-    # should default to displaying city_ascii; city is included for
-    # anything that wants the accented version. See
-    # data_loader.load_static_city_scores()'s docstring for why this
-    # isn't a workaround for an encoding bug (there isn't one).
+    # Accented name ("Osaka" with the macron) and its ASCII counterpart. The
+    # frontend defaults to city_ascii; `city` is there for anything that wants
+    # the accented form. Not an encoding workaround -- see
+    # data_loader.load_static_city_scores().
     city: str
     city_ascii: str
     country_name: str
@@ -248,9 +242,8 @@ class NearbyPlace(BaseModel):
     # filed under, since a section groups several real-world kinds.
     kind: str
     # "OpenStreetMap" or "IMLS". Surfaced rather than hidden because the two
-    # aren't equivalent in scope (IMLS is US-only but curated and includes
-    # nature centers; OSM is worldwide but community-mapped) -- see
-    # data/scripts/multiple/build_city_attractions.py.
+    # differ in scope: IMLS is US-only but curated and includes nature centers;
+    # OSM is worldwide but community-mapped. See build_city_attractions.py.
     source: str
     distance_km: float
 
@@ -263,12 +256,12 @@ class NearbyPlaces(BaseModel):
 
 
 class CityDetailResponse(BaseModel):
-    """One city's page data -- the counterpart to what
-    DestinationDetail.tsx assembles for a country out of several
-    country-keyed CSV/JSON files fetched straight from GitHub. Cities
-    can't work that way (their source file is 27MB -- see this module's
-    docstring), so this endpoint does the same assembly server-side and
-    returns it in one response."""
+    """One city's page data -- the city counterpart of DestinationDetail's country view.
+
+    That page assembles a country from several country-keyed files fetched
+    straight from GitHub. Cities cannot work that way -- their source is 27MB
+    (see this module's docstring) -- so this endpoint does the same assembly
+    server-side and returns it in one response."""
 
     city_id: str
     city: str
@@ -292,19 +285,17 @@ class CityDetailResponse(BaseModel):
     unesco_sites: list[NearbyUnescoSite]
     michelin_count: int
     michelin_restaurants: list[NearbyMichelinRestaurant]
-    # The same three static domain scores /api/destinations/cities/top10
-    # ranks on, for this one city. Weather (the fourth domain) isn't here
-    # -- it depends on a date range, so it lives on
-    # /api/destinations/cities/{city_id}/weather instead.
+    # The three static domain scores /api/destinations/cities/top10 ranks on,
+    # for this one city. Weather is the fourth domain and is not here: it
+    # depends on a date range, so it lives on the /weather route.
     unesco_score: Optional[float]
     michelin_score: Optional[float]
     price_score: Optional[float]
-    # ALL FOUR of the fields below are null together, and only when
-    # city_attractions.json hasn't been generated in this checkout (see
-    # data_loader.load_city_attractions). The frontend hides those sections
-    # entirely in that case. A field that's present but empty
-    # (count=0, places=[]) means the opposite: the data IS loaded and there's
-    # genuinely nothing within the radius -- worth saying out loud on the
+    # ALL FOUR fields below are null together, and only when
+    # city_attractions.json has not been generated in this checkout (see
+    # data_loader.load_city_attractions). The frontend hides those sections.
+    # Present but empty (count=0, places=[]) means the opposite -- the data IS
+    # loaded and nothing is within the radius, which is worth saying on the
     # page, since "no botanical garden within 100km" is real information.
     attractions_radius_km: Optional[float]
     zoos_and_aquariums: Optional[NearbyPlaces]
@@ -316,17 +307,16 @@ class CityDetailResponse(BaseModel):
 
 
 class TripTag(BaseModel):
-    """One computed label on a single TRIP -- see
-    data/scripts/multiple/classify_trip.py, run over every trip by
-    build_trips_enhanced.py.
+    """One computed label on a single TRIP -- from classify_trip.py.
 
-    Same shape as TravelerTag below, and for the same reason: a chip is a
-    chip wherever the UI meets it. The difference is scope -- a TravelerTag
-    describes a person's whole history ("United Loyalist"), a TripTag
-    describes one journey ("Ski Trip").
+    Run over every trip by build_trips_enhanced.py.
 
-    Tags are not mutually exclusive: a trip can carry several, and is meant
-    to. A July trip to Chile could be both a ski trip and summer travel.
+    - Same shape as TravelerTag, for the same reason: a chip is a chip wherever
+      the UI meets it. The difference is scope -- a TravelerTag describes a
+      person's whole history ("United Loyalist"), a TripTag one journey
+      ("Ski Trip").
+    - Tags are not mutually exclusive and are meant not to be: a July trip to
+      Chile can be both a ski trip and summer travel.
     """
 
     kind: str
@@ -335,26 +325,25 @@ class TripTag(BaseModel):
 
 
 class TravelerTrip(BaseModel):
-    """One trip from the traveler dataset. Every cost/date/duration is
-    carried BOTH parsed and raw on purpose -- see build_travelers.py: the
-    parsed value is for future scoring, the raw string is what the UI shows,
-    so a value in an unexpected format or currency degrades to "exactly what
-    the source said" instead of a confidently wrong number."""
+    """One trip from the traveler dataset.
+
+    Every cost, date and duration is carried BOTH parsed and raw on purpose
+    (see build_travelers.py): the parsed value is for future scoring, the raw
+    string is what the UI shows -- so an unexpected format or currency degrades
+    to "exactly what the source said" rather than a confidently wrong number."""
 
     trip_id: Optional[str]
     # The source's single free-text destination string, split by hand into a
-    # city and a sovereign country -- see
-    # data/scripts/multiple/build_trips_enhanced.py, which resolves
-    # "Sydney, Aus", "Tokyo" and "Honolulu, Hawaii" through a written table
-    # rather than by splitting on a comma.
+    # city and a sovereign country -- see build_trips_enhanced.py, which
+    # resolves "Sydney, Aus", "Tokyo" and "Honolulu, Hawaii" through a written
+    # table rather than by splitting on a comma.
     destination_raw: str
     # Null only when destination_kind is "country" (the source named no city).
     destination_city: Optional[str]
     destination_country: str
-    # ISO 3166-1 alpha-2 -- the join key every other dataset in this project
-    # is keyed by (weather, visas, UNESCO, Michelin, prices), which is what
-    # eventually makes "how good would this trip have been" answerable
-    # without a name match.
+    # ISO 3166-1 alpha-2 -- the join key every other dataset here uses
+    # (weather, visas, UNESCO, Michelin, prices), which is what eventually
+    # makes "how good would this trip have been" answerable without a name match.
     destination_country_code: str
     # "city", "region" (an island/state/province used as a destination, e.g.
     # Bali or Hawaii -- kept in destination_city but flagged so a later
@@ -372,84 +361,77 @@ class TravelerTrip(BaseModel):
     transportation_type: Optional[str]
     transportation_cost: Optional[float]
     transportation_cost_raw: Optional[str]
-    # True for hand-authored trips (data/scripts/multiple/build_synthetic_trips.py),
-    # false for the Kaggle rows. The three fields below are only set on the
-    # former: their itineraries are built on real airline routes, verified
-    # against US DOT T-100 data, so the carrier and airport codes are worth
-    # carrying. Defaulted so an older travelers.json without them still loads.
+    # True for hand-authored trips (build_synthetic_trips.py), false for Kaggle
+    # rows. The three fields below are only set on the former: their itineraries
+    # are built on real airline routes, verified against US DOT T-100, so the
+    # carrier and airport codes are worth carrying. Defaulted so an older
+    # travelers.json without them still loads.
     synthetic: bool = False
     carrier_name: Optional[str] = None
     origin_airport: Optional[str] = None
     destination_airport: Optional[str] = None
-    # True for a leg that's part of a longer journey but wasn't its point --
-    # Atlanta and Paris on a Houston-to-Lisbon trip, say (see
-    # data/scripts/multiple/chef_traveler.py). Only a hand-kept log can know
-    # this, so it's always False elsewhere. Defaulted for the same reason
-    # `synthetic` is: an older travelers.json without the field still loads.
-    # The row is still served here in full -- this flags it for a consumer
-    # (the Trips list, the airline/region charts) to exclude from AGGREGATES,
-    # it does not remove it from the response.
+    # True for a leg that is part of a longer journey but was not its point --
+    # Atlanta and Paris on a Houston-to-Lisbon trip (chef_traveler.py). Only a
+    # hand-kept log can know this, so it is always False elsewhere.
+    # THE ROW IS STILL SERVED IN FULL: this flags it for a consumer (the Trips
+    # list, the airline/region charts) to exclude from AGGREGATES, it does not
+    # remove it from the response.
     layover: bool = False
     # Computed per-trip labels (classify_trip.py). Empty for a trip with no
-    # destination airport or no parsed dates -- the Kaggle rows have no
-    # airport, and a tag there would assert something the source never said.
-    # Defaulted so an older travelers.json without the field still loads.
+    # destination airport or no parsed dates -- Kaggle rows have no airport, and
+    # a tag there would assert something the source never said.
     tags: list[TripTag] = []
-    # This trip's DESTINATION CITY's scores, joined on at request time from
-    # match_trip_cities.py's output plus the city data this API already
-    # loads. All three are Optional and null is a real, common state, not
-    # an error:
-    #   * unesco_score / michelin_score are null when the destination has
-    #     no city record at all (~23 destinations -- Punta Cana, Montego
-    #     Bay, Sarasota and other places below tourist_cities.json's
-    #     population cutoff), or when the trip records no city.
-    #   * weather_score is null for those AND for a matched city with no
-    #     weather normals (only 1,770 of 3,069 cities have them), and for a
-    #     trip with no parseable start date.
-    # A null must never be rendered as 0: a UNESCO score of 0.0 is a real
-    # value meaning "no World Heritage site within the 50km scoring radius"
-    # (true of 73 of the 138 cities these trips visit, Tokyo included).
+    # The DESTINATION CITY's scores, joined at request time from
+    # match_trip_cities.py plus the city data this API already loads. All three
+    # are Optional, and null is a real, common state rather than an error:
+    #
+    #   - unesco_score / michelin_score: null when the destination has no city
+    #     record (~23 destinations -- Punta Cana, Montego Bay, Sarasota and
+    #     others below tourist_cities.json's population cutoff), or the trip
+    #     records no city.
+    #   - weather_score: null for those, plus a matched city with no weather
+    #     normals (1,770 of 3,069 have them), plus an unparseable start date.
+    #
+    # A NULL MUST NEVER RENDER AS 0. A UNESCO score of 0.0 is a real value
+    # meaning "no World Heritage site within the 50km scoring radius" -- true of
+    # 73 of the 138 cities these trips visit, Tokyo included.
     unesco_score: Optional[float] = None
     michelin_score: Optional[float] = None
     # Date-dependent, so unlike the other two it is computed here rather
     # than looked up: the city's per-month 0-10 weather scores, averaged
     # against this trip's own dates (see scoring.month_weights).
     weather_score: Optional[float] = None
-    # Plog's PSYCHOCENTRIC end for this destination city, 0-1 (see
-    # data/scripts/multiple/plog_categorize.py), joined from the same
-    # trip_city_matches record as unesco_score/michelin_score. Null on the
-    # same ~23 destinations that have no city record. Stored as the
-    # psychocentric pole because that is what the scorer returns first; the
-    # allocentric pole is 1 - this, and the two are one number, not two.
+    # Plog's PSYCHOCENTRIC end for this city, 0-1 (plog_categorize.py), from the
+    # same trip_city_matches record as the scores above. Null on the same ~23
+    # destinations with no city record. Stored as the psychocentric pole because
+    # that is what the scorer returns first; the allocentric pole is 1 - this.
+    # One number, not two.
     plog_score: Optional[float] = None
-    # UN M49 geography for destination_country_code, joined on at request
-    # time (see data_loader.load_m49_regions). Null when m49_regions.json
-    # hasn't been built here, or when the destination country isn't in it --
-    # the charts drop those trips from their denominator rather than
-    # inventing an "Unknown" region, same convention as a trip with no
-    # carrier.
+    # UN M49 geography for destination_country_code, joined at request time (see
+    # data_loader.load_m49_regions). Null when m49_regions.json has not been
+    # built, or the country is not in it -- the charts drop those trips from
+    # their denominator rather than inventing an "Unknown" region, same
+    # convention as a trip with no carrier.
     destination_region: Optional[str] = None
-    # M49's INTERMEDIATE region where the country has one, else its
-    # sub-region -- 22 values, which is the tier that keeps Central America,
-    # the Caribbean and South America apart instead of merging them into
-    # "Latin America and the Caribbean".
+    # M49's INTERMEDIATE region where one exists, else the sub-region. 22
+    # values -- the tier that keeps Central America, the Caribbean and South
+    # America apart instead of merging them into "Latin America and the
+    # Caribbean".
     destination_subregion: Optional[str] = None
 
 
 class TravelerTag(BaseModel):
-    """One computed label on a traveler -- see
-    data/scripts/multiple/compute_traveler_tags.py.
+    """One computed label on a traveler -- from compute_traveler_tags.py.
 
-    A tag is a fact about the trips AS RECORDED, never something the
-    itinerary's author declared. Two travelers written as United loyalists
-    fly routes United doesn't serve and so aren't tagged; that disagreement
-    is the point of computing tags rather than storing them.
-
-    `share`, `trips` and `denominator` ride along with every tag so the UI can
-    show the arithmetic behind it. `denominator` is NOT the traveler's
-    trip_count: for airline_loyalist it counts only trips that record a
-    carrier at all (124 of 206 travelers record none), matching the
-    "Airlines flown" chart exactly."""
+    - A tag is a fact about the trips AS RECORDED, never something the
+      itinerary's author declared. Two travelers written as United loyalists
+      fly routes United does not serve and so are not tagged; that
+      disagreement is the point of computing tags rather than storing them.
+    - `share`, `trips` and `denominator` ride along so the UI can show the
+      arithmetic. `denominator` is NOT trip_count: for airline_loyalist it
+      counts only trips that record a carrier at all (124 of 206 travelers
+      record none), matching the "Airlines flown" chart exactly.
+    """
 
     # Stable machine id, e.g. "airline-loyalist:delta-air-lines-inc" -- built
     # from the full legal carrier name, so two airlines that shorten to the
@@ -460,14 +442,12 @@ class TravelerTag(BaseModel):
     kind: str
     # What gets drawn on the chip, e.g. "Delta Loyalist".
     label: str
-    # Rule-specific evidence. All optional because a future rule needn't
-    # have any of it -- a tag always has an id, kind and label, and nothing
-    # else is guaranteed.
+    # Rule-specific evidence, all optional -- a future rule need not have any.
+    # A tag always has an id, kind and label; nothing else is guaranteed.
     #
-    # The ONE airline this tag is about, or null when it isn't about one:
-    # "Multi Hub" leaves this null deliberately rather than naming the first
-    # of its airlines, so nothing downstream can mistake it for a
-    # single-airline tag.
+    # The ONE airline this tag is about, or null when it is not about one.
+    # "Multi Hub" leaves this null deliberately rather than naming the first of
+    # its airlines, so nothing downstream mistakes it for a single-airline tag.
     carrier_name: Optional[str] = None
     # Every airline the chip draws a dot for, as full legal names -- one
     # entry for a loyalist or single-airline hub tag, several for Multi Hub.
@@ -482,20 +462,21 @@ class TravelerTag(BaseModel):
     trips: Optional[int] = None
     denominator: Optional[int] = None
     # airline_hub / multi_hub: the home city that earned the tag, and the hub
-    # airports in it. The city is the unit -- every New Yorker is Multi Hub
-    # whether they fly EWR, JFK or LGA -- so the airports are context, not
-    # the thing matched on.
+    # airports in it. THE CITY IS THE UNIT -- every New Yorker is Multi Hub
+    # whether they fly EWR, JFK or LGA -- so the airports are context, not the
+    # thing matched on.
     hub_city: Optional[str] = None
     hub_airports: Optional[list[str]] = None
     # trip_pattern: which classify_trip.py tag kind earned this ("ski_trip").
-    # Its own field rather than something to parse out of tag_id, and the
-    # thing the chip's tooltip branches on. `trips` here is a COUNT that
-    # crossed a floor, not a share that crossed a threshold -- three ski
-    # trips make a skier whether the traveler took three trips or three
-    # hundred -- so `share` rides along for the tooltip and nothing keys on
-    # it. `denominator` is trips classify_trip.py could tag at all (a
-    # destination airport plus both dates), so zero there means "we could
-    # not tell", not "they never do this".
+    # Its own field rather than something parsed out of tag_id, and what the
+    # chip's tooltip branches on.
+    #
+    # `trips` here is a COUNT that crossed a floor, not a share that crossed a
+    # threshold -- three ski trips make a skier whether the traveler took three
+    # trips or three hundred -- so `share` is for the tooltip and nothing keys
+    # on it. `denominator` is trips classify_trip.py could tag at all (a
+    # destination airport plus both dates), so zero means "we could not tell",
+    # not "they never do this".
     trip_kind: Optional[str] = None
 
 
@@ -507,11 +488,11 @@ class TravelerSummary(BaseModel):
     traveler_id: str
     name: str
     nationality: Optional[str]
-    # INFERRED, never stated by the source: their nationality's country, and
-    # the first plausible home city in it that they didn't visit on any trip
-    # (an Australian who flew to Sydney three times gets Melbourne). See
-    # data/scripts/multiple/build_travelers.py's infer_base(). Null only for a
-    # nationality that script has no city list for.
+    # INFERRED, never stated by the source: their nationality's country, and the
+    # first plausible home city in it they did not visit on any trip (an
+    # Australian who flew to Sydney three times gets Melbourne). See
+    # build_travelers.py's infer_base(). Null only for a nationality that script
+    # has no city list for.
     base_city: Optional[str] = None
     base_country: Optional[str] = None
     base_country_code: Optional[str] = None
@@ -530,23 +511,23 @@ class TravelerSummary(BaseModel):
     # TravelerTrip.synthetic. Their name is their own rather than an author
     # persona (persona_match: "authored").
     synthetic: bool = False
-    # True for the handful of travelers who are a real, named person --
-    # Anthony Bourdain, Gordon Ramsay, Conan O'Brien, Eduardo Gomez -- rather
-    # than a fictional persona (hand-authored or anonymized) or a raw Kaggle
-    # row. See REAL_PERSON_TRAVELER_IDS: NOT derivable from `synthetic` or
+    # True for the handful of travelers who are a real named person, rather than
+    # a fictional persona (hand-authored or anonymized) or a raw Kaggle row. See
+    # REAL_PERSON_TRAVELER_IDS -- NOT derivable from `synthetic` or
     # `persona_match` above, since both are also true/"authored" for the 82
     # fictional hand-authored characters.
     real_person: bool = False
     trip_count: int
     destinations: list[str]
-    # Only present when travelers_anon.json is what's being served (see
-    # data_loader.resolve_travelers_path), and never rendered -- this is
-    # provenance, not page content.
-    # "nationality" (author matches the traveler's nationality and gender
-    # exactly), "region" (same broad literary region -- used where a
-    # nationality has too few deceased authors on record), or "unmapped" (name
-    # left as the source had it). Null when serving raw names. Carried through
-    # so an imperfect match is inspectable rather than invisible.
+    # Provenance, not page content -- present only when travelers_anon.json is
+    # being served (data_loader.resolve_travelers_path), and never rendered.
+    #
+    #   "nationality"  author matches the traveler's nationality and gender
+    #   "region"       same broad literary region, where a nationality has too
+    #                  few deceased authors on record
+    #   "unmapped"     name left as the source had it
+    #
+    # Null when serving raw names. Carried so an imperfect match is inspectable.
     persona_match: Optional[str] = None
     # Computed labels (see TravelerTag). ALWAYS a list, never null: an empty
     # list means "the rules ran and none matched", which is a real answer, and
@@ -570,15 +551,15 @@ class TravelerSummary(BaseModel):
 
 
 class DestinationEntropy(BaseModel):
-    """How spread out one traveler's trips are across destinations. See
-    data/scripts/multiple/compute_traveler_entropy.py, and data/README.md
-    for the derivation.
+    """How spread out one traveler's trips are across destinations.
 
-    Every numeric field here is Optional and that is load-bearing, not
+    See compute_traveler_entropy.py, and data/README.md for the derivation.
+
+    Every numeric field is Optional, and that is load-bearing rather than
     defensive: `entropy` is null for the 124 travelers whose trips record no
-    destination airport (the Kaggle-sourced ones). Null is NOT zero -- zero
-    would claim "never varies their destination" where the truth is "the
-    source doesn't say" -- so the page must render the two differently."""
+    destination airport (the Kaggle-sourced ones). NULL IS NOT ZERO -- zero
+    would claim "never varies their destination" where the truth is "the source
+    does not say" -- so the page must render the two differently."""
 
     # -sum(p ln p) in nats. 0.0 is a real value (every trip to one airport);
     # null means unknown.
@@ -607,27 +588,26 @@ class DestinationEntropy(BaseModel):
 
 
 class TravelerPreferences(BaseModel):
-    """A per-traveler DESTINATION PREFERENCE PROFILE -- a traveler-level
-    rollup of the same per-trip UNESCO/Michelin/weather scores and
+    """A per-traveler destination preference profile -- a rollup, not a new score.
+
+    Aggregates the same per-trip UNESCO/Michelin/weather scores and
     classify_trip.py tags the trip cards already show (see
-    _with_destination_scores and TravelerTrip.tags), not a new score.
-    Six dimensions today; the README TODO this implements names more
-    (food, architecture, nightlife...) that need datasets this project
-    doesn't have yet, so they're left for later rather than guessed at.
+    _with_destination_scores and TravelerTrip.tags).
 
-    Each dimension is the MEAN of that trip-level 0-10 score across every
-    non-layover trip that HAS one, rescaled to 0-1 (Ivan's example shape:
-    "food 0.92"). Simple mean, not weighted by recency or trip count --
-    the README TODO left that an open question and a plain mean is the
-    version that needs no further judgement call to defend.
-
-    null, not 0, when no trip has a score for that dimension -- a
-    Kaggle-sourced traveler whose one trip didn't match a city record gets
-    an all-null profile rather than an invented one, same "nothing
-    invented" rule as everywhere else in this project. The *_trips count
-    alongside each dimension is how many trips it was averaged over, so a
-    profile drawn from one trip is inspectable rather than reading the same
-    as one drawn from fifty."""
+    - Six dimensions today. The README TODO this implements names more (food,
+      architecture, nightlife) that need datasets this project does not have,
+      so they are left rather than guessed at.
+    - Each dimension is the MEAN of that trip-level 0-10 score over every
+      non-layover trip that has one, rescaled to 0-1. A plain mean, not
+      weighted by recency or trip count -- the README left that open, and a
+      plain mean needs no further judgement call to defend.
+    - **null, not 0**, when no trip has a score for that dimension. A
+      Kaggle-sourced traveler whose one trip matched no city gets an all-null
+      profile rather than an invented one.
+    - `*_trips` alongside each dimension is how many trips it averaged over, so
+      a profile drawn from one trip is inspectable rather than reading the same
+      as one drawn from fifty.
+    """
 
     unesco: Optional[float] = None
     michelin: Optional[float] = None
@@ -635,79 +615,74 @@ class TravelerPreferences(BaseModel):
     unesco_trips: int = 0
     michelin_trips: int = 0
     weather_trips: int = 0
-    # TWO DIMENSIONS OF A DIFFERENT KIND, added later. The three above are
-    # MEANS of a destination's 0-10 quality scores -- "how much UNESCO is
-    # where this person goes". These two are SHARES of the traveler's own
-    # trips -- "how much of this person's travel is a beach holiday". Both
-    # land on 0-1 and both are revealed preference read off the same trip
-    # history, which is why they sit on the same radar; but the number
-    # underneath is a proportion, not an average, so the UI names it that
-    # way (see PreferenceAxis.kind in travelerCharts.ts).
+    # TWO DIMENSIONS OF A DIFFERENT KIND. The three above are MEANS of a
+    # destination's 0-10 quality scores -- "how much UNESCO is where this person
+    # goes". These two are SHARES of the traveler's own trips -- "how much of
+    # this person's travel is a beach holiday". Both land on 0-1 and both are
+    # revealed preference from the same history, which is why they share a
+    # radar; but the number underneath is a proportion, not an average, so the
+    # UI names it that way (PreferenceAxis.kind in travelerCharts.ts).
     #
-    # The numerator is trips carrying classify_trip.py's beach_vacation /
-    # holiday_trip tag. The DENOMINATOR is not trip_count: it is the trips
-    # classify_trip could actually classify, which is the whole subtlety
-    # here. A trip with no destination airport or no parsed dates gets NO
-    # tags at all (see TravelerTrip.tags and classify_trip.tag_trips), so
-    # counting it in the denominator would read a missing airport as
-    # evidence of not liking beaches. 124 of this dataset's 263 travelers
-    # are Kaggle rows with no airport on any trip; dividing by trip_count
-    # would hand every one of them a confident 0.0. They get null instead,
-    # the same call the three dimensions above make.
+    # Numerator: trips carrying classify_trip.py's beach_vacation /
+    # holiday_trip tag. THE DENOMINATOR IS NOT trip_count -- it is the trips
+    # classify_trip could classify at all. A trip with no destination airport or
+    # no parsed dates gets NO tags, so counting it would read a missing airport
+    # as evidence of not liking beaches. 124 of 263 travelers are Kaggle rows
+    # with no airport on any trip; dividing by trip_count would hand every one
+    # of them a confident 0.0. They get null instead.
     holiday: Optional[float] = None
     beach: Optional[float] = None
     holiday_trips: int = 0
     beach_trips: int = 0
-    # PLOG, AND ONLY ONE POLE OF IT. Plog's scale is a single continuum, so
-    # psychocentric and allocentric always sum to 1. Exposing both as
-    # separate fields would invite plotting both, and a radar chart's spokes
-    # are read as independent dimensions -- two spokes that always sum to 1
-    # draw the same fact twice and give every polygon a symmetry that is an
-    # artefact of the encoding, not of the traveler. So one number is served.
+    # PLOG, AND ONLY ONE POLE OF IT. Plog's scale is one continuum, so
+    # psychocentric and allocentric always sum to 1. Exposing both would invite
+    # plotting both, and a radar's spokes read as independent dimensions -- two
+    # that always sum to 1 draw the same fact twice and give every polygon a
+    # symmetry that is an artefact of the encoding, not of the traveler.
     #
-    # The ALLOCENTRIC pole is the one kept, for two reasons: every other axis
-    # here reads "more is more of a trait", and allocentric is the trait that
-    # distinguishes (most travel goes to well-connected places, so a polygon
-    # that extends here is saying something unusual).
+    # THE ALLOCENTRIC POLE is the one kept: every other axis reads "more is more
+    # of a trait", and allocentric is the trait that distinguishes -- most
+    # travel goes to well-connected places, so a polygon extending here is
+    # saying something unusual.
     #
-    # It is the mean of (1 - plog_score) over non-layover trips that HAVE a
-    # score -- a mean like the first three, not a share like the two above.
+    # Mean of (1 - plog_score) over non-layover trips that have one -- a mean
+    # like the first three, not a share like the two above.
     allocentric: Optional[float] = None
     allocentric_trips: int = 0
 
 
 class TravelerDetail(TravelerSummary):
     trips: list[TravelerTrip]
-    # This traveler's destination preference profile (see
-    # TravelerPreferences), computed from the trips above -- always present
-    # as an object, never null itself, since it needs nothing precomputed
-    # to exist; individual dimensions are null when no trip has that score.
+    # This traveler's preference profile (see TravelerPreferences), computed
+    # from the trips above. Always present as an object, never null itself,
+    # since it needs nothing precomputed; individual dimensions are null when no
+    # trip has that score.
     preferences: Optional[TravelerPreferences] = None
-    # Null when compute_traveler_entropy.py hasn't been run in this checkout,
-    # which is distinct from "ran, but this traveler has no destination data"
-    # (that's a DestinationEntropy with entropy=None).
+    # Null when compute_traveler_entropy.py has not been run here -- distinct
+    # from "ran, but this traveler has no destination data", which is a
+    # DestinationEntropy with entropy=None.
     #
-    # BY DESTINATION AIRPORT. Null `entropy` inside it is the common case --
-    # 124 of 206 travelers record no airport at all.
+    # BY DESTINATION AIRPORT. A null `entropy` inside is the common case: 124 of
+    # 206 travelers record no airport at all.
     destination_entropy: Optional[DestinationEntropy] = None
-    # THE SAME MEASURE BY UN M49 DETAILED REGION. Deliberately a separate
-    # field rather than a variant of the one above: the two are on different
-    # scales and answer different questions ("does this person use different
-    # airports?" vs "does this person visit different parts of the world?"),
-    # so the page shows both, labelled, rather than picking one.
+    # THE SAME MEASURE BY M49 DETAILED REGION. A separate field rather than a
+    # variant of the one above: the two are on different scales and answer
+    # different questions ("does this person use different airports?" vs "does
+    # this person visit different parts of the world?"), so the page shows both,
+    # labelled, rather than picking one.
     #
-    # Its `normalized` divides by a FIXED 22 -- every M49 detailed region
-    # there is, not the 14 this dataset visits -- so the number doesn't
-    # rescale when a trip to a new region is added. `destination_unit` says
-    # which unit any given block came from.
+    # Its `normalized` divides by a FIXED 22 -- every M49 detailed region there
+    # is, not the 14 this dataset visits -- so the number does not rescale when
+    # a trip to a new region is added. `destination_unit` says which unit a
+    # given block came from.
     region_entropy: Optional[DestinationEntropy] = None
 
 
 class TravelersResponse(BaseModel):
-    # False when travelers.json hasn't been generated in this checkout (see
-    # data_loader.load_travelers). The distinction matters to the page: with
-    # this false, /rec-sys explains which scripts to run; with it true and an
-    # empty list, the data genuinely has no travelers in it.
+    # False when travelers.json has not been generated here (see
+    # data_loader.load_travelers). The distinction matters to the page: false
+    # means /rec-sys explains which scripts to run; true with an empty list
+    # means the data genuinely has no travelers.
     dataset_available: bool
     travelers: list[TravelerSummary]
 
@@ -715,11 +690,11 @@ class TravelersResponse(BaseModel):
 class TravelerRecommendation(BaseModel):
     """One suggested destination for one traveler.
 
-    `why` is not decoration and is not optional in spirit: a travel
-    recommendation nobody can check is unactionable, and the model files
-    make naming the evidence a requirement rather than a nice-to-have.
-    `source` says WHICH model produced this row (content / collaborative /
-    hybrid / popularity), so a list can be read as the mixture it is."""
+    - `why` is not decoration and not optional in spirit: a recommendation
+      nobody can check is unactionable, and the model files make naming the
+      evidence a requirement.
+    - `source` says WHICH model produced the row (content / collaborative /
+      hybrid / popularity), so a list can be read as the mixture it is."""
 
     destination_key: str
     destination_city: str
@@ -735,26 +710,22 @@ class TravelerRecommendation(BaseModel):
 
 
 class TravelerRecommendationsResponse(BaseModel):
-    """Recommendations for one traveler, or an honest account of why there
-    are none.
+    """Recommendations for one traveler, or an honest account of why there are none.
 
-    THIS ROUTE RETURNS 200 IN ALL THREE STATES ON PURPOSE. The frontend has
-    to tell "the recommender hasn't been built yet" apart from "the server
-    is broken", and an HTTP error code puts both in the same branch of a
-    fetch(). A 404 is still a 404 -- but only for a traveler_id that does
-    not exist, same as the detail route above.
+    **All three states return 200 on purpose.** The frontend has to tell "the
+    recommender has not been run" apart from "the server is broken", and an
+    HTTP error code puts both in the same branch of a fetch(). A 404 is still a
+    404 -- but only for a traveler_id that does not exist.
 
         ok             recommendations were generated for this traveler
-        not_generated  recommendations.json does not exist -- rec_sys_hybrid.py
-                       has not been run (today: it cannot be, its ranking
-                       logic is pseudocode). This is the current state.
-        unavailable    the file exists but has nothing for this traveler,
-                       e.g. the "neither" route with no fallback written
+        not_generated  recommendations.json does not exist -- run
+                       rec_sys_hybrid.py --write
+        unavailable    the file exists but has nothing for this traveler
 
-    `personalised` is separate from `status` for a reason the hybrid model
-    file argues at length: a popularity fallback is a legitimate answer with
-    status "ok", and the UI must be able to label it "popular right now"
-    rather than "for you"."""
+    `personalised` is separate from `status`: a popularity fallback is a
+    legitimate answer with status "ok", and the UI must be able to label it
+    "popular right now" rather than "for you".
+    """
 
     traveler_id: str
     status: str
@@ -773,10 +744,10 @@ class WeatherDetail(BaseModel):
     avg_low_c: float
     total_precipitation_mm: float
     avg_precipitation_hours_per_day: float
-    # Estimated rainy days DURING the trip itself (0..trip length), not a
-    # weighted average of each spanned month's own ~30-day count -- see
-    # scoring.resolve_rainy_days_estimate(). An estimate, not an integer
-    # count -- the frontend presents this as a range (e.g. "1-2 days").
+    # Estimated rainy days DURING the trip (0..trip length), not a weighted
+    # average of each spanned month's ~30-day count -- see
+    # scoring.resolve_rainy_days_estimate(). An estimate, not a count, so the
+    # frontend presents it as a range ("1-2 days").
     rainy_days: float
     avg_sunshine_hours: float
 
@@ -808,17 +779,15 @@ class CountryWeatherResponse(BaseModel):
 
 class VisaRequirementsResponse(BaseModel):
     departure_country: str
-    # The departure country's own label as it appears in
-    # visa_requirements.json (e.g. "Mexico") -- null (alongside an empty
-    # requirements dict) if `departure_country` isn't a code this project
-    # has visa data for, same "unknown, not a 404" convention
-    # /api/destinations/{country}/weather uses for missing weather.
+    # The departure country's own label from visa_requirements.json ("Mexico").
+    # Null, alongside an empty requirements dict, when `departure_country` is
+    # not a code this project has visa data for -- same "unknown, not a 404"
+    # convention the weather route uses.
     departure_country_name: Optional[str]
-    # destination iso2 -> requirement string (e.g. "VISA-FREE 90", "EVISA",
-    # "VISA REQUIRED"), passed through verbatim -- keyed by iso2 (not
-    # visa_requirements.json's own name label) so the frontend can join
-    # this against every other country-keyed response by code, see
-    # data_loader.load_visa_requirements()'s docstring.
+    # destination iso2 -> requirement string ("VISA-FREE 90", "EVISA", "VISA
+    # REQUIRED"), verbatim. Keyed by iso2 rather than visa_requirements.json's
+    # own name label so the frontend can join it against every other
+    # country-keyed response by code -- see data_loader.load_visa_requirements().
     requirements: dict[str, str]
 
 
@@ -885,10 +854,10 @@ def health():
         "traveler_entropy_loaded": (
             len(TRAVELER_ENTROPY["by_traveler"]) if TRAVELER_ENTROPY is not None else None
         ),
-        # Which of the two traveler files is actually being served --
-        # "travelers_anon.json" (author personas) or "travelers.json" (the
-        # source's own names). Worth reporting: they're interchangeable at
-        # the API level, so this is the only way to tell from outside.
+        # Which traveler file is being served -- "travelers_anon.json" (author
+        # personas) or "travelers.json" (the source's names). Worth reporting:
+        # they are interchangeable at the API level, so this is the only way to
+        # tell from outside.
         "travelers_source": resolve_travelers_path().name if resolve_travelers_path() else None,
         "city_clusters": len(set(CITY_CLUSTER_REPRESENTATIVES.values())),
         "countries_with_visa_requirements": len(VISA_REQUIREMENTS),
@@ -897,17 +866,15 @@ def health():
 
 @app.get("/api/trips/by-month", response_model=TripsByMonthResponse)
 def trips_by_month():
-    """Every trip bucketed by the calendar month it departed, across all years.
+    """Every trip bucketed by departure month, across all years.
 
-    Aggregated here rather than in the client: /api/travelers ships every
-    traveler with every trip nested, and a page that only wants twelve numbers
-    should not download megabytes to count them.
-
-    Two counts per month. `trips` is everything; `trips_excluding_layovers`
-    drops rows flagged `layover` -- a leg that was part of a longer journey but
-    wasn't its point. Only 4 rows are flagged, so the two series are nearly
-    identical, but this project's convention is that AGGREGATES exclude them
-    (see TravelerTrip.layover), and a chart is an aggregate.
+    - Aggregated here rather than client-side: /api/travelers ships every
+      traveler with every trip nested, and a page that wants twelve numbers
+      should not download megabytes to count them.
+    - Two counts per month. `trips` is everything; `trips_excluding_layovers`
+      drops rows flagged `layover`. Only 4 rows are flagged, so the series are
+      nearly identical -- but this project's convention is that AGGREGATES
+      exclude them (see TravelerTrip.layover), and a chart is an aggregate.
     """
     counts = {month: 0 for month in range(1, 13)}
     counts_no_layover = {month: 0 for month in range(1, 13)}
@@ -947,10 +914,11 @@ def trips_by_month():
 
 @app.get("/api/beaches", response_model=BeachesResponse)
 def beaches():
-    """Every ocean beach, for the /beaches map. Served whole rather than
-    paged or bbox-queried: it is ~11.8k rows, the map draws all of them at
-    once, and a filtered endpoint would need the client to say what it is
-    looking at before it can draw anything."""
+    """Every ocean beach, for the /beaches map.
+
+    Served whole rather than paged or bbox-queried: ~11.8k rows, the map draws
+    all of them at once, and a filtered endpoint would need the client to say
+    what it is looking at before it could draw anything."""
     rows = BEACHES if BEACHES is not None else []
     return {"available": BEACHES is not None, "total": len(rows), "beaches": rows}
 
@@ -1010,34 +978,28 @@ def top_city_destinations(
     start_date: Optional[date] = Query(None, description="Trip start date, YYYY-MM-DD. Omit for a date-less (no weather) ranking."),
     end_date: Optional[date] = Query(None, description="Trip end date, YYYY-MM-DD. Omit for a date-less (no weather) ranking."),
 ):
-    """City-level equivalent of /api/destinations/top10 -- same
-    combine_domain_scores() math, same "average of whichever domains are
-    available" rule, just run over ~3,069 cities (STATIC_CITY_SCORES)
-    instead of ~240 countries.
+    """City-level equivalent of /api/destinations/top10, over ~3,069 cities.
 
-    Unlike the country endpoint, start_date/end_date are OPTIONAL here
-    (both required if either is given). The country version doesn't need
-    that: with no dates, the frontend fetches
-    OVERARCHING_TRIP_SCORE_BY_COUNTRY.json (48KB) directly from GitHub
-    and sorts client-side, skipping this API entirely. That same static
-    path isn't viable for cities -- tourist_cities_enhanced.json is 27MB
-    -- so this one endpoint has to serve BOTH the static and date-aware
-    cases; the static case just runs combine_domain_scores() with
-    weather_score=None for every city, same "average of 3, not 4"
-    behavior /api/destinations/top10 already has for any country missing
-    weather data.
+    Same combine_domain_scores() math and same "average of whichever domains
+    are available" rule, run over STATIC_CITY_SCORES instead of ~240 countries.
 
-    Diversity guard: only cities that ARE their own geographic cluster's
-    representative (CITY_CLUSTER_REPRESENTATIVES[city_id] == city_id --
-    see data_loader.load_city_cluster_representatives()) are scored and
-    returned at all. Without this, the top 10 was dominated by single
-    metro areas -- 11 of the top 12 by static score were Osaka-area
-    suburbs sharing nearly the same nearby UNESCO/Michelin density.
-    Non-representative cities (e.g. Higashi-osaka, absorbed into Osaka)
-    simply never appear in this endpoint's results; the representative's
-    OWN score is used for ranking, not borrowed from whichever cluster
-    member scored highest, so a result never shows a number that isn't
-    genuinely that city's own."""
+    - **Dates are OPTIONAL here** (both required if either is given), unlike
+      the country endpoint. That one does not need them: with no dates the
+      frontend fetches the 48KB country JSON from GitHub and sorts client-side,
+      skipping this API. That path is not viable for cities -- the source is
+      27MB -- so this one endpoint serves both the static and date-aware cases.
+      The static case runs combine_domain_scores() with weather_score=None,
+      i.e. the same "average of 3, not 4" the country route already does for
+      any country missing weather.
+    - **Diversity guard:** only cities that are their own cluster's
+      representative are scored or returned (CITY_CLUSTER_REPRESENTATIVES; see
+      data_loader.load_city_cluster_representatives()). Without it the top 10
+      was one metro area -- 11 of the top 12 by static score were Osaka-area
+      suburbs sharing nearly the same UNESCO/Michelin density.
+    - The representative's OWN score is used for ranking, never borrowed from
+      whichever cluster member scored highest, so a result never shows a number
+      that is not genuinely that city's.
+    """
     if (start_date is None) != (end_date is None):
         raise HTTPException(status_code=400, detail="start_date and end_date must be provided together, or not at all")
     if start_date is not None and end_date is not None and end_date < start_date:
@@ -1082,18 +1044,21 @@ def top_city_destinations(
 
 
 def city_attractions(city_id: str):
-    """Returns a lookup for one city's attraction categories:
-    `attractions("zoo_aquarium")` -> NearbyPlaces, or None if the dataset
-    isn't loaded at all.
+    """Lookup for one city's attraction categories, or None if the dataset is absent.
 
-    The null-vs-empty distinction is the whole point of this helper, so it
-    lives in one place rather than being repeated per category:
-      * dataset absent  -> None for every category ("we haven't looked").
-      * dataset present, city has no entry for this category -> an EMPTY
-        NearbyPlaces ("we looked, there's nothing within the radius").
-    A city can be missing from the dataset's `cities` map entirely and still
-    get the empty form -- build_city_attractions.py omits cities with nothing
-    in any category, which means the same thing as an empty category."""
+    `attractions("zoo_aquarium")` -> NearbyPlaces.
+
+    The null-vs-empty distinction is the whole point, so it lives here rather
+    than being repeated per category:
+
+    - dataset absent -> None for every category ("we have not looked")
+    - dataset present, no entry for this category -> an EMPTY NearbyPlaces
+      ("we looked, nothing within the radius")
+
+    A city missing from the dataset's `cities` map still gets the empty form:
+    build_city_attractions.py omits cities with nothing in any category, which
+    means the same thing.
+    """
     if CITY_ATTRACTIONS is None:
         return lambda category: None
 
@@ -1112,24 +1077,24 @@ def city_attractions(city_id: str):
 
 @app.get("/api/destinations/cities/{city_id}", response_model=CityDetailResponse)
 def city_destination_detail(city_id: str):
-    """Everything CityDetail.tsx renders for one city: where it is, the
-    UNESCO World Heritage Sites and Michelin Guide restaurants within
-    CITY_DETAIL_RADIUS_KM (100km) named individually, and its three
-    static domain scores. Weather is a separate route (it needs a date
-    range); art museums aren't here at all -- that dataset is small and
-    country-keyed, so the frontend already fetches it directly from
-    GitHub the same way DestinationDetail does.
+    """Everything CityDetail.tsx renders for one city.
 
-    `city_id` is a simplemaps_id as a string, exactly as
-    /api/destinations/cities/top10 returns it. Unlike the "unknown, not a
-    404" convention the weather/visa routes use for *missing data about a
-    valid place*, an unrecognized city_id genuinely is a 404 here: it
-    isn't a city this project knows about at all, so there's no partial
-    answer to give.
+    Location, the UNESCO sites and Michelin restaurants within
+    CITY_DETAIL_RADIUS_KM (100km) named individually, and the three static
+    domain scores.
 
-    Declared after cities/top10 so that literal path keeps matching first
-    -- FastAPI resolves routes in declaration order, and "top10" would
-    otherwise be swallowed by {city_id}."""
+    - Weather is a separate route (it needs a date range). Art museums are not
+      here at all -- that dataset is small and country-keyed, so the frontend
+      fetches it from GitHub the way DestinationDetail does.
+    - `city_id` is a simplemaps_id as a string, exactly as cities/top10 returns
+      it.
+    - **An unknown city_id genuinely is a 404**, unlike the "unknown, not a
+      404" convention the weather and visa routes use for missing data about a
+      valid place: this is not a city the project knows at all, so there is no
+      partial answer.
+    - Declared after cities/top10 so that literal path matches first -- FastAPI
+      resolves in declaration order and "top10" would be swallowed by {city_id}.
+    """
     detail = CITY_DETAILS.get(city_id)
     if detail is None:
         raise HTTPException(status_code=404, detail=f"No city with id {city_id!r}")
@@ -1170,16 +1135,15 @@ def city_weather(
     start_date: date = Query(..., description="Trip start date, YYYY-MM-DD"),
     end_date: date = Query(..., description="Trip end date, YYYY-MM-DD"),
 ):
-    """City-level equivalent of /api/destinations/{country}/weather --
-    same day-weighted averaging and same trip-length-scaled rainy-day
-    estimate, just read from this city's own normals instead of its
-    country's primary capital's. No capital_city field in the response,
-    for that reason: there's no proxy city to disclose, the numbers are
-    the city's own.
+    """City-level equivalent of /api/destinations/{country}/weather.
 
-    404s on an unknown city_id (same reasoning as
-    city_destination_detail() above), but returns `weather: null` for a
-    known city whose normals simply haven't been pulled yet."""
+    Same day-weighted averaging and trip-length-scaled rainy-day estimate, read
+    from this city's own normals rather than its country's capital's.
+
+    - No `capital_city` field, for that reason: there is no proxy to disclose.
+    - 404 on an unknown city_id (same reasoning as city_destination_detail),
+      but `weather: null` for a known city whose normals have not been pulled.
+    """
     if city_id not in CITY_DETAILS:
         raise HTTPException(status_code=404, detail=f"No city with id {city_id!r}")
     if end_date < start_date:
@@ -1209,17 +1173,18 @@ def country_weather(
     start_date: date = Query(..., description="Trip start date, YYYY-MM-DD"),
     end_date: date = Query(..., description="Trip end date, YYYY-MM-DD"),
 ):
-    """Day-weighted average of a single country's raw weather metrics
-    (avg high/low temp, precipitation, sunshine hours) over a trip's date
-    range, plus a trip-length-scaled rainy-day estimate (see
-    scoring.resolve_rainy_days_estimate -- NOT a plain weighted average
-    of each month's own day count, which would make a short trip show
-    more "rainy days" than it actually has) -- for display
-    (DestinationDetail's "Daily Sunlight Hours" etc.), not scoring.
-    `country` is an ISO 3166-1 alpha-2 code, case-insensitive. `weather`
-    is null (not a 404) for a valid-looking code this project simply has
-    no weather data for yet -- same "unknown, not bad" convention as
-    /api/destinations/top10's weather_score."""
+    """One country's raw weather metrics, day-weighted over a trip's date range.
+
+    Avg high/low temp, precipitation, sunshine hours, plus a trip-length-scaled
+    rainy-day estimate. For DISPLAY ("Daily Sunlight Hours"), not scoring.
+
+    - The rainy-day figure is scoring.resolve_rainy_days_estimate(), NOT a
+      plain weighted average of each month's own count -- that would make a
+      short trip show more rainy days than it has.
+    - `country` is an ISO 3166-1 alpha-2 code, case-insensitive.
+    - `weather` is null, not a 404, for a valid-looking code with no data yet --
+      same "unknown, not bad" convention as top10's weather_score.
+    """
     if end_date < start_date:
         raise HTTPException(status_code=400, detail="end_date must be on or after start_date")
 
@@ -1244,18 +1209,16 @@ def country_weather(
 
 @app.get("/api/travelers", response_model=TravelersResponse)
 def travelers():
-    """Every traveler in the dataset, without their trips -- the /rec-sys
-    card grid. Already ordered most-trips-first by build_travelers.py, and
-    not re-sorted here so the page's ordering has exactly one source of
-    truth.
+    """Every traveler, without their trips -- the /rec-sys card grid.
 
-    No pagination: this is 139 trips' worth of travelers, and the whole point
-    of the page is showing all of them at once. Revisit if the dataset is
-    ever swapped for a real one.
-
-    `dataset_available: false` with an empty list means travelers.json hasn't
-    been generated here -- see load_travelers(). That's deliberately NOT a
-    500 or an empty 200: the page tells the user which scripts to run."""
+    - Already ordered most-trips-first by build_travelers.py and not re-sorted
+      here, so the page's ordering has one source of truth.
+    - No pagination: the point of the page is showing all of them at once.
+      Revisit if the dataset is ever swapped for a real one.
+    - `dataset_available: false` with an empty list means travelers.json has
+      not been generated (see load_travelers()). Deliberately not a 500 or a
+      bare empty 200 -- the page tells the user which scripts to run.
+    """
     if TRAVELERS is None:
         return TravelersResponse(dataset_available=False, travelers=[])
 
@@ -1274,11 +1237,11 @@ def travelers():
 
 
 def _region_entropy_normalized(traveler_id: str) -> Optional[float]:
-    """The region-entropy figure the /rec-sys grid filters on, or None when
-    that file hasn't been built. Deliberately routed through
-    _destination_entropy() rather than reading the row directly, so the
-    number on a card is by construction the number on that traveler's own
-    page."""
+    """The region-entropy figure the /rec-sys grid filters on, or None if unbuilt.
+
+    Routed through _destination_entropy() rather than reading the row directly,
+    so the number on a card is by construction the number on that traveler's
+    own page."""
     entropy = _destination_entropy(traveler_id, TRAVELER_ENTROPY_REGION)
     return entropy.normalized if entropy is not None else None
 
@@ -1286,9 +1249,9 @@ def _region_entropy_normalized(traveler_id: str) -> Optional[float]:
 def _with_regions(trip: dict) -> dict:
     """A trip dict plus its destination's M49 region and detailed region.
 
-    Returns the trip unchanged when the lookup isn't loaded or the country
-    isn't in it, leaving both fields null -- which is what the charts treat
-    as "not classifiable", as distinct from a region named "Unknown"."""
+    Returns the trip unchanged when the lookup is not loaded or the country is
+    not in it, leaving both null -- which the charts treat as "not
+    classifiable", as distinct from a region named "Unknown"."""
     if M49_REGIONS is None:
         return trip
     code = (trip.get("destination_country_code") or "").upper()
@@ -1303,21 +1266,18 @@ def _with_regions(trip: dict) -> dict:
 
 
 def _with_destination_scores(trip: dict) -> dict:
-    """A trip dict plus its destination city's UNESCO/Michelin scores and a
-    weather score resolved against the trip's OWN dates.
+    """A trip dict plus its city's UNESCO/Michelin scores and a date-resolved weather score.
 
-    Returns the trip unchanged when the match file isn't loaded or this
-    destination isn't in it, leaving all three null -- which the trip card
-    reads as "nothing to show" rather than as a zero. Each of the three is
-    filled in independently: a matched city with no weather normals still
-    carries UNESCO and Michelin.
-
-    THE 0-DAY RULE (Ivan's): a trip whose end date is missing, unparseable
-    or before its start date is treated as ONE day, i.e. the start date
-    alone. month_weights() rejects a reversed range outright, and a trip
-    that lands after midnight legitimately records a 1-day duration (see
-    the Gomez flight log), so this is the difference between a weather
-    score and a 500.
+    - Returns the trip unchanged when the match file is not loaded or the
+      destination is not in it, leaving all three null -- which the trip card
+      reads as "nothing to show", not as a zero.
+    - Each of the three fills in independently: a matched city with no weather
+      normals still carries UNESCO and Michelin.
+    - **THE 0-DAY RULE (Ivan's):** a trip whose end date is missing,
+      unparseable, or before its start is treated as ONE day -- the start date
+      alone. month_weights() rejects a reversed range outright, and a trip
+      landing after midnight legitimately records a 1-day duration (see the
+      Gomez log), so this is the difference between a weather score and a 500.
     """
     if TRIP_CITY_MATCHES is None:
         return trip
@@ -1354,23 +1314,23 @@ def _with_destination_scores(trip: dict) -> dict:
 
 
 def _preferences(scored_trips: list[dict]) -> TravelerPreferences:
-    """This traveler's destination preference profile (see
-    TravelerPreferences), from trips that already carry unesco_score /
-    michelin_score / weather_score -- i.e. the SAME list passed to
-    TravelerDetail.trips, after _with_destination_scores. Computing it here
-    rather than in an offline script (unlike tags/entropy) is deliberate:
-    unlike those, nothing here needs cross-traveler context (a global K, a
-    T-100 volume table) -- it's a plain mean over trips this function
-    already has in hand, so precomputing it would only add a file to keep
-    in sync with match_trip_cities.py's output.
+    """This traveler's destination preference profile (see TravelerPreferences).
 
-    Layover legs are excluded, same convention as entropy/tags: Atlanta on
-    a Houston-to-Lisbon trip isn't a destination whose scores should count
-    toward the profile any more than it counts toward trip_count.
+    Built from trips already carrying unesco/michelin/weather scores -- the
+    SAME list passed to TravelerDetail.trips, after _with_destination_scores.
 
-    The holiday/beach dimensions are shares rather than means -- see
-    TravelerPreferences -- and share the layover exclusion but not the
-    denominator: theirs is _classifiable trips_, not trips with a score."""
+    - **Computed here rather than offline**, unlike tags and entropy, because
+      nothing here needs cross-traveler context (a global K, a T-100 volume
+      table). It is a plain mean over trips this function already holds, so
+      precomputing would only add a file to keep in sync with
+      match_trip_cities.py.
+    - Layover legs are excluded, same convention as entropy and tags: Atlanta
+      on a Houston-to-Lisbon trip is not a destination whose scores should
+      count any more than it counts toward trip_count.
+    - The holiday/beach dimensions are shares, not means (see
+      TravelerPreferences). They share the layover exclusion but not the
+      denominator: theirs is CLASSIFIABLE trips, not trips with a score.
+    """
     sums = {"unesco": 0.0, "michelin": 0.0, "weather": 0.0, "allocentric": 0.0}
     counts = {"unesco": 0, "michelin": 0, "weather": 0, "allocentric": 0}
     tagged = {"holiday": 0, "beach": 0}
@@ -1385,11 +1345,10 @@ def _preferences(scored_trips: list[dict]) -> TravelerPreferences:
                 sums[dim] += value
                 counts[dim] += 1
 
-        # Flipped to the allocentric pole on the way in, so the mean below is
-        # a mean of allocentric values rather than 1 minus a mean of
-        # psychocentric ones. Those happen to be equal for a plain mean, but
-        # only for a plain mean -- doing it here keeps that from becoming a
-        # trap if this is ever weighted.
+        # Flipped to the allocentric pole on the way in, so the mean below is a
+        # mean of allocentric values rather than 1 minus a mean of psychocentric
+        # ones. Equal for a plain mean, but only for a plain mean -- doing it
+        # here keeps that from becoming a trap if this is ever weighted.
         plog = trip.get("plog_score")
         if isinstance(plog, (int, float)):
             sums["allocentric"] += 1.0 - plog
@@ -1439,14 +1398,14 @@ def _tags(traveler_id: str) -> list[TravelerTag]:
 def _destination_entropy(
     traveler_id: str, source: Optional[dict] = None
 ) -> Optional[DestinationEntropy]:
-    """This traveler's entropy row for one unit, or None if that file isn't
-    there. `source` is a loaded entropy payload -- the airport one by default,
-    or the region one.
+    """This traveler's entropy row for one unit, or None if that file is absent.
 
-    A traveler present in TRAVELERS but absent from the entropy file means
-    the two were generated at different times -- treated as "not computed"
-    rather than filled with zeros, for the same reason the null/zero
-    distinction matters everywhere else in this block."""
+    `source` is a loaded entropy payload -- the airport one by default, or the
+    region one.
+
+    A traveler present in TRAVELERS but absent from the entropy file means the
+    two were generated at different times. Treated as "not computed" rather
+    than filled with zeros, same null/zero rule as everywhere in this block."""
     source = TRAVELER_ENTROPY if source is None else source
     if source is None:
         return None
@@ -1471,16 +1430,16 @@ def _destination_entropy(
 def traveler_detail(traveler_id: str):
     """One traveler and every trip they took.
 
-    404 on an unknown traveler_id, and also when the dataset isn't loaded at
-    all -- same reasoning as the city routes: an id this project can't
-    resolve has no partial answer to give. The list route above is where the
-    "dataset not generated" case is communicated, since that's the page
-    someone lands on first; getting here with a real id but no dataset means
-    a stale bookmark, which reads as "not found" anyway.
-
-    `traveler_id` is build_travelers.py's slug (e.g. "john-smith-american"),
-    derived from the name and nationality it grouped on -- so the URL shows
-    which two fields decided that this person is one person."""
+    - 404 on an unknown traveler_id, and also when the dataset is not loaded --
+      same reasoning as the city routes: an id this project cannot resolve has
+      no partial answer. The list route communicates the "dataset not
+      generated" case, since that is the page someone lands on first; getting
+      here with a real id and no dataset means a stale bookmark, which reads as
+      not-found anyway.
+    - `traveler_id` is build_travelers.py's slug ("john-smith-american"),
+      derived from the name and nationality it grouped on -- so the URL shows
+      which two fields decided that this person is one person.
+    """
     traveler = TRAVELERS.get(traveler_id) if TRAVELERS else None
     if traveler is None:
         raise HTTPException(status_code=404, detail=f"No traveler with id {traveler_id!r}")
@@ -1502,20 +1461,16 @@ def traveler_detail(traveler_id: str):
 def traveler_recommendations(traveler_id: str, limit: int = Query(3, ge=1, le=10)):
     """Up to `limit` destinations this traveler has not been to.
 
-    READS A PRECOMPUTED FILE, computes nothing. Same offline/online split as
-    tags and entropy: ranking 222 candidates against a taste vector is
-    pipeline work, and doing it per request would put the one expensive
-    thing this API avoids back into the request path. rec_sys_hybrid.py
-    writes recommendations.json; this route serves it.
+    **READS A PRECOMPUTED FILE, COMPUTES NOTHING.** Same offline/online split
+    as tags and entropy: ranking 224 candidates against a taste vector is
+    pipeline work, and doing it per request would put the one expensive thing
+    this API avoids back into the request path. rec_sys_hybrid.py --write
+    produces recommendations.json; this route serves it.
 
-    **It serves nothing today**, because that script's ranking logic is
-    still pseudocode -- so every call returns status "not_generated" with an
-    empty list. That is the designed behaviour, not a bug to work around:
-    the button, the fetch, the loading state and the empty state are all
-    exercised by it, and the day the model lands, the same response shape
-    starts carrying rows.
-
-    404 only for an unknown traveler_id, matching /api/travelers/{id}."""
+    - Status is "not_generated" when that file is absent, so the button, the
+      fetch and the empty state all work before the file exists.
+    - 404 only for an unknown traveler_id, matching /api/travelers/{id}.
+    """
     if not TRAVELERS or traveler_id not in TRAVELERS:
         raise HTTPException(status_code=404, detail=f"No traveler with id {traveler_id!r}")
 
@@ -1558,17 +1513,18 @@ def traveler_recommendations(traveler_id: str, limit: int = Query(3, ge=1, le=10
 
 @app.get("/api/destinations/{departure_country}/visa-requirements", response_model=VisaRequirementsResponse)
 def visa_requirements(departure_country: str):
-    """All of a departure country's visa requirements against every other
-    country, e.g. `/api/destinations/MX/visa-requirements` returns every
-    entry visa_requirements.json has filed under "Mexico" (its own key),
-    keyed by destination iso2 rather than the file's own name labels --
-    see data_loader.load_visa_requirements() for why (short version: this
-    file's destination names don't string-match this project's own
-    country_name values elsewhere, but both resolve to the same iso2).
-    `departure_country` is an ISO 3166-1 alpha-2 code, case-insensitive.
-    `requirements` is an empty dict (not a 404) for a valid-looking code
-    this project simply has no visa data for -- same "unknown, not bad"
-    convention as /api/destinations/{country}/weather's null weather."""
+    """All of a departure country's visa requirements against every other country.
+
+    `/api/destinations/MX/visa-requirements` returns every entry
+    visa_requirements.json files under "Mexico".
+
+    - **Keyed by destination iso2**, not the file's own name labels: those do
+      not string-match this project's country_name values elsewhere, though
+      both resolve to the same iso2. See data_loader.load_visa_requirements().
+    - `departure_country` is an ISO 3166-1 alpha-2 code, case-insensitive.
+    - `requirements` is an empty dict, not a 404, for a valid-looking code with
+      no visa data -- same "unknown, not bad" convention as the weather route.
+    """
     iso2 = departure_country.upper()
     entry = VISA_REQUIREMENTS.get(iso2)
 

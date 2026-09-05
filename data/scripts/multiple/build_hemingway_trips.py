@@ -90,9 +90,34 @@ HOLIDAY_WINDOW = {
     "Christmas": (3, 5),
 }
 
-# The holidays classify_trip.py already recognises. Trips for these should come
-# back tagged "Holiday Trip"; the other seven have no rule yet and will not.
+# The holidays classify_trip.py already recognises. Trips for these come back
+# tagged "Holiday Trip"; the other seven have no rule yet and will not. This is
+# a FACT about classify_trip.py -- see HOME_HOLIDAYS below for the policy that
+# used to be conflated with it.
 CLASSIFIED_HOLIDAYS = ("Thanksgiving", "Christmas")
+
+# Which holidays every traveler flies HOME for. Empty since 2026-09-01, which
+# turns off 140 trips (14 travelers x 2 holidays x 5 years) that were all
+# landing in November and December.
+#
+# WHY, and it is the argument this file's own docstring already makes: the
+# dataset's holiday travel was "almost entirely Thanksgiving and Christmas",
+# and these fourteen exist to supply the OTHER seven. Then they went and added
+# 140 more Thanksgiving and Christmas trips on top -- half of everything this
+# builder produced was the thing it was written to counterbalance.
+#
+# Measured against FRED's ENPLANE series, the whole dataset was running 11.9%
+# of its trips in each of November and December where real US enplanements run
+# 7.7% and 8.4%; these 140 were the single largest identifiable block of that
+# excess. Removing them plus adding build_offpeak_trips.py's 240 shoulder-season
+# trips moves the dataset's total variation distance from FRED from 9.9% to
+# ~3.5%.
+#
+# SET IT BACK TO CLASSIFIED_HOLIDAYS TO RESTORE THEM -- the machinery below is
+# untouched and `home` is still on every traveler, so this is one line either
+# way. It is a policy about how much of the dataset should be holiday-shaped,
+# not a claim about the holidays themselves.
+HOME_HOLIDAYS: tuple[str, ...] = ()
 
 
 def nth_weekday(year, month, weekday, n):
@@ -133,10 +158,12 @@ def holiday_dates(years):
 # calendar as everyone else; all seven are covered by at least three people.
 #
 # "home" is (destination airport, carrier) and is separate because it works
-# differently: EVERY traveler flies there for BOTH Thanksgiving and Christmas,
-# every year. That is the pattern those two holidays actually have -- people go
-# to the same place twice, six weeks apart, and it is the same place every
-# year. Encoding it as two more entries in "trips" would have hidden that.
+# differently: every traveler flies there for each holiday in HOME_HOLIDAYS,
+# every year. That is the pattern Thanksgiving and Christmas actually have --
+# people go to the same place twice, six weeks apart, and it is the same place
+# every year. Encoding it as two more entries in "trips" would have hidden that.
+# HOME_HOLIDAYS is currently empty, so no home trips are built and this field is
+# carried but unused; see that constant for why, and for how to turn it back on.
 TRAVELERS = [
     {"name": "Nick Adams", "id_prefix": "HNA", "gender": "Male", "age": 29,
      "base": ("Chicago", "ORD"), "hotel": 900.0, "flight": 260.0,
@@ -208,13 +235,17 @@ CSV_COLUMNS = ["trip_id", "traveler_name", "holiday", "holiday_date", "start_dat
 
 def itinerary(traveler):
     """Every (holiday, destination, carrier) this traveler flies in a year:
-    their two or three signature holidays, then the trip home for Thanksgiving
-    and again for Christmas. Both check_routes() and build_rows() go through
-    here, so a route can never be validated and then not built, or vice versa."""
+    their two or three signature holidays, then a trip home for each holiday in
+    HOME_HOLIDAYS. Both check_routes() and build_rows() go through here, so a
+    route can never be validated and then not built, or vice versa.
+
+    HOME_HOLIDAYS is empty today, so this returns the signature holidays alone
+    and `home` goes unused -- deliberately kept rather than deleted, so turning
+    the home trips back on is one line. See that constant."""
     home_airport, home_carrier = traveler["home"]
     return [
         *traveler["trips"],
-        *((holiday, home_airport, home_carrier) for holiday in CLASSIFIED_HOLIDAYS),
+        *((holiday, home_airport, home_carrier) for holiday in HOME_HOLIDAYS),
     ]
 
 

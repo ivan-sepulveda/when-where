@@ -3,6 +3,14 @@ anthony-bourdain,Anthony Bourdain,201,201,19,Northern America,0.2388,2.534,True,
 conan-o-brien,Conan O'Brien,17,17,9,Western Europe,0.1765,2.1193,True,0.6856,0.9645,0.748
 stan-getz,Stan Getz,30,30,5,Southern Europe,0.3,1.4756,True,0.4774,0.9168,0.4774
 gordon-ramsay,Gordon Ramsay,15,15,6,Northern America,0.5333,1.4142,True,0.4575,0.7893,0.5222
+captain-nemo,Captain Nemo,25,25,4,Southern Europe,0.4,1.3322,True,0.431,0.961,0.431
+impey-barbicane,Impey Barbicane,25,25,4,Central America,0.4,1.3322,True,0.431,0.961,0.431
+mary-grant,Mary Grant,25,25,4,Southern Europe,0.4,1.3322,True,0.431,0.961,0.431
+michel-ardan,Michel Ardan,25,25,4,Western Europe,0.4,1.3322,True,0.431,0.961,0.431
+ned-land,Ned Land,25,25,4,Southern Europe,0.4,1.3322,True,0.431,0.961,0.431
+otto-lidenbrock,Otto Lidenbrock,25,25,4,Northern Europe,0.4,1.3322,True,0.431,0.961,0.431
+phileas-fogg,Phileas Fogg,25,25,4,Southern Europe,0.4,1.3322,True,0.431,0.961,0.431
+pierre-aronnax,Pierre Aronnax,25,25,4,Northern Europe,0.4,1.3322,True,0.431,0.961,0.431
 eduardo-gomez,Eduardo Gomez,91,91,8,Northern America,0.6044,1.3129,True,0.4247,0.6314,0.4247
 dionysus,Dionysus,21,21,4,Northern America,0.4762,1.263,True,0.4086,0.9111,0.4148
 narcissus,Narcissus,21,21,4,Northern America,0.4762,1.263,True,0.4086,0.9111,0.4148
@@ -11,6 +19,8 @@ achilles,Achilles,30,30,4,Northern America,0.5,1.2425,True,0.402,0.8962,0.402
 king-midas,King Midas,24,24,4,Northern America,0.5,1.2425,True,0.402,0.8962,0.402
 zeus,Zeus,30,30,4,Northern America,0.5,1.2425,True,0.402,0.8962,0.402
 ernest-hemingway,Ernest Hemingway,3,3,3,Western Europe,0.3333,1.0986,True,0.3554,1.0,1.0
+helena-glenarvan,Helena Glenarvan,25,25,3,Western Europe,0.4,1.0549,True,0.3413,0.9602,0.3413
+nadia-fedor,Nadia Fedor,25,25,3,Northern Europe,0.4,1.0549,True,0.3413,0.9602,0.3413
 oliver-twist,Oliver Twist,5,5,3,Western Europe,0.4,1.0549,True,0.3413,0.9602,0.6555
 icarus,Icarus,15,15,3,Northern America,0.4667,1.0438,True,0.3377,0.9501,0.3854
 miles-davis,Miles Davis,24,24,3,Southern Europe,0.5,1.0397,True,0.3364,0.9464,0.3364
@@ -28,7 +38,9 @@ daedalus,Daedalus,30,30,3,Northern America,0.5,1.0114,True,0.3272,0.9206,0.3272
 poseidon,Poseidon,30,30,3,Northern America,0.5,1.0114,True,0.3272,0.9206,0.3272
 odysseus,Odysseus,32,32,3,Northern America,0.5,1.0037,True,0.3247,0.9136,0.3247
 circe,Circe,28,28,3,Northern America,0.5,0.9923,True,0.321,0.9032,0.321
+aouda,Aouda,25,25,3,Southern Europe,0.6,0.9503,True,0.3074,0.865,0.3074
 harry-maylie,Harry Maylie,5,5,3,Northern Europe,0.6,0.9503,True,0.3074,0.865,0.5904
+jean-passepartout,Jean Passepartout,25,25,3,Western Europe,0.6,0.9503,True,0.3074,0.865,0.3074
 rose-maylie,Rose Maylie,5,5,3,Northern Europe,0.6,0.9503,True,0.3074,0.865,0.5904
 joaquin-sorolla,Joaquín Sorolla,20,20,3,Northern America,0.5,0.9433,True,0.3052,0.8587,0.3149
 hades,Hades,30,30,3,Northern America,0.6667,0.8676,True,0.2807,0.7897,0.2807
@@ -78,20 +90,19 @@ ana-maria-matute,Ana Maria Matute,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
 andre-brink,Andre Brink,1,1,1,Southern Africa,1.0,0.0,False,0.0,,
 andy-warhol,Andy Warhol,15,15,1,Central America,1.0,0.0,True,0.0,,0.0
 annie-m-g-schmidt,Annie M. G. Schmidt,1,1,1,Western Europe,1.0,0.0,False,0.0,,
-arthur-bedford,Arthur Bedford,5,5,1,Northern America,1.0,0.0,True,0.0,,0.0
 arthur-kipps,Arthur Kipps,5,5,1,Northern America,1.0,0.0,True,0.0,,0.0
 arthur-yap,Arthur Yap,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 ba-jin,Ba Jin,1,1,1,Northern America,1.0,0.0,False,0.0,,
 bill-evans,Bill Evans,10,10,1,Western Europe,1.0,0.0,True,0.0,,0.0
-bill-gorton,Bill Gorton,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
+bill-gorton,Bill Gorton,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
 bill-sikes,Bill Sikes,5,5,1,Northern Europe,1.0,0.0,True,0.0,,0.0
 bing-xin,Bing Xin,1,1,1,Australia and New Zealand,1.0,0.0,False,0.0,,
-brett-ashley,Brett Ashley,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
+brett-ashley,Brett Ashley,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
 carlos-drummond-de-andrade,Carlos Drummond de Andrade,1,1,1,South America,1.0,0.0,False,0.0,,
 carmen-laforet,Carmen Laforet,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
 carmen-martin-gaite,Carmen Martin Gaite,1,1,1,Southern Africa,1.0,0.0,False,0.0,,
 carol-shields,Carol Shields,1,1,1,Northern America,1.0,0.0,False,0.0,,
-catherine-barkley,Catherine Barkley,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
+catherine-barkley,Catherine Barkley,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
 charles-dickens,Charles Dickens,1,1,1,Central America,1.0,0.0,False,0.0,,
 charley-wyman,Charley Wyman,3,3,1,Northern America,1.0,0.0,True,0.0,,0.0
 charlie-parker,Charlie Parker,8,8,1,Northern America,1.0,0.0,True,0.0,,0.0
@@ -100,6 +111,7 @@ chet-baker,Chet Baker,53,53,1,Northern America,1.0,0.0,True,0.0,,0.0
 chiron,Chiron,40,40,1,Northern America,1.0,0.0,True,0.0,,0.0
 choi-in-hun,Choi In-hun,1,1,1,Eastern Asia,1.0,0.0,False,0.0,,
 christina-stead,Christina Stead,1,1,1,Northern America,1.0,0.0,False,0.0,,
+chum-frink,Chum Frink,3,3,1,Northern America,1.0,0.0,True,0.0,,0.0
 clarice-lispector,Clarice Lispector,1,1,1,South America,1.0,0.0,False,0.0,,
 claude-monet,Claude Monet,16,16,1,Northern America,1.0,0.0,True,0.0,,0.0
 colleen-mccullough,Colleen McCullough,1,1,1,South America,1.0,0.0,False,0.0,,
@@ -115,7 +127,6 @@ duke-ellington,Duke Ellington,16,16,1,Northern America,1.0,0.0,True,0.0,,0.0
 edgar-allan-poe,Edgar Allan Poe,1,1,1,Western Europe,1.0,0.0,False,0.0,,
 edgar-degas,Edgar Degas,16,16,1,Northern America,1.0,0.0,True,0.0,,0.0
 edith-wharton,Edith Wharton,1,1,1,Western Europe,1.0,0.0,False,0.0,,
-edward-prendick,Edward Prendick,5,5,1,Northern America,1.0,0.0,True,0.0,,0.0
 edwin-leeford,Edwin Leeford,5,5,1,Western Europe,1.0,0.0,True,0.0,,0.0
 eileen-chang,Eileen Chang,1,1,1,Australia and New Zealand,1.0,0.0,False,0.0,,
 elizabeth-jolley,Elizabeth Jolley,1,1,1,Australia and New Zealand,1.0,0.0,False,0.0,,
@@ -129,9 +140,10 @@ fadwa-tuqan,Fadwa Tuqan,1,1,1,Western Asia,1.0,0.0,False,0.0,,
 fatema-mernissi,Fatema Mernissi,1,1,1,Northern Africa,1.0,0.0,False,0.0,,
 frances-clyne,Frances Clyne,6,6,1,Northern America,1.0,0.0,True,0.0,,0.0
 frank-sargeson,Frank Sargeson,1,1,1,Australia and New Zealand,1.0,0.0,False,0.0,,
-frederic-henry,Frederic Henry,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
+frederic-henry,Frederic Henry,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
 gabrielle-roy,Gabrielle Roy,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 galileo-galilei,Galileo Galilei,24,24,1,Northern America,1.0,0.0,True,0.0,,0.0
+george-babbitt,George Babbitt,6,6,1,Northern America,1.0,0.0,True,0.0,,0.0
 george-eliot,George Eliot,1,1,1,Northern Europe,1.0,0.0,False,0.0,,
 george-gardner,George Gardner,3,3,1,Northern America,1.0,0.0,True,0.0,,0.0
 george-orwell,George Orwell,1,1,1,Northern Europe,1.0,0.0,False,0.0,,
@@ -140,7 +152,7 @@ grazia-deledda,Grazia Deledda,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
 han-yong-un,Han Yong-un,1,1,1,Australia and New Zealand,1.0,0.0,False,0.0,,
 harper-lee,Harper Lee,1,1,1,Northern America,1.0,0.0,False,0.0,,
 harvey-stone,Harvey Stone,6,6,1,Northern America,1.0,0.0,True,0.0,,0.0
-helen-ferguson,Helen Ferguson,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
+helen-ferguson,Helen Ferguson,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
 helen-walshingham,Helen Walshingham,5,5,1,Northern America,1.0,0.0,True,0.0,,0.0
 hella-haasse,Hella Haasse,1,1,1,Western Europe,1.0,0.0,False,0.0,,
 henry-lawson,Henry Lawson,1,1,1,Australia and New Zealand,1.0,0.0,False,0.0,,
@@ -153,7 +165,7 @@ hyun-jin-geon,Hyun Jin-geon,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
 isaac-newton,Isaac Newton,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
 jack-london,Jack London,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 jackson-pollock,Jackson Pollock,12,12,1,Northern America,1.0,0.0,True,0.0,,0.0
-jake-barnes,Jake Barnes,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
+jake-barnes,Jake Barnes,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
 james-baldwin,James Baldwin,1,1,1,Western Europe,1.0,0.0,False,0.0,,
 jane-austen,Jane Austen,1,1,1,Southern Africa,1.0,0.0,False,0.0,,
 jim-gilmore,Jim Gilmore,3,3,1,Northern America,1.0,0.0,True,0.0,,0.0
@@ -165,14 +177,13 @@ johann-wolfgang-von-goethe,Johann Wolfgang von Goethe,1,1,1,Western Europe,1.0,0
 john-collins,John Collins,18,18,1,Northern America,1.0,0.0,True,0.0,,0.0
 john-steinbeck,John Steinbeck,1,1,1,Eastern Asia,1.0,0.0,False,0.0,,
 jorge-amado,Jorge Amado,1,1,1,South America,1.0,0.0,False,0.0,,
-joseph-cavor,Joseph Cavor,5,5,1,Northern America,1.0,0.0,True,0.0,,0.0
 kamala-das,Kamala Das,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 kang-kyeong-ae,Kang Kyeong-ae,1,1,1,Australia and New Zealand,1.0,0.0,False,0.0,,
 kenzaburo-oe,Kenzaburo Oe,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 kim-dong-ni,Kim Dong-ni,1,1,1,Northern America,1.0,0.0,False,0.0,,
 kim-myeong-sun,Kim Myeong-sun,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 kim-su-yong,Kim Su-yong,1,1,1,Western Europe,1.0,0.0,False,0.0,,
-krebs,Krebs,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
+krebs,Krebs,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
 kurt-vonnegut,Kurt Vonnegut,1,1,1,Western Europe,1.0,0.0,False,0.0,,
 l-m-montgomery,L. M. Montgomery,1,1,1,Northern America,1.0,0.0,False,0.0,,
 lao-she,Lao She,1,1,1,Northern America,1.0,0.0,False,0.0,,
@@ -181,19 +192,22 @@ lin-hai-yin,Lin Hai-yin,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
 liz-coates,Liz Coates,3,3,1,Northern America,1.0,0.0,True,0.0,,0.0
 louis-pasteur,Louis Pasteur,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
 lu-xun,Lu Xun,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
+lucile-mckelvey,Lucile McKelvey,6,6,1,Northern America,1.0,0.0,True,0.0,,0.0
+luis-miguel,Luis Miguel,21,21,1,Northern America,1.0,0.0,True,0.0,,0.0
 machado-de-assis,Machado de Assis,1,1,1,South America,1.0,0.0,False,0.0,,
 mahasweta-devi,Mahasweta Devi,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
-manuel-garcia,Manuel Garcia,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
+manuel-garcia,Manuel Garcia,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
 manuel-orquito,Manuel Orquito,5,5,1,Northern America,1.0,0.0,True,0.0,,0.0
 margaret-laurence,Margaret Laurence,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 maria-zambrano,Maria Zambrano,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
 marie-curie,Marie Curie,16,16,1,South America,1.0,0.0,True,0.0,,0.0
 mark-twain,Mark Twain,1,1,1,Eastern Asia,1.0,0.0,False,0.0,,
 mary-shelley,Mary Shelley,1,1,1,Northern Europe,1.0,0.0,False,0.0,,
+maria-zardoya,María Zardoya,17,17,1,Northern America,1.0,0.0,True,0.0,,0.0
 mavis-gallant,Mavis Gallant,1,1,1,Western Europe,1.0,0.0,False,0.0,,
 maya-angelou,Maya Angelou,1,1,1,Western Europe,1.0,0.0,False,0.0,,
 miguel-de-cervantes,Miguel de Cervantes,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
-mike-campbell,Mike Campbell,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
+mike-campbell,Mike Campbell,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
 miles-franklin,Miles Franklin,1,1,1,Australia and New Zealand,1.0,0.0,False,0.0,,
 miriam-polly,Miriam Polly,5,5,1,Northern America,1.0,0.0,True,0.0,,0.0
 miss-van-campen,Miss Van Campen,18,18,1,Central America,1.0,0.0,True,0.0,,0.0
@@ -209,12 +223,12 @@ na-hye-sok,Na Hye-sok,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 natalia-ginzburg,Natalia Ginzburg,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
 nguyen-du,Nguyen Du,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 nhok-them,Nhok Them,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
-nick-adams,Nick Adams,25,25,1,Northern America,1.0,0.0,True,0.0,,0.0
+nick-adams,Nick Adams,15,15,1,Northern America,1.0,0.0,True,0.0,,0.0
 nieh-hualing,Nieh Hualing,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 niels-bohr,Niels Bohr,10,10,1,Southern Europe,1.0,0.0,True,0.0,,0.0
 nikos-kazantzakis,Nikos Kazantzakis,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
 no-cheon-myeong,No Cheon-myeong,1,1,1,Eastern Asia,1.0,0.0,False,0.0,,
-ole-andreson,Ole Andreson,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
+ole-andreson,Ole Andreson,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
 oriana-fallaci,Oriana Fallaci,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
 ousha-bint-khalifa-al-suwaidi,Ousha bint Khalifa Al Suwaidi,1,1,1,Western Asia,1.0,0.0,False,0.0,,
 p-k-page,P. K. Page,1,1,1,Northern Africa,1.0,0.0,False,0.0,,
@@ -223,14 +237,14 @@ park-kyong-ni,Park Kyong-ni,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 park-wan-suh,Park Wan-suh,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
 patrick-white,Patrick White,3,3,1,Australia and New Zealand,1.0,0.0,True,0.0,,0.0
 pearl-s-buck,Pearl S. Buck,2,2,1,Northern America,1.0,0.0,True,0.0,,0.0
-pedro-romero,Pedro Romero,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
+pedro-romero,Pedro Romero,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
 perseus,Perseus,24,24,1,Northern America,1.0,0.0,True,0.0,,0.0
 pierre-auguste-renoir,Pierre-Auguste Renoir,24,24,1,Northern America,1.0,0.0,True,0.0,,0.0
 pramoedya-ananta-toer,Pramoedya Ananta Toer,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 rabindranath-tagore,Rabindranath Tagore,1,1,1,South-eastern Asia,1.0,0.0,False,0.0,,
 ralph-simmons,Ralph Simmons,6,6,1,Northern America,1.0,0.0,True,0.0,,0.0
-rinaldi,Rinaldi,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
-robert-cohn,Robert Cohn,20,20,1,Northern America,1.0,0.0,True,0.0,,0.0
+rinaldi,Rinaldi,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
+robert-cohn,Robert Cohn,10,10,1,Northern America,1.0,0.0,True,0.0,,0.0
 robert-frost,Robert Frost,1,1,1,Northern America,1.0,0.0,False,0.0,,
 robert-louis-stevenson,Robert Louis Stevenson,1,1,1,Northern Europe,1.0,0.0,False,0.0,,
 rosalia-de-castro,Rosalia de Castro,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
@@ -246,19 +260,21 @@ sinclair-lewis,Sinclair Lewis,1,1,1,Southern Europe,1.0,0.0,False,0.0,,
 solly-freedman,Solly Freedman,10,10,1,Australia and New Zealand,1.0,0.0,True,0.0,,0.0
 sor-juana-ines-de-la-cruz,Sor Juana Ines de la Cruz,1,1,1,Central America,1.0,0.0,False,0.0,,
 sultan-bin-ali-al-owais,Sultan bin Ali Al Owais,1,1,1,Western Asia,1.0,0.0,False,0.0,,
+tanis-judique,Tanis Judique,3,3,1,Northern America,1.0,0.0,True,0.0,,0.0
 thelonious-monk,Thelonious Monk,14,14,1,Australia and New Zealand,1.0,0.0,True,0.0,,0.0
 thomas-mann,Thomas Mann,1,1,1,Western Europe,1.0,0.0,False,0.0,,
 toby-crackit,Toby Crackit,5,5,1,Southern Europe,1.0,0.0,True,0.0,,0.0
 toni-morrison,Toni Morrison,2,2,1,Eastern Asia,1.0,0.0,True,0.0,,0.0
+vergil-gunch,Vergil Gunch,6,6,1,Northern America,1.0,0.0,True,0.0,,0.0
 virginia-woolf,Virginia Woolf,1,1,1,Northern Europe,1.0,0.0,False,0.0,,
 walt-whitman,Walt Whitman,1,1,1,Northern America,1.0,0.0,False,0.0,,
 wes-montgomery,Wes Montgomery,16,16,1,Eastern Asia,1.0,0.0,True,0.0,,0.0
 william-campbell,William Campbell,20,20,1,Eastern Asia,1.0,0.0,True,0.0,,0.0
 william-faulkner,William Faulkner,2,2,1,Western Europe,1.0,0.0,True,0.0,,0.0
 william-golding,William Golding,1,1,1,Northern Europe,1.0,0.0,False,0.0,,
-william-moreau,William Moreau,5,5,1,Northern America,1.0,0.0,True,0.0,,0.0
 william-shakespeare,William Shakespeare,1,1,1,Northern Europe,1.0,0.0,False,0.0,,
 xiao-hong,Xiao Hong,1,1,1,Eastern Asia,1.0,0.0,False,0.0,,
 xuan-quynh,Xuan Quynh,1,1,1,Western Europe,1.0,0.0,False,0.0,,
 yasunari-kawabata,Yasunari Kawabata,2,2,1,Eastern Asia,1.0,0.0,True,0.0,,0.0
 yi-kwang-su,Yi Kwang-su,1,1,1,Eastern Asia,1.0,0.0,False,0.0,,
+zilla-riesling,Zilla Riesling,3,3,1,Northern America,1.0,0.0,True,0.0,,0.0

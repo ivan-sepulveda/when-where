@@ -1,99 +1,116 @@
 traveler_id,name,trip_count,trips_with_destination,n_destinations,top_destination,top_destination_share,entropy,entropy_is_informative,norm_global,norm_observed,norm_capacity
-anthony-bourdain,Anthony Bourdain,201,201,130,NRT,0.0348,4.7411,True,0.8867,0.974,0.894
-stan-getz,Stan Getz,30,30,25,CUN,0.2,3.0428,True,0.5691,0.9453,0.8946
-conan-o-brien,Conan O'Brien,17,17,17,HAV,0.0588,2.8332,True,0.5299,1.0,1.0
-gordon-ramsay,Gordon Ramsay,15,15,15,LIM,0.0667,2.7081,True,0.5065,1.0,1.0
-miles-davis,Miles Davis,24,24,12,AMS,0.0833,2.4849,True,0.4647,1.0,0.7819
-eduardo-gomez,Eduardo Gomez,91,91,26,IAH,0.3516,2.4354,True,0.4555,0.7475,0.5399
-andy-warhol,Andy Warhol,15,15,12,CUN,0.1333,2.4308,True,0.4546,0.9782,0.8976
-john-coltrane,John Coltrane,15,15,11,CUN,0.1333,2.3384,True,0.4373,0.9752,0.8635
-joaquin-sorolla,Joaquín Sorolla,20,20,11,IAH,0.5,1.8444,True,0.3449,0.7692,0.6157
-edward-hopper,Edward Hopper,10,10,7,HND,0.3,1.8344,True,0.3431,0.9427,0.7967
-achilles,Achilles,30,30,6,LHR,0.1667,1.7918,True,0.3351,1.0,0.5268
-artemis,Artemis,24,24,6,CUN,0.1667,1.7918,True,0.3351,1.0,0.5638
-athena,Athena,30,30,6,LHR,0.1667,1.7918,True,0.3351,1.0,0.5268
-atlas,Atlas,24,24,6,SJD,0.1667,1.7918,True,0.3351,1.0,0.5638
-cronus,Cronus,30,30,6,LHR,0.1667,1.7918,True,0.3351,1.0,0.5268
-daedalus,Daedalus,30,30,6,NRT,0.1667,1.7918,True,0.3351,1.0,0.5268
-hades,Hades,30,30,6,CUN,0.1667,1.7918,True,0.3351,1.0,0.5268
-king-midas,King Midas,24,24,6,CUN,0.1667,1.7918,True,0.3351,1.0,0.5638
-medusa,Medusa,24,24,6,GDL,0.1667,1.7918,True,0.3351,1.0,0.5638
-persephone,Persephone,24,24,6,CUN,0.1667,1.7918,True,0.3351,1.0,0.5638
-perseus,Perseus,24,24,6,ATL,0.1667,1.7918,True,0.3351,1.0,0.5638
-poseidon,Poseidon,30,30,6,MEX,0.1667,1.7918,True,0.3351,1.0,0.5268
-theseus,Theseus,18,18,6,HND,0.1667,1.7918,True,0.3351,1.0,0.6199
-zeus,Zeus,30,30,6,LHR,0.1667,1.7918,True,0.3351,1.0,0.5268
-chiron,Chiron,40,40,6,PHL,0.175,1.7892,True,0.3346,0.9986,0.485
-hermes,Hermes,32,32,6,YYZ,0.1875,1.7879,True,0.3344,0.9979,0.5159
-odysseus,Odysseus,32,32,6,FCO,0.1875,1.7879,True,0.3344,0.9979,0.5159
-sisyphus,Sisyphus,32,32,6,SFO,0.1875,1.7879,True,0.3344,0.9979,0.5159
-circe,Circe,28,28,6,CUN,0.1786,1.7865,True,0.3341,0.9971,0.5361
-demeter,Demeter,28,28,6,CUN,0.1786,1.7865,True,0.3341,0.9971,0.5361
-hera,Hera,28,28,6,CUN,0.1786,1.7865,True,0.3341,0.9971,0.5361
-pandora,Pandora,28,28,6,MEX,0.1786,1.7865,True,0.3341,0.9971,0.5361
-aphrodite,Aphrodite,27,27,6,SJD,0.1852,1.7856,True,0.3339,0.9965,0.5418
-apollo,Apollo,27,27,6,HND,0.1852,1.7856,True,0.3339,0.9965,0.5418
-hercules,Hercules,27,27,6,ICN,0.1852,1.7856,True,0.3339,0.9965,0.5418
-orpheus,Orpheus,27,27,6,YYZ,0.1852,1.7856,True,0.3339,0.9965,0.5418
-prometheus,Prometheus,27,27,6,SJD,0.1852,1.7856,True,0.3339,0.9965,0.5418
-ares,Ares,21,21,6,MEX,0.1905,1.7815,True,0.3332,0.9943,0.5852
-dionysus,Dionysus,21,21,6,LHR,0.1905,1.7815,True,0.3332,0.9943,0.5852
-narcissus,Narcissus,21,21,6,LIS,0.1905,1.7815,True,0.3332,0.9943,0.5852
-icarus,Icarus,15,15,6,MEX,0.2,1.7716,True,0.3313,0.9888,0.6542
-bill-sikes,Bill Sikes,5,5,5,DUB,0.2,1.6094,True,0.301,1.0,1.0
-charley-bates,Charley Bates,5,5,5,MAD,0.2,1.6094,True,0.301,1.0,1.0
-edwin-leeford,Edwin Leeford,5,5,5,AMS,0.2,1.6094,True,0.301,1.0,1.0
-estella-havisham,Estella Havisham,5,5,5,BCN,0.2,1.6094,True,0.301,1.0,1.0
-georgia-o-keeffe,Georgia O'Keeffe,5,5,5,MEX,0.2,1.6094,True,0.301,1.0,1.0
-harry-maylie,Harry Maylie,5,5,5,LHR,0.2,1.6094,True,0.301,1.0,1.0
-jack-dawkins,Jack Dawkins,5,5,5,BCN,0.2,1.6094,True,0.301,1.0,1.0
-joe-gargery,Joe Gargery,5,5,5,MAN,0.2,1.6094,True,0.301,1.0,1.0
-miss-havisham,Miss Havisham,5,5,5,FCO,0.2,1.6094,True,0.301,1.0,1.0
-mr-brownlow,Mr. Brownlow,5,5,5,LHR,0.2,1.6094,True,0.301,1.0,1.0
-nancy-sikes,Nancy Sikes,5,5,5,NCE,0.2,1.6094,True,0.301,1.0,1.0
-oliver-twist,Oliver Twist,5,5,5,LHR,0.2,1.6094,True,0.301,1.0,1.0
-rose-maylie,Rose Maylie,5,5,5,LHR,0.2,1.6094,True,0.301,1.0,1.0
-toby-crackit,Toby Crackit,5,5,5,LIS,0.2,1.6094,True,0.301,1.0,1.0
-rick-steves,Rick Steves,47,47,6,LHR,0.3404,1.5297,True,0.2861,0.8537,0.3973
-lord-rymel,Lord Rymel,18,18,6,SMF,0.3889,1.4594,True,0.2729,0.8145,0.5049
-charles-darwin,Charles Darwin,36,36,4,GRU,0.25,1.3863,True,0.2593,1.0,0.3869
-danny-hogan,Danny Hogan,32,32,4,SJD,0.25,1.3863,True,0.2593,1.0,0.4
-jack-brennan,Jack Brennan,36,36,4,GEG,0.25,1.3863,True,0.2593,1.0,0.3869
-mrs-bell,Mrs. Bell,32,32,4,SJD,0.25,1.3863,True,0.2593,1.0,0.4
-mrs-guttingen,Mrs. Guttingen,36,36,4,SJD,0.25,1.3863,True,0.2593,1.0,0.3869
-mrs-hirsch,Mrs. Hirsch,28,28,4,LIR,0.25,1.3863,True,0.2593,1.0,0.416
-mrs-walker,Mrs. Walker,36,36,4,NAS,0.25,1.3863,True,0.2593,1.0,0.3869
-nikola-tesla,Nikola Tesla,36,36,4,CUN,0.25,1.3863,True,0.2593,1.0,0.3869
-pablo-picasso,Pablo Picasso,4,4,4,EWR,0.25,1.3863,True,0.2593,1.0,1.0
-stephen-hawking,Stephen Hawking,32,32,4,JFK,0.25,1.3863,True,0.2593,1.0,0.4
-wes-montgomery,Wes Montgomery,16,16,4,HND,0.25,1.3863,True,0.2593,1.0,0.5
-thelonious-monk,Thelonious Monk,14,14,4,SYD,0.2857,1.3761,True,0.2573,0.9926,0.5214
-david-chang,David Chang,3,3,3,CMN,0.3333,1.0986,True,0.2055,1.0,1.0
-miss-gage,Miss Gage,24,24,3,CUN,0.3333,1.0986,True,0.2055,1.0,0.3457
-mrs-meyers,Mrs. Meyers,21,21,3,CUN,0.3333,1.0986,True,0.2055,1.0,0.3608
-richard-feynman,Richard Feynman,21,21,3,MSY,0.3333,1.0986,True,0.2055,1.0,0.3608
-bill-gorton,Bill Gorton,20,20,3,MSP,0.5,1.0397,True,0.1944,0.9464,0.3471
-brett-ashley,Brett Ashley,20,20,3,SAV,0.5,1.0397,True,0.1944,0.9464,0.3471
-catherine-barkley,Catherine Barkley,20,20,3,GEG,0.5,1.0397,True,0.1944,0.9464,0.3471
-jake-barnes,Jake Barnes,20,20,3,ORD,0.5,1.0397,True,0.1944,0.9464,0.3471
-krebs,Krebs,20,20,3,ORD,0.5,1.0397,True,0.1944,0.9464,0.3471
-manuel-garcia,Manuel Garcia,20,20,3,ELP,0.5,1.0397,True,0.1944,0.9464,0.3471
-mike-campbell,Mike Campbell,20,20,3,RIC,0.5,1.0397,True,0.1944,0.9464,0.3471
-ole-andreson,Ole Andreson,20,20,3,MSP,0.5,1.0397,True,0.1944,0.9464,0.3471
-pedro-romero,Pedro Romero,20,20,3,MIA,0.5,1.0397,True,0.1944,0.9464,0.3471
-rinaldi,Rinaldi,20,20,3,BOS,0.5,1.0397,True,0.1944,0.9464,0.3471
-robert-cohn,Robert Cohn,20,20,3,ORD,0.5,1.0397,True,0.1944,0.9464,0.3471
-ettore-moretti,Ettore Moretti,6,6,2,JAC,0.5,0.6931,True,0.1296,1.0,0.3869
-frederic-henry,Frederic Henry,20,20,2,BZN,0.5,0.6931,True,0.1296,1.0,0.2314
-helen-ferguson,Helen Ferguson,20,20,2,TVC,0.5,0.6931,True,0.1296,1.0,0.2314
-abel-magwitch,Abel Magwitch,5,5,2,LIS,0.6,0.673,True,0.1259,0.971,0.4182
-charley-wyman,Charley Wyman,3,3,2,EGE,0.6667,0.6365,True,0.119,0.9183,0.5794
-george-gardner,George Gardner,3,3,2,EGE,0.6667,0.6365,True,0.119,0.9183,0.5794
-liz-coates,Liz Coates,3,3,2,ASE,0.6667,0.6365,True,0.119,0.9183,0.5794
+anthony-bourdain,Anthony Bourdain,201,201,130,NRT,0.0348,4.7411,True,0.8851,0.974,0.894
+stan-getz,Stan Getz,30,30,25,CUN,0.2,3.0428,True,0.5681,0.9453,0.8946
+conan-o-brien,Conan O'Brien,17,17,17,HAV,0.0588,2.8332,True,0.5289,1.0,1.0
+luis-miguel,Luis Miguel,21,16,16,LAS,0.0625,2.7726,True,0.5176,1.0,1.0
+maria-zardoya,María Zardoya,17,16,16,OAK,0.0625,2.7726,True,0.5176,1.0,1.0
+gordon-ramsay,Gordon Ramsay,15,15,15,LIM,0.0667,2.7081,True,0.5056,1.0,1.0
+miles-davis,Miles Davis,24,24,12,AMS,0.0833,2.4849,True,0.4639,1.0,0.7819
+eduardo-gomez,Eduardo Gomez,91,91,26,IAH,0.3516,2.4354,True,0.4547,0.7475,0.5399
+andy-warhol,Andy Warhol,15,15,12,CUN,0.1333,2.4308,True,0.4538,0.9782,0.8976
+john-coltrane,John Coltrane,15,15,11,CUN,0.1333,2.3384,True,0.4365,0.9752,0.8635
+joaquin-sorolla,Joaquín Sorolla,20,20,11,IAH,0.5,1.8444,True,0.3443,0.7692,0.6157
+edward-hopper,Edward Hopper,10,10,7,HND,0.3,1.8344,True,0.3425,0.9427,0.7967
+achilles,Achilles,30,30,6,LHR,0.1667,1.7918,True,0.3345,1.0,0.5268
+artemis,Artemis,24,24,6,CUN,0.1667,1.7918,True,0.3345,1.0,0.5638
+athena,Athena,30,30,6,LHR,0.1667,1.7918,True,0.3345,1.0,0.5268
+atlas,Atlas,24,24,6,SJD,0.1667,1.7918,True,0.3345,1.0,0.5638
+cronus,Cronus,30,30,6,LHR,0.1667,1.7918,True,0.3345,1.0,0.5268
+daedalus,Daedalus,30,30,6,NRT,0.1667,1.7918,True,0.3345,1.0,0.5268
+george-babbitt,George Babbitt,6,6,6,ORD,0.1667,1.7918,True,0.3345,1.0,1.0
+hades,Hades,30,30,6,CUN,0.1667,1.7918,True,0.3345,1.0,0.5268
+king-midas,King Midas,24,24,6,CUN,0.1667,1.7918,True,0.3345,1.0,0.5638
+lucile-mckelvey,Lucile McKelvey,6,6,6,ORD,0.1667,1.7918,True,0.3345,1.0,1.0
+medusa,Medusa,24,24,6,GDL,0.1667,1.7918,True,0.3345,1.0,0.5638
+persephone,Persephone,24,24,6,CUN,0.1667,1.7918,True,0.3345,1.0,0.5638
+perseus,Perseus,24,24,6,ATL,0.1667,1.7918,True,0.3345,1.0,0.5638
+poseidon,Poseidon,30,30,6,MEX,0.1667,1.7918,True,0.3345,1.0,0.5268
+theseus,Theseus,18,18,6,HND,0.1667,1.7918,True,0.3345,1.0,0.6199
+vergil-gunch,Vergil Gunch,6,6,6,ORD,0.1667,1.7918,True,0.3345,1.0,1.0
+zeus,Zeus,30,30,6,LHR,0.1667,1.7918,True,0.3345,1.0,0.5268
+chiron,Chiron,40,40,6,PHL,0.175,1.7892,True,0.334,0.9986,0.485
+hermes,Hermes,32,32,6,YYZ,0.1875,1.7879,True,0.3338,0.9979,0.5159
+odysseus,Odysseus,32,32,6,FCO,0.1875,1.7879,True,0.3338,0.9979,0.5159
+sisyphus,Sisyphus,32,32,6,SFO,0.1875,1.7879,True,0.3338,0.9979,0.5159
+circe,Circe,28,28,6,CUN,0.1786,1.7865,True,0.3335,0.9971,0.5361
+demeter,Demeter,28,28,6,CUN,0.1786,1.7865,True,0.3335,0.9971,0.5361
+hera,Hera,28,28,6,CUN,0.1786,1.7865,True,0.3335,0.9971,0.5361
+pandora,Pandora,28,28,6,MEX,0.1786,1.7865,True,0.3335,0.9971,0.5361
+aphrodite,Aphrodite,27,27,6,SJD,0.1852,1.7856,True,0.3333,0.9965,0.5418
+apollo,Apollo,27,27,6,HND,0.1852,1.7856,True,0.3333,0.9965,0.5418
+hercules,Hercules,27,27,6,ICN,0.1852,1.7856,True,0.3333,0.9965,0.5418
+orpheus,Orpheus,27,27,6,YYZ,0.1852,1.7856,True,0.3333,0.9965,0.5418
+prometheus,Prometheus,27,27,6,SJD,0.1852,1.7856,True,0.3333,0.9965,0.5418
+ares,Ares,21,21,6,MEX,0.1905,1.7815,True,0.3326,0.9943,0.5852
+dionysus,Dionysus,21,21,6,LHR,0.1905,1.7815,True,0.3326,0.9943,0.5852
+narcissus,Narcissus,21,21,6,LIS,0.1905,1.7815,True,0.3326,0.9943,0.5852
+icarus,Icarus,15,15,6,MEX,0.2,1.7716,True,0.3307,0.9888,0.6542
+aouda,Aouda,25,25,5,LIS,0.2,1.6094,True,0.3005,1.0,0.5
+bill-sikes,Bill Sikes,5,5,5,DUB,0.2,1.6094,True,0.3005,1.0,1.0
+captain-nemo,Captain Nemo,25,25,5,MAD,0.2,1.6094,True,0.3005,1.0,0.5
+charley-bates,Charley Bates,5,5,5,MAD,0.2,1.6094,True,0.3005,1.0,1.0
+edwin-leeford,Edwin Leeford,5,5,5,AMS,0.2,1.6094,True,0.3005,1.0,1.0
+estella-havisham,Estella Havisham,5,5,5,BCN,0.2,1.6094,True,0.3005,1.0,1.0
+georgia-o-keeffe,Georgia O'Keeffe,5,5,5,MEX,0.2,1.6094,True,0.3005,1.0,1.0
+harry-maylie,Harry Maylie,5,5,5,LHR,0.2,1.6094,True,0.3005,1.0,1.0
+helena-glenarvan,Helena Glenarvan,25,25,5,CDG,0.2,1.6094,True,0.3005,1.0,0.5
+impey-barbicane,Impey Barbicane,25,25,5,LHR,0.2,1.6094,True,0.3005,1.0,0.5
+jack-dawkins,Jack Dawkins,5,5,5,BCN,0.2,1.6094,True,0.3005,1.0,1.0
+jean-passepartout,Jean Passepartout,25,25,5,CDG,0.2,1.6094,True,0.3005,1.0,0.5
+joe-gargery,Joe Gargery,5,5,5,MAN,0.2,1.6094,True,0.3005,1.0,1.0
+mary-grant,Mary Grant,25,25,5,BCN,0.2,1.6094,True,0.3005,1.0,0.5
+michel-ardan,Michel Ardan,25,25,5,CDG,0.2,1.6094,True,0.3005,1.0,0.5
+miss-havisham,Miss Havisham,5,5,5,FCO,0.2,1.6094,True,0.3005,1.0,1.0
+mr-brownlow,Mr. Brownlow,5,5,5,LHR,0.2,1.6094,True,0.3005,1.0,1.0
+nadia-fedor,Nadia Fedor,25,25,5,LHR,0.2,1.6094,True,0.3005,1.0,0.5
+nancy-sikes,Nancy Sikes,5,5,5,NCE,0.2,1.6094,True,0.3005,1.0,1.0
+ned-land,Ned Land,25,25,5,CDG,0.2,1.6094,True,0.3005,1.0,0.5
+oliver-twist,Oliver Twist,5,5,5,LHR,0.2,1.6094,True,0.3005,1.0,1.0
+otto-lidenbrock,Otto Lidenbrock,25,25,5,CPH,0.2,1.6094,True,0.3005,1.0,0.5
+phileas-fogg,Phileas Fogg,25,25,5,LHR,0.2,1.6094,True,0.3005,1.0,0.5
+pierre-aronnax,Pierre Aronnax,25,25,5,CPH,0.2,1.6094,True,0.3005,1.0,0.5
+rose-maylie,Rose Maylie,5,5,5,LHR,0.2,1.6094,True,0.3005,1.0,1.0
+toby-crackit,Toby Crackit,5,5,5,LIS,0.2,1.6094,True,0.3005,1.0,1.0
+rick-steves,Rick Steves,47,47,6,LHR,0.3404,1.5297,True,0.2856,0.8537,0.3973
+lord-rymel,Lord Rymel,18,18,6,SMF,0.3889,1.4594,True,0.2724,0.8145,0.5049
+charles-darwin,Charles Darwin,36,36,4,GRU,0.25,1.3863,True,0.2588,1.0,0.3869
+danny-hogan,Danny Hogan,32,32,4,SJD,0.25,1.3863,True,0.2588,1.0,0.4
+jack-brennan,Jack Brennan,36,36,4,GEG,0.25,1.3863,True,0.2588,1.0,0.3869
+mrs-bell,Mrs. Bell,32,32,4,SJD,0.25,1.3863,True,0.2588,1.0,0.4
+mrs-guttingen,Mrs. Guttingen,36,36,4,SJD,0.25,1.3863,True,0.2588,1.0,0.3869
+mrs-hirsch,Mrs. Hirsch,28,28,4,LIR,0.25,1.3863,True,0.2588,1.0,0.416
+mrs-walker,Mrs. Walker,36,36,4,NAS,0.25,1.3863,True,0.2588,1.0,0.3869
+nikola-tesla,Nikola Tesla,36,36,4,CUN,0.25,1.3863,True,0.2588,1.0,0.3869
+pablo-picasso,Pablo Picasso,4,4,4,EWR,0.25,1.3863,True,0.2588,1.0,1.0
+stephen-hawking,Stephen Hawking,32,32,4,JFK,0.25,1.3863,True,0.2588,1.0,0.4
+wes-montgomery,Wes Montgomery,16,16,4,HND,0.25,1.3863,True,0.2588,1.0,0.5
+thelonious-monk,Thelonious Monk,14,14,4,SYD,0.2857,1.3761,True,0.2569,0.9926,0.5214
+chum-frink,Chum Frink,3,3,3,ORD,0.3333,1.0986,True,0.2051,1.0,1.0
+david-chang,David Chang,3,3,3,CMN,0.3333,1.0986,True,0.2051,1.0,1.0
+miss-gage,Miss Gage,24,24,3,CUN,0.3333,1.0986,True,0.2051,1.0,0.3457
+mrs-meyers,Mrs. Meyers,21,21,3,CUN,0.3333,1.0986,True,0.2051,1.0,0.3608
+richard-feynman,Richard Feynman,21,21,3,MSY,0.3333,1.0986,True,0.2051,1.0,0.3608
+tanis-judique,Tanis Judique,3,3,3,ORD,0.3333,1.0986,True,0.2051,1.0,1.0
+zilla-riesling,Zilla Riesling,3,3,3,ORD,0.3333,1.0986,True,0.2051,1.0,1.0
+bill-gorton,Bill Gorton,10,10,2,DTW,0.5,0.6931,True,0.1294,1.0,0.301
+brett-ashley,Brett Ashley,10,10,2,MIA,0.5,0.6931,True,0.1294,1.0,0.301
+catherine-barkley,Catherine Barkley,10,10,2,PDX,0.5,0.6931,True,0.1294,1.0,0.301
+ettore-moretti,Ettore Moretti,6,6,2,JAC,0.5,0.6931,True,0.1294,1.0,0.3869
+jake-barnes,Jake Barnes,10,10,2,DEN,0.5,0.6931,True,0.1294,1.0,0.301
+krebs,Krebs,10,10,2,DFW,0.5,0.6931,True,0.1294,1.0,0.301
+manuel-garcia,Manuel Garcia,10,10,2,LAS,0.5,0.6931,True,0.1294,1.0,0.301
+mike-campbell,Mike Campbell,10,10,2,CLT,0.5,0.6931,True,0.1294,1.0,0.301
+ole-andreson,Ole Andreson,10,10,2,MKE,0.5,0.6931,True,0.1294,1.0,0.301
+pedro-romero,Pedro Romero,10,10,2,PHX,0.5,0.6931,True,0.1294,1.0,0.301
+rinaldi,Rinaldi,10,10,2,PIT,0.5,0.6931,True,0.1294,1.0,0.301
+robert-cohn,Robert Cohn,10,10,2,BOS,0.5,0.6931,True,0.1294,1.0,0.301
+abel-magwitch,Abel Magwitch,5,5,2,LIS,0.6,0.673,True,0.1256,0.971,0.4182
+charley-wyman,Charley Wyman,3,3,2,EGE,0.6667,0.6365,True,0.1188,0.9183,0.5794
+george-gardner,George Gardner,3,3,2,EGE,0.6667,0.6365,True,0.1188,0.9183,0.5794
+liz-coates,Liz Coates,3,3,2,ASE,0.6667,0.6365,True,0.1188,0.9183,0.5794
 albert-einstein,Albert Einstein,20,20,1,LHR,1.0,0.0,True,0.0,,0.0
 alfred-polly,Alfred Polly,5,5,1,PIT,1.0,0.0,True,0.0,,0.0
 alfred-d-orsay,Alfred d'Orsay,8,8,1,PIT,1.0,0.0,True,0.0,,0.0
-arthur-bedford,Arthur Bedford,5,5,1,BUF,1.0,0.0,True,0.0,,0.0
 arthur-kipps,Arthur Kipps,5,5,1,RDU,1.0,0.0,True,0.0,,0.0
 bill-evans,Bill Evans,10,10,1,AMS,1.0,0.0,True,0.0,,0.0
 charlie-parker,Charlie Parker,8,8,1,DTW,1.0,0.0,True,0.0,,0.0
@@ -105,11 +122,12 @@ dr-valentini,Dr. Valentini,20,20,1,CUN,1.0,0.0,True,0.0,,0.0
 dr-varella,Dr. Varella,20,20,1,TPA,1.0,0.0,True,0.0,,0.0
 duke-ellington,Duke Ellington,16,16,1,PDX,1.0,0.0,True,0.0,,0.0
 edgar-degas,Edgar Degas,16,16,1,BOS,1.0,0.0,True,0.0,,0.0
-edward-prendick,Edward Prendick,5,5,1,BOS,1.0,0.0,True,0.0,,0.0
 ella-fitzgerald,Ella Fitzgerald,24,24,1,MCO,1.0,0.0,True,0.0,,0.0
 frances-clyne,Frances Clyne,6,6,1,JAC,1.0,0.0,True,0.0,,0.0
+frederic-henry,Frederic Henry,10,10,1,BZN,1.0,0.0,True,0.0,,0.0
 galileo-galilei,Galileo Galilei,24,24,1,MCO,1.0,0.0,True,0.0,,0.0
 harvey-stone,Harvey Stone,6,6,1,SLC,1.0,0.0,True,0.0,,0.0
+helen-ferguson,Helen Ferguson,10,10,1,TVC,1.0,0.0,True,0.0,,0.0
 helen-walshingham,Helen Walshingham,5,5,1,BOS,1.0,0.0,True,0.0,,0.0
 herbert-george-wells,Herbert George Wells,5,5,1,SEA,1.0,0.0,True,0.0,,0.0
 isaac-newton,Isaac Newton,20,20,1,DEN,1.0,0.0,True,0.0,,0.0
@@ -117,7 +135,6 @@ jackson-pollock,Jackson Pollock,12,12,1,YYZ,1.0,0.0,True,0.0,,0.0
 jim-gilmore,Jim Gilmore,3,3,1,DEN,1.0,0.0,True,0.0,,0.0
 joe-garner,Joe Garner,18,18,1,GDL,1.0,0.0,True,0.0,,0.0
 john-collins,John Collins,18,18,1,PSP,1.0,0.0,True,0.0,,0.0
-joseph-cavor,Joseph Cavor,5,5,1,MSP,1.0,0.0,True,0.0,,0.0
 louis-pasteur,Louis Pasteur,20,20,1,PBI,1.0,0.0,True,0.0,,0.0
 manuel-orquito,Manuel Orquito,5,5,1,YYZ,1.0,0.0,True,0.0,,0.0
 marie-curie,Marie Curie,16,16,1,EZE,1.0,0.0,True,0.0,,0.0
@@ -130,14 +147,13 @@ mr-turner,Mr. Turner,20,20,1,OGG,1.0,0.0,True,0.0,,0.0
 mrs-braddocks,Mrs. Braddocks,5,5,1,YYZ,1.0,0.0,True,0.0,,0.0
 mrs-garner,Mrs. Garner,16,16,1,MCO,1.0,0.0,True,0.0,,0.0
 mrs-smith,Mrs. Smith,3,3,1,DEN,1.0,0.0,True,0.0,,0.0
-nick-adams,Nick Adams,25,25,1,TVC,1.0,0.0,True,0.0,,0.0
+nick-adams,Nick Adams,15,15,1,TVC,1.0,0.0,True,0.0,,0.0
 niels-bohr,Niels Bohr,10,10,1,LIS,1.0,0.0,True,0.0,,0.0
 pierre-auguste-renoir,Pierre-Auguste Renoir,24,24,1,SAN,1.0,0.0,True,0.0,,0.0
 ralph-simmons,Ralph Simmons,6,6,1,SLC,1.0,0.0,True,0.0,,0.0
 sarah-vaughan,Sarah Vaughan,16,16,1,MSY,1.0,0.0,True,0.0,,0.0
 solly-freedman,Solly Freedman,10,10,1,SYD,1.0,0.0,True,0.0,,0.0
 william-campbell,William Campbell,20,20,1,NRT,1.0,0.0,True,0.0,,0.0
-william-moreau,William Moreau,5,5,1,CHS,1.0,0.0,True,0.0,,0.0
 agatha-christie,Agatha Christie,1,0,0,,,,False,,,
 alan-paton,Alan Paton,1,0,0,,,,False,,,
 alice-munro,Alice Munro,1,0,0,,,,False,,,

@@ -22,6 +22,15 @@ import {
 // exactly when there are rows to show, so the two are mutually exclusive by
 // construction rather than by two conditions that could drift apart.
 
+// The API sends month names lowercase, because that is how they are keyed all
+// the way back through monthly_scores_2025_by_city.json and the weather
+// columns -- lowercase is the right choice for a KEY and the wrong one for a
+// sentence, so it is fixed here at the point of display rather than in the
+// data.
+function titleCaseMonth(month: string): string {
+  return month.charAt(0).toUpperCase() + month.slice(1);
+}
+
 function RecommendationCard({ recommendation }: { recommendation: TravelerRecommendation }) {
   // Same card shape as a trip card: name on top, a dim meta line, then the
   // detail. A recommendation and a trip are the same kind of object to a
@@ -34,7 +43,7 @@ function RecommendationCard({ recommendation }: { recommendation: TravelerRecomm
     // to a region reads as a date the trip is booked for. Null best_month
     // means the city has no weather normals -- unknown, so the line is
     // simply absent, matching how trip cards omit an absent score.
-    recommendation.best_month && `Best in ${recommendation.best_month}`,
+    recommendation.best_month && `Best in ${titleCaseMonth(recommendation.best_month)}`,
     source,
   ].filter(Boolean) as string[];
 

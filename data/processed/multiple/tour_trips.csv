@@ -1,0 +1,39 @@
+trip_id,traveler_name,tour_leg,start_date,end_date,nights,shows,origin_airport,destination_airport,destination_city,venue_city,venue,transportation_type,carrier_name,distance_km,route_carriers
+LM-2023-09-15,Luis Miguel,1,2023-09-15,2023-09-19,4,3,MEX,LAS,Las Vegas,,Dolby Live,Flight,Aeromexico,2427.5,"4O, AM, DL, VB, Y4"
+LM-2023-09-20,Luis Miguel,2,2023-09-20,2023-09-20,0,1,LAS,SNA,Anaheim,,Honda Center,Flight,Delta Air Lines Inc.,364.5,"DJ, DL, F9, FL, WN"
+LM-2023-09-21,Luis Miguel,3,2023-09-21,2023-09-22,1,1,SNA,SAN,San Diego,,Pechanga Arena,Bus,,122.3,
+LM-2023-09-23,Luis Miguel,4,2023-09-23,2023-09-23,0,1,SAN,PHX,Phoenix,,Footprint Center,Flight,American Airlines Inc.,488.6,"AA, FL, US, WN"
+LM-2023-09-24,Luis Miguel,5,2023-09-24,2023-09-26,2,1,PHX,LAX,Los Angeles,Inglewood,Kia Forum,Flight,Alaska Airlines Inc.,594.4,"AA, AS, DL, UA, US, WN"
+LM-2023-09-27,Luis Miguel,6,2023-09-27,2023-09-29,2,1,LAX,ONT,Los Angeles,Ontario,Toyota Arena,Bus,,75.5,
+LM-2023-09-30,Luis Miguel,7,2023-09-30,2023-10-03,3,1,ONT,PSP,Palm Springs,Thousand Palms,Acrisure Arena,Bus,,104.0,
+LM-2023-10-04,Luis Miguel,8,2023-10-04,2023-10-05,1,2,PSP,ORD,Chicago,Rosemont,Allstate Arena,Flight,United Air Lines Inc.,2653.0,"AA, UA, US"
+LM-2023-10-06,Luis Miguel,9,2023-10-06,2023-10-07,1,1,ORD,IND,Indianapolis,,Gainbridge Fieldhouse,Flight,American Airlines Inc.,285.6,"AA, UA, US"
+LM-2023-10-08,Luis Miguel,10,2023-10-08,2023-10-10,2,1,IND,LGA,New York,,Madison Square Garden,Flight,Delta Air Lines Inc.,1059.9,"AA, DL"
+LM-2023-10-11,Luis Miguel,11,2023-10-11,2023-10-17,6,2,LGA,MIA,Miami,,Kaseya Center,Flight,American Airlines Inc.,1768.4,"AA, DL, US"
+LM-2023-10-18,Luis Miguel,12,2023-10-18,2023-10-19,1,1,MIA,BOS,Boston,,TD Garden,Flight,American Airlines Inc.,2028.3,"AA, US"
+LM-2023-10-20,Luis Miguel,13,2023-10-20,2023-10-20,0,1,BOS,DCA,"Washington, D.C.",,Capital One Arena,Flight,JetBlue Airways,641.5,"AA, B6, DL, US"
+LM-2023-10-21,Luis Miguel,14,2023-10-21,2023-10-21,0,1,DCA,EWR,Newark,,Prudential Center,Flight,United Air Lines Inc.,319.3,UA
+LM-2023-10-22,Luis Miguel,15,2023-10-22,2023-10-25,3,1,EWR,JFK,New York,Elmont,UBS Arena,Bus,,33.4,
+LM-2023-10-26,Luis Miguel,16,2023-10-26,2023-10-27,1,1,JFK,OKC,Oklahoma City,,Paycom Center,Flight,Airline Unknown,2159.3,
+LM-2023-10-28,Luis Miguel,17,2023-10-28,2023-10-28,0,1,OKC,MFE,McAllen,Hidalgo,Payne Arena,Flight,Airline Unknown,1026.7,
+LM-2023-10-29,Luis Miguel,18,2023-10-29,2023-11-01,3,1,MFE,DFW,Dallas,,American Airlines Center,Flight,American Airlines Inc.,756.3,"AA, US"
+LM-2023-11-02,Luis Miguel,19,2023-11-02,2023-11-03,1,1,DFW,IAH,Houston,,Toyota Center,Flight,United Air Lines Inc.,361.6,"AA, UA, US"
+LM-2023-11-04,Luis Miguel,20,2023-11-04,2023-11-04,0,1,IAH,SAT,San Antonio,,Frost Bank Center,Flight,United Air Lines Inc.,306.1,UA
+LM-2023-11-05,Luis Miguel,21,2023-11-05,2023-11-05,0,1,SAT,AUS,Austin,,Moody Center,Bus,,106.5,
+MZ-2024-07-16,María Zardoya,1,2024-07-16,2024-07-18,2,1,LAX,OAK,Oakland,,Fox Theater,Flight,Alaska Airlines Inc.,542.8,"AS, DL, FL, NK, WN"
+MZ-2024-07-19,María Zardoya,2,2024-07-19,2024-07-19,0,1,OAK,LAS,Las Vegas,,The Chelsea at the Cosmopolitan,Flight,Spirit Air Lines,654.3,"FL, NK, WN"
+MZ-2024-07-20,María Zardoya,3,2024-07-20,2024-07-21,1,1,LAS,PHX,Phoenix,,Arizona Financial Theatre,Flight,American Airlines Inc.,410.8,"AA, F9, FL, US, WN"
+MZ-2024-07-22,María Zardoya,4,2024-07-22,2024-07-23,1,1,PHX,DFW,Dallas,,South Side Ballroom,Flight,American Airlines Inc.,1393.9,"AA, NK, US"
+MZ-2024-07-24,María Zardoya,5,2024-07-24,2024-07-25,1,1,DFW,IAH,Houston,,713 Music Hall,Flight,United Air Lines Inc.,361.6,"AA, UA, US"
+MZ-2024-07-26,María Zardoya,6,2024-07-26,2024-07-26,0,1,IAH,MCO,Orlando,,Hard Rock Live,Flight,Spirit Air Lines,1372.0,"NK, UA"
+MZ-2024-07-27,María Zardoya,7,2024-07-27,2024-07-29,2,1,MCO,MIA,Miami,,The Fillmore Miami Beach,Flight,Delta Air Lines Inc.,310.0,"AA, DL, US"
+MZ-2024-07-30,María Zardoya,8,2024-07-30,2024-08-01,2,1,MIA,ATL,Atlanta,,Tabernacle,Flight,Alaska Airlines Inc.,959.1,"AA, AF, AM, AS, AZ, BA, CX, DL, IB, KL, US, VA, VS"
+MZ-2024-08-02,María Zardoya,9,2024-08-02,2024-08-02,0,1,ATL,DCA,"Washington, D.C.",,The Anthem,Flight,Southwest Airlines Co.,880.1,"AA, AF, AM, AZ, DL, FL, KL, WN"
+MZ-2024-08-03,María Zardoya,10,2024-08-03,2024-08-05,2,1,DCA,PHL,Philadelphia,,The Met Philadelphia,Bus,,191.6,"AA, US"
+MZ-2024-08-06,María Zardoya,11,2024-08-06,2024-08-07,1,1,PHL,YYZ,Toronto,,History,Flight,Air Canada,558.0,"AA, AC, UA, US"
+MZ-2024-08-08,María Zardoya,12,2024-08-08,2024-08-10,2,1,YYZ,LGA,New York,,Radio City Music Hall,Flight,Air Canada,573.2,"AA, AC, DL, UA, US, WS"
+MZ-2024-08-11,María Zardoya,13,2024-08-11,2024-08-12,1,1,LGA,BOS,Boston,,MGM Music Hall at Fenway,Flight,Delta Air Lines Inc.,296.7,"AA, DL, US"
+MZ-2024-08-13,María Zardoya,14,2024-08-13,2024-08-14,1,1,BOS,ORD,Chicago,,The Salt Shed,Flight,JetBlue Airways,1391.1,"AA, B6, DL, NK, UA, US"
+MZ-2024-08-15,María Zardoya,15,2024-08-15,2024-08-15,0,1,ORD,DEN,Denver,,The Mission Ballroom,Flight,Frontier Airlines Inc.,1426.0,"AA, F9, NK, UA, US"
+MZ-2024-08-16,María Zardoya,16,2024-08-16,2024-08-17,1,1,DEN,SLC,Salt Lake City,,Twilight Concert Series,Flight,Frontier Airlines Inc.,627.6,"DL, F9, FL, UA, WN"
+MZ-2024-08-18,María Zardoya,17,2024-08-18,2024-08-18,0,1,SLC,SAN,San Diego,,Cal Coast Credit Union Open Air Theatre,Flight,Alaska Airlines Inc.,1008.3,"AS, DL"

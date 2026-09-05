@@ -1,0 +1,28 @@
+trip_id,traveler_name,event,organisation,start_date,weekday,end_date,nights,origin_airport,destination_airport,destination_city,carrier_name,status_carrier,flew_status_carrier,distance_km,transportation_cost,route_carriers
+CFF-2023-03-13,Chum Frink,SpringRealty,"Zenith Realty Board, National Convention",2023-03-13,Monday,2023-03-16,3,MKE,ORD,Chicago,American Airlines Inc.,Southwest Airlines Co.,False,107.7,540.0,"AA, UA, US"
+CFF-2023-04-10,Chum Frink,Boosters,"Boosters' Club of America, Annual Meeting",2023-04-10,Monday,2023-04-13,3,MKE,ATL,Atlanta,Southwest Airlines Co.,Southwest Airlines Co.,True,1078.4,540.0,"AF, AM, AZ, DL, FL, KL, WN"
+CFF-2023-07-10,Chum Frink,Exposition,National Realty Exposition,2023-07-10,Monday,2023-07-14,4,MKE,LAS,Las Vegas,Southwest Airlines Co.,Southwest Airlines Co.,True,2447.0,540.0,"FL, WN"
+CFB-2023-03-13,George Babbitt,SpringRealty,"Zenith Realty Board, National Convention",2023-03-13,Monday,2023-03-16,3,CLE,ORD,Chicago,United Air Lines Inc.,United Air Lines Inc.,True,506.6,540.0,"AA, UA, US"
+CFB-2023-04-10,George Babbitt,Boosters,"Boosters' Club of America, Annual Meeting",2023-04-10,Monday,2023-04-13,3,CLE,ATL,Atlanta,United Air Lines Inc.,United Air Lines Inc.,True,893.8,540.0,"AF, AM, AZ, DL, KL, UA"
+CFB-2023-05-01,George Babbitt,PaintCouncil,"American Paint & Varnish Assn, Spring Council",2023-05-01,Monday,2023-05-04,3,CLE,DEN,Denver,United Air Lines Inc.,United Air Lines Inc.,True,1927.9,540.0,"F9, FL, UA"
+CFB-2023-06-12,George Babbitt,Midyear,"Allied Manufacturers' Assn, Midyear Meeting",2023-06-12,Monday,2023-06-15,3,CLE,BOS,Boston,United Air Lines Inc.,United Air Lines Inc.,True,903.3,540.0,"DL, UA"
+CFB-2023-07-10,George Babbitt,Exposition,National Realty Exposition,2023-07-10,Monday,2023-07-14,4,CLE,LAS,Las Vegas,United Air Lines Inc.,United Air Lines Inc.,True,2929.4,540.0,"UA, WN"
+CFB-2023-08-07,George Babbitt,SouthernTrade,Southern Trade Exposition,2023-08-07,Monday,2023-08-10,3,CLE,MCO,Orlando,United Air Lines Inc.,United Air Lines Inc.,True,1444.4,540.0,UA
+CFM-2023-03-13,Lucile McKelvey,SpringRealty,"Zenith Realty Board, National Convention",2023-03-13,Monday,2023-03-16,3,CLT,ORD,Chicago,American Airlines Inc.,American Airlines Inc.,True,964.6,540.0,"AA, UA, US"
+CFM-2023-04-10,Lucile McKelvey,Boosters,"Boosters' Club of America, Annual Meeting",2023-04-10,Monday,2023-04-13,3,CLT,ATL,Atlanta,American Airlines Inc.,American Airlines Inc.,True,364.6,540.0,"AA, AF, AS, AZ, DL, KL, US, VS"
+CFM-2023-05-01,Lucile McKelvey,PaintCouncil,"American Paint & Varnish Assn, Spring Council",2023-05-01,Monday,2023-05-04,3,CLT,DEN,Denver,American Airlines Inc.,American Airlines Inc.,True,2148.2,540.0,"AA, UA, US"
+CFM-2023-06-12,Lucile McKelvey,Midyear,"Allied Manufacturers' Assn, Midyear Meeting",2023-06-12,Monday,2023-06-15,3,CLT,BOS,Boston,American Airlines Inc.,American Airlines Inc.,True,1170.7,540.0,"AA, B6, US"
+CFM-2023-07-10,Lucile McKelvey,Exposition,National Realty Exposition,2023-07-10,Monday,2023-07-14,4,CLT,LAS,Las Vegas,American Airlines Inc.,American Airlines Inc.,True,3076.6,540.0,"AA, US"
+CFM-2023-08-07,Lucile McKelvey,SouthernTrade,Southern Trade Exposition,2023-08-07,Monday,2023-08-10,3,CLT,MCO,Orlando,American Airlines Inc.,American Airlines Inc.,True,755.2,540.0,"AA, FL, US, WN"
+CFJ-2023-03-13,Tanis Judique,SpringRealty,"Zenith Realty Board, National Convention",2023-03-13,Monday,2023-03-16,3,STL,ORD,Chicago,American Airlines Inc.,Southwest Airlines Co.,False,415.4,540.0,"AA, UA, US"
+CFJ-2023-04-10,Tanis Judique,Boosters,"Boosters' Club of America, Annual Meeting",2023-04-10,Monday,2023-04-13,3,STL,ATL,Atlanta,Southwest Airlines Co.,Southwest Airlines Co.,True,779.0,540.0,"AF, AM, AZ, DL, FL, KL, VS, WN"
+CFJ-2023-07-10,Tanis Judique,Exposition,National Realty Exposition,2023-07-10,Monday,2023-07-14,4,STL,LAS,Las Vegas,Southwest Airlines Co.,Southwest Airlines Co.,True,2201.9,540.0,"FL, WN"
+CFG-2023-03-13,Vergil Gunch,SpringRealty,"Zenith Realty Board, National Convention",2023-03-13,Monday,2023-03-16,3,CVG,ORD,Chicago,Delta Air Lines Inc.,Delta Air Lines Inc.,True,425.4,540.0,"AA, DL, UA, US"
+CFG-2023-04-10,Vergil Gunch,Boosters,"Boosters' Club of America, Annual Meeting",2023-04-10,Monday,2023-04-13,3,CVG,ATL,Atlanta,Delta Air Lines Inc.,Delta Air Lines Inc.,True,602.2,540.0,"9E, AF, AM, AZ, DL, KL, VS"
+CFG-2023-05-01,Vergil Gunch,PaintCouncil,"American Paint & Varnish Assn, Spring Council",2023-05-01,Monday,2023-05-04,3,CVG,DEN,Denver,Delta Air Lines Inc.,Delta Air Lines Inc.,True,1716.4,540.0,"DL, F9, UA"
+CFG-2023-06-12,Vergil Gunch,Midyear,"Allied Manufacturers' Assn, Midyear Meeting",2023-06-12,Monday,2023-06-15,3,CVG,BOS,Boston,Delta Air Lines Inc.,Delta Air Lines Inc.,True,1207.6,540.0,DL
+CFG-2023-07-10,Vergil Gunch,Exposition,National Realty Exposition,2023-07-10,Monday,2023-07-14,4,CVG,LAS,Las Vegas,Delta Air Lines Inc.,Delta Air Lines Inc.,True,2694.4,540.0,DL
+CFG-2023-08-07,Vergil Gunch,SouthernTrade,Southern Trade Exposition,2023-08-07,Monday,2023-08-10,3,CVG,MCO,Orlando,Delta Air Lines Inc.,Delta Air Lines Inc.,True,1220.7,540.0,DL
+CFR-2023-03-13,Zilla Riesling,SpringRealty,"Zenith Realty Board, National Convention",2023-03-13,Monday,2023-03-16,3,MCI,ORD,Chicago,American Airlines Inc.,Southwest Airlines Co.,False,647.0,540.0,"AA, UA, US"
+CFR-2023-04-10,Zilla Riesling,Boosters,"Boosters' Club of America, Annual Meeting",2023-04-10,Monday,2023-04-13,3,MCI,ATL,Atlanta,Southwest Airlines Co.,Southwest Airlines Co.,True,1113.4,540.0,"AF, AM, AZ, DL, FL, KL, VS, WN"
+CFR-2023-07-10,Zilla Riesling,Exposition,National Realty Exposition,2023-07-10,Monday,2023-07-14,4,MCI,LAS,Las Vegas,Southwest Airlines Co.,Southwest Airlines Co.,True,1829.5,540.0,"FL, WN"

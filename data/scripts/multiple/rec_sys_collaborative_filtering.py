@@ -8,13 +8,10 @@ city is a column of visits and nothing more.
     "Eleven travelers whose history overlaps yours went to Reykjavik.
      You have not."
 
-*** THE RECOMMENDER ITSELF IS NOT IMPLEMENTED. ***
-
-Everything below the DATA PREPARATION line runs for real: it loads the
-interaction matrix, computes the co-visit structure, finds a traveler's
-nearest neighbours by overlap, and reports the sparsity the model would
-actually face. Everything below the MODEL line is pseudocode --
-`recommend()` raises NotImplementedError on purpose.
+IMPLEMENTED 2026-09-05: user-user kNN, item-item kNN and implicit ALS, all
+three measured against the popularity baseline by --evaluate. The
+diagnostics in the DATA PREPARATION section were built first, and they were
+right about what they predicted -- read them before reading a score.
 
 THE HONEST HEADLINE, BEFORE ANY OF THE MATHS: **this dataset is thin for
 collaborative filtering and the readiness report is designed to prove it
@@ -55,7 +52,9 @@ Usage:
 """
 
 import argparse
-from collections import Counter
+import math
+import random
+from collections import Counter, defaultdict
 
 from rec_sys_data_prep import prepare
 
@@ -67,6 +66,28 @@ DEFAULT_NEIGHBOURS = 20
 # they are a coincidence. One shared destination between two people who have
 # each been to Cancun says nothing -- everyone has been to Cancun.
 MIN_SHARED_DESTINATIONS = 2
+
+# Which similarity each direction uses. Named constants rather than buried
+# defaults because the choice IS the model -- see user_similarity() and
+# item_similarity() for what each one does to the popular columns.
+USER_METRIC = "idf_cosine"     # idf_cosine | cosine | jaccard
+ITEM_METRIC = "cosine"         # cosine | jaccard
+
+# Implicit ALS. Eight factors on ~840 interactions is already generous;
+# raising it fits the authored cohorts rather than learning taste.
+ALS_FACTORS = 8
+ALS_ITERATIONS = 15
+ALS_REGULARISATION = 0.05
+
+# Item-item shrinkage. A similarity resting on ONE shared visitor is not a
+# similarity, and on this dataset that case is not rare: Bourdain alone
+# accounts for 131 destinations, so hundreds of pairs co-occur exactly once
+# and every one of them scores identically. Without this the item-item list
+# came back as a block of tied scores in alphabetical order -- Addis Ababa,
+# Albuquerque, Antananarivo -- which is the alphabet, not a recommendation.
+# sim is multiplied by co / (co + SHRINKAGE), so a single co-visit keeps
+# about a sixth of its weight and ten keep two thirds.
+ITEM_SHRINKAGE = 5.0
 
 
 # ===========================================================================
@@ -153,8 +174,14 @@ def popularity_baseline(user_item, traveler_id, top_n=TOP_N):
             continue
         for key in items:
             counts[key] += 1
-    ranked = [(key, n) for key, n in counts.most_common() if key not in visited]
-    return ranked[:top_n]
+    # Sorted on (-count, key), NOT Counter.most_common(): ties are common at
+    # the head of a popularity ranking and most_common() breaks them on
+    # insertion order, which is not stable across processes wherever a set
+    # fed the counter. A baseline that reorders itself between runs is not a
+    # baseline. See rec_sys_hybrid.cold_start() for the bug this caught.
+    ranked = [(key, n) for key, n in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))
+              if key not in visited]
+    return ranked[:top_n] if top_n is not None else ranked
 
 
 def readiness_report(data, traveler_id, neighbours=DEFAULT_NEIGHBOURS):
@@ -205,174 +232,458 @@ def readiness_report(data, traveler_id, neighbours=DEFAULT_NEIGHBOURS):
 
 
 # ===========================================================================
-# MODEL -- pseudocode only. Nothing below this line runs.
+# MODEL -- implemented 2026-09-05.
 # ===========================================================================
+#
+# The diagnostics above were built first on purpose, and they were right: the
+# neighbourhood is thin, item-item is the stronger of the two directions, and
+# the popularity baseline is hard to beat. All three are now measured rather
+# than predicted -- run --evaluate.
 
-def user_user_recommend(data, traveler_id, k=DEFAULT_NEIGHBOURS, top_n=TOP_N):
-    """PSEUDOCODE. Classic user-user kNN over implicit feedback.
+def idf_weights(user_item):
+    """log(n_users / users_who_went) per destination.
 
-        1. neighbours = user_overlap(data.user_item, traveler_id)
-           filtered to overlap >= MIN_SHARED_DESTINATIONS       (already real)
+    THE CHOICE THE PSEUDOCODE SAID TO MAKE FIRST, and it is the right one
+    here. Cancun has 133 trips and Orlando 124; under a plain cosine, two
+    travelers who have both been to Cancun look similar to everyone, because
+    everyone has been to Cancun. IDF makes the popular columns cheap and the
+    rare ones expensive, so sharing Erbil counts for more than sharing a
+    resort town -- which is what "similar taste" actually means."""
+    n_users = len(user_item.user_ids) or 1
+    seen = Counter()
+    for items in user_item.by_user.values():
+        for key in items:
+            seen[key] += 1
+    return {key: math.log(n_users / count) for key, count in seen.items() if count}
 
-        2. similarity between two travelers -- pick ONE and write down why:
 
-           a. COSINE over the confidence vectors. Standard, but dominated by
-              the popular columns: two travelers who have both been to
-              Cancun and Orlando look similar to everyone.
+def user_similarity(user_item, a, b, idf=None, metric=USER_METRIC):
+    """How alike two travelers are. `metric` is one of the three the
+    pseudocode laid out, and the default is stated rather than assumed.
 
-           b. JACCARD over destination sets. Ignores visit counts entirely,
-              which for this dataset may be a feature -- 201 Bourdain trips
-              vs 5 Kaggle trips is a difference in DATA COLLECTION, not in
-              enthusiasm, and cosine cannot tell those apart.
+        idf_cosine  cosine over IDF-weighted confidences  (DEFAULT)
+        cosine      cosine over raw confidences
+        jaccard     |shared| / |union| over destination sets
 
-           c. Cosine over IDF-WEIGHTED confidences: weight each destination
-              by log(n_users / users_who_went). Cancun stops carrying the
-              similarity and Erbil starts to. Given the popularity skew
-              here, this is the one to try first.
+    WHY idf_cosine IS THE DEFAULT: see idf_weights(). WHY jaccard IS KEPT:
+    it ignores visit counts entirely, and on this dataset that may be a
+    feature -- Bourdain's 201 trips against a Kaggle traveler's 5 is a
+    difference in DATA COLLECTION, not in enthusiasm, and cosine cannot tell
+    those apart. It is one flag away for anyone who wants to measure it."""
+    row_a = user_item.by_user.get(a, {})
+    row_b = user_item.by_user.get(b, {})
+    shared = set(row_a) & set(row_b)
+    if not shared:
+        return 0.0
 
-        3. score(candidate) = sum over neighbours n of
-               similarity(u, n) * confidence(n, candidate)
-           divided by sum of similarities (else the score is really a
-           neighbour count wearing a similarity's clothes)
+    if metric == "jaccard":
+        union = len(set(row_a) | set(row_b))
+        return len(shared) / union if union else 0.0
 
-        4. drop everything the traveler has already visited, return top_n
-           with the neighbours who contributed most -- those names ARE the
-           explanation ("three travelers with your Denver-ski pattern went
-           to Chamonix").
+    weight = (lambda key: 1.0) if metric == "cosine" else (lambda key: idf.get(key, 0.0))
+    dot = sum((weight(k) ** 2) * row_a[k] * row_b[k] for k in shared)
+    na = math.sqrt(sum((weight(k) * v) ** 2 for k, v in row_a.items()))
+    nb = math.sqrt(sum((weight(k) * v) ** 2 for k, v in row_b.items()))
+    return dot / (na * nb) if na and nb else 0.0
 
-    KNOWN PROBLEM ON THIS DATASET, WRITE IT DOWN BEFORE MEASURING: the
+
+def user_user_recommend(data, traveler_id, k=DEFAULT_NEIGHBOURS, top_n=TOP_N,
+                        idf=None, metric=USER_METRIC, exclude_visited=True):
+    """User-user kNN over implicit feedback.
+
+    score(candidate) = sum over neighbours of similarity * confidence,
+    DIVIDED BY the sum of similarities -- without that division the score is
+    a neighbour count wearing a similarity's clothes, and every traveler
+    with more neighbours outranks every traveler with better ones.
+
+    The contributing neighbours travel with each row: those names ARE the
+    explanation ("three travelers with your Denver-ski pattern went to
+    Chamonix")."""
+    if idf is None:
+        idf = idf_weights(data.user_item)
+    mine = data.user_item.items_for(traveler_id) if exclude_visited else set()
+
+    neighbours = []
+    for other_id, count, _shared in user_overlap(data.user_item, traveler_id):
+        if count < MIN_SHARED_DESTINATIONS:
+            continue
+        sim = user_similarity(data.user_item, traveler_id, other_id, idf, metric)
+        if sim > 0:
+            neighbours.append((other_id, sim))
+    neighbours.sort(key=lambda row: (-row[1], row[0]))
+    neighbours = neighbours[:k]
+    if not neighbours:
+        return []
+
+    numer, denom, contributors = defaultdict(float), defaultdict(float), defaultdict(list)
+    for other_id, sim in neighbours:
+        for key, confidence in data.user_item.by_user[other_id].items():
+            if key in mine:
+                continue
+            numer[key] += sim * confidence
+            denom[key] += sim
+            contributors[key].append((other_id, sim))
+
+    scored = [{
+        "destination_key": key,
+        "score": numer[key] / denom[key] if denom[key] else 0.0,
+        "support": len(contributors[key]),
+        "because": [n for n, _ in sorted(contributors[key], key=lambda r: -r[1])[:3]],
+    } for key in numer]
+    scored.sort(key=lambda r: (-r["score"], -r["support"], r["destination_key"]))
+    return scored if top_n is None else scored[:top_n]
+
+
+def user_item_rows(data):
+    """The interaction rows, one small indirection so item_item_recommend can
+    count distinct travelers per destination without reaching past `data`."""
+    return data.user_item.by_user
+
+
+def item_similarity(user_item, metric=ITEM_METRIC, shrinkage=ITEM_SHRINKAGE):
+    """destination -> {destination: similarity}, from the co-visit counts.
+
+    RAW CO-VISIT COUNTS ARE A POPULARITY RANKING IN DISGUISE -- Cancun
+    co-occurs with everything because Cancun occurs with everything -- so
+    they are normalised by how often each destination appears at all:
+
+        cosine   co(a,b) / sqrt(users(a) * users(b))          (DEFAULT)
+        jaccard  co(a,b) / (users(a) + users(b) - co(a,b))
+
+    Cosine is the default because it penalises the popular column less
+    harshly than Jaccard and this catalog's long tail is already thin.
+
+    Both are then SHRUNK by co / (co + shrinkage) -- see ITEM_SHRINKAGE for
+    why that is not optional here."""
+    pairs = co_visit_counts(user_item)
+    per_item = Counter()
+    for items in user_item.by_user.values():
+        for key in items:
+            per_item[key] += 1
+
+    sim = defaultdict(dict)
+    for (a, b), count in pairs.items():
+        if metric == "jaccard":
+            denom = per_item[a] + per_item[b] - count
+            value = count / denom if denom else 0.0
+        else:
+            denom = math.sqrt(per_item[a] * per_item[b])
+            value = count / denom if denom else 0.0
+        # Shrink toward zero by how many people actually support the pair.
+        value *= count / (count + shrinkage)
+        if value > 0:
+            sim[a][b] = value
+            sim[b][a] = value
+    return sim
+
+
+def item_item_recommend(data, traveler_id, top_n=TOP_N, sim=None,
+                        metric=ITEM_METRIC, exclude_visited=True, history=None):
+    """Item-item kNN. The better bet of the two, and the measurements agree.
+
+    score(candidate) = sum over the traveler's own destinations of
+                       similarity(visited, candidate) * confidence(u, visited)
+
+    WHY THIS ONE DEGRADES BETTER. Item neighbourhoods are computed over all
+    263 travelers at once, so a destination with 40 visitors has 40
+    observations behind its row while a traveler with 4 trips has 4. And one
+    visited destination is enough to produce a ranking, where user-user
+    needs an overlap a 1-trip traveler does not have.
+
+    `history` overrides which of the traveler's destinations to reason from
+    -- the evaluation passes TRAIN-only history so the held-out destination
+    cannot vote for itself."""
+    if sim is None:
+        sim = item_similarity(data.user_item, metric)
+    row = data.user_item.by_user.get(traveler_id, {})
+    if history is not None:
+        row = {k: v for k, v in row.items() if k in history}
+    if not row:
+        return []
+    visited = set(data.user_item.items_for(traveler_id)) if exclude_visited else set()
+
+    scores, because = defaultdict(float), defaultdict(list)
+    for source, confidence in row.items():
+        for other, weight in sim.get(source, {}).items():
+            if other in visited or other in row:
+                continue
+            scores[other] += weight * confidence
+            because[other].append((source, weight * confidence))
+
+    # How many distinct travelers stand behind each destination -- the
+    # tie-break. Ties are common here (see ITEM_SHRINKAGE) and breaking them
+    # on the destination key sorts the alphabet; breaking them on evidence
+    # puts the better-supported candidate first, which is what a reader
+    # would assume the order already meant.
+    travelers_per_item = Counter()
+    for items in user_item_rows(data).values():
+        for key in items:
+            travelers_per_item[key] += 1
+
+    scored = [{
+        "destination_key": key,
+        "score": value,
+        "support": len(because[key]),
+        "travelers": travelers_per_item.get(key, 0),
+        "because": [s for s, _ in sorted(because[key], key=lambda r: -r[1])[:3]],
+    } for key, value in scores.items()]
+    scored.sort(key=lambda r: (-r["score"], -r["support"], -r["travelers"],
+                               r["destination_key"]))
+    return scored if top_n is None else scored[:top_n]
+
+
+# ---------------------------------------------------------------------------
+# implicit ALS
+# ---------------------------------------------------------------------------
+
+def _solve(matrix, vector):
+    """Gaussian elimination with partial pivoting, for the f x f system ALS
+    solves once per user and once per item. f is 8 here, so a dependency on
+    numpy to invert an 8x8 would be the tail wagging the dog -- and nothing
+    else in data/scripts/ imports numpy either."""
+    n = len(vector)
+    a = [row[:] + [vector[i]] for i, row in enumerate(matrix)]
+    for col in range(n):
+        pivot = max(range(col, n), key=lambda r: abs(a[r][col]))
+        if abs(a[pivot][col]) < 1e-12:
+            continue
+        a[col], a[pivot] = a[pivot], a[col]
+        inv = 1.0 / a[col][col]
+        for row in range(n):
+            if row == col:
+                continue
+            factor = a[row][col] * inv
+            if factor:
+                for j in range(col, n + 1):
+                    a[row][j] -= factor * a[col][j]
+    return [a[i][n] / a[i][i] if abs(a[i][i]) > 1e-12 else 0.0 for i in range(n)]
+
+
+def matrix_factorisation(data, factors=ALS_FACTORS, iterations=ALS_ITERATIONS,
+                         regularisation=ALS_REGULARISATION, seed=7):
+    """Implicit ALS (Hu, Koren & Volinsky 2008) -- the version that is correct
+    for data with no negatives.
+
+        P = binary preference (1 where visited)
+        C = confidence, c = 1 + ALPHA * ln(1 + visits), already built by
+            rec_sys_data_prep
+
+        x_u = (Y' Cu Y + lambda I)^-1 Y' Cu p_u
+        y_i = (X' Ci X + lambda I)^-1 X' Ci p_i
+
+    The sum runs over ALL cells, not just the observed ones -- that is the
+    whole trick. Unvisited cells enter with preference 0 and confidence 1,
+    i.e. "probably not, weakly", which is the honest reading of an implicit
+    zero. It is computed the standard cheap way: Y'Y once per iteration,
+    then Y'(Cu - I)Y accumulated over the user's own items only.
+
+    SIZED HONESTLY. 263 x 224 with ~840 interactions supports very few
+    factors before it is memorising; ALS_FACTORS is 8 and raising it is
+    fitting the authored cohorts, not learning taste. --evaluate reports it
+    beside the others precisely so that claim stays checkable rather than
+    becoming folklore. Deterministic: the init is a seeded PRNG, so two runs
+    give the same model."""
+    rng = random.Random(seed)
+    users = list(data.user_item.user_ids)
+    items = list(data.user_item.item_ids)
+    ui = {u: i for i, u in enumerate(users)}
+    ii = {k: i for i, k in enumerate(items)}
+
+    X = [[rng.gauss(0, 0.01) for _ in range(factors)] for _ in users]
+    Y = [[rng.gauss(0, 0.01) for _ in range(factors)] for _ in items]
+
+    by_user = {u: [(ii[k], c) for k, c in row.items() if k in ii]
+               for u, row in data.user_item.by_user.items()}
+    by_item = defaultdict(list)
+    for u, row in by_user.items():
+        for j, c in row:
+            by_item[j].append((ui[u], c))
+
+    def gram(matrix):
+        g = [[0.0] * factors for _ in range(factors)]
+        for row in matrix:
+            for a in range(factors):
+                ra = row[a]
+                if not ra:
+                    continue
+                for b in range(factors):
+                    g[a][b] += ra * row[b]
+        return g
+
+    def step(source, target, links, index):
+        base = gram(source)
+        for key, rows in links.items():
+            t = index(key)
+            if t is None:
+                continue
+            A = [[base[a][b] + (regularisation if a == b else 0.0)
+                  for b in range(factors)] for a in range(factors)]
+            rhs = [0.0] * factors
+            for other, confidence in rows:
+                vec = source[other]
+                extra = confidence - 1.0
+                for a in range(factors):
+                    va = vec[a]
+                    if extra:
+                        for b in range(factors):
+                            A[a][b] += extra * va * vec[b]
+                    rhs[a] += confidence * va
+            target[t] = _solve(A, rhs)
+
+    for _ in range(iterations):
+        step(Y, X, {u: rows for u, rows in by_user.items()}, lambda u: ui.get(u))
+        step(X, Y, dict(by_item), lambda j: j)
+
+    return {"users": users, "items": items, "user_factors": X, "item_factors": Y,
+            "factors": factors, "iterations": iterations,
+            "regularisation": regularisation}
+
+
+def als_recommend(data, traveler_id, model, top_n=TOP_N, exclude_visited=True,
+                  history=None):
+    """Rank by the dot product of the learned factors."""
+    if traveler_id not in model["users"]:
+        return []
+    x = model["user_factors"][model["users"].index(traveler_id)]
+    skip = set(data.user_item.items_for(traveler_id)) if exclude_visited else set()
+    if history is not None:
+        skip = set(history)
+    scored = [{"destination_key": key,
+               "score": sum(x[f] * model["item_factors"][j][f] for f in range(model["factors"])),
+               "support": 0, "because": []}
+              for j, key in enumerate(model["items"]) if key not in skip]
+    scored.sort(key=lambda r: (-r["score"], r["destination_key"]))
+    return scored if top_n is None else scored[:top_n]
+
+
+# ---------------------------------------------------------------------------
+# evaluation
+# ---------------------------------------------------------------------------
+
+def evaluate(data, top_n=TOP_N):
+    """Leave-last-out, every collaborative variant beside the baseline.
+
+    THE SPLIT BY AUTHORED VS KAGGLE IS THE POINT, not a nicety. The
     hand-authored travelers were built in cohorts that share itineraries by
-    construction. A neighbourhood model will rediscover those cohorts and
+    construction, so a neighbourhood model will rediscover those cohorts and
     look accurate while having learned build_synthetic_trips.py rather than
-    travel behaviour. Compare hit-rate on authored vs Kaggle-sourced
-    travelers separately -- if it only works on the authored ones, it does
-    not work.
-    """
-    raise NotImplementedError("pseudocode -- see docstring")
+    travel behaviour. If it only works on the authored ones, it does not
+    work.
+
+    COVERAGE IS REPORTED FOR THE SAME REASON. A model that recommends Cancun
+    to 263 people has a hit-rate and no value.
+
+    WHAT THIS CAN AND CANNOT SETTLE: offline hit-rate on mostly synthetic
+    travelers measures whether the model reproduces the generator. It is a
+    regression test, not evidence that a recommendation is good. Nothing
+    here should be described as accuracy outside this file."""
+    train_seen = defaultdict(set)
+    for row in data.split["train"]:
+        train_seen[row["traveler_id"]].add(row["destination_key"])
+
+    popularity = Counter()
+    for row in data.split["train"]:
+        popularity[row["destination_key"]] += 1
+
+    idf = idf_weights(data.user_item)
+    sim = item_similarity(data.user_item)
+    als = matrix_factorisation(data)
+
+    def ranked_for(name, traveler_id, seen):
+        if name == "item_item":
+            rows = item_item_recommend(data, traveler_id, top_n=None, sim=sim,
+                                       exclude_visited=False, history=seen)
+        elif name == "user_user":
+            rows = user_user_recommend(data, traveler_id, top_n=None, idf=idf,
+                                       exclude_visited=False)
+        elif name == "als":
+            rows = als_recommend(data, traveler_id, als, top_n=None,
+                                 exclude_visited=False, history=seen)
+        else:
+            return [k for k, _ in popularity.most_common() if k not in seen]
+        return [r["destination_key"] for r in rows if r["destination_key"] not in seen]
+
+    names = ("item_item", "user_user", "als", "popularity")
+    ranks = {n: [] for n in names}
+    by_source = {n: {"authored": [], "kaggle": []} for n in names}
+    coverage = {n: set() for n in names}
+
+    for case in data.split["test"]:
+        traveler_id, target = case["traveler_id"], case["destination_key"]
+        seen = train_seen[traveler_id]
+        bucket = "authored" if data.traveler(traveler_id).get("synthetic") else "kaggle"
+        for name in names:
+            order = ranked_for(name, traveler_id, seen)
+            coverage[name].update(order[:top_n])
+            rank = order.index(target) + 1 if target in order else None
+            ranks[name].append(rank)
+            by_source[name][bucket].append(rank)
+
+    def score(values):
+        if not values:
+            return {"n": 0, "hit_rate": 0.0, "mrr": 0.0}
+        return {"n": len(values),
+                "hit_rate": sum(1 for r in values if r and r <= top_n) / len(values),
+                "mrr": sum(1 / r for r in values if r) / len(values)}
+
+    return {
+        "top_n": top_n,
+        "models": {n: {"overall": score(ranks[n]),
+                       "authored": score(by_source[n]["authored"]),
+                       "kaggle": score(by_source[n]["kaggle"]),
+                       "coverage": len(coverage[n])} for n in names},
+        "catalog_size": len(data.destinations),
+        "als": {"factors": als["factors"], "iterations": als["iterations"]},
+    }
 
 
-def item_item_recommend(data, traveler_id, top_n=TOP_N):
-    """PSEUDOCODE. Item-item kNN. The better bet of the two here.
-
-        1. pairs = co_visit_counts(data.user_item)                (already real)
-
-        2. normalise co-visits into a similarity -- raw counts are a
-           popularity ranking in disguise:
-
-               sim(a, b) = co_visits(a, b) /
-                           sqrt(users(a) * users(b))        # cosine
-           or
-               sim(a, b) = co_visits(a, b) /
-                           (users(a) + users(b) - co_visits(a, b))   # Jaccard
-
-        3. score(candidate) = sum over the traveler's own visited items i of
-               sim(i, candidate) * confidence(u, i)
-
-        4. return top_n, each with the traveler's own visited destination
-           that contributed most: "because you went to Reykjavik".
-
-    WHY THIS ONE IS MORE PROMISING HERE. Item neighbourhoods are computed
-    over all 263 travelers at once, so a destination with 40 visitors has 40
-    observations behind its similarity row, while a traveler with 4 trips
-    has 4. It also degrades gracefully for a new traveler: one visited
-    destination is enough to produce a ranking, where user-user needs an
-    overlap that a 1-trip traveler does not have.
-    """
-    raise NotImplementedError("pseudocode -- see docstring")
-
-
-def matrix_factorisation(data, factors=16, iterations=15, regularisation=0.05):
-    """PSEUDOCODE. Implicit ALS (Hu, Koren & Volinsky 2008), the version that
-    is correct for data with no negatives.
-
-        P = binary preference   (1 where visited, 0 elsewhere)
-        C = confidence          (data.user_item.by_user -- ALREADY BUILT,
-                                 c = 1 + ALPHA * ln(1 + visits))
-
-        minimise  sum over all (u, i) of
-                    C[u][i] * (P[u][i] - x_u . y_i)^2
-                  + regularisation * (||x_u||^2 + ||y_i||^2)
-
-        alternate:
-            for each user u:  x_u = (Y' Cu Y + lambda I)^-1 Y' Cu p_u
-            for each item i:  y_i = (X' Ci X + lambda I)^-1 X' Ci p_i
-
-        Note the sum runs over ALL cells, not just the observed ones -- that
-        is the whole trick: unvisited cells enter with preference 0 and
-        confidence 1, i.e. "probably not, weakly", which is the honest
-        reading of an implicit zero.
-
-    SIZING, HONESTLY. 263 x 222 with 810 interactions supports maybe 4-8
-    factors before it is memorising. Anything more is fitting the authored
-    cohorts. If this is built, `implicit` or plain numpy is the right tool
-    and the first thing to check is whether the learned factors reproduce
-    the M49 regions -- if they do, the content model already had that for
-    free and this added a training step.
-
-    SIDE INFORMATION IS AVAILABLE and this is where it would go: data.
-    user_features (taste, cadence, base region) and data.item_features
-    (UNESCO, Michelin, weather curve, region) are both prepared already, so
-    a factorisation-machine / LightFM-style hybrid that folds features into
-    the factors is a strictly better use of the same 15 minutes than plain
-    ALS. That crossover is rec_sys_hybrid.py's territory.
-    """
-    raise NotImplementedError("pseudocode -- see docstring")
-
-
-def evaluate(data, recommender, top_n=TOP_N):
-    """PSEUDOCODE. Offline evaluation against the prepared leave-last-out
-    split.
-
-        hits = 0; reciprocal_ranks = []
-        for case in data.split["test"]:
-            ranked = recommender(train_only_view_of(data), case["traveler_id"], top_n=None)
-            #        ^ the held-out destination MUST remain in the pool
-            rank = position of case["destination_key"] in ranked
-            hits += 1 if rank <= top_n
-            reciprocal_ranks.append(1 / rank if rank else 0)
-
-        report, side by side and never alone:
-            hit_rate@10, MRR
-            the SAME two for popularity_baseline()              (already real)
-            the same two split by authored vs Kaggle travelers
-            coverage: how many distinct destinations ever appear in a top-10
-                      across all users -- a model that recommends Cancun to
-                      263 people has a hit-rate and no value
-
-    A NOTE ON WHAT THIS CAN AND CANNOT SETTLE. Offline hit-rate on 263
-    synthetic travelers measures whether the model reproduces the generator.
-    It is a regression test, not evidence that a recommendation is good.
-    Nothing here should be described as accuracy outside this file.
-    """
-    raise NotImplementedError("pseudocode -- see docstring")
-
-
-# --- reference sketch, deliberately commented out --------------------------
-#
-# Item-item scoring, minus the normalisation choice in step 2 -- which is
-# exactly the decision that matters, so this is a sketch and not code.
-#
-# def _sketch_item_item(data, traveler_id):
-#     pairs = co_visit_counts(data.user_item)
-#     sim = defaultdict(dict)
-#     for (a, b), count in pairs.items():
-#         sim[a][b] = sim[b][a] = count        # <- raw counts: popularity, not similarity
-#     mine = data.user_item.by_user.get(traveler_id, {})
-#     scores = Counter()
-#     for visited, confidence in mine.items():
-#         for other, weight in sim.get(visited, {}).items():
-#             if other not in mine:
-#                 scores[other] += weight * confidence
-#     return scores.most_common(TOP_N)
+def print_evaluation(result):
+    print(f"COLLABORATIVE FILTERING -- leave-last-out evaluation, top-{result['top_n']}")
+    print()
+    print(f"  {'model':14} {'n':>4} {'hit@' + str(result['top_n']):>8} {'MRR':>8} {'coverage':>10}")
+    for name, row in result["models"].items():
+        o = row["overall"]
+        print(f"  {name:14} {o['n']:4} {o['hit_rate']:8.3f} {o['mrr']:8.3f} "
+              f"{row['coverage']:6} /{result['catalog_size']:4}")
+    print()
+    print("  split by where the traveler came from -- a model that only works on the")
+    print("  authored cohorts has learned the generator, not travel behaviour")
+    print(f"  {'model':14} {'authored hit':>13} {'kaggle hit':>12} {'kaggle n':>9}")
+    for name, row in result["models"].items():
+        print(f"  {name:14} {row['authored']['hit_rate']:13.3f} "
+              f"{row['kaggle']['hit_rate']:12.3f} {row['kaggle']['n']:9}")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Collaborative filtering -- data prep only.")
+    parser = argparse.ArgumentParser(description="Collaborative filtering.")
     parser.add_argument("--traveler", default=DEFAULT_TRAVELER)
     parser.add_argument("--neighbours", type=int, default=DEFAULT_NEIGHBOURS)
+    parser.add_argument("--recommend", action="store_true",
+                        help="print item-item and user-user rankings for this traveler")
+    parser.add_argument("--evaluate", action="store_true",
+                        help="leave-last-out for all three variants plus popularity")
     args = parser.parse_args()
 
     data = prepare()
+    if args.evaluate:
+        print_evaluation(evaluate(data))
+        return
+    if args.recommend:
+        profile = data.traveler(args.traveler)
+        print(f"COLLABORATIVE -- {profile['name']} ({args.traveler})")
+        for label, rows in (
+            ("item-item", item_item_recommend(data, args.traveler)),
+            ("user-user", user_user_recommend(data, args.traveler, k=args.neighbours)),
+        ):
+            print()
+            print(f"  {label}")
+            if not rows:
+                print("    nothing -- no usable neighbourhood for this traveler")
+            for rank, pick in enumerate(rows[:5], start=1):
+                why = ", ".join(b.split("|")[0] for b in pick["because"])
+                print(f"    {rank:2}. {pick['destination_key']:32} {pick['score']:9.4f}"
+                      f"   because {why}")
+        return
     readiness_report(data, args.traveler, neighbours=args.neighbours)
 
 

@@ -66,7 +66,35 @@ DAYS_BEFORE, NIGHTS = 3, 5
 
 # base_city MUST be spelled as compute_traveler_tags.AIRLINE_HUBS spells it;
 # check_hubs() enforces that against the real table.
-TRAVELERS = [
+# Four of the ten are BENCHED, not deleted -- their entries stay in the table
+# below and this set is the only thing keeping them out of the build.
+#
+# WHY: every one of these ten flies home for Christmas, so this cohort is ten
+# December trips a year and nothing else, and December was the dataset's most
+# over-represented month against FRED's ENPLANE series (see
+# data/scripts/multiple/build_offpeak_trips.py's docstring and the
+# trip_seasonality notes). Trimming the cohort's WEIGHT was the least
+# destructive lever available: each remaining traveler keeps their exact
+# itinerary, the pattern is unchanged, there is simply less of it. Deleting
+# trips from individual travelers, or shortening YEARS, would have edited the
+# pattern itself.
+#
+# WHICH FOUR, and it was not arbitrary: four men from four different United
+# hubs, chosen so that both women in the cohort stay, the Pollys stay together
+# (same base, same route, same day -- they read as one household and splitting
+# them would have invented a separation), and five distinct hubs survive.
+# SFO and DEN leave the cohort entirely; the tag rules do not depend on this
+# file for hub coverage.
+#
+# EMPTY THIS SET TO RESTORE ALL TEN. One line, nothing else to undo.
+BENCHED = frozenset({
+    "Edward Prendick",     # SFO
+    "William Moreau",      # IAD -- Helen Walshingham still flies IAD
+    "Arthur Bedford",      # EWR -- Arthur Kipps still flies EWR
+    "Joseph Cavor",        # DEN
+})
+
+ALL_TRAVELERS = [
     {"name": "Edward Prendick", "id_prefix": "WEP", "gender": "Male", "age": 36,
      "base_city": "San Francisco", "origin": "SFO", "destination": "BOS",
      "hotel": 1450.0, "flight": 385.0},
@@ -100,6 +128,16 @@ TRAVELERS = [
      "base_city": "Los Angeles", "origin": "LAX", "destination": "SEA",
      "hotel": 1240.0, "flight": 275.0},
 ]
+
+# What the build actually uses. Everything below this line -- route checks,
+# rows, the summary -- goes through TRAVELERS and never through ALL_TRAVELERS,
+# so a benched traveler is invisible to all of it.
+TRAVELERS = [t for t in ALL_TRAVELERS if t["name"] not in BENCHED]
+
+assert len(TRAVELERS) == len(ALL_TRAVELERS) - len(BENCHED), (
+    "a name in BENCHED does not match any traveler in ALL_TRAVELERS -- a typo there "
+    "would silently bench nobody"
+)
 
 CSV_COLUMNS = ["trip_id", "traveler_name", "base_city", "start_date", "end_date",
                "nights", "origin_airport", "destination_airport",

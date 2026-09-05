@@ -5,9 +5,9 @@
   "global_distinct_destinations_source": "UN M49: every detailed region that exists, whether or not this dataset visits it",
   "observed_distinct_destinations": 19,
   "ln_global_distinct_destinations": 3.091,
-  "travelers_total": 263,
-  "travelers_with_destination_data": 263,
-  "travelers_with_informative_entropy": 150,
+  "travelers_total": 279,
+  "travelers_with_destination_data": 279,
+  "travelers_with_informative_entropy": 166,
   "travelers": [
     {
       "traveler_id": "anthony-bourdain",
@@ -64,6 +64,118 @@
       "norm_global": 0.4575,
       "norm_observed": 0.7893,
       "norm_capacity": 0.5222
+    },
+    {
+      "traveler_id": "captain-nemo",
+      "name": "Captain Nemo",
+      "trip_count": 25,
+      "trips_with_destination": 25,
+      "n_destinations": 4,
+      "top_destination": "Southern Europe",
+      "top_destination_share": 0.4,
+      "entropy": 1.3322,
+      "entropy_is_informative": true,
+      "norm_global": 0.431,
+      "norm_observed": 0.961,
+      "norm_capacity": 0.431
+    },
+    {
+      "traveler_id": "impey-barbicane",
+      "name": "Impey Barbicane",
+      "trip_count": 25,
+      "trips_with_destination": 25,
+      "n_destinations": 4,
+      "top_destination": "Central America",
+      "top_destination_share": 0.4,
+      "entropy": 1.3322,
+      "entropy_is_informative": true,
+      "norm_global": 0.431,
+      "norm_observed": 0.961,
+      "norm_capacity": 0.431
+    },
+    {
+      "traveler_id": "mary-grant",
+      "name": "Mary Grant",
+      "trip_count": 25,
+      "trips_with_destination": 25,
+      "n_destinations": 4,
+      "top_destination": "Southern Europe",
+      "top_destination_share": 0.4,
+      "entropy": 1.3322,
+      "entropy_is_informative": true,
+      "norm_global": 0.431,
+      "norm_observed": 0.961,
+      "norm_capacity": 0.431
+    },
+    {
+      "traveler_id": "michel-ardan",
+      "name": "Michel Ardan",
+      "trip_count": 25,
+      "trips_with_destination": 25,
+      "n_destinations": 4,
+      "top_destination": "Western Europe",
+      "top_destination_share": 0.4,
+      "entropy": 1.3322,
+      "entropy_is_informative": true,
+      "norm_global": 0.431,
+      "norm_observed": 0.961,
+      "norm_capacity": 0.431
+    },
+    {
+      "traveler_id": "ned-land",
+      "name": "Ned Land",
+      "trip_count": 25,
+      "trips_with_destination": 25,
+      "n_destinations": 4,
+      "top_destination": "Southern Europe",
+      "top_destination_share": 0.4,
+      "entropy": 1.3322,
+      "entropy_is_informative": true,
+      "norm_global": 0.431,
+      "norm_observed": 0.961,
+      "norm_capacity": 0.431
+    },
+    {
+      "traveler_id": "otto-lidenbrock",
+      "name": "Otto Lidenbrock",
+      "trip_count": 25,
+      "trips_with_destination": 25,
+      "n_destinations": 4,
+      "top_destination": "Northern Europe",
+      "top_destination_share": 0.4,
+      "entropy": 1.3322,
+      "entropy_is_informative": true,
+      "norm_global": 0.431,
+      "norm_observed": 0.961,
+      "norm_capacity": 0.431
+    },
+    {
+      "traveler_id": "phileas-fogg",
+      "name": "Phileas Fogg",
+      "trip_count": 25,
+      "trips_with_destination": 25,
+      "n_destinations": 4,
+      "top_destination": "Southern Europe",
+      "top_destination_share": 0.4,
+      "entropy": 1.3322,
+      "entropy_is_informative": true,
+      "norm_global": 0.431,
+      "norm_observed": 0.961,
+      "norm_capacity": 0.431
+    },
+    {
+      "traveler_id": "pierre-aronnax",
+      "name": "Pierre Aronnax",
+      "trip_count": 25,
+      "trips_with_destination": 25,
+      "n_destinations": 4,
+      "top_destination": "Northern Europe",
+      "top_destination_share": 0.4,
+      "entropy": 1.3322,
+      "entropy_is_informative": true,
+      "norm_global": 0.431,
+      "norm_observed": 0.961,
+      "norm_capacity": 0.431
     },
     {
       "traveler_id": "eduardo-gomez",
@@ -176,6 +288,34 @@
       "norm_global": 0.3554,
       "norm_observed": 1.0,
       "norm_capacity": 1.0
+    },
+    {
+      "traveler_id": "helena-glenarvan",
+      "name": "Helena Glenarvan",
+      "trip_count": 25,
+      "trips_with_destination": 25,
+      "n_destinations": 3,
+      "top_destination": "Western Europe",
+      "top_destination_share": 0.4,
+      "entropy": 1.0549,
+      "entropy_is_informative": true,
+      "norm_global": 0.3413,
+      "norm_observed": 0.9602,
+      "norm_capacity": 0.3413
+    },
+    {
+      "traveler_id": "nadia-fedor",
+      "name": "Nadia Fedor",
+      "trip_count": 25,
+      "trips_with_destination": 25,
+      "n_destinations": 3,
+      "top_destination": "Northern Europe",
+      "top_destination_share": 0.4,
+      "entropy": 1.0549,
+      "entropy_is_informative": true,
+      "norm_global": 0.3413,
+      "norm_observed": 0.9602,
+      "norm_capacity": 0.3413
     },
     {
       "traveler_id": "oliver-twist",
@@ -416,6 +556,20 @@
       "norm_capacity": 0.321
     },
     {
+      "traveler_id": "aouda",
+      "name": "Aouda",
+      "trip_count": 25,
+      "trips_with_destination": 25,
+      "n_destinations": 3,
+      "top_destination": "Southern Europe",
+      "top_destination_share": 0.6,
+      "entropy": 0.9503,
+      "entropy_is_informative": true,
+      "norm_global": 0.3074,
+      "norm_observed": 0.865,
+      "norm_capacity": 0.3074
+    },
+    {
       "traveler_id": "harry-maylie",
       "name": "Harry Maylie",
       "trip_count": 5,
@@ -428,6 +582,20 @@
       "norm_global": 0.3074,
       "norm_observed": 0.865,
       "norm_capacity": 0.5904
+    },
+    {
+      "traveler_id": "jean-passepartout",
+      "name": "Jean Passepartout",
+      "trip_count": 25,
+      "trips_with_destination": 25,
+      "n_destinations": 3,
+      "top_destination": "Western Europe",
+      "top_destination_share": 0.6,
+      "entropy": 0.9503,
+      "entropy_is_informative": true,
+      "norm_global": 0.3074,
+      "norm_observed": 0.865,
+      "norm_capacity": 0.3074
     },
     {
       "traveler_id": "rose-maylie",
@@ -1116,20 +1284,6 @@
       "norm_capacity": null
     },
     {
-      "traveler_id": "arthur-bedford",
-      "name": "Arthur Bedford",
-      "trip_count": 5,
-      "trips_with_destination": 5,
-      "n_destinations": 1,
-      "top_destination": "Northern America",
-      "top_destination_share": 1.0,
-      "entropy": 0.0,
-      "entropy_is_informative": true,
-      "norm_global": 0.0,
-      "norm_observed": null,
-      "norm_capacity": 0.0
-    },
-    {
       "traveler_id": "arthur-kipps",
       "name": "Arthur Kipps",
       "trip_count": 5,
@@ -1188,8 +1342,8 @@
     {
       "traveler_id": "bill-gorton",
       "name": "Bill Gorton",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -1230,8 +1384,8 @@
     {
       "traveler_id": "brett-ashley",
       "name": "Brett Ashley",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -1300,8 +1454,8 @@
     {
       "traveler_id": "catherine-barkley",
       "name": "Catherine Barkley",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -1422,6 +1576,20 @@
       "norm_global": 0.0,
       "norm_observed": null,
       "norm_capacity": null
+    },
+    {
+      "traveler_id": "chum-frink",
+      "name": "Chum Frink",
+      "trip_count": 3,
+      "trips_with_destination": 3,
+      "n_destinations": 1,
+      "top_destination": "Northern America",
+      "top_destination_share": 1.0,
+      "entropy": 0.0,
+      "entropy_is_informative": true,
+      "norm_global": 0.0,
+      "norm_observed": null,
+      "norm_capacity": 0.0
     },
     {
       "traveler_id": "clarice-lispector",
@@ -1634,20 +1802,6 @@
       "norm_capacity": null
     },
     {
-      "traveler_id": "edward-prendick",
-      "name": "Edward Prendick",
-      "trip_count": 5,
-      "trips_with_destination": 5,
-      "n_destinations": 1,
-      "top_destination": "Northern America",
-      "top_destination_share": 1.0,
-      "entropy": 0.0,
-      "entropy_is_informative": true,
-      "norm_global": 0.0,
-      "norm_observed": null,
-      "norm_capacity": 0.0
-    },
-    {
       "traveler_id": "edwin-leeford",
       "name": "Edwin Leeford",
       "trip_count": 5,
@@ -1832,8 +1986,8 @@
     {
       "traveler_id": "frederic-henry",
       "name": "Frederic Henry",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -1862,6 +2016,20 @@
       "name": "Galileo Galilei",
       "trip_count": 24,
       "trips_with_destination": 24,
+      "n_destinations": 1,
+      "top_destination": "Northern America",
+      "top_destination_share": 1.0,
+      "entropy": 0.0,
+      "entropy_is_informative": true,
+      "norm_global": 0.0,
+      "norm_observed": null,
+      "norm_capacity": 0.0
+    },
+    {
+      "traveler_id": "george-babbitt",
+      "name": "George Babbitt",
+      "trip_count": 6,
+      "trips_with_destination": 6,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -1986,8 +2154,8 @@
     {
       "traveler_id": "helen-ferguson",
       "name": "Helen Ferguson",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -2168,8 +2336,8 @@
     {
       "traveler_id": "jake-barnes",
       "name": "Jake Barnes",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -2334,20 +2502,6 @@
       "norm_capacity": null
     },
     {
-      "traveler_id": "joseph-cavor",
-      "name": "Joseph Cavor",
-      "trip_count": 5,
-      "trips_with_destination": 5,
-      "n_destinations": 1,
-      "top_destination": "Northern America",
-      "top_destination_share": 1.0,
-      "entropy": 0.0,
-      "entropy_is_informative": true,
-      "norm_global": 0.0,
-      "norm_observed": null,
-      "norm_capacity": 0.0
-    },
-    {
       "traveler_id": "kamala-das",
       "name": "Kamala Das",
       "trip_count": 1,
@@ -2434,8 +2588,8 @@
     {
       "traveler_id": "krebs",
       "name": "Krebs",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -2558,6 +2712,34 @@
       "norm_capacity": null
     },
     {
+      "traveler_id": "lucile-mckelvey",
+      "name": "Lucile McKelvey",
+      "trip_count": 6,
+      "trips_with_destination": 6,
+      "n_destinations": 1,
+      "top_destination": "Northern America",
+      "top_destination_share": 1.0,
+      "entropy": 0.0,
+      "entropy_is_informative": true,
+      "norm_global": 0.0,
+      "norm_observed": null,
+      "norm_capacity": 0.0
+    },
+    {
+      "traveler_id": "luis-miguel",
+      "name": "Luis Miguel",
+      "trip_count": 21,
+      "trips_with_destination": 21,
+      "n_destinations": 1,
+      "top_destination": "Northern America",
+      "top_destination_share": 1.0,
+      "entropy": 0.0,
+      "entropy_is_informative": true,
+      "norm_global": 0.0,
+      "norm_observed": null,
+      "norm_capacity": 0.0
+    },
+    {
       "traveler_id": "machado-de-assis",
       "name": "Machado de Assis",
       "trip_count": 1,
@@ -2588,8 +2770,8 @@
     {
       "traveler_id": "manuel-garcia",
       "name": "Manuel Garcia",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -2684,6 +2866,20 @@
       "norm_capacity": null
     },
     {
+      "traveler_id": "maria-zardoya",
+      "name": "María Zardoya",
+      "trip_count": 17,
+      "trips_with_destination": 17,
+      "n_destinations": 1,
+      "top_destination": "Northern America",
+      "top_destination_share": 1.0,
+      "entropy": 0.0,
+      "entropy_is_informative": true,
+      "norm_global": 0.0,
+      "norm_observed": null,
+      "norm_capacity": 0.0
+    },
+    {
       "traveler_id": "mavis-gallant",
       "name": "Mavis Gallant",
       "trip_count": 1,
@@ -2728,8 +2924,8 @@
     {
       "traveler_id": "mike-campbell",
       "name": "Mike Campbell",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -2952,8 +3148,8 @@
     {
       "traveler_id": "nick-adams",
       "name": "Nick Adams",
-      "trip_count": 25,
-      "trips_with_destination": 25,
+      "trip_count": 15,
+      "trips_with_destination": 15,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -3022,8 +3218,8 @@
     {
       "traveler_id": "ole-andreson",
       "name": "Ole Andreson",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -3148,8 +3344,8 @@
     {
       "traveler_id": "pedro-romero",
       "name": "Pedro Romero",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -3232,8 +3428,8 @@
     {
       "traveler_id": "rinaldi",
       "name": "Rinaldi",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -3246,8 +3442,8 @@
     {
       "traveler_id": "robert-cohn",
       "name": "Robert Cohn",
-      "trip_count": 20,
-      "trips_with_destination": 20,
+      "trip_count": 10,
+      "trips_with_destination": 10,
       "n_destinations": 1,
       "top_destination": "Northern America",
       "top_destination_share": 1.0,
@@ -3468,6 +3664,20 @@
       "norm_capacity": null
     },
     {
+      "traveler_id": "tanis-judique",
+      "name": "Tanis Judique",
+      "trip_count": 3,
+      "trips_with_destination": 3,
+      "n_destinations": 1,
+      "top_destination": "Northern America",
+      "top_destination_share": 1.0,
+      "entropy": 0.0,
+      "entropy_is_informative": true,
+      "norm_global": 0.0,
+      "norm_observed": null,
+      "norm_capacity": 0.0
+    },
+    {
       "traveler_id": "thelonious-monk",
       "name": "Thelonious Monk",
       "trip_count": 14,
@@ -3516,6 +3726,20 @@
       "trips_with_destination": 2,
       "n_destinations": 1,
       "top_destination": "Eastern Asia",
+      "top_destination_share": 1.0,
+      "entropy": 0.0,
+      "entropy_is_informative": true,
+      "norm_global": 0.0,
+      "norm_observed": null,
+      "norm_capacity": 0.0
+    },
+    {
+      "traveler_id": "vergil-gunch",
+      "name": "Vergil Gunch",
+      "trip_count": 6,
+      "trips_with_destination": 6,
+      "n_destinations": 1,
+      "top_destination": "Northern America",
       "top_destination_share": 1.0,
       "entropy": 0.0,
       "entropy_is_informative": true,
@@ -3608,20 +3832,6 @@
       "norm_capacity": null
     },
     {
-      "traveler_id": "william-moreau",
-      "name": "William Moreau",
-      "trip_count": 5,
-      "trips_with_destination": 5,
-      "n_destinations": 1,
-      "top_destination": "Northern America",
-      "top_destination_share": 1.0,
-      "entropy": 0.0,
-      "entropy_is_informative": true,
-      "norm_global": 0.0,
-      "norm_observed": null,
-      "norm_capacity": 0.0
-    },
-    {
       "traveler_id": "william-shakespeare",
       "name": "William Shakespeare",
       "trip_count": 1,
@@ -3690,6 +3900,20 @@
       "norm_global": 0.0,
       "norm_observed": null,
       "norm_capacity": null
+    },
+    {
+      "traveler_id": "zilla-riesling",
+      "name": "Zilla Riesling",
+      "trip_count": 3,
+      "trips_with_destination": 3,
+      "n_destinations": 1,
+      "top_destination": "Northern America",
+      "top_destination_share": 1.0,
+      "entropy": 0.0,
+      "entropy_is_informative": true,
+      "norm_global": 0.0,
+      "norm_observed": null,
+      "norm_capacity": 0.0
     }
   ]
 }

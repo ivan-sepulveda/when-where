@@ -19,8 +19,14 @@ ricksteves_traveler.json, davidchang_traveler.json), nine authored skiers
 Thanksgiving (raccoons_traveler.json), fourteen authored Americans who travel for US
 holidays (hemingway_traveler.json), ten United-hub Americans who fly home for
 Christmas (wells_traveler.json), fourteen New Yorkers who summer in Europe
-(dickens_traveler.json) and two supplied flight logs
-(gomez_traveler.json, rymel_traveler.json) --
+(dickens_traveler.json), one touring musician whose itinerary is a CHAIN
+rather than a star -- every leg departs from the previous show's city, not
+from home (tour_traveler.json, see build_tour_trips.py) -- and two supplied
+flight logs (gomez_traveler.json, rymel_traveler.json), and twelve off-peak
+travelers who go to popular places in those places' low seasons -- Europe in
+January, the Caribbean in July (offpeak_traveler.json) -- and six business
+travelers whose destination and month are picked by a trade convention rather
+than by them (conference_traveler.json, see build_conference_trips.py) --
 whenever those files exist. They supply the deliberate travel patterns the
 Kaggle rows can't (113 of its 124 people have exactly one trip). Every
 trip here carries a `synthetic` flag so the origins can always be told
@@ -246,6 +252,9 @@ RACCOONS_PATH = PROCESSED_DIR / "raccoons_traveler.json"
 HEMINGWAY_PATH = PROCESSED_DIR / "hemingway_traveler.json"
 WELLS_PATH = PROCESSED_DIR / "wells_traveler.json"
 DICKENS_PATH = PROCESSED_DIR / "dickens_traveler.json"
+TOUR_PATH = PROCESSED_DIR / "tour_traveler.json"
+OFFPEAK_PATH = PROCESSED_DIR / "offpeak_traveler.json"
+CONFERENCE_PATH = PROCESSED_DIR / "conference_traveler.json"
 OUTPUT_PATH = PROCESSED_DIR / "trips_enhanced.json"
 
 # Every file that contributes fabricated trips in trips_enhanced.json's own
@@ -254,7 +263,7 @@ OUTPUT_PATH = PROCESSED_DIR / "trips_enhanced.json"
 SYNTHETIC_SOURCES = (SYNTHETIC_PATH, BOURDAIN_PATH, RAMSAY_PATH, CONAN_PATH, RICKSTEVES_PATH,
                      GOMEZ_PATH, DAVIDCHANG_PATH, SKIERS_PATH, RYMEL_PATH,
                      RACCOONS_PATH, HEMINGWAY_PATH, WELLS_PATH,
-                     DICKENS_PATH)
+                     DICKENS_PATH, TOUR_PATH, OFFPEAK_PATH, CONFERENCE_PATH)
 
 
 def resolve_columns(columns) -> dict[str, str]:

@@ -1,47 +1,31 @@
-"""
-Pure scoring logic for the /api/destinations/top10 endpoint -- no file I/O
-here (see data_loader.py for that), just the math that turns a date range
-plus this project's per-country/per-city data into one ranked list. Kept
-separate from main.py so the request-time logic can be unit tested without
-spinning up FastAPI.
+"""Pure scoring math for /api/destinations/top10 -- no file I/O, unit-testable without FastAPI.
 
-Two things happen here that don't exist anywhere in data/scripts/ yet:
+Two things here exist nowhere in data/scripts/:
 
-1. Resolving a (start_date, end_date) range into weights over calendar
-   months -- see month_weights(). Everything upstream in data/processed/
-   is keyed by month name (weather) or plain month number (peak tourism,
-   unused here for now), never by a date range, so this is new logic
-   specific to serving a live request.
-2. Combining the six raw per-month weather factors from
-   compute_monthly_scores.py into a single 0-10 score -- see
-   weather_score_from_monthly_metrics(). data/README.md is explicit that
-   those six factors are deliberately left uncombined in the pipeline
-   itself, since the "right" weighting depends on traveler profile (a
-   hiking trip cares about rain very differently than a beach trip). This
-   is a simple, equal-weighted default for now -- a real next step is
-   letting `interest` (already sent by the frontend, not yet used here)
-   change these weights per profile.
+- `month_weights()` resolves a date range into per-month weights. Everything in
+  data/processed/ is keyed by month name or number, never by a range.
+- `weather_score_from_monthly_metrics()` combines compute_monthly_scores.py's six
+  raw factors into one 0-10 score. data/README.md leaves them uncombined on
+  purpose -- the right weighting depends on the traveler (a hike and a beach trip
+  weigh rain differently). This is an equal-weighted default; `interest` is
+  already sent by the frontend and is the hook for making it per-profile.
 
-combine_domain_scores() reuses the exact "average of whichever domains
-are available, never pad missing with 0" rule from
-build_overarching_trip_scores.py, extended with weather as a fourth,
-optional domain.
+Other notes:
 
-great_circle_distance_km() backs the cities/top10 diversity guard (see
-data_loader.load_city_cluster_representatives()) -- same haversine
-formula and Earth-radius constant as data/scripts/distance_calculator.py
-and build_tourist_cities_enhanced.py's haversine_km(), reimplemented
-here rather than imported since this backend deliberately doesn't reach
-into data/scripts/ (see this file's own docstring: "no file I/O here",
-and backend/README.md: "no scoring pipeline work of its own").
+- `combine_domain_scores()` reuses build_overarching_trip_scores.py's rule --
+  average whichever domains exist, never pad a missing one with 0 -- plus weather
+  as an optional fourth.
+- `great_circle_distance_km()` backs the cities/top10 diversity guard. Same
+  haversine and Earth radius as data/scripts/distance_calculator.py,
+  reimplemented rather than imported because the backend does not reach into
+  data/scripts/ (see backend/README.md).
 """
 
 import math
 from datetime import date, timedelta
 
-# Mean Earth radius (IUGG value) -- kept in sync with
-# data/scripts/distance_calculator.py's EARTH_RADIUS_KM so this returns
-# identical distances.
+# Mean Earth radius (IUGG). In sync with distance_calculator.py's
+# EARTH_RADIUS_KM so both return identical distances.
 EARTH_RADIUS_KM = 6371.0088
 
 MONTHS = [
@@ -49,20 +33,15 @@ MONTHS = [
     "july", "august", "september", "october", "november", "december",
 ]
 
-# The raw (non-normalized) per-month fields fetch_weather_normals.py
-# writes to weather_normals_<year>_by_city.json -- see that script's
-# docstring for units/sourcing. Kept here (rather than in data_loader.py)
-# since it's the shape resolve_weather_metrics() operates on, same
-# reasoning as MONTHS living here.
+# Raw per-month fields from fetch_weather_normals.py's
+# weather_normals_<year>_by_city.json (that script's docstring has units and
+# sourcing). Here rather than data_loader.py because it is the shape
+# resolve_weather_metrics() operates on -- same reasoning as MONTHS.
 #
-# rainy_days is deliberately NOT in this list -- unlike the other five
-# (all "typical daily/monthly rate" numbers that stay meaningful no
-# matter how long the trip is), a plain weighted average of each spanned
-# month's own ~30-day rainy-day COUNT produces a nonsensical result for
-# a short trip (e.g. a 7-day trip weighted toward a 31-day month with 11
-# rainy days would show "11 rainy days" on a 7-day trip). See
-# resolve_rainy_days_estimate() below for the trip-length-scaled version
-# used instead.
+# rainy_days is deliberately EXCLUDED. The other five are daily/monthly rates
+# that stay meaningful at any trip length; rainy_days is a ~30-day COUNT, so
+# averaging it gives nonsense (a 7-day trip weighted to a 31-day month with 11
+# rainy days would report 11). resolve_rainy_days_estimate() handles it instead.
 RAW_WEATHER_METRIC_KEYS = [
     "avg_high_c",
     "avg_low_c",
@@ -73,15 +52,14 @@ RAW_WEATHER_METRIC_KEYS = [
 
 
 def weather_score_from_monthly_metrics(metrics: dict) -> float:
-    """0-10, higher = more pleasant weather that month. Equal-weighted
-    combination of the six 0-1 raw factors documented in
-    data/SCORING.md / compute_monthly_scores.py:
+    """0-10, higher = more pleasant. Equal-weighted blend of six 0-1 factors.
 
-        dryness      = 1 - mean(monthly_rain_score, daily_rain_score)
-        daylight     = daylight_hours_score            (already higher=better)
-        temperature  = mean(high_temperature_score, low_temperature_score)
-                       (already 1=pass/0=fail)
-        calm         = 1 - wind_intensity_score
+    Factors are documented in data/SCORING.md and compute_monthly_scores.py:
+
+        dryness     = 1 - mean(monthly_rain_score, daily_rain_score)
+        daylight    = daylight_hours_score            (higher already better)
+        temperature = mean(high_temperature_score, low_temperature_score)
+        calm        = 1 - wind_intensity_score
 
         weather_score = mean(dryness, daylight, temperature, calm) * 10
     """
@@ -93,15 +71,13 @@ def weather_score_from_monthly_metrics(metrics: dict) -> float:
 
 
 def month_weights(start_date: date, end_date: date) -> dict[str, float]:
-    """Day-weighted month weights for a trip date range: each calendar
-    month gets weight = (trip days falling in that month) / (total trip
-    days), inclusive of both endpoints. E.g. May 28 - Jun 3 (7 days) ->
-    {"may": 4/7, "june": 3/7}.
+    """Day-weighted month weights for a trip date range, endpoints inclusive.
 
-    Only the *month name* matters, not the year -- weather normals are a
-    single representative year applied to any year's dates (see
-    fetch_weather_normals.py), so a trip in June 2027 uses the exact same
-    weights as one in June 2030.
+    - weight = (trip days in that month) / (total trip days).
+      May 28 - Jun 3 (7 days) -> {"may": 4/7, "june": 3/7}.
+    - Only the month NAME matters, not the year: weather normals are one
+      representative year applied to any year (fetch_weather_normals.py), so
+      June 2027 and June 2030 weight identically.
     """
     if end_date < start_date:
         raise ValueError("end_date must be on or after start_date")
@@ -118,10 +94,11 @@ def month_weights(start_date: date, end_date: date) -> dict[str, float]:
 
 
 def resolve_weather_score(monthly_scores: dict[str, float] | None, weights: dict[str, float]) -> float | None:
-    """Weighted average of a country's per-month weather scores against
-    the trip's month weights. None if the country has no weather data at
-    all (see data_loader.load_country_weather_scores) -- callers should
-    treat that as "unknown", not "bad weather"."""
+    """Weighted average of a country's monthly weather scores against the trip's months.
+
+    None when the country has no weather data (see
+    data_loader.load_country_weather_scores) -- callers must read that as
+    "unknown", not "bad weather"."""
     if monthly_scores is None:
         return None
     return round(sum(monthly_scores[month] * weight for month, weight in weights.items()), 2)
@@ -130,17 +107,14 @@ def resolve_weather_score(monthly_scores: dict[str, float] | None, weights: dict
 def resolve_weather_metrics(
     monthly_metrics: dict[str, dict[str, float]] | None, weights: dict[str, float]
 ) -> dict[str, float] | None:
-    """Day-weighted average of a country's *raw* monthly weather metrics
-    (RAW_WEATHER_METRIC_KEYS -- avg high/low temp, precipitation, rainy
-    days, sunshine hours) against the trip's month weights. Same shape as
-    resolve_weather_score(), but averages the original numbers for
-    display rather than the derived 0-10 score.
+    """Day-weighted average of a country's RAW monthly weather metrics, for display.
 
-    E.g. a trip that's 30% July / 70% August, with avg_sunshine_hours=10
-    in July and 8 in August, resolves to 0.3*10 + 0.7*8 = 8.6. None if the
-    country has no weather data at all (see
-    data_loader.load_country_weather_metrics) -- callers should treat that
-    as "unknown", not zero."""
+    - Same shape as resolve_weather_score(), but averages the original numbers
+      (RAW_WEATHER_METRIC_KEYS: avg high/low temp, precipitation, rainy days,
+      sunshine hours) rather than the derived 0-10 score.
+    - A 30% July / 70% August trip with sunshine 10 and 8 resolves to 8.6.
+    - None when the country has no weather data -- "unknown", not zero.
+    """
     if monthly_metrics is None:
         return None
     return {
@@ -152,26 +126,22 @@ def resolve_weather_metrics(
 def resolve_rainy_days_estimate(
     monthly_metrics: dict[str, dict[str, float]] | None, weights: dict[str, float], trip_days: int
 ) -> float | None:
-    """Estimated number of rainy days actually expected DURING the trip
-    itself (0..trip_days), not a blend of each spanned month's own
-    ~30-day rainy-day count (see the note on RAW_WEATHER_METRIC_KEYS
-    above for why that would be wrong).
+    """Rainy days expected DURING the trip (0..trip_days), not a blend of monthly counts.
 
-    Each spanned month's raw `rainy_days` is first turned into a
-    fraction of that month (rainy_days / days_sampled -- days_sampled is
-    that month's actual sampled day count, 28-31, not a hardcoded
-    calendar assumption), those fractions are day-weight-averaged across
-    the trip's month(s) using the same `weights` as every other
-    resolve_* function here, and the result is scaled by the trip's own
-    length in days.
+    See RAW_WEATHER_METRIC_KEYS above for why the naive blend is wrong. Steps:
 
-    E.g. a 7-day trip that's 30% July (5 rainy days / 31 -> ~16.1%) and
-    70% August (10 rainy days / 31 -> ~32.3%) resolves to
-    (0.3*0.161 + 0.7*0.323) * 7 ~= 1.82 -- callers should present this as
-    a range (e.g. "1-2 rainy days"), not a false-precision single number,
-    since it's an estimate, not a count. None if the country has no
-    weather data at all -- same "unknown, not zero" convention as every
-    other resolve_* function here."""
+    1. Each spanned month's `rainy_days` becomes a fraction of that month
+       (rainy_days / days_sampled -- the actual sampled count, 28-31, not a
+       hardcoded calendar assumption).
+    2. Those fractions are day-weight-averaged with the same `weights` every
+       other resolve_* function uses.
+    3. The result is scaled by the trip's own length.
+
+    A 7-day trip at 30% July (5/31 -> 16.1%) and 70% August (10/31 -> 32.3%)
+    gives (0.3*0.161 + 0.7*0.323) * 7 ~= 1.82. Present it as a range ("1-2 rainy
+    days"), not a single number -- it is an estimate. None when the country has
+    no weather data, same "unknown, not zero" rule as the other resolve_*.
+    """
     if monthly_metrics is None:
         return None
     weighted_fraction = sum(
@@ -187,12 +157,12 @@ def combine_domain_scores(
     price_score: float | None,
     weather_score: float | None,
 ) -> tuple[float | None, int]:
-    """Mean of whichever of the four domain scores are available -- same
-    rule as build_overarching_trip_scores.py's OVERARCHING_SCORE, now with
-    weather as a fourth (optional) input. Returns (None, 0) only if a
-    country somehow has none of the four, which shouldn't happen in
-    practice since UNESCO_SCORE/MICHELIN_SCORE cover all 242 countries
-    with a real 0 where applicable."""
+    """Mean of whichever of the four domain scores exist.
+
+    Same rule as build_overarching_trip_scores.py's OVERARCHING_SCORE, with
+    weather as an optional fourth. Returns (None, 0) only if a country has none
+    of the four, which should not happen -- UNESCO_SCORE and MICHELIN_SCORE
+    cover all 242 countries, with a real 0 where applicable."""
     values = [v for v in (unesco_score, michelin_score, price_score, weather_score) if v is not None]
     if not values:
         return None, 0
@@ -200,9 +170,10 @@ def combine_domain_scores(
 
 
 def great_circle_distance_km(lat1: float, lng1: float, lat2: float, lng2: float) -> float:
-    """Straight-line (haversine) distance between two lat/lng points, in
-    km. See this file's docstring for why this is reimplemented here
-    rather than imported from data/scripts/distance_calculator.py."""
+    """Haversine distance between two lat/lng points, in km.
+
+    See this file's docstring for why it is reimplemented rather than imported
+    from data/scripts/distance_calculator.py."""
     lat1r, lng1r, lat2r, lng2r = math.radians(lat1), math.radians(lng1), math.radians(lat2), math.radians(lng2)
     dlat = lat2r - lat1r
     dlng = lng2r - lng1r
